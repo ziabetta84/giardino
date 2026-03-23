@@ -1,0 +1,12 @@
+{
+  "agent": "gpt-4o",
+  "project": {
+    "description": "Documentazione strutturata del giardino di Rob, con zone, piante, progetti e manutenzione.",
+    "goals": [
+      "Analizzare immagini botaniche con alta precisione",
+      "Generare e aggiornare file Markdown",
+      "Mantenere coerenza nella struttura del repository",
+      "Supportare identificazione piante e gestione del giardino"
+    ]
+  }
+}
