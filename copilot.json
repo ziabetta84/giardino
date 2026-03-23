@@ -1,5 +1,5 @@
 {
-  "agent": "gpt-4o",
+  "agent": "plant-health-evaluation.agent",
   "project": {
     "description": "Documentazione strutturata del giardino di Rob, con zone, piante, progetti e manutenzione.",
     "goals": [
