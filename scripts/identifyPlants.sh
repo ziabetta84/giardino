@@ -155,7 +155,7 @@ if [[ ! $ZONE_PARAM =~ ^zone: ]]; then
 fi
 
 ZONE_PATH="${ZONE_PARAM#zone:}"
-ZONE_PATH="${ZONE_PATH//:/\/}"
+ZONE_PATH=$(echo "$ZONE_PATH" | tr ':' '/')
 
 ZONE_DIR="$REPO_ROOT/zone/$ZONE_PATH"
 
@@ -207,37 +207,122 @@ for photo_path in "${ALL_PHOTOS[@]}"; do
     photo_name=$(basename "$photo_path")
     photo_ext="${photo_name##*.}"
     
-    # Check if this is an unidentified photo (00_da_identificare.*) or already has a plant name
-    if [[ "$photo_name" =~ ^00_da_identificare\. ]]; then
-        # Unidentified photo - need to ask for identification
+    # Check if this is an unidentified photo (*da_identificare.* or *da-identificare.*) or already has a plant name
+    if [[ "$photo_name" =~ da[_-]identificare ]]; then
+        # Unidentified photo - use Copilot to identify it
         print_info "Processing (unidentified): $photo_name"
         echo ""
-        print_info "Use Copilot to identify this plant. Run:"
-        echo ""
-        echo "  copilot -p \"Analizza questa foto di una pianta nel giardino."
-        echo ""
-        echo "  Identifica il nome comune italiano e il nome scientifico della pianta."
-        echo ""
-        echo "  Rispondi in questo formato (UNA sola riga):"
-        echo "  nome_italiano|nome_scientifico"
-        echo ""
-        echo "  Esempi:"
-        echo "  lavanda|Lavandula angustifolia\""
-        echo ""
-        echo "  Then paste the response below (nome_italiano|nome_scientifico):"
         
-        # Read the identification from user
-        read -p "Identification: " IDENTIFICATION
-        
-        if [[ -z "$IDENTIFICATION" ]]; then
-            print_warning "No identification provided. Skipping this photo."
-            echo ""
-            continue
-        fi
-        
-        # Parse the identification response
+        # Ask user for visual description to help Copilot identify the plant
+        echo ""
+        print_info "Descrivi brevemente cosa vedi nella foto per aiutare l'identificazione:"
+        print_info "(colore fiori/foglie, forma, altezza stimata, caratteristiche particolari)"
+        read -p "> " USER_DESCRIPTION
+        echo ""
+
+        # Helper function to call Copilot with the photo and optional description
+        identify_with_copilot() {
+            local extra_info="$1"
+            local prompt="@${photo_path}
+
+Analizza questa foto di una pianta nel giardino nella zona ${ZONE_PATH}."
+            if [[ -n "$extra_info" ]]; then
+                prompt="${prompt}
+Informazioni aggiuntive dall'utente: ${extra_info}"
+            fi
+            prompt="${prompt}
+
+Identifica il nome comune italiano e il nome scientifico della pianta.
+Rispondi con UNA SOLA riga nel formato: nome_italiano|nome_scientifico
+Esempi: lavanda|Lavandula angustifolia"
+            copilot --allow-all-paths -p "$prompt" 2>/dev/null
+        }
+
+        # Helper function to parse Copilot response into PLANT_NAME and SCIENTIFIC_NAME
+        parse_identification() {
+            local response="$1"
+            local id
+            id=$(echo "$response" | grep -o '^[a-z][a-z0-9 -]*|[A-Za-z ].*$' | head -1)
+            if [[ -z "$id" ]]; then
+                id=$(echo "$response" | grep '|' | tail -1)
+            fi
+            echo "$id"
+        }
+
+        # Validate the parsed plant name is not a placeholder/error
+        is_valid_plant_name() {
+            local name="$1"
+            local invalid_patterns=("da-identificare" "non-identificata" "non-identificato" "sconosciuta" "sconosciuto" "pianta" "unknown" "plant" "")
+            for pattern in "${invalid_patterns[@]}"; do
+                if [[ "$name" == "$pattern" ]]; then
+                    return 1
+                fi
+            done
+            return 0
+        }
+
+        # Use Copilot to identify the plant
+        print_info "Analisi della foto con Copilot..."
+        COPILOT_RESPONSE=$(identify_with_copilot "$USER_DESCRIPTION")
+
+        IDENTIFICATION=$(parse_identification "$COPILOT_RESPONSE")
         PLANT_NAME=$(echo "$IDENTIFICATION" | cut -d'|' -f1 | xargs)
         SCIENTIFIC_NAME=$(echo "$IDENTIFICATION" | cut -d'|' -f2 | xargs)
+
+        # Ask for user confirmation with option to try again or enter manually
+        CONFIRMED=0
+        while [[ $CONFIRMED -eq 0 ]]; do
+            echo ""
+            if [[ -n "$PLANT_NAME" ]] && is_valid_plant_name "$PLANT_NAME"; then
+                print_info "Copilot ha identificato la pianta come:"
+                echo "  Nome: $PLANT_NAME"
+                echo "  Nome scientifico: $SCIENTIFIC_NAME"
+                echo ""
+                read -p "Conferma l'identificazione? (y/n/riprova/manuale): " CONFIRM_CHOICE
+            else
+                print_warning "Copilot non è riuscito a identificare la pianta con certezza."
+                echo ""
+                read -p "Cosa vuoi fare? (riprova/manuale/salta): " CONFIRM_CHOICE
+                # Map to expected values for the case below
+                [[ "$CONFIRM_CHOICE" == "salta" ]] && CONFIRM_CHOICE="n"
+            fi
+
+            case "$CONFIRM_CHOICE" in
+                y|Y|yes|YES|si|SI|sì)
+                    CONFIRMED=1
+                    ;;
+                n|N|no|NO|salta)
+                    print_warning "Foto saltata."
+                    echo ""
+                    continue 2  # Continue outer loop (skip to next photo)
+                    ;;
+                riprova|retry|r|R|try-again)
+                    echo ""
+                    print_info "Aggiungi ulteriori dettagli per affinare l'identificazione (o premi Enter per riprovare con le stesse info):"
+                    read -p "> " EXTRA_DESCRIPTION
+                    [[ -z "$EXTRA_DESCRIPTION" ]] && EXTRA_DESCRIPTION="$USER_DESCRIPTION"
+                    print_info "Rianalisi della foto con Copilot..."
+                    COPILOT_RESPONSE=$(identify_with_copilot "$EXTRA_DESCRIPTION")
+                    IDENTIFICATION=$(parse_identification "$COPILOT_RESPONSE")
+                    PLANT_NAME=$(echo "$IDENTIFICATION" | cut -d'|' -f1 | xargs)
+                    SCIENTIFIC_NAME=$(echo "$IDENTIFICATION" | cut -d'|' -f2 | xargs)
+                    ;;
+                manuale|m|M)
+                    echo ""
+                    read -p "Inserisci il nome italiano della pianta: " PLANT_NAME
+                    read -p "Inserisci il nome scientifico (opzionale): " SCIENTIFIC_NAME
+                    if [[ -z "$PLANT_NAME" ]]; then
+                        print_warning "Nome non inserito. Foto saltata."
+                        echo ""
+                        continue 2
+                    fi
+                    CONFIRMED=1
+                    ;;
+                *)
+                    print_warning "Scelta non valida. Usa: y, n, riprova, manuale"
+                    ;;
+            esac
+        done
     else
         # Photo already has a plant name in filename (e.g., 01_narciso.jpg, 07_spiraea_arguta.jpg)
         # Extract plant name from filename: XX_[plant-name].ext or XX_XX_[plant-name].ext
@@ -253,10 +338,9 @@ for photo_path in "${ALL_PHOTOS[@]}"; do
         # Query user for scientific name or skip
         print_info "Processing (named): $photo_name"
         print_info "Detected plant: $PLANT_NAME"
-        read -p "Enter scientific name (or press Enter to skip): " SCIENTIFIC_NAME
+        read -p "Inserisci il nome scientifico (o premi Enter per saltare): " SCIENTIFIC_NAME
         
         if [[ -z "$SCIENTIFIC_NAME" ]]; then
-            print_info "Skipping scientific name input"
             SCIENTIFIC_NAME=""
         fi
         echo ""
@@ -266,7 +350,7 @@ for photo_path in "${ALL_PHOTOS[@]}"; do
     PLANT_NAME=$(echo "$PLANT_NAME" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9-]/-/g' | sed 's/-+/-/g' | sed 's/^-\|-$//')
     
     if [[ -z "$PLANT_NAME" ]]; then
-        print_warning "Could not parse plant name from: $IDENTIFICATION"
+        print_warning "Nome pianta non trovato, foto saltata."
         echo ""
         continue
     fi
@@ -287,13 +371,14 @@ for photo_path in "${ALL_PHOTOS[@]}"; do
         mkdir -p "$PLANT_DIR"
     fi
     
-    # Determine new photo filename
-    new_photo_name="00_${PLANT_NAME}.$photo_ext"
-    new_photo_path="$PLANT_DIR/$new_photo_name"
-    
-    if [[ -f "$new_photo_path" ]]; then
-        print_warning "Photo already exists: $new_photo_name"
-    fi
+    # Determine new photo filename using the next available sequential number
+    NEXT_NUM=0
+    while true; do
+        new_photo_name="$(printf "%02d" $NEXT_NUM)_${PLANT_NAME}.$photo_ext"
+        new_photo_path="$PLANT_DIR/$new_photo_name"
+        [[ ! -f "$new_photo_path" ]] && break
+        (( NEXT_NUM++ ))
+    done
     
     # Move the photo to the plant directory
     mv "$photo_path" "$new_photo_path"
