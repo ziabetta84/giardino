@@ -1,14 +1,24 @@
 # identifyPlants - Automazione dell'identificazione e catalogazione delle piante
 
-Questo script automatizza il processo di identificazione e organizzazione delle foto di piante nel giardino.
+Questo script automatizza il processo di identificazione e organizzazione delle foto di piante nel giardino, nonché la rigenerazione della documentazione da foto esistenti.
 
 ## Uso
+
+### Identificare nuove piante
 
 ```bash
 ./scripts/identifyPlants.sh zone:<zone_path>
 ```
 
+### Rigenerare documentazione pianta da foto esistenti
+
+```bash
+./scripts/identifyPlants.sh zone:<zone_path> pianta:<plant_name>
+```
+
 ### Esempi
+
+#### Identificare nuove piante
 
 ```bash
 # Identificare le piante nella zona crinale
@@ -21,25 +31,48 @@ Questo script automatizza il processo di identificazione e organizzazione delle 
 ./scripts/identifyPlants.sh zone:scivolo:lato-sinistro
 ```
 
+#### Rigenerare documentazione
+
+```bash
+# Rigenerare documentazione della spiraea-arguta in zona est
+./scripts/identifyPlants.sh zone:est pianta:spiraea-arguta
+
+# Rigenerare documentazione della lavanda nel lato sinistro dello scivolo
+./scripts/identifyPlants.sh zone:scivolo:lato-sinistro pianta:lavanda
+
+# Rigenerare documentazione della clematis nel lato frontale dello scivolo
+./scripts/identifyPlants.sh zone:scivolo:lato-frontale pianta:clematis-montana
+```
+
 ## Come funziona
+
+### Modalità identificazione (senza parametro pianta)
 
 1. **Ricerca foto non identificate**: Lo script cerca le foto con pattern `00_da_identificare.*` nella cartella `zona/foto/`
 
 2. **Identificazione interattiva**: Per ogni foto:
-   - Lo script chiede di eseguire Copilot CLI con un prompt specifico
-   - Incolla il risultato nel formato: `nome_italiano|nome_scientifico`
-   - Esempio: `lavanda|Lavandula angustifolia`
+    - Lo script chiede di eseguire Copilot CLI con un prompt specifico
+    - Incolla il risultato nel formato: `nome_italiano|nome_scientifico`
+    - Esempio: `lavanda|Lavandula angustifolia`
 
 3. **Organizzazione automatica**:
-   - Crea la cartella `zona/piante/[nome-pianta]/`
-   - Sposta la foto da `00_da_identificare.jpg` a `00_[nome-pianta].jpg`
-   - Se esiste già la cartella della pianta, aggiunge la foto
+    - Crea la cartella `zona/piante/[nome-pianta]/`
+    - Sposta la foto da `00_da_identificare.jpg` a `00_[nome-pianta].jpg`
+    - Se esiste già la cartella della pianta, aggiunge la foto
 
 4. **Generazione documentazione**: 
-   - Se il file `.md` non esiste, lo script richiede di generare la documentazione usando Copilot
-   - La documentazione segue il template standard del progetto
+    - Se il file `.md` non esiste, lo script genera la documentazione usando Copilot
+    - La documentazione segue il template standard del progetto
 
-## Workflow completo
+### Modalità rigenerazione (con parametro pianta)
+
+1. **Valida pianta**: Verifica che la cartella della pianta esista
+2. **Scansiona foto**: Cerca tutte le foto nella cartella `piante/[nome-pianta]/foto/`
+3. **Genera documentazione**: Usa Copilot per generare il file `.md` basandosi sulle foto
+4. **Backup**: Se il file `.md` esiste già, lo copia in `[nome-pianta].md.backup.[timestamp]`
+5. **Aggiornamento**: Sostituisce il file `.md` con la documentazione rigenerata
+
+## Workflow completo (identificazione)
 
 ### Passo 1: Preparare le foto
 
@@ -79,6 +112,8 @@ Esegui il comando in un'altra finestra di terminale, copia la risposta e incolla
 Lo script mostrerà il comando per generare la documentazione markdown della pianta.
 
 Esegui il comando in un'altra finestra di terminale, copia la risposta e incollala nello script.
+
+## Workflow completo (rigenerazione)
 
 ## Naming Conventions
 
@@ -180,6 +215,46 @@ Rispondi con SOLO il markdown usando questo template:
 ### Saltare la generazione documentazione
 
 Se vuoi solo organizzare le foto senza generare la documentazione, premi `Enter` quando richiesto.
+
+## Rigenerazione documentazione pianta da foto
+
+### Quando usarlo
+
+Quando hai scattato nuove foto di una pianta già documentata e vuoi rigenerare il file `.md` basandosi su tutte le foto disponibili (vecchie e nuove) presenti nella cartella della pianta.
+
+### Procedura
+
+1. **Organizza le foto**: Assicurati che tutte le foto della pianta siano nella cartella `zone/[zona]/piante/[plant-name]/`
+
+```
+zone/est/piante/spiraea-arguta/
+├── 00_spiraea-arguta.jpg
+├── 01_spiraea-arguta.jpg  (nuove foto)
+└── spiraea-arguta.md      (file da rigenerare)
+```
+
+2. **Lanciare lo script di rigenerazione**:
+
+```bash
+./scripts/identifyPlants.sh zone:[zona_path] pianta:[plant-name]
+```
+
+Esempio:
+```bash
+./scripts/identifyPlants.sh zone:est pianta:spiraea-arguta
+```
+
+3. **Risultato**:
+   - Se il file `.md` non esiste, lo crea
+   - Se il file `.md` esiste già, lo salva come backup (`.md.backup.[timestamp]`) e lo rigenera
+   - La documentazione viene generata da Copilot basandosi sulle foto presenti
+
+### Vantaggi
+
+- Aggiorna la documentazione quando aggiungi nuove foto
+- Mantiene uno storico dei file rigenerati (backup)
+- Garantisce coerenza con il template standard
+- Nota sulla foto include osservazioni dalle foto più recenti
 
 ## Avanzate: Script wrapper per Copilot con foto
 
