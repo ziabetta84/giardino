@@ -1,0 +1,1 @@
+In questa cartella ci devono essere un file .md per ogni zona / sottozona del giardino con progetti per miglioramenti e sviluppi futuri
