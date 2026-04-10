@@ -7,49 +7,110 @@ L’obiettivo è mantenere una conoscenza ordinata, versionata e facilmente cons
 
 ## 📁 Struttura del repository
 
+```text
 giardino/
-│
-├── zone/
-│   ├── scivolo/
-│   │   ├── scivolo.md
-│   │   ├── lato-sinistro/
-│   │   │   ├── lato-sinistro.md
-│   │   │   ├── foto/
-│   │   │   └── piante/
-│   │   │       └── /
-│   │   │           ├── .md
-│   │   │           └── foto/
-│   │   ├── lato-destro/
-│   │   │   ├── lato-destro.md
-│   │   │   ├── foto/
-│   │   │   └── piante/
-│   │   ├── lato-frontale/
-│   │   │   ├── lato-frontale.md
-│   │   │   ├── foto/
-│   │   │   └── piante/
-│   │
-│   ├── est/
-│   │   ├── est.md
-│   │   ├── foto/
-│   │   └── piante/
-│   │
-│   ├── crinale/
-│   │   ├── crinale.md
-│   │   ├── foto/
-│   │   └── piante/
-│   │
-│   └── orto/
-│       ├── orto.md
-│       ├── foto/
-│       └── piante/
-│
+├── README.md
+├── generale/
+├── manutenzione/
+│   ├── calendario-annuale.md
+│   ├── irrigazione.md
+│   ├── potature.md
+│   └── periodica/
+│       └── 01_aprile2025.md
 ├── progetti/
-│   └── .md
-│
-└── manutenzione/
-├── calendario-annuale.md
-├── potature.md
-└── irrigazione.md
+│   ├── README.md
+│   ├── casa.md
+│   ├── crinale.md
+│   └── est.md
+├── scripts/
+│   ├── identifyPlants.sh
+│   └── README.md
+└── zone/
+	├── casa/
+	│   ├── casa.md
+	│   ├── bagni/
+	│   │   └── bagni.md
+	│   ├── cucina/
+	│   │   └── cucina.md
+	│   ├── ingresso/
+	│   │   └── ingresso.md
+	│   ├── scalinata/
+	│   │   └── scalinata.md
+	│   └── soggiorno/
+	│       └── soggiorno.md
+	├── crinale/
+	│   ├── crinale.md
+	│   └── piante/
+	│       ├── alloro/
+	│       ├── prunus-taoflora/
+	│       ├── rosmarino/
+	│       ├── scilla-marittima/
+	│       └── timo-serpillo/
+	├── est/
+	│   ├── est.md
+	│   └── piante/
+	│       ├── bellis-perennis/
+	│       ├── erica/
+	│       ├── narciso/
+	│       ├── primula/
+	│       ├── saxifraga/
+	│       ├── spiraea-arguta/
+	│       ├── stracchino/
+	│       └── uva-di-gatto/
+	├── orto/
+	│   └── orto.md
+	├── scivolo/
+	│   ├── scivolo.md
+	│   ├── lato-destro/
+	│   │   ├── lato-destro.md
+	│   │   ├── foto/
+	│   │   └── piante/
+	│   │       ├── carex/
+	│   │       ├── glechoma_hederacea/
+	│   │       ├── iris_spontaneo/
+	│   │       ├── marsilea_quadrifolia/
+	│   │       ├── pennisetum_cinese/
+	│   │       └── salcerella/
+	│   ├── lato-frontale/
+	│   │   ├── lato-frontale.md
+	│   │   └── piante/
+	│   │       ├── clematis-montana/
+	│   │       ├── erba-miseria/
+	│   │       └── stipa-tenuissima/
+	│   └── lato-sinistro/
+	│       ├── lato-sinistro.md
+	│       └── piante/
+	│           ├── allium_sphaerocephalon/
+	│           ├── aquilegia/
+	│           ├── centaurea_ragusina/
+	│           ├── echinacea/
+	│           ├── garofano/
+	│           ├── heuchera/
+	│           ├── lavanda/
+	│           ├── margherita_delle_canarie/
+	│           ├── narciso/
+	│           ├── osteospermum/
+	│           ├── sedum/
+	│           ├── verbena/
+	│           └── violaciocca/
+	└── vialetto/
+		├── vialetto.md
+		├── fioriere/
+		│   ├── fioriere.md
+		│   └── piante/
+		│       ├── camelia/
+		│       ├── fico-di-mare/
+		│       └── gerani/
+		└── ringhiera/
+			├── ringhiera.md
+			└── piante/
+				├── cuphea/
+				├── erica-del-messico/
+				├── garofano/
+				├── lewisia/
+				├── saponaria/
+				└── sassifraga/
+```
 
 
 ---
