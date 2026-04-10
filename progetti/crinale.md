@@ -35,3 +35,9 @@ Il muretto è presente e delimitante. Le fessure ospitano infestanti da rimuover
 - Rimozione manuale delle infestanti dalle fessure del muretto
 - Inserimento di *Thymus serpyllum* e *Sempervivum* come primo intervento (già disponibile il timo nella proprietà)
 - Valutare *Aubrieta* per la fioritura primaverile decorativa
+
+
+## Progetto Edera
+Il crinale è ricoperto da piante di edera messe a dimora circa 10 anni fa, sul punto alto. Attualmente il crinale presenta ancora alcune zone spoglie e le piante di edera, da qualche tempo, stanno arrampicandosi lungo la rete verso l'alto, non più scendendo verso il basso.
+
+L'idea è quella di effettuare delle talee di edera e metterle a dimora nel prato, lungo il crinale, in modo che possano arrampicarsi su di esso e coprire le zone rimaste spoglie.
