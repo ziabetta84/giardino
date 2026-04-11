@@ -30,5 +30,15 @@ La *Cuphea hyssopifolia* è generalmente una pianta robusta e resistente. I prin
 
 ## Note sulla foto
 - **Data foto**: marzo 2026
-- **Stato di salute**: Buono
-- **Osservazioni**: Pianta collocata in zona vialetto/ringhiera, probabilmente in vaso o come bordura. Portamento compatto e cespuglioso tipico della specie. Presenza di fioritura in corso o in fase di ripresa stagionale primaverile. Le foglie appaiono di colore verde brillante, senza segni evidenti di stress idrico o attacchi parassitari. La posizione in ringhiera suggerisce una buona esposizione alla luce.
+- **Stato di salute**: Buono / In fioritura imminente
+- **Osservazioni**: Pianta collocata in zona vialetto/ringhiera. Portamento compatto e cespuglioso tipico della specie. Sono visibili **numerosi boccioli** distribuiti lungo i rami, segno che la pianta ha superato bene l'inverno e si trova già in fase di pre-fioritura attiva. Le foglie mostrano una colorazione verde con qualche area tendente al pallido, indicativa di un lieve stress invernale ancora in recupero. Non si osservano macchie fogliari, deformazioni da afidi o altri segni di parassiti.
+
+## Ripresa dallo stress invernale (aprile 2026)
+Interventi consigliati per supportare la ripresa primaverile:
+
+1. **Potatura leggera**: evitare potature aggressive ora che i boccioli sono presenti. Rimuovere solo i rami secchi o danneggiati dal freddo, preferibilmente tagliando appena sotto il punto di necrosi.
+2. **Concimazione di stimolo**: somministrare un concime a rilascio lento ricco di fosforo e potassio (NPK con P e K elevati) per favorire la fioritura e rinforzare le radici dopo l'inverno. Dopo 2–3 settimane passare al concime liquido per piante fiorite ogni 2–3 settimane.
+3. **Annaffiature graduate**: riprendere le irrigazioni in modo progressivo, evitando eccessi. La pianta deve reidratarsi lentamente dopo il periodo di riposo invernale.
+4. **Pacciamatura leggera**: se in vaso, rinnovare lo strato superficiale di substrato con terriccio fresco per reintegrare i nutrienti esauriti.
+5. **Esposizione**: assicurarsi che la pianta riceva almeno 6 ore di sole diretto al giorno per stimolare l'apertura dei boccioli.
+6. **Monitoraggio afidi**: con la ripresa vegetativa, controllare i nuovi germogli per individuare tempestivamente eventuali infestazioni di afidi.
