@@ -26,10 +26,10 @@ I problemi piu' comuni sono marciume radicale da eccesso d'acqua, cocciniglia, a
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con piena precisione in assenza di dettagli visivi confermati; in condizioni corrette dovrebbe presentare foglie turgide e portamento compatto
-- **Osservazioni**: per una valutazione fotografica accurata andrebbero verificati colore e consistenza delle foglie, presenza di steli allungati per scarsa luce, eventuali fiori appassiti, macchie, marciumi al colletto o segni di cocciniglia nelle zone riparate della pianta
+- **Stato di salute**: buono; la pianta appare compatta, con foglie carnose e consistenti e fioritura abbondante
+- **Osservazioni**: la calancola e' collocata in soggiorno su una mensola, in posizione ornamentale. I fiori arancioni sono numerosi e vivaci, con alcuni boccioli ancora in apertura, segno di fioritura nel pieno della fase attiva. Le foglie visibili sono verdi, turgide e senza danni evidenti; non si notano sintomi chiari di marciume o parassiti. La posizione all'interno di una libreria suggerisce di monitorare la luce disponibile, per evitare nel tempo un indebolimento o un allungamento degli steli.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato da confermare, ma la specie resta facile da mantenere se luce e drenaggio sono corretti.
-- **Segnali da monitorare**: foglie molli o translucide, steli troppo allungati, residui bianchi nelle ascelle e marciume alla base.
-- **Per migliorarla**: tenerla in luce intensa, togliere sempre i fiori sfioriti o gli steli esauriti e bagnare solo quando il terriccio e asciutto nei primi centimetri.
+- **Valutazione attuale**: esemplare in buona forma, ben fiorito e con vegetazione sana.
+- **Segnali da monitorare**: riduzione della fioritura, foglie molli, perdita di compattezza, steli che si allungano verso la luce, residui bianchi nelle ascelle fogliari e ristagni nel coprivaso.
+- **Per migliorarla**: mantenerla vicino a una fonte di luce intensa indiretta, ruotare il vaso periodicamente per una crescita uniforme, eliminare i mazzetti sfioriti e annaffiare con moderazione solo a substrato asciutto, evitando che resti acqua sul fondo del vaso decorativo.

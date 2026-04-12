@@ -26,10 +26,10 @@ I problemi piu comuni sono **marciume radicale** da eccesso d'acqua, **coccinigl
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: buono, con pianta compatta, turgida e ben accestita
-- **Osservazioni**: nella foto la pianta appare coltivata in un piccolo vaso decorativo all'interno della cucina, vicino a una fonte di luce abbondante. Il fogliame e carnoso, verde uniforme e lucido, senza evidenti segni di disidratazione, macchie diffuse o danni da parassiti. I fusti laterali iniziano a ricadere in modo naturale, segno di crescita attiva e portamento corretto; non si notano filatura marcata ne parti svuotate, quindi l'esemplare sembra ben ambientato.
+- **Stato di salute**: buono, con fogliame turgido, cespo fitto e crescita regolare
+- **Osservazioni**: nella foto la pianta appare in cucina, in un piccolo vaso decorativo vicino a una buona fonte di luce naturale. Il fogliame e carnoso, compatto e di colore verde abbastanza uniforme, con fusti ricadenti regolari e apici ben formati. Non si notano segni evidenti di marciume, disseccamento marcato o infestazioni; qualche foglia leggermente piu piccola o chiusa verso gli apici rientra in un aspetto complessivamente sano e ordinato.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: esemplare in buona forma, compatto e coerente con il portamento tipico della specie.
-- **Segnali da monitorare**: fusti molli, perdita di compattezza e annerimenti alla base, sintomi che indicherebbero ristagni o luce insufficiente.
-- **Per migliorarlo**: continuare con bagnature distanziate, svuotare sempre eventuali ristagni nel coprivaso e cimare solo i tralci che dovessero allungarsi troppo.
+- **Valutazione attuale**: esemplare in buona forma, ben compatto e coerente con il portamento tipico della specie, senza criticita visibili nella foto.
+- **Segnali da monitorare**: fusti molli, annerimenti alla base, foglie che si afflosciano o internodi che si allungano troppo, indizi di ristagni o luce insufficiente.
+- **Per migliorarlo**: mantenere esposizione molto luminosa, annaffiare solo a substrato quasi asciutto e ruotare il vaso periodicamente per conservare una crescita omogenea anche nei tralci ricadenti.

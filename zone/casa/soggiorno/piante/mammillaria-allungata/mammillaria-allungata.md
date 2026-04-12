@@ -26,10 +26,10 @@ I problemi piu comuni sono **marciume radicale** da eccesso d'acqua, **coccinigl
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: discreto-buono, con cespo attivo e piu polloni presenti, senza segni evidenti di marciume o infestazioni
-- **Osservazioni**: nella foto la pianta appare accestita e con fusti turgidi, segno di crescita regolare. Alcuni fusti mostrano tonalita rossastre o brunite, compatibili con stress lieve da sole intenso o sbalzi termici, ma non si notano collassi dei tessuti. Il substrato sembra piuttosto organico rispetto all'ideale per la specie e presenta residui secchi in superficie: sarebbe utile pulire il vaso e valutare, al prossimo rinvaso, una miscela piu minerale e drenante. La collocazione vicino alla finestra e favorevole per la luminosita.
+- **Stato di salute**: discreto, con pianta viva e diversi polloni presenti, ma con segni visibili di stress e crescita non del tutto uniforme
+- **Osservazioni**: nella foto il cespo mostra alcuni fusti ancora turgidi e vitali, ma anche arrossamenti abbastanza estesi, un apice piu contratto e qualche segmento dall'aspetto piu asciutto o rallentato. Non si vedono collassi molli o annerimenti tipici di marciume, ne segni evidenti di infestazioni, quindi il problema sembra piu legato a stress ambientale o irrigazione non ottimale che a patologie acute. Il substrato appare ancora piuttosto organico e compatto per la specie, con residui secchi sulla superficie: conviene pulire il vaso e valutare un rinvaso in miscela piu minerale e drenante.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: cespo in buona tenuta, con crescita attiva e leggere reazioni da stress non preoccupanti.
-- **Segnali da monitorare**: arrossamenti sempre piu estesi, tessuti molli alla base e residui umidi persistenti tra i fusti.
-- **Per migliorarla**: pulire la superficie del vaso, aumentare la quota minerale del substrato al prossimo rinvaso e continuare con bagnature rade ma complete solo a terriccio del tutto asciutto.
+- **Valutazione attuale**: pianta in tenuta, ma non nel suo momento migliore; lo stato generale e recuperabile, con stress moderato da correggere.
+- **Segnali da monitorare**: aumento degli arrossamenti, fusti che si svuotano o si piegano, tessuti molli alla base e persistenza di umidita nel terriccio.
+- **Per migliorarla**: darle luce molto intensa ma con acclimatazione graduale al sole diretto, mantenere bagnature rade e complete solo a terriccio del tutto asciutto e programmare un rinvaso in substrato piu minerale, pulendo anche i residui secchi attorno al cespo.

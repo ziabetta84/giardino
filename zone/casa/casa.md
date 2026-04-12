@@ -18,6 +18,8 @@ Non essendo coibentata, in inverno diventa molto fredda ed è riscaldata tramite
 
 Richiede particolare attenzione la **prevenzione e rimozione della muffa** sulle pareti esterne, soprattutto nei punti più freddi e meno ventilati.
 
+Ad aprile la temperatura è di circa 18-19°C e l'umidità è al 62%, il riscaldamento è spento.
+
 ---
 
 # Manutenzione consigliata

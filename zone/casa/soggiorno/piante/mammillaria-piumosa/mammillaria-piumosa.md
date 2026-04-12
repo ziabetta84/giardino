@@ -26,10 +26,10 @@ I problemi piu comuni sono marciume radicale da eccesso d'acqua, cocciniglia ann
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: complessivamente buono, con cespo compatto e tessuti turgidi, senza segni evidenti di marciume
-- **Osservazioni**: nella foto la pianta appare ben accestita, con copertura piumosa uniforme e colore chiaro regolare. Non si notano collassi dei fusti ne aree annerite. Il substrato sembra pero piuttosto ricco di componente organica rispetto all'ideale per questa specie, con presenza di residui bianchi superficiali compatibili con depositi minerali o accumuli nel terriccio: conviene monitorare drenaggio e frequenza delle annaffiature. La collocazione vicino a una finestra e favorevole, pur mantenendo luce molto intensa e bagnature caute.
+- **Stato di salute**: buono ma da monitorare, con cespo ancora compatto e senza segni evidenti di marciume, pero con substrato poco adatto alla specie
+- **Osservazioni**: nella foto la pianta appare ben accestita, con copertura piumosa abbastanza uniforme e colorazione chiara regolare. Non si notano cedimenti marcati, aree annerite o collassi dei fusti. Si vede pero un terriccio molto ricco di componente organica, poco minerale per una *Mammillaria plumosa*, insieme a residui bianchi superficiali compatibili con accumulo di sali o depositi minerali. La collocazione luminosa vicino alla finestra e positiva, ma conviene mantenere annaffiature molto caute e valutare un rinvaso in miscela piu drenante.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: pianta in buone condizioni, con cespo compatto e vitalita generale soddisfacente.
-- **Segnali da monitorare**: ingrigimento irregolare della copertura piumosa, ammorbidimento nascosto alla base del cespo e aumento dei depositi superficiali nel terriccio.
-- **Per migliorarla**: evitare di bagnare direttamente il corpo della pianta, migliorare il drenaggio al prossimo rinvaso e alternare bene asciutto e bagnato senza umidita persistente.
+- **Valutazione attuale**: pianta in condizioni buone, con vitalita generale soddisfacente, ma con margine di miglioramento soprattutto sul lato del substrato.
+- **Segnali da monitorare**: ingrigimento o diradamento irregolare della copertura piumosa, ammorbidimento alla base del cespo, aumento dei residui bianchi nel terriccio e permanenza di umidita troppo lunga dopo le annaffiature.
+- **Per migliorarla**: usare un substrato piu minerale e drenante al prossimo rinvaso, lasciare asciugare completamente il vaso tra un'annaffiatura e l'altra ed evitare di bagnare direttamente il corpo della pianta.

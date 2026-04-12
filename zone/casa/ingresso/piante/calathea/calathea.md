@@ -26,10 +26,10 @@ La calathea puo essere soggetta a ragnetto rosso, cocciniglia e tripidi, sopratt
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con precisione in assenza della foto allegata
-- **Osservazioni**: senza immagine non e possibile descrivere dettagli visivi come colore delle foglie, presenza di secchezze marginali, eventuali parassiti, densita del cespo o condizioni del substrato. Per la zona casa/ingresso, la pianta risulta comunque adatta se collocata in posizione luminosa, riparata dal sole diretto e con buona umidita ambientale.
+- **Stato di salute**: discreto-buono, con pianta vitale e fogliame ancora fitto, ma con segni visibili di stress ai margini
+- **Osservazioni**: le foglie mostrano una buona colorazione e il tipico disegno ornamentale ben leggibile, con numerosi getti ancora eretti. Sono pero presenti punte e bordi secchi o bruniti su diverse foglie, soprattutto quelle piu esposte e mature, segnale compatibile con aria troppo secca, irrigazione irregolare o acqua calcarea. Non si notano danni estesi da parassiti nelle immagini; il substrato appare scuro e abbastanza umido in superficie, quindi conviene verificare che il coprivaso non trattenga ristagni.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: valutazione solo orientativa; la specie e compatibile con l'ingresso se luce e umidita restano stabili.
-- **Segnali da monitorare**: punte secche, foglie arrotolate, scolorimenti e pagina inferiore con presenza di acari o polverosita anomala.
-- **Per migliorarla**: usare acqua poco calcarea, mantenere il substrato appena umido, aumentare l'umidita ambientale senza ristagni e tenerla lontana da correnti fredde o spifferi.
+- **Valutazione attuale**: la pianta appare complessivamente in tenuta, con buona presenza vegetativa, ma mostra stress ambientale lieve-moderato concentrato sulle estremita fogliari.
+- **Segnali da monitorare**: avanzamento delle necrosi sui bordi, nuove foglie che si aprono gia deformate o secche in punta, foglie che si afflosciano nonostante il terreno umido e pagina inferiore con eventuale presenza di ragnetto rosso.
+- **Per migliorarla**: aumentare l'umidita ambientale, usare acqua lasciata decantare o poco calcarea, mantenere il substrato uniformemente appena umido senza ristagni nel coprivaso e rimuovere gradualmente le foglie piu rovinate per favorire nuova vegetazione sana.

@@ -26,10 +26,10 @@ I problemi piu comuni sono **cocciniglia**, **afidi** occasionali e soprattutto 
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: discreto-buono, con pianta vitale e fogliame ancora ornamentale
-- **Osservazioni**: la pianta appare coltivata in un vaso alto, in posizione luminosa della cucina, con lunghi fusti ricadenti ben sviluppati. Le foglie mostrano la tipica variegatura argentata e il retro porpora, segno coerente con *Ceropegia woodii*. Si notano pero alcuni tratti un po' radi, internodi lunghi e qualche foglia piccola o secca, indizi di lieve filatura o di gestione idrica/luminosa non del tutto ottimale. Nel complesso l'esemplare e decorativo e ben ambientato, ma beneficerebbe probabilmente di una leggera cimatura e di luce intensa costante per infoltirsi.
+- **Stato di salute**: discreto, con pianta viva e ornamentale ma non particolarmente fitta
+- **Osservazioni**: la pianta appare ben ambientata nella cucina e mantiene foglie sane, turgide e con buona marmorizzazione argentata, specialmente nella parte alta e vicino al bordo del vaso. I tralci sono pero molto allungati e in diversi punti radi, con internodi lunghi, foglie piu piccole nella parte terminale e qualche foglia secca o leggermente segnata. L'impressione generale e di un esemplare ancora in salute, ma con crescita filata e distribuzione del fogliame non uniforme, verosimilmente legate a luce non abbastanza intensa o non ben distribuita nel tempo.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: pianta sana e decorativa, con lieve tendenza a diradarsi sui tralci piu lunghi.
-- **Segnali da monitorare**: foglie sempre piu piccole, tratti spogli tra un nodo e l'altro e rametti molli alla base, possibili indicatori di poca luce o eccesso d'acqua.
-- **Per migliorarla**: accorciare i tralci piu radi per stimolare nuovi getti, avvicinarla a luce intensa ma filtrata e bagnare solo quando il substrato e quasi completamente asciutto.
+- **Valutazione attuale**: pianta complessivamente stabile, ma con vigore medio e chiara tendenza alla filatura nei tralci piu lunghi.
+- **Segnali da monitorare**: aumento dei nodi spogli, foglie terminali sempre piu piccole, disseccamenti localizzati, perdita di turgore alla base o ingiallimenti diffusi, possibili indicatori di luce insufficiente o irrigazione non ben calibrata.
+- **Per migliorarla**: aumentare l'esposizione a luce intensa indiretta, ruotare il vaso periodicamente per distribuire meglio la crescita, cimare i tralci piu lunghi e radi per favorire ramificazione e infoltimento, e mantenere annaffiature moderate solo a substrato ben asciutto.
