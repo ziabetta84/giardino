@@ -26,10 +26,10 @@ Teme marciumi radicali dovuti a eccesso d'acqua e scarsa aerazione. Puo essere a
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con precisione senza immagine visibile
-- **Osservazioni**: non e stata fornita una foto consultabile in questa sessione; per una valutazione puntuale andrebbero osservati colore e turgore delle foglie, presenza di steli floreali, consistenza delle radici aeree, eventuali macchie fogliari o segni di marciume, e lo stato generale del substrato.
+- **Stato di salute**: discreto-buono
+- **Osservazioni**: la pianta appare una *Phalaenopsis* in fase post-fioritura, con foglie carnose, abbastanza turgide e di colore verde uniforme, senza danni evidenti o macchie estese. Sono presenti diverse radici aeree consistenti, ma anche alcune punte secche e radici piu vecchie disidratate; gli steli floreali risultano ormai esauriti o secchi. Il vaso trasparente con bark sembra adatto, ma conviene controllare che il substrato resti arioso e non troppo degradato.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato da confermare con osservazione diretta, ma il bagno puo essere favorevole se resta luminoso e ben arieggiato.
-- **Segnali da monitorare**: radici grigie e svuotate, foglie molli, macchie scure al colletto e substrato che resta bagnato troppo a lungo.
-- **Per migliorarla**: bagnare solo quando bark e radici sono quasi asciutti, garantire molta luce diffusa e controllare periodicamente le radici per eliminare solo quelle marce o completamente secche.
+- **Valutazione attuale**: pianta complessivamente in condizioni soddisfacenti, con buona massa fogliare e nessun segnale evidente di marciume al colletto; mostra pero un po di stress moderato sulle radici piu esposte e il normale esaurimento degli steli dopo la fioritura.
+- **Segnali da monitorare**: aumento delle radici cave o brunite, foglie che perdono turgore, macchie nere alla base, bark troppo fine o decomposto e ristagni nel fondo del vaso.
+- **Per migliorarla**: tagliare gli steli completamente secchi, mantenere luce intensa ma diffusa, bagnare solo quando radici interne e bark risultano quasi asciutti e valutare un rinvaso se il substrato appare vecchio o troppo compatto. Utile anche aumentare leggermente l'umidita ambientale senza lasciare acqua stagnante.

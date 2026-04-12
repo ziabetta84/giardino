@@ -26,10 +26,10 @@ I problemi piu comuni sono ragnetto rosso, afidi, cocciniglia e marciumi radical
 
 ## Note sulla foto
 - **Data foto**: non disponibile
-- **Stato di salute**: non valutabile con precisione senza immagine allegata
-- **Osservazioni**: non e possibile descrivere dettagli visivi specifici della pianta, del fogliame o dell'eventuale stato fitosanitario perche la foto non e stata inclusa nel messaggio; per la zona casa/soggiorno e comunque indicata una posizione molto luminosa ma senza sole diretto nelle ore centrali.
+- **Stato di salute**: discreto, con segni evidenti di stress ma pianta ancora vitale
+- **Osservazioni**: il fogliame mantiene una buona variegatura rosa-verde e non mostra danni gravi da parassiti visibili, ma diverse foglie basali e laterali hanno margini secchi o necrotici. Il portamento appare un po' allungato e disordinato, segno compatibile con luce non del tutto sufficiente o con potature poco frequenti. La pianta nel complesso sembra recuperabile con cure piu regolari.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato da confermare; in casa l'ipoeste resta bella solo se riceve luce diffusa abbondante e umidita regolare.
-- **Segnali da monitorare**: perdita della maculatura, foglie flosce, punte secche e allungamento dei fusti verso la finestra.
-- **Per migliorarla**: cimare spesso gli apici, mantenere il terriccio appena umido e aumentare l'umidita ambientale senza bagnare eccessivamente il vaso.
+- **Valutazione attuale**: pianta viva e ancora decorativa, ma in condizioni solo mediocri per la presenza di foglie secche, lieve disseccamento ai bordi e crescita un po' filata.
+- **Segnali da monitorare**: aumento delle punte marroni, perdita di turgore, schiarimento della variegatura, internodi sempre piu lunghi e presenza di ristagni nel coprivaso.
+- **Per migliorarla**: eliminare le foglie ormai secche, cimare gli apici per infoltirla, spostarla in luce intensa ma indiretta piu costante e mantenere il substrato uniformemente appena umido. Utile anche aumentare leggermente l'umidita ambientale e controllare che il vaso non trattenga acqua sul fondo.

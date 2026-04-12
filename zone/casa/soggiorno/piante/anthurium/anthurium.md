@@ -25,11 +25,11 @@ L'anthurium puo essere soggetto a cocciniglia, ragnetto rosso e tripidi, sopratt
 - Forma: infiorescenza composta da una spata cerosa a cuore o ovale e da uno spadice cilindrico centrale
 
 ## Note sulla foto
-- **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con precisione in assenza della foto allegata
-- **Osservazioni**: in questa richiesta non e presente un'immagine visibile; non e quindi possibile descrivere dettagli reali come numero di foglie, presenza di fiori, eventuali punte secche, macchie, segni di stress idrico o stato generale della pianta ritratta
+- **Data foto**: aprile 2026  
+- **Stato di salute**: buono; foglie lucide, turgide e senza segni evidenti di stress  
+- **Osservazioni**: la pianta presenta fiori attivi e un portamento sano. L’esposizione vicino alla finestra appare adeguata, con luce abbondante ma non diretta.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato da confermare, ma il soggiorno puo essere adatto se la pianta riceve luce diffusa abbondante e aria non troppo secca.
-- **Segnali da monitorare**: foglie opache, punte brune, fiori piccoli o assenti e substrato che resta costantemente zuppo.
-- **Per migliorarla**: aumentare l'umidita ambientale, usare un mix molto arioso, bagnare solo quando lo strato superficiale si asciuga e pulire le foglie per mantenerle efficienti.
+- **Valutazione attuale**: la pianta è in buone condizioni. Le dimensioni dei fiori risultano compatibili con la stagione e con la ripresa vegetativa primaverile.  
+- **Segnali da monitorare**: punte brune, foglie opache, macchie scure, fiori che durano poco o substrato che rimane costantemente bagnato.  
+- **Per mantenerla in salute**: garantire luce diffusa, mantenere umidità ambientale intorno al 60%, irrigare solo quando i primi centimetri di substrato sono asciutti, pulire regolarmente le foglie e valutare un rinvaso in un mix arioso durante la primavera.

@@ -26,10 +26,10 @@ I problemi piu comuni sono **ragnetto rosso** in aria troppo secca, **afidi**, *
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: buono, con pianta viva, compatta e ben colorata
-- **Osservazioni**: la pianta appare collocata sul davanzale della cucina, in posizione molto luminosa. Il fogliame mostra una bella variegatura rosa, verde e crema, segno di esposizione adatta. I fusti sono corti e abbastanza compatti, senza evidente filatura. Si notano alcune foglie vecchie o secche nella parte centrale del vaso e lievi margini secchi su qualche lamina, compatibili con normale ricambio del fogliame o con aria un po' asciutta, forse accentuata dalla vicinanza del termosifone sotto la finestra. Nel complesso l'esemplare appare in buona forma e ben ambientato.
+- **Stato di salute**: buono, con variegatura molto viva e lieve secco interno da tenere sotto controllo
+- **Osservazioni**: la pianta appare collocata sul davanzale della cucina, in posizione molto luminosa. Il fogliame mostra una variegatura netta rosa, verde e crema, con tessuti turgidi e fusti ancora corti, segno che la tradescantia sta ricevendo luce adatta e non appare filata. Nella parte centrale del vaso si nota pero un piccolo accumulo di foglie secche e alcuni margini leggermente segnati su poche lamine, compatibili con normale rinnovo del fogliame e con aria un po asciutta o calore ravvicinato. Nel complesso l'esemplare appare ben ambientato e in crescita attiva.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: pianta ben ambientata, con variegatura viva e portamento ancora compatto.
-- **Segnali da monitorare**: secchezza delle punte, spogliamento della parte centrale del vaso e allungamento dei fusti verso la finestra.
-- **Per migliorarla**: rimuovere regolarmente il secco al centro, cimare gli apici piu lunghi per infoltire il cespo e schermare leggermente il calore del termosifone quando e acceso.
+- **Valutazione attuale**: pianta in buono stato vegetativo, compatta e ben colorata, con solo lieve stress marginale su alcune foglie piu esterne.
+- **Segnali da monitorare**: aumento del secco al centro del vaso, punte brunite, perdita di turgore e allungamento dei getti verso la finestra.
+- **Per migliorarla**: pulire il fogliame secco nel centro del cespo, ruotare il vaso periodicamente, mantenere annaffiature regolari senza ristagni e limitare il calore diretto del termosifone nelle giornate in cui e acceso.

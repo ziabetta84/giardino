@@ -29,16 +29,16 @@ La *Cuphea hyssopifolia* è generalmente una pianta robusta e resistente. I prin
 - **Forma**: Fiori molto piccoli (5–8 mm), tubulari, con sei petali leggermente irregolari. Nascono all'ascella delle foglie lungo i rami, creando un effetto decorativo continuo e fitto.
 
 ## Note sulla foto
-- **Data foto**: marzo 2026
-- **Stato di salute**: Buono / In fioritura imminente
-- **Osservazioni**: Pianta collocata in zona vialetto/ringhiera. Portamento compatto e cespuglioso tipico della specie. Sono visibili **numerosi boccioli** distribuiti lungo i rami, segno che la pianta ha superato bene l'inverno e si trova già in fase di pre-fioritura attiva. Le foglie mostrano una colorazione verde con qualche area tendente al pallido, indicativa di un lieve stress invernale ancora in recupero. Non si osservano macchie fogliari, deformazioni da afidi o altri segni di parassiti.
+- **Data foto**: aprile 2026
+- **Stato di salute**: Discreto / In ripresa vegetativa
+- **Osservazioni**: Pianta collocata in zona vialetto/ringhiera, in vaso da ringhiera. Le foto mostrano una **ripresa attiva** con nuovi germogli e boccioli ben formati, segnale che la cuphea sta tornando in vegetazione. Permangono pero **segni evidenti di sofferenza pregressa**: diversi rami secchi o spogli, chioma ancora rada, foglie pallide con lieve clorosi e alcuni tessuti disseccati nella parte interna e bassa. Non si notano sintomi chiari di parassiti o malattie fungine; il quadro e piu coerente con stress da inverno, impoverimento del substrato e competizione con erbe spontanee presenti nel vaso.
 
 ## Ripresa dallo stress invernale (aprile 2026)
 Interventi consigliati per supportare la ripresa primaverile:
 
-1. **Potatura leggera**: evitare potature aggressive ora che i boccioli sono presenti. Rimuovere solo i rami secchi o danneggiati dal freddo, preferibilmente tagliando appena sotto il punto di necrosi.
-2. **Concimazione di stimolo**: somministrare un concime a rilascio lento ricco di fosforo e potassio (NPK con P e K elevati) per favorire la fioritura e rinforzare le radici dopo l'inverno. Dopo 2–3 settimane passare al concime liquido per piante fiorite ogni 2–3 settimane.
-3. **Annaffiature graduate**: riprendere le irrigazioni in modo progressivo, evitando eccessi. La pianta deve reidratarsi lentamente dopo il periodo di riposo invernale.
-4. **Pacciamatura leggera**: se in vaso, rinnovare lo strato superficiale di substrato con terriccio fresco per reintegrare i nutrienti esauriti.
-5. **Esposizione**: assicurarsi che la pianta riceva almeno 6 ore di sole diretto al giorno per stimolare l'apertura dei boccioli.
-6. **Monitoraggio afidi**: con la ripresa vegetativa, controllare i nuovi germogli per individuare tempestivamente eventuali infestazioni di afidi.
+1. **Potatura di pulizia**: rimuovere i rami secchi, svuotati o chiaramente necrotici senza toccare i getti vivi con boccioli. Questo aiutera la pianta a concentrare le energie sulla nuova vegetazione.
+2. **Rinnovo del substrato**: eliminare le infestanti nel vaso e sostituire almeno i primi centimetri di terriccio con substrato fresco e drenante, per ridurre la competizione e migliorare la disponibilita di nutrienti.
+3. **Concimazione moderata**: usare un concime per piante fiorite a dose contenuta ma regolare, per sostenere la ripresa senza forzare eccessivamente una pianta ancora stressata.
+4. **Annaffiature regolari ma controllate**: mantenere il substrato leggermente umido, evitando sia lunghi periodi di secco sia ristagni.
+5. **Esposizione**: mantenere una buona luminosita e almeno 6 ore di sole, monitorando eventuali bruciature se le temperature aumentano rapidamente.
+6. **Monitoraggio della ripresa**: verificare nelle prossime settimane se la nuova vegetazione infittisce la chioma e se i boccioli arrivano ad apertura; in caso contrario valutare un rinvaso completo.

@@ -26,10 +26,10 @@ I problemi piu' comuni sono **marciume radicale** da eccesso d'acqua, **coccinig
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: pianta viva ma in condizioni di vigore ridotto, con segni di stress e crescita poco compatta
-- **Osservazioni**: nella foto la pianta appare molto diradata, con pochi fusti attivi e diverse foglie basali secche, ripiegate o ormai cadute. Le foglie superstiti mantengono la tipica peluria argentata e i margini scuri della specie, ma il portamento e' scarso e un po' debole, compatibile con luce non ottimale o con una fase di sofferenza pregressa. Il substrato appare asciutto in superficie e piuttosto minerale, senza segni evidenti di marciume al colletto; conviene pero' monitorare la ripresa vegetativa, aumentare la luce disponibile e rimuovere il secco per stimolare una ricrescita piu' ordinata.
+- **Stato di salute**: pianta ancora viva ma molto indebolita, con massa vegetativa ridotta e presenza evidente di parti secche
+- **Osservazioni**: nella foto la pianta appare estremamente diradata, con pochi apici ancora attivi e numerose foglie basali collassate, accartocciate o gia' disseccate. Le foglie superstiti conservano la tipica peluria argentata e i margini bruni della specie, segno che l'esemplare non e' compromesso al punto da far pensare a marciume diffuso, ma il volume complessivo e' molto ridotto e il portamento resta debole. Il vaso e' vicino a una finestra, condizione favorevole, mentre il substrato appare asciutto in superficie; la priorita' e' consolidare la ripresa con molta luce, irrigazioni prudenti e pulizia del secco.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: esemplare sofferente ma ancora recuperabile, con riserva di energia limitata e struttura diradata.
-- **Segnali da monitorare**: caduta continua delle foglie basse, fusti che si afflosciano, annerimenti al colletto e assenza di nuovi germogli nelle settimane di crescita.
-- **Per migliorarla**: aumentare gradualmente la luce, ripulire tutto il secco alla base, mantenere annaffiature molto misurate e valutare una cimatura dei fusti troppo deboli quando riparte.
+- **Valutazione attuale**: esemplare in forte sofferenza ma ancora recuperabile, con riserva vegetativa minima e struttura molto impoverita.
+- **Segnali da monitorare**: ulteriore perdita delle poche foglie sane, fusti che mollano alla base, annerimenti o rammollimenti del colletto e mancata emissione di nuovi germogli in primavera-estate.
+- **Per migliorarla**: mantenerla stabilmente nel punto piu' luminoso disponibile, eliminare foglie e rametti completamente secchi, bagnare solo dopo asciugatura completa del substrato e valutare un rinvaso in miscela piu' drenante se il terriccio resta compatto o trattiene troppo.

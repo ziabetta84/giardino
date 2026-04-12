@@ -26,10 +26,10 @@ I problemi piu' comuni sono **marciume radicale** e del colletto da eccesso d'ac
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con precisione in assenza di immagine allegata
-- **Osservazioni**: senza foto non e' possibile confermare turgore delle foglie, compattezza della rosetta, intensita' del margine rosso, eventuale filatura da scarsa luce, presenza di foglie molli o macchiate, residui di cocciniglia o condizioni del substrato nel vaso.
+- **Stato di salute**: discreto, con pianta viva ma sotto lieve stress colturale
+- **Osservazioni**: la rosetta centrale appare compatta e ancora attiva, con foglie consistenti e margini ben colorati, segno di luce abbastanza buona. Sono pero' presenti alcune foglie esterne rovinate o secche e un portamento un po' irregolare, compatibile con stress da adattamento, annaffiature non sempre ottimali o substrato non perfettamente drenante. Non si notano segni evidenti di marciume o infestazioni nella parte aerea visibile.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato da verificare, ma l'equilibrio della pianta dipendera soprattutto dalla quantita di luce disponibile in soggiorno.
-- **Segnali da monitorare**: rosetta aperta e piatta, foglie pallide o pendenti, acqua trattenuta al centro e tessuti molli alla base.
-- **Per migliorarla**: collocarla nella finestra piu luminosa, evitare qualsiasi accumulo d'acqua nella rosetta e usare un substrato molto drenante con bagnature rade.
+- **Valutazione attuale**: condizioni complessivamente sufficienti, ma con margine di miglioramento nella regolarita' vegetativa e nella pulizia della rosetta.
+- **Segnali da monitorare**: aumento delle foglie basali secche, perdita di turgore, macchie molli alla base, rosetta che si apre troppo o crescita inclinata verso la luce.
+- **Per migliorarla**: mantenerla nel punto piu' luminoso del soggiorno, ruotare periodicamente il vaso, rimuovere le foglie secche alla base e bagnare solo a substrato completamente asciutto, preferendo un terriccio ancora piu' minerale se quello attuale resta umido troppo a lungo.

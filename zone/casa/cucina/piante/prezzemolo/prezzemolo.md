@@ -26,10 +26,10 @@ I problemi piu comuni sono afidi, cocciniglia, marciumi radicali da eccesso d'ac
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: discreto, con nuova vegetazione presente ma segni di stress
-- **Osservazioni**: il prezzemolo e coltivato in vaso di terracotta su finestra esposta a ovest. Si vedono diversi fusti giovani eretti e foglie centrali verdi e vitali, ma anche molte foglie basali ingiallite e ricadenti, indice di stress da irregolarita nelle annaffiature, substrato stanco o eccesso di sole diretto nelle ore calde. Il terriccio appare piuttosto asciutto in superficie e il cespo e un po' rado, ma la pianta e ancora in ripresa vegetativa.
+- **Stato di salute**: mediocre ma recuperabile, con ricaccio attivo e stress evidente del fogliame piu vecchio
+- **Osservazioni**: il prezzemolo e coltivato in vaso di terracotta su finestra esposta a ovest. Nelle foto si nota nuova vegetazione verde e abbastanza turgida nella parte centrale, ma il cespo e rado, con molti piccioli allungati, foglie basali ingiallite o secche e vegetazione ricadente verso il bordo del vaso. Il substrato appare asciutto in superficie e il contenitore sembra piccolo rispetto alla massa radicale, segnali compatibili con stress da irrigazione non costante, eccesso di sole nelle ore calde o terriccio ormai impoverito.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: pianta ancora attiva, ma con apparato fogliare sbilanciato tra nuova crescita e porzioni vecchie in sofferenza.
-- **Segnali da monitorare**: foglie basali sempre piu gialle, crescita rallentata del centro del cespo e secchezza troppo rapida del terriccio.
-- **Per migliorarlo**: eliminare il fogliame ingiallito, mantenere piu costante l'umidita del substrato, ombreggiare leggermente nelle ore piu calde e valutare un rabbocco o rinnovo del terriccio.
+- **Valutazione attuale**: pianta viva e in ripresa, ma indebolita; la presenza di nuovi getti conferma attivita vegetativa, mentre la scarsa densita del cespo indica una fase di sofferenza ancora in corso.
+- **Segnali da monitorare**: aumento delle foglie gialle, cedimento dei fusti, mancato infoltimento del centro del cespo e asciugatura troppo rapida del pane di terra.
+- **Per migliorarlo**: rimuovere subito il fogliame secco o giallo, bagnare con maggiore regolarita senza lasciare acqua stagnante nel sottovaso, proteggere dal sole piu forte del pomeriggio e valutare a breve un rinvaso o almeno un rinnovo del terriccio.

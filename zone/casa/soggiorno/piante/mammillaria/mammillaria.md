@@ -26,10 +26,10 @@ I problemi piu comuni sono **marciume radicale** da eccesso d'acqua, **coccinigl
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con precisione senza immagine allegata
-- **Osservazioni**: non e presente una foto nel materiale ricevuto; per una valutazione visiva accurata servirebbero dettagli su turgore del fusto, colore dell'epidermide, presenza di macchie, spine danneggiate, segni di marciume o parassiti e condizioni del substrato nel vaso.
+- **Stato di salute**: discreto, con un esemplare adulto vivo ma stressato nella parte bassa e un secondo esemplare piccolo in condizioni abbastanza buone
+- **Osservazioni**: nelle foto compaiono due mammillarie. L'esemplare piu grande mostra apice ancora verde e attivo, con piccoli fiori o boccioli rosa, quindi la pianta e viva; la meta inferiore appare pero molto suberificata e brunita, con tessuti vecchi o stressati, compatibili con invecchiamento accentuato, stress idrico o coltivazione non ottimale. Non si notano segni chiari di marciume molle o infestazioni diffuse. L'esemplare piu piccolo appare turgido e compatto, ma il contenitore in vetro e il substrato piuttosto organico non sono ideali per una gestione sicura nel lungo periodo.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato da verificare, ma la specie si mantiene bene se riceve luce intensa e pause asciutte nette tra le annaffiature.
-- **Segnali da monitorare**: ammorbidimento del fusto, macchie brunastre alla base, perdita di turgore e accumuli cotonosi tra le spine.
-- **Per migliorarla**: garantire massima luminosita, tenere il vaso ben drenato e controllare con regolarita la base del fusto e le areole piu riparate.
+- **Valutazione attuale**: collezione vitale ma non omogenea; il soggetto adulto e in tenuta, con crescita apicale ancora attiva, pero mostra segni evidenti di stress cronico nella porzione basale, mentre il soggetto piccolo e piu regolare ma da collocare in un contenitore piu adatto.
+- **Segnali da monitorare**: estensione dell'imbrunimento verso l'alto, tessuti molli alla base, perdita di turgore, arresto della crescita apicale e accumuli cotonosi tra le areole.
+- **Per migliorarla**: mantenere luce molto intensa senza eccessi improvvisi, usare solo substrato molto minerale e drenante, rinvasare l'esemplare piccolo in un vaso con foro di scolo ed evitare annaffiature ravvicinate finche il terriccio non asciuga completamente.

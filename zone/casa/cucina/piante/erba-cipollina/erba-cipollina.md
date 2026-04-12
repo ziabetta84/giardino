@@ -26,10 +26,10 @@ I problemi più comuni sono **afidi** sui giovani steli, **marciumi radicali** d
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: buono
-- **Osservazioni**: la pianta appare vigorosa, con foglie lunghe, verdi, sottili e ben turgide. Sono visibili diversi steli fiorali con boccioli ancora chiusi, di colore rosato chiaro, segno di una pianta entrata correttamente in fase riproduttiva. Non si notano ingiallimenti marcati, disseccamenti estesi o segni evidenti di parassiti; l'esposizione luminosa sulla finestra a ovest sembra adeguata e favorisce una crescita sana e verticale.
+- **Stato di salute**: discreto
+- **Osservazioni**: la pianta appare viva e in fase riproduttiva, con diversi steli fiorali e boccioli ben formati, ma il cespo e' piuttosto rado e meno vigoroso del previsto per il periodo. Le foglie sono in gran parte verdi e sane, senza segni evidenti di parassiti, pero alcune risultano arcuate o poco turgide; inoltre il substrato in vaso appare asciutto e compattato in superficie. L'esposizione luminosa sembra buona, ma il contenitore piccolo e la priorita data alla fioritura stanno probabilmente limitando la produzione fogliare.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: cespo in buona salute, ben radicato e in fase attiva, con fioritura imminente.
-- **Segnali da monitorare**: punte secche, ingiallimenti dopo i tagli e infittimento eccessivo del cespo, che puo ridurre vigore e ricaccio.
-- **Per migliorarla**: raccogliere spesso le foglie esterne, decidere se mantenere o rimuovere gli steli fiorali in base all'uso culinario e rinnovare parte del terriccio se il vaso resta occupato da molto tempo.
+- **Valutazione attuale**: pianta complessivamente sana ma un po' stressata, con fioritura attiva e vigore vegetativo moderato.
+- **Segnali da monitorare**: aumento delle foglie afflosciate, punte secche, rallentamento del ricaccio dopo il taglio e asciugatura troppo rapida del pane di terra.
+- **Per migliorarla**: annaffiare con maggiore regolarita mantenendo il substrato appena fresco, tagliare gli steli fiorali se si vuole favorire nuove foglie e valutare a breve un rinvaso o una divisione del cespo con terriccio piu soffice e fertile.

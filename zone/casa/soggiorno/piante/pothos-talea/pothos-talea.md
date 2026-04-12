@@ -26,10 +26,10 @@ I problemi piu' comuni sono cocciniglia, ragnetto rosso e marciumi radicali dovu
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: compatibile con una giovane pianta generalmente rustica, da valutare soprattutto in base a turgore delle foglie e sviluppo delle radici
-- **Osservazioni**: trattandosi di una talea di pothos collocata in soggiorno, il punto chiave e' verificare che riceva luce indiretta abbondante, senza esposizione diretta nelle ore calde. In questa fase sono segnali positivi foglie sode, colore uniforme e nuovi accrescimenti; sono invece da monitorare eventuali ingiallimenti, mollenza del fusto, macchie scure o substrato troppo bagnato.
+- **Stato di salute**: buono; la pianta appare vigorosa, con foglie perlopiu' turgide, colore verde uniforme con variegature stabili e apparato radicale visibile in acqua
+- **Osservazioni**: la talea e' allevata in acqua e mostra tralci lunghi e flessibili, con internodi regolari e piu' foglie sane lungo tutta la vegetazione. Si notano solo lievi secchezze o piccole cicatrici su alcuni nodi e su una porzione marginale di una foglia, senza segnali evidenti di marciume, ingiallimenti diffusi o collasso dei tessuti.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: talea potenzialmente ben avviata, ma ancora in fase delicata di consolidamento radicale.
-- **Segnali da monitorare**: foglie che perdono turgore, nodo basale che scurisce, mancata emissione di nuove radici o crescita ferma troppo a lungo.
-- **Per migliorarla**: mantenerla in luce intensa indiretta costante, evitare ristagni nel contenitore e iniziare a cimarla solo dopo una ripresa evidente con nuovi getti.
+- **Valutazione attuale**: esemplare in buona salute e ben avviato, con crescita attiva e risposta positiva alla coltivazione in acqua.
+- **Segnali da monitorare**: eventuale allungamento eccessivo dei tralci per luce insufficiente, radici che bruniscono o molliscono nell'acqua, secchezza piu' marcata dei nodi e perdita di variegatura nelle nuove foglie.
+- **Per migliorarla**: mantenere acqua pulita con ricambi regolari, garantire luce intensa indiretta piu' vicina possibile alla finestra e valutare una leggera potatura dei tralci piu' lunghi per favorire una crescita piu' folta.

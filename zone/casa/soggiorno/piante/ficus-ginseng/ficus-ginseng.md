@@ -26,10 +26,10 @@ I problemi piu comuni sono cocciniglia, ragnetto rosso e, in ambienti molto secc
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: non valutabile con precisione senza immagine allegata
-- **Osservazioni**: pianta indicata per la zona casa/soggiorno, dove dovrebbe essere collocata vicino a una finestra luminosa ma schermata dal sole diretto nelle ore piu calde. In assenza della foto non e possibile descrivere chioma, vigore, eventuali ingiallimenti, presenza di parassiti o stato del terriccio.
+- **Stato di salute**: discreto, con vigore sufficiente e chioma ancora compatta
+- **Osservazioni**: dalla foto il tronco appare sodo e proporzionato, con foglie per lo piu verdi, lucide e ben formate. Si notano pero alcune foglie rade, qualche lieve imperfezione superficiale e una crescita un po' contenuta, compatibile con luce interna non molto intensa. Il substrato superficiale e coperto da materiale pacciamante decorativo, quindi l'umidita reale del terriccio non e valutabile direttamente.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: stato non confermato, ma la specie tende a soffrire piu gli sbalzi e gli spostamenti che la normale vita in soggiorno.
-- **Segnali da monitorare**: caduta improvvisa delle foglie, chioma rada su un lato, foglie appiccicose e terriccio che asciuga troppo lentamente.
-- **Per migliorarlo**: mantenerlo in posizione stabile e luminosa, bagnare solo quando il primo strato di terra e asciutto e potare i getti troppo lunghi in stagione per infittire la chioma.
+- **Valutazione attuale**: pianta in condizioni discrete, senza segni evidenti di marciume o infestazioni importanti, ma probabilmente un po' frenata da esposizione luminosa moderata.
+- **Segnali da monitorare**: aumento della caduta fogliare, comparsa di foglie gialle o molli, allungamento eccessivo dei rami verso la luce, presenza di melata o puntinature sulla pagina inferiore.
+- **Per migliorarlo**: spostarlo il piu possibile vicino a una fonte di luce intensa indiretta, ruotare il vaso periodicamente per mantenere la chioma equilibrata, controllare che sotto la pacciamatura il terriccio asciughi con regolarita e rimuovere eventuali foglie secche o danneggiate.

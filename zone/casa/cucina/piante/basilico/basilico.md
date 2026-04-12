@@ -26,10 +26,10 @@ I problemi piu comuni sono **afidi**, **moscerini del terriccio**, **ragnetto ro
 
 ## Note sulla foto
 - **Data foto**: aprile 2026
-- **Stato di salute**: discreto, ma con segni evidenti di stress e crescita filata
-- **Osservazioni**: la pianta appare coltivata in vaso sul terrazzo della cucina. I fusti sono molto allungati, chiari e poco fogliati, segno compatibile con luce non sempre sufficiente o crescita forzata dopo raccolte ripetute. Alcune foglie sono afflosciate, leggermente ingiallite o con piccole lesioni marginali; sono presenti anche internodi lunghi e porzioni quasi spoglie. Il basilico e ancora vivo e in ripresa su alcuni apici, ma trarrebbe beneficio da una cimatura energica, maggiore uniformita di esposizione luminosa, irrigazione piu regolare e rinnovo parziale del substrato se ormai esausto.
+- **Stato di salute**: scarso, ma ancora recuperabile con interventi rapidi
+- **Osservazioni**: il basilico appare molto filato, con fusti pallidi, lunghi e poco sostenuti, diversi apici gia cimati e una chioma complessivamente rada. Restano foglie verdi e alcuni getti attivi, ma si notano anche foglie pendenti, ingiallimenti sparsi, piccole necrosi o rosure marginali e porzioni ormai quasi spoglie. Il quadro e compatibile con luce insufficiente o discontinua, vaso sovraffollato e stress idrico alternato; il substrato sembra inoltre stanco e povero di vigore.
 
 ## Stato di salute e consigli
-- **Valutazione attuale**: esemplare recuperabile, ma indebolito da crescita filata, raccolte ripetute o luce non del tutto costante.
-- **Segnali da monitorare**: nuovi internodi troppo lunghi, ingiallimento diffuso delle foglie basse, appassimenti rapidi nelle ore calde e comparsa di apici fiorali.
-- **Per migliorarlo**: cimare sopra 2-3 nodi ancora vigorosi, ruotare il vaso per uniformare la luce, mantenere il terriccio appena umido senza ristagni e aggiungere una concimazione leggera dopo la ripresa.
+- **Valutazione attuale**: esemplare vivo ma molto indebolito, con vigoria bassa e produzione fogliare ridotta.
+- **Segnali da monitorare**: ulteriore cedimento dei fusti, foglie sempre piu piccole e pallide, disseccamento alla base, odore di marcio o comparsa di muffe nel substrato.
+- **Per migliorarlo**: accorciare i fusti piu allungati lasciando i nodi vitali, diradare o dividere le piantine se troppo fitte, spostare il vaso in luce piu piena ma gradualmente, mantenere il terriccio regolarmente fresco senza ristagni nel sottovaso e valutare un leggero rinnovo del substrato con concimazione blanda solo dopo la ripresa.

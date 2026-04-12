@@ -30,6 +30,6 @@ Pianta generalmente robusta e resistente. I problemi più comuni includono:
 
 ## Note sulla foto
 - **Data foto**: marzo 2026
-- **Stato di salute**: Non valutabile dall'immagine — nessuna foto allegata al messaggio
-- **Osservazioni**: La pianta è collocata nella zona vialetto/ringhiera, posizione tipicamente adatta a questa specie per il portamento tappezzante e la fioritura continua. Si consiglia di documentare lo stato vegetativo con una foto aggiornata per tracciare la stagionalità e monitorare eventuali stress da freddo invernale
+- **Stato di salute**: Molto compromesso ma con qualche segno di vitalità residua; la pianta presenta forte disseccamento della chioma, numerosi rami spogli e vegetazione attiva limitata a pochi apici ancora verdi
+- **Osservazioni**: Le foto mostrano un esemplare in cassetta con struttura per gran parte secca, ricaccio scarso e fogliame afflosciato in alcuni punti. Il quadro suggerisce uno stress importante, plausibilmente accumulato nel periodo invernale e/o legato alla gestione idrica in contenitore; utile rimuovere il secco e verificare se dalla base riparte nuova vegetazione nelle prossime settimane
 ```

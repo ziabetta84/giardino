@@ -28,6 +28,6 @@ Pianta generalmente molto resistente. I principali rischi sono:
 - **Forma**: Fiori grandi (5–8 cm di diametro), con petali sottili e numerosi disposti a raggiera attorno a un centro giallo; simili a margherite, molto vistosi
 
 ## Note sulla foto
-- **Data foto**: marzo 2026
-- **Stato di salute**: Discreto; la pianta è viva e ben radicata nella fioriera, ma presenta segni di stress invernale
-- **Osservazioni**: La pianta occupa circa metà della fioriera in legno con impianto a goccia. Le foglie appaiono di colore verde con punte e fusti rossastri/arancioni — colorazione tipica da stress da freddo o da siccità invernale, non preoccupante. I rami si sviluppano in modo espanso e cascante oltre il bordo della fioriera. Il substrato appare scuro e ben irrigato; si nota la presenza di perlite mista alla terra. Non sono visibili fiori né boccioli, coerente con la stagione invernale. Con l'arrivo della primavera ci si aspetta una ripresa vegetativa e una fioritura abbondante.
+- **Data foto**: marzo e aprile 2026
+- **Stato di salute**: Buono; la pianta appare ben insediata e in ripresa vegetativa, con solo lievi segni di stress da freddo
+- **Osservazioni**: Il fico di mare occupa una parte consistente della fioriera ed è più denso sul lato sinistro, con numerosi apici vegetativi attivi e fogliame per lo più verde. Sono presenti arrossamenti su alcuni fusti e foglie più vecchie, un segnale compatibile con stress invernale o lieve stress idrico, ma non si notano cedimenti marcati, marciumi o danni parassitari evidenti. La vegetazione ha portamento espanso e cascante oltre il bordo della fioriera; la porzione destra appare ancora piu` spoglia ma colonizzabile con la ripresa primaverile. Non sono visibili fiori aperti, anche se diversi apici sembrano prepararsi alla nuova fase di crescita.
