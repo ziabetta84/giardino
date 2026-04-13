@@ -33,7 +33,7 @@ Il muretto è presente e delimitante. Le fessure ospitano infestanti da rimuover
 ### Prossimi passi
 
 - Rimozione manuale delle infestanti dalle fessure del muretto
-- Inserimento di *Thymus serpyllum* e *Sempervivum* come primo intervento (già disponibile il timo nella proprietà)
+- Inserimento di *Thymus serpyllum*, *Sedum acre* e/o *Sempervivum* come primo intervento (già disponibile il timo nella proprietà)
 - Valutare *Aubrieta* per la fioritura primaverile decorativa
 
 
