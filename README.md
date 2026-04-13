@@ -10,13 +10,17 @@ L’obiettivo è mantenere una conoscenza ordinata, versionata e facilmente cons
 ```text
 giardino/
 ├── README.md
+├── copilot.json
 ├── generale/
 ├── manutenzione/
 │   ├── calendario-annuale.md
 │   ├── irrigazione.md
 │   ├── potature.md
 │   └── periodica/
-│       └── 01_aprile2025.md
+├── notifiche-github/
+│   ├── config.giardino.json
+│   ├── genera_notifica.py
+│   └── README.md
 ├── progetti/
 │   ├── README.md
 │   ├── casa.md
@@ -26,91 +30,15 @@ giardino/
 │   ├── identifyPlants.sh
 │   └── README.md
 └── zone/
-	├── casa/
-	│   ├── casa.md
-	│   ├── bagni/
-	│   │   └── bagni.md
-	│   ├── cucina/
-	│   │   └── cucina.md
-	│   ├── ingresso/
-	│   │   └── ingresso.md
-	│   ├── scalinata/
-	│   │   └── scalinata.md
-	│   └── soggiorno/
-	│       └── soggiorno.md
-	├── crinale/
-	│   ├── crinale.md
-	│   └── piante/
-	│       ├── alloro/
-	│       ├── prunus-taoflora/
-	│       ├── rosmarino/
-	│       ├── scilla-marittima/
-	│       └── timo-serpillo/
-	├── est/
-	│   ├── est.md
-	│   └── piante/
-	│       ├── bellis-perennis/
-	│       ├── erica/
-	│       ├── narciso/
-	│       ├── primula/
-	│       ├── saxifraga/
-	│       ├── spiraea-arguta/
-	│       ├── stracchino/
-	│       └── uva-di-gatto/
-	├── orto/
-	│   └── orto.md
-	├── scivolo/
-	│   ├── scivolo.md
-	│   ├── lato-destro/
-	│   │   ├── lato-destro.md
-	│   │   ├── foto/
-	│   │   └── piante/
-	│   │       ├── carex/
-	│   │       ├── glechoma_hederacea/
-	│   │       ├── iris_spontaneo/
-	│   │       ├── marsilea_quadrifolia/
-	│   │       ├── pennisetum_cinese/
-	│   │       └── salcerella/
-	│   ├── lato-frontale/
-	│   │   ├── lato-frontale.md
-	│   │   └── piante/
-	│   │       ├── clematis-montana/
-	│   │       ├── erba-miseria/
-	│   │       └── stipa-tenuissima/
-	│   └── lato-sinistro/
-	│       ├── lato-sinistro.md
-	│       └── piante/
-	│           ├── allium_sphaerocephalon/
-	│           ├── aquilegia/
-	│           ├── centaurea_ragusina/
-	│           ├── echinacea/
-	│           ├── garofano/
-	│           ├── heuchera/
-	│           ├── lavanda/
-	│           ├── margherita_delle_canarie/
-	│           ├── narciso/
-	│           ├── osteospermum/
-	│           ├── sedum/
-	│           ├── verbena/
-	│           └── violaciocca/
-	└── vialetto/
-		├── vialetto.md
-		├── fioriere/
-		│   ├── fioriere.md
-		│   └── piante/
-		│       ├── camelia/
-		│       ├── fico-di-mare/
-		│       └── gerani/
-		└── ringhiera/
-			├── ringhiera.md
-			└── piante/
-				├── cuphea/
-				├── erica-del-messico/
-				├── garofano/
-				├── lewisia/
-				├── saponaria/
-				└── sassifraga/
+    ├── casa/
+    ├── crinale/
+    ├── est/
+    ├── orto/
+    ├── scivolo/
+    └── vialetto/
 ```
+
+La struttura dettagliata delle sottocartelle cambia nel tempo: per questo il README mostra solo i livelli stabili.
 
 
 ---
@@ -138,6 +66,8 @@ Ogni pianta ha una scheda dedicata con:
 - manutenzione
 - foto specifiche
 
+Nota: quando presente il nome scientifico, va scritto in corsivo.
+
 ### **Progetti**
 Ogni progetto documenta:
 - obiettivo
@@ -151,7 +81,7 @@ Include:
 - calendario annuale
 - potature
 - irrigazione
-- note operative
+- note operative periodiche
 
 ---
 
@@ -164,6 +94,24 @@ Questo repository è pensato per essere usato con Copilot CLI per:
 - creare progetti
 - proporre modifiche strutturate
 - mantenere coerenza tra i file
+
+Per identificare e organizzare automaticamente foto di piante non classificate:
+
+- eseguire `./scripts/identifyPlants.sh zone:<percorso-zona>`
+- esempio: `./scripts/identifyPlants.sh zone:scivolo:lato-destro`
+
+### Identificazioni dinamiche (consigliato)
+
+Per evitare elenchi statici nel README, puoi ricavare la situazione aggiornata direttamente dal repository.
+
+- zone documentate:
+	`find zone -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort`
+- schede piante presenti in una zona:
+	`find zone/<zona> -type f -name '*.md' -path '*/piante/*' | sort`
+- manutenzioni periodiche disponibili:
+	`find manutenzione/periodica -maxdepth 1 -type f -name '*.md' | sort`
+- conteggio rapido schede pianta:
+	`find zone -type f -name '*.md' -path '*/piante/*' | wc -l`
 
 Esempi di prompt utili:
 
@@ -189,6 +137,8 @@ Costruire una documentazione viva, ordinata e versionata del giardino, utile per
 ## 📷 Media
 
 Le foto sono sempre collocate nella cartella `foto/` della zona o della pianta corrispondente, per mantenere ordine e contesto.
+
+Quando disponibili, aggiungere nelle note anche mese e anno di riferimento della foto.
 
 ---
 
