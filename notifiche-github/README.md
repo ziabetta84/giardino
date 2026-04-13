@@ -32,8 +32,9 @@ Ad ogni esecuzione del workflow:
 2. vengono lette le piante documentate in `zone/**/piante/**/*.md`
 3. vengono estratti suggerimenti da sezioni `Potatura e manutenzione` / `Coltivazione`
 4. vengono letti i progetti in `progetti/*.md` e lo stato attuale
-5. viene aggiornata (o creata) una issue con label `notifiche-giardino`
-6. viene aggiunto un commento con mention all'owner, per trigger notifica mobile
+5. per ogni progetto attivo viene stimato se e un buon momento per agire (in base a tipo attivita + meteo 48h)
+6. viene aggiornata (o creata) una issue con label `notifiche-giardino`
+7. viene aggiunto un commento con mention all'owner, per trigger notifica mobile
 
 ## Trigger workflow
 
