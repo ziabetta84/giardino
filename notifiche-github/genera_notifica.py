@@ -217,6 +217,21 @@ def parse_project_status(content: str) -> str:
     return "Stato non specificato"
 
 
+def parse_project_next_steps(content: str) -> list[str]:
+    section = extract_section(content, "Prossimi passi")
+    if not section:
+        return []
+
+    steps = []
+    for line in section.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("- "):
+            step = stripped[2:].strip()
+            if step:
+                steps.append(step)
+    return steps
+
+
 def find_active_projects(project_files: list[Path]) -> list[dict]:
     active = []
     for path in project_files:
@@ -224,6 +239,7 @@ def find_active_projects(project_files: list[Path]) -> list[dict]:
         first_heading = re.search(r"^#\s+(.+)$", content, re.MULTILINE)
         title = first_heading.group(1).strip() if first_heading else path.stem
         status = parse_project_status(content)
+        next_steps = parse_project_next_steps(content)
         low = status.lower()
         if any(word in low for word in ["conclus", "completat", "chiuso"]):
             continue
@@ -231,10 +247,112 @@ def find_active_projects(project_files: list[Path]) -> list[dict]:
             {
                 "title": title,
                 "status": status,
+                "next_steps": next_steps,
                 "path": str(path.relative_to(path.parents[1])),
             }
         )
     return active
+
+
+def summarize_weather_window(days: list[dict]) -> dict:
+    if not days:
+        return {
+            "max_temp": None,
+            "min_temp": None,
+            "max_rain": None,
+            "max_wind": None,
+        }
+    return {
+        "max_temp": max(day["temp_max"] for day in days),
+        "min_temp": min(day["temp_min"] for day in days),
+        "max_rain": max(day["rain_mm"] for day in days),
+        "max_wind": max(day["wind_kmh"] for day in days),
+    }
+
+
+def project_timing_assessment(project_title: str, project_status: str, days: list[dict]) -> str:
+    window = summarize_weather_window(days)
+    if window["max_temp"] is None:
+        return "meteo non disponibile: usare solo valutazione sul campo"
+
+    title_low = project_title.lower()
+    status_low = project_status.lower()
+    text = f"{title_low} {status_low}"
+
+    max_temp = window["max_temp"]
+    min_temp = window["min_temp"]
+    max_rain = window["max_rain"]
+    max_wind = window["max_wind"]
+
+    # Casi specifici per lavori tipici da giardino.
+    if any(k in text for k in ["trapiant", "piant", "messa a dimora"]):
+        if min_temp <= 4:
+            return "non ideale: minime troppo basse per nuove messe a dimora"
+        if max_temp >= 30:
+            return "non ideale: caldo alto, rischio stress da trapianto"
+        if max_rain >= 20:
+            return "non ideale: pioggia intensa, suolo troppo saturo"
+        return "favorevole: finestra buona per trapianti e nuove piantumazioni"
+
+    if any(k in text for k in ["potatur", "taglio", "sfolt"]):
+        if max_rain >= 5:
+            return "non ideale: meglio evitare potature con pioggia prevista"
+        if max_wind >= 30:
+            return "non ideale: vento sostenuto per lavorazioni di precisione"
+        if min_temp <= 1:
+            return "non ideale: rischio freddo marcato dopo il taglio"
+        return "favorevole: buona finestra per potature leggere"
+
+    if any(k in text for k in ["irrigaz", "ala gocciolante", "impianto idrico"]):
+        if max_rain >= 10:
+            return "valutare rinvio: pioggia in arrivo riduce urgenza irrigua"
+        if max_wind >= 35:
+            return "non ideale: vento forte per lavori di impianto"
+        return "favorevole: buona finestra per verifiche e piccoli interventi"
+
+    # Regola generica per progetti non classificati.
+    if max_rain >= 15 or max_wind >= 35:
+        return "non ideale: meteo instabile, meglio pianificare o fare solo sopralluogo"
+    if max_temp >= 30:
+        return "valutare fascia oraria fresca: temperature elevate nelle ore centrali"
+    return "favorevole: condizioni meteo complessivamente buone"
+
+
+def step_timing_assessment(step_text: str, days: list[dict]) -> str:
+    window = summarize_weather_window(days)
+    if window["max_temp"] is None:
+        return "meteo non disponibile: decidere dopo sopralluogo"
+
+    text = step_text.lower()
+    max_temp = window["max_temp"]
+    min_temp = window["min_temp"]
+    max_rain = window["max_rain"]
+    max_wind = window["max_wind"]
+
+    if any(k in text for k in ["infestanti", "diserbo", "rimozione manuale"]):
+        if max_rain >= 8:
+            return "da valutare: con pioggia il lavoro e meno efficace"
+        if max_wind >= 35:
+            return "non ideale: vento forte per lavoro di precisione"
+        return "favorevole: buon momento per pulizia e rimozione infestanti"
+
+    if any(k in text for k in ["inserimento", "messa a dimora", "trapiant", "talea", "piant"]):
+        if min_temp <= 4:
+            return "non ideale: minime basse per nuove messe a dimora"
+        if max_temp >= 30:
+            return "non ideale: caldo alto, rischio stress"
+        if max_rain >= 20:
+            return "da valutare: pioggia intensa, meglio attendere suolo stabile"
+        return "favorevole: buona finestra per impianto"
+
+    if any(k in text for k in ["valutare", "scegliere", "progett", "schema", "acquisto"]):
+        return "favorevole: attivita di pianificazione eseguibile anche con meteo variabile"
+
+    if max_rain >= 15 or max_wind >= 35:
+        return "non ideale: meteo instabile, meglio rimandare intervento fisico"
+    if max_temp >= 30:
+        return "da valutare: operare in fascia fresca"
+    return "favorevole: condizioni meteo complessivamente buone"
 
 
 def build_actions(alerts: list[str], care_items: list[dict], active_projects: list[dict]) -> list[str]:
@@ -301,7 +419,15 @@ def build_report(config: dict, weather: dict, plants_total: int, care_items: lis
     lines.append("")
     if active_projects:
         for project in active_projects:
+            assessment = project_timing_assessment(project["title"], project["status"], days)
             lines.append(f"- **{project['title']}**: {project['status']}")
+            lines.append(f"  - Momento per agire: **{assessment}**")
+            if project.get("next_steps"):
+                lines.append("  - Valutazione prossimi passi:")
+                for step in project["next_steps"][:5]:
+                    step_eval = step_timing_assessment(step, days)
+                    lines.append(f"    - {step}")
+                    lines.append(f"      - Timing: **{step_eval}**")
     else:
         lines.append("- Nessun progetto attivo individuato in /progetti.")
 
