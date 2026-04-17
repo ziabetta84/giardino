@@ -1,12 +1,34 @@
-# Progetti zona casa
-
-## Progetto aromatiche
-L'idea è di aggiungere altre piante aromatiche, oltre a quelle già esistenti, in modo da arricchire, anche esteticamente, la finestra e il terrazzo.
-
-
-### Stato attuale
-Attualmente sono presenti una pianta di basilico (in condizioni non molto buone), una di erba cipollina, una di prezzemolo. 
-Le piante esistenti sono in vasi di terracotta, di uguali dimensioni e disegnati con motivi "old school tattoo".
-
-### Prossimi passi
-Aggiungere nuove piante aromatiche che abbiano una buona resa con l'esposizione a ovest. Ad ora (12 aprile 2026), ho ricavato una talea di rosmarino e ho cercato di ricavare una pianta di timo serpillo, radici incluse, e le tengo in posizione ombreggiata in giardino per qualche giorno.
+---
+zona: casa
+progetti:
+  - nome: Progetto aromatiche
+    stato: in_corso
+    avanzamento: 35
+    obiettivo: "Arricchire la zona casa con piante aromatiche e ornamentali adatte all'esposizione ovest"
+    condizioni:
+      - "assenza di pioggia"
+      - "temperatura > 12°C"
+      - "giornata non troppo ventosa"
+    aggiornamenti:
+      - data: 2026-04-15
+        descrizione: "Messa a dimora la talea di timo serpillo"
+      - data: 2026-04-15
+        descrizione: "Aggiunta una pianta di fragola rifiorente"
+      - data: 2026-04-14
+        descrizione: "Basilico, erba cipollina e prezzemolo in netto miglioramento"
+      - data: 2026-04-12
+        descrizione: "Ricavata una talea di rosmarino e una di timo serpillo"
+    task:
+      - nome: Monitorare stato delle aromatiche esistenti
+        tipo: monitoraggio
+        stato: in_corso
+      - nome: Valutare inserimento nuove aromatiche adatte all'esposizione ovest
+        tipo: pianificazione
+        stato: in_corso
+      - nome: Mettere a dimora talea di rosmarino
+        tipo: piantumazione
+        stato: pianificato
+      - nome: Mettere a dimora talea di timo serpillo (se attecchita)
+        tipo: piantumazione
+        stato: pianificato
+---
