@@ -1,34 +1,33 @@
-# Salcerella (Lythrum salicaria)
+---
+nome: salcerella
+specie: Lythrum salicaria
+famiglia: Lythraceae
+zona: scrivolo
+sottozona: lato-destro
 
-## Informazioni generali
-La Salcerella, scientificamente Lythrum salicaria, è una pianta perenne della famiglia delle Lythraceae. Caratterizzata da fiori magenta-violacei riuniti in lunghe spighe erette, molto decorativa. Pianta robusta adatta a zone umide, zone di transizione tra acqua e terra, e bordi di stagni. Fiorisce abbondantemente in estate.
+attivita:
+  irrigazione:
+    primavera: mantenere il terreno costantemente umido
+    estate: irrigare frequentemente (ogni 2-4 giorni) per sostenere la fioritura
+    autunno: mantenere umidità moderata
+    inverno: minima, solo se il terreno è asciutto
+  concimazione:
+    primavera: una volta con concime leggero per perenni
+    estate: una concimazione mensile (facoltativa)
+    autunno: sospesa
+    inverno: sospesa
+  potatura:
+    primavera: rimozione dei fusti secchi alla base
+    estate: eliminare le spighe sfiorite per prolungare la fioritura
+    autunno: taglio dei fusti ingialliti
+    inverno: nessuna
 
-## Esposizione
-- **Luce**: Pieno sole a ombra parziale (4-8 ore di sole)
-- **Temperatura**: Freddo-temperata, da -15 a 25°C
-- **Umidità**: Elevata, preferisce terreno umido o periodicamente allagato
+alert:
+  - pianta palustre → preferisce terreno umido o molto umido
+  - crescita vigorosa: può espandersi rapidamente
+  - teme la siccità prolungata
+  - fioritura scarsa → poca luce o terreno troppo asciutto
+  - attira molti insetti utili (api, farfalle)
 
-## Coltivazione
-- **Terreno**: Terreno umido, paludoso, ricco di materia organica
-- **Annaffiature**: Regolari, mantenendo il terreno sempre umido o allagato
-- **Concimazione**: Concimazione primaverile con fertilizzante equilibrato
-
-## Potatura e manutenzione
-- Potatura autunnale o primaverile per favorire la ricrescita
-- Rimozione dei fiori appassiti per prolungare la fioritura
-- Contenimento della diffusione tramite autosemina
-
-## Parassiti e malattie
-- Molto resistente ai parassiti
-- Raramente colpita da malattie
-- Potenzialmente invasiva in ambienti ideali
-
-## Fioritura
-- Periodo: Giugno-agosto (lunga fioritura)
-- Colori fiori: Magenta, viola, rosa, bianco (varietà disponibili)
-- Forma: Spighe erette densamente fiorite
-
-## Note sulla foto
-- **Data foto**: Marzo 2024
-- **Stato di salute**: Scarso
-- **Osservazioni**: La Salcerella mostra steli estremamente sottili e allungati (etiolazione) con ramificazione laterale minima e copertura fogliare quasi assente. La pianta sembra cercare condizioni di luce migliori. Segni visibili di stress severo con probabili problemi a livello radicale o nutrizionale. Intervento orticolo immediato richiesto.
+ultimo_controllo: 2026-04-17
+---

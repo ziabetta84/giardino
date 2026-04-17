@@ -1,34 +1,33 @@
-# Marsilea quadrifolia (Trifoglio d'acqua)
+---
+nome: marsilea-quadrifolia
+specie: Marsilea quadrifolia
+famiglia: Marsileaceae
+zona: scrivolo
+sottozona: lato-destro
 
-## Informazioni generali
-La Marsilea quadrifolia è una pianta acquatica perenne della famiglia delle Marsileaceae. Caratterizzata da foglie a forma di quadrifoglio che galleggiano sull'acqua o crescono su terreni umidi. Pianta molto decorativa e tradizionalmente considerata portafortuna. Adatta a laghetti, stagni e zone umide.
+attivita:
+  irrigazione:
+    primavera: mantenere il terreno costantemente umido
+    estate: irrigare frequentemente (ogni 2-4 giorni) per evitare disseccamento
+    autunno: mantenere umidità moderata
+    inverno: minima, solo se il terreno è asciutto
+  concimazione:
+    primavera: una volta con concime leggero per piante acquatiche o palustri
+    estate: una volta al mese (facoltativo)
+    autunno: sospesa
+    inverno: sospesa
+  potatura:
+    primavera: rimozione foglie secche o danneggiate
+    estate: eventuale contenimento dei rizomi
+    autunno: pulizia generale
+    inverno: nessuna
 
-## Esposizione
-- **Luce**: Pieno sole a mezzombra (4-6 ore di sole)
-- **Temperatura**: Temperata, da 5 a 25°C
-- **Umidità**: Molto alta, richiede terreno permanentemente umido o sommerso
+alert:
+  - pianta palustre → richiede terreno umido o molto umido
+  - teme la siccità: foglie che si afflosciano → terreno troppo asciutto
+  - può espandersi rapidamente tramite rizomi
+  - in inverno può ridurre la parte aerea ma ricaccia in primavera
+  - perfetta per bordi di laghetti, zone fresche e terreni costantemente umidi
 
-## Coltivazione
-- **Terreno**: Fango ricco di materia organica, terreno paludoso, o substrato per piante acquatiche
-- **Annaffiature**: Mantener il terreno sempre umido o sommergere leggermente
-- **Concimazione**: Leggera concimazione primaverile con fertilizzante equilibrato
-
-## Potatura e manutenzione
-- Rimuovere le foglie morte o danneggiate per mantenere l'aspetto ordinato
-- Non richiede potatura vera e propria
-- Controllare la propagazione se coltivata in spazi limitati
-
-## Parassiti e malattie
-- Molto resistente ai parassiti
-- Attenzione alla marcescenza se il drenaggio è insufficiente
-- Intolleranza all'acqua salata
-
-## Fioritura
-- Periodo: Non produce fiori decorativi; la bellezza è nel fogliame
-- Riproduzione: Tramite spore (non fiori tradizionali)
-- Caratteristica: Fogliame decorativo verde tutto l'anno
-
-## Note sulla foto
-- **Data foto**: Marzo 2024
-- **Stato di salute**: Scarso
-- **Osservazioni**: La Marsilea quadrifolia mostra crescita debolissima con copertura fogliare minima e steli sottili di colore verde pallido, indicativi di carenza nutrizionale e vigore ridotto. La pianta appare severamente stressata con sviluppo fogliare estremamente limitato. Intervento immediato necessario per valutare le condizioni di coltivazione (umidità, nutrienti, stress da trapianto).
+ultimo_controllo: 2026-04-17
+---

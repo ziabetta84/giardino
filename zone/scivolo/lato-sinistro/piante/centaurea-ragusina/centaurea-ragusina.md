@@ -1,7 +1,7 @@
 ---
-nome: lavanda
-specie: Lavandula angustifolia
-famiglia: Lamiaceae
+nome: centaurea-ragusina
+specie: Centaurea ragusina
+famiglia: Asteraceae
 zona: scivolo
 sottozona: lato-sinistro
 
@@ -17,16 +17,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: potatura di forma
-    estate: rimozione spighe secche
-    autunno: contenimento leggero
+    primavera: rimozione parti secche
+    estate: contenimento
+    autunno: nessuna
     inverno: nessuna
 
 alert:
-  - richiede terreno drenante
   - ama sole pieno
+  - fogliame argentato molto decorativo
   - teme ristagni
-  - molto rustica
+  - molto resistente alla siccità
 
 ultimo_controllo: 2026-04-17
 ---
