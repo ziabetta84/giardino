@@ -10,9 +10,11 @@ import json
 from utils.loader import load_all_plants
 from utils.weather import get_weather_today, get_weather_last_48h
 from utils.smart_rules import evaluate_plant
+from utils.projects import load_projects
+from utils.project_rules import evaluate_project_task
 
 
-ROOT = "plants/zone"
+ROOT = "zone"
 
 
 def group_by_zone(plants):
@@ -94,6 +96,41 @@ def main():
                     print(f"  • ⚠️ {a}")
 
             print("")  # Riga vuota tra piante
+
+    # -------------------------
+    # 5. Progetti
+    # -------------------------
+    projects = load_projects("progetti")
+
+    print("\n📌 PROGETTI\n")
+
+    for p in projects:
+        print(f"=== {p['zona'].upper()} — {p['nome']} ===")
+
+        # Stato e avanzamento
+        stato = p.get("stato", "n/d")
+        avanz = p.get("avanzamento", 0)
+        print(f"Stato: {stato} ({avanz}%)")
+
+        # Ultimo aggiornamento
+        if p["aggiornamenti"]:
+            last = sorted(p["aggiornamenti"], key=lambda x: x["data"])[-1]
+            print(f"Ultimo aggiornamento: {last['data']} — {last['descrizione']}")
+
+        print("")
+
+        # Task
+        for task in p["task"]:
+            stato_task = evaluate_project_task(task, p["condizioni"], meteo)
+
+            if stato_task == "ok":
+                print(f"  • {task['nome']} → ✔ consigliato oggi")
+            elif stato_task == "no":
+                print(f"  • {task['nome']} → ✖ sconsigliato oggi")
+            else:
+                print(f"  • {task['nome']} → ⚪ valutare")
+
+        print("")
 
 
 if __name__ == "__main__":
