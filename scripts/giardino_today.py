@@ -6,7 +6,6 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(BASE_DIR)
 sys.path.append(os.path.join(BASE_DIR, "utils"))
 
-import json
 from utils.loader import load_all_plants
 from utils.weather import get_weather_today, get_weather_last_48h
 from utils.smart_rules import evaluate_plant
@@ -15,6 +14,14 @@ from utils.project_rules import evaluate_project_task
 
 
 ROOT = "zone"
+
+# ANSI COLORS
+CYAN = "\033[1;36m"
+GREEN = "\033[1;32m"
+RED = "\033[1;31m"
+YELLOW = "\033[1;33m"
+MAGENTA = "\033[1;35m"
+RESET = "\033[0m"
 
 
 def group_by_zone(plants):
@@ -31,7 +38,7 @@ def group_by_zone(plants):
 
 
 def format_section_title(title):
-    return f"\n=== {title.upper()} ===\n"
+    return f"\n{CYAN}=== {title.upper()} ==={RESET}\n"
 
 
 def main():
@@ -56,16 +63,16 @@ def main():
     # -------------------------
     # 3. Report
     # -------------------------
-    print("\n🌱 GIARDINO — REPORT GIORNALIERO\n")
+    print(f"\n🌱 {MAGENTA}GIARDINO — REPORT GIORNALIERO{RESET}\n")
 
     if meteo:
-        print("Meteo:")
-        print(f"- Pioggia oggi: {meteo.get('rain_mm', 0)} mm")
-        print(f"- Pioggia ultime 48h: {meteo.get('rain_last_48h', 0)} mm")
-        print(f"- Temp max: {meteo.get('temp_max', 0)}°C")
-        print(f"- Vento max: {meteo.get('wind_max', 0)} km/h\n")
+        print(f"{CYAN}Meteo:{RESET}")
+        print(f"- 🌧️ Pioggia oggi: {meteo.get('rain_mm', 0)} mm")
+        print(f"- 🌧️ Pioggia ultime 48h: {meteo.get('rain_last_48h', 0)} mm")
+        print(f"- 🌡️ Temp max: {meteo.get('temp_max', 0)}°C")
+        print(f"- 💨 Vento max: {meteo.get('wind_max', 0)} km/h\n")
     else:
-        print("⚠️ Meteo non disponibile\n")
+        print(f"{YELLOW}⚠️ Meteo non disponibile{RESET}\n")
 
     # -------------------------
     # 4. Piante per zona
@@ -76,36 +83,32 @@ def main():
         for p in plist:
             result = evaluate_plant(p, meteo)
 
-            print(f"- {p.nome} ({p.specie})")
+            print(f"{GREEN}- {p.nome} ({p.specie}){RESET}")
 
-            # Irrigazione
             if result["irrigazione"]:
-                print(f"  • Irrigazione: {result['irrigazione']}")
+                print(f"  • 💧 Irrigazione: {result['irrigazione']}")
 
-            # Concimazione
             if result["concimazione"]:
-                print(f"  • Concimazione: {result['concimazione']}")
+                print(f"  • 🌱 Concimazione: {result['concimazione']}")
 
-            # Potatura
             if result["potatura"]:
-                print(f"  • Potatura: {result['potatura']}")
+                print(f"  • ✂️ Potatura: {result['potatura']}")
 
-            # Extra alert
             if result["extra_alert"]:
                 for a in result["extra_alert"]:
-                    print(f"  • ⚠️ {a}")
+                    print(f"  • {YELLOW}⚠️ {a}{RESET}")
 
-            print("")  # Riga vuota tra piante
+            print("")
 
     # -------------------------
     # 5. Progetti
     # -------------------------
     projects = load_projects("progetti")
 
-    print("\n📌 PROGETTI\n")
+    print(f"\n📌 {CYAN}PROGETTI{RESET}\n")
 
     for p in projects:
-        print(f"=== {p['zona'].upper()} — {p['nome']} ===")
+        print(f"{CYAN}=== {p['zona'].upper()} — {p['nome']} ==={RESET}")
 
         # Stato e avanzamento
         stato = p.get("stato", "n/d")
@@ -124,11 +127,13 @@ def main():
             stato_task = evaluate_project_task(task, p["condizioni"], meteo)
 
             if stato_task == "ok":
-                print(f"  • {task['nome']} → ✔ consigliato oggi")
+                icon = f"{GREEN}✔ consigliato oggi{RESET}"
             elif stato_task == "no":
-                print(f"  • {task['nome']} → ✖ sconsigliato oggi")
+                icon = f"{RED}✖ sconsigliato oggi{RESET}"
             else:
-                print(f"  • {task['nome']} → ⚪ valutare")
+                icon = f"{YELLOW}⚪ valutare{RESET}"
+
+            print(f"  • {task['nome']} → {icon}")
 
         print("")
 
