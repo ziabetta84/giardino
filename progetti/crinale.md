@@ -37,6 +37,10 @@ Il muretto è presente e delimitante. Le fessure ospitano infestanti da rimuover
 - Valutare *Aubrieta* per la fioritura primaverile decorativa
 
 
+### AGGIORNAMENTO DEL 15/04/26
+Ho inserito 6 piante di sedum acre nel muretto , attendo di valutare la resa e l'effetto estetico per decidere se aggiungere altre piante.
+
+
 ## Progetto Edera
 Il crinale è ricoperto da piante di edera messe a dimora circa 10 anni fa, sul punto alto. Attualmente il crinale presenta ancora alcune zone spoglie e le piante di edera, da qualche tempo, stanno arrampicandosi lungo la rete verso l'alto, non più scendendo verso il basso.
 
