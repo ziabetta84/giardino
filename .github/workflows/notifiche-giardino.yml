@@ -2,8 +2,8 @@ name: Giardino Daily Report
 
 on:
   schedule:
-    - cron: "0 7 * * *"   # ogni giorno alle 07:00 ora italiana
-  workflow_dispatch:       # permette l'esecuzione manuale
+    - cron: "0 7 * * *"
+  workflow_dispatch:
 
 jobs:
   giardino:
@@ -18,10 +18,15 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Add scripts to PYTHONPATH
+        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/scripts" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: |
           pip install python-frontmatter requests
 
+      - name: Verify frontmatter installation
+        run: python -c "import frontmatter; print('frontmatter OK')"
+
       - name: Run daily garden report
-        run: |
-          python scripts/giardino_today.py
+        run: python scripts/giardino_today.py
