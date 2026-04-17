@@ -1,34 +1,32 @@
-# camelia (*Camellia japonica*)
+---
+nome: camelia
+specie: Camellia japonica (generico)
+famiglia: Theaceae
+zona: vialetto
+sottozona: fioriere
 
-## Informazioni generali
-La camelia (*Camellia japonica*) è un arbusto sempreverde appartenente alla famiglia delle Theaceae, originaria dell'Asia orientale (Cina, Giappone, Corea). È una delle piante ornamentali da giardino più apprezzate per la spettacolare fioritura invernale-primaverile. Può raggiungere i 2–6 metri in piena terra, ma si adatta bene alla coltivazione in vaso mantenendo dimensioni più contenute. Le foglie sono coriacee, lucide, di colore verde scuro intenso, con margine leggermente seghettato. Produce boccioli numerosi che si aprono in fiori grandi e vistosi.
+attivita:
+  irrigazione:
+    primavera: ogni 7-10 giorni
+    estate: ogni 5-7 giorni
+    autunno: ogni 10-14 giorni
+    inverno: minima
+  concimazione:
+    primavera: concime acidofile
+    estate: una volta al mese
+    autunno: sospesa
+    inverno: sospesa
+  potatura:
+    primavera: dopo la fioritura
+    estate: nessuna
+    autunno: nessuna
+    inverno: nessuna
 
-## Esposizione
-- **Luce**: 4–6 ore di sole giornaliero; preferisce luce filtrata o mezz'ombra, protetta dal sole diretto nelle ore centrali estive
-- **Temperatura**: da -8 a +30°C; teme i venti freddi e le gelate tardive sui boccioli
-- **Umidità**: elevata; soffre l'aria secca, soprattutto in vaso su terrazzi esposti al vento
+alert:
+  - richiede substrato acido (pH 5-6)
+  - teme calcare e acqua dura
+  - evitare sole forte nelle ore centrali
+  - fioritura invernale/primaverile
 
-## Coltivazione
-- **Terreno**: acido, ben drenato, ricco di sostanza organica (pH 5.0–6.0); utilizzare substrato specifico per acidofile
-- **Annaffiature**: regolari e costanti in primavera-estate, ridotte in autunno-inverno; usare preferibilmente acqua piovana o decalcificata per evitare la clorosi
-- **Concimazione**: concime specifico per acidofile da marzo a settembre, ogni 3–4 settimane; evitare concimi ad alto contenuto di calcio
-
-## Potatura e manutenzione
-La potatura va eseguita subito dopo la fioritura (aprile–maggio), prima della formazione dei nuovi boccioli. Si limitano i tagli all'eliminazione dei rami secchi, incrociati o troppo vigorosi per mantenere una forma ordinata. In vaso è importante rinvasare ogni 2–3 anni in primavera usando substrato fresco per acidofile. Controllare che il vaso abbia sempre buona drenaggio ed evitare il ristagno idrico che causa marciume radicale.
-
-## Parassiti e malattie
-- **Cocciniglie**: frequenti su rami e foglie; trattare con olio bianco paraffinico in inverno
-- **Afidi**: attaccano i germogli primaverili; intervenire con sapone di potassio o piretro naturale
-- **Oidio**: in estate con scarsa circolazione d'aria; prevenire con fungicidi a base di zolfo
-- **Clorosi ferrica**: foglie ingiallite con nervature verdi, causata da pH del terreno troppo alto o acqua calcarea; correggere con chelato di ferro e substrato acido
-- **Caduta dei boccioli**: causata da sbalzi termici, vento, siccità o eccesso d'acqua; mantenere condizioni stabili durante la fase di formazione
-
-## Fioritura
-- **Periodo**: novembre–aprile, con picco tra gennaio e marzo
-- **Colori fiori**: variabile per cultivar; i boccioli visibili nella foto suggeriscono fiori rossi o rosato-rossi
-- **Forma**: fiori grandi (5–12 cm), con petali disposti a rosetta singola, semidoppia o doppia secondo la cultivar; stami giallo-dorati centrali ben visibili nei fiori singoli
-
-## Note sulla foto
-- **Data foto**: marzo 2026
-- **Stato di salute**: buono; pianta vigorosa con fogliame denso e verde scuro lucido
-- **Osservazioni**: la pianta è coltivata in vaso rotondo bianco di medie dimensioni, posizionata in una fioriera su terrazzo/vialetto. Erano presenti numerosi boccioli fermi dall'autunno precedente che non si sono aperti; questi sono stati rimossi ad aprile 2026 quando la pianta ha iniziato a emettere nuovi germogli. È stato aggiunto un sottovaso per migliorare la gestione dell'irrigazione e facilitare la manutenzione. Il fogliame è sano, senza segni visibili di clorosi, macchie o attacchi parassitari. La pianta gode di buona esposizione solare nelle ore mattutine e sta mostrando segni di ripresa vegetativa.
+ultimo_controllo: 2026-04-17
+---
