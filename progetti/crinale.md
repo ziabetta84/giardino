@@ -28,17 +28,16 @@ L'obiettivo è limitare le infestanti che crescono tra le fessure, sostituendole
 
 ### Stato attuale
 
-Il muretto è presente e delimitante. Le fessure ospitano infestanti da rimuovere. Il rosmarino adiacente è già insediato stabilmente.
+Il muretto è presente e delimitante. Il rosmarino adiacente è già insediato stabilmente.
+Le piante infestanti sono state rimosse (aggiornamento del 15/04/2026)
+Ho inserito 6 piante di *sedum acre* nel muretto, fai riferimento a `zone/crinale/piante/sedum-acre/sedum-acre.md` (aggiornamento del 15/04/2026).
 
 ### Prossimi passi
 
-- Rimozione manuale delle infestanti dalle fessure del muretto
-- Inserimento di *Thymus serpyllum*, *Sedum acre* e/o *Sempervivum* come primo intervento (già disponibile il timo nella proprietà)
+- Monitorare le infestanti
+- Monitorare l'andamento delle piante di *Sedum acre* piantate
+- Valutare l'inserimento di altre *Sedum acre* o di *Thymus serpyllum* e/o *Sempervivum* come prossimo intervento (già disponibile il timo nella proprietà)
 - Valutare *Aubrieta* per la fioritura primaverile decorativa
-
-
-### AGGIORNAMENTO DEL 15/04/26
-Ho inserito 6 piante di sedum acre nel muretto , attendo di valutare la resa e l'effetto estetico per decidere se aggiungere altre piante.
 
 
 ## Progetto Edera
