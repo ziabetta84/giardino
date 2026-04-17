@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install frontmatter requests
+          pip install python-frontmatter requests
 
       - name: Run daily garden report
         run: |
