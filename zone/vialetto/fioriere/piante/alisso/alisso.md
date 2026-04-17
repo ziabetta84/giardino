@@ -46,4 +46,8 @@ La buona aerazione delle tue fioriere riduce molti rischi.
 - **Valutazione attuale**: piante vigorose, in piena fioritura e perfettamente adattate alla posizione  
 - **Segnali da monitorare**: ingiallimenti diffusi (troppa acqua), fioritura ridotta nei periodi molto caldi, secchezza interna dei cuscini  
 - **Per migliorarle**:  
-  - mantenere irrig
+  - mantenere irrigazione moderata e costante tramite goccia;  
+  - spuntare leggermente dopo i primi cicli di fioritura;  
+  - aggiungere un po’ di sabbia se il terriccio tende a compattarsi;  
+  - evitare ristagni e controllare periodicamente il tubo di irrigazione;  
+  - garantire buona luce, soprattutto in primavera e autunno.
