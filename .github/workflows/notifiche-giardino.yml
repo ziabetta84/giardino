@@ -1,122 +1,27 @@
-name: Notifiche Giardino
+name: Giardino Daily Report
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *"
-  push:
-    paths:
-      - "zone/**"
-      - "progetti/**"
-      - "manutenzione/**"
-      - "notifiche-github/**"
-      - ".github/workflows/notifiche-giardino.yml"
-
-permissions:
-  contents: read
-  issues: write
+    - cron: "0 7 * * *"   # ogni giorno alle 07:00 ora italiana
+  workflow_dispatch:       # permette l'esecuzione manuale
 
 jobs:
-  notifica:
+  giardino:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.12"
+          python-version: "3.11"
 
-      - name: Genera report
+      - name: Install dependencies
         run: |
-          python notifiche-github/genera_notifica.py \
-            --repo-root . \
-            --config notifiche-github/config.giardino.json \
-            --output-title /tmp/notifica-title.txt \
-            --output-body /tmp/notifica-body.md
+          pip install frontmatter requests
 
-      - name: Crea o aggiorna issue notifica
-        uses: actions/github-script@v7
-        env:
-          TITLE_PATH: /tmp/notifica-title.txt
-          BODY_PATH: /tmp/notifica-body.md
-          ISSUE_LABEL: notifiche-giardino
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const title = fs.readFileSync(process.env.TITLE_PATH, 'utf8').trim();
-            const body = fs.readFileSync(process.env.BODY_PATH, 'utf8');
-            const label = process.env.ISSUE_LABEL;
-
-            async function ensureLabel() {
-              try {
-                await github.rest.issues.getLabel({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  name: label,
-                });
-              } catch (err) {
-                if (err.status === 404) {
-                  await github.rest.issues.createLabel({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    name: label,
-                    color: '1f883d',
-                    description: 'Notifiche automatiche giardino',
-                  });
-                } else {
-                  throw err;
-                }
-              }
-            }
-
-            await ensureLabel();
-
-            const existing = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: label,
-              per_page: 1,
-              sort: 'updated',
-              direction: 'desc',
-            });
-
-            let issue;
-            if (existing.data.length > 0) {
-              issue = existing.data[0];
-              await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number,
-                title,
-                body,
-              });
-            } else {
-              const created = await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title,
-                body,
-                labels: [label],
-                assignees: [context.repo.owner],
-              });
-              issue = created.data;
-            }
-
-            const pingBody = [
-              `@${context.repo.owner} nuovo aggiornamento automatico disponibile.`,
-              '',
-              `Titolo report: **${title}**`,
-              '',
-              'La issue contiene il dettaglio completo meteo, piante e progetti.',
-            ].join('\n');
-
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              body: pingBody,
-            });
+      - name: Run daily garden report
+        run: |
+          python scripts/giardino_today.py
