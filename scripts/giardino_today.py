@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
+import sys, os
+
+# Aggiunge /scripts e /scripts/utils al PYTHONPATH
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+sys.path.append(os.path.join(BASE_DIR, "utils"))
 
 import json
 from utils.loader import load_all_plants
 from utils.weather import get_weather_today, get_weather_last_48h
 from utils.smart_rules import evaluate_plant
+
 
 ROOT = "plants/zone"
 
