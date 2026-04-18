@@ -3,7 +3,10 @@ name: Giardino Daily Report
 on:
   schedule:
     - cron: "0 6 * * *"   # ogni giorno alle 06:00 UTC (08:00 italiane)
-  workflow_dispatch:       # esecuzione manuale
+  workflow_dispatch:
+
+permissions:
+  contents: write   # <--- PERMESSO NECESSARIO PER IL PUSH
 
 jobs:
   report:
