@@ -2,31 +2,34 @@ name: Giardino Daily Report
 
 on:
   schedule:
-    - cron: "0 7 * * *"
-  workflow_dispatch:
+    - cron: "0 6 * * *"   # ogni giorno alle 06:00 UTC (08:00 italiane)
+  workflow_dispatch:       # per eseguirlo manualmente
 
 jobs:
-  giardino:
+  report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v4
 
       - name: Setup Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Add scripts to PYTHONPATH
-        run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/scripts" >> $GITHUB_ENV
-
       - name: Install dependencies
         run: |
-          pip install python-frontmatter requests
+          pip install -r requirements.txt
 
-      - name: Verify frontmatter installation
-        run: python -c "import frontmatter; print('frontmatter OK')"
+      - name: Generate report
+        run: |
+          python3 scripts/giardino_today.py > report/report-today.md
 
-      - name: Run daily garden report
-        run: python scripts/giardino_today.py
+      - name: Commit report
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add report/report-today.md
+          git commit -m "Giardino Daily Report — $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git push
