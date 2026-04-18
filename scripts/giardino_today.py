@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, os, re
+import sys, os
 
 # Aggiunge /scripts e /scripts/utils al PYTHONPATH
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -15,20 +15,6 @@ from utils.project_rules import evaluate_project_task
 
 ROOT = "zone"
 
-# ANSI COLORS
-CYAN = "\033[1;36m"
-GREEN = "\033[1;32m"
-RED = "\033[1;31m"
-YELLOW = "\033[1;33m"
-MAGENTA = "\033[1;35m"
-RESET = "\033[0m"
-
-# Regex per rimuovere i codici ANSI
-ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
-
-def strip_ansi(text):
-    return ANSI_ESCAPE.sub('', text)
-
 
 def group_by_zone(plants):
     grouped = {}
@@ -39,16 +25,10 @@ def group_by_zone(plants):
 
 
 def format_section_title(title):
-    return f"\n{CYAN}=== {title.upper()} ==={RESET}\n"
+    return f"\n=== {title.upper()} ===\n"
 
 
-def main(no_color=False):
-    global CYAN, GREEN, RED, YELLOW, MAGENTA, RESET
-
-    # Se richiesto, disattiva i colori ANSI
-    if no_color:
-        CYAN = GREEN = RED = YELLOW = MAGENTA = RESET = ""
-
+def main():
     # -------------------------
     # 1. Carica piante
     # -------------------------
@@ -70,16 +50,16 @@ def main(no_color=False):
     # -------------------------
     # 3. Report
     # -------------------------
-    print(f"\n🌱 {MAGENTA}GIARDINO — REPORT GIORNALIERO{RESET}\n")
+    print("\n🌱 GIARDINO — REPORT GIORNALIERO\n")
 
     if meteo:
-        print(f"{CYAN}Meteo:{RESET}")
+        print("Meteo:")
         print(f"- 🌧️ Pioggia oggi: {meteo.get('rain_mm', 0)} mm")
         print(f"- 🌧️ Pioggia ultime 48h: {meteo.get('rain_last_48h', 0)} mm")
         print(f"- 🌡️ Temp max: {meteo.get('temp_max', 0)}°C")
         print(f"- 💨 Vento max: {meteo.get('wind_max', 0)} km/h\n")
     else:
-        print(f"{YELLOW}⚠️ Meteo non disponibile{RESET}\n")
+        print("⚠️ Meteo non disponibile\n")
 
     # -------------------------
     # 4. Piante per zona
@@ -90,7 +70,7 @@ def main(no_color=False):
         for p in plist:
             result = evaluate_plant(p, meteo)
 
-            print(f"{GREEN}- {p.nome} ({p.specie}){RESET}")
+            print(f"- {p.nome} ({p.specie})")
 
             if result["irrigazione"]:
                 print(f"  • 💧 Irrigazione: {result['irrigazione']}")
@@ -103,7 +83,7 @@ def main(no_color=False):
 
             if result["extra_alert"]:
                 for a in result["extra_alert"]:
-                    print(f"  • {YELLOW}⚠️ {a}{RESET}")
+                    print(f"  • ⚠️ {a}")
 
             print("")
 
@@ -112,10 +92,10 @@ def main(no_color=False):
     # -------------------------
     projects = load_projects("progetti")
 
-    print(f"\n📌 {CYAN}PROGETTI{RESET}\n")
+    print("\n📌 PROGETTI\n")
 
     for p in projects:
-        print(f"{CYAN}=== {p['zona'].upper()} — {p['nome']} ==={RESET}")
+        print(f"=== {p['zona'].upper()} — {p['nome']} ===")
 
         stato = p.get("stato", "n/d")
         avanz = p.get("avanzamento", 0)
@@ -131,11 +111,11 @@ def main(no_color=False):
             stato_task = evaluate_project_task(task, p["condizioni"], meteo)
 
             if stato_task == "ok":
-                icon = f"{GREEN}✔ consigliato oggi{RESET}"
+                icon = "✔ consigliato oggi"
             elif stato_task == "no":
-                icon = f"{RED}✖ sconsigliato oggi{RESET}"
+                icon = "✖ sconsigliato oggi"
             else:
-                icon = f"{YELLOW}⚪ valutare{RESET}"
+                icon = "⚪ valutare"
 
             print(f"  • {task['nome']} → {icon}")
 
@@ -143,5 +123,4 @@ def main(no_color=False):
 
 
 if __name__ == "__main__":
-    no_color = "--no-color" in sys.argv
-    main(no_color=no_color)
+    main()
