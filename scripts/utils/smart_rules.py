@@ -104,9 +104,12 @@ def evaluate_extra_alerts(plant, meteo):
     rain_48 = meteo.get("rain_last_48h", 0)
     temp_max = meteo.get("temp_max", 0)
 
-    # Ristagni
-    if rain_48 > 12 and "ristagni" in " ".join(plant.alert).lower():
-        alerts.append("attenzione ai ristagni (molta pioggia recente)")
+    # Normalizza gli alert in una singola stringa
+    alert_text = " ".join(str(a) for a in plant.alert).lower()
+
+    # Esempio di regola: rischio ristagni
+    if rain_48 > 12 and "ristagni" in alert_text:
+        alerts.append("Possibile rischio di ristagni idrici")
 
     # Stress da caldo
     if temp_max > 30:
