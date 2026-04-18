@@ -35,5 +35,5 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add report/report-today.md
-          git commit -m "Giardino Daily Report — $(date +'%Y-%m-%d')" || echo "Nessuna modifica da commitare"
+          git commit -m "Giardino Daily Report — $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nessuna modifica da commitare"
           git push
