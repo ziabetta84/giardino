@@ -3,14 +3,14 @@ name: Giardino Daily Report
 on:
   schedule:
     - cron: "0 6 * * *"   # ogni giorno alle 06:00 UTC (08:00 italiane)
-  workflow_dispatch:       # per eseguirlo manualmente
+  workflow_dispatch:       # esecuzione manuale
 
 jobs:
   report:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -20,16 +20,17 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install python-frontmatter requests
 
-      - name: Generate report
+      - name: Generate daily report
         run: |
+          mkdir -p report
           python3 scripts/giardino_today.py > report/report-today.md
 
-      - name: Commit report
+      - name: Commit daily report
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add report/report-today.md
-          git commit -m "Giardino Daily Report — $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git commit -m "Giardino Daily Report — $(date +'%Y-%m-%d')" || echo "Nessuna modifica da commitare"
           git push
