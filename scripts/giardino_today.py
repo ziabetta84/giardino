@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import sys, os
+import sys, os, re
 
 # Aggiunge /scripts e /scripts/utils al PYTHONPATH
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -23,17 +23,18 @@ YELLOW = "\033[1;33m"
 MAGENTA = "\033[1;35m"
 RESET = "\033[0m"
 
+# Regex per rimuovere i codici ANSI
+ANSI_ESCAPE = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+
+def strip_ansi(text):
+    return ANSI_ESCAPE.sub('', text)
+
 
 def group_by_zone(plants):
-    """Raggruppa le piante per zona/sottozona."""
     grouped = {}
-
     for p in plants:
         key = f"{p.zona}/{p.sottozona}" if p.sottozona else p.zona
-        if key not in grouped:
-            grouped[key] = []
-        grouped[key].append(p)
-
+        grouped.setdefault(key, []).append(p)
     return grouped
 
 
@@ -41,7 +42,13 @@ def format_section_title(title):
     return f"\n{CYAN}=== {title.upper()} ==={RESET}\n"
 
 
-def main():
+def main(no_color=False):
+    global CYAN, GREEN, RED, YELLOW, MAGENTA, RESET
+
+    # Se richiesto, disattiva i colori ANSI
+    if no_color:
+        CYAN = GREEN = RED = YELLOW = MAGENTA = RESET = ""
+
     # -------------------------
     # 1. Carica piante
     # -------------------------
@@ -110,19 +117,16 @@ def main():
     for p in projects:
         print(f"{CYAN}=== {p['zona'].upper()} — {p['nome']} ==={RESET}")
 
-        # Stato e avanzamento
         stato = p.get("stato", "n/d")
         avanz = p.get("avanzamento", 0)
         print(f"Stato: {stato} ({avanz}%)")
 
-        # Ultimo aggiornamento
         if p["aggiornamenti"]:
             last = sorted(p["aggiornamenti"], key=lambda x: x["data"])[-1]
             print(f"Ultimo aggiornamento: {last['data']} — {last['descrizione']}")
 
         print("")
 
-        # Task
         for task in p["task"]:
             stato_task = evaluate_project_task(task, p["condizioni"], meteo)
 
@@ -139,4 +143,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    no_color = "--no-color" in sys.argv
+    main(no_color=no_color)
