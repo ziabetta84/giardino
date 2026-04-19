@@ -52,7 +52,7 @@ jobs:
       - name: Post comment to issue
         uses: peter-evans/create-or-update-comment@v3
         with:
-          issue-number: 1   # <-- METTI QUI IL NUMERO DELLA ISSUE
+          issue-number: 3   # <-- METTI QUI IL NUMERO DELLA ISSUE
           body: |
             ## 🌱 Report giornaliero — ${{ github.run_id }}
 
