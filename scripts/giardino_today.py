@@ -48,7 +48,7 @@ def main():
         meteo.update(meteo_48h)
 
     # -------------------------
-    # 3. Report
+    # 3. Report completo
     # -------------------------
     print("\n🌱 GIARDINO — REPORT GIORNALIERO\n")
 
@@ -120,6 +120,62 @@ def main():
             print(f"  • {task['nome']} → {icon}")
 
         print("")
+
+    # -------------------------
+    # 6. Riassunto dettagliato per il workflow (ordinato per zona)
+    # -------------------------
+    irrig_by_zone = {}
+    conc_by_zone = {}
+    pot_by_zone = {}
+    alert_by_zone = {}
+
+    for zone, plist in grouped.items():
+        for p in plist:
+            r = evaluate_plant(p, meteo)
+
+            if r["irrigazione"]:
+                irrig_by_zone.setdefault(zone, []).append(f"{p.nome} ({p.specie})")
+
+            if r["concimazione"]:
+                conc_by_zone.setdefault(zone, []).append(f"{p.nome} ({p.specie})")
+
+            if r["potatura"]:
+                pot_by_zone.setdefault(zone, []).append(f"{p.nome} ({p.specie})")
+
+            if r["extra_alert"]:
+                for a in r["extra_alert"]:
+                    alert_by_zone.setdefault(zone, []).append(f"{p.nome} — {a}")
+
+    # Scrive summary.txt
+    with open("summary.txt", "w") as f:
+
+        f.write("Piante da irrigare:\n")
+        for zone in sorted(irrig_by_zone.keys()):
+            f.write(f"  {zone}:\n")
+            for x in irrig_by_zone[zone]:
+                f.write(f"    - {x}\n")
+        f.write("\n")
+
+        f.write("Piante da concimare:\n")
+        for zone in sorted(conc_by_zone.keys()):
+            f.write(f"  {zone}:\n")
+            for x in conc_by_zone[zone]:
+                f.write(f"    - {x}\n")
+        f.write("\n")
+
+        f.write("Piante da potare:\n")
+        for zone in sorted(pot_by_zone.keys()):
+            f.write(f"  {zone}:\n")
+            for x in pot_by_zone[zone]:
+                f.write(f"    - {x}\n")
+        f.write("\n")
+
+        f.write("Alert:\n")
+        for zone in sorted(alert_by_zone.keys()):
+            f.write(f"  {zone}:\n")
+            for x in alert_by_zone[zone]:
+                f.write(f"    - {x}\n")
+        f.write("\n")
 
 
 if __name__ == "__main__":
