@@ -6,7 +6,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # <--- PERMESSO NECESSARIO PER IL PUSH
+  contents: read
+  issues: write
 
 jobs:
   report:
@@ -26,14 +27,19 @@ jobs:
           pip install python-frontmatter requests
 
       - name: Generate daily report
+        id: report
         run: |
-          mkdir -p report
-          python3 scripts/giardino_today.py > report/report-today.md
+          python3 scripts/giardino_today.py > report.txt
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          cat report.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
-      - name: Commit daily report
-        run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add report/report-today.md
-          git commit -m "Giardino Daily Report — $(date +'%Y-%m-%d %H:%M:%S')" || echo "Nessuna modifica da commitare"
-          git push
+      - name: Post comment to issue
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: 1   # <-- METTI QUI IL NUMERO DELLA ISSUE
+          body: |
+            ## 🌱 Report giornaliero — ${{ github.run_id }}
+            ```
+            ${{ steps.report.outputs.report }}
+            ```
