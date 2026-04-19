@@ -2,7 +2,7 @@ name: Giardino Daily Report
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # ogni giorno alle 06:00 UTC (08:00 italiane)
+    - cron: "0 4 * * *"   # ogni giorno alle 04:00 UTC (06:00 italiane)
   workflow_dispatch:
 
 permissions:
@@ -29,10 +29,25 @@ jobs:
       - name: Generate daily report
         id: report
         run: |
+          # Genera il report completo
           python3 scripts/giardino_today.py > report.txt
-          echo "report<<EOF" >> $GITHUB_OUTPUT
-          cat report.txt >> $GITHUB_OUTPUT
+
+          # Mini-riassunto dettagliato (ordinato per zona)
+          echo "summary<<EOF" >> $GITHUB_OUTPUT
+          cat summary.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+
+          # Estratto del report (prime 120 righe)
+          head -n 120 report.txt > report_comment.txt
+          echo "report<<EOF" >> $GITHUB_OUTPUT
+          cat report_comment.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Upload full report as artifact (opzionale)
+        uses: actions/upload-artifact@v4
+        with:
+          name: report-completo
+          path: report.txt
 
       - name: Post comment to issue
         uses: peter-evans/create-or-update-comment@v3
@@ -40,6 +55,18 @@ jobs:
           issue-number: 1   # <-- METTI QUI IL NUMERO DELLA ISSUE
           body: |
             ## 🌱 Report giornaliero — ${{ github.run_id }}
+
+            ### 📌 Mini‑riassunto dettagliato (ordinato per zona)
+            ```
+            ${{ steps.report.outputs.summary }}
+            ```
+
+            👉 **Report completo:**  
+            È stato caricato come *artifact* di questo workflow (in alto nella pagina Actions).
+
+            ---
+
+            ### 📄 Estratto (prime 120 righe)
             ```
             ${{ steps.report.outputs.report }}
             ```
