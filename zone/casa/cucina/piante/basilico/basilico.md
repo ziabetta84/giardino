@@ -3,7 +3,6 @@ nome: basilico
 specie: Ocimum basilicum
 zona: casa
 sottozona: cucina
-
 attivita:
   irrigazione:
     primavera: ogni 2-3 giorni
@@ -16,16 +15,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: cimatura apicale per evitare filatura
-    estate: raccolta regolare delle foglie
-    autunno: rimozione foglie gialle
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - rischio filatura se luce insufficiente
-  - evitare ristagni idrici nel sottovaso
-  - controllare secchezza del substrato nei giorni caldi
-  - pianta annuale: tende a indebolirsi a fine stagione
-
+- rischio filatura se luce insufficiente
+- evitare ristagni idrici nel sottovaso
+- controllare secchezza del substrato nei giorni caldi
+- pianta annuale: tende a indebolirsi a fine stagione
 ultimo_controllo: 2026-04-17
 ---
+

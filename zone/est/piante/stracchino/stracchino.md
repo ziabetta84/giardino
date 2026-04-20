@@ -4,7 +4,6 @@ specie: Iberis sempervirens
 famiglia: Brassicaceae
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove
@@ -17,17 +16,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: taglio leggero dopo la fioritura per mantenere il cuscino compatto
-    estate: rimozione foglie secche
-    autunno: eventuale contenimento
+    primavera: taglio leggero
+    estate: nessuna
+    autunno: taglio post-fioritura
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante (rischio marciumi se troppo bagnato)
-  - crescita lenta ma molto densa
-  - teme ristagni idrici più del caldo
-  - fioritura scarsa - poca luce o terreno impoverito
-  - perfetta per muretti, bordure e aiuole rocciose
-
+- richiede terreno drenante (rischio marciumi se troppo bagnato)
+- crescita lenta ma molto densa
+- teme ristagni idrici più del caldo
+- fioritura scarsa - poca luce o terreno impoverito
+- perfetta per muretti, bordure e aiuole rocciose
 ultimo_controllo: 2026-04-17
 ---
+

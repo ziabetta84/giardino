@@ -3,7 +3,6 @@ nome: saxifraga
 specie: Saxifraga × arendsii (ibridi da giardino)
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni se il terreno asciuga
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori secchi
-    estate: taglio leggero per mantenere il cuscino compatto
-    autunno: pulizia foglie danneggiate
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede terreno fresco ma drenante
-  - evitare ristagni idrici (rischio marciumi alla base)
-  - teme il sole forte nelle ore centrali
-  - foglie che seccano ai bordi → terreno troppo asciutto
-  - fioritura scarsa → poca luce o terreno impoverito
-
+- richiede terreno fresco ma drenante
+- evitare ristagni idrici (rischio marciumi alla base)
+- teme il sole forte nelle ore centrali
+- foglie che seccano ai bordi → terreno troppo asciutto
+- fioritura scarsa → poca luce o terreno impoverito
 ultimo_controllo: 2026-04-17
 ---
+

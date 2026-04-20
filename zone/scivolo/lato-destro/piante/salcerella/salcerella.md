@@ -4,7 +4,6 @@ specie: Lythrum salicaria
 famiglia: Lythraceae
 zona: scrivolo
 sottozona: lato-destro
-
 attivita:
   irrigazione:
     primavera: mantenere il terreno costantemente umido
@@ -17,17 +16,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione dei fusti secchi alla base
-    estate: eliminare le spighe sfiorite per prolungare la fioritura
-    autunno: taglio dei fusti ingialliti
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - pianta palustre → preferisce terreno umido o molto umido
-  - crescita vigorosa: può espandersi rapidamente
-  - teme la siccità prolungata
-  - fioritura scarsa → poca luce o terreno troppo asciutto
-  - attira molti insetti utili (api, farfalle)
-
+- pianta palustre → preferisce terreno umido o molto umido
+- crescita vigorosa: può espandersi rapidamente
+- teme la siccità prolungata
+- fioritura scarsa → poca luce o terreno troppo asciutto
+- attira molti insetti utili (api, farfalle)
 ultimo_controllo: 2026-04-17
 ---
+

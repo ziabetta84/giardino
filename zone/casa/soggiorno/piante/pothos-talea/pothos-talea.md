@@ -3,7 +3,6 @@ nome: pothos-talea
 specie: Epipremnum aureum (talee in acqua)
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: cambiare l’acqua ogni 5-7 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimuovere foglie ingiallite
-    estate: accorciare eventuali steli troppo lunghi
+    primavera: taglio leggero
+    estate: taglio leggero
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - acqua torbida → cambiare subito
-  - radici marroni → troppa luce o acqua stagnante
-  - evitare luce diretta (rischio alghe)
-  - se le foglie ingialliscono → acqua da cambiare più spesso
-  - talee pronte per il trapianto quando le radici superano i 5-7 cm
-
+- acqua torbida → cambiare subito
+- radici marroni → troppa luce o acqua stagnante
+- evitare luce diretta (rischio alghe)
+- se le foglie ingialliscono → acqua da cambiare più spesso
+- talee pronte per il trapianto quando le radici superano i 5-7 cm
 ultimo_controllo: 2026-04-17
 ---
+

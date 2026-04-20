@@ -3,7 +3,6 @@ nome: orchidea
 specie: Phalaenopsis
 zona: casa
 sottozona: bagni
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -16,16 +15,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: taglio dello stelo sfiorito sopra il secondo nodo
+    primavera: taglio leggero
     estate: nessuna
-    autunno: rimozione parti secche
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare ristagni idrici nel vaso
-  - controllare radici aeree per disidratazione
-  - evitare luce diretta nelle ore centrali
-  - attenzione a muffe se l’umidità del bagno è alta
-
+- evitare ristagni idrici nel vaso
+- controllare radici aeree per disidratazione
+- evitare luce diretta nelle ore centrali
+- attenzione a muffe se l’umidità del bagno è alta
 ultimo_controllo: 2026-04-17
 ---
+

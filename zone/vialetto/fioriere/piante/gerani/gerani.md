@@ -4,7 +4,6 @@ specie: Pelargonium zonale / Pelargonium peltatum
 famiglia: Geraniaceae
 zona: vialetto
 sottozona: fioriere
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: potatura di forma
-    estate: eliminare fiori secchi
-    autunno: contenimento
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio post-fioritura
     inverno: nessuna
-
 alert:
-  - ama sole pieno
-  - teme ristagni idrici
-  - fioritura molto lunga
-  - ottimi in fioriere e balconiere
-
+- ama sole pieno
+- teme ristagni idrici
+- fioritura molto lunga
+- ottimi in fioriere e balconiere
 ultimo_controllo: 2026-04-17
 ---
+

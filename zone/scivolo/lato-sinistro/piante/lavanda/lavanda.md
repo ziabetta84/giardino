@@ -4,7 +4,6 @@ specie: Lavandula angustifolia
 famiglia: Lamiaceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: potatura di forma
-    estate: rimozione spighe secche
-    autunno: contenimento leggero
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio post-fioritura
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante
-  - ama sole pieno
-  - teme ristagni
-  - molto rustica
-
+- richiede terreno drenante
+- ama sole pieno
+- teme ristagni
+- molto rustica
 ultimo_controllo: 2026-04-17
 ---
+

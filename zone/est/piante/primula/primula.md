@@ -3,7 +3,6 @@ nome: primula
 specie: Primula spp. (ibridi da giardino)
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 4-6 giorni se non piove
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori secchi per prolungare la fioritura
-    estate: rimozione foglie danneggiate
-    autunno: pulizia generale
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede terreno fresco ma ben drenante
-  - evitare ristagni idrici (rischio marciumi al colletto)
-  - foglie molli → troppa acqua
-  - foglie bruciate → troppo sole nelle ore calde
-  - fioritura scarsa → poca luce o terreno impoverito
-
+- richiede terreno fresco ma ben drenante
+- evitare ristagni idrici (rischio marciumi al colletto)
+- foglie molli → troppa acqua
+- foglie bruciate → troppo sole nelle ore calde
+- fioritura scarsa → poca luce o terreno impoverito
 ultimo_controllo: 2026-04-17
 ---
+

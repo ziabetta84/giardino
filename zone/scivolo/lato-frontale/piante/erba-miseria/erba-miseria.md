@@ -4,7 +4,6 @@ specie: Tradescantia zebrina (o simile variegata)
 famiglia: Commelinaceae
 zona: scrivolo
 sottozona: lato-frontale
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: cimatura per compattezza
-    estate: taglio tralci lunghi
-    autunno: pulizia foglie secche
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - teme freddo intenso (sotto 0°C va protetta)
-  - luce luminosa ma non sole forte
-  - evitare ristagni idrici
-  - crescita rapida
-
+- teme freddo intenso (sotto 0°C va protetta)
+- luce luminosa ma non sole forte
+- evitare ristagni idrici
+- crescita rapida
 ultimo_controllo: 2026-04-17
 ---
+

@@ -4,7 +4,6 @@ specie: Carpobrotus edulis (fico di mare)
 famiglia: Aizoaceae
 zona: vialetto
 sottozona: fioriere
-
 attivita:
   irrigazione:
     primavera: nessuna salvo siccità estrema
@@ -17,16 +16,15 @@ attivita:
     autunno: nessuna
     inverno: nessuna
   potatura:
-    primavera: contenimento dei rami
-    estate: rimozione parti secche
+    primavera: taglio post-fioritura
+    estate: nessuna
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - pianta xerofila → teme irrigazioni frequenti
-  - ama sole pieno
-  - crescita molto rapida
-  - perfetta per bordi e scarpate
-
+- pianta xerofila → teme irrigazioni frequenti
+- ama sole pieno
+- crescita molto rapida
+- perfetta per bordi e scarpate
 ultimo_controllo: 2026-04-17
 ---
+

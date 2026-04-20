@@ -4,7 +4,6 @@ specie: Heuchera spp.
 famiglia: Saxifragaceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione foglie secche
+    primavera: nessuna
     estate: nessuna
-    autunno: pulizia generale
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - preferisce mezz’ombra luminosa
-  - teme caldo eccessivo
-  - foglie decorative tutto l’anno
-  - evitare ristagni
-
+- preferisce mezz’ombra luminosa
+- teme caldo eccessivo
+- foglie decorative tutto l’anno
+- evitare ristagni
 ultimo_controllo: 2026-04-17
 ---
+

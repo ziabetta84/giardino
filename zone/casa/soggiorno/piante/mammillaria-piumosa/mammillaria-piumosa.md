@@ -3,7 +3,6 @@ nome: mammillaria-piumosa
 specie: Mammillaria plumosa (o specie simile molto lanosa)
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 14-20 giorni
@@ -18,15 +17,14 @@ attivita:
   potatura:
     primavera: nessuna
     estate: nessuna
-    autunno: rimozione residui secchi
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - evitare assolutamente ristagni idrici (specie molto sensibile)
-  - richiede luce intensa ma non sole diretto forte
-  - la lanugine trattiene umidità → attenzione a non bagnare dall’alto
-  - se la lanugine ingiallisce → troppa acqua o poca luce
-  - crescita lenta: normale per la specie
-
+- evitare assolutamente ristagni idrici (specie molto sensibile)
+- richiede luce intensa ma non sole diretto forte
+- la lanugine trattiene umidità → attenzione a non bagnare dall’alto
+- se la lanugine ingiallisce → troppa acqua o poca luce
+- crescita lenta: normale per la specie
 ultimo_controllo: 2026-04-17
 ---
+

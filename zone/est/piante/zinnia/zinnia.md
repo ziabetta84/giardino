@@ -4,7 +4,6 @@ specie: Zinnia elegans
 famiglia: Asteraceae
 zona: est
 sottozona: aiuola
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni se non piove
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: nessuna, solo pulizia
-    estate: rimozione fiori secchi per prolungare la fioritura
-    autunno: rimozione piante a fine ciclo
+    primavera: nessuna
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - ama sole pieno
-  - teme ristagni idrici
-  - fioritura molto abbondante se ben concimata
-  - sensibile all’oidio in condizioni di umidità elevata
-
+- ama sole pieno
+- teme ristagni idrici
+- fioritura molto abbondante se ben concimata
+- sensibile all’oidio in condizioni di umidità elevata
 ultimo_controllo: 2026-04-17
 ---
+

@@ -4,7 +4,6 @@ specie: Pennisetum alopecuroides 'Hameln'
 famiglia: Poaceae
 zona: scrivolo
 sottozona: lato-destro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove
@@ -17,17 +16,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: taglio drastico a 10-15 cm da terra prima della ripresa vegetativa
+    primavera: taglio post-fioritura
     estate: nessuna
-    autunno: lasciare le spighe per effetto ornamentale
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - cultivar compatta (60–80 cm) → ideale per bordure e aiuole strette
-  - richiede terreno drenante (evitare ristagni)
-  - taglio annuale indispensabile a fine inverno
-  - in ombra fitta produce poche spighe
-  - molto resistente una volta stabilito
-
+- cultivar compatta (60–80 cm) → ideale per bordure e aiuole strette
+- richiede terreno drenante (evitare ristagni)
+- taglio annuale indispensabile a fine inverno
+- in ombra fitta produce poche spighe
+- molto resistente una volta stabilito
 ultimo_controllo: 2026-04-17
 ---
+

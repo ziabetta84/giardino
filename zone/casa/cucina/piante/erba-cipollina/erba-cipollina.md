@@ -3,7 +3,6 @@ nome: erba-cipollina
 specie: Allium schoenoprasum
 zona: casa
 sottozona: cucina
-
 attivita:
   irrigazione:
     primavera: ogni 3-4 giorni
@@ -16,16 +15,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: taglio regolare degli steli per stimolare nuovi getti
-    estate: raccolta continua; rimozione fiori se non si desidera la semina
-    autunno: taglio basso per preparare il riposo
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - evitare ristagni idrici nel sottovaso
-  - se gli steli ingialliscono → troppa acqua o vaso piccolo
-  - fioritura imminente: possibile calo di produzione fogliare
-  - pianta perenne: rigenera ogni anno
-
+- evitare ristagni idrici nel sottovaso
+- se gli steli ingialliscono → troppa acqua o vaso piccolo
+- fioritura imminente: possibile calo di produzione fogliare
+- pianta perenne: rigenera ogni anno
 ultimo_controllo: 2026-04-17
 ---
+

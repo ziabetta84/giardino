@@ -3,7 +3,6 @@ nome: tradescantia
 specie: Tradescantia zebrina (o simile variegata)
 zona: casa
 sottozona: cucina
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: cimatura per mantenere la pianta compatta
-    estate: taglio dei tralci troppo lunghi
-    autunno: rimozione foglie secche
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - luce intensa per mantenere la variegatura
-  - se i tralci si allungano troppo → luce insufficiente
-  - evitare ristagni idrici (rischio marciumi)
-  - foglie molli → troppa acqua
-  - foglie secche ai bordi → aria troppo secca o poca acqua
-
+- luce intensa per mantenere la variegatura
+- se i tralci si allungano troppo → luce insufficiente
+- evitare ristagni idrici (rischio marciumi)
+- foglie molli → troppa acqua
+- foglie secche ai bordi → aria troppo secca o poca acqua
 ultimo_controllo: 2026-04-17
 ---
+

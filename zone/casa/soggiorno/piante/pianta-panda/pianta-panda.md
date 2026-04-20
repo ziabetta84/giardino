@@ -3,7 +3,6 @@ nome: pianta-panda
 specie: Kalanchoe tomentosa
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione foglie secche
+    primavera: nessuna
     estate: nessuna
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare assolutamente ristagni idrici
-  - richiede molta luce per mantenere la forma compatta
-  - foglie molli → troppa acqua
-  - foglie raggrinzite → sete
-  - evitare di bagnare le foglie (sono vellutate e trattengono umidità)
-
+- evitare assolutamente ristagni idrici
+- richiede molta luce per mantenere la forma compatta
+- foglie molli → troppa acqua
+- foglie raggrinzite → sete
+- evitare di bagnare le foglie (sono vellutate e trattengono umidità)
 ultimo_controllo: 2026-04-17
 ---
+

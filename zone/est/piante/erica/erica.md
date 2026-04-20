@@ -3,7 +3,6 @@ nome: erica
 specie: Erica spp. (erica ornamentale)
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove
@@ -16,17 +15,16 @@ attivita:
     autunno: nessuna
     inverno: nessuna
   potatura:
-    primavera: potatura leggera dopo la fioritura (non sul legno vecchio)
+    primavera: taglio leggero
     estate: nessuna
-    autunno: rimozione fiori secchi
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante e leggermente acido
-  - evitare ristagni idrici (rischio marciumi)
-  - non potare sul legno vecchio (non ributta)
-  - se ingiallisce → acqua dura o terreno troppo calcareo
-  - fioritura molto lunga se ben esposta
-
+- richiede terreno drenante e leggermente acido
+- evitare ristagni idrici (rischio marciumi)
+- non potare sul legno vecchio (non ributta)
+- se ingiallisce → acqua dura o terreno troppo calcareo
+- fioritura molto lunga se ben esposta
 ultimo_controllo: 2026-04-17
 ---
+

@@ -3,7 +3,6 @@ nome: bellis-perennis
 specie: Bellis perennis
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni se non piove
@@ -16,17 +15,16 @@ attivita:
     autunno: nessuna
     inverno: nessuna
   potatura:
-    primavera: rimozione fiori secchi per prolungare la fioritura
-    estate: taglio leggero se si allunga troppo
-    autunno: rimozione foglie danneggiate
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - richiede buona luce per fiorire abbondantemente
-  - evitare ristagni idrici
-  - tende ad autoriseminarsi (può espandersi)
-  - foglie gialle → troppa acqua o poca luce
-  - fioritura molto lunga se i fiori secchi vengono rimossi
-
+- richiede buona luce per fiorire abbondantemente
+- evitare ristagni idrici
+- tende ad autoriseminarsi (può espandersi)
+- foglie gialle → troppa acqua o poca luce
+- fioritura molto lunga se i fiori secchi vengono rimossi
 ultimo_controllo: 2026-04-17
 ---
+

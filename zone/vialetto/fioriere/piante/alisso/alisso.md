@@ -4,7 +4,6 @@ specie: Lobularia maritima (Alyssum)
 famiglia: Brassicaceae
 zona: vialetto
 sottozona: fioriere
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: cimatura per infittire
-    estate: taglio leggero dopo la prima fioritura
-    autunno: pulizia
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - ama sole pieno o mezz’ombra luminosa
-  - fioritura lunghissima
-  - teme ristagni idrici
-  - ottima come tappezzante da bordo
-
+- ama sole pieno o mezz’ombra luminosa
+- fioritura lunghissima
+- teme ristagni idrici
+- ottima come tappezzante da bordo
 ultimo_controllo: 2026-04-17
 ---
+

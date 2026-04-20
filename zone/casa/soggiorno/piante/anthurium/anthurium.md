@@ -3,7 +3,6 @@ nome: anthurium
 specie: Anthurium andreanum
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 5-7 giorni, mantenendo il terreno leggermente umido
@@ -16,17 +15,16 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori appassiti e foglie danneggiate
+    primavera: taglio leggero
     estate: nessuna
-    autunno: pulizia generale
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare luce diretta (brucia foglie e fiori)
-  - mantenere alta umidità ambientale
-  - evitare ristagni idrici (rischio marciumi radicali)
-  - usare acqua non calcarea per evitare macchie sulle foglie
-  - se le foglie diventano opache → poca umidità o troppa luce
-
+- evitare luce diretta (brucia foglie e fiori)
+- mantenere alta umidità ambientale
+- evitare ristagni idrici (rischio marciumi radicali)
+- usare acqua non calcarea per evitare macchie sulle foglie
+- se le foglie diventano opache → poca umidità o troppa luce
 ultimo_controllo: 2026-04-17
 ---
+

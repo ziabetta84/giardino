@@ -1,9 +1,8 @@
 ---
 nome: mammillaria
-specie: Mammillaria 
+specie: Mammillaria
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 14-20 giorni
@@ -20,13 +19,12 @@ attivita:
     estate: nessuna
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede molta luce
-  - evitare assolutamente ristagni idrici
-  - base giallo‑bruna → normale lignificazione
-  - apice lanoso → carattere della specie
-  - se si allunga troppo → luce insufficiente
-
+- richiede molta luce
+- evitare assolutamente ristagni idrici
+- base giallo‑bruna → normale lignificazione
+- apice lanoso → carattere della specie
+- se si allunga troppo → luce insufficiente
 ultimo_controllo: 2026-04-17
 ---
+

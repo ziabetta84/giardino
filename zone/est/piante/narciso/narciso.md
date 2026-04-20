@@ -3,7 +3,6 @@ nome: narciso
 specie: Narcissus spp.
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove (solo durante la fioritura)
@@ -16,17 +15,17 @@ attivita:
     autunno: una volta con concime leggero (facoltativo)
     inverno: nessuna
   potatura:
-    primavera: rimozione dei fiori secchi
-    estate: lasciare ingiallire naturalmente le foglie (nutrono il bulbo)
+    primavera: taglio leggero
+    estate: taglio leggero
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante per evitare marciumi del bulbo
-  - non tagliare le foglie verdi dopo la fioritura (indispensabili per ricaricare il bulbo)
-  - evitare irrigazioni estive (riposo vegetativo)
-  - fioritura scarsa → bulbi troppo profondi o poca luce
-  - si naturalizza facilmente e aumenta nel tempo
-
+- richiede terreno drenante per evitare marciumi del bulbo
+- non tagliare le foglie verdi dopo la fioritura (indispensabili per ricaricare il
+  bulbo)
+- evitare irrigazioni estive (riposo vegetativo)
+- fioritura scarsa → bulbi troppo profondi o poca luce
+- si naturalizza facilmente e aumenta nel tempo
 ultimo_controllo: 2026-04-17
 ---
+
