@@ -40,8 +40,8 @@ def generate_report(plants, meteo):
     # Raggruppa per zona/sottozona
     grouped = {}
     for plant in plants:
-        zona = plant.get("zona", "sconosciuta")
-        sotto = plant.get("sottozona", "generale")
+        zona = plant.zona or "sconosciuta"
+        sotto = plant.sottozona or "generale"
         grouped.setdefault(zona, {}).setdefault(sotto, []).append(plant)
 
     for zona, sottozoni in grouped.items():
@@ -49,8 +49,8 @@ def generate_report(plants, meteo):
         for sotto, plist in sottozoni.items():
             lines.append(f"### 📍 Sottozona: **{sotto}**")
             for plant in plist:
-                name = plant.get("nome", "sconosciuta")
-                result = evaluate_plant(plant, meteo)
+                name = plant.nome
+                result = evaluate_plant(plant.to_dict(), meteo)
 
                 lines.append(f"#### 🌿 {name}")
                 lines.append(f"- Stagione: **{result['stagione']}**")
@@ -64,7 +64,6 @@ def generate_report(plants, meteo):
         lines.append("")
 
     return "\n".join(lines)
-
 
 # ---------------------------------------------------------
 #  MAIN
