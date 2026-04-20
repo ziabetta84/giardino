@@ -176,9 +176,7 @@ def main():
     # Report operativo (solo piante su cui intervenire)
     action_report = generate_action_report(plants, meteo)
     with open("summary.txt", "w", encoding="utf-8") as f:
-        f.write(action_report)
-
-
+        f.write(action_report + "\n")
 
     print("Report generato con successo.")
 
