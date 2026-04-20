@@ -98,6 +98,62 @@ def generate_summary(plants, meteo):
 
     return "\n".join(lines)
 
+def generate_action_report(plants, meteo):
+    irrig_by_zone = {}
+    conc_by_zone = {}
+    pota_by_zone = {}
+
+    for plant in plants:
+        result = evaluate_plant(plant.to_dict(), meteo)
+        zona = plant.zona or "sconosciuta"
+        nome = plant.nome
+
+        if result["irrigazione"]:
+            irrig_by_zone.setdefault(zona, []).append(nome)
+
+        if result["concimazione"]:
+            conc_by_zone.setdefault(zona, []).append(nome)
+
+        if result["potatura"]:
+            pota_by_zone.setdefault(zona, []).append(nome)
+
+    lines = []
+
+    # IRRIGAZIONE
+    lines.append("## 💧 Piante da irrigare")
+    if irrig_by_zone:
+        for zona in sorted(irrig_by_zone.keys()):
+            lines.append(f"### {zona}")
+            for p in sorted(irrig_by_zone[zona]):
+                lines.append(f"- {p}")
+    else:
+        lines.append("Nessuna")
+
+    lines.append("")
+
+    # CONCIMAZIONE
+    lines.append("## 🌿 Piante da concimare")
+    if conc_by_zone:
+        for zona in sorted(conc_by_zone.keys()):
+            lines.append(f"### {zona}")
+            for p in sorted(conc_by_zone[zona]):
+                lines.append(f"- {p}")
+    else:
+        lines.append("Nessuna")
+
+    lines.append("")
+
+    # POTATURA
+    lines.append("## ✂️ Piante da potare")
+    if pota_by_zone:
+        for zona in sorted(pota_by_zone.keys()):
+            lines.append(f"### {zona}")
+            for p in sorted(pota_by_zone[zona]):
+                lines.append(f"- {p}")
+    else:
+        lines.append("Nessuna")
+
+    return "\n".join(lines)
 
 # ---------------------------------------------------------
 #  MAIN
@@ -117,10 +173,11 @@ def main():
     with open("report.txt", "w", encoding="utf-8") as f:
         f.write(report)
 
-    # Mini‑riassunto vero (compatto e utile)
-    summary = generate_summary(plants, meteo)
+    # Report operativo (solo piante su cui intervenire)
+    action_report = generate_action_report(plants, meteo)
     with open("summary.txt", "w", encoding="utf-8") as f:
-        f.write(summary)
+        f.write(action_report)
+
 
 
     print("Report generato con successo.")
