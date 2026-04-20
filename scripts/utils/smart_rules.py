@@ -13,6 +13,9 @@ def parse_frequency(text):
     - "sospesa"
     in un numero di giorni (int) oppure None.
     """
+    if not text:
+        return None  # se manca la frequenza, non si fa l'attività
+
     text = text.lower().strip()
 
     if "sospesa" in text:
@@ -22,14 +25,12 @@ def parse_frequency(text):
         return 30
 
     if "settimane" in text:
-        # es: "ogni 2 settimane"
         parts = text.split()
         for p in parts:
             if p.isdigit():
                 return int(p) * 7
 
     if "giorni" in text:
-        # es: "ogni 7-10 giorni"
         nums = []
         for token in text.replace("ogni", "").replace("giorni", "").split():
             token = token.strip()
@@ -43,7 +44,6 @@ def parse_frequency(text):
             return min(nums)
 
     return None
-
 
 def get_stagione(today):
     """
