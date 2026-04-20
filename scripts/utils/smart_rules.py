@@ -61,13 +61,23 @@ def get_stagione(today):
 
 def giorni_da(data_str):
     """
-    Ritorna quanti giorni sono passati da data_str (YYYY-MM-DD).
+    Ritorna quanti giorni sono passati da data_str.
+    Accetta:
+    - None
+    - stringhe "YYYY-MM-DD"
+    - oggetti datetime.date
     """
     if not data_str:
-        return 999  # se manca la data, consideriamo "tanto tempo"
-    d = datetime.datetime.strptime(data_str, "%Y-%m-%d").date()
-    return (datetime.date.today() - d).days
+        return 999
 
+    # Se è già un oggetto datetime.date
+    if isinstance(data_str, datetime.date):
+        d = data_str
+    else:
+        # Se è una stringa
+        d = datetime.datetime.strptime(str(data_str), "%Y-%m-%d").date()
+
+    return (datetime.date.today() - d).days
 
 # ---------------------------------------------------------
 #  IRRIGAZIONE
