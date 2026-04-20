@@ -4,7 +4,6 @@ specie: Narcissus spp.
 famiglia: Amaryllidaceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: nessuna
     inverno: nessuna
   potatura:
-    primavera: rimozione fiori secchi
-    estate: lasciare ingiallire le foglie
+    primavera: taglio leggero
+    estate: taglio leggero
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante
-  - evitare irrigazioni estive
-  - si naturalizza facilmente
-  - fioritura primaverile
-
+- richiede terreno drenante
+- evitare irrigazioni estive
+- si naturalizza facilmente
+- fioritura primaverile
 ultimo_controllo: 2026-04-17
 ---
+

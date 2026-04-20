@@ -3,7 +3,6 @@ nome: sedum-makinoi
 specie: Sedum makinoi
 zona: casa
 sottozona: cucina
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione foglie secche
-    estate: accorciare rami troppo lunghi (opzionale)
+    primavera: nessuna
+    estate: taglio leggero
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare assolutamente ristagni idrici
-  - luce intensa per mantenere la compattezza
-  - se le foglie si allungano → luce insufficiente
-  - se le foglie si raggrinziscono → sete
-  - vaso piccolo = asciugatura molto rapida
-
+- evitare assolutamente ristagni idrici
+- luce intensa per mantenere la compattezza
+- se le foglie si allungano → luce insufficiente
+- se le foglie si raggrinziscono → sete
+- vaso piccolo = asciugatura molto rapida
 ultimo_controllo: 2026-04-17
 ---
+

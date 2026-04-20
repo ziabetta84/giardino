@@ -3,7 +3,6 @@ nome: echeveria
 specie: Echeveria (ibrido)
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione foglie secche alla base
+    primavera: nessuna
     estate: nessuna
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare assolutamente ristagni idrici
-  - richiede molta luce per mantenere la rosetta compatta
-  - se si allunga verso l’alto → luce insufficiente
-  - foglie molli → troppa acqua
-  - foglie raggrinzite → sete
-
+- evitare assolutamente ristagni idrici
+- richiede molta luce per mantenere la rosetta compatta
+- se si allunga verso l’alto → luce insufficiente
+- foglie molli → troppa acqua
+- foglie raggrinzite → sete
 ultimo_controllo: 2026-04-17
 ---
+

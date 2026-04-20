@@ -3,7 +3,6 @@ nome: prezzemolo
 specie: Petroselinum crispum
 zona: casa
 sottozona: cucina
-
 attivita:
   irrigazione:
     primavera: ogni 2-3 giorni
@@ -16,16 +15,15 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: raccolta regolare degli steli più esterni
-    estate: taglio frequente per stimolare nuovi getti
-    autunno: rimozione foglie gialle
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - evitare ristagni idrici nel sottovaso
-  - foglie gialle alla base → normale ricambio, ma controllare eccesso d’acqua
-  - se gli steli diventano sottili → luce insufficiente
-  - pianta biennale: tende a fiorire il secondo anno
-
+- evitare ristagni idrici nel sottovaso
+- foglie gialle alla base → normale ricambio, ma controllare eccesso d’acqua
+- se gli steli diventano sottili → luce insufficiente
+- pianta biennale: tende a fiorire il secondo anno
 ultimo_controllo: 2026-04-17
 ---
+

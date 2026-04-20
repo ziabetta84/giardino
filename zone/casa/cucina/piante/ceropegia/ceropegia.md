@@ -3,7 +3,6 @@ nome: ceropegia
 specie: Ceropegia woodii
 zona: casa
 sottozona: cucina
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: accorciare tralci troppo lunghi (opzionale)
+    primavera: taglio leggero
     estate: nessuna
-    autunno: rimozione foglie secche
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare assolutamente ristagni idrici
-  - luce intensa ma indiretta per mantenere la variegatura
-  - se le foglie diventano pallide → luce insufficiente
-  - se le foglie si raggrinziscono → sete
-  - se i tralci diventano troppo sottili → troppa ombra
-
+- evitare assolutamente ristagni idrici
+- luce intensa ma indiretta per mantenere la variegatura
+- se le foglie diventano pallide → luce insufficiente
+- se le foglie si raggrinziscono → sete
+- se i tralci diventano troppo sottili → troppa ombra
 ultimo_controllo: 2026-04-17
 ---
+

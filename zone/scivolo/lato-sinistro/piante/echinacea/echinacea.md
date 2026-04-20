@@ -4,7 +4,6 @@ specie: Echinacea purpurea
 famiglia: Asteraceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: taglio dei fusti secchi
-    estate: eliminare fiori sfioriti
-    autunno: taglio a 10 cm
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - ama sole pieno o mezz’ombra luminosa
-  - attira impollinatori
-  - molto rustica
-  - teme ristagni idrici
-
+- ama sole pieno o mezz’ombra luminosa
+- attira impollinatori
+- molto rustica
+- teme ristagni idrici
 ultimo_controllo: 2026-04-17
 ---
+

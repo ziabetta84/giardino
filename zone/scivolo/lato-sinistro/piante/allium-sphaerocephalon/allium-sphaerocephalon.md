@@ -4,7 +4,6 @@ specie: Allium sphaerocephalon
 famiglia: Amaryllidaceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -18,15 +17,14 @@ attivita:
     inverno: nessuna
   potatura:
     primavera: nessuna
-    estate: rimozione fiori secchi
-    autunno: lasciare ingiallire le foglie
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante
-  - evitare irrigazioni estive
-  - fioritura viola a “testa di tamburo” in giugno-luglio
-  - si naturalizza facilmente
-
+- richiede terreno drenante
+- evitare irrigazioni estive
+- fioritura viola a “testa di tamburo” in giugno-luglio
+- si naturalizza facilmente
 ultimo_controllo: 2026-04-17
 ---
+

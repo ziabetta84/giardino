@@ -4,7 +4,6 @@ specie: Lampranthus spp. / Delosperma spp.
 famiglia: Aizoaceae
 zona: scrivolo
 sottozona: lato-frontale
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione parti secche
-    estate: contenimento leggero
+    primavera: nessuna
+    estate: taglio post-fioritura
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede pieno sole o luce molto intensa
-  - teme ristagni idrici
-  - ottima resistenza alla siccità
-  - fioritura molto abbondante con luce forte
-
+- richiede pieno sole o luce molto intensa
+- teme ristagni idrici
+- ottima resistenza alla siccità
+- fioritura molto abbondante con luce forte
 ultimo_controllo: 2026-04-17
 ---
+

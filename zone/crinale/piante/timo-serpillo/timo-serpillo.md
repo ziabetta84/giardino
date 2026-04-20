@@ -3,7 +3,6 @@ nome: timo-serpillo
 specie: Thymus serpyllum
 zona: crinale
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: nessuna, salvo siccità estrema dopo il trapianto
@@ -16,17 +15,16 @@ attivita:
     autunno: nessuna
     inverno: nessuna
   potatura:
-    primavera: leggera potatura di forma dopo la fioritura
-    estate: raccolta dei rametti (stimola la crescita)
-    autunno: eventuale contenimento
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: taglio post-fioritura
     inverno: nessuna
-
 alert:
-  - richiede pieno sole per mantenere portamento compatto
-  - evitare irrigazioni: pianta xerofila
-  - crescita rapida e tappezzante: può espandersi molto
-  - perfetto per competere con infestanti su muretti e scarpate
-  - fioritura rosa-violacea molto attrattiva per insetti utili
-
+- richiede pieno sole per mantenere portamento compatto
+- evitare irrigazioni: pianta xerofila
+- crescita rapida e tappezzante: può espandersi molto
+- perfetto per competere con infestanti su muretti e scarpate
+- fioritura rosa-violacea molto attrattiva per insetti utili
 ultimo_controllo: 2026-04-17
 ---
+

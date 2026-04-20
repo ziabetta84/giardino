@@ -3,7 +3,6 @@ nome: calancola
 specie: Kalanchoe blossfeldiana
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori appassiti per stimolare nuove fioriture
-    estate: accorciare leggermente i rami se si allungano
+    primavera: taglio leggero
+    estate: taglio leggero
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - evitare ristagni idrici (rischio marciumi)
-  - richiede molta luce per mantenere la fioritura
-  - foglie molli → troppa acqua
-  - foglie opache o allungate → poca luce
-  - pianta succulenta: meglio poca acqua che troppa
-
+- evitare ristagni idrici (rischio marciumi)
+- richiede molta luce per mantenere la fioritura
+- foglie molli → troppa acqua
+- foglie opache o allungate → poca luce
+- pianta succulenta: meglio poca acqua che troppa
 ultimo_controllo: 2026-04-17
 ---
+

@@ -4,7 +4,6 @@ specie: Glechoma hederacea
 famiglia: Lamiaceae
 zona: scrivolo
 sottozona: lato-destro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove
@@ -17,17 +16,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: contenimento dei tralci troppo lunghi
-    estate: eventuale taglio per mantenere ordine
-    autunno: rimozione foglie danneggiate
+    primavera: taglio post-fioritura
+    estate: taglio leggero
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - crescita molto rapida: può espandersi oltre l’area desiderata
-  - preferisce mezz’ombra o sole del mattino
-  - evitare ristagni idrici
-  - foglie che scoloriscono → troppa luce diretta o poca acqua
-  - ottima per coprire suolo e limitare infestanti
-
+- crescita molto rapida: può espandersi oltre l’area desiderata
+- preferisce mezz’ombra o sole del mattino
+- evitare ristagni idrici
+- foglie che scoloriscono → troppa luce diretta o poca acqua
+- ottima per coprire suolo e limitare infestanti
 ultimo_controllo: 2026-04-17
 ---
+

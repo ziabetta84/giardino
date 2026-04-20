@@ -3,7 +3,6 @@ nome: ipoeste
 specie: Hypoestes phyllostachya
 zona: casa
 sottozona: soggiorno
-
 attivita:
   irrigazione:
     primavera: ogni 3-5 giorni, mantenendo il terreno leggermente umido
@@ -16,17 +15,16 @@ attivita:
     autunno: una volta al mese
     inverno: sospesa
   potatura:
-    primavera: cimatura regolare per evitare filatura
-    estate: accorciare i rami troppo lunghi
-    autunno: rimozione foglie secche
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede luce intensa per mantenere la variegatura
-  - se si allunga troppo → luce insufficiente
-  - foglie afflosciate → poca acqua
-  - bordi secchi → aria troppo secca
-  - evitare ristagni idrici
-
+- richiede luce intensa per mantenere la variegatura
+- se si allunga troppo → luce insufficiente
+- foglie afflosciate → poca acqua
+- bordi secchi → aria troppo secca
+- evitare ristagni idrici
 ultimo_controllo: 2026-04-17
 ---
+

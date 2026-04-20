@@ -4,7 +4,6 @@ specie: Clematis montana
 famiglia: Ranunculaceae
 zona: scrivolo
 sottozona: lato-frontale
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: potare leggermente dopo la fioritura
-    estate: contenimento dei tralci
+    primavera: taglio leggero
+    estate: taglio post-fioritura
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - piede ombreggiato, parte alta al sole
-  - evitare ristagni idrici
-  - crescita molto vigorosa
-  - fiorisce su rami dell’anno precedente
-
+- piede ombreggiato, parte alta al sole
+- evitare ristagni idrici
+- crescita molto vigorosa
+- fiorisce su rami dell’anno precedente
 ultimo_controllo: 2026-04-17
 ---
+

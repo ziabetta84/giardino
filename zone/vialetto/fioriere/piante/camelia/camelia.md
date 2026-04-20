@@ -4,7 +4,6 @@ specie: Camellia japonica (generico)
 famiglia: Theaceae
 zona: vialetto
 sottozona: fioriere
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: dopo la fioritura
+    primavera: taglio leggero
     estate: nessuna
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede substrato acido (pH 5-6)
-  - teme calcare e acqua dura
-  - evitare sole forte nelle ore centrali
-  - fioritura invernale/primaverile
-
+- richiede substrato acido (pH 5-6)
+- teme calcare e acqua dura
+- evitare sole forte nelle ore centrali
+- fioritura invernale/primaverile
 ultimo_controllo: 2026-04-17
 ---
+

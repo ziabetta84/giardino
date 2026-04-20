@@ -4,7 +4,6 @@ specie: Iris pseudacorus
 famiglia: Iridaceae
 zona: scrivolo
 sottozona: lato-destro
-
 attivita:
   irrigazione:
     primavera: mantenere il terreno costantemente umido
@@ -17,17 +16,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione foglie secche
-    estate: eventuale contenimento dei cespi
-    autunno: taglio delle foglie ingiallite
+    primavera: nessuna
+    estate: taglio post-fioritura
+    autunno: taglio leggero
     inverno: nessuna
-
 alert:
-  - specie palustre → preferisce terreno umido
-  - molto vigoroso: può espandersi rapidamente
-  - evitare ristagni eccessivi solo se il terreno è pesante
-  - foglie che seccano ai bordi → terreno troppo asciutto
-  - fioritura gialla tra aprile e giugno
-
+- specie palustre → preferisce terreno umido
+- molto vigoroso: può espandersi rapidamente
+- evitare ristagni eccessivi solo se il terreno è pesante
+- foglie che seccano ai bordi → terreno troppo asciutto
+- fioritura gialla tra aprile e giugno
 ultimo_controllo: 2026-04-17
 ---
+

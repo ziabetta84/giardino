@@ -4,7 +4,6 @@ specie: Saxifraga x arendsii
 famiglia: Saxifragaceae
 zona: vialetto
 sottozona: ringhiera
-
 attivita:
   irrigazione:
     primavera: ogni 7 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori secchi
+    primavera: taglio leggero
     estate: nessuna
-    autunno: pulizia generale
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - preferisce mezzombra luminosa
-  - teme caldo eccessivo
-  - richiede terreno fresco ma drenante
-  - fioritura primaverile
-
+- preferisce mezzombra luminosa
+- teme caldo eccessivo
+- richiede terreno fresco ma drenante
+- fioritura primaverile
 ultimo_controllo: 2026-04-17
 ---
+

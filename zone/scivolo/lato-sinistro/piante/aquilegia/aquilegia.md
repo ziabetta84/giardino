@@ -4,7 +4,6 @@ specie: Aquilegia vulgaris
 famiglia: Ranunculaceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori secchi
-    estate: taglio dei fusti sfioriti
-    autunno: pulizia generale
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - ama mezz’ombra luminosa
-  - fioritura primaverile
-  - si risemina facilmente
-  - evitare ristagni
-
+- ama mezz’ombra luminosa
+- fioritura primaverile
+- si risemina facilmente
+- evitare ristagni
 ultimo_controllo: 2026-04-17
 ---
+

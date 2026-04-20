@@ -4,7 +4,6 @@ specie: Lewisia cotyledon
 famiglia: Montiaceae
 zona: vialetto
 sottozona: ringhiera
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori secchi
+    primavera: taglio leggero
     estate: nessuna
-    autunno: pulizia generale
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede drenaggio perfetto
-  - teme ristagni più di qualsiasi altra pianta della zona
-  - ama sole o mezz’ombra luminosa
-  - fioritura spettacolare in primavera-estate
-
+- richiede drenaggio perfetto
+- teme ristagni più di qualsiasi altra pianta della zona
+- ama sole o mezz’ombra luminosa
+- fioritura spettacolare in primavera-estate
 ultimo_controllo: 2026-04-17
 ---
+

@@ -3,7 +3,6 @@ nome: carex
 specie: Carex spp. (carex ornamentale)
 zona: scrivolo
 sottozona: lato-destro
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: taglio leggero delle foglie secche o danneggiate
+    primavera: taglio leggero
     estate: nessuna
-    autunno: eventuale pulizia
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante (evitare ristagni)
-  - alcune varietà preferiscono mezz’ombra, altre più sole
-  - foglie che ingialliscono → troppa acqua o terreno compattato
-  - crescita lenta ma molto ordinata
-  - ottima come pianta strutturale e riempitiva
-
+- richiede terreno drenante (evitare ristagni)
+- alcune varietà preferiscono mezz’ombra, altre più sole
+- foglie che ingialliscono → troppa acqua o terreno compattato
+- crescita lenta ma molto ordinata
+- ottima come pianta strutturale e riempitiva
 ultimo_controllo: 2026-04-17
 ---
+

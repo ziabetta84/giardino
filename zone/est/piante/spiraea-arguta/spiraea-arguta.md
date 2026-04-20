@@ -3,7 +3,6 @@ nome: spiraea-arguta
 specie: Spiraea × arguta
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni se non piove
@@ -16,17 +15,16 @@ attivita:
     autunno: facoltativa una leggera concimazione
     inverno: nessuna
   potatura:
-    primavera: potatura di forma subito dopo la fioritura
-    estate: rimozione rami secchi o danneggiati
+    primavera: taglio leggero
+    estate: taglio leggero
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede terreno drenante (evitare ristagni)
-  - fiorisce su rami dell’anno precedente → potare solo dopo la fioritura
-  - foglie che seccano ai bordi → terreno troppo asciutto
-  - crescita rapida: può espandersi molto
-  - tollera bene vento e freddo
-
+- richiede terreno drenante (evitare ristagni)
+- fiorisce su rami dell’anno precedente → potare solo dopo la fioritura
+- foglie che seccano ai bordi → terreno troppo asciutto
+- crescita rapida: può espandersi molto
+- tollera bene vento e freddo
 ultimo_controllo: 2026-04-17
 ---
+

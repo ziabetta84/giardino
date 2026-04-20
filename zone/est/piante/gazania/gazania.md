@@ -3,7 +3,6 @@ nome: gazania
 specie: Gazania rigens
 zona: est
 sottozona: nessuna
-
 attivita:
   irrigazione:
     primavera: ogni 7-10 giorni
@@ -16,17 +15,16 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione fiori secchi
-    estate: rimozione foglie danneggiate
-    autunno: pulizia generale
+    primavera: taglio leggero
+    estate: taglio leggero
+    autunno: nessuna
     inverno: nessuna
-
 alert:
-  - richiede pieno sole per aprire i fiori
-  - evitare ristagni idrici (ama terreni sabbiosi e drenanti)
-  - fiori che non si aprono → poca luce
-  - foglie molli → troppa acqua
-  - ottima resistenza alla siccità
-
+- richiede pieno sole per aprire i fiori
+- evitare ristagni idrici (ama terreni sabbiosi e drenanti)
+- fiori che non si aprono → poca luce
+- foglie molli → troppa acqua
+- ottima resistenza alla siccità
 ultimo_controllo: 2026-04-17
 ---
+

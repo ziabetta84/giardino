@@ -4,7 +4,6 @@ specie: Centaurea ragusina
 famiglia: Asteraceae
 zona: scivolo
 sottozona: lato-sinistro
-
 attivita:
   irrigazione:
     primavera: ogni 10-14 giorni
@@ -17,16 +16,15 @@ attivita:
     autunno: sospesa
     inverno: sospesa
   potatura:
-    primavera: rimozione parti secche
-    estate: contenimento
+    primavera: nessuna
+    estate: taglio post-fioritura
     autunno: nessuna
     inverno: nessuna
-
 alert:
-  - ama sole pieno
-  - fogliame argentato molto decorativo
-  - teme ristagni
-  - molto resistente alla siccità
-
+- ama sole pieno
+- fogliame argentato molto decorativo
+- teme ristagni
+- molto resistente alla siccità
 ultimo_controllo: 2026-04-17
 ---
+
