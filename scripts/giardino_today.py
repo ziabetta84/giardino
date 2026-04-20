@@ -65,6 +65,40 @@ def generate_report(plants, meteo):
 
     return "\n".join(lines)
 
+def generate_summary(plants, meteo):
+    irrig = 0
+    conc = 0
+    pota = 0
+    alert_meteo = 0
+
+    zone_set = set()
+
+    for plant in plants:
+        result = evaluate_plant(plant.to_dict(), meteo)
+
+        if result["irrigazione"]:
+            irrig += 1
+        if result["concimazione"]:
+            conc += 1
+        if result["potatura"]:
+            pota += 1
+        if result["alert"]:
+            alert_meteo += 1
+
+        zone_set.add(plant.zona)
+
+    lines = []
+    lines.append(f"Totale piante: **{len(plants)}**")
+    lines.append(f"Zone coinvolte: **{', '.join(sorted(zone_set))}**")
+    lines.append("")
+    lines.append(f"💧 Irrigazione consigliata: **{irrig}**")
+    lines.append(f"🌿 Concimazione consigliata: **{conc}**")
+    lines.append(f"✂️ Potatura consigliata: **{pota}**")
+    lines.append(f"⚠️ Alert meteo: **{alert_meteo}**")
+
+    return "\n".join(lines)
+
+
 # ---------------------------------------------------------
 #  MAIN
 # ---------------------------------------------------------
@@ -83,10 +117,11 @@ def main():
     with open("report.txt", "w", encoding="utf-8") as f:
         f.write(report)
 
-    # Mini‑riassunto per GitHub Actions (prime 40 righe)
-    summary_lines = report.split("\n")[:40]
+    # Mini‑riassunto vero (compatto e utile)
+    summary = generate_summary(plants, meteo)
     with open("summary.txt", "w", encoding="utf-8") as f:
-        f.write("\n".join(summary_lines))
+        f.write(summary)
+
 
     print("Report generato con successo.")
 
