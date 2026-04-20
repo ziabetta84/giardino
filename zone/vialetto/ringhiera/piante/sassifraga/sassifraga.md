@@ -23,7 +23,7 @@ attivita:
     inverno: nessuna
 
 alert:
-  - preferisce mezz’ombra luminosa
+  - preferisce mezz'ombra luminosa
   - teme caldo eccessivo
   - richiede terreno fresco ma drenante
   - fioritura primaverile
