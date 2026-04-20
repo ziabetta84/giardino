@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 UTILS_DIR = os.path.join(BASE_DIR, "utils")
 sys.path.append(UTILS_DIR)
 
-from plant_loader import load_all_plants
+from loader import load_all_plants
 from weather import get_weather_data
 from smart_rules import evaluate_plant
 
