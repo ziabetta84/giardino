@@ -108,14 +108,18 @@ def generate_action_report(plants, meteo):
         zona = plant.zona or "sconosciuta"
         nome = plant.nome
 
+        # Irrigazione
         if result["irrigazione"]:
             irrig_by_zone.setdefault(zona, []).append(nome)
 
+        # Concimazione
         if result["concimazione"]:
             conc_by_zone.setdefault(zona, []).append(nome)
 
+        # Potatura (solo priorità 1 e 2)
         if result["potatura"]:
-            pota_by_zone.setdefault(zona, []).append(nome)
+            prio = result["potatura_priority"]
+            pota_by_zone.setdefault(zona, []).append((prio, nome))
 
     lines = []
 
@@ -143,12 +147,13 @@ def generate_action_report(plants, meteo):
 
     lines.append("")
 
-    # POTATURA
+    # POTATURA (ordinata per priorità)
     lines.append("## ✂️ Piante da potare")
     if pota_by_zone:
         for zona in sorted(pota_by_zone.keys()):
             lines.append(f"### {zona}")
-            for p in sorted(pota_by_zone[zona]):
+            # ordina per priorità (1 → 2)
+            for prio, p in sorted(pota_by_zone[zona], key=lambda x: x[0]):
                 lines.append(f"- {p}")
     else:
         lines.append("Nessuna")
