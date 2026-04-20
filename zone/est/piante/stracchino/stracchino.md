@@ -1,6 +1,6 @@
 ---
 nome: stracchino
-specie: Iberis sempervirens (nome locale: stracchino)
+specie: Iberis sempervirens
 famiglia: Brassicaceae
 zona: est
 sottozona: nessuna
