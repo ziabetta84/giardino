@@ -1,33 +1,33 @@
 import os
 import frontmatter
-
-# Import assoluto, NON relativo
-from models import Plant
-
+from utils.models import Plant
 
 def load_all_plants(root="zone"):
-    """
-    Carica tutte le piante scansionando le cartelle.
-    Ogni pianta è un file index.md con frontmatter YAML.
-    """
     plants = []
 
     for dirpath, dirnames, filenames in os.walk(root):
         for filename in filenames:
-            if filename.endswith(".md"):
-                full_path = os.path.join(dirpath, filename)
+            # Carichiamo SOLO i file pianta
+            if filename != "index.md":
+                continue
 
-                try:
-                    post = frontmatter.load(full_path)
-                except Exception as e:
-                    print(f"Errore nel file {full_path}: {e}")
-                    continue
+            full_path = os.path.join(dirpath, filename)
 
-                data = post.metadata
-                data["path"] = full_path
+            try:
+                post = frontmatter.load(full_path)
+            except Exception as e:
+                print(f"Errore nel file {full_path}: {e}")
+                continue
 
-                # Crea oggetto Plant
-                plant = Plant(**data)
-                plants.append(plant)
+            # Se il file non ha frontmatter, ignoralo
+            if not post.metadata:
+                print(f"File ignorato (no frontmatter): {full_path}")
+                continue
+
+            data = post.metadata
+            data["path"] = full_path
+
+            plant = Plant(**data)
+            plants.append(plant)
 
     return plants
