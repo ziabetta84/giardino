@@ -29,13 +29,16 @@ progetti:
         stato: pianificato
 
   - nome: Progetto edera
-    stato: pianificato
-    avanzamento: 10
+    stato: in_corso
+    avanzamento: 20
     obiettivo: "Espandere la copertura dell'edera lungo il crinale tramite talee"
     condizioni:
       - "assenza di pioggia"
       - "giornata non troppo ventosa"
     aggiornamenti:
+    aggiornamenti:
+      - data: 2026-04-18
+        descrizione: "Prima talea di edera messa a dimora in terra, verso l'alto"
       - data: 2026-04-12
         descrizione: "Osservata crescita dell'edera verso l'alto, non verso il basso"
     task:
