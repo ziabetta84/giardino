@@ -229,3 +229,4 @@ def evaluate_plant(plant, meteo):
         "potatura_priority": priority,
         "alert": evaluate_alert(plant, meteo)
     }
+
