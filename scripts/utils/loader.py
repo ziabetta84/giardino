@@ -7,8 +7,10 @@ def load_all_plants(root="zone"):
 
     for dirpath, dirnames, filenames in os.walk(root):
         for filename in filenames:
-            # Carichiamo SOLO i file pianta
-            if filename != "index.md":
+            # Ignora README e file non .md
+            if not filename.endswith(".md"):
+                continue
+            if filename.lower() == "readme.md":
                 continue
 
             full_path = os.path.join(dirpath, filename)
@@ -19,7 +21,7 @@ def load_all_plants(root="zone"):
                 print(f"Errore nel file {full_path}: {e}")
                 continue
 
-            # Se il file non ha frontmatter, ignoralo
+            # Se non ha frontmatter, ignoralo
             if not post.metadata:
                 print(f"File ignorato (no frontmatter): {full_path}")
                 continue
