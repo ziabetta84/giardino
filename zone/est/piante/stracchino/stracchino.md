@@ -26,7 +26,7 @@ alert:
   - richiede terreno drenante (rischio marciumi se troppo bagnato)
   - crescita lenta ma molto densa
   - teme ristagni idrici più del caldo
-  - fioritura scarsa -> poca luce o terreno impoverito
+  - fioritura scarsa - poca luce o terreno impoverito
   - perfetta per muretti, bordure e aiuole rocciose
 
 ultimo_controllo: 2026-04-17
