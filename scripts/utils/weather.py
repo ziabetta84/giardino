@@ -1,77 +1,68 @@
 import requests
-from datetime import date
+import datetime
 
 # Coordinate corrette (float, senza virgola finale!)
 LAT = 43.830961
 LON = 12.9885673
 
-def get_weather_today():
+def get_weather_data():
     """
     Restituisce un dizionario con:
-    - pioggia totale di oggi (mm)
-    - temperatura massima di oggi (°C)
-    - temperatura minima di oggi (°C)
-    - vento massimo di oggi (km/h)
+    - rain_last_24h
+    - rain_last_48h
+    - temp
+    - wind
+    - humidity
+    - rain_probability_today
     """
 
     url = (
         "https://api.open-meteo.com/v1/forecast?"
         f"latitude={LAT}&longitude={LON}"
-        "&daily=precipitation_sum,temperature_2m_max,temperature_2m_min,windspeed_10m_max"
+        "&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m"
+        "&daily=precipitation_sum,precipitation_probability_max"
         "&timezone=Europe/Rome"
     )
 
     try:
         r = requests.get(url, timeout=10)
         data = r.json()
-    except Exception:
-        return None
+    except Exception as e:
+        print("Errore meteo:", e)
+        return {
+            "rain_last_24h": 0,
+            "rain_last_48h": 0,
+            "temp": 15,
+            "wind": 5,
+            "humidity": 60,
+            "rain_probability_today": 0
+        }
 
-    # Se l'API non restituisce daily, esci senza crash
-    if "daily" not in data:
-        return None
+    # --- Pioggia ultime 48h ---
+    hourly = data.get("hourly", {})
+    rain = hourly.get("precipitation", [])
 
-    today = date.today().isoformat()
+    rain_last_24h = sum(rain[-24:]) if len(rain) >= 24 else 0
+    rain_last_48h = sum(rain[-48:]) if len(rain) >= 48 else rain_last_24h
 
-    # Se la data non è presente, esci senza crash
-    if today not in data["daily"]["time"]:
-        return None
+    # --- Temperatura attuale ---
+    temp = hourly.get("temperature_2m", [15])[-1]
 
-    idx = data["daily"]["time"].index(today)
+    # --- Umidità ---
+    humidity = hourly.get("relative_humidity_2m", [60])[-1]
 
-    return {
-        "rain_mm": data["daily"]["precipitation_sum"][idx],
-        "temp_max": data["daily"]["temperature_2m_max"][idx],
-        "temp_min": data["daily"]["temperature_2m_min"][idx],
-        "wind_max": data["daily"]["windspeed_10m_max"][idx],
-    }
+    # --- Vento ---
+    wind = hourly.get("wind_speed_10m", [5])[-1]
 
-
-def get_weather_last_48h():
-    """
-    Restituisce la pioggia totale delle ultime 48 ore.
-    """
-
-    url = (
-        "https://api.open-meteo.com/v1/forecast?"
-        f"latitude={LAT}&longitude={LON}"
-        "&hourly=precipitation"
-        "&past_days=2"
-        "&timezone=Europe/Rome"
-    )
-
-    try:
-        r = requests.get(url, timeout=10)
-        data = r.json()
-    except Exception:
-        return None
-
-    if "hourly" not in data or "precipitation" not in data["hourly"]:
-        return None
-
-    rain_values = data["hourly"]["precipitation"]
-    total_rain = sum(rain_values)
+    # --- Probabilità pioggia oggi ---
+    daily = data.get("daily", {})
+    rain_prob = daily.get("precipitation_probability_max", [0])[0]
 
     return {
-        "rain_last_48h": total_rain
+        "rain_last_24h": rain_last_24h,
+        "rain_last_48h": rain_last_48h,
+        "temp": temp,
+        "wind": wind,
+        "humidity": humidity,
+        "rain_probability_today": rain_prob
     }
