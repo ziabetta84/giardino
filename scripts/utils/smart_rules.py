@@ -5,16 +5,8 @@ import datetime
 # ---------------------------------------------------------
 
 def parse_frequency(text):
-    """
-    Converte stringhe tipo:
-    - "ogni 7-10 giorni"
-    - "ogni 2 settimane"
-    - "una volta al mese"
-    - "sospesa"
-    in un numero di giorni (int) oppure None.
-    """
     if not text:
-        return None  # se manca la frequenza, non si fa l'attività
+        return None
 
     text = text.lower().strip()
 
@@ -45,10 +37,8 @@ def parse_frequency(text):
 
     return None
 
+
 def get_stagione(today):
-    """
-    Restituisce la stagione in base alla data.
-    """
     mese = today.month
     if mese in (3, 4, 5):
         return "primavera"
@@ -60,47 +50,86 @@ def get_stagione(today):
 
 
 def giorni_da(data_str):
-    """
-    Ritorna quanti giorni sono passati da data_str.
-    Accetta:
-    - None
-    - stringhe "YYYY-MM-DD"
-    - oggetti datetime.date
-    """
     if not data_str:
         return 999
 
-    # Se è già un oggetto datetime.date
     if isinstance(data_str, datetime.date):
         d = data_str
     else:
-        # Se è una stringa
         d = datetime.datetime.strptime(str(data_str), "%Y-%m-%d").date()
 
     return (datetime.date.today() - d).days
+
+
+# ---------------------------------------------------------
+#  POTATURA — CLASSIFICAZIONE PER PRIORITÀ
+# ---------------------------------------------------------
+
+def classify_pruning(text):
+    """
+    Restituisce:
+    1 = alta priorità
+    2 = media priorità
+    3 = manutenzione leggera (NON va nel report)
+    """
+    if not text:
+        return 3
+
+    t = text.lower().strip()
+
+    # Bassa priorità → NON deve comparire nel report
+    low = [
+        "nessuna",
+        "solo pulizia",
+        "pulizia",
+        "rimozione foglie secche",
+        "rimozione parti secche",
+        "pulizia generale",
+    ]
+    if any(x in t for x in low):
+        return 3
+
+    # Alta priorità
+    high = [
+        "drastica",
+        "contenimento",
+        "taglio forte",
+        "taglio drastico",
+        "rimozione steli",
+        "post-fioritura",
+    ]
+    if any(x in t for x in high):
+        return 1
+
+    # Media priorità
+    medium = [
+        "cimatura",
+        "accorciamento",
+        "taglio leggero",
+        "rimozione fiori secchi",
+        "mantenere compatta",
+    ]
+    if any(x in t for x in medium):
+        return 2
+
+    # Default → media
+    return 2
+
 
 # ---------------------------------------------------------
 #  IRRIGAZIONE
 # ---------------------------------------------------------
 
 def evaluate_irrigazione(plant, meteo, stagione):
-    """
-    Determina se la pianta va irrigata.
-    Tiene conto di:
-    - frequenza stagionale
-    - ultimo_controllo
-    - meteo (solo se esterno)
-    """
     att = plant.get("attivita", {}).get("irrigazione", {})
     freq_text = att.get(stagione)
     freq_days = parse_frequency(freq_text)
 
     if freq_days is None:
-        return False  # es. "sospesa"
+        return False
 
     giorni = giorni_da(plant.get("ultimo_controllo"))
 
-    # Regole meteo (solo se esterno)
     zona = plant.get("zona", "").lower()
     esterno = zona not in ("casa", "interno", "appartamento")
 
@@ -132,25 +161,24 @@ def evaluate_concimazione(plant, stagione):
     freq_days = parse_frequency(freq_text)
 
     if freq_days is None:
-        return False  # es. "sospesa"
+        return False
 
     giorni = giorni_da(plant.get("ultimo_controllo"))
     return giorni >= freq_days
 
 
 # ---------------------------------------------------------
-#  POTATURA
+#  POTATURA (usa la classificazione)
 # ---------------------------------------------------------
 
 def evaluate_potatura(plant, stagione):
     att = plant.get("attivita", {}).get("potatura", {})
-    text = att.get(stagione, "").lower()
+    text = att.get(stagione, "")
 
-    if "nessuna" in text or text.strip() == "":
-        return False
+    priority = classify_pruning(text)
+    potatura = priority in (1, 2)
 
-    # Se c'è una descrizione, significa che la potatura è prevista
-    return True
+    return potatura, priority
 
 
 # ---------------------------------------------------------
@@ -160,11 +188,9 @@ def evaluate_potatura(plant, stagione):
 def evaluate_alert(plant, meteo):
     alerts = []
 
-    # Alert statici dal file
     statici = plant.get("alert", [])
     alerts.extend(statici)
 
-    # Alert dinamici
     pioggia_48h = meteo.get("rain_last_48h", 0)
     temperatura = meteo.get("temp", 15)
     vento = meteo.get("wind", 0)
@@ -193,10 +219,13 @@ def evaluate_plant(plant, meteo):
     today = datetime.date.today()
     stagione = get_stagione(today)
 
+    potatura, priority = evaluate_potatura(plant, stagione)
+
     return {
         "stagione": stagione,
         "irrigazione": evaluate_irrigazione(plant, meteo, stagione),
         "concimazione": evaluate_concimazione(plant, stagione),
-        "potatura": evaluate_potatura(plant, stagione),
+        "potatura": potatura,
+        "potatura_priority": priority,
         "alert": evaluate_alert(plant, meteo)
     }
