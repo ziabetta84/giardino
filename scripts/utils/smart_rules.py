@@ -1,141 +1,192 @@
-from datetime import date
+import datetime
 
-# -------------------------
-#  STAGIONE
-# -------------------------
+# ---------------------------------------------------------
+#  UTILITIES
+# ---------------------------------------------------------
 
-def get_current_season() -> str:
-    m = date.today().month
-    if m in (12, 1, 2):
-        return "inverno"
-    if m in (3, 4, 5):
+def parse_frequency(text):
+    """
+    Converte stringhe tipo:
+    - "ogni 7-10 giorni"
+    - "ogni 2 settimane"
+    - "una volta al mese"
+    - "sospesa"
+    in un numero di giorni (int) oppure None.
+    """
+    text = text.lower().strip()
+
+    if "sospesa" in text:
+        return None
+
+    if "una volta al mese" in text:
+        return 30
+
+    if "settimane" in text:
+        # es: "ogni 2 settimane"
+        parts = text.split()
+        for p in parts:
+            if p.isdigit():
+                return int(p) * 7
+
+    if "giorni" in text:
+        # es: "ogni 7-10 giorni"
+        nums = []
+        for token in text.replace("ogni", "").replace("giorni", "").split():
+            token = token.strip()
+            if "-" in token:
+                a, b = token.split("-")
+                if a.isdigit():
+                    nums.append(int(a))
+            elif token.isdigit():
+                nums.append(int(token))
+        if nums:
+            return min(nums)
+
+    return None
+
+
+def get_stagione(today):
+    """
+    Restituisce la stagione in base alla data.
+    """
+    mese = today.month
+    if mese in (3, 4, 5):
         return "primavera"
-    if m in (6, 7, 8):
+    if mese in (6, 7, 8):
         return "estate"
-    return "autunno"
+    if mese in (9, 10, 11):
+        return "autunno"
+    return "inverno"
 
 
-# -------------------------
-#  REGOLE INTELLIGENTI
-# -------------------------
-
-def evaluate_irrigation(plant, season, meteo):
-    """Restituisce una decisione sull'irrigazione."""
-
-    rain_48 = meteo.get("rain_last_48h", 0)
-    rain_today = meteo.get("rain_mm", 0)
-    temp_max = meteo.get("temp_max", 0)
-
-    base = plant.attivita.get("irrigazione", {}).get(season)
-
-    # Nessuna regola definita → nessuna attività
-    if not base:
-        return None
-
-    # Regola 1: pioggia abbondante → niente irrigazione
-    if rain_48 > 8:
-        return f"non irrigare (pioggia {rain_48:.1f} mm nelle ultime 48h)"
-
-    # Regola 2: pioggia moderata → ridurre irrigazione
-    if rain_48 > 3:
-        return f"irrigazione ridotta (pioggia {rain_48:.1f} mm)"
-
-    # Regola 3: caldo → aumentare irrigazione
-    if temp_max >= 26:
-        return f"{base} — aumentare leggermente (T° {temp_max}°C)"
-
-    # Regola 4: piante xerofile → irrigare raramente
-    if "xerofila" in " ".join(plant.alert).lower():
-        if rain_48 > 0:
-            return "non irrigare (pianta xerofila + pioggia recente)"
-        return "irrigare solo se terreno completamente asciutto"
-
-    # Regola 5: piante palustri → irrigazione costante
-    if "palustre" in " ".join(plant.alert).lower():
-        if rain_48 > 10:
-            return "OK, terreno già molto umido"
-        return base
-
-    # Default
-    return base
+def giorni_da(data_str):
+    """
+    Ritorna quanti giorni sono passati da data_str (YYYY-MM-DD).
+    """
+    if not data_str:
+        return 999  # se manca la data, consideriamo "tanto tempo"
+    d = datetime.datetime.strptime(data_str, "%Y-%m-%d").date()
+    return (datetime.date.today() - d).days
 
 
-def evaluate_fertilization(plant, season, meteo):
-    """Restituisce una decisione sulla concimazione."""
+# ---------------------------------------------------------
+#  IRRIGAZIONE
+# ---------------------------------------------------------
 
-    base = plant.attivita.get("concimazione", {}).get(season)
-    if not base:
-        return None
+def evaluate_irrigazione(plant, meteo, stagione):
+    """
+    Determina se la pianta va irrigata.
+    Tiene conto di:
+    - frequenza stagionale
+    - ultimo_controllo
+    - meteo (solo se esterno)
+    """
+    att = plant.get("attivita", {}).get("irrigazione", {})
+    freq_text = att.get(stagione)
+    freq_days = parse_frequency(freq_text)
 
-    temp_max = meteo.get("temp_max", 0)
+    if freq_days is None:
+        return False  # es. "sospesa"
 
-    # Freddo → evitare concimazione
-    if temp_max < 10:
-        return "rimandare (temperature troppo basse)"
+    giorni = giorni_da(plant.get("ultimo_controllo"))
 
-    # Pioggia → evitare concime liquido
-    if meteo.get("rain_mm", 0) > 3:
-        return "rimandare (pioggia prevista)"
+    # Regole meteo (solo se esterno)
+    zona = plant.get("zona", "").lower()
+    esterno = zona not in ("casa", "interno", "appartamento")
 
-    return base
+    if esterno:
+        pioggia_24h = meteo.get("rain_last_24h", 0)
+        pioggia_48h = meteo.get("rain_last_48h", 0)
+        prob_pioggia_oggi = meteo.get("rain_probability_today", 0)
+        temperatura = meteo.get("temp", 15)
 
+        if pioggia_48h > 3:
+            return False
+        if pioggia_24h > 1:
+            return False
+        if prob_pioggia_oggi > 40:
+            return False
+        if temperatura < 5:
+            return False
 
-def evaluate_pruning(plant, season, meteo):
-    """Restituisce una decisione sulla potatura."""
-
-    base = plant.attivita.get("potatura", {}).get(season)
-    if not base:
-        return None
-
-    wind = meteo.get("wind_max", 0)
-
-    # Vento forte → evitare potature
-    if wind > 40:
-        return "evitare potature (vento forte)"
-
-    return base
+    return giorni >= freq_days
 
 
-def evaluate_extra_alerts(plant, meteo):
-    """Alert aggiuntivi basati sul meteo."""
+# ---------------------------------------------------------
+#  CONCIMAZIONE
+# ---------------------------------------------------------
 
+def evaluate_concimazione(plant, stagione):
+    att = plant.get("attivita", {}).get("concimazione", {})
+    freq_text = att.get(stagione)
+    freq_days = parse_frequency(freq_text)
+
+    if freq_days is None:
+        return False  # es. "sospesa"
+
+    giorni = giorni_da(plant.get("ultimo_controllo"))
+    return giorni >= freq_days
+
+
+# ---------------------------------------------------------
+#  POTATURA
+# ---------------------------------------------------------
+
+def evaluate_potatura(plant, stagione):
+    att = plant.get("attivita", {}).get("potatura", {})
+    text = att.get(stagione, "").lower()
+
+    if "nessuna" in text or text.strip() == "":
+        return False
+
+    # Se c'è una descrizione, significa che la potatura è prevista
+    return True
+
+
+# ---------------------------------------------------------
+#  ALERT
+# ---------------------------------------------------------
+
+def evaluate_alert(plant, meteo):
     alerts = []
 
-    rain_48 = meteo.get("rain_last_48h", 0)
-    temp_max = meteo.get("temp_max", 0)
+    # Alert statici dal file
+    statici = plant.get("alert", [])
+    alerts.extend(statici)
 
-    # Normalizza gli alert in una singola stringa
-    alert_text = " ".join(str(a) for a in plant.alert).lower()
+    # Alert dinamici
+    pioggia_48h = meteo.get("rain_last_48h", 0)
+    temperatura = meteo.get("temp", 15)
+    vento = meteo.get("wind", 0)
+    umidita = meteo.get("humidity", 50)
 
-    # Esempio di regola: rischio ristagni
-    if rain_48 > 12 and "ristagni" in alert_text:
-        alerts.append("Possibile rischio di ristagni idrici")
+    if pioggia_48h > 20:
+        alerts.append("pioggia intensa recente: rischio ristagno")
 
-    # Stress da caldo
-    if temp_max > 30:
-        alerts.append("possibile stress da caldo")
+    if temperatura < 3:
+        alerts.append("temperature molto basse: rischio gelo")
+
+    if vento > 40:
+        alerts.append("vento forte: rischio danni")
+
+    if umidita > 90:
+        alerts.append("umidità molto alta: rischio muffe")
 
     return alerts
 
 
-# -------------------------
+# ---------------------------------------------------------
 #  FUNZIONE PRINCIPALE
-# -------------------------
+# ---------------------------------------------------------
 
 def evaluate_plant(plant, meteo):
-    """
-    Restituisce un dizionario con:
-    - irrigazione
-    - concimazione
-    - potatura
-    - alert aggiuntivi
-    """
-
-    season = get_current_season()
+    today = datetime.date.today()
+    stagione = get_stagione(today)
 
     return {
-        "irrigazione": evaluate_irrigation(plant, season, meteo),
-        "concimazione": evaluate_fertilization(plant, season, meteo),
-        "potatura": evaluate_pruning(plant, season, meteo),
-        "extra_alert": evaluate_extra_alerts(plant, meteo),
+        "stagione": stagione,
+        "irrigazione": evaluate_irrigazione(plant, meteo, stagione),
+        "concimazione": evaluate_concimazione(plant, stagione),
+        "potatura": evaluate_potatura(plant, stagione),
+        "alert": evaluate_alert(plant, meteo)
     }
