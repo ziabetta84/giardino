@@ -1,26 +1,53 @@
-<div class="card">
+<!DOCTYPE html>
+<html lang="it">
 
-  <label>Nome</label>
-  <input id="nome">
+<head>
+    <meta charset="utf-8">
+    <title>Modifica zona</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/api.js"></script>
+    <script src="js/parser.js"></script>
+    <script src="js/edit-zona.js" defer></script>
+</head>
 
-  <label>Descrizione</label>
-  <textarea id="descrizione"></textarea>
+<body>
 
-  <label>Esposizione</label>
-  <select id="esposizione" multiple size="4">
-    <option value="nord">Nord</option>
-    <option value="sud">Sud</option>
-    <option value="est">Est</option>
-    <option value="ovest">Ovest</option>
-  </select>
+    <header id="edit-title">Modifica zona</header>
 
-  <label>Microclima</label>
-  <textarea id="microclima"></textarea>
+    <div class="container">
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="zone.html">Zone</a>
+        </div>
+        <div class="card">
 
-  <label>Manutenzione consigliata</label>
-  <textarea id="manutenzione"></textarea>
+            <label>Nome</label>
+            <input id="nome">
 
-  <button id="save-btn">Salva nel repo</button>
-</div>
+            <label>Descrizione</label>
+            <textarea id="descrizione"></textarea>
 
-<div id="status" class="card"></div>
+            <label>Esposizione</label>
+            <select id="esposizione" multiple size="4">
+                <option value="nord">Nord</option>
+                <option value="sud">Sud</option>
+                <option value="est">Est</option>
+                <option value="ovest">Ovest</option>
+            </select>
+
+            <label>Microclima</label>
+            <textarea id="microclima"></textarea>
+
+            <label>Manutenzione consigliata</label>
+            <textarea id="manutenzione"></textarea>
+
+            <button id="save-btn">Salva nel repo</button>
+        </div>
+
+        <div id="status" class="card"></div>
+
+    </div>
+
+</body>
+
+</html>
