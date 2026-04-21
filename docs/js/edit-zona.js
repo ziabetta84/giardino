@@ -24,12 +24,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   status.textContent = "Caricamento dati...";
 
   // 1. Carica il file dal repo SENZA CACHE
-  const md = await fetch(
-    `https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}?t=${Date.now()}`,
-    { cache: "no-store" }
-  )
-    .then(r => r.text())
-    .catch(() => null);
+const md = await fetch(
+  `https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}?t=${Date.now()}`,
+  {
+    cache: "no-store",
+    headers: {
+      "Cache-Control": "no-cache, no-store, must-revalidate",
+      "Pragma": "no-cache",
+      "Expires": "0"
+    }
+  }
+).then(r => r.text());
 
   if (!md) {
     status.textContent = "Impossibile caricare il file della zona.";
