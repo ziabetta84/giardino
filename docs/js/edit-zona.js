@@ -5,23 +5,15 @@ function getParam(name) {
   return params.get(name);
 }
 
-// Rimuove il blocco dei metadati iniziali dal file originale
-function stripMetadata(md) {
-  const lines = md.split("\n");
-  let i = 0;
+// Estrae il frontmatter YAML (tra --- e ---)
+function extractFrontmatter(md) {
+  const match = md.match(/^---\s*([\s\S]*?)\s*---/);
+  return match ? match[1] : null;
+}
 
-  // Scorri finché trovi righe nel formato "chiave: valore"
-  while (i < lines.length && /^[a-zA-Z0-9_-]+\s*:\s*/.test(lines[i].trim())) {
-    i++;
-  }
-
-  // Salta eventuali righe vuote dopo i metadati
-  while (i < lines.length && lines[i].trim() === "") {
-    i++;
-  }
-
-  // Ritorna SOLO il contenuto originale
-  return lines.slice(i).join("\n");
+// Rimuove il frontmatter e restituisce il contenuto sotto
+function stripFrontmatter(md) {
+  return md.replace(/^---[\s\S]*?---/, "").trim();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -44,12 +36,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   status.textContent = "Caricamento dati...";
 
-  // 1. Carica il file dal repo tramite GitHub API
   let fileData;
   try {
-    const fileRes = await fetch(apiUrl, {
-      headers: { "Accept": "application/vnd.github.v3+json" }
-    });
+    const headers = { "Accept": "application/vnd.github.v3+json" };
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+
+    const fileRes = await fetch(apiUrl, { headers });
 
     if (!fileRes.ok) {
       status.textContent = "Impossibile caricare il file della zona.";
@@ -62,11 +54,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Decodifica base64 → testo markdown
-  const md = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ""))));
-  const meta = parseMetadata(md);
+  // Decodifica UTF‑8 corretta
+  const md = new TextDecoder("utf-8").decode(
+    Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0))
+  );
 
-  // 2. Popola il form
+  // Estrai YAML
+  const fm = extractFrontmatter(md);
+  let meta = {};
+  if (fm) meta = jsyaml.load(fm);
+
+  // Popola il form
   document.getElementById("nome").value = meta.nome || zona;
   document.getElementById("descrizione").value = meta.descrizione || "";
 
@@ -83,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   status.textContent = "";
 
-  // 3. Salvataggio
+  // Salvataggio
   document.getElementById("save-btn").onclick = async () => {
     if (!token) {
       status.textContent = "Token mancante: effettua di nuovo il login.";
@@ -106,16 +104,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       manutenzione: document.getElementById("manutenzione").value.trim()
     };
 
-    // Rimuove i vecchi metadati dal file originale
-    const contenutoOriginale = stripMetadata(md);
+    // Ricostruisci YAML frontmatter
+    const nuovoYaml = jsyaml.dump(nuovoMeta);
 
-    // Ricostruisce il file SENZA duplicazioni
-    const nuovoMd =
-      Object.entries(nuovoMeta)
-        .map(([k, v]) => `${k}: ${v}`)
-        .join("\n") +
-      "\n\n" +
-      contenutoOriginale;
+    const nuovoMd = `---\n${nuovoYaml}---\n`;
 
     try {
       const commitRes = await fetch(
