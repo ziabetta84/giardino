@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Progetto</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/storage.js" defer></script>
+  <script src="js/templates.js" defer></script>
+  <script src="js/ui.js" defer></script>
+</head>
+<body>
+
+<header>
+  <h1>📘 Progetto</h1>
+</header>
+
+<main class="container">
+  <label>Nome</label>
+  <input id="nome">
+
+  <label>Zona</label>
+  <input id="zona">
+
+  <label>Obiettivo</label>
+  <textarea id="obiettivo"></textarea>
+
+  <label>Condizioni</label>
+  <textarea id="condizioni"></textarea>
+
+  <label>Task</label>
+  <textarea id="task"></textarea>
+
+  <button onclick="saveProject()">Salva</button>
+  <button onclick="exportProject()">Esporta .md</button>
+</main>
+
+<footer class="navbar">
+  <a href="index.html">🏠</a>
+  <a href="piante.html">🌿</a>
+  <a href="zone.html">🏡</a>
+  <a href="progetti.html">📘</a>
+  <a href="settings.html">⚙️</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Pianta</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/storage.js" defer></script>
+  <script src="js/templates.js" defer></script>
+  <script src="js/ui.js" defer></script>
+</head>
+<body>
+
+<header>
+  <h1>🌿 Pianta</h1>
+</header>
+
+<main class="container">
+  <label>Nome</label>
+  <input id="nome">
+
+  <label>Specie</label>
+  <input id="specie">
+
+  <label>Zona</label>
+  <input id="zona">
+
+  <label>Sottozona</label>
+  <input id="sottozona">
+
+  <label>Note / Alert</label>
+  <textarea id="alert"></textarea>
+
+  <button onclick="savePlant()">Salva</button>
+  <button onclick="exportPlant()">Esporta .md</button>
+</main>
+
+<footer class="navbar">
+  <a href="index.html">🏠</a>
+  <a href="piante.html">🌿</a>
+  <a href="zone.html">🏡</a>
+  <a href="progetti.html">📘</a>
+  <a href="settings.html">⚙️</a>
+</footer>
+
+</body>
+</html>
