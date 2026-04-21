@@ -1,5 +1,18 @@
 // js/zone.js
 
+function modificaZona(zona) {
+  const token = localStorage.getItem("github_token");
+
+  if (!token) {
+    // Avvia login passando la zona al Worker
+    window.location.href = `https://giardino.robertagenovese.workers.dev/login?zona=${zona}`;
+    return;
+  }
+
+  // Se abbiamo già il token → vai direttamente alla pagina di modifica
+  window.location.href = `edit-zona.html?token=${token}&zona=${zona}`;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("zone-list");
   container.innerHTML = "<div class='card'>Caricamento zone...</div>";
@@ -18,20 +31,36 @@ document.addEventListener("DOMContentLoaded", async () => {
     const md = await getFile(`zone/${z.name}/${z.name}.md`);
     const meta = parseMetadata(md);
 
-    const a = document.createElement("a");
-    a.className = "card";
-    a.href = `sottozona.html?zona=${encodeURIComponent(z.name)}`;
+    // CARD DELLA ZONA
+    const card = document.createElement("div");
+    card.className = "card";
 
+    // TITOLO
     const title = document.createElement("div");
     title.className = "card-title";
     title.textContent = meta.nome || z.name;
 
+    // SOTTOTITOLO
     const subtitle = document.createElement("div");
     subtitle.className = "card-subtitle";
     subtitle.textContent = meta.descrizione || "";
 
-    a.appendChild(title);
-    a.appendChild(subtitle);
-    container.appendChild(a);
+    // LINK ALLA PAGINA SOTTOZONE
+    const link = document.createElement("a");
+    link.href = `sottozona.html?zona=${encodeURIComponent(z.name)}`;
+    link.appendChild(title);
+    link.appendChild(subtitle);
+
+    // PULSANTE MODIFICA
+    const btn = document.createElement("button");
+    btn.className = "modifica-btn";
+    btn.textContent = "Modifica";
+    btn.onclick = () => modificaZona(z.name);
+
+    // ASSEMBLA LA CARD
+    card.appendChild(link);
+    card.appendChild(btn);
+
+    container.appendChild(card);
   }
 });
