@@ -68,7 +68,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const fileData = await res.json();
 
       // DECODIFICA CORRETTA (fix fondamentale)
-      const md = atob(fileData.content);
+      const md = new TextDecoder("utf-8").decode(
+        Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0))
+      );
+
 
       // Estrai frontmatter YAML
       const fm = extractFrontmatter(md);
