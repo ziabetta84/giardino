@@ -5,10 +5,26 @@ function getParam(name) {
   return params.get(name);
 }
 
+// Rimuove i metadati iniziali dal file .md
+function stripMetadata(md) {
+  const lines = md.split("\n");
+  let i = 0;
+
+  while (i < lines.length && /^[a-zA-Z0-9_-]+\s*:\s*/.test(lines[i].trim())) {
+    i++;
+  }
+  while (i < lines.length && lines[i].trim() === "") {
+    i++;
+  }
+
+  return lines.slice(i).join("\n");
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
   const header = document.getElementById("zona-title");
   const container = document.getElementById("sottozone-list");
+  const descrContainer = document.getElementById("zona-descrizione");
 
   if (!zona) {
     header.textContent = "Zona non specificata";
@@ -19,28 +35,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   header.textContent = `Zona: ${zona}`;
   container.innerHTML = "<div class='card'>Caricamento sottozone...</div>";
 
-  // 1) leggo il contenuto di zone/<zona>
-  const items = await listDir(`zone/${zona}`);
+  // 1. Carica il file della zona (casa.md)
+  const path = `zone/${zona}/${zona}.md`;
+  const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}?t=${Date.now()}`;
 
-  // 2) prendo solo le directory (le sottozone)
-  const subdirs = items.filter(i => i.type === "dir");
+  try {
+    const res = await fetch(apiUrl, {
+      headers: { "Accept": "application/vnd.github.v3+json" }
+    });
+
+    if (res.ok) {
+      const fileData = await res.json();
+      const md = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ""))));
+      const contenuto = stripMetadata(md);
+
+      // Render Markdown → HTML
+      descrContainer.innerHTML = marked.parse(contenuto);
+    } else {
+      descrContainer.innerHTML = "<p><i>Impossibile caricare la descrizione della zona.</i></p>";
+    }
+  } catch (e) {
+    descrContainer.innerHTML = "<p><i>Errore nel caricamento della descrizione.</i></p>";
+  }
+
+  // 2. Carica le sottozone
+  const items = await listDir(`zone/${zona}`);
+  const dirs = items.filter(i => i.type === "dir");
 
   container.innerHTML = "";
 
-  if (!subdirs.length) {
+  if (!dirs.length) {
     container.innerHTML = "<div class='card'>Nessuna sottozona trovata.</div>";
     return;
   }
 
-  for (const dir of subdirs) {
-    const sottozona = dir.name;
-
-    // 3) file markdown atteso: zone/<zona>/<sottozona>/<sottozona>.md
-    const path = `zone/${zona}/${sottozona}/${sottozona}.md`;
-    const md = await getFile(path);
-    if (!md) continue;
-
-    const meta = parseMetadata(md);
+  for (const d of dirs) {
+    const sottozona = d.name;
 
     const a = document.createElement("a");
     a.className = "card";
@@ -48,14 +78,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const title = document.createElement("div");
     title.className = "card-title";
-    title.textContent = meta.nome || sottozona;
-
-    const subtitle = document.createElement("div");
-    subtitle.className = "card-subtitle";
-    subtitle.textContent = meta.descrizione || "";
+    title.textContent = sottozona;
 
     a.appendChild(title);
-    a.appendChild(subtitle);
     container.appendChild(a);
   }
 });
