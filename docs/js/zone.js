@@ -35,19 +35,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     const card = document.createElement("div");
     card.className = "card";
 
-    // TITOLO
+    // LINK ALLA PAGINA SOTTOZONE
+    const link = document.createElement("a");
+    link.href = `sottozona.html?zona=${encodeURIComponent(z.name)}`;
+
     const title = document.createElement("div");
     title.className = "card-title";
     title.textContent = meta.nome || z.name;
 
-    // SOTTOTITOLO
     const subtitle = document.createElement("div");
     subtitle.className = "card-subtitle";
     subtitle.textContent = meta.descrizione || "";
 
-    // LINK ALLA PAGINA SOTTOZONE
-    const link = document.createElement("a");
-    link.href = `sottozona.html?zona=${encodeURIComponent(z.name)}`;
     link.appendChild(title);
     link.appendChild(subtitle);
 
