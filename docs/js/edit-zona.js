@@ -5,6 +5,25 @@ function getParam(name) {
   return params.get(name);
 }
 
+// Rimuove il blocco dei metadati iniziali dal file originale
+function stripMetadata(md) {
+  const lines = md.split("\n");
+  let i = 0;
+
+  // Scorri finché trovi righe nel formato "chiave: valore"
+  while (i < lines.length && /^[a-zA-Z0-9_-]+\s*:\s*/.test(lines[i].trim())) {
+    i++;
+  }
+
+  // Salta eventuali righe vuote dopo i metadati
+  while (i < lines.length && lines[i].trim() === "") {
+    i++;
+  }
+
+  // Ritorna SOLO il contenuto originale
+  return lines.slice(i).join("\n");
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
   const tokenFromUrl = getParam("token");
@@ -25,13 +44,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   status.textContent = "Caricamento dati...";
 
-  // 1. Carica il file dal repo tramite GitHub API (CORS OK, niente header extra)
+  // 1. Carica il file dal repo tramite GitHub API
   let fileData;
   try {
     const fileRes = await fetch(apiUrl, {
-      headers: {
-        "Accept": "application/vnd.github.v3+json"
-      }
+      headers: { "Accept": "application/vnd.github.v3+json" }
     });
 
     if (!fileRes.ok) {
@@ -89,12 +106,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       manutenzione: document.getElementById("manutenzione").value.trim()
     };
 
+    // Rimuove i vecchi metadati dal file originale
+    const contenutoOriginale = stripMetadata(md);
+
+    // Ricostruisce il file SENZA duplicazioni
     const nuovoMd =
       Object.entries(nuovoMeta)
         .map(([k, v]) => `${k}: ${v}`)
         .join("\n") +
       "\n\n" +
-      md;
+      contenutoOriginale;
 
     try {
       const commitRes = await fetch(
