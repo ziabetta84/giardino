@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 1. Carica il file dal repo SENZA CACHE
 const md = await fetch(
-  `https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}?t=${Date.now()}`,
+  `https://raw.githubusercontent.com/ziabetta84/giardino/refs/heads/main/${path}?t=${Date.now()}`,
   {
     cache: "no-store",
     headers: {
