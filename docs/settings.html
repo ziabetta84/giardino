@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Impostazioni</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/storage.js" defer></script>
+  <script src="js/ui.js" defer></script>
+</head>
+<body>
+
+<header>
+  <h1>⚙️ Impostazioni</h1>
+</header>
+
+<main class="container">
+  <label>Latitudine</label>
+  <input id="lat">
+
+  <label>Longitudine</label>
+  <input id="lon">
+
+  <label>Tema</label>
+  <select id="theme">
+    <option value="auto">Automatico</option>
+    <option value="light">Chiaro</option>
+    <option value="dark">Scuro</option>
+  </select>
+
+  <button onclick="saveSettings()">Salva</button>
+</main>
+
+<footer class="navbar">
+  <a href="index.html">🏠</a>
+  <a href="piante.html">🌿</a>
+  <a href="zone.html">🏡</a>
+  <a href="progetti.html">📘</a>
+  <a href="settings.html">⚙️</a>
+</footer>
+
+</body>
+</html>

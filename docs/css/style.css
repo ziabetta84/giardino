@@ -1,0 +1,72 @@
+:root {
+  --bg: #ffffff;
+  --fg: #222222;
+  --card: #f2f2f2;
+}
+
+[data-theme="dark"] {
+  --bg: #111111;
+  --fg: #eeeeee;
+  --card: #222222;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: sans-serif;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  display: block;
+  background: var(--card);
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--fg);
+  font-size: 1.2rem;
+}
+
+.home-grid {
+  padding: 20px;
+  display: grid;
+  gap: 15px;
+}
+
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--card);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  font-size: 1.4rem;
+}
+
+.fab {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 2rem;
+}
