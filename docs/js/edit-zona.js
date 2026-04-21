@@ -10,9 +10,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const token = getParam("token");
   const status = document.getElementById("status");
 
-  if (!token) {
-    status.textContent = "Token OAuth mancante.";
-    return;
+  if (token) {
+    localStorage.setItem("github_token", token);
   }
 
   if (!zona) {
@@ -39,7 +38,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 2. Popola il form
   document.getElementById("nome").value = meta.nome || zona;
   document.getElementById("descrizione").value = meta.descrizione || "";
-  document.getElementById("esposizione").value = meta.esposizione || "";
+
+  // esposizione → array
+  if (meta.esposizione) {
+    const values = meta.esposizione.split(",").map(v => v.trim().toLowerCase());
+    const select = document.getElementById("esposizione");
+    for (const opt of select.options) {
+      if (values.includes(opt.value)) opt.selected = true;
+    }
+  }
+
+  document.getElementById("microclima").value = meta.microclima || "";
+  document.getElementById("manutenzione").value = meta.manutenzione || "";
 
   status.textContent = "";
 
@@ -47,16 +57,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("save-btn").onclick = async () => {
     status.textContent = "Salvataggio in corso...";
 
+    const esposizioneSel = Array.from(document.getElementById("esposizione").selectedOptions)
+      .map(o => o.value)
+      .join(", ");
+
     const nuovoMeta = {
-      ...meta,
       nome: document.getElementById("nome").value.trim(),
       descrizione: document.getElementById("descrizione").value.trim(),
-      esposizione: document.getElementById("esposizione").value.trim()
+      esposizione: esposizioneSel,
+      microclima: document.getElementById("microclima").value.trim(),
+      manutenzione: document.getElementById("manutenzione").value.trim()
     };
 
-    const nuovoMd = Object.entries(nuovoMeta)
-      .map(([k, v]) => `${k}: ${v}`)
-      .join("\n");
+    // Ricostruzione del file .md
+    const nuovoMd =
+      Object.entries(nuovoMeta)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join("\n") +
+      "\n\n" +
+      md; // manteniamo il contenuto originale sotto
 
     // 4. Recupera SHA del file
     const shaRes = await fetch(
@@ -82,10 +101,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     );
 
-    if (commitRes.ok) {
-      status.textContent = "Salvato nel repo ✔️";
-    } else {
-      status.textContent = "Errore nel salvataggio ❌";
-    }
+    status.textContent = commitRes.ok
+      ? "Salvato nel repo ✔️"
+      : "Errore nel salvataggio ❌";
   };
 });
