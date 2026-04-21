@@ -23,10 +23,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   status.textContent = "Caricamento dati...";
 
-  // 1. Carica il file dal repo
-const md = await fetch(
-  `https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}?t=${Date.now()}`
-)
+  // 1. Carica il file dal repo SENZA CACHE
+  const md = await fetch(
+    `https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}?t=${Date.now()}`,
+    { cache: "no-store" }
+  )
     .then(r => r.text())
     .catch(() => null);
 
@@ -50,6 +51,7 @@ const md = await fetch(
     }
   }
 
+  // MULTILINEA: ora funziona
   document.getElementById("microclima").value = meta.microclima || "";
   document.getElementById("manutenzione").value = meta.manutenzione || "";
 
@@ -82,7 +84,11 @@ const md = await fetch(
     // 4. Recupera SHA del file
     const shaRes = await fetch(
       `https://api.github.com/repos/ziabetta84/giardino/contents/${path}`,
-      { headers: { Authorization: `Bearer ${token}` } }
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("github_token")}`
+        }
+      }
     );
     const shaData = await shaRes.json();
 
@@ -92,7 +98,7 @@ const md = await fetch(
       {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${localStorage.getItem("github_token")}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
