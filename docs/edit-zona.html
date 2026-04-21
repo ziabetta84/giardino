@@ -1,38 +1,26 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="utf-8">
-  <title>Modifica zona</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/api.js"></script>
-  <script src="js/parser.js"></script>
-  <script src="js/edit-zona.js" defer></script>
-</head>
-<body>
+<div class="card">
 
-<header id="edit-title">Modifica zona</header>
+  <label>Nome</label>
+  <input id="nome">
 
-<div class="container">
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="zone.html">Zone</a>
-  </div>
+  <label>Descrizione</label>
+  <textarea id="descrizione"></textarea>
 
-  <div class="card">
-    <label>Nome</label>
-    <input id="nome">
+  <label>Esposizione</label>
+  <select id="esposizione" multiple size="4">
+    <option value="nord">Nord</option>
+    <option value="sud">Sud</option>
+    <option value="est">Est</option>
+    <option value="ovest">Ovest</option>
+  </select>
 
-    <label>Descrizione</label>
-    <textarea id="descrizione"></textarea>
+  <label>Microclima</label>
+  <textarea id="microclima"></textarea>
 
-    <label>Esposizione</label>
-    <input id="esposizione">
+  <label>Manutenzione consigliata</label>
+  <textarea id="manutenzione"></textarea>
 
-    <button id="save-btn">Salva nel repo</button>
-  </div>
-
-  <div id="status" class="card"></div>
+  <button id="save-btn">Salva nel repo</button>
 </div>
 
-</body>
-</html>
+<div id="status" class="card"></div>
