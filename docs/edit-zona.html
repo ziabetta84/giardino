@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <title>Modifica zona</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/api.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/edit-zona.js" defer></script>
+</head>
+<body>
+
+<header id="edit-title">Modifica zona</header>
+
+<div class="container">
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="zone.html">Zone</a>
+  </div>
+
+  <div class="card">
+    <label>Nome</label>
+    <input id="nome">
+
+    <label>Descrizione</label>
+    <textarea id="descrizione"></textarea>
+
+    <label>Esposizione</label>
+    <input id="esposizione">
+
+    <button id="save-btn">Salva nel repo</button>
+  </div>
+
+  <div id="status" class="card"></div>
+</div>
+
+</body>
+</html>
