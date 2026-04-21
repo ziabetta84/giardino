@@ -7,12 +7,13 @@ function getParam(name) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
-  const token = getParam("token");
+  const tokenFromUrl = getParam("token");
   const status = document.getElementById("status");
 
-  if (token) {
-    localStorage.setItem("github_token", token);
+  if (tokenFromUrl) {
+    localStorage.setItem("github_token", tokenFromUrl);
   }
+  const token = localStorage.getItem("github_token");
 
   if (!zona) {
     status.textContent = "Parametro zona mancante.";
@@ -20,34 +21,39 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const path = `zone/${zona}/${zona}.md`;
+  const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}`;
 
   status.textContent = "Caricamento dati...";
 
-  // 1. Carica il file dal repo SENZA CACHE
-const md = await fetch(
-  `https://raw.githubusercontent.com/ziabetta84/giardino/refs/heads/main/${path}?t=${Date.now()}`,
-  {
-    cache: "no-store",
-    headers: {
-      "Cache-Control": "no-cache, no-store, must-revalidate",
-      "Pragma": "no-cache",
-      "Expires": "0"
-    }
-  }
-).then(r => r.text());
+  // 1. Carica il file dal repo tramite GitHub API (CORS OK)
+  let fileData;
+  try {
+    const fileRes = await fetch(apiUrl, {
+      headers: {
+        "Accept": "application/vnd.github.v3+json",
+        "Cache-Control": "no-cache"
+      }
+    });
 
-  if (!md) {
-    status.textContent = "Impossibile caricare il file della zona.";
+    if (!fileRes.ok) {
+      status.textContent = "Impossibile caricare il file della zona.";
+      return;
+    }
+
+    fileData = await fileRes.json();
+  } catch (e) {
+    status.textContent = "Errore di rete nel caricamento del file.";
     return;
   }
 
+  // Decodifica base64 → testo markdown
+  const md = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ""))));
   const meta = parseMetadata(md);
 
   // 2. Popola il form
   document.getElementById("nome").value = meta.nome || zona;
   document.getElementById("descrizione").value = meta.descrizione || "";
 
-  // esposizione → array
   if (meta.esposizione) {
     const values = meta.esposizione.split(",").map(v => v.trim().toLowerCase());
     const select = document.getElementById("esposizione");
@@ -56,7 +62,6 @@ const md = await fetch(
     }
   }
 
-  // MULTILINEA: ora funziona
   document.getElementById("microclima").value = meta.microclima || "";
   document.getElementById("manutenzione").value = meta.manutenzione || "";
 
@@ -64,9 +69,16 @@ const md = await fetch(
 
   // 3. Salvataggio
   document.getElementById("save-btn").onclick = async () => {
+    if (!token) {
+      status.textContent = "Token mancante: effettua di nuovo il login.";
+      return;
+    }
+
     status.textContent = "Salvataggio in corso...";
 
-    const esposizioneSel = Array.from(document.getElementById("esposizione").selectedOptions)
+    const esposizioneSel = Array.from(
+      document.getElementById("esposizione").selectedOptions
+    )
       .map(o => o.value)
       .join(", ");
 
@@ -78,44 +90,33 @@ const md = await fetch(
       manutenzione: document.getElementById("manutenzione").value.trim()
     };
 
-    // Ricostruzione del file .md
     const nuovoMd =
       Object.entries(nuovoMeta)
         .map(([k, v]) => `${k}: ${v}`)
         .join("\n") +
       "\n\n" +
-      md; // manteniamo il contenuto originale sotto
+      md;
 
-    // 4. Recupera SHA del file
-    const shaRes = await fetch(
-      `https://api.github.com/repos/ziabetta84/giardino/contents/${path}`,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("github_token")}`
-        }
-      }
-    );
-    const shaData = await shaRes.json();
-
-    // 5. Commit
-    const commitRes = await fetch(
-      `https://api.github.com/repos/ziabetta84/giardino/contents/${path}`,
-      {
+    try {
+      const commitRes = await fetch(apiUrl, {
         method: "PUT",
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("github_token")}`,
-          "Content-Type": "application/json"
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          "Accept": "application/vnd.github.v3+json"
         },
         body: JSON.stringify({
           message: `Aggiorna zona ${zona}`,
           content: btoa(unescape(encodeURIComponent(nuovoMd))),
-          sha: shaData.sha
+          sha: fileData.sha
         })
-      }
-    );
+      });
 
-    status.textContent = commitRes.ok
-      ? "Salvato nel repo ✔️"
-      : "Errore nel salvataggio ❌";
+      status.textContent = commitRes.ok
+        ? "Salvato nel repo ✔️"
+        : "Errore nel salvataggio ❌";
+    } catch (e) {
+      status.textContent = "Errore di rete nel salvataggio.";
+    }
   };
 });
