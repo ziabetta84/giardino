@@ -8,7 +8,7 @@ Richiede particolare attenzione la **prevenzione e rimozione della muffa** sulle
 
 Ad aprile la temperatura è di circa 18-19°C e l'umidità è al 62%, il riscaldamento è spento.
 
-OK
+OK.
 manutenzione: - **Ventilazione regolare** per ridurre l'umidità interna.
 - **Controllo muffe** nelle zone più fredde e meno ventilate.
 
