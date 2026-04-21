@@ -1,3 +1,4 @@
+---
 nome: casa
 descrizione: Ambiente interno con finestre e terrazzi.
 esposizione: nord, sud, est, ovest
