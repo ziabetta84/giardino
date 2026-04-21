@@ -5,37 +5,56 @@ function getParam(name) {
   return params.get(name);
 }
 
-// Rimuove i metadati iniziali dal file .md
-function stripMetadata(md) {
-  const lines = md.split("\n");
-  let i = 0;
+// Estrae il frontmatter YAML (tra --- e ---)
+function extractFrontmatter(md) {
+  const match = md.match(/^---\s*([\s\S]*?)\s*---/);
+  return match ? match[1] : null;
+}
 
-  while (i < lines.length && /^[a-zA-Z0-9_-]+\s*:\s*/.test(lines[i].trim())) {
-    i++;
-  }
-  while (i < lines.length && lines[i].trim() === "") {
-    i++;
+// Converte YAML semplice (chiave: valore) in tabella HTML
+function yamlToTable(yaml) {
+  const lines = yaml.split("\n").filter(l => l.trim());
+  let html = "<table class='yaml-table'>";
+
+  for (const line of lines) {
+    const idx = line.indexOf(":");
+    if (idx === -1) continue;
+
+    const key = line.slice(0, idx).trim();
+    const value = line.slice(idx + 1).trim();
+
+    html += `
+      <tr>
+        <th>${key}</th>
+        <td>${value}</td>
+      </tr>
+    `;
   }
 
-  return lines.slice(i).join("\n");
+  html += "</table>";
+  return html;
+}
+
+// Rimuove il frontmatter e restituisce solo il contenuto Markdown
+function stripFrontmatter(md) {
+  return md.replace(/^---[\s\S]*?---/, "").trim();
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
   const header = document.getElementById("zona-title");
   const container = document.getElementById("sottozone-list");
+  const fmContainer = document.getElementById("zona-frontmatter");
   const descrContainer = document.getElementById("zona-descrizione");
 
   if (!zona) {
     header.textContent = "Zona non specificata";
-    container.innerHTML = "<div class='card'>Parametro zona mancante.</div>";
     return;
   }
 
   header.textContent = `Zona: ${zona}`;
-  container.innerHTML = "<div class='card'>Caricamento sottozone...</div>";
 
-  // 1. Carica il file della zona (casa.md)
+  // 1. Carica casa.md tramite GitHub API
   const path = `zone/${zona}/${zona}.md`;
   const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}?t=${Date.now()}`;
 
@@ -47,18 +66,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (res.ok) {
       const fileData = await res.json();
       const md = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ""))));
-      const contenuto = stripMetadata(md);
 
-      // Render Markdown → HTML
+      // Estrai frontmatter
+      const fm = extractFrontmatter(md);
+      if (fm) {
+        fmContainer.innerHTML = yamlToTable(fm);
+      }
+
+      // Mostra contenuto Markdown
+      const contenuto = stripFrontmatter(md);
       descrContainer.innerHTML = marked.parse(contenuto);
-    } else {
-      descrContainer.innerHTML = "<p><i>Impossibile caricare la descrizione della zona.</i></p>";
     }
   } catch (e) {
-    descrContainer.innerHTML = "<p><i>Errore nel caricamento della descrizione.</i></p>";
+    fmContainer.innerHTML = "<p><i>Errore nel caricamento della zona.</i></p>";
   }
 
-  // 2. Carica le sottozone
+  // 2. Carica sottozone
   const items = await listDir(`zone/${zona}`);
   const dirs = items.filter(i => i.type === "dir");
 
