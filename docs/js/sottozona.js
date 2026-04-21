@@ -11,17 +11,18 @@ function extractFrontmatter(md) {
   return match ? match[1] : null;
 }
 
-// Converte YAML semplice (chiave: valore) in tabella HTML
-function yamlToTable(yaml) {
-  const lines = yaml.split("\n").filter(l => l.trim());
+// Converte un oggetto YAML in tabella HTML (ricorsivo)
+function yamlObjectToTable(obj) {
   let html = "<table class='yaml-table'>";
 
-  for (const line of lines) {
-    const idx = line.indexOf(":");
-    if (idx === -1) continue;
+  for (const key in obj) {
+    let value = obj[key];
 
-    const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim();
+    if (Array.isArray(value)) {
+      value = "<ul>" + value.map(v => `<li>${v}</li>`).join("") + "</ul>";
+    } else if (typeof value === "object" && value !== null) {
+      value = yamlObjectToTable(value);
+    }
 
     html += `
       <tr>
@@ -65,15 +66,18 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (res.ok) {
       const fileData = await res.json();
-      const md = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ""))));
 
-      // Estrai frontmatter
+      // DECODIFICA CORRETTA (fix fondamentale)
+      const md = atob(fileData.content);
+
+      // Estrai frontmatter YAML
       const fm = extractFrontmatter(md);
       if (fm) {
-        fmContainer.innerHTML = yamlToTable(fm);
+        const yamlObj = jsyaml.load(fm);
+        fmContainer.innerHTML = yamlObjectToTable(yamlObj);
       }
 
-      // Mostra contenuto Markdown
+      // Mostra contenuto Markdown (se presente)
       const contenuto = stripFrontmatter(md);
       descrContainer.innerHTML = marked.parse(contenuto);
     }
