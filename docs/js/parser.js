@@ -8,26 +8,24 @@ function parseMetadata(md) {
   for (let line of lines) {
     const trimmed = line.trim();
 
-    // Se la riga è vuota → continua il valore multilinea
-    if (!trimmed) {
-      if (currentKey) data[currentKey] += "\n";
-      continue;
-    }
-
     // Riconosce una riga "chiave: valore"
     const match = trimmed.match(/^([a-zA-Z0-9_-]+)\s*:\s*(.*)$/);
 
     if (match) {
-      // Nuova chiave trovata
+      // Nuova chiave
       currentKey = match[1].toLowerCase();
       data[currentKey] = match[2] || "";
-    } else if (currentKey) {
-      // Riga di valore multilinea
+      continue;
+    }
+
+    // Se NON è una nuova chiave e abbiamo una chiave corrente → multilinea
+    if (currentKey) {
+      // Aggiunge la riga così com’è, preservando Markdown
       data[currentKey] += "\n" + line;
     }
   }
 
-  // Pulizia finale: trim su ogni valore
+  // Pulizia finale
   for (const k in data) {
     data[k] = data[k].trim();
   }
