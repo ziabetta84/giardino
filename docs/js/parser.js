@@ -1,5 +1,3 @@
-// js/parser.js
-
 function parseMetadata(md) {
   const lines = md.split("\n");
   const data = {};
@@ -8,19 +6,17 @@ function parseMetadata(md) {
   for (let line of lines) {
     const trimmed = line.trim();
 
-    // Riconosce una riga "chiave: valore"
+    // Nuova chiave: "chiave: valore"
     const match = trimmed.match(/^([a-zA-Z0-9_-]+)\s*:\s*(.*)$/);
 
     if (match) {
-      // Nuova chiave
       currentKey = match[1].toLowerCase();
       data[currentKey] = match[2] || "";
       continue;
     }
 
     // Se NON è una nuova chiave e abbiamo una chiave corrente → multilinea
-    if (currentKey) {
-      // Aggiunge la riga così com’è, preservando Markdown
+    if (currentKey !== null) {
       data[currentKey] += "\n" + line;
     }
   }
