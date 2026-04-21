@@ -24,7 +24,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   status.textContent = "Caricamento dati...";
 
   // 1. Carica il file dal repo
-  const md = await fetch(`https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}`)
+const md = await fetch(
+  `https://raw.githubusercontent.com/ziabetta84/giardino/main/${path}?t=${Date.now()}`
+)
     .then(r => r.text())
     .catch(() => null);
 
