@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Giardino — Home</title>
+  <meta charset="utf-8">
+  <title>Giardino</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/app.js" defer></script>
 </head>
 <body>
 
-<header>
-  <h1>🌱 Giardino</h1>
-</header>
+<header>Giardino</header>
 
-<main class="home-grid">
-  <a class="card" href="meteo.html">🌤️ Meteo</a>
-  <a class="card" href="zone.html">🏡 Zone</a>
-  <a class="card" href="piante.html">🌿 Piante</a>
-  <a class="card" href="progetti.html">📘 Progetti</a>
-  <a class="card" href="settings.html">⚙️ Impostazioni</a>
-</main>
+<div class="container">
+  <div class="nav-links">
+    <a href="zone.html">Zone</a>
+    <a href="progetto.html">Progetti</a>
+  </div>
 
-<footer class="navbar">
-  <a href="index.html">🏠</a>
-  <a href="piante.html">🌿</a>
-  <a href="zone.html">🏡</a>
-  <a href="progetti.html">📘</a>
-  <a href="settings.html">⚙️</a>
-</footer>
+  <div class="card">
+    <div class="card-title">Benvenuto nel tuo giardino</div>
+    <div class="card-subtitle">
+      Questa web app legge direttamente i dati dal repository <code>giardino</code>.
+    </div>
+    <p>
+      Usa le sezioni qui sopra per esplorare zone e progetti basati sui file e sulle cartelle del repo.
+    </p>
+  </div>
+</div>
 
 </body>
 </html>

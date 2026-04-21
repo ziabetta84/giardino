@@ -1,29 +1,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <title>Zone</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/storage.js" defer></script>
-  <script src="js/ui.js" defer></script>
+  <script src="js/api.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/zone.js" defer></script>
 </head>
 <body>
 
-<header>
-  <h1>🏡 Zone</h1>
-</header>
+<header>Zone</header>
 
-<main id="zone-list" class="container"></main>
+<div class="container">
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="progetto.html">Progetti</a>
+  </div>
 
-<button class="fab" onclick="location.href='zona.html'">＋</button>
-
-<footer class="navbar">
-  <a href="index.html">🏠</a>
-  <a href="piante.html">🌿</a>
-  <a href="zone.html">🏡</a>
-  <a href="progetti.html">📘</a>
-  <a href="settings.html">⚙️</a>
-</footer>
+  <div id="zone-list"></div>
+</div>
 
 </body>
 </html>

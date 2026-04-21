@@ -1,46 +1,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>Pianta</title>
+  <meta charset="utf-8">
+  <title>Dettaglio</title>
   <link rel="stylesheet" href="css/style.css">
-  <script src="js/storage.js" defer></script>
-  <script src="js/templates.js" defer></script>
-  <script src="js/ui.js" defer></script>
+  <script src="js/api.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/pianta.js" defer></script>
 </head>
 <body>
 
-<header>
-  <h1>🌿 Pianta</h1>
-</header>
+<header id="pianta-title">Dettaglio</header>
 
-<main class="container">
-  <label>Nome</label>
-  <input id="nome">
+<div class="container">
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="zone.html">Zone</a>
+  </div>
 
-  <label>Specie</label>
-  <input id="specie">
-
-  <label>Zona</label>
-  <input id="zona">
-
-  <label>Sottozona</label>
-  <input id="sottozona">
-
-  <label>Note / Alert</label>
-  <textarea id="alert"></textarea>
-
-  <button onclick="savePlant()">Salva</button>
-  <button onclick="exportPlant()">Esporta .md</button>
-</main>
-
-<footer class="navbar">
-  <a href="index.html">🏠</a>
-  <a href="piante.html">🌿</a>
-  <a href="zone.html">🏡</a>
-  <a href="progetti.html">📘</a>
-  <a href="settings.html">⚙️</a>
-</footer>
+  <div id="pianta-card" class="card"></div>
+</div>
 
 </body>
 </html>
