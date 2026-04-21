@@ -19,30 +19,36 @@ document.addEventListener("DOMContentLoaded", async () => {
   header.textContent = `Zona: ${zona}`;
   container.innerHTML = "<div class='card'>Caricamento sottozone...</div>";
 
+  // 1) leggo il contenuto di zone/<zona>
   const items = await listDir(`zone/${zona}`);
-  const files = items.filter(i => i.type === "file" && i.name.endsWith(".md"));
+
+  // 2) prendo solo le directory (le sottozone)
+  const subdirs = items.filter(i => i.type === "dir");
 
   container.innerHTML = "";
 
-  if (!files.length) {
+  if (!subdirs.length) {
     container.innerHTML = "<div class='card'>Nessuna sottozona trovata.</div>";
     return;
   }
 
-  for (const f of files) {
-    const name = f.name.replace(".md", "");
-    if (name === zona) continue; // salta il file principale della zona
+  for (const dir of subdirs) {
+    const sottozona = dir.name;
 
-    const md = await getFile(`zone/${zona}/${f.name}`);
+    // 3) file markdown atteso: zone/<zona>/<sottozona>/<sottozona>.md
+    const path = `zone/${zona}/${sottozona}/${sottozona}.md`;
+    const md = await getFile(path);
+    if (!md) continue;
+
     const meta = parseMetadata(md);
 
     const a = document.createElement("a");
     a.className = "card";
-    a.href = `pianta.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(name)}`;
+    a.href = `pianta.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(sottozona)}`;
 
     const title = document.createElement("div");
     title.className = "card-title";
-    title.textContent = meta.nome || name;
+    title.textContent = meta.nome || sottozona;
 
     const subtitle = document.createElement("div");
     subtitle.className = "card-subtitle";
