@@ -21,17 +21,16 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   const path = `zone/${zona}/${zona}.md`;
-  const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}`;
+  const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}?t=${Date.now()}`;
 
   status.textContent = "Caricamento dati...";
 
-  // 1. Carica il file dal repo tramite GitHub API (CORS OK)
+  // 1. Carica il file dal repo tramite GitHub API (CORS OK, niente header extra)
   let fileData;
   try {
     const fileRes = await fetch(apiUrl, {
       headers: {
-        "Accept": "application/vnd.github.v3+json",
-        "Cache-Control": "no-cache"
+        "Accept": "application/vnd.github.v3+json"
       }
     });
 
@@ -98,19 +97,22 @@ document.addEventListener("DOMContentLoaded", async () => {
       md;
 
     try {
-      const commitRes = await fetch(apiUrl, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-          "Accept": "application/vnd.github.v3+json"
-        },
-        body: JSON.stringify({
-          message: `Aggiorna zona ${zona}`,
-          content: btoa(unescape(encodeURIComponent(nuovoMd))),
-          sha: fileData.sha
-        })
-      });
+      const commitRes = await fetch(
+        `https://api.github.com/repos/ziabetta84/giardino/contents/${path}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "Accept": "application/vnd.github.v3+json"
+          },
+          body: JSON.stringify({
+            message: `Aggiorna zona ${zona}`,
+            content: btoa(unescape(encodeURIComponent(nuovoMd))),
+            sha: fileData.sha
+          })
+        }
+      );
 
       status.textContent = commitRes.ok
         ? "Salvato nel repo ✔️"
