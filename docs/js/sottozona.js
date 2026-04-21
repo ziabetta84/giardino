@@ -55,23 +55,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   header.textContent = `Zona: ${zona}`;
 
+  // Prepara headers con token
+  const token = localStorage.getItem("github_token");
+  const headers = { "Accept": "application/vnd.github.v3+json" };
+  if (token) headers["Authorization"] = `Bearer ${token}`;
+
   // 1. Carica casa.md tramite GitHub API
   const path = `zone/${zona}/${zona}.md`;
   const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}?t=${Date.now()}`;
 
   try {
-    const res = await fetch(apiUrl, {
-      headers: { "Accept": "application/vnd.github.v3+json" }
-    });
+    const res = await fetch(apiUrl, { headers });   // <-- AUTH QUI
 
     if (res.ok) {
       const fileData = await res.json();
 
-      // DECODIFICA CORRETTA (fix fondamentale)
+      // DECODIFICA UTF‑8 CORRETTA
       const md = new TextDecoder("utf-8").decode(
         Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0))
       );
-
 
       // Estrai frontmatter YAML
       const fm = extractFrontmatter(md);
@@ -88,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     fmContainer.innerHTML = "<p><i>Errore nel caricamento della zona.</i></p>";
   }
 
-  // 2. Carica sottozone
+  // 2. Carica sottozone (usa listDir, che ora ha già il token)
   const items = await listDir(`zone/${zona}`);
   const dirs = items.filter(i => i.type === "dir");
 
