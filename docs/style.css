@@ -359,3 +359,49 @@ button.home-card {
 .delete-btn:hover {
   background: #992d22;
 }
+/* --------------------------------------------------
+   STATUS BAR
+-------------------------------------------------- */
+#status-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 42px;
+  background: rgba(30, 30, 30, 0.92);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 14px;
+  font-size: 14px;
+  z-index: 9999;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+#status-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#status-icon {
+  font-size: 16px;
+}
+
+#status-action {
+  background: var(--accent);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .2s, transform .15s;
+}
+
+#status-action:hover {
+  background: #1f5f2e;
+  transform: translateY(-2px);
+}

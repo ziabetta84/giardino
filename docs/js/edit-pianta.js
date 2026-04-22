@@ -112,9 +112,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // Salva su GitHub
+    notifySaving();
     const ok = await saveJSON("piante.json", piante);
 
     if (ok) {
+      notifySaving();
       alert("Pianta aggiornata con successo.");
       window.location.href = `pianta.html?nome=${encodeURIComponent(nome)}`;
     } else {

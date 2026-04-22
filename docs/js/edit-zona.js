@@ -136,10 +136,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       delete zoneData[zona];
     }
 
+    notifySaving();
     const ok = await saveJSON("zone.json", zoneData);
 
     if (ok) {
       alert(isNew ? "Zona creata con successo." : "Zona aggiornata con successo.");
+      notifySaving();
       window.location.href = "zone.html";
     } else {
       alert("Errore durante il salvataggio.");

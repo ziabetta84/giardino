@@ -85,11 +85,13 @@ for (const key of zoneKeys) {
     }
 
     // Salva entrambi
+    notifySaving();
     const ok1 = await saveJSON("zone.json", zoneData);
     const ok2 = await saveJSON("sottozone.json", sottoData);
 
     if (ok1 && ok2) {
       alert("Zona eliminata con successo.");
+      notifySaving();
       location.reload();
     } else {
       alert("Errore durante l'eliminazione.");
