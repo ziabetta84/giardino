@@ -351,3 +351,11 @@ button.home-card {
 .sottozona-btn:hover {
   transform: translateY(-2px);
 }
+.delete-btn {
+  background: #c0392b;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #992d22;
+}
