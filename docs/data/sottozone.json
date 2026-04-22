@@ -1,15 +1,5 @@
 {
   "casa": {
-    "soggiorno": {
-      "nome": "Soggiorno",
-      "zona": "casa",
-      "descrizione": "",
-      "esposizione": [],
-      "microclima": "",
-      "criticita": "",
-      "manutenzione": "",
-      "tipo": "interno"
-    },
     "Bagni": {
       "nome": "Bagni",
       "descrizione": "<p dir=\"auto\">I bagni sono esposti a <strong>est</strong>. Hanno finestre ma non terrazzi, quindi al momento non è prevista l’aggiunta di piante da esterno.</p><p dir=\"auto\">Ricevono <strong>molta luce al mattino</strong>, durante tutto l’anno.</p><p dir=\"auto\"><br></p>",
@@ -43,15 +33,6 @@
       "microclima": "",
       "criticita": "",
       "manutenzione": "",
-      "tipo": "interno"
-    },
-    "Scalinata": {
-      "nome": "Scalinata",
-      "descrizione": "La scalinata è un ambiente fresco e poco illuminato, ma con <strong>buona ventilazione</strong>.<br><div>\nLa luce proviene da due piccole finestre, mentre l’aria circola grazie a\n una finestra spesso aperta e al collegamento diretto con il garage.</div>",
-      "esposizione": [],
-      "microclima": "<ul dir=\"auto\"><li><strong>Freddo</strong> per gran parte dell’anno</li><li><strong>Luce scarsa</strong></li><li><strong>Buona ventilazione</strong></li><li><strong>Umidità moderata</strong></li></ul>",
-      "criticita": "",
-      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione minima</strong>, solo a terreno completamente asciutto.</li><li><strong>Pulizia foglie</strong> per migliorare la fotosintesi.</li><li><strong>Controllo radici</strong> ogni 6–12 mesi.</li><li><strong>Rotazione dei vasi</strong> ogni 2–3 settimane.</li><li><strong>Monitoraggio muffe</strong> nei mesi più umidi.</li><li><strong>Attenzione alle correnti d’aria</strong> per piante sensibili.</li></ul>",
       "tipo": "interno"
     }
   }
