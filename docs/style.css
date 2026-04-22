@@ -60,6 +60,47 @@ button.home-card {
 .meteo-card {
   text-align: center;
 }
+
+/* --------------------------------------------------
+   NAVBAR
+-------------------------------------------------- */
+
+.topnav {
+  display: flex;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 2px 6px var(--card-shadow);
+  margin-bottom: 20px;
+  position: sticky;
+  top: 10px;
+  z-index: 100;
+}
+
+.topnav a {
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--fg);
+  font-weight: 600;
+  transition: background .2s, transform .2s;
+}
+
+.topnav a:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .topnav {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 /* --------------------------------------------------
    METEO PAGE
 -------------------------------------------------- */
