@@ -320,3 +320,34 @@ button.home-card {
 .edit-btn:hover {
   background: #666;
 }
+.sottozona-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sottozona-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.sottozona-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.sottozona-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform .15s, background .2s;
+}
+
+.sottozona-btn:hover {
+  transform: translateY(-2px);
+}
