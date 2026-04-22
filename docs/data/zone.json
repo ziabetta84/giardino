@@ -59,5 +59,16 @@
     "criticita": "<ul dir=\"auto\"><li><strong>Calore pomeridiano estivo</strong>: il lato sinistro e la \nparte centrale possono subire stress da calore nelle ore più calde; \npreferire piante resistenti al sole intenso e alla siccità estiva</li><li><strong>Umidità eccessiva sul lato destro</strong>: il drenaggio continuo delle fioriere sovrastanti può portare a ristagno e marciume radicale su specie non adatte all'umidità</li><li><strong>Luminosità disomogenea</strong>: la forte differenza tra il \nlato sinistro (soleggiato) e il lato destro (sempre in ombra) richiede \nscelte botaniche molto diverse per le due estremità</li></ul>",
     "manutenzione": "",
     "tipo": "esterno"
+  },
+  "Vialetto": {
+    "nome": "Vialetto",
+    "descrizione": "<div>Percorso pedonale sopraelevato che si sviluppa lungo un lato della casa. È composto da due sotto-zone: le <strong>fioriere</strong> (grandi contenitori in legno lungo il camminamento) e la <strong>ringhiera</strong>\n (piccole fioriere appese alla ringhiera del camminamento). Il drenaggio\n delle fioriere scende nella sotto-zona lato-destro dello scivolo \nsottostante.</div>",
+    "esposizione": [
+      "ovest"
+    ],
+    "microclima": "<div>Caldo e soleggiato nel pomeriggio, con buona ventilazione grazie alla \nposizione sopraelevata sul camminamento. Le fioriere in contenitore (sia\n grandi che piccole) si scaldano rapidamente e perdono umidità più in \nfretta rispetto al terreno aperto. Le fioriere in legno grandi \nmantengono l'umidità meglio di quelle piccole in plastica o terracotta.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Cacyreus marshalli</strong> (farfallina dei gerani): \nparassita che depone le uova sui gerani e le cui larve perforano steli e\n gemme dall'interno. L'anno scorso ha richiesto una potatura abbondante.\n Da monitorare da primavera: trattamenti preventivi con insetticida \nspecifico o Bacillus thuringiensis all'inizio della stagione</li><li><strong>Essiccamento rapido</strong>: le fioriere, soprattutto \nquelle piccole della ringhiera, si asciugano velocemente in estate; \nirrigazione frequente indispensabile nelle settimane più calde</li><li><strong>Stress termico estivo</strong>: il calore pomeridiano combinato con substrato limitato può stressare le radici nelle fioriere piccole</li></ul>",
+    "manutenzione": "<div>In estate è richiesta molta irrigazione, a causa dell'esposizione al sole e al vento.</div>",
+    "tipo": "interno"
   }
 }
