@@ -86,12 +86,51 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
+    // ❌ Elimina
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "sottozona-btn delete-btn";
+    deleteBtn.textContent = "Elimina";
+    deleteBtn.onclick = async () => {
+      const token = localStorage.getItem("github_token");
+      if (!token) {
+        alert("Devi effettuare il login per eliminare.");
+        return;
+      }
+
+      const conferma = confirm(`Vuoi davvero eliminare la sottozona "${s.nome}"?`);
+      if (!conferma) return;
+
+      // Carica JSON
+      const data = await loadJSON("sottozone.json");
+
+      // Elimina la sottozona
+      delete data[zona][key];
+
+      // Se la zona rimane vuota, elimina anche il contenitore
+      if (Object.keys(data[zona]).length === 0) {
+        delete data[zona];
+      }
+
+      // Salva
+      const ok = await saveJSON("sottozone.json", data);
+
+      if (ok) {
+        alert("Sottozona eliminata.");
+        location.reload();
+      } else {
+        alert("Errore durante l'eliminazione.");
+      }
+    };
+
+    // Assembla
     btnRow.appendChild(exploreBtn);
     btnRow.appendChild(editBtn);
+    btnRow.appendChild(deleteBtn);
 
     card.appendChild(title);
     card.appendChild(btnRow);
 
     container.appendChild(card);
   }
+
 });
