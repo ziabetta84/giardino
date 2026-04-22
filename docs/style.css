@@ -271,3 +271,52 @@ button.home-card {
   background: #1f5f2e;
   transform: translateY(-2px);
 }
+/* --------------------------------------------------
+   ZONE LIST
+-------------------------------------------------- */
+
+.zone-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.zone-title {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.zone-btn-row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.zone-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform .15s, background .2s;
+}
+
+.zone-btn:hover {
+  transform: translateY(-2px);
+}
+
+.explore-btn {
+  background: var(--accent);
+  color: white;
+}
+
+.edit-btn {
+  background: #888;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #666;
+}
