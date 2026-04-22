@@ -1,95 +1,112 @@
 // docs/js/piante.js
 
 function getParam(name) {
-  const params = new URLSearchParams(location.search);
-  return params.get(name);
+  return new URLSearchParams(location.search).get(name);
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
   const sottozona = getParam("sottozona");
 
-  const header = document.getElementById("piante-title");
-  const container = document.getElementById("piante-list");
+  const title = document.getElementById("page-title");
+  const list = document.getElementById("piante-list");
+  const addBtn = document.getElementById("add-plant-btn");
 
-  if (!zona) {
-    header.textContent = "Zona non specificata";
-    return;
+  // Titolo dinamico
+  if (zona && sottozona) {
+    title.textContent = `${zona} / ${sottozona}`;
+    addBtn.href = `edit-pianta.html?zona=${zona}&sottozona=${sottozona}`;
+  } else if (zona) {
+    title.textContent = zona;
+    addBtn.href = `edit-pianta.html?zona=${zona}`;
+  } else {
+    title.textContent = "Tutte le piante";
+    addBtn.href = `edit-pianta.html`;
   }
 
-  header.textContent = sottozona
-    ? `Piante in ${zona} / ${sottozona}`
-    : `Piante in ${zona}`;
-
-  // Carica tutte le piante
+  // Carica dati
+  const specie = await loadJSON("specie.json");
   const piante = await loadJSON("piante.json");
 
-  if (!piante || Object.keys(piante).length === 0) {
-    container.innerHTML = "<div class='card'>Nessuna pianta trovata.</div>";
+  if (!piante) {
+    list.innerHTML = "<div class='card'>Nessuna pianta trovata.</div>";
     return;
   }
 
-  // Filtra per zona e sottozona
-  const keys = Object.keys(piante).filter(k => {
-    const p = piante[k];
-    if (p.zona !== zona) return false;
+  // Filtra istanze
+  const keys = Object.keys(piante).filter(id => {
+    const p = piante[id];
+
+    if (zona && p.zona !== zona) return false;
     if (sottozona && p.sottozona !== sottozona) return false;
+
     return true;
   });
 
-  // Ordina alfabeticamente
-  keys.sort((a, b) => {
-    const nomeA = piante[a].nome?.toLowerCase() || a.toLowerCase();
-    const nomeB = piante[b].nome?.toLowerCase() || b.toLowerCase();
-    return nomeA.localeCompare(nomeB);
-  });
-
-  container.innerHTML = "";
-
   if (keys.length === 0) {
-    container.innerHTML = "<div class='card'>Nessuna pianta trovata.</div>";
+    list.innerHTML = "<div class='card'>Nessuna pianta in questa zona.</div>";
     return;
   }
 
-  for (const key of keys) {
-    const p = piante[key];
+  list.innerHTML = "";
 
-    // CARD
+  for (const id of keys) {
+    const p = piante[id];
+    const sp = specie[p.specie];
+
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card plant-card";
 
-    // LINK alla pagina della singola pianta
-    const link = document.createElement("a");
-    link.href = `pianta.html?nome=${encodeURIComponent(key)}`;
-
-    const title = document.createElement("div");
-    title.className = "card-title";
-    title.textContent = p.nome || key;
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "card-title";
+    titleDiv.textContent = sp.nome + (p.varieta ? ` (${p.varieta})` : "");
 
     const subtitle = document.createElement("div");
     subtitle.className = "card-subtitle";
-    subtitle.textContent = p.specie || "";
+    subtitle.textContent = `${p.zona}${p.sottozona ? " / " + p.sottozona : ""}`;
 
-    link.appendChild(title);
-    link.appendChild(subtitle);
+    // Pulsanti
+    const btnRow = document.createElement("div");
+    btnRow.className = "sottozona-btn-row";
 
-    // Pulsante Modifica
-    const btn = document.createElement("button");
-    btn.className = "modifica-btn";
-    btn.textContent = "Modifica";
-    btn.onclick = () => {
-      const token = localStorage.getItem("github_token");
-      if (!token) {
-        alert("Devi effettuare il login per modificare.");
-        return;
-      }
-      window.location.href = `edit-pianta.html?nome=${encodeURIComponent(key)}`;
+    const viewBtn = document.createElement("button");
+    viewBtn.className = "sottozona-btn explore-btn";
+    viewBtn.textContent = "Scheda";
+    viewBtn.onclick = () => {
+      window.location.href = `pianta.html?specie=${p.specie}`;
     };
 
-    // Assembla card
-    card.appendChild(link);
-    card.appendChild(btn);
+    const editBtn = document.createElement("button");
+    editBtn.className = "sottozona-btn edit-btn";
+    editBtn.textContent = "Modifica";
+    editBtn.onclick = () => {
+      window.location.href = `edit-pianta.html?id=${id}`;
+    };
 
-    container.appendChild(card);
+    const delBtn = document.createElement("button");
+    delBtn.className = "sottozona-btn delete-btn";
+    delBtn.textContent = "Elimina";
+    delBtn.onclick = async () => {
+      const ok = confirm(`Eliminare questa pianta (${sp.nome})?`);
+      if (!ok) return;
+
+      delete piante[id];
+      const saved = await saveJSON("piante.json", piante);
+
+      if (saved) {
+        alert("Pianta eliminata.");
+        location.reload();
+      }
+    };
+
+    btnRow.appendChild(viewBtn);
+    btnRow.appendChild(editBtn);
+    btnRow.appendChild(delBtn);
+
+    card.appendChild(titleDiv);
+    card.appendChild(subtitle);
+    card.appendChild(btnRow);
+
+    list.appendChild(card);
   }
 });

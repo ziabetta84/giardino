@@ -4,53 +4,41 @@
   <meta charset="UTF-8">
   <title>Modifica Pianta</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/pell/dist/pell.min.css">
-  <script src="https://unpkg.com/pell"></script>
 </head>
 <body>
 
 <nav class="topnav">
   <a href="index.html">🏠 Home</a>
-  <a href="meteo.html">⛅ Meteo</a>
-  <a href="zone.html">📍 Zone</a>
-  <a href="piante.html?zona=casa">🌿 Piante</a>
-  <a href="gallery.html">🖼️ Gallery</a>
+  <a href="piante.html">🌿 Piante</a>
 </nav>
-<h1 id="edit-title"></h1>
 
-<form id="edit-form">
+<h1 id="edit-title">Nuova Pianta</h1>
 
-  <h2>Informazioni generali</h2>
-  <label>Nome: <input id="nome" type="text"></label><br>
-  <label>Specie: <input id="specie" type="text"></label><br>
-  <label>Zona: <input id="zona" type="text"></label><br>
-  <label>Sottozona: <input id="sottozona" type="text"></label><br>
+<form id="edit-form" class="edit-form">
 
-  <h2>Irrigazione</h2>
-  <label>Primavera: <input id="irr-primavera" type="text"></label><br>
-  <label>Estate: <input id="irr-estate" type="text"></label><br>
-  <label>Autunno: <input id="irr-autunno" type="text"></label><br>
-  <label>Inverno: <input id="irr-inverno" type="text"></label><br>
+  <label>Specie</label>
+  <select id="specie"></select>
 
-  <h2>Concimazione</h2>
-  <label>Primavera: <input id="conc-primavera" type="text"></label><br>
-  <label>Estate: <input id="conc-estate" type="text"></label><br>
-  <label>Autunno: <input id="conc-autunno" type="text"></label><br>
-  <label>Inverno: <input id="conc-inverno" type="text"></label><br>
+  <label>Zona</label>
+  <select id="zona"></select>
 
-  <h2>Potatura</h2>
-  <label>Primavera: <select id="pot-primavera"></select></label><br>
-  <label>Estate: <select id="pot-estate"></select></label><br>
-  <label>Autunno: <select id="pot-autunno"></select></label><br>
-  <label>Inverno: <select id="pot-inverno"></select></label><br>
+  <label>Sottozona</label>
+  <select id="sottozona">
+    <option value="">(nessuna)</option>
+  </select>
 
-  <h2>Alert</h2>
-  <div id="alert-editor" class="pell"></div>
-  <textarea id="alert" style="display:none"></textarea>
+  <label>Varietà</label>
+  <input id="varieta" type="text">
 
-  <br><br>
-  <button type="submit">Salva</button>
+  <label>Data impianto</label>
+  <input id="impianto" type="date">
+
+  <label>Note</label>
+  <textarea id="note"></textarea>
+
+  <button type="submit" class="save-btn">💾 Salva</button>
 </form>
+
 <div id="status-bar">
   <div id="status-left">
     <span id="status-icon">🟢</span>
@@ -58,8 +46,10 @@
   </div>
   <button id="status-action">Aggiorna</button>
 </div>
-<script src="js/status.js"></script>
+
 <script src="js/api.js"></script>
 <script src="js/edit-pianta.js"></script>
+<script src="js/status.js"></script>
+
 </body>
 </html>
