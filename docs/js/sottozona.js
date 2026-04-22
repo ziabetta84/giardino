@@ -20,16 +20,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   header.textContent = zona;
 
-  // Carica zone.json per la descrizione
+  // Carica descrizione zona
   const zone = await loadJSON("zone.json");
   if (zone && zone[zona] && zone[zona].descrizione) {
     descrContainer.innerHTML = zone[zona].descrizione;
   }
 
-  // Carica sottozone.json
+  // Carica sottozone
   const sottozone = await loadJSON("sottozone.json");
 
-  // Se la zona non ha sottozone
   if (!sottozone || !sottozone[zona]) {
     container.innerHTML = "<div class='card'>Nessuna sottozona trovata.</div>";
     return;
@@ -51,30 +50,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // CARD
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card sottozona-card";
 
-    // LINK alla pagina piante
-    const link = document.createElement("a");
-    link.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
-
+    // TITOLO (solo testo)
     const title = document.createElement("div");
-    title.className = "card-title";
+    title.className = "sottozona-title";
     title.textContent = s.nome || key;
 
-    const subtitle = document.createElement("div");
-    subtitle.className = "card-subtitle";
-    subtitle.innerHTML = s.descrizione
-      ? s.descrizione.replace(/<[^>]+>/g, "").slice(0, 80) + "…"
-      : "";
+    // CONTENITORE BOTTONI
+    const btnRow = document.createElement("div");
+    btnRow.className = "sottozona-btn-row";
 
-    link.appendChild(title);
-    link.appendChild(subtitle);
+    // Pulsante Esplora
+    const exploreBtn = document.createElement("button");
+    exploreBtn.className = "sottozona-btn explore-btn";
+    exploreBtn.textContent = "Esplora";
+    exploreBtn.onclick = () => {
+      window.location.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
+    };
 
     // Pulsante Modifica
-    const btn = document.createElement("button");
-    btn.className = "modifica-btn";
-    btn.textContent = "Modifica";
-    btn.onclick = () => {
+    const editBtn = document.createElement("button");
+    editBtn.className = "sottozona-btn edit-btn";
+    editBtn.textContent = "Modifica";
+    editBtn.onclick = () => {
       const token = localStorage.getItem("github_token");
       if (!token) {
         alert("Devi effettuare il login per modificare.");
@@ -83,9 +82,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
-    // Assembla card
-    card.appendChild(link);
-    card.appendChild(btn);
+    // Assembla
+    btnRow.appendChild(exploreBtn);
+    btnRow.appendChild(editBtn);
+
+    card.appendChild(title);
+    card.appendChild(btnRow);
 
     container.appendChild(card);
   }
