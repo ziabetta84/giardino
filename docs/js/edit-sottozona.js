@@ -12,34 +12,50 @@ document.addEventListener("DOMContentLoaded", async () => {
   const title = document.getElementById("edit-title");
   const form = document.getElementById("edit-form");
 
-  if (!zona || !sottozona) {
-    title.textContent = "Zona o sottozona non specificata";
-    return;
-  }
+  let data = await loadJSON("sottozone.json");
+  let sz = null;
+  let isNew = false;
 
-  title.textContent = `Modifica sottozona: ${sottozona}`;
-
-  // Carica tutte le sottozone
-  const data = await loadJSON("sottozone.json");
-
-  if (!data || !data[zona] || !data[zona][sottozona]) {
-    title.textContent = "Sottozona non trovata";
-    return;
-  }
-
-  const sz = data[zona][sottozona];
+  if (!data[zona]) data[zona] = {};
 
   // -----------------------------
-  // 1) Popola i campi del form
+  // NUOVA SOTTOZONA
+  // -----------------------------
+  if (sottozona === "NUOVA") {
+    isNew = true;
+    title.textContent = `Nuova sottozona in: ${zona}`;
+
+    sz = {
+      nome: "",
+      descrizione: "",
+      esposizione: [],
+      microclima: "",
+      criticita: "",
+      manutenzione: "",
+      tipo: "interno"
+    };
+  } else {
+    // -----------------------------
+    // MODIFICA SOTTOZONA
+    // -----------------------------
+    if (!zona || !sottozona || !data[zona][sottozona]) {
+      title.textContent = "Sottozona non trovata";
+      return;
+    }
+
+    title.textContent = `Modifica sottozona: ${sottozona}`;
+    sz = data[zona][sottozona];
+  }
+
+  // -----------------------------
+  // POPOLA FORM
   // -----------------------------
   document.getElementById("nome").value = sz.nome || "";
 
   // DESCRIZIONE
   const descrizioneEditor = pell.init({
     element: document.getElementById("descrizione-editor"),
-    onChange: html => {
-      document.getElementById("descrizione").value = html;
-    }
+    onChange: html => document.getElementById("descrizione").value = html
   });
   descrizioneEditor.content.innerHTML = sz.descrizione || "";
   document.getElementById("descrizione").value = sz.descrizione || "";
@@ -47,19 +63,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   // CRITICITÀ
   const criticitaEditor = pell.init({
     element: document.getElementById("criticita-editor"),
-    onChange: html => {
-      document.getElementById("criticita").value = html;
-    }
+    onChange: html => document.getElementById("criticita").value = html
   });
   criticitaEditor.content.innerHTML = sz.criticita || "";
   document.getElementById("criticita").value = sz.criticita || "";
 
-  // MANUTENZIONE (aggiunta da te)
+  // MANUTENZIONE
   const manutenzioneEditor = pell.init({
     element: document.getElementById("manutenzione-editor"),
-    onChange: html => {
-      document.getElementById("manutenzione").value = html;
-    }
+    onChange: html => document.getElementById("manutenzione").value = html
   });
   manutenzioneEditor.content.innerHTML = sz.manutenzione || "";
   document.getElementById("manutenzione").value = sz.manutenzione || "";
@@ -67,9 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // MICROCLIMA
   const microclimaEditor = pell.init({
     element: document.getElementById("microclima-editor"),
-    onChange: html => {
-      document.getElementById("microclima").value = html;
-    }
+    onChange: html => document.getElementById("microclima").value = html
   });
   microclimaEditor.content.innerHTML = sz.microclima || "";
   document.getElementById("microclima").value = sz.microclima || "";
@@ -84,17 +94,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   // -----------------------------
-  // 2) Salvataggio
+  // SALVATAGGIO
   // -----------------------------
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const nuovoNome = document.getElementById("nome").value.trim();
+    if (!nuovoNome) {
+      alert("Il nome della sottozona è obbligatorio.");
+      return;
+    }
 
     const nuovaEsposizione = ["nord", "sud", "est", "ovest"].filter(dir =>
       document.getElementById(`exp-${dir}`).checked
     );
 
-    data[zona][sottozona] = {
-      nome: document.getElementById("nome").value.trim(),
+    const key = isNew ? nuovoNome : sottozona;
+
+    data[zona][key] = {
+      nome: nuovoNome,
       descrizione: document.getElementById("descrizione").value,
       esposizione: nuovaEsposizione,
       microclima: document.getElementById("microclima").value,
@@ -103,11 +121,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       tipo: document.getElementById("tipo").value
     };
 
+    if (!isNew && nuovoNome !== sottozona) {
+      delete data[zona][sottozona];
+    }
+
     const ok = await saveJSON("sottozone.json", data);
 
     if (ok) {
-      alert("Sottozona aggiornata con successo.");
-      window.location.href = `sottozona.html?zona=${zona}&sottozona=${sottozona}`;
+      alert(isNew ? "Sottozona creata con successo." : "Sottozona aggiornata con successo.");
+      window.location.href = `sottozona.html?zona=${zona}`;
     } else {
       alert("Errore durante il salvataggio.");
     }
