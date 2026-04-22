@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("descrizione").value = z.descrizione || "";
   document.getElementById("microclima").value = z.microclima || "";
   document.getElementById("criticita").value = z.criticita || "";
+  document.getElementById("manutenzione").value = z.manutenzione || "";
   document.getElementById("tipo").value = z.tipo || "interno";
 
   // Esposizione (checkbox)
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       esposizione: nuovaEsposizione,
       microclima: document.getElementById("microclima").value.trim(),
       criticita: document.getElementById("criticita").value.trim(),
+      manutenzione: document.getElementById("manutenzione").value.trim(),
       tipo: document.getElementById("tipo").value
     };
 
