@@ -93,5 +93,18 @@
       "manutenzione": "",
       "tipo": "esterno"
     }
+  },
+  "Vialetto": {
+    "Fioriere": {
+      "nome": "Fioriere",
+      "descrizione": "<div>Sotto-zona del vialetto composta da <strong>grandi fioriere in legno</strong>\n disposte lungo il camminamento. Ospita la maggior parte dei gerani e \naltre piante da fiore di dimensioni medie. Il drenaggio di queste \nfioriere confluisce nella sotto-zona lato-destro dello scivolo \nsottostante.</div>",
+      "esposizione": [
+        "ovest"
+      ],
+      "microclima": "<p dir=\"auto\"><strong>Molto sole pomeridiano</strong>. Le fioriere in \nlegno, essendo ampie e profonde, permettono un buon sviluppo radicale. \nLa camelia presente potrebbe preferire una posizione leggermente più \nriparata dal sole diretto intenso del pomeriggio estivo.</p>Le\n fioriere in legno offrono un buon isolamento termico rispetto ai \ncontenitori in plastica o terracotta: il substrato si scalda meno \nrapidamente e trattiene meglio l'umidità. La posizione sopraelevata sul \ncamminamento garantisce una buona ventilazione attorno alle piante, \nriducendo il rischio di ristagno in superficie.",
+      "criticita": "<ul dir=\"auto\"><li><strong>Cacyreus marshalli</strong> (farfallina dei gerani): il \nparassita principale della zona. Le larve perforano steli e gemme dei \ngerani dall'interno, causando avvizzimento e morte dei rami colpiti. \nTrattamento preventivo da maggio con insetticida sistemico o Bacillus \nthuringiensis</li><li><b>Esposizione alle intemperie e al sole eccessivo</b>: in inverno il vento e in estate l'estrema caluria rendono necessarie alcune accortezze</li></ul>",
+      "manutenzione": "<ul><li><b>Valutare</b> di proteggere le piante presenti in inverno.</li><li><b>Prevenzione</b>&nbsp;dai danni di farfallina dei gerani e lumache.</li></ul><div><br></div>",
+      "tipo": "esterno"
+    }
   }
 }
