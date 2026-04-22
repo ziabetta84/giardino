@@ -25,22 +25,28 @@ function getAuthHeaders() {
 // 1) LEGGERE JSON da /docs/data/
 // ------------------------------
 async function loadJSON(filename) {
-  const url = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/docs/data/${filename}?t=${Date.now()}`;
+  const apiUrl = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/docs/data/${filename}`;
 
   try {
-    const res = await fetch(url, { headers: getAuthHeaders() });
+    const res = await fetch(apiUrl, { headers: getAuthHeaders() });
 
     if (!res.ok) {
       console.error("Errore loadJSON:", filename, res.status);
       return null;
     }
 
-    return await res.json();
+    const file = await res.json();
+
+    // Decodifica Base64 → UTF‑8 → JSON
+    const decoded = decodeURIComponent(escape(atob(file.content)));
+    return JSON.parse(decoded);
+
   } catch (e) {
     console.error("Errore rete loadJSON:", filename, e);
     return null;
   }
 }
+
 
 // ------------------------------
 // 2) SCRIVERE JSON nel repo
