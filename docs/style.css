@@ -151,3 +151,80 @@ button.home-card {
 .card {
   text-align: center;
 }
+/* --------------------------------------------------
+   FORM EDITOR (zone, sottozone, piante)
+-------------------------------------------------- */
+
+#edit-form {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px var(--card-shadow);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#edit-form h2 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: var(--accent);
+}
+
+#edit-form input[type="text"],
+#edit-form textarea,
+#edit-form select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 16px;
+  transition: border .2s, box-shadow .2s;
+}
+
+#edit-form input[type="text"]:focus,
+#edit-form textarea:focus,
+#edit-form select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 4px var(--accent);
+  outline: none;
+}
+
+#edit-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+#edit-form input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 8px;
+}
+
+#edit-form button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background .2s, transform .2s;
+}
+
+#edit-form button[type="submit"]:hover {
+  background: #1f5f2e;
+  transform: translateY(-2px);
+}
+
+#edit-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
