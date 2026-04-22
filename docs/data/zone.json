@@ -24,5 +24,16 @@
     "criticita": "<ul dir=\"auto\"><li><strong>Vento</strong>: zona più esposta della proprietà; privilegiare specie robuste con radici profonde</li><li><strong>Siccità estiva</strong>: l’esposizione a sud e il forte irraggiamento prosciugano rapidamente il suolo</li><li><strong>Invasione di specie spontanee dal bosco</strong>: rovi, infestanti e semi trasportati dal vento</li><li><strong>Parietaria sul muretto</strong>: crescita rapida e continua, richiede controllo regolare</li><li><strong>Accesso e manutenzione</strong>: zona ampia e distante dalla casa, richiede tempo e sforzo</li></ul>",
     "manutenzione": "<div>Questa zona del giardino tende a seccare molto durante l'estate.</div><div>Bisogna fare attenzione alle infestanti lungo il muretto e lungo il dorso del crinale.</div>",
     "tipo": "esterno"
+  },
+  "Est": {
+    "nome": "Est",
+    "descrizione": "<div>Lato orientale della proprietà.</div>",
+    "esposizione": [
+      "est"
+    ],
+    "microclima": "<div></div><div>Sole \ndiretto dal mattino fino al primo pomeriggio (circa 5–6 ore di sole \ndiretto). Il pomeriggio la casa proietta ombra parziale su questa zona e il tetto lo ripara dalla pioggia.</div><div><br></div><div>La collina alle spalle della proprietà funge da schermo naturale per i \nventi da nord e nord-ovest, rendendo questa zona relativamente riparata.\n Il lato est riceve il sole del mattino con calore progressivo durante \nla giornata.&nbsp;</div><div><br></div><div>Le gelate invernali sono \nrare ma possibili (gennaio–febbraio), attenuate dalla massa termica \ndella collina.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Ombra pomeridiana</strong>: a seconda dell'altezza della \ncollina e della vegetazione sul crinale, questa zona potrebbe ricevere \nombra nelle ore tarde; da monitorare in funzione delle piante scelte</li><li><strong>Suolo asciutto sotto la tettoia</strong>: la zona fiorita è \nriparata dalla tettoia della casa, che impedisce alla pioggia di \nraggiungere direttamente il terreno; il suolo tende a rimanere piuttosto\n asciutto e richiede irrigazione supplementare indipendentemente dalle \nprecipitazioni</li><li><strong>Umidità persistente al mattino</strong>: l'esposizione est \ncon scarsa ventilazione da ovest può favorire la permanenza della \nrugiada e umidità fogliare prolungata, aumentando il rischio di malattie\n fungine</li><li><strong>Escursione termica</strong>: la collina riduce la ventilazione notturna, portando a escursioni termiche più marcate rispetto a zone più aperte</li></ul>",
+    "manutenzione": "<div>Accertarsi <b>quotidianamente</b> dello stato di idratazione delle piante fiorite.</div>",
+    "tipo": "esterno"
   }
 }
