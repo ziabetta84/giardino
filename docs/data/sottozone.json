@@ -46,6 +46,15 @@
       "criticita": "",
       "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione controllata</strong>, più frequente in estate.</li><li><strong>Protezione dal sole diretto</strong> nelle ore più calde.</li><li><strong>Umidificazione leggera</strong> per anthurium e bonsai.</li><li><strong>Controllo parassiti</strong> (cocciniglia, acari).</li><li><strong>Rotazione dei vasi</strong> ogni 1–2 settimane.</li><li><strong>Cambio acqua</strong> delle talee ogni 7–10 giorni.</li></ul>",
       "tipo": "interno"
+    },
+    "Scalinata": {
+      "nome": "Scalinata",
+      "descrizione": "La scalinata è un ambiente fresco e poco illuminato, ma con <strong>buona ventilazione</strong>.<br><div>\nLa luce proviene da due piccole finestre, mentre l’aria circola grazie a\n una finestra spesso aperta e al collegamento diretto con il garage.</div>",
+      "esposizione": [],
+      "microclima": "<ul dir=\"auto\"><li><strong>Freddo</strong> per gran parte dell’anno</li><li><strong>Luce scarsa</strong></li><li><strong>Buona ventilazione</strong></li><li><strong>Umidità moderata</strong></li></ul>",
+      "criticita": "<li><strong>Monitoraggio muffe</strong> nei mesi più umidi.</li><li><strong>Attenzione alle correnti d’aria</strong> per piante sensibili.</li>",
+      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione minima</strong>, solo a terreno completamente asciutto.</li><li><strong>Pulizia foglie</strong> per migliorare la fotosintesi.</li><li><strong>Controllo radici</strong> ogni 6–12 mesi.</li><li><strong>Rotazione dei vasi</strong> ogni 2–3 settimane.</li></ul>",
+      "tipo": "interno"
     }
   }
 }
