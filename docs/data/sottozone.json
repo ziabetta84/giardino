@@ -56,5 +56,19 @@
       "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione minima</strong>, solo a terreno completamente asciutto.</li><li><strong>Pulizia foglie</strong> per migliorare la fotosintesi.</li><li><strong>Controllo radici</strong> ogni 6–12 mesi.</li><li><strong>Rotazione dei vasi</strong> ogni 2–3 settimane.</li></ul>",
       "tipo": "interno"
     }
+  },
+  "Scivolo": {
+    "Lato Destro": {
+      "nome": "Lato Destro",
+      "descrizione": "<p dir=\"auto\">Sotto-zona orientale dello scivolo. È l'estremità più a est della striscia, adiacente alla zona vialetto/ringhiera.</p><p dir=\"auto\"><strong>Sempre in ombra</strong>: le fioriere soprastanti della zona \nvialetto/ringhiera schermano completamente la luce solare diretta. Non \nriceve sole né al mattino né al pomeriggio in nessun periodo dell'anno.</p>",
+      "esposizione": [
+        "est",
+        "ovest"
+      ],
+      "microclima": "<div>Fresco e costantemente umido. Il drenaggio continuo delle fioriere \nsovrastanti apporta acqua regolarmente al suolo, mantenendo un'umidità \npersistente. È la sotto-zona più fresca e stabile dell'intero scivolo, \ncon escursioni termiche minime. Le condizioni ricordano un ambiente di \nsottobosco.</div>",
+      "criticita": "",
+      "manutenzione": "<ul dir=\"auto\"><li><strong>Ristagno idrico</strong>: l'apporto costante di acqua dalle \nfioriere può causare asfissia radicale su specie non adatte; il \ndrenaggio del suolo è fondamentale</li><li><strong>Malattie fungine</strong>: l'umidità persistente e l'assenza di ventilazione favoriscono muffe e marciumi; evitare piante sensibili</li><li><strong>Assenza totale di luce diretta</strong>: limita fortemente la scelta delle specie; escludere qualsiasi pianta che richieda anche solo mezza ombra</li></ul>",
+      "tipo": "esterno"
+    }
   }
 }
