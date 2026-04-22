@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   header.textContent = zona;
 
+  // 🔥 Pulsante "Aggiungi sottozona" dinamico
+  const addBtn = document.getElementById("add-subzone-btn");
+  addBtn.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=NUOVA`;
+
   // Carica descrizione zona
   const zone = await loadJSON("zone.json");
   if (zone && zone[zona] && zone[zona].descrizione) {
@@ -48,20 +52,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   for (const key of keys) {
     const s = elenco[key];
 
-    // CARD
+    // CARD stile zone.js
     const card = document.createElement("div");
     card.className = "card sottozona-card";
 
-    // TITOLO (solo testo)
+    // TITOLO
     const title = document.createElement("div");
     title.className = "sottozona-title";
     title.textContent = s.nome || key;
 
-    // CONTENITORE BOTTONI
+    // BOTTONI
     const btnRow = document.createElement("div");
     btnRow.className = "sottozona-btn-row";
 
-    // Pulsante Esplora
+    // Esplora
     const exploreBtn = document.createElement("button");
     exploreBtn.className = "sottozona-btn explore-btn";
     exploreBtn.textContent = "Esplora";
@@ -69,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
-    // Pulsante Modifica
+    // Modifica
     const editBtn = document.createElement("button");
     editBtn.className = "sottozona-btn edit-btn";
     editBtn.textContent = "Modifica";
@@ -82,7 +86,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
-    // Assembla
     btnRow.appendChild(exploreBtn);
     btnRow.appendChild(editBtn);
 
