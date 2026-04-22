@@ -105,6 +105,17 @@
       "criticita": "<ul dir=\"auto\"><li><strong>Cacyreus marshalli</strong> (farfallina dei gerani): il \nparassita principale della zona. Le larve perforano steli e gemme dei \ngerani dall'interno, causando avvizzimento e morte dei rami colpiti. \nTrattamento preventivo da maggio con insetticida sistemico o Bacillus \nthuringiensis</li><li><b>Esposizione alle intemperie e al sole eccessivo</b>: in inverno il vento e in estate l'estrema caluria rendono necessarie alcune accortezze</li></ul>",
       "manutenzione": "<ul><li><b>Valutare</b> di proteggere le piante presenti in inverno.</li><li><b>Prevenzione</b>&nbsp;dai danni di farfallina dei gerani e lumache.</li></ul><div><br></div>",
       "tipo": "esterno"
+    },
+    "Ringhiera": {
+      "nome": "Ringhiera",
+      "descrizione": "<div>Sotto-zona del vialetto composta da <strong>piccole fioriere appese alla ringhiera</strong>\n del camminamento. Il volume ridotto di substrato impone una gestione \npiù attenta dell'irrigazione rispetto alle grandi fioriere adiacenti. Il\n drenaggio scende anch'esso verso il lato-destro dello scivolo \nsottostante.</div>",
+      "esposizione": [
+        "ovest"
+      ],
+      "microclima": "<p dir=\"auto\">M<strong>olto sole pomeridiano</strong>.\n Le fioriere appese, essendo sospese e non a contatto col suolo, sono \nesposte al sole e al vento su tutti i lati, aumentando ulteriormente la \nperdita di umidità.<a id=\"user-content-microclima\" class=\"anchor\" aria-label=\"Permalink: Microclima\" href=\"https://github.com/ziabetta84/giardino/blob/main/zone/vialetto/ringhiera/ringhiera.md#microclima\"><svg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"></svg></a></p>Il\n volume ridotto di substrato e la posizione completamente aerea rendono \nqueste fioriere le più vulnerabili al caldo e alla siccità di tutta la \nproprietà. Si scaldano velocemente e si asciugano in poche ore nelle \ngiornate estive. In inverno possono subire gelate più facilmente \nrispetto alle fioriere a terra, essendo esposte anche dal basso all'aria\n fredda.",
+      "criticita": "<ul dir=\"auto\"><li><strong>Essiccamento rapido</strong>: in estate può essere \nnecessaria irrigazione quotidiana o più volte al giorno; valutare \nl'installazione di un sistema di irrigazione a goccia</li><li><strong>Gelo invernale</strong>: le radici delle piante nelle \nfioriere appese sono esposte al freddo su tutti i lati; proteggere o \nportare al riparo le specie più sensibili in caso di gelate prolungate</li><li><strong>Peso e stabilità</strong>: le fioriere cariche di substrato bagnato esercitano una tensione sulla ringhiera; verificare periodicamente i supporti</li></ul>",
+      "manutenzione": "",
+      "tipo": "esterno"
     }
   }
 }
