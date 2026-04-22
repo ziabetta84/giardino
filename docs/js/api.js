@@ -80,6 +80,8 @@ async function saveJSON(filename, data) {
     const encoded = btoa(unescape(encodeURIComponent(jsonText)));
 
     // 4. Commit
+    notifySaving();
+
     const putRes = await fetch(apiUrl, {
       method: "PUT",
       headers: {
@@ -94,7 +96,9 @@ async function saveJSON(filename, data) {
       })
     });
 
+    if (putRes.ok) notifySaving();
     return putRes.ok;
+
   } catch (e) {
     console.error("Errore salvataggio JSON:", filename, e);
     return false;
