@@ -69,6 +69,17 @@
       "criticita": "",
       "manutenzione": "<ul dir=\"auto\"><li><strong>Ristagno idrico</strong>: l'apporto costante di acqua dalle \nfioriere può causare asfissia radicale su specie non adatte; il \ndrenaggio del suolo è fondamentale</li><li><strong>Malattie fungine</strong>: l'umidità persistente e l'assenza di ventilazione favoriscono muffe e marciumi; evitare piante sensibili</li><li><strong>Assenza totale di luce diretta</strong>: limita fortemente la scelta delle specie; escludere qualsiasi pianta che richieda anche solo mezza ombra</li></ul>",
       "tipo": "esterno"
+    },
+    "Lato Frontale": {
+      "nome": "Lato Frontale",
+      "descrizione": "<p dir=\"auto\">Sotto-zona centrale dello scivolo, posizionata tra il lato sinistro (ovest) e il lato destro (est).</p><p dir=\"auto\">Esposizione intermedia: riceve il sole del pomeriggio, ma con minor \nintensità rispetto al lato sinistro. La presenza delle strutture \nlaterali crea una leggera penombra nelle ore mattutine e nelle prime ore\n del pomeriggio. È la zona di transizione tra il pieno sole e l'ombra \npermanente del lato destro.</p>",
+      "esposizione": [
+        "ovest"
+      ],
+      "microclima": "<div>Condizioni bilanciate: né troppo asciutto come il lato sinistro, né \ntroppo umido come il lato destro. La ventilazione è leggermente più \nlimitata rispetto alle estremità. Il suolo mantiene una certa freschezza\n grazie all'ombra mattutina, pur scaldandosi nel pomeriggio.</div>",
+      "criticita": "<ul dir=\"auto\"><li><strong>Variabilità stagionale</strong>: le condizioni cambiano \nsensibilmente tra estate (caldo pomeridiano diretto) e inverno (ombra \nquasi totale); scegliere piante adattabili a entrambe le situazioni</li><li><strong>Competizione radicale</strong>: zona di confine tra microclimi diversi, dove le radici delle piante dei lati adiacenti possono sovrapporsi</li></ul>",
+      "manutenzione": "",
+      "tipo": "esterno"
     }
   }
 }
