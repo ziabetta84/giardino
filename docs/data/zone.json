@@ -12,5 +12,17 @@
     "criticita": "<div>Richiede particolare attenzione \nla prevenzione e rimozione della muffa sulle pareti esterne, soprattutto\n nei punti più freddi e meno ventilati.</div>",
     "manutenzione": "<div>Bisogna fare attenzione alla presenza di muffa sul terriccio delle piante in vaso.</div>",
     "tipo": "interno"
+  },
+  "Crinale": {
+    "nome": "Crinale",
+    "descrizione": "<div>La zona più grande del giardino. Si sviluppa verso sud fino al confine \ncon un bosco collinare di proprietà altrui. Esposizione prevalentemente a\n sud, con buon irraggiamento solare. Il bosco confinante porta ombra \nparziale sul margine meridionale nelle ore in cui il sole è basso.</div><div><p dir=\"auto\">Sul margine orientale del crinale è presente un <strong>muretto a secco rivolto verso est</strong>, che <strong>curva verso nord</strong> fino a raggiungere il confine con il giardino dei vicini.<br>\nLe fessure del muretto sono spesso soggette a <strong>infestazione di parietaria</strong>, che colonizza rapidamente gli interstizi.</p>\n<ul dir=\"auto\"><li>Struttura a secco, con fessure profonde e suolo povero</li><li>Esposizione est, con sole diretto al mattino e ombra nel pomeriggio</li><li>Vegetazione spontanea molto vigorosa (parietaria in particolare)</li></ul><br></div>",
+    "esposizione": [
+      "est",
+      "ovest"
+    ],
+    "microclima": "<div>La posizione di cresta la rende la zona più ventilata del giardino, \nesposta ai venti da sud e da nord. Il confine con il bosco collinare \ncrea un'influenza microambientale: umidità più alta rispetto alle zone \naperte, lettiera di foglie che arricchisce il suolo nel tempo, e \npossibile ingresso di specie spontanee dal bosco. In estate la \nvegetazione esistente mitiga il calore; in inverno i venti da nord \npossono essere intensi.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Vento</strong>: zona più esposta della proprietà; privilegiare specie robuste con radici profonde</li><li><strong>Siccità estiva</strong>: l’esposizione a sud e il forte irraggiamento prosciugano rapidamente il suolo</li><li><strong>Invasione di specie spontanee dal bosco</strong>: rovi, infestanti e semi trasportati dal vento</li><li><strong>Parietaria sul muretto</strong>: crescita rapida e continua, richiede controllo regolare</li><li><strong>Accesso e manutenzione</strong>: zona ampia e distante dalla casa, richiede tempo e sforzo</li></ul>",
+    "manutenzione": "<div>Questa zona del giardino tende a seccare molto durante l'estate.</div><div>Bisogna fare attenzione alle infestanti lungo il muretto e lungo il dorso del crinale.</div>",
+    "tipo": "esterno"
   }
 }
