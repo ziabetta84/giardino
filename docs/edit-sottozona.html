@@ -24,7 +24,8 @@
   <input id="nome" type="text">
 
   <h2>Descrizione</h2>
-  <textarea id="descrizione" rows="5"></textarea>
+  <div id="descrizione-editor" class="pell"></div>
+  <textarea id="descrizione" style="display:none"></textarea>
 
   <h2>Esposizione</h2>
   <label><input type="checkbox" id="exp-nord"> Nord</label><br>
@@ -33,10 +34,13 @@
   <label><input type="checkbox" id="exp-ovest"> Ovest</label><br>
 
   <h2>Microclima</h2>
-  <textarea id="microclima" rows="5"></textarea>
+  <div id="microclima-editor" class="pell"></div>
+  <textarea id="microclima" style="display:none"></textarea>
+
 
   <h2>Criticità</h2>
-  <textarea id="criticita" rows="5"></textarea>
+  <div id="criticita-editor" class="pell"></div>
+  <textarea id="criticita" style="display:none"></textarea>
 
   <h2>Tipo</h2>
   <select id="tipo">
