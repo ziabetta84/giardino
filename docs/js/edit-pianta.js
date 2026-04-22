@@ -1,126 +1,105 @@
 // docs/js/edit-pianta.js
 
 function getParam(name) {
-  const params = new URLSearchParams(location.search);
-  return params.get(name);
+  return new URLSearchParams(location.search).get(name);
 }
 
-// Valori possibili per la potatura
-const POTATURA_VALORI = [
-  "nessuna",
-  "taglio leggero",
-  "taglio medio",
-  "taglio drastico",
-  "rimozione foglie secche",
-  "accorciamento rami",
-  "pulizia generale"
-];
-
 document.addEventListener("DOMContentLoaded", async () => {
-  const nome = getParam("nome");
+  const id = getParam("id");
+  const zonaParam = getParam("zona");
+  const sottoParam = getParam("sottozona");
 
-  const title = document.getElementById("edit-title");
   const form = document.getElementById("edit-form");
+  const title = document.getElementById("edit-title");
 
-  if (!nome) {
-    title.textContent = "Pianta non specificata";
-    return;
-  }
-
-  title.textContent = `Modifica: ${nome}`;
-
-  // Carica tutte le piante
+  const specie = await loadJSON("specie.json");
+  const zone = await loadJSON("zone.json");
+  const sottozone = await loadJSON("sottozone.json");
   const piante = await loadJSON("piante.json");
 
-  if (!piante || !piante[nome]) {
-    title.textContent = "Pianta non trovata";
-    return;
+  // Popola specie
+  const specieSel = document.getElementById("specie");
+  for (const key of Object.keys(specie)) {
+    const opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = specie[key].nome;
+    specieSel.appendChild(opt);
   }
 
-  const p = piante[nome];
-
-  // -----------------------------
-  // 1) Popola i campi del form
-  // -----------------------------
-  document.getElementById("nome").value = p.nome || "";
-  document.getElementById("specie").value = p.specie || "";
-  document.getElementById("zona").value = p.zona || "";
-  document.getElementById("sottozona").value = p.sottozona || "";
-
-  // Irrigazione
-  document.getElementById("irr-primavera").value = p.attivita?.irrigazione?.primavera || "";
-  document.getElementById("irr-estate").value = p.attivita?.irrigazione?.estate || "";
-  document.getElementById("irr-autunno").value = p.attivita?.irrigazione?.autunno || "";
-  document.getElementById("irr-inverno").value = p.attivita?.irrigazione?.inverno || "";
-
-  // Concimazione
-  document.getElementById("conc-primavera").value = p.attivita?.concimazione?.primavera || "";
-  document.getElementById("conc-estate").value = p.attivita?.concimazione?.estate || "";
-  document.getElementById("conc-autunno").value = p.attivita?.concimazione?.autunno || "";
-  document.getElementById("conc-inverno").value = p.attivita?.concimazione?.inverno || "";
-
-  // Potatura (select)
-  for (const stagione of ["primavera", "estate", "autunno", "inverno"]) {
-    const select = document.getElementById(`pot-${stagione}`);
-    POTATURA_VALORI.forEach(v => {
-      const opt = document.createElement("option");
-      opt.value = v;
-      opt.textContent = v;
-      select.appendChild(opt);
-    });
-    select.value = p.attivita?.potatura?.[stagione] || "nessuna";
+  // Popola zone
+  const zonaSel = document.getElementById("zona");
+  for (const key of Object.keys(zone)) {
+    const opt = document.createElement("option");
+    opt.value = key;
+    opt.textContent = zone[key].nome;
+    zonaSel.appendChild(opt);
   }
 
-  // Alert (wysiwyg)
-  document.getElementById("alert").value = p.alert || "";
+  // Aggiorna sottozone quando cambia zona
+  zonaSel.onchange = () => {
+    const z = zonaSel.value;
+    const sottoSel = document.getElementById("sottozona");
+    sottoSel.innerHTML = `<option value="">(nessuna)</option>`;
 
-  // -----------------------------
-  // 2) Salvataggio
-  // -----------------------------
-  form.addEventListener("submit", async (e) => {
+    if (sottozone[z]) {
+      for (const s of Object.keys(sottozone[z])) {
+        const opt = document.createElement("option");
+        opt.value = s;
+        opt.textContent = sottozone[z][s].nome;
+        sottoSel.appendChild(opt);
+      }
+    }
+  };
+
+  // Se stiamo modificando una pianta
+  let current = null;
+
+  if (id && piante[id]) {
+    current = piante[id];
+    title.textContent = "Modifica Pianta";
+
+    specieSel.value = current.specie;
+    zonaSel.value = current.zona;
+    zonaSel.onchange();
+
+    document.getElementById("sottozona").value = current.sottozona || "";
+    document.getElementById("varieta").value = current.varieta || "";
+    document.getElementById("impianto").value = current.impianto || "";
+    document.getElementById("note").value = current.note || "";
+  } else {
+    title.textContent = "Nuova Pianta";
+
+    if (zonaParam) zonaSel.value = zonaParam;
+    zonaSel.onchange();
+    if (sottoParam) document.getElementById("sottozona").value = sottoParam;
+  }
+
+  // Salvataggio
+  form.onsubmit = async (e) => {
     e.preventDefault();
 
-    // Aggiorna i dati nel JSON
-    piante[nome] = {
-      nome: document.getElementById("nome").value.trim(),
-      specie: document.getElementById("specie").value.trim(),
-      zona: document.getElementById("zona").value.trim(),
-      sottozona: document.getElementById("sottozona").value.trim(),
-
-      attivita: {
-        irrigazione: {
-          primavera: document.getElementById("irr-primavera").value.trim(),
-          estate: document.getElementById("irr-estate").value.trim(),
-          autunno: document.getElementById("irr-autunno").value.trim(),
-          inverno: document.getElementById("irr-inverno").value.trim()
-        },
-        concimazione: {
-          primavera: document.getElementById("conc-primavera").value.trim(),
-          estate: document.getElementById("conc-estate").value.trim(),
-          autunno: document.getElementById("conc-autunno").value.trim(),
-          inverno: document.getElementById("conc-inverno").value.trim()
-        },
-        potatura: {
-          primavera: document.getElementById("pot-primavera").value,
-          estate: document.getElementById("pot-estate").value,
-          autunno: document.getElementById("pot-autunno").value,
-          inverno: document.getElementById("pot-inverno").value
-        }
-      },
-
-      alert: document.getElementById("alert").value.trim()
+    const data = {
+      specie: specieSel.value,
+      zona: zonaSel.value,
+      sottozona: document.getElementById("sottozona").value || null,
+      varieta: document.getElementById("varieta").value.trim(),
+      impianto: document.getElementById("impianto").value,
+      note: document.getElementById("note").value.trim()
     };
 
-    // Salva su GitHub
-    notifySaving();
+    let newId = id;
+
+    if (!id) {
+      newId = `${data.specie}-${Date.now()}`;
+    }
+
+    piante[newId] = data;
+
     const ok = await saveJSON("piante.json", piante);
 
     if (ok) {
-      notifySaving();
-      alert("Pianta aggiornata con successo.");
-      window.location.href = `pianta.html?nome=${encodeURIComponent(nome)}`;
-    } else {
-      alert("Errore durante il salvataggio.");
+      alert("Pianta salvata.");
+      window.location.href = `piante.html?zona=${data.zona}${data.sottozona ? "&sottozona=" + data.sottozona : ""}`;
     }
-  });
+  };
 });
