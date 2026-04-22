@@ -80,6 +80,18 @@
       "criticita": "<ul dir=\"auto\"><li><strong>Variabilità stagionale</strong>: le condizioni cambiano \nsensibilmente tra estate (caldo pomeridiano diretto) e inverno (ombra \nquasi totale); scegliere piante adattabili a entrambe le situazioni</li><li><strong>Competizione radicale</strong>: zona di confine tra microclimi diversi, dove le radici delle piante dei lati adiacenti possono sovrapporsi</li></ul>",
       "manutenzione": "",
       "tipo": "esterno"
+    },
+    "Lato Sinistro": {
+      "nome": "Lato Sinistro",
+      "descrizione": "<p dir=\"auto\">Sotto-zona occidentale dello scivolo. È l'estremità più a ovest della striscia.</p><p dir=\"auto\">Riceve\n il sole del pomeriggio in modo diretto e prolungato, essendo la parte \npiù aperta verso ovest. In estate l'irraggiamento pomeridiano è intenso.\n Al mattino è in ombra. È la sotto-zona più soleggiata e calda \ndell'intero scivolo.</p><p dir=\"auto\"><br></p>",
+      "esposizione": [
+        "est",
+        "ovest"
+      ],
+      "microclima": "<p dir=\"auto\">Caldo e asciutto nel pomeriggio estivo. La scarsa ombra e \nla buona esposizione al sole fanno evaporare rapidamente l'umidità del \nsuolo. Riparato dai venti grazie alle strutture adiacenti. Le \ntemperature possono essere elevate nelle ore pomeridiane estive.</p>",
+      "criticita": "<ul dir=\"auto\"><li><strong>Siccità estiva</strong>: il calore pomeridiano e la rapida \nevaporazione richiedono piante resistenti alla siccità o irrigazione \nsupplementare nei mesi più caldi</li><li><strong>Stress termico</strong>: nelle giornate più calde le piante delicate possono soffrire per il calore accumulato dalla parete e dal suolo</li></ul>",
+      "manutenzione": "",
+      "tipo": "esterno"
     }
   }
 }
