@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // -----------------------------
   // 0) Gestione NUOVA zona
-  ------------------------------
+  // -----------------------------
   if (zona === "NUOVA") {
     isNew = true;
     title.textContent = "Crea una nuova zona";
