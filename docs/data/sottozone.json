@@ -32,6 +32,18 @@
       "criticita": "",
       "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione regolare</strong> per le aromatiche, evitando ristagni.</li><li><strong>Controllo esposizione</strong>: il basilico preferisce luce indiretta nelle ore più calde.</li><li><strong>Pulizia foglie</strong> di dracaena e ceropegia per rimuovere grasso e polvere tipici della cucina.</li><li><strong>Rotazione dei vasi</strong> per garantire crescita uniforme.</li><li><strong>Monitoraggio parassiti</strong>: le aromatiche attirano facilmente afidi e moscerini.</li><li><strong>Ricambio d’aria</strong> quotidiano per ridurre umidità e odori.</li></ul>",
       "tipo": "interno"
+    },
+    "Ingresso": {
+      "nome": "Ingresso",
+      "descrizione": "<p dir=\"auto\">Lo spazio dell'ingresso dell'appartamento è stretto, non \nha finestre proprie, ma prende luce sia dal bagno ad est che dalla \ncucina e soggiorno a ovest.</p>",
+      "esposizione": [
+        "est",
+        "ovest"
+      ],
+      "microclima": "",
+      "criticita": "",
+      "manutenzione": "",
+      "tipo": "interno"
     }
   }
 }
