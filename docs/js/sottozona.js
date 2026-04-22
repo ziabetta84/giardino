@@ -112,10 +112,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
 
       // Salva
+      notifySaving();
       const ok = await saveJSON("sottozone.json", data);
 
       if (ok) {
         alert("Sottozona eliminata.");
+        notifySaving();
         location.reload();
       } else {
         alert("Errore durante l'eliminazione.");

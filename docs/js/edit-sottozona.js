@@ -124,11 +124,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!isNew && nuovoNome !== sottozona) {
       delete data[zona][sottozona];
     }
-
+    notifySaving();
     const ok = await saveJSON("sottozone.json", data);
 
     if (ok) {
       alert(isNew ? "Sottozona creata con successo." : "Sottozona aggiornata con successo.");
+      notifySaving();
       window.location.href = `sottozona.html?zona=${zona}`;
     } else {
       alert("Errore durante il salvataggio.");
