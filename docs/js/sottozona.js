@@ -7,47 +7,47 @@ function getParam(name) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
+
   const header = document.getElementById("zona-title");
-  const container = document.getElementById("sottozone-list");
   const descrContainer = document.getElementById("zona-descrizione");
+  const container = document.getElementById("sottozone-list");
 
   if (!zona) {
     header.textContent = "Zona non specificata";
+    container.innerHTML = "<div class='card'>Parametro zona mancante.</div>";
     return;
   }
 
-  header.textContent = `Zona: ${zona}`;
+  header.textContent = zona;
 
-  // Carica zone e sottozone
+  // Carica zone.json per la descrizione
   const zone = await loadJSON("zone.json");
+  if (zone && zone[zona] && zone[zona].descrizione) {
+    descrContainer.innerHTML = zone[zona].descrizione;
+  }
+
+  // Carica sottozone.json
   const sottozone = await loadJSON("sottozone.json");
 
-  if (!zone || !zone[zona]) {
-    descrContainer.innerHTML = "<p><i>Zona non trovata.</i></p>";
-    return;
-  }
-
-  // Mostra descrizione della zona
-  descrContainer.innerHTML = zone[zona].descrizione || "";
-
-  // Filtra sottozone appartenenti alla zona
-  const sottozoneKeys = Object.keys(sottozone)
-    .filter(k => sottozone[k].zona === zona)
-    .sort((a, b) => {
-      const nomeA = sottozone[a].nome?.toLowerCase() || a.toLowerCase();
-      const nomeB = sottozone[b].nome?.toLowerCase() || b.toLowerCase();
-      return nomeA.localeCompare(nomeB);
-    });
-
-  container.innerHTML = "";
-
-  if (sottozoneKeys.length === 0) {
+  // Se la zona non ha sottozone
+  if (!sottozone || !sottozone[zona]) {
     container.innerHTML = "<div class='card'>Nessuna sottozona trovata.</div>";
     return;
   }
 
-  for (const key of sottozoneKeys) {
-    const s = sottozone[key];
+  const elenco = sottozone[zona];
+
+  // Ordina alfabeticamente
+  const keys = Object.keys(elenco).sort((a, b) => {
+    const nomeA = elenco[a].nome?.toLowerCase() || a.toLowerCase();
+    const nomeB = elenco[b].nome?.toLowerCase() || b.toLowerCase();
+    return nomeA.localeCompare(nomeB);
+  });
+
+  container.innerHTML = "";
+
+  for (const key of keys) {
+    const s = elenco[key];
 
     // CARD
     const card = document.createElement("div");
@@ -55,15 +55,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // LINK alla pagina piante
     const link = document.createElement("a");
-    link.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(s.nome)}`;
+    link.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
 
     const title = document.createElement("div");
     title.className = "card-title";
-    title.textContent = s.nome;
+    title.textContent = s.nome || key;
 
     const subtitle = document.createElement("div");
     subtitle.className = "card-subtitle";
-    subtitle.innerHTML = s.descrizione || "";
+    subtitle.innerHTML = s.descrizione
+      ? s.descrizione.replace(/<[^>]+>/g, "").slice(0, 80) + "…"
+      : "";
 
     link.appendChild(title);
     link.appendChild(subtitle);
@@ -78,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Devi effettuare il login per modificare.");
         return;
       }
-      window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(s.nome)}`;
+      window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
     // Assembla card
