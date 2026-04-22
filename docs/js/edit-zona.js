@@ -10,22 +10,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   const title = document.getElementById("edit-title");
   const form = document.getElementById("edit-form");
 
-  if (!zona) {
-    title.textContent = "Zona non specificata";
-    return;
-  }
-
-  title.textContent = `Modifica zona: ${zona}`;
-
   // Carica tutte le zone
   const zoneData = await loadJSON("zone.json");
 
-  if (!zoneData || !zoneData[zona]) {
-    title.textContent = "Zona non trovata";
-    return;
-  }
+  let z = null;
+  let isNew = false;
 
-  const z = zoneData[zona];
+  // -----------------------------
+  // 0) Gestione NUOVA zona
+  ------------------------------
+  if (zona === "NUOVA") {
+    isNew = true;
+    title.textContent = "Crea una nuova zona";
+
+    z = {
+      nome: "",
+      descrizione: "",
+      esposizione: [],
+      microclima: "",
+      criticita: "",
+      manutenzione: "",
+      tipo: "interno"
+    };
+  } else {
+    if (!zona) {
+      title.textContent = "Zona non specificata";
+      return;
+    }
+
+    if (!zoneData || !zoneData[zona]) {
+      title.textContent = "Zona non trovata";
+      return;
+    }
+
+    title.textContent = `Modifica zona: ${zona}`;
+    z = zoneData[zona];
+  }
 
   // -----------------------------
   // 1) Popola i campi del form
@@ -52,7 +72,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   criticitaEditor.content.innerHTML = z.criticita || "";
   document.getElementById('criticita').value = z.criticita || "";
 
-  // MANUTENZIONE (aggiunta da te)
+  // MANUTENZIONE
   const manutenzioneEditor = pell.init({
     element: document.getElementById('manutenzione-editor'),
     onChange: html => {
@@ -90,8 +110,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById(`exp-${dir}`).checked
     );
 
-    zoneData[zona] = {
-      nome: document.getElementById("nome").value.trim(),
+    // Nome scelto dall’utente
+    const nuovoNome = document.getElementById("nome").value.trim();
+
+    if (!nuovoNome) {
+      alert("Il nome della zona è obbligatorio.");
+      return;
+    }
+
+    // Se è una nuova zona → crea nuova chiave
+    const key = isNew ? nuovoNome : zona;
+
+    zoneData[key] = {
+      nome: nuovoNome,
       descrizione: document.getElementById("descrizione").value,
       esposizione: nuovaEsposizione,
       microclima: document.getElementById("microclima").value,
@@ -100,10 +131,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       tipo: document.getElementById("tipo").value
     };
 
+    // Se il nome è cambiato → elimina la vecchia chiave
+    if (!isNew && nuovoNome !== zona) {
+      delete zoneData[zona];
+    }
+
     const ok = await saveJSON("zone.json", zoneData);
 
     if (ok) {
-      alert("Zona aggiornata con successo.");
+      alert(isNew ? "Zona creata con successo." : "Zona aggiornata con successo.");
       window.location.href = "zone.html";
     } else {
       alert("Errore durante il salvataggio.");
