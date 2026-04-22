@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <title>Giardino</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>Giardino – Home</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>Giardino</header>
+<h1 class="home-title">🌱 Giardino</h1>
 
-<div class="container">
-  <div class="nav-links">
-    <a href="zone.html">Zone</a>
-    <a href="progetto.html">Progetti</a>
-  </div>
+<div class="card-grid">
 
-  <div class="card">
-    <div class="card-title">Benvenuto nel tuo giardino</div>
-    <div class="card-subtitle">
-      Questa web app legge direttamente i dati dal repository <code>giardino</code>.
-    </div>
-    <p>
-      Usa le sezioni qui sopra per esplorare zone e progetti basati sui file e sulle cartelle del repo.
-    </p>
-  </div>
+  <a class="home-card" href="meteo.html">
+    <div class="icon">⛅</div>
+    <div class="label">Meteo</div>
+  </a>
+
+  <a class="home-card" href="zone.html">
+    <div class="icon">📍</div>
+    <div class="label">Zone</div>
+  </a>
+
+  <a class="home-card" href="piante.html?zona=casa">
+    <div class="icon">🌿</div>
+    <div class="label">Piante</div>
+  </a>
+
+  <a class="home-card" href="gallery.html">
+    <div class="icon">🖼️</div>
+    <div class="label">Gallery</div>
+  </a>
+
+  <button id="login-btn" class="home-card">
+    <div class="icon">🔐</div>
+    <div class="label">Login GitHub</div>
+  </button>
+
 </div>
+
+<script>
+document.getElementById("login-btn").onclick = () => {
+  window.location.href = "https://giardino.robertagenovese.workers.dev/login";
+};
+</script>
 
 </body>
 </html>

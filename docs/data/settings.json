@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "location": {
+    "lat": 43.8309591,
+    "lon": 12.98603,
+    "altitude": 50
+  },
+  "units": {
+    "temperature": "celsius",
+    "wind": "kmh",
+    "precipitation": "mm"
+  },
+  "meteo": {
+    "provider": "open-meteo",
+    "days": 3
+  },
+  "ui": {
+    "theme": "auto"
+  }
+}

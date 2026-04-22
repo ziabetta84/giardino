@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8">
-  <title>Dettaglio</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/api.js"></script>
-  <script src="js/parser.js"></script>
-  <script src="js/pianta.js" defer></script>
+  <meta charset="UTF-8">
+  <title>Pianta</title>
 </head>
 <body>
 
-<header id="pianta-title">Dettaglio</header>
+<h1 id="pianta-title"></h1>
 
-<div class="container">
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="zone.html">Zone</a>
-  </div>
+<h2>Informazioni</h2>
+<div id="pianta-info"></div>
 
-  <div id="pianta-card" class="card"></div>
-</div>
+<h2>Attività</h2>
+<div id="pianta-attivita"></div>
 
+<h2>Alert</h2>
+<div id="pianta-alert"></div>
+
+<button id="modifica-pianta">Modifica</button>
+
+<script src="js/api.js"></script>
+<script src="js/pianta.js"></script>
 </body>
 </html>

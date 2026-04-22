@@ -1,4 +1,4 @@
-// docs/js/edit-zona.js
+// docs/js/edit-sottozona.js
 
 function getParam(name) {
   const params = new URLSearchParams(location.search);
@@ -7,38 +7,40 @@ function getParam(name) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
+  const sottozona = getParam("sottozona");
 
   const title = document.getElementById("edit-title");
   const form = document.getElementById("edit-form");
 
-  if (!zona) {
-    title.textContent = "Zona non specificata";
+  if (!zona || !sottozona) {
+    title.textContent = "Zona o sottozona non specificata";
     return;
   }
 
-  title.textContent = `Modifica zona: ${zona}`;
+  const key = `${zona}/${sottozona}`;
+  title.textContent = `Modifica sottozona: ${sottozona}`;
 
-  // Carica tutte le zone
-  const zoneData = await loadJSON("zone.json");
+  // Carica tutte le sottozone
+  const sottozoneData = await loadJSON("sottozone.json");
 
-  if (!zoneData || !zoneData[zona]) {
-    title.textContent = "Zona non trovata";
+  if (!sottozoneData || !sottozoneData[key]) {
+    title.textContent = "Sottozona non trovata";
     return;
   }
 
-  const z = zoneData[zona];
+  const s = sottozoneData[key];
 
   // -----------------------------
   // 1) Popola i campi del form
   // -----------------------------
-  document.getElementById("nome").value = z.nome || "";
-  document.getElementById("descrizione").value = z.descrizione || "";
-  document.getElementById("microclima").value = z.microclima || "";
-  document.getElementById("criticita").value = z.criticita || "";
-  document.getElementById("tipo").value = z.tipo || "interno";
+  document.getElementById("nome").value = s.nome || "";
+  document.getElementById("descrizione").value = s.descrizione || "";
+  document.getElementById("microclima").value = s.microclima || "";
+  document.getElementById("criticita").value = s.criticita || "";
+  document.getElementById("tipo").value = s.tipo || "interno";
 
   // Esposizione (checkbox)
-  const esposizioni = z.esposizione || [];
+  const esposizioni = s.esposizione || [];
   ["nord", "sud", "est", "ovest"].forEach(dir => {
     document.getElementById(`exp-${dir}`).checked = esposizioni.includes(dir);
   });
@@ -55,8 +57,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     );
 
     // Aggiorna dati
-    zoneData[zona] = {
+    sottozoneData[key] = {
       nome: document.getElementById("nome").value.trim(),
+      zona: zona,
       descrizione: document.getElementById("descrizione").value.trim(),
       esposizione: nuovaEsposizione,
       microclima: document.getElementById("microclima").value.trim(),
@@ -65,11 +68,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     };
 
     // Salva su GitHub
-    const ok = await saveJSON("zone.json", zoneData);
+    const ok = await saveJSON("sottozone.json", sottozoneData);
 
     if (ok) {
-      alert("Zona aggiornata con successo.");
-      window.location.href = "zone.html";
+      alert("Sottozona aggiornata con successo.");
+      window.location.href = `sottozona.html?zona=${encodeURIComponent(zona)}`;
     } else {
       alert("Errore durante il salvataggio.");
     }

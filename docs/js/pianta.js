@@ -1,4 +1,4 @@
-// js/pianta.js
+// docs/js/pianta.js
 
 function getParam(name) {
   const params = new URLSearchParams(location.search);
@@ -6,45 +6,88 @@ function getParam(name) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const zona = getParam("zona");
-  const sottozona = getParam("sottozona");
-  const header = document.getElementById("pianta-title");
-  const card = document.getElementById("pianta-card");
+  const nome = getParam("nome");
 
-  if (!zona || !sottozona) {
-    header.textContent = "Dati mancanti";
-    card.textContent = "Manca zona o sottozona nei parametri.";
+  const header = document.getElementById("pianta-title");
+  const infoContainer = document.getElementById("pianta-info");
+  const attivitaContainer = document.getElementById("pianta-attivita");
+  const alertContainer = document.getElementById("pianta-alert");
+
+  if (!nome) {
+    header.textContent = "Pianta non specificata";
     return;
   }
 
-  header.textContent = `${zona} / ${sottozona}`;
+  // Carica tutte le piante
+  const piante = await loadJSON("piante.json");
 
-  const path = `zone/${zona}/${sottozona}.md`;
-  const md = await getFile(path);
-  const meta = parseMetadata(md);
+  if (!piante || !piante[nome]) {
+    header.textContent = "Pianta non trovata";
+    return;
+  }
 
-  card.innerHTML = "";
+  const p = piante[nome];
 
-  const title = document.createElement("div");
-  title.className = "card-title";
-  title.textContent = meta.nome || sottozona;
+  // Titolo
+  header.textContent = p.nome || nome;
 
-  const subtitle = document.createElement("div");
-  subtitle.className = "card-subtitle";
-  subtitle.textContent = meta.descrizione || "";
+  // -----------------------------
+  // 1) INFO GENERALI
+  // -----------------------------
+  infoContainer.innerHTML = `
+    <div class="info-block">
+      <p><strong>Specie:</strong> ${p.specie || "-"}</p>
+      <p><strong>Zona:</strong> ${p.zona || "-"}</p>
+      <p><strong>Sottozona:</strong> ${p.sottozona || "-"}</p>
+    </div>
+  `;
 
-  card.appendChild(title);
-  card.appendChild(subtitle);
+  // -----------------------------
+  // 2) ATTIVITÀ (irrigazione, concimazione, potatura)
+  // -----------------------------
+  const a = p.attivita || {};
 
-  const list = document.createElement("div");
-  list.style.marginTop = "10px";
+  attivitaContainer.innerHTML = `
+    <h3>Irrigazione</h3>
+    <ul>
+      <li><strong>Primavera:</strong> ${a.irrigazione?.primavera || "-"}</li>
+      <li><strong>Estate:</strong> ${a.irrigazione?.estate || "-"}</li>
+      <li><strong>Autunno:</strong> ${a.irrigazione?.autunno || "-"}</li>
+      <li><strong>Inverno:</strong> ${a.irrigazione?.inverno || "-"}</li>
+    </ul>
 
-  Object.keys(meta).forEach(key => {
-    if (key === "nome" || key === "descrizione") return;
-    const row = document.createElement("div");
-    row.innerHTML = `<strong>${key}:</strong> ${meta[key]}`;
-    list.appendChild(row);
-  });
+    <h3>Concimazione</h3>
+    <ul>
+      <li><strong>Primavera:</strong> ${a.concimazione?.primavera || "-"}</li>
+      <li><strong>Estate:</strong> ${a.concimazione?.estate || "-"}</li>
+      <li><strong>Autunno:</strong> ${a.concimazione?.autunno || "-"}</li>
+      <li><strong>Inverno:</strong> ${a.concimazione?.inverno || "-"}</li>
+    </ul>
 
-  card.appendChild(list);
+    <h3>Potatura</h3>
+    <ul>
+      <li><strong>Primavera:</strong> ${a.potatura?.primavera || "-"}</li>
+      <li><strong>Estate:</strong> ${a.potatura?.estate || "-"}</li>
+      <li><strong>Autunno:</strong> ${a.potatura?.autunno || "-"}</li>
+      <li><strong>Inverno:</strong> ${a.potatura?.inverno || "-"}</li>
+    </ul>
+  `;
+
+  // -----------------------------
+  // 3) ALERT (HTML libero)
+  // -----------------------------
+  alertContainer.innerHTML = p.alert || "<p>Nessun alert.</p>";
+
+  // -----------------------------
+  // 4) Pulsante Modifica
+  // -----------------------------
+  const btn = document.getElementById("modifica-pianta");
+  btn.onclick = () => {
+    const token = localStorage.getItem("github_token");
+    if (!token) {
+      alert("Devi effettuare il login per modificare.");
+      return;
+    }
+    window.location.href = `edit-pianta.html?nome=${encodeURIComponent(nome)}`;
+  };
 });

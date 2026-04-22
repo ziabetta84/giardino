@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifica Pianta</title>
+</head>
+<body>
+
+<h1 id="edit-title"></h1>
+
+<form id="edit-form">
+
+  <h2>Informazioni generali</h2>
+  <label>Nome: <input id="nome" type="text"></label><br>
+  <label>Specie: <input id="specie" type="text"></label><br>
+  <label>Zona: <input id="zona" type="text"></label><br>
+  <label>Sottozona: <input id="sottozona" type="text"></label><br>
+
+  <h2>Irrigazione</h2>
+  <label>Primavera: <input id="irr-primavera" type="text"></label><br>
+  <label>Estate: <input id="irr-estate" type="text"></label><br>
+  <label>Autunno: <input id="irr-autunno" type="text"></label><br>
+  <label>Inverno: <input id="irr-inverno" type="text"></label><br>
+
+  <h2>Concimazione</h2>
+  <label>Primavera: <input id="conc-primavera" type="text"></label><br>
+  <label>Estate: <input id="conc-estate" type="text"></label><br>
+  <label>Autunno: <input id="conc-autunno" type="text"></label><br>
+  <label>Inverno: <input id="conc-inverno" type="text"></label><br>
+
+  <h2>Potatura</h2>
+  <label>Primavera: <select id="pot-primavera"></select></label><br>
+  <label>Estate: <select id="pot-estate"></select></label><br>
+  <label>Autunno: <select id="pot-autunno"></select></label><br>
+  <label>Inverno: <select id="pot-inverno"></select></label><br>
+
+  <h2>Alert</h2>
+  <textarea id="alert" rows="6"></textarea>
+
+  <br><br>
+  <button type="submit">Salva</button>
+</form>
+
+<script src="js/api.js"></script>
+<script src="js/edit-pianta.js"></script>
+</body>
+</html>
