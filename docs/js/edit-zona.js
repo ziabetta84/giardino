@@ -1,4 +1,46 @@
 // docs/js/edit-zona.js
+// Inizializza editor WYSIWYG
+const descrizioneEditor = pell.init({
+  element: document.getElementById('descrizione-editor'),
+  onChange: html => {
+    document.getElementById('descrizione').value = html;
+  },
+  defaultParagraphSeparator: 'p',
+  styleWithCSS: false
+});
+
+// Imposta contenuto iniziale
+descrizioneEditor.content.innerHTML = z.descrizione || "";
+document.getElementById('descrizione').value = z.descrizione || "";
+
+// Inizializza editor WYSIWYG per la criticità
+const criticitaEditor = pell.init({
+  element: document.getElementById('criticita-editor'),
+  onChange: html => {
+    document.getElementById('criticita').value = html;
+  },
+  defaultParagraphSeparator: 'p',
+  styleWithCSS: false
+});
+
+// Imposta contenuto iniziale per la criticità
+criticitaEditor.content.innerHTML = z.criticita || "";
+document.getElementById('criticita').value = z.criticita || "";
+
+// Inizializza editor WYSIWYG per la manutenzione
+const manutenzioneEditor = pell.init({
+  element: document.getElementById('manutenzione-editor'),
+  onChange: html => {
+    document.getElementById('manutenzione').value = html;
+  },
+  defaultParagraphSeparator: 'p',
+  styleWithCSS: false
+});
+
+// Imposta contenuto iniziale per la manutenzione
+manutenzioneEditor.content.innerHTML = z.manutenzione || "";
+document.getElementById('manutenzione').value = z.manutenzione || "";
+
 
 function getParam(name) {
   const params = new URLSearchParams(location.search);
