@@ -8,5 +8,18 @@
     "criticita": "",
     "manutenzione": "",
     "tipo": "interno"
+  },
+  "casa": {
+    "Bagni": {
+      "nome": "Bagni",
+      "descrizione": "<p dir=\"auto\">I bagni sono esposti a <strong>est</strong>. Hanno finestre ma non terrazzi, quindi al momento non è prevista l’aggiunta di piante da esterno.</p><p dir=\"auto\">Ricevono <strong>molta luce al mattino</strong>, durante tutto l’anno.</p><p dir=\"auto\"><br></p>",
+      "esposizione": [
+        "est"
+      ],
+      "microclima": "<ul dir=\"auto\"><li><strong>Luce intensa al mattino</strong></li><li><strong>Umidità elevata</strong>, tipica degli ambienti bagno</li><li><strong>Temperature fresche</strong>, soprattutto nei mesi freddi</li><li><strong>Ventilazione variabile</strong>, dipendente dall’apertura delle finestre</li></ul>\n<p dir=\"auto\">Questo microclima è ideale per piante che amano umidità e luce filtrata.</p>",
+      "criticita": "",
+      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione moderata</strong>: evitare ristagni, soprattutto per l’orchidea.</li><li><strong>Asciugatura foglie</strong>: dopo docce calde, asciugare eventuale condensa sulle foglie della pilea.</li><li><strong>Ventilazione quotidiana</strong> per ridurre l’umidità e prevenire muffe.</li><li><strong>Controllo radici</strong> dell’orchidea ogni 6–12 mesi.</li><li><strong>Pulizia foglie</strong> per rimuovere calcare e residui di vapore.</li><li><strong>Evitare sole diretto</strong> nelle ore del mattino se troppo intenso.</li></ul>",
+      "tipo": "interno"
+    }
   }
 }
