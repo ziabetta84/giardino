@@ -1,11 +1,16 @@
 {
   "casa": {
     "nome": "Casa",
-    "descrizione": "",
-    "esposizione": [],
-    "microclima": "",
-    "criticita": "",
-    "manutenzione": "",
+    "descrizione": "<div>Ambiente <b>interno</b> con finestre e terrazzi.</div>",
+    "esposizione": [
+      "nord",
+      "sud",
+      "est",
+      "ovest"
+    ],
+    "microclima": "<div>La casa è tendenzialmente umida ed esposta al vento.</div><div><br></div><div>Non essendo \ncoibentata, in inverno diventa molto fredda ed è riscaldata tramite \ntermosifoni in ghisa alimentati a gas.</div><div><br></div><div>Ad aprile la temperatura è di \ncirca 18-19°C e l'umidità è al 62%, il riscaldamento è spento.</div>",
+    "criticita": "<div>Richiede particolare attenzione \nla prevenzione e rimozione della muffa sulle pareti esterne, soprattutto\n nei punti più freddi e meno ventilati.</div>",
+    "manutenzione": "<div>Bisogna fare attenzione alla presenza di muffa sul terriccio delle piante in vaso.</div>",
     "tipo": "interno"
   }
 }
