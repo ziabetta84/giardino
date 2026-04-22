@@ -1,0 +1,29 @@
+{
+  "anthurium": {
+    "nome": "Anthurium",
+    "specie": "",
+    "zona": "",
+    "sottozona": "",
+    "attivita": {
+      "irrigazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      }
+    },
+    "alert": ""
+  }
+}

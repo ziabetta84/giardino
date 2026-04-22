@@ -1,10 +1,12 @@
-// js/api.js
+// docs/js/api.js
 
 const REPO_USER = "ziabetta84";
 const REPO_NAME = "giardino";
 const BRANCH = "main";
 
-// Prepara headers con token se presente
+// ------------------------------
+// Utility: headers con token
+// ------------------------------
 function getAuthHeaders() {
   const token = localStorage.getItem("github_token");
 
@@ -19,47 +21,88 @@ function getAuthHeaders() {
   return headers;
 }
 
-// Lista i file/cartelle in una directory del repo
-async function listDir(path) {
-  const url = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/${path}?t=${Date.now()}`;
+// ------------------------------
+// 1) LEGGERE JSON da /docs/data/
+// ------------------------------
+async function loadJSON(filename) {
+  const url = `https://raw.githubusercontent.com/${REPO_USER}/${REPO_NAME}/${BRANCH}/docs/data/${filename}?t=${Date.now()}`;
 
   try {
     const res = await fetch(url, { headers: getAuthHeaders() });
 
     if (!res.ok) {
-      console.error("Errore listDir", path, res.status);
-      return [];
+      console.error("Errore loadJSON:", filename, res.status);
+      return null;
     }
 
     return await res.json();
   } catch (e) {
-    console.error("Errore rete listDir", path, e);
-    return [];
+    console.error("Errore rete loadJSON:", filename, e);
+    return null;
   }
 }
 
-// Ottiene un file RAW dal repo (UTF‑8 corretto)
-async function getFile(path) {
-  const url = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/${path}?t=${Date.now()}`;
+// ------------------------------
+// 2) SCRIVERE JSON nel repo
+// ------------------------------
+async function saveJSON(filename, data) {
+  const token = localStorage.getItem("github_token");
+
+  if (!token) {
+    alert("Token mancante. Devi effettuare il login.");
+    return false;
+  }
+
+  const path = `docs/data/${filename}`;
+  const apiUrl = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/${path}`;
 
   try {
-    const res = await fetch(url, { headers: getAuthHeaders() });
+    // 1. Recupera SHA del file esistente
+    const getRes = await fetch(apiUrl, { headers: getAuthHeaders() });
 
-    if (!res.ok) {
-      console.error("Errore getFile", path, res.status);
-      return "";
+    if (!getRes.ok) {
+      console.error("Errore nel recupero SHA:", filename);
+      return false;
     }
 
-    const fileData = await res.json();
+    const fileData = await getRes.json();
 
-    // Decodifica UTF‑8 corretta
-    const text = new TextDecoder("utf-8").decode(
-      Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0))
-    );
+    // 2. Prepara contenuto JSON
+    const jsonText = JSON.stringify(data, null, 2);
 
-    return text;
+    // 3. Codifica base64 UTF‑8
+    const encoded = btoa(unescape(encodeURIComponent(jsonText)));
+
+    // 4. Commit
+    const putRes = await fetch(apiUrl, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github.v3+json"
+      },
+      body: JSON.stringify({
+        message: `Aggiorna ${filename}`,
+        content: encoded,
+        sha: fileData.sha
+      })
+    });
+
+    return putRes.ok;
   } catch (e) {
-    console.error("Errore rete getFile", path, e);
-    return "";
+    console.error("Errore salvataggio JSON:", filename, e);
+    return false;
   }
+}
+
+// ------------------------------
+// 3) Helper: carica TUTTI i dati
+// ------------------------------
+async function loadAllData() {
+  const settings = await loadJSON("settings.json");
+  const zone = await loadJSON("zone.json");
+  const sottozone = await loadJSON("sottozone.json");
+  const piante = await loadJSON("piante.json");
+
+  return { settings, zone, sottozone, piante };
 }

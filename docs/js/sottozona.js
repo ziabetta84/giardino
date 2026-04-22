@@ -1,51 +1,14 @@
-// js/sottozona.js
+// docs/js/sottozona.js
 
 function getParam(name) {
   const params = new URLSearchParams(location.search);
   return params.get(name);
 }
 
-// Estrae il frontmatter YAML (tra --- e ---)
-function extractFrontmatter(md) {
-  const match = md.match(/^---\s*([\s\S]*?)\s*---/);
-  return match ? match[1] : null;
-}
-
-// Converte un oggetto YAML in tabella HTML (ricorsivo)
-function yamlObjectToTable(obj) {
-  let html = "<table class='yaml-table'>";
-
-  for (const key in obj) {
-    let value = obj[key];
-
-    if (Array.isArray(value)) {
-      value = "<ul>" + value.map(v => `<li>${v}</li>`).join("") + "</ul>";
-    } else if (typeof value === "object" && value !== null) {
-      value = yamlObjectToTable(value);
-    }
-
-    html += `
-      <tr>
-        <th>${key}</th>
-        <td>${value}</td>
-      </tr>
-    `;
-  }
-
-  html += "</table>";
-  return html;
-}
-
-// Rimuove il frontmatter e restituisce solo il contenuto Markdown
-function stripFrontmatter(md) {
-  return md.replace(/^---[\s\S]*?---/, "").trim();
-}
-
 document.addEventListener("DOMContentLoaded", async () => {
   const zona = getParam("zona");
   const header = document.getElementById("zona-title");
   const container = document.getElementById("sottozone-list");
-  const fmContainer = document.getElementById("zona-frontmatter");
   const descrContainer = document.getElementById("zona-descrizione");
 
   if (!zona) {
@@ -55,64 +18,73 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   header.textContent = `Zona: ${zona}`;
 
-  // Prepara headers con token
-  const token = localStorage.getItem("github_token");
-  const headers = { "Accept": "application/vnd.github.v3+json" };
-  if (token) headers["Authorization"] = `Bearer ${token}`;
+  // Carica zone e sottozone
+  const zone = await loadJSON("zone.json");
+  const sottozone = await loadJSON("sottozone.json");
 
-  // 1. Carica casa.md tramite GitHub API
-  const path = `zone/${zona}/${zona}.md`;
-  const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/${path}?t=${Date.now()}`;
-
-  try {
-    const res = await fetch(apiUrl, { headers });   // <-- AUTH QUI
-
-    if (res.ok) {
-      const fileData = await res.json();
-
-      // DECODIFICA UTF‑8 CORRETTA
-      const md = new TextDecoder("utf-8").decode(
-        Uint8Array.from(atob(fileData.content), c => c.charCodeAt(0))
-      );
-
-      // Estrai frontmatter YAML
-      const fm = extractFrontmatter(md);
-      if (fm) {
-        const yamlObj = jsyaml.load(fm);
-        fmContainer.innerHTML = yamlObjectToTable(yamlObj);
-      }
-
-      // Mostra contenuto Markdown (se presente)
-      const contenuto = stripFrontmatter(md);
-      descrContainer.innerHTML = marked.parse(contenuto);
-    }
-  } catch (e) {
-    fmContainer.innerHTML = "<p><i>Errore nel caricamento della zona.</i></p>";
+  if (!zone || !zone[zona]) {
+    descrContainer.innerHTML = "<p><i>Zona non trovata.</i></p>";
+    return;
   }
 
-  // 2. Carica sottozone (usa listDir, che ora ha già il token)
-  const items = await listDir(`zone/${zona}`);
-  const dirs = items.filter(i => i.type === "dir");
+  // Mostra descrizione della zona
+  descrContainer.innerHTML = zone[zona].descrizione || "";
+
+  // Filtra sottozone appartenenti alla zona
+  const sottozoneKeys = Object.keys(sottozone)
+    .filter(k => sottozone[k].zona === zona)
+    .sort((a, b) => {
+      const nomeA = sottozone[a].nome?.toLowerCase() || a.toLowerCase();
+      const nomeB = sottozone[b].nome?.toLowerCase() || b.toLowerCase();
+      return nomeA.localeCompare(nomeB);
+    });
 
   container.innerHTML = "";
 
-  if (!dirs.length) {
+  if (sottozoneKeys.length === 0) {
     container.innerHTML = "<div class='card'>Nessuna sottozona trovata.</div>";
     return;
   }
 
-  for (const d of dirs) {
-    const sottozona = d.name;
+  for (const key of sottozoneKeys) {
+    const s = sottozone[key];
 
-    const a = document.createElement("a");
-    a.className = "card";
-    a.href = `pianta.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(sottozona)}`;
+    // CARD
+    const card = document.createElement("div");
+    card.className = "card";
+
+    // LINK alla pagina piante
+    const link = document.createElement("a");
+    link.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(s.nome)}`;
 
     const title = document.createElement("div");
     title.className = "card-title";
-    title.textContent = sottozona;
+    title.textContent = s.nome;
 
-    a.appendChild(title);
-    container.appendChild(a);
+    const subtitle = document.createElement("div");
+    subtitle.className = "card-subtitle";
+    subtitle.innerHTML = s.descrizione || "";
+
+    link.appendChild(title);
+    link.appendChild(subtitle);
+
+    // Pulsante Modifica
+    const btn = document.createElement("button");
+    btn.className = "modifica-btn";
+    btn.textContent = "Modifica";
+    btn.onclick = () => {
+      const token = localStorage.getItem("github_token");
+      if (!token) {
+        alert("Devi effettuare il login per modificare.");
+        return;
+      }
+      window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(s.nome)}`;
+    };
+
+    // Assembla card
+    card.appendChild(link);
+    card.appendChild(btn);
+
+    container.appendChild(card);
   }
 });

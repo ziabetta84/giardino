@@ -1,0 +1,11 @@
+{
+  "casa/soggiorno": {
+    "nome": "Soggiorno",
+    "zona": "casa",
+    "descrizione": "",
+    "esposizione": [],
+    "microclima": "",
+    "criticita": "",
+    "tipo": "interno"
+  }
+}
