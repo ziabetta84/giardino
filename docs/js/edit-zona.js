@@ -1,47 +1,4 @@
 // docs/js/edit-zona.js
-// Inizializza editor WYSIWYG
-const descrizioneEditor = pell.init({
-  element: document.getElementById('descrizione-editor'),
-  onChange: html => {
-    document.getElementById('descrizione').value = html;
-  },
-  defaultParagraphSeparator: 'p',
-  styleWithCSS: false
-});
-
-// Imposta contenuto iniziale
-descrizioneEditor.content.innerHTML = z.descrizione || "";
-document.getElementById('descrizione').value = z.descrizione || "";
-
-// Inizializza editor WYSIWYG per la criticità
-const criticitaEditor = pell.init({
-  element: document.getElementById('criticita-editor'),
-  onChange: html => {
-    document.getElementById('criticita').value = html;
-  },
-  defaultParagraphSeparator: 'p',
-  styleWithCSS: false
-});
-
-// Imposta contenuto iniziale per la criticità
-criticitaEditor.content.innerHTML = z.criticita || "";
-document.getElementById('criticita').value = z.criticita || "";
-
-// Inizializza editor WYSIWYG per la manutenzione
-const manutenzioneEditor = pell.init({
-  element: document.getElementById('manutenzione-editor'),
-  onChange: html => {
-    document.getElementById('manutenzione').value = html;
-  },
-  defaultParagraphSeparator: 'p',
-  styleWithCSS: false
-});
-
-// Imposta contenuto iniziale per la manutenzione
-manutenzioneEditor.content.innerHTML = z.manutenzione || "";
-document.getElementById('manutenzione').value = z.manutenzione || "";
-
-
 function getParam(name) {
   const params = new URLSearchParams(location.search);
   return params.get(name);
@@ -74,10 +31,66 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 1) Popola i campi del form
   // -----------------------------
   document.getElementById("nome").value = z.nome || "";
-  document.getElementById("descrizione").value = z.descrizione || "";
-  document.getElementById("microclima").value = z.microclima || "";
-  document.getElementById("criticita").value = z.criticita || "";
-  document.getElementById("manutenzione").value = z.manutenzione || "";
+
+  // Inizializza editor WYSIWYG
+  const descrizioneEditor = pell.init({
+    element: document.getElementById('descrizione-editor'),
+    onChange: html => {
+      document.getElementById('descrizione').value = html;
+    },
+    defaultParagraphSeparator: 'p',
+    styleWithCSS: false
+  });
+
+  // Imposta contenuto iniziale
+  descrizioneEditor.content.innerHTML = z.descrizione || "";
+  document.getElementById('descrizione').value = z.descrizione || "";
+
+  // Inizializza editor WYSIWYG per la criticità
+  const criticitaEditor = pell.init({
+    element: document.getElementById('criticita-editor'),
+    onChange: html => {
+      document.getElementById('criticita').value = html;
+    },
+    defaultParagraphSeparator: 'p',
+    styleWithCSS: false
+  });
+
+  // Imposta contenuto iniziale per la criticità
+  criticitaEditor.content.innerHTML = z.criticita || "";
+  document.getElementById('criticita').value = z.criticita || "";
+
+  // Inizializza editor WYSIWYG per la manutenzione
+  const manutenzioneEditor = pell.init({
+    element: document.getElementById('manutenzione-editor'),
+    onChange: html => {
+      document.getElementById('manutenzione').value = html;
+    },
+    defaultParagraphSeparator: 'p',
+    styleWithCSS: false
+  });
+
+  // Imposta contenuto iniziale per la manutenzione
+  manutenzioneEditor.content.innerHTML = z.manutenzione || "";
+  document.getElementById('manutenzione').value = z.manutenzione || "";
+
+  // Inizializza editor WYSIWYG per il microclima
+  const microclimaEditor = pell.init({
+    element: document.getElementById('microclima-editor'),
+    onChange: html => {
+      document.getElementById('microclima').value = html;
+    },
+    defaultParagraphSeparator: 'p',
+    styleWithCSS: false
+  });
+
+  // Imposta contenuto iniziale per il microclima
+  microclimaEditor.content.innerHTML = z.microclima || "";
+  document.getElementById('microclima').value = z.microclima || "";
+
+
+
+
   document.getElementById("tipo").value = z.tipo || "interno";
 
   // Esposizione (checkbox)
