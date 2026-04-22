@@ -26,28 +26,30 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // CARD
     const card = document.createElement("div");
-    card.className = "card";
+    card.className = "card zone-card";
 
-    // LINK alla pagina delle sottozone
-    const link = document.createElement("a");
-    link.href = `sottozona.html?zona=${encodeURIComponent(key)}`;
-
+    // TITOLO (solo testo, niente link)
     const title = document.createElement("div");
-    title.className = "card-title";
+    title.className = "zone-title";
     title.textContent = z.nome || key;
 
-    const subtitle = document.createElement("div");
-    subtitle.className = "card-subtitle";
-    subtitle.innerHTML = z.descrizione || "";
+    // CONTENITORE BOTTONI
+    const btnRow = document.createElement("div");
+    btnRow.className = "zone-btn-row";
 
-    link.appendChild(title);
-    link.appendChild(subtitle);
+    // Pulsante Esplora
+    const exploreBtn = document.createElement("button");
+    exploreBtn.className = "zone-btn explore-btn";
+    exploreBtn.textContent = "Esplora";
+    exploreBtn.onclick = () => {
+      window.location.href = `sottozona.html?zona=${encodeURIComponent(key)}`;
+    };
 
     // Pulsante Modifica
-    const btn = document.createElement("button");
-    btn.className = "modifica-btn";
-    btn.textContent = "Modifica";
-    btn.onclick = () => {
+    const editBtn = document.createElement("button");
+    editBtn.className = "zone-btn edit-btn";
+    editBtn.textContent = "Modifica";
+    editBtn.onclick = () => {
       const token = localStorage.getItem("github_token");
       if (!token) {
         alert("Devi effettuare il login per modificare.");
@@ -56,9 +58,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       window.location.href = `edit-zona.html?zona=${encodeURIComponent(key)}`;
     };
 
-    // Assembla card
-    card.appendChild(link);
-    card.appendChild(btn);
+    // Assembla
+    btnRow.appendChild(exploreBtn);
+    btnRow.appendChild(editBtn);
+
+    card.appendChild(title);
+    card.appendChild(btnRow);
 
     container.appendChild(card);
   }
