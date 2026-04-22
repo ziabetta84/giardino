@@ -44,6 +44,15 @@
       "criticita": "",
       "manutenzione": "",
       "tipo": "interno"
+    },
+    "Scalinata": {
+      "nome": "Scalinata",
+      "descrizione": "La scalinata è un ambiente fresco e poco illuminato, ma con <strong>buona ventilazione</strong>.<br><div>\nLa luce proviene da due piccole finestre, mentre l’aria circola grazie a\n una finestra spesso aperta e al collegamento diretto con il garage.</div>",
+      "esposizione": [],
+      "microclima": "<ul dir=\"auto\"><li><strong>Freddo</strong> per gran parte dell’anno</li><li><strong>Luce scarsa</strong></li><li><strong>Buona ventilazione</strong></li><li><strong>Umidità moderata</strong></li></ul>",
+      "criticita": "",
+      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione minima</strong>, solo a terreno completamente asciutto.</li><li><strong>Pulizia foglie</strong> per migliorare la fotosintesi.</li><li><strong>Controllo radici</strong> ogni 6–12 mesi.</li><li><strong>Rotazione dei vasi</strong> ogni 2–3 settimane.</li><li><strong>Monitoraggio muffe</strong> nei mesi più umidi.</li><li><strong>Attenzione alle correnti d’aria</strong> per piante sensibili.</li></ul>",
+      "tipo": "interno"
     }
   }
 }
