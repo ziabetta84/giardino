@@ -32,64 +32,45 @@ document.addEventListener("DOMContentLoaded", async () => {
   // -----------------------------
   document.getElementById("nome").value = z.nome || "";
 
-  // Inizializza editor WYSIWYG
+  // DESCRIZIONE
   const descrizioneEditor = pell.init({
     element: document.getElementById('descrizione-editor'),
     onChange: html => {
       document.getElementById('descrizione').value = html;
-    },
-    defaultParagraphSeparator: 'p',
-    styleWithCSS: false
+    }
   });
-
-  // Imposta contenuto iniziale
   descrizioneEditor.content.innerHTML = z.descrizione || "";
   document.getElementById('descrizione').value = z.descrizione || "";
 
-  // Inizializza editor WYSIWYG per la criticità
+  // CRITICITÀ
   const criticitaEditor = pell.init({
     element: document.getElementById('criticita-editor'),
     onChange: html => {
       document.getElementById('criticita').value = html;
-    },
-    defaultParagraphSeparator: 'p',
-    styleWithCSS: false
+    }
   });
-
-  // Imposta contenuto iniziale per la criticità
   criticitaEditor.content.innerHTML = z.criticita || "";
   document.getElementById('criticita').value = z.criticita || "";
 
-  // Inizializza editor WYSIWYG per la manutenzione
+  // MANUTENZIONE (aggiunta da te)
   const manutenzioneEditor = pell.init({
     element: document.getElementById('manutenzione-editor'),
     onChange: html => {
       document.getElementById('manutenzione').value = html;
-    },
-    defaultParagraphSeparator: 'p',
-    styleWithCSS: false
+    }
   });
-
-  // Imposta contenuto iniziale per la manutenzione
   manutenzioneEditor.content.innerHTML = z.manutenzione || "";
   document.getElementById('manutenzione').value = z.manutenzione || "";
 
-  // Inizializza editor WYSIWYG per il microclima
+  // MICROCLIMA
   const microclimaEditor = pell.init({
     element: document.getElementById('microclima-editor'),
     onChange: html => {
       document.getElementById('microclima').value = html;
-    },
-    defaultParagraphSeparator: 'p',
-    styleWithCSS: false
+    }
   });
-
-  // Imposta contenuto iniziale per il microclima
   microclimaEditor.content.innerHTML = z.microclima || "";
   document.getElementById('microclima').value = z.microclima || "";
-
-
-
 
   document.getElementById("tipo").value = z.tipo || "interno";
 
@@ -105,23 +86,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // Ricostruisci array esposizione
     const nuovaEsposizione = ["nord", "sud", "est", "ovest"].filter(dir =>
       document.getElementById(`exp-${dir}`).checked
     );
 
-    // Aggiorna dati
     zoneData[zona] = {
       nome: document.getElementById("nome").value.trim(),
-      descrizione: document.getElementById("descrizione").value.trim(),
+      descrizione: document.getElementById("descrizione").value,
       esposizione: nuovaEsposizione,
-      microclima: document.getElementById("microclima").value.trim(),
-      criticita: document.getElementById("criticita").value.trim(),
-      manutenzione: document.getElementById("manutenzione").value.trim(),
+      microclima: document.getElementById("microclima").value,
+      criticita: document.getElementById("criticita").value,
+      manutenzione: document.getElementById("manutenzione").value,
       tipo: document.getElementById("tipo").value
     };
 
-    // Salva su GitHub
     const ok = await saveJSON("zone.json", zoneData);
 
     if (ok) {
