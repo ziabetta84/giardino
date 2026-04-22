@@ -35,5 +35,17 @@
     "criticita": "<ul dir=\"auto\"><li><strong>Ombra pomeridiana</strong>: a seconda dell'altezza della \ncollina e della vegetazione sul crinale, questa zona potrebbe ricevere \nombra nelle ore tarde; da monitorare in funzione delle piante scelte</li><li><strong>Suolo asciutto sotto la tettoia</strong>: la zona fiorita è \nriparata dalla tettoia della casa, che impedisce alla pioggia di \nraggiungere direttamente il terreno; il suolo tende a rimanere piuttosto\n asciutto e richiede irrigazione supplementare indipendentemente dalle \nprecipitazioni</li><li><strong>Umidità persistente al mattino</strong>: l'esposizione est \ncon scarsa ventilazione da ovest può favorire la permanenza della \nrugiada e umidità fogliare prolungata, aumentando il rischio di malattie\n fungine</li><li><strong>Escursione termica</strong>: la collina riduce la ventilazione notturna, portando a escursioni termiche più marcate rispetto a zone più aperte</li></ul>",
     "manutenzione": "<div>Accertarsi <b>quotidianamente</b> dello stato di idratazione delle piante fiorite.</div>",
     "tipo": "esterno"
+  },
+  "Orto": {
+    "nome": "Orto",
+    "descrizione": "<div>Area pianeggiante nella parte est/nord-est della proprietà.</div>",
+    "esposizione": [
+      "nord",
+      "est"
+    ],
+    "microclima": "<div>Zona relativamente riparata rispetto alle altre aree del giardino grazie\n alla posizione arretrata rispetto alla strada e alla presenza di \nvegetazione circostante. Il terreno pianeggiante favorisce ristagno \nidrico se il drenaggio non è adeguato. Le temperature sono leggermente \npiù alte rispetto alle zone in pendio grazie alla minore ventilazione.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Siccità estiva</strong>: il clima adriatico porta estati calde e secche; l'orto necessita di irrigazione regolare da giugno ad agosto</li><li><strong>Ristagno idrico</strong>: il terreno pianeggiante può accumulare acqua in autunno/inverno in caso di piogge intense; verificare il drenaggio</li><li><strong>Parassiti orticoli</strong>: afidi, lumache e nottue sono comuni nelle zone vegetali costiere marchigiane</li></ul>",
+    "manutenzione": "",
+    "tipo": "esterno"
   }
 }
