@@ -14,6 +14,7 @@
       border-radius: 10px;
       background: #f7f7f7;
       border: 1px solid #ddd;
+      margin-top: 15px;
     }
 
     #specie-editor label {
@@ -44,6 +45,31 @@
 
     .specie-actions button:hover {
       background: #ccc;
+    }
+
+    /* Blocchi manutenzione */
+    .manut-block {
+      margin: 15px 0;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .manut-block h4 {
+      margin: 0 0 8px 0;
+      font-size: 1.1rem;
+    }
+
+    .manut-block label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .manut-block input {
+      width: 100%;
+      padding: 4px;
     }
   </style>
 </head>
@@ -92,6 +118,37 @@
 
     <label>Alert (uno per riga)</label>
     <textarea id="specie-alert" rows="3"></textarea>
+
+    <!-- ============================
+         MANUTENZIONE (Opzione B)
+         ============================ -->
+
+    <h3>Manutenzione</h3>
+
+    <div class="manut-block">
+      <h4>Irrigazione</h4>
+      <label>Primavera <input id="man-irrig-primavera" type="text"></label>
+      <label>Estate <input id="man-irrig-estate" type="text"></label>
+      <label>Autunno <input id="man-irrig-autunno" type="text"></label>
+      <label>Inverno <input id="man-irrig-inverno" type="text"></label>
+    </div>
+
+    <div class="manut-block">
+      <h4>Concimazione</h4>
+      <label>Primavera <input id="man-conc-primavera" type="text"></label>
+      <label>Estate <input id="man-conc-estate" type="text"></label>
+      <label>Autunno <input id="man-conc-autunno" type="text"></label>
+      <label>Inverno <input id="man-conc-inverno" type="text"></label>
+    </div>
+
+    <div class="manut-block">
+      <h4>Potatura</h4>
+      <label>Primavera <input id="man-pot-primavera" type="text"></label>
+      <label>Estate <input id="man-pot-estate" type="text"></label>
+      <label>Autunno <input id="man-pot-autunno" type="text"></label>
+      <label>Inverno <input id="man-pot-inverno" type="text"></label>
+    </div>
+
   </div>
 
   <hr style="margin:25px 0;">
