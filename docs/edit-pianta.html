@@ -3,8 +3,51 @@
 <head>
   <meta charset="UTF-8">
   <title>Modifica Pianta</title>
+
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="piante.css">
+
+  <style>
+    /* Stili aggiuntivi per l’editor specie */
+    #specie-editor {
+      padding: 15px;
+      border-radius: 10px;
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+    }
+
+    #specie-editor label {
+      margin-top: 10px;
+      font-weight: 600;
+      display: block;
+    }
+
+    #specie-editor input,
+    #specie-editor textarea {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .specie-actions {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0 20px 0;
+    }
+
+    .specie-actions button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #ddd;
+    }
+
+    .specie-actions button:hover {
+      background: #ccc;
+    }
+  </style>
 </head>
+
 <body>
 
 <nav class="topnav">
@@ -12,40 +55,71 @@
   <a href="piante.html">🌿 Piante</a>
 </nav>
 
-<h1 id="edit-title">Nuova Pianta</h1>
+<h1 id="edit-title">Modifica Pianta</h1>
 
 <form id="edit-form" class="edit-form">
 
+  <!-- SPECIE -->
   <label>Specie</label>
   <select id="specie"></select>
 
+  <div class="specie-actions">
+    <button type="button" id="new-specie-btn">➕ Nuova specie</button>
+    <button type="button" id="edit-specie-btn">✏️ Modifica specie</button>
+  </div>
+
+  <!-- EDITOR SPECIE (NASCOSTO) -->
+  <div id="specie-editor" style="display:none;">
+    <h3 id="specie-editor-title">Nuova specie</h3>
+
+    <label>Nome</label>
+    <input id="specie-nome" type="text">
+
+    <label>Specie botanica</label>
+    <input id="specie-specie" type="text">
+
+    <label>Descrizione (HTML)</label>
+    <textarea id="specie-descrizione" rows="4"></textarea>
+
+    <label>Luce</label>
+    <input id="specie-luce" type="text">
+
+    <label>Acqua</label>
+    <input id="specie-acqua" type="text">
+
+    <label>Terreno</label>
+    <input id="specie-terreno" type="text">
+
+    <label>Alert (uno per riga)</label>
+    <textarea id="specie-alert" rows="3"></textarea>
+  </div>
+
+  <hr style="margin:25px 0;">
+
+  <!-- ZONA -->
   <label>Zona</label>
   <select id="zona"></select>
 
+  <!-- SOTTOZONA -->
   <label>Sottozona</label>
   <select id="sottozona">
     <option value="">(nessuna)</option>
   </select>
 
+  <!-- VARIETÀ -->
   <label>Varietà</label>
   <input id="varieta" type="text">
 
+  <!-- DATA IMPIANTO -->
   <label>Data impianto</label>
   <input id="impianto" type="date">
 
+  <!-- NOTE -->
   <label>Note</label>
-  <textarea id="note"></textarea>
+  <textarea id="note" rows="4"></textarea>
 
   <button type="submit" class="save-btn">💾 Salva</button>
 </form>
-
-<div id="status-bar">
-  <div id="status-left">
-    <span id="status-icon">🟢</span>
-    <span id="status-text">Pronto</span>
-  </div>
-  <button id="status-action">Aggiorna</button>
-</div>
 
 <script src="js/api.js"></script>
 <script src="js/edit-pianta.js"></script>
