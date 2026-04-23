@@ -1,840 +1,2594 @@
 {
-    "iberis-sempervirens": {
-        "nome": "Iberis sempervirens",
-        "specie": "Iberis sempervirens",
-        "descrizione": "<p>Perenne sempreverde a cuscino, fioritura bianca abbondante in primavera.</p>",
-        "esigenze": {
-            "luce": "Pieno sole o mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Ben drenato"
-        },
-        "alert": [
-            "Teme ristagni"
-        ]
-    },
-    "sansevieria": {
-        "nome": "Sansevieria",
-        "specie": "Sansevieria trifasciata",
-        "descrizione": "<p>Pianta d'appartamento molto resistente.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Scarsa",
-            "terreno": "Molto drenante"
-        },
-        "alert": [
-            "Sensibile a eccesso d'acqua"
-        ]
-    },
-    "bellis-perennis": {
-        "nome": "Bellis perennis",
-        "specie": "Bellis perennis",
-        "descrizione": "<p>Margherita perenne ideale per bordure.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fresco"
-        },
-        "alert": []
-    },
-    "erica": {
-        "nome": "Erica",
-        "specie": "Erica carnea",
-        "descrizione": "<p>Arbusto sempreverde con fioritura invernale.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Acido"
-        },
-        "alert": [
-            "Non tollera calcare"
-        ]
-    },
-    "gazania": {
-        "nome": "Gazania",
-        "specie": "Gazania rigens",
-        "descrizione": "<p>Perenne mediterranea dai fiori molto colorati.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Chiude i fiori in ombra"
-        ]
-    },
-    "narciso": {
-        "nome": "Narciso",
-        "specie": "Narcissus spp.",
-        "descrizione": "<p>Bulbosa primaverile molto rustica.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Fertile"
-        },
-        "alert": [
-            "Non tagliare le foglie prima che secchino"
-        ]
-    },
-    "primula": {
-        "nome": "Primula",
-        "specie": "Primula vulgaris",
-        "descrizione": "<p>Perenne da mezz'ombra con fioritura precoce.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fresco"
-        },
-        "alert": [
-            "Soffre caldo estivo"
-        ]
-    },
-    "spiraea-arguta": {
-        "nome": "Spiraea arguta",
-        "specie": "Spiraea × arguta",
-        "descrizione": "<p>Arbusto ornamentale con fioritura bianca primaverile.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Potare dopo la fioritura"
-        ]
-    },
-    "stracchino": {
-        "nome": "Stracchino (Iberis)",
-        "specie": "Iberis sempervirens",
-        "descrizione": "<p>Nome comune dell'Iberis sempervirens.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "uva-di-gatto": {
-        "nome": "Uva di gatto",
-        "specie": "Muscari armeniacum",
-        "descrizione": "<p>Bulbosa primaverile molto rustica, nota per le infiorescenze blu a grappolo simili a piccoli acini.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Moderata in primavera, quasi nulla in estate",
-            "terreno": "Ben drenato"
-        },
-        "alert": [
-            "Non tagliare le foglie finché non ingialliscono",
-            "Evitare irrigazioni estive (riposo del bulbo)",
-            "Fioritura scarsa se piantato troppo in profondità"
-        ]
-    },
-    "zinnia": {
-        "nome": "Zinnia",
-        "specie": "Zinnia elegans",
-        "descrizione": "<p>Annuale dai fiori grandi e colorati.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Regolare",
-            "terreno": "Fertile"
-        },
-        "alert": [
-            "Sensibile all'oidio"
-        ]
-    },
-    "alloro": {
-        "nome": "Alloro",
-        "specie": "Laurus nobilis",
-        "descrizione": "<p>Arbusto aromatico sempreverde, molto resistente.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Può soffrire cocciniglia"
-        ]
-    },
-    "arancio-navel": {
-        "nome": "Arancio Navel",
-        "specie": "Citrus sinensis",
-        "descrizione": "<p>Agrume ornamentale e produttivo, sensibile al freddo.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Regolare",
-            "terreno": "Ricco e drenato"
-        },
-        "alert": [
-            "Proteggere dal gelo"
-        ]
-    },
-    "prunus-taoflora": {
-        "nome": "Prunus taoflora",
-        "specie": "Prunus spp.",
-        "descrizione": "<p>Albero ornamentale a fioritura primaverile.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Fertile"
-        },
-        "alert": [
-            "Sensibile a monilia"
-        ]
-    },
-    "rosmarino": {
-        "nome": "Rosmarino",
-        "specie": "Rosmarinus officinalis",
-        "descrizione": "<p>Aromatica mediterranea sempreverde, molto rustica.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Evitare ristagni"
-        ]
-    },
-    "scilla-marittima": {
-        "nome": "Scilla marittima",
-        "specie": "Drimia maritima",
-        "descrizione": "<p>Bulbosa mediterranea molto resistente alla siccità.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Arido"
-        },
-        "alert": [
-            "Foglie tossiche se ingerite"
-        ]
-    },
-    "sedum-acre": {
-        "nome": "Sedum acre",
-        "specie": "Sedum acre",
-        "descrizione": "<p>Succulenta tappezzante molto rustica e invasiva.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Può espandersi rapidamente"
-        ]
-    },
-    "timo-serpillo": {
-        "nome": "Timo serpillo",
-        "specie": "Thymus serpyllum",
-        "descrizione": "<p>Aromatica tappezzante molto resistente.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Evitare ombra fitta"
-        ]
-    },
-    "orchidea": {
-        "nome": "Orchidea",
-        "specie": "Phalaenopsis",
-        "descrizione": "<p>Pianta da interno elegante, ama ambienti umidi.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Moderata",
-            "terreno": "Corteccia"
-        },
-        "alert": [
-            "Non esporre a sole diretto"
-        ]
-    },
-    "basilico": {
-        "nome": "Basilico",
-        "specie": "Ocimum basilicum",
-        "descrizione": "<p>Aromatica annuale molto coltivata in estate.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Regolare",
-            "terreno": "Fertile"
-        },
-        "alert": [
-            "Soffre freddo e vento"
-        ]
-    },
-    "ceropegia": {
-        "nome": "Ceropegia",
-        "specie": "Ceropegia woodii",
-        "descrizione": "<p>Succulenta pendente da interno, molto decorativa.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Sensibile a eccesso d'acqua"
-        ]
-    },
-    "erba-cipollina": {
-        "nome": "Erba cipollina",
-        "specie": "Allium schoenoprasum",
-        "descrizione": "<p>Aromatica perenne rustica, facile da coltivare.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Regolare",
-            "terreno": "Fertile"
-        },
-        "alert": []
-    },
-    "fragola-rifiorente": {
-        "nome": "Fragola rifiorente",
-        "specie": "Fragaria × ananassa",
-        "descrizione": "<p>Fragola che produce più volte l'anno.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Regolare",
-            "terreno": "Ricco"
-        },
-        "alert": [
-            "Sensibile a oidio"
-        ]
-    },
-    "prezzemolo": {
-        "nome": "Prezzemolo",
-        "specie": "Petroselinum crispum",
-        "descrizione": "<p>Aromatica biennale molto coltivata.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fertile"
-        },
-        "alert": []
-    },
-    "salvia": {
-        "nome": "Salvia",
-        "specie": "Salvia officinalis",
-        "descrizione": "<p>Aromatica mediterranea sempreverde.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Evitare ristagni"
-        ]
-    },
-    "sedum-makinoi": {
-        "nome": "Sedum makinoi",
-        "specie": "Sedum makinoi",
-        "descrizione": "<p>Succulenta tappezzante ornamentale.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "tradescantia": {
-        "nome": "Tradescantia",
-        "specie": "Tradescantia zebrina",
-        "descrizione": "<p>Pendente da interno molto decorativa.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "calathea": {
-        "nome": "Calathea",
-        "specie": "Calathea spp.",
-        "descrizione": "<p>Pianta da interno con foglie ornamentali e disegni particolari.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Regolare",
-            "terreno": "Ricco e drenato"
-        },
-        "alert": [
-            "Ama umidità elevata",
-            "Evitare correnti fredde"
-        ]
-    },
-    "anthurium": {
-        "nome": "Anthurium",
-        "specie": "Anthurium andraeanum",
-        "descrizione": "<p>Pianta da interno con fiori cerosi molto decorativi.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Moderata",
-            "terreno": "Ricco e drenato"
-        },
-        "alert": [
-            "Non esporre a sole diretto"
-        ]
-    },
-    "calancola": {
-        "nome": "Calancola",
-        "specie": "Kalanchoe blossfeldiana",
-        "descrizione": "<p>Succulenta da interno con fioritura prolungata e colori vivaci.</p>",
-        "esigenze": {
-            "luce": "Luce intensa",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Evitare ristagni"
-        ]
-    },
-    "ficus-ginseng": {
-        "nome": "Ficus ginseng",
-        "specie": "Ficus microcarpa",
-        "descrizione": "<p>Bonsai da interno molto diffuso e resistente.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Moderata",
-            "terreno": "Ricco"
-        },
-        "alert": [
-            "Sensibile a sbalzi di temperatura"
-        ]
-    },
-    "mammillaria": {
-        "nome": "Mammillaria",
-        "specie": "Mammillaria spp.",
-        "descrizione": "<p>Cactus globoso molto resistente e facile da coltivare.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": []
-    },
-    "mammillaria-piumosa": {
-        "nome": "Mammillaria piumosa",
-        "specie": "Mammillaria plumosa",
-        "descrizione": "<p>Cactus bianco piumoso dall'aspetto delicato.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Molto drenato"
-        },
-        "alert": [
-            "Molto delicata al tatto"
-        ]
-    },
-    "pothos": {
-        "nome": "Pothos",
-        "specie": "Epipremnum aureum",
-        "descrizione": "<p>Pendente da interno molto resistente e adattabile.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "cactus-ago-di-eva-monstroso": {
-        "nome": "Cactus Ago di Eva (mostruoso)",
-        "specie": "Euphorbia trigona",
-        "descrizione": "<p>Succulenta colonnare ornamentale con portamento irregolare.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Lattice irritante"
-        ]
-    },
-    "echeveria": {
-        "nome": "Echeveria",
-        "specie": "Echeveria spp.",
-        "descrizione": "<p>Succulenta a rosetta molto decorativa e resistente.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "ipoeste": {
-        "nome": "Ipoeste",
-        "specie": "Hypoestes phyllostachya",
-        "descrizione": "<p>Pianta da interno con foglie maculate molto ornamentali.</p>",
-        "esigenze": {
-            "luce": "Luce diffusa",
-            "acqua": "Regolare",
-            "terreno": "Ricco"
-        },
-        "alert": []
-    },
-    "mammillaria-allungata": {
-        "nome": "Mammillaria allungata",
-        "specie": "Mammillaria elongata",
-        "descrizione": "<p>Cactus cilindrico molto resistente e facile da coltivare.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": []
-    },
-    "pianta-panda": {
-        "nome": "Pianta panda",
-        "specie": "Kalanchoe tomentosa",
-        "descrizione": "<p>Succulenta con foglie vellutate e bordi scuri.</p>",
-        "esigenze": {
-            "luce": "Luce intensa",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "carex": {
-        "nome": "Carex",
-        "specie": "Carex oshimensis",
-        "descrizione": "<p>Graminacea ornamentale sempreverde.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Fresco"
-        },
-        "alert": []
-    },
-    "glechoma-hederacea": {
-        "nome": "Glechoma hederacea",
-        "specie": "Glechoma hederacea",
-        "descrizione": "<p>Perenne tappezzante vigorosa e aromatica.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fresco"
-        },
-        "alert": [
-            "Può diventare invasiva"
-        ]
-    },
-    "iris-spontaneo": {
-        "nome": "Iris spontaneo",
-        "specie": "Iris germanica",
-        "descrizione": "<p>Perenne rizomatosa molto rustica.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "marsilea-quadrifolia": {
-        "nome": "Marsilea quadrifolia",
-        "specie": "Marsilea quadrifolia",
-        "descrizione": "<p>Piantina acquatica simile a un quadrifoglio.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Molto abbondante",
-            "terreno": "Umido"
-        },
-        "alert": []
-    },
-    "pennisetum-cinese": {
-        "nome": "Pennisetum cinese",
-        "specie": "Pennisetum alopecuroides",
-        "descrizione": "<p>Graminacea ornamentale con spighe decorative.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "salcerella": {
-        "nome": "Salcerella",
-        "specie": "Lythrum salicaria",
-        "descrizione": "<p>Perenne da zone umide con fiori rosa-viola.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Abbondante",
-            "terreno": "Umido"
-        },
-        "alert": []
-    },
-    "clematis-montana": {
-        "nome": "Clematis montana",
-        "specie": "Clematis montana",
-        "descrizione": "<p>Rampicante vigorosa con fioritura primaverile abbondante.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fertile e drenato"
-        },
-        "alert": [
-            "Radici all'ombra, fusto al sole"
-        ]
-    },
-    "mesembriantemo": {
-        "nome": "Mesembriantemo",
-        "specie": "Lampranthus spp.",
-        "descrizione": "<p>Succulenta tappezzante dai fiori molto luminosi.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Non tollera gelo intenso"
-        ]
-    },
-    "stipa-tenuissima": {
-        "nome": "Stipa tenuissima",
-        "specie": "Nassella tenuissima",
-        "descrizione": "<p>Graminacea ornamentale leggera e ondeggiante.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "allium-sphaerocephalon": {
-        "nome": "Allium sphaerocephalon",
-        "specie": "Allium sphaerocephalon",
-        "descrizione": "<p>Bulbosa ornamentale con infiorescenze viola sferiche.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "echinacea": {
-        "nome": "Echinacea",
-        "specie": "Echinacea purpurea",
-        "descrizione": "<p>Perenne rustica con fiori grandi e appariscenti.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Fertile"
-        },
-        "alert": []
-    },
-    "heuchera": {
-        "nome": "Heuchera",
-        "specie": "Heuchera spp.",
-        "descrizione": "<p>Perenne ornamentale con foglie colorate.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Ricco"
-        },
-        "alert": []
-    },
-    "margherita-delle-canarie": {
-        "nome": "Margherita delle Canarie",
-        "specie": "Argyranthemum frutescens",
-        "descrizione": "<p>Arbustiva mediterranea con fioritura prolungata.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "osteospermum": {
-        "nome": "Osteospermum",
-        "specie": "Osteospermum ecklonis",
-        "descrizione": "<p>Perenne mediterranea con fiori simili a margherite.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Chiude i fiori in ombra"
-        ]
-    },
-    "verbena": {
-        "nome": "Verbena",
-        "specie": "Verbena hybrida",
-        "descrizione": "<p>Annuale o perenne con fioritura continua.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Regolare",
-            "terreno": "Fertile"
-        },
-        "alert": [
-            "Sensibile a oidio"
-        ]
-    },
-    "aquilegia": {
-        "nome": "Aquilegia",
-        "specie": "Aquilegia vulgaris",
-        "descrizione": "<p>Perenne elegante con fiori penduli primaverili.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fresco"
-        },
-        "alert": []
-    },
-    "centaurea-ragusina": {
-        "nome": "Centaurea ragusina",
-        "specie": "Centaurea ragusina",
-        "descrizione": "<p>Perenne argentata molto ornamentale.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": []
-    },
-    "garofano": {
-        "nome": "Garofano",
-        "specie": "Dianthus spp.",
-        "descrizione": "<p>Perenne o annuale con fiori profumati.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "lavanda": {
-        "nome": "Lavanda",
-        "specie": "Lavandula angustifolia",
-        "descrizione": "<p>Arbustiva aromatica molto rustica.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Evitare ristagni"
-        ]
-    },
-    "sedum-spurium": {
-        "nome": "Sedum spurium",
-        "specie": "Sedum spurium",
-        "descrizione": "<p>Succulenta tappezzante molto resistente.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Scarsa",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "violaciocca": {
-        "nome": "Violaciocca",
-        "specie": "Matthiola incana",
-        "descrizione": "<p>Biennale o perenne con fiori profumati.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Fertile"
-        },
-        "alert": []
-    },
-    "alisso": {
-        "nome": "Alisso",
-        "specie": "Lobularia maritima",
-        "descrizione": "<p>Perenne tappezzante con fiori profumati.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "camelia": {
-        "nome": "Camelia",
-        "specie": "Camellia japonica",
-        "descrizione": "<p>Arbusto acidofilo con fioritura invernale o primaverile.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Acido"
-        },
-        "alert": [
-            "Non tollera calcare"
-        ]
-    },
-    "fico-di-mare": {
-        "nome": "Fico di mare",
-        "specie": "Carpobrotus edulis",
-        "descrizione": "<p>Succulenta tappezzante molto vigorosa.</p>",
-        "esigenze": {
-            "luce": "Pieno sole",
-            "acqua": "Scarsa",
-            "terreno": "Sabbioso"
-        },
-        "alert": [
-            "Molto invasiva"
-        ]
-    },
-    "gerani": {
-        "nome": "Gerani",
-        "specie": "Pelargonium spp.",
-        "descrizione": "<p>Piante ornamentali molto diffuse in balconi e giardini.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Regolare",
-            "terreno": "Fertile"
-        },
-        "alert": [
-            "Sensibili al gelo"
-        ]
-    },
-    "cuphea": {
-        "nome": "Cuphea",
-        "specie": "Cuphea hyssopifolia",
-        "descrizione": "<p>Arbustiva compatta con fiori piccoli e numerosi.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "erica-del-messico": {
-        "nome": "Erica del Messico",
-        "specie": "Cuphea hyssopifolia",
-        "descrizione": "<p>Arbustiva sempreverde con fioritura continua.</p>",
-        "esigenze": {
-            "luce": "Sole o mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "lewisia": {
-        "nome": "Lewisia",
-        "specie": "Lewisia cotyledon",
-        "descrizione": "<p>Perenne da roccaglia con fiori molto decorativi.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": [
-            "Teme ristagni"
-        ]
-    },
-    "saponaria": {
-        "nome": "Saponaria",
-        "specie": "Saponaria ocymoides",
-        "descrizione": "<p>Perenne tappezzante con fiori rosa primaverili.</p>",
-        "esigenze": {
-            "luce": "Sole",
-            "acqua": "Moderata",
-            "terreno": "Drenato"
-        },
-        "alert": []
-    },
-    "sassifraga": {
-        "nome": "Sassifraga",
-        "specie": "Saxifraga arendsii",
-        "descrizione": "<p>Perenne tappezzante ideale per zone fresche.</p>",
-        "esigenze": {
-            "luce": "Mezz'ombra",
-            "acqua": "Regolare",
-            "terreno": "Fresco e drenato"
-        },
-        "alert": [
-            "Non tollera caldo intenso"
-        ]
+  "iberis-sempervirens": {
+    "nome": "Iberis sempervirens",
+    "specie": "Iberis sempervirens",
+    "descrizione": "<p>Perenne sempreverde a cuscino, fioritura bianca abbondante in primavera.</p>",
+    "esigenze": {
+      "luce": "Pieno sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Ben drenato"
+    },
+    "alert": [
+      "Teme ristagni",
+      "richiede terreno drenante (rischio marciumi se troppo bagnato)",
+      "crescita lenta ma molto densa",
+      "teme ristagni idrici più del caldo",
+      "fioritura scarsa - poca luce o terreno impoverito",
+      "perfetta per muretti, bordure e aiuole rocciose"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 5-7 giorni nei periodi caldi (senza ristagni)",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "nessuna, salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per fiorite",
+        "estate": "facoltativa una concimazione mensile",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
     }
+  },
+  "sansevieria": {
+    "nome": "Sansevieria",
+    "specie": "Sansevieria trifasciata",
+    "descrizione": "<p>Pianta d'appartamento molto resistente.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante"
+    },
+    "alert": [
+      "Sensibile a eccesso d'acqua"
+    ]
+  },
+  "bellis-perennis": {
+    "nome": "Bellis perennis",
+    "specie": "Bellis perennis",
+    "descrizione": "<p>Margherita perenne ideale per bordure.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fresco"
+    },
+    "alert": [
+      "richiede buona luce per fiorire abbondantemente",
+      "evitare ristagni idrici",
+      "tende ad autoriseminarsi (può espandersi)",
+      "foglie gialle → troppa acqua o poca luce",
+      "fioritura molto lunga se i fiori secchi vengono rimossi"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni se non piove",
+        "estate": "ogni 4-6 giorni nei periodi caldi",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "nessuna, salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per fiorite",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "erica": {
+    "nome": "Erica",
+    "specie": "Erica carnea",
+    "descrizione": "<p>Arbusto sempreverde con fioritura invernale.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Acido"
+    },
+    "alert": [
+      "Non tollera calcare",
+      "richiede terreno drenante e leggermente acido",
+      "evitare ristagni idrici (rischio marciumi)",
+      "non potare sul legno vecchio (non ributta)",
+      "se ingiallisce → acqua dura o terreno troppo calcareo",
+      "fioritura molto lunga se ben esposta"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 5-7 giorni nei periodi caldi",
+        "autunno": "ogni 10-12 giorni",
+        "inverno": "solo se il terreno è completamente asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime per acidofile",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "gazania": {
+    "nome": "Gazania",
+    "specie": "Gazania rigens",
+    "descrizione": "<p>Perenne mediterranea dai fiori molto colorati.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Chiude i fiori in ombra",
+      "richiede pieno sole per aprire i fiori",
+      "evitare ristagni idrici (ama terreni sabbiosi e drenanti)",
+      "fiori che non si aprono → poca luce",
+      "foglie molli → troppa acqua",
+      "ottima resistenza alla siccità"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni nei periodi molto caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "sospesa (solo se in vaso e completamente asciutta)"
+      },
+      "concimazione": {
+        "primavera": "ogni 4-6 settimane con concime per fiorite",
+        "estate": "ogni 4-6 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "narciso": {
+    "nome": "Narciso",
+    "specie": "Narcissus spp.",
+    "descrizione": "<p>Bulbosa primaverile molto rustica.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Non tagliare le foglie prima che secchino",
+      "richiede terreno drenante per evitare marciumi del bulbo",
+      "non tagliare le foglie verdi dopo la fioritura (indispensabili per ricaricare il bulbo)",
+      "evitare irrigazioni estive (riposo vegetativo)",
+      "fioritura scarsa → bulbi troppo profondi o poca luce",
+      "si naturalizza facilmente e aumenta nel tempo",
+      "non tagliare le foglie verdi dopo la fioritura (indispensabili per ricaricare il"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove (solo durante la fioritura)",
+        "estate": "nessuna (bulbo in riposo)",
+        "autunno": "ogni 10-14 giorni se il terreno è molto secco",
+        "inverno": "nessuna, salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "una volta dopo la fioritura con concime per bulbose",
+        "estate": "nessuna",
+        "autunno": "una volta con concime leggero (facoltativo)",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "primula": {
+    "nome": "Primula",
+    "specie": "Primula vulgaris",
+    "descrizione": "<p>Perenne da mezz'ombra con fioritura precoce.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fresco"
+    },
+    "alert": [
+      "Soffre caldo estivo",
+      "richiede terreno fresco ma ben drenante",
+      "evitare ristagni idrici (rischio marciumi al colletto)",
+      "foglie molli → troppa acqua",
+      "foglie bruciate → troppo sole nelle ore calde",
+      "fioritura scarsa → poca luce o terreno impoverito"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 4-6 giorni se non piove",
+        "estate": "ogni 5-7 giorni (preferisce terreno fresco)",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima, solo se il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 3-4 settimane con concime per fiorite",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "spiraea-arguta": {
+    "nome": "Spiraea arguta",
+    "specie": "Spiraea × arguta",
+    "descrizione": "<p>Arbusto ornamentale con fioritura bianca primaverile.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Potare dopo la fioritura",
+      "richiede terreno drenante (evitare ristagni)",
+      "fiorisce su rami dell’anno precedente → potare solo dopo la fioritura",
+      "foglie che seccano ai bordi → terreno troppo asciutto",
+      "crescita rapida: può espandersi molto",
+      "tollera bene vento e freddo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 7-12 giorni nei periodi caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "nessuna, salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime organico leggero",
+        "estate": "nessuna",
+        "autunno": "facoltativa una leggera concimazione",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "stracchino": {
+    "nome": "Stracchino (Iberis)",
+    "specie": "Iberis sempervirens",
+    "descrizione": "<p>Nome comune dell'Iberis sempervirens.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "richiede terreno drenante (rischio marciumi se troppo bagnato)",
+      "crescita lenta ma molto densa",
+      "teme ristagni idrici più del caldo",
+      "fioritura scarsa - poca luce o terreno impoverito",
+      "perfetta per muretti, bordure e aiuole rocciose"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      }
+    }
+  },
+  "uva-di-gatto": {
+    "nome": "Uva di gatto",
+    "specie": "Muscari armeniacum",
+    "descrizione": "<p>Bulbosa primaverile molto rustica, nota per le infiorescenze blu a grappolo simili a piccoli acini.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Moderata in primavera, quasi nulla in estate",
+      "terreno": "Ben drenato"
+    },
+    "alert": [
+      "Non tagliare le foglie finché non ingialliscono",
+      "Evitare irrigazioni estive (riposo del bulbo)",
+      "Fioritura scarsa se piantato troppo in profondità",
+      "richiede terreno drenante (evitare ristagni)",
+      "non tagliare le foglie verdi dopo la fioritura",
+      "evitare irrigazioni estive (riposo vegetativo)",
+      "fioritura scarsa → bulbi troppo profondi o poca luce",
+      "si naturalizza facilmente e aumenta nel tempo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni durante la fioritura",
+        "estate": "nessuna (bulbo in riposo)",
+        "autunno": "ogni 10-14 giorni se il terreno è molto secco",
+        "inverno": "minima, solo se asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta dopo la fioritura con concime per bulbose",
+        "estate": "nessuna",
+        "autunno": "facoltativa una concimazione leggera",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "zinnia": {
+    "nome": "Zinnia",
+    "specie": "Zinnia elegans",
+    "descrizione": "<p>Annuale dai fiori grandi e colorati.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Sensibile all'oidio",
+      "ama sole pieno",
+      "teme ristagni idrici",
+      "fioritura molto abbondante se ben concimata",
+      "sensibile all’oidio in condizioni di umidità elevata"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni se non piove",
+        "estate": "ogni 3-5 giorni nei periodi caldi",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "nessuna (pianta annuale)"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime per fiorite",
+        "estate": "ogni 3-4 settimane con concime leggero",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "alloro": {
+    "nome": "Alloro",
+    "specie": "Laurus nobilis",
+    "descrizione": "<p>Arbusto aromatico sempreverde, molto resistente.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Può soffrire cocciniglia",
+      "molto resistente alla siccità, evitare eccessi d’acqua",
+      "tollera bene vento e sole pieno",
+      "crescita vigorosa: controllare l’espansione",
+      "attenzione ai polloni basali (da rimuovere se indesiderati)",
+      "possibile attacco di cocciniglia in estate molto calda"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "solo se non piove per 10-14 giorni",
+        "estate": "ogni 10-15 giorni nei periodi molto secchi",
+        "autunno": "nessuna, salvo siccità prolungata",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime organico leggero (facoltativo)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "arancio-navel": {
+    "nome": "Arancio Navel",
+    "specie": "Citrus sinensis",
+    "descrizione": "<p>Agrume ornamentale e produttivo, sensibile al freddo.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare",
+      "terreno": "Ricco e drenato"
+    },
+    "alert": [
+      "Proteggere dal gelo",
+      "evitare ristagni idrici",
+      "preferisce terreno drenante",
+      "attenzione al vento forte sul crinale",
+      "controllare eventuali cocciniglie in estate",
+      "proteggere il colletto da eccessiva umidità"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-12 giorni",
+        "inverno": "sospesa salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime agrumi",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "rimozione parti secche",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "prunus-taoflora": {
+    "nome": "Prunus taoflora",
+    "specie": "Prunus spp.",
+    "descrizione": "<p>Albero ornamentale a fioritura primaverile.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Sensibile a monilia",
+      "richiede pieno sole per una fioritura abbondante",
+      "evitare ristagni idrici (preferisce terreno drenante)",
+      "molto resistente al vento: ideale per il crinale",
+      "possibile attacco di afidi in primavera",
+      "potare solo dopo la fioritura per non perdere i fiori dell’anno successivo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "solo se non piove per 10-14 giorni",
+        "estate": "ogni 10-15 giorni nei periodi molto secchi",
+        "autunno": "nessuna, salvo siccità prolungata",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime organico o pellet di stallatico",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "rosmarino": {
+    "nome": "Rosmarino",
+    "specie": "Rosmarinus officinalis",
+    "descrizione": "<p>Aromatica mediterranea sempreverde, molto rustica.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Evitare ristagni",
+      "evitare irrigazioni frequenti (rischio marciumi)",
+      "richiede pieno sole per mantenere portamento compatto",
+      "molto resistente al vento: perfetto per il crinale",
+      "evitare potature drastiche sul legno vecchio",
+      "controllare eventuale presenza di cocciniglia in estati molto calde"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "solo se non piove per 12-15 giorni",
+        "estate": "ogni 12-20 giorni nei periodi molto secchi",
+        "autunno": "nessuna, salvo siccità prolungata",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con compost leggero (facoltativo)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "scilla-marittima": {
+    "nome": "Scilla marittima",
+    "specie": "Drimia maritima",
+    "descrizione": "<p>Bulbosa mediterranea molto resistente alla siccità.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Arido"
+    },
+    "alert": [
+      "Foglie tossiche se ingerite",
+      "richiede pieno sole e terreno molto drenante",
+      "evitare assolutamente irrigazioni: pianta xerofila",
+      "foglie che seccano in estate → comportamento normale (riposo estivo)",
+      "bulbo parzialmente esposto: non coprirlo",
+      "tossica se ingerita (attenzione a bambini e animali)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "nessuna (solo in caso di siccità estrema)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "nessuna (preferisce terreni poveri)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "sedum-acre": {
+    "nome": "Sedum acre",
+    "specie": "Sedum acre",
+    "descrizione": "<p>Succulenta tappezzante molto rustica e invasiva.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Può espandersi rapidamente",
+      "richiede pieno sole per mantenere portamento compatto",
+      "evitare irrigazioni: pianta xerofila",
+      "crescita molto rapida: può espandersi oltre il punto desiderato",
+      "perfetta per competere con parietaria e infestanti",
+      "fioritura gialla intensa in tarda primavera"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "nessuna, salvo siccità estrema dopo il trapianto",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "nessuna (preferisce terreni poveri)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "timo-serpillo": {
+    "nome": "Timo serpillo",
+    "specie": "Thymus serpyllum",
+    "descrizione": "<p>Aromatica tappezzante molto resistente.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Evitare ombra fitta",
+      "richiede pieno sole per mantenere portamento compatto",
+      "evitare irrigazioni: pianta xerofila",
+      "crescita rapida e tappezzante: può espandersi molto",
+      "perfetto per competere con infestanti su muretti e scarpate",
+      "fioritura rosa-violacea molto attrattiva per insetti utili"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "nessuna, salvo siccità estrema dopo il trapianto",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "nessuna (preferisce terreni poveri)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "orchidea": {
+    "nome": "Orchidea",
+    "specie": "Phalaenopsis",
+    "descrizione": "<p>Pianta da interno elegante, ama ambienti umidi.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Moderata",
+      "terreno": "Corteccia"
+    },
+    "alert": [
+      "Non esporre a sole diretto",
+      "evitare ristagni idrici nel vaso",
+      "controllare radici aeree per disidratazione",
+      "evitare luce diretta nelle ore centrali",
+      "attenzione a muffe se l’umidità del bagno è alta"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-12 giorni",
+        "inverno": "ogni 12-15 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime per orchidee",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "basilico": {
+    "nome": "Basilico",
+    "specie": "Ocimum basilicum",
+    "descrizione": "<p>Aromatica annuale molto coltivata in estate.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Soffre freddo e vento",
+      "rischio filatura se luce insufficiente",
+      "evitare ristagni idrici nel sottovaso",
+      "controllare secchezza del substrato nei giorni caldi",
+      "pianta annuale: tende a indebolirsi a fine stagione"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 2-3 giorni",
+        "estate": "quotidiana se fa caldo",
+        "autunno": "ogni 3-4 giorni",
+        "inverno": "minima, solo quando il substrato è asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime leggero",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "ceropegia": {
+    "nome": "Ceropegia",
+    "specie": "Ceropegia woodii",
+    "descrizione": "<p>Succulenta pendente da interno, molto decorativa.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Sensibile a eccesso d'acqua",
+      "evitare assolutamente ristagni idrici",
+      "luce intensa ma indiretta per mantenere la variegatura",
+      "se le foglie diventano pallide → luce insufficiente",
+      "se le foglie si raggrinziscono → sete",
+      "se i tralci diventano troppo sottili → troppa ombra"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14-20 giorni",
+        "inverno": "ogni 20-30 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "erba-cipollina": {
+    "nome": "Erba cipollina",
+    "specie": "Allium schoenoprasum",
+    "descrizione": "<p>Aromatica perenne rustica, facile da coltivare.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "evitare ristagni idrici nel sottovaso",
+      "se gli steli ingialliscono → troppa acqua o vaso piccolo",
+      "fioritura imminente: possibile calo di produzione fogliare",
+      "pianta perenne: rigenera ogni anno"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3-4 giorni",
+        "estate": "ogni 2-3 giorni",
+        "autunno": "ogni 4-5 giorni",
+        "inverno": "minima, solo quando il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 3 settimane con concime leggero",
+        "estate": "ogni 3 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "fragola-rifiorente": {
+    "nome": "Fragola rifiorente",
+    "specie": "Fragaria × ananassa",
+    "descrizione": "<p>Fragola che produce più volte l'anno.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Ricco"
+    },
+    "alert": [
+      "Sensibile a oidio",
+      "evitare ristagni idrici (rischio marciumi)",
+      "se le foglie ingialliscono → carenza di nutrienti o vaso troppo piccolo",
+      "se i frutti restano piccoli → poca luce o poca acqua",
+      "controllare afidi e ragnetto rosso in primavera-estate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 2-3 giorni",
+        "estate": "quotidiana se fa caldo",
+        "autunno": "ogni 3-4 giorni",
+        "inverno": "minima, solo se il substrato è asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime per fragole o piante da frutto",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "prezzemolo": {
+    "nome": "Prezzemolo",
+    "specie": "Petroselinum crispum",
+    "descrizione": "<p>Aromatica biennale molto coltivata.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "evitare ristagni idrici nel sottovaso",
+      "foglie gialle alla base → normale ricambio, ma controllare eccesso d’acqua",
+      "se gli steli diventano sottili → luce insufficiente",
+      "pianta biennale: tende a fiorire il secondo anno"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 2-3 giorni",
+        "estate": "quotidiana se fa caldo",
+        "autunno": "ogni 3-4 giorni",
+        "inverno": "minima, solo quando il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 3 settimane con concime leggero",
+        "estate": "ogni 3 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "salvia": {
+    "nome": "Salvia",
+    "specie": "Salvia officinalis",
+    "descrizione": "<p>Aromatica mediterranea sempreverde.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Evitare ristagni",
+      "teme ristagni idrici",
+      "preferisce substrato ben drenante",
+      "evitare eccessi di concime",
+      "controllare eventuale presenza di afidi in primavera"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni nei periodi caldi",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima, solo quando il substrato è completamente asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 3-4 settimane con concime leggero",
+        "estate": "ogni 3-4 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "rimozione fiori secchi",
+        "autunno": "rimozione parti secche",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "sedum-makinoi": {
+    "nome": "Sedum makinoi",
+    "specie": "Sedum makinoi",
+    "descrizione": "<p>Succulenta tappezzante ornamentale.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "luce intensa per mantenere la compattezza",
+      "se le foglie si allungano → luce insufficiente",
+      "se le foglie si raggrinziscono → sete",
+      "vaso piccolo = asciugatura molto rapida"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14-20 giorni",
+        "inverno": "ogni 20-30 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero per succulente",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "tradescantia": {
+    "nome": "Tradescantia",
+    "specie": "Tradescantia zebrina",
+    "descrizione": "<p>Pendente da interno molto decorativa.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "teme freddo intenso (sotto 0°C va protetta)",
+      "luce luminosa ma non sole forte",
+      "evitare ristagni idrici",
+      "crescita rapida",
+      "luce intensa per mantenere la variegatura",
+      "se i tralci si allungano troppo → luce insufficiente",
+      "evitare ristagni idrici (rischio marciumi)",
+      "foglie molli → troppa acqua",
+      "foglie secche ai bordi → aria troppo secca o poca acqua"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 4-6 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "ogni 10-14 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime leggero",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "calathea": {
+    "nome": "Calathea",
+    "specie": "Calathea spp.",
+    "descrizione": "<p>Pianta da interno con foglie ornamentali e disegni particolari.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Regolare",
+      "terreno": "Ricco e drenato"
+    },
+    "alert": [
+      "Ama umidità elevata",
+      "Evitare correnti fredde",
+      "evitare luce diretta (brucia le foglie)",
+      "evitare correnti d’aria e sbalzi termici",
+      "usare acqua non calcarea per evitare macchie sulle foglie",
+      "se i bordi diventano secchi → aria troppo secca",
+      "se le foglie si arricciano → poca acqua o bassa umidità"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 4-6 giorni, mantenendo il terreno leggermente umido",
+        "estate": "ogni 3-5 giorni, aumentare umidità ambientale",
+        "autunno": "ogni 5-7 giorni",
+        "inverno": "ogni 7-10 giorni, evitare acqua fredda"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime leggero",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "anthurium": {
+    "nome": "Anthurium",
+    "specie": "Anthurium andraeanum",
+    "descrizione": "<p>Pianta da interno con fiori cerosi molto decorativi.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Moderata",
+      "terreno": "Ricco e drenato"
+    },
+    "alert": [
+      "Non esporre a sole diretto",
+      "evitare luce diretta (brucia foglie e fiori)",
+      "mantenere alta umidità ambientale",
+      "evitare ristagni idrici (rischio marciumi radicali)",
+      "usare acqua non calcarea per evitare macchie sulle foglie",
+      "se le foglie diventano opache → poca umidità o troppa luce"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni, mantenendo il terreno leggermente umido",
+        "estate": "ogni 4-6 giorni, aumentare umidità ambientale",
+        "autunno": "ogni 6-8 giorni",
+        "inverno": "ogni 8-12 giorni, evitare acqua fredda"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime per piante da fiore",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "calancola": {
+    "nome": "Calancola",
+    "specie": "Kalanchoe blossfeldiana",
+    "descrizione": "<p>Succulenta da interno con fioritura prolungata e colori vivaci.</p>",
+    "esigenze": {
+      "luce": "Luce intensa",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Evitare ristagni",
+      "evitare ristagni idrici (rischio marciumi)",
+      "richiede molta luce per mantenere la fioritura",
+      "foglie molli → troppa acqua",
+      "foglie opache o allungate → poca luce",
+      "pianta succulenta: meglio poca acqua che troppa"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "ogni 14-20 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime per piante fiorite",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "ficus-ginseng": {
+    "nome": "Ficus ginseng",
+    "specie": "Ficus microcarpa",
+    "descrizione": "<p>Bonsai da interno molto diffuso e resistente.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Moderata",
+      "terreno": "Ricco"
+    },
+    "alert": [
+      "Sensibile a sbalzi di temperatura",
+      "evitare ristagni idrici (rischio marciumi radicali)",
+      "evitare correnti d’aria e sbalzi termici",
+      "richiede luce intensa ma indiretta",
+      "foglie gialle → troppa acqua o poca luce",
+      "se perde foglie → stress da spostamento o aria secca"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni, mantenendo il terreno leggermente umido",
+        "estate": "ogni 4-6 giorni, aumentare umidità ambientale",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "ogni 10-14 giorni, evitare acqua fredda"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime per bonsai o piante verdi",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio post-fioritura",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "mammillaria": {
+    "nome": "Mammillaria",
+    "specie": "Mammillaria spp.",
+    "descrizione": "<p>Cactus globoso molto resistente e facile da coltivare.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "richiede molta luce",
+      "evitare assolutamente ristagni idrici",
+      "base giallo‑bruna → normale lignificazione",
+      "apice lanoso → carattere della specie",
+      "se si allunga troppo → luce insufficiente"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime per cactacee",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "mammillaria-piumosa": {
+    "nome": "Mammillaria piumosa",
+    "specie": "Mammillaria plumosa",
+    "descrizione": "<p>Cactus bianco piumoso dall'aspetto delicato.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenato"
+    },
+    "alert": [
+      "Molto delicata al tatto",
+      "evitare assolutamente ristagni idrici (specie molto sensibile)",
+      "richiede luce intensa ma non sole diretto forte",
+      "la lanugine trattiene umidità → attenzione a non bagnare dall’alto",
+      "se la lanugine ingiallisce → troppa acqua o poca luce",
+      "crescita lenta: normale per la specie"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero per cactacee",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "pothos": {
+    "nome": "Pothos",
+    "specie": "Epipremnum aureum",
+    "descrizione": "<p>Pendente da interno molto resistente e adattabile.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": []
+  },
+  "cactus-ago-di-eva-monstroso": {
+    "nome": "Cactus Ago di Eva (mostruoso)",
+    "specie": "Euphorbia trigona",
+    "descrizione": "<p>Succulenta colonnare ornamentale con portamento irregolare.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Lattice irritante",
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "apici secchi → normale nei cactus mostruosi",
+      "se ingiallisce alla base → troppa acqua",
+      "se si allunga troppo → luce insufficiente"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa (solo se il substrato è completamente secco)"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime per cactacee",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "echeveria": {
+    "nome": "Echeveria",
+    "specie": "Echeveria spp.",
+    "descrizione": "<p>Succulenta a rosetta molto decorativa e resistente.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la rosetta compatta",
+      "se si allunga verso l’alto → luce insufficiente",
+      "foglie molli → troppa acqua",
+      "foglie raggrinzite → sete"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14-20 giorni",
+        "inverno": "ogni 20-30 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero per succulente",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "ipoeste": {
+    "nome": "Ipoeste",
+    "specie": "Hypoestes phyllostachya",
+    "descrizione": "<p>Pianta da interno con foglie maculate molto ornamentali.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa",
+      "acqua": "Regolare",
+      "terreno": "Ricco"
+    },
+    "alert": [
+      "richiede luce intensa per mantenere la variegatura",
+      "se si allunga troppo → luce insufficiente",
+      "foglie afflosciate → poca acqua",
+      "bordi secchi → aria troppo secca",
+      "evitare ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3-5 giorni, mantenendo il terreno leggermente umido",
+        "estate": "ogni 2-4 giorni, aumentare umidità ambientale",
+        "autunno": "ogni 4-6 giorni",
+        "inverno": "ogni 6-8 giorni, evitare acqua fredda"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime leggero",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "mammillaria-allungata": {
+    "nome": "Mammillaria allungata",
+    "specie": "Mammillaria elongata",
+    "descrizione": "<p>Cactus cilindrico molto resistente e facile da coltivare.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "richiede luce intensa per mantenere la forma compatta",
+      "evitare assolutamente ristagni idrici",
+      "se si allunga troppo → luce insufficiente",
+      "se ingiallisce alla base → troppa acqua",
+      "residui secchi in superficie → rimuovere per evitare muffe"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 12-18 giorni",
+        "estate": "ogni 8-12 giorni",
+        "autunno": "ogni 18-25 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime per cactacee",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "pianta-panda": {
+    "nome": "Pianta panda",
+    "specie": "Kalanchoe tomentosa",
+    "descrizione": "<p>Succulenta con foglie vellutate e bordi scuri.</p>",
+    "esigenze": {
+      "luce": "Luce intensa",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "foglie molli → troppa acqua",
+      "foglie raggrinzite → sete",
+      "evitare di bagnare le foglie (sono vellutate e trattengono umidità)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14-20 giorni",
+        "inverno": "ogni 20-30 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero per succulente",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "carex": {
+    "nome": "Carex",
+    "specie": "Carex oshimensis",
+    "descrizione": "<p>Graminacea ornamentale sempreverde.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Fresco"
+    },
+    "alert": [
+      "richiede terreno drenante (evitare ristagni)",
+      "alcune varietà preferiscono mezz’ombra, altre più sole",
+      "foglie che ingialliscono → troppa acqua o terreno compattato",
+      "crescita lenta ma molto ordinata",
+      "ottima come pianta strutturale e riempitiva"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 5-7 giorni nei periodi caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima, solo se il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per graminacee o fiorite",
+        "estate": "facoltativa una concimazione mensile",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "glechoma-hederacea": {
+    "nome": "Glechoma hederacea",
+    "specie": "Glechoma hederacea",
+    "descrizione": "<p>Perenne tappezzante vigorosa e aromatica.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fresco"
+    },
+    "alert": [
+      "Può diventare invasiva",
+      "crescita molto rapida: può espandersi oltre l’area desiderata",
+      "preferisce mezz’ombra o sole del mattino",
+      "evitare ristagni idrici",
+      "foglie che scoloriscono → troppa luce diretta o poca acqua",
+      "ottima per coprire suolo e limitare infestanti"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 5-7 giorni nei periodi caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima, solo se il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero",
+        "estate": "facoltativa una concimazione mensile",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio post-fioritura",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "iris-spontaneo": {
+    "nome": "Iris spontaneo",
+    "specie": "Iris germanica",
+    "descrizione": "<p>Perenne rizomatosa molto rustica.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "specie palustre → preferisce terreno umido",
+      "molto vigoroso: può espandersi rapidamente",
+      "evitare ristagni eccessivi solo se il terreno è pesante",
+      "foglie che seccano ai bordi → terreno troppo asciutto",
+      "fioritura gialla tra aprile e giugno"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "mantenere il terreno costantemente umido",
+        "estate": "irrigare regolarmente (ogni 3-5 giorni) per evitare stress idrico",
+        "autunno": "mantenere umidità moderata",
+        "inverno": "minima, solo se il terreno è completamente asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per rizomatose",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio post-fioritura",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "marsilea-quadrifolia": {
+    "nome": "Marsilea quadrifolia",
+    "specie": "Marsilea quadrifolia",
+    "descrizione": "<p>Piantina acquatica simile a un quadrifoglio.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Molto abbondante",
+      "terreno": "Umido"
+    },
+    "alert": [
+      "pianta palustre → richiede terreno umido o molto umido",
+      "teme la siccità: foglie che si afflosciano → terreno troppo asciutto",
+      "può espandersi rapidamente tramite rizomi",
+      "in inverno può ridurre la parte aerea ma ricaccia in primavera",
+      "perfetta per bordi di laghetti, zone fresche e terreni costantemente umidi"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "mantenere il terreno costantemente umido",
+        "estate": "irrigare frequentemente (ogni 2-4 giorni) per evitare disseccamento",
+        "autunno": "mantenere umidità moderata",
+        "inverno": "minima, solo se il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per piante acquatiche o palustri",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "pennisetum-cinese": {
+    "nome": "Pennisetum cinese",
+    "specie": "Pennisetum alopecuroides",
+    "descrizione": "<p>Graminacea ornamentale con spighe decorative.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "cultivar compatta (60–80 cm) → ideale per bordure e aiuole strette",
+      "richiede terreno drenante (evitare ristagni)",
+      "taglio annuale indispensabile a fine inverno",
+      "in ombra fitta produce poche spighe",
+      "molto resistente una volta stabilito"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 5-7 giorni nei periodi caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "nessuna, salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per graminacee",
+        "estate": "facoltativa una concimazione mensile",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio post-fioritura",
+        "estate": "nessuna",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "salcerella": {
+    "nome": "Salcerella",
+    "specie": "Lythrum salicaria",
+    "descrizione": "<p>Perenne da zone umide con fiori rosa-viola.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Abbondante",
+      "terreno": "Umido"
+    },
+    "alert": [
+      "pianta palustre → preferisce terreno umido o molto umido",
+      "crescita vigorosa: può espandersi rapidamente",
+      "teme la siccità prolungata",
+      "fioritura scarsa → poca luce o terreno troppo asciutto",
+      "attira molti insetti utili (api, farfalle)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "mantenere il terreno costantemente umido",
+        "estate": "irrigare frequentemente (ogni 2-4 giorni) per sostenere la fioritura",
+        "autunno": "mantenere umidità moderata",
+        "inverno": "minima, solo se il terreno è asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per perenni",
+        "estate": "una concimazione mensile (facoltativa)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "clematis-montana": {
+    "nome": "Clematis montana",
+    "specie": "Clematis montana",
+    "descrizione": "<p>Rampicante vigorosa con fioritura primaverile abbondante.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fertile e drenato"
+    },
+    "alert": [
+      "Radici all'ombra, fusto al sole",
+      "piede ombreggiato, parte alta al sole",
+      "evitare ristagni idrici",
+      "crescita molto vigorosa",
+      "fiorisce su rami dell’anno precedente"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni nei periodi caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime organico",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "mesembriantemo": {
+    "nome": "Mesembriantemo",
+    "specie": "Lampranthus spp.",
+    "descrizione": "<p>Succulenta tappezzante dai fiori molto luminosi.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Non tollera gelo intenso",
+      "richiede pieno sole o luce molto intensa",
+      "teme ristagni idrici",
+      "ottima resistenza alla siccità",
+      "fioritura molto abbondante con luce forte"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14 giorni",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "stipa-tenuissima": {
+    "nome": "Stipa tenuissima",
+    "specie": "Nassella tenuissima",
+    "descrizione": "<p>Graminacea ornamentale leggera e ondeggiante.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "richiede terreno drenante",
+      "teme ristagni idrici più del freddo",
+      "non va tagliata a raso",
+      "ama sole o mezz’ombra luminosa"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14 giorni",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero",
+        "estate": "nessuna",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio post-fioritura",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "allium-sphaerocephalon": {
+    "nome": "Allium sphaerocephalon",
+    "specie": "Allium sphaerocephalon",
+    "descrizione": "<p>Bulbosa ornamentale con infiorescenze viola sferiche.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "richiede terreno drenante",
+      "evitare irrigazioni estive",
+      "fioritura viola a “testa di tamburo” in giugno-luglio",
+      "si naturalizza facilmente"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "minima (bulbo in riposo)",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime per bulbose",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "echinacea": {
+    "nome": "Echinacea",
+    "specie": "Echinacea purpurea",
+    "descrizione": "<p>Perenne rustica con fiori grandi e appariscenti.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "ama sole pieno o mezz’ombra luminosa",
+      "attira impollinatori",
+      "molto rustica",
+      "teme ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime per perenni",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "heuchera": {
+    "nome": "Heuchera",
+    "specie": "Heuchera spp.",
+    "descrizione": "<p>Perenne ornamentale con foglie colorate.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Ricco"
+    },
+    "alert": [
+      "preferisce mezz’ombra luminosa",
+      "teme caldo eccessivo",
+      "foglie decorative tutto l’anno",
+      "evitare ristagni"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "una volta",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "margherita-delle-canarie": {
+    "nome": "Margherita delle Canarie",
+    "specie": "Argyranthemum frutescens",
+    "descrizione": "<p>Arbustiva mediterranea con fioritura prolungata.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "ama sole pieno",
+      "teme freddo sotto 0°C",
+      "fioritura molto lunga",
+      "evitare ristagni"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 4-6 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "osteospermum": {
+    "nome": "Osteospermum",
+    "specie": "Osteospermum ecklonis",
+    "descrizione": "<p>Perenne mediterranea con fiori simili a margherite.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Chiude i fiori in ombra",
+      "ama sole pieno",
+      "teme freddo intenso",
+      "fioritura molto abbondante",
+      "evitare ristagni"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "verbena": {
+    "nome": "Verbena",
+    "specie": "Verbena hybrida",
+    "descrizione": "<p>Annuale o perenne con fioritura continua.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Sensibile a oidio",
+      "ama sole pieno",
+      "teme ristagni",
+      "fioritura continua",
+      "crescita rapida"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 4-6 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "aquilegia": {
+    "nome": "Aquilegia",
+    "specie": "Aquilegia vulgaris",
+    "descrizione": "<p>Perenne elegante con fiori penduli primaverili.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fresco"
+    },
+    "alert": [
+      "ama mezz’ombra luminosa",
+      "fioritura primaverile",
+      "si risemina facilmente",
+      "evitare ristagni"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "una volta",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "centaurea-ragusina": {
+    "nome": "Centaurea ragusina",
+    "specie": "Centaurea ragusina",
+    "descrizione": "<p>Perenne argentata molto ornamentale.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "ama sole pieno",
+      "fogliame argentato molto decorativo",
+      "teme ristagni",
+      "molto resistente alla siccità"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14 giorni",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta",
+        "estate": "nessuna",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "garofano": {
+    "nome": "Garofano",
+    "specie": "Dianthus spp.",
+    "descrizione": "<p>Perenne o annuale con fiori profumati.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "ama sole pieno",
+      "teme ristagni",
+      "fioritura lunga e profumata",
+      "ottimo in fioriere e balconiere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "lavanda": {
+    "nome": "Lavanda",
+    "specie": "Lavandula angustifolia",
+    "descrizione": "<p>Arbustiva aromatica molto rustica.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Evitare ristagni",
+      "richiede terreno drenante",
+      "ama sole pieno",
+      "teme ristagni",
+      "molto rustica"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14 giorni",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "una volta",
+        "estate": "nessuna",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "sedum-spurium": {
+    "nome": "Sedum spurium",
+    "specie": "Sedum spurium",
+    "descrizione": "<p>Succulenta tappezzante molto resistente.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "pianta xerofila → evitare irrigazioni frequenti",
+      "ama sole pieno o mezz’ombra luminosa",
+      "colori più intensi con luce forte e freddo",
+      "perfetta come tappezzante e per bordi",
+      "teme ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "nessuna salvo siccità estrema",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "minima",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "nessuna (preferisce terreni poveri)",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "violaciocca": {
+    "nome": "Violaciocca",
+    "specie": "Matthiola incana",
+    "descrizione": "<p>Biennale o perenne con fiori profumati.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "ama sole pieno",
+      "teme caldo eccessivo",
+      "fioritura profumata",
+      "evitare ristagni"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "alisso": {
+    "nome": "Alisso",
+    "specie": "Lobularia maritima",
+    "descrizione": "<p>Perenne tappezzante con fiori profumati.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "ama sole pieno o mezz’ombra luminosa",
+      "fioritura lunghissima",
+      "teme ristagni idrici",
+      "ottima come tappezzante da bordo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "camelia": {
+    "nome": "Camelia",
+    "specie": "Camellia japonica",
+    "descrizione": "<p>Arbusto acidofilo con fioritura invernale o primaverile.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Acido"
+    },
+    "alert": [
+      "Non tollera calcare",
+      "richiede substrato acido (pH 5-6)",
+      "teme calcare e acqua dura",
+      "evitare sole forte nelle ore centrali",
+      "fioritura invernale/primaverile"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "concime acidofile",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "fico-di-mare": {
+    "nome": "Fico di mare",
+    "specie": "Carpobrotus edulis",
+    "descrizione": "<p>Succulenta tappezzante molto vigorosa.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso"
+    },
+    "alert": [
+      "Molto invasiva",
+      "pianta xerofila → teme irrigazioni frequenti",
+      "ama sole pieno",
+      "crescita molto rapida",
+      "perfetta per bordi e scarpate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "nessuna salvo siccità estrema",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "minima",
+        "inverno": "nessuna"
+      },
+      "concimazione": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "potatura": {
+        "primavera": "taglio post-fioritura",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "gerani": {
+    "nome": "Gerani",
+    "specie": "Pelargonium spp.",
+    "descrizione": "<p>Piante ornamentali molto diffuse in balconi e giardini.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Sensibili al gelo",
+      "ama sole pieno",
+      "teme ristagni idrici",
+      "fioritura molto lunga",
+      "ottimi in fioriere e balconiere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "cuphea": {
+    "nome": "Cuphea",
+    "specie": "Cuphea hyssopifolia",
+    "descrizione": "<p>Arbustiva compatta con fiori piccoli e numerosi.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "ama sole pieno o mezz’ombra luminosa",
+      "fioritura continua",
+      "teme freddo sotto 5°C",
+      "evitare ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "erica-del-messico": {
+    "nome": "Erica del Messico",
+    "specie": "Cuphea hyssopifolia",
+    "descrizione": "<p>Arbustiva sempreverde con fioritura continua.</p>",
+    "esigenze": {
+      "luce": "Sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "ama sole pieno",
+      "fioritura molto lunga",
+      "teme freddo sotto 5°C",
+      "evitare ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "lewisia": {
+    "nome": "Lewisia",
+    "specie": "Lewisia cotyledon",
+    "descrizione": "<p>Perenne da roccaglia con fiori molto decorativi.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "Teme ristagni",
+      "richiede drenaggio perfetto",
+      "teme ristagni più di qualsiasi altra pianta della zona",
+      "ama sole o mezz’ombra luminosa",
+      "fioritura spettacolare in primavera-estate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "saponaria": {
+    "nome": "Saponaria",
+    "specie": "Saponaria ocymoides",
+    "descrizione": "<p>Perenne tappezzante con fiori rosa primaverili.</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "ama sole pieno",
+      "tappezzante vigorosa",
+      "teme ristagni",
+      "fioritura rosa molto abbondante"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "una volta",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio post-fioritura",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "sassifraga": {
+    "nome": "Sassifraga",
+    "specie": "Saxifraga arendsii",
+    "descrizione": "<p>Perenne tappezzante ideale per zone fresche.</p>",
+    "esigenze": {
+      "luce": "Mezz'ombra",
+      "acqua": "Regolare",
+      "terreno": "Fresco e drenato"
+    },
+    "alert": [
+      "Non tollera caldo intenso",
+      "preferisce mezzombra luminosa",
+      "teme caldo eccessivo",
+      "richiede terreno fresco ma drenante",
+      "fioritura primaverile"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "una volta",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "pothos-talea": {
+    "nome": "pothos-talea",
+    "specie": "Epipremnum aureum (talee in acqua)",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "",
+      "acqua": "",
+      "terreno": ""
+    },
+    "alert": [
+      "acqua torbida → cambiare subito",
+      "radici marroni → troppa luce o acqua stagnante",
+      "evitare luce diretta (rischio alghe)",
+      "se le foglie ingialliscono → acqua da cambiare più spesso",
+      "talee pronte per il trapianto quando le radici superano i 5-7 cm"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "cambiare l’acqua ogni 5-7 giorni",
+        "estate": "cambiare l’acqua ogni 3-5 giorni",
+        "autunno": "cambiare l’acqua ogni 7 giorni",
+        "inverno": "cambiare l’acqua ogni 10 giorni"
+      },
+      "concimazione": {
+        "primavera": "2-3 gocce di fertilizzante liquido ogni 30 giorni (facoltativo)",
+        "estate": "2-3 gocce ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  },
+  "saxifraga": {
+    "nome": "saxifraga",
+    "specie": "Saxifraga × arendsii (ibridi da giardino)",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "",
+      "acqua": "",
+      "terreno": ""
+    },
+    "alert": [
+      "richiede terreno fresco ma drenante",
+      "evitare ristagni idrici (rischio marciumi alla base)",
+      "teme il sole forte nelle ore centrali",
+      "foglie che seccano ai bordi → terreno troppo asciutto",
+      "fioritura scarsa → poca luce o terreno impoverito"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni se il terreno asciuga",
+        "estate": "ogni 4-6 giorni (ama terreno fresco)",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "minima, solo se completamente asciutto"
+      },
+      "concimazione": {
+        "primavera": "ogni 4 settimane con concime leggero per fiorite",
+        "estate": "una volta al mese (facoltativo)",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
+  }
 }
