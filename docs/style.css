@@ -2,7 +2,7 @@
   --bg: #f5f5f5;
   --fg: #222;
   --card-bg: #fff;
-  --card-shadow: rgba(0, 0, 0, 0.1);
+  --card-shadow: rgba(0,0,0,0.1);
   --accent: #2a7a3b;
 }
 
@@ -11,11 +11,10 @@
     --bg: #1e1e1e;
     --fg: #e5e5e5;
     --card-bg: #2a2a2a;
-    --card-shadow: rgba(0, 0, 0, 0.4);
+    --card-shadow: rgba(0,0,0,0.4);
     --accent: #4cd964;
   }
 }
-
 body {
   font-family: system-ui, sans-serif;
   margin: 20px;
@@ -23,8 +22,7 @@ body {
   color: #222;
 }
 
-h1,
-h2 {
+h1, h2 {
   text-align: center;
 }
 
@@ -45,7 +43,7 @@ h2 {
   text-align: center;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: transform .15s;
 }
 
@@ -73,7 +71,7 @@ button.home-card {
   padding: 15px;
   margin: 10px 0;
   border-radius: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
 }
 
 .meteo-card {
@@ -170,7 +168,6 @@ button.home-card {
 .card {
   text-align: center;
 }
-
 /* --------------------------------------------------
    FORM EDITOR (zone, sottozone, piante)
 -------------------------------------------------- */
@@ -248,7 +245,6 @@ button.home-card {
   text-align: center;
   margin-bottom: 20px;
 }
-
 /* --------------------------------------------------
    ADD ZONE BUTTON
 -------------------------------------------------- */
@@ -275,7 +271,6 @@ button.home-card {
   background: #1f5f2e;
   transform: translateY(-2px);
 }
-
 /* --------------------------------------------------
    ZONE LIST
 -------------------------------------------------- */
@@ -325,7 +320,6 @@ button.home-card {
 .edit-btn:hover {
   background: #666;
 }
-
 .sottozona-card {
   display: flex;
   flex-direction: column;
@@ -357,7 +351,6 @@ button.home-card {
 .sottozona-btn:hover {
   transform: translateY(-2px);
 }
-
 .delete-btn {
   background: #c0392b;
   color: white;
@@ -366,7 +359,6 @@ button.home-card {
 .delete-btn:hover {
   background: #992d22;
 }
-
 /* --------------------------------------------------
    STATUS BAR
 -------------------------------------------------- */
@@ -385,7 +377,7 @@ button.home-card {
   padding: 0 14px;
   font-size: 14px;
   z-index: 9999;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 #status-left {
@@ -414,87 +406,87 @@ button.home-card {
   transform: translateY(-2px);
 }
 
-/* Editor specie */
-#specie-editor {
-  padding: 15px;
-  border-radius: 10px;
-  background: #f7f7f7;
-  border: 1px solid #ddd;
-  margin-top: 15px;
-}
+    /* Editor specie */
+    #specie-editor {
+      padding: 15px;
+      border-radius: 10px;
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      margin-top: 15px;
+    }
 
-#specie-editor label {
-  margin-top: 10px;
-  font-weight: 600;
-  display: block;
-}
+    #specie-editor label {
+      margin-top: 10px;
+      font-weight: 600;
+      display: block;
+    }
 
-#specie-editor input,
-#specie-editor textarea {
-  width: 100%;
-  margin-top: 4px;
-}
+    #specie-editor input,
+    #specie-editor textarea {
+      width: 100%;
+      margin-top: 4px;
+    }
 
-.specie-actions {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0 20px 0;
-}
+    .specie-actions {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0 20px 0;
+    }
 
-.specie-actions button {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background: #ddd;
-}
+    .specie-actions button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #ddd;
+    }
 
-.specie-actions button:hover {
-  background: #ccc;
-}
+    .specie-actions button:hover {
+      background: #ccc;
+    }
 
-/* TAB */
-.tabs {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-  margin-bottom: 10px;
-}
+    /* TAB */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
 
-.tab-btn {
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: 1px solid #aaa;
-  background: #eee;
-  cursor: pointer;
-  font-weight: 600;
-}
+    .tab-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      background: #eee;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-.tab-btn.active {
-  background: #d0e6ff;
-  border-color: #5a9cff;
-}
+    .tab-btn.active {
+      background: #d0e6ff;
+      border-color: #5a9cff;
+    }
 
-.tab-content {
-  display: none;
-  padding: 10px;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  margin-bottom: 15px;
-}
+    .tab-content {
+      display: none;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
 
-.tab-content.active {
-  display: block;
-}
+    .tab-content.active {
+      display: block;
+    }
 
-.tab-content label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
+    .tab-content label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
 
-.tab-content input {
-  width: 100%;
-  padding: 4px;
-}
+    .tab-content input {
+      width: 100%;
+      padding: 4px;
+    }
