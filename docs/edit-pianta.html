@@ -5,80 +5,18 @@
   <title>Modifica Pianta</title>
 
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="piante.css">
-
-  <style>
-    /* Stili aggiuntivi per l’editor specie */
-    #specie-editor {
-      padding: 15px;
-      border-radius: 10px;
-      background: #f7f7f7;
-      border: 1px solid #ddd;
-      margin-top: 15px;
-    }
-
-    #specie-editor label {
-      margin-top: 10px;
-      font-weight: 600;
-      display: block;
-    }
-
-    #specie-editor input,
-    #specie-editor textarea {
-      width: 100%;
-      margin-top: 4px;
-    }
-
-    .specie-actions {
-      display: flex;
-      gap: 10px;
-      margin: 10px 0 20px 0;
-    }
-
-    .specie-actions button {
-      padding: 6px 12px;
-      border-radius: 6px;
-      border: none;
-      cursor: pointer;
-      background: #ddd;
-    }
-
-    .specie-actions button:hover {
-      background: #ccc;
-    }
-
-    /* Blocchi manutenzione */
-    .manut-block {
-      margin: 15px 0;
-      padding: 10px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    .manut-block h4 {
-      margin: 0 0 8px 0;
-      font-size: 1.1rem;
-    }
-
-    .manut-block label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 500;
-    }
-
-    .manut-block input {
-      width: 100%;
-      padding: 4px;
-    }
   </style>
 </head>
 
 <body>
 
+
 <nav class="topnav">
   <a href="index.html">🏠 Home</a>
+  <a href="meteo.html">⛅ Meteo</a>
+  <a href="zone.html">📍 Zone</a>
   <a href="piante.html">🌿 Piante</a>
+  <a href="gallery.html">🖼️ Gallery</a>
 </nav>
 
 <h1 id="edit-title">Modifica Pianta</h1>
@@ -120,29 +58,35 @@
     <textarea id="specie-alert" rows="3"></textarea>
 
     <!-- ============================
-         MANUTENZIONE (Opzione B)
+         MANUTENZIONE CON TAB
          ============================ -->
 
     <h3>Manutenzione</h3>
 
-    <div class="manut-block">
-      <h4>Irrigazione</h4>
+    <div class="tabs">
+      <button type="button" class="tab-btn active" data-tab="tab-irrig">Irrigazione</button>
+      <button type="button" class="tab-btn" data-tab="tab-conc">Concimazione</button>
+      <button type="button" class="tab-btn" data-tab="tab-pot">Potatura</button>
+    </div>
+
+    <!-- IRRIGAZIONE -->
+    <div id="tab-irrig" class="tab-content active">
       <label>Primavera <input id="man-irrig-primavera" type="text"></label>
       <label>Estate <input id="man-irrig-estate" type="text"></label>
       <label>Autunno <input id="man-irrig-autunno" type="text"></label>
       <label>Inverno <input id="man-irrig-inverno" type="text"></label>
     </div>
 
-    <div class="manut-block">
-      <h4>Concimazione</h4>
+    <!-- CONCIMAZIONE -->
+    <div id="tab-conc" class="tab-content">
       <label>Primavera <input id="man-conc-primavera" type="text"></label>
       <label>Estate <input id="man-conc-estate" type="text"></label>
       <label>Autunno <input id="man-conc-autunno" type="text"></label>
       <label>Inverno <input id="man-conc-inverno" type="text"></label>
     </div>
 
-    <div class="manut-block">
-      <h4>Potatura</h4>
+    <!-- POTATURA -->
+    <div id="tab-pot" class="tab-content">
       <label>Primavera <input id="man-pot-primavera" type="text"></label>
       <label>Estate <input id="man-pot-estate" type="text"></label>
       <label>Autunno <input id="man-pot-autunno" type="text"></label>
@@ -189,6 +133,23 @@
 <script src="js/api.js"></script>
 <script src="js/edit-pianta.js"></script>
 <script src="js/status.js"></script>
+
+<!-- SCRIPT TAB -->
+<script>
+  document.addEventListener("click", (e) => {
+    if (!e.target.classList.contains("tab-btn")) return;
+
+    const tab = e.target.dataset.tab;
+
+    document.querySelectorAll(".tab-btn").forEach(btn =>
+      btn.classList.toggle("active", btn === e.target)
+    );
+
+    document.querySelectorAll(".tab-content").forEach(box =>
+      box.classList.toggle("active", box.id === tab)
+    );
+  });
+</script>
 
 </body>
 </html>
