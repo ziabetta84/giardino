@@ -5,6 +5,92 @@
   <title>Modifica Pianta</title>
 
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Editor specie */
+    #specie-editor {
+      padding: 15px;
+      border-radius: 10px;
+      background: #f7f7f7;
+      border: 1px solid #ddd;
+      margin-top: 15px;
+    }
+
+    #specie-editor label {
+      margin-top: 10px;
+      font-weight: 600;
+      display: block;
+    }
+
+    #specie-editor input,
+    #specie-editor textarea {
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .specie-actions {
+      display: flex;
+      gap: 10px;
+      margin: 10px 0 20px 0;
+    }
+
+    .specie-actions button {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      background: #ddd;
+    }
+
+    .specie-actions button:hover {
+      background: #ccc;
+    }
+
+    /* TAB */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    .tab-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #aaa;
+      background: #eee;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .tab-btn.active {
+      background: #d0e6ff;
+      border-color: #5a9cff;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 10px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .tab-content label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .tab-content input {
+      width: 100%;
+      padding: 4px;
+    }
   </style>
 </head>
 
