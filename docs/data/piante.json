@@ -335,7 +335,7 @@
     "impianto": "2025-09-21",
     "note": ""
   },
-  "pennisetum-cinese-1777374140488": {
+  "pennisetum-cinese-1777374111987": {
     "specie": "pennisetum-cinese",
     "zona": "Scivolo",
     "sottozona": "Lato Destro",
@@ -343,12 +343,20 @@
     "impianto": "2025-09-23",
     "note": ""
   },
-  "clematis-montana-1777374348392": {
-    "specie": "clematis-montana",
+  "salcerella-1777374227256": {
+    "specie": "salcerella",
+    "zona": "Scivolo",
+    "sottozona": "Lato Destro",
+    "varieta": "",
+    "impianto": "2025-09-21",
+    "note": "La pianta è stata pesantemente potata. \nNon ha mai fiorito da quando l'ho comprata.\nSembrava stesse morendo durante l'inverno 2025/2026.\nAd aprile 2026 sta ricominciando a germogliare."
+  },
+  "mesembriantemo-1777374488562": {
+    "specie": "mesembriantemo",
     "zona": "Scivolo",
     "sottozona": "Lato Frontale",
-    "varieta": "",
-    "impianto": "2025-07-09",
-    "note": "Prima fioritura aprile 2026, con fiori viola."
+    "varieta": "Fiori arancioni",
+    "impianto": "",
+    "note": "Pianta presente da moltissimi anni, circa dal 2016. Non godono di un ottimo aspetto, probabilmente a causa del freddo invernale, ma rifiorisce ogni anno.\nÈ in vaso. Il fusto è molto sottile e secco e ricoperto di muschio."
   }
 }
