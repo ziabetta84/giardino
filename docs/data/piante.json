@@ -183,8 +183,24 @@
     "impianto": "2025-09-21",
     "note": "Pianta acquistata in vaso, è stata in giardino (scivolo) per molto tempo, da aprile 2026 l'ho spostata sul terrazzo del soggiorno e ha iniziato a fiorire."
   },
-  "mammillaria-1777370920324": {
-    "specie": "mammillaria",
+  "ficus-ginseng-1777370883256": {
+    "specie": "ficus-ginseng",
+    "zona": "casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "Acquistato alla Coop, durante la primavera 2025.\nLa pianta è stabile, non cresce, ma non soffre.\nÈ in vaso, sulla libreria del soggiorno."
+  },
+  "mammillaria-piumosa-1777370930591": {
+    "specie": "mammillaria-piumosa",
+    "zona": "casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso."
+  },
+  "mammillaria-piumosa-1777370999192": {
+    "specie": "mammillaria-piumosa",
     "zona": "casa",
     "sottozona": "Soggiorno",
     "varieta": "",
