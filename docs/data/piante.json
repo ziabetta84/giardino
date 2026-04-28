@@ -97,10 +97,18 @@
   },
   "prunus-taoflora-1777368271371": {
     "specie": "prunus-taoflora",
-    "zona": "Crinale",
+    "zona": "casa",
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-21",
     "note": "Sembra abbia sofferto molto il trapianto, tenere d'occhio"
+  },
+  "rosmarino-1777368454457": {
+    "specie": "rosmarino",
+    "zona": "Crinale",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "",
+    "note": "Pianta messa a dimora circa 10 anni fa, sul lato ovest dello scivolo, al confine con il giardino dei vicini. È diventata una grande siepe."
   }
 }
