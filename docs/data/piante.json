@@ -375,11 +375,27 @@
     "impianto": "2025-07-03",
     "note": "Non ha mai fiorito, ma ha prodotto nuovi bulbi. \nAttendo fioritura per il 2026"
   },
-  "heuchera-1777374931871": {
+  "erica-1777374845935": {
+    "specie": "erica",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "2026-03-24",
+    "note": ""
+  },
+  "heuchera-1777374979071": {
     "specie": "heuchera",
     "zona": "Scivolo",
     "sottozona": "Lato Sinistro",
-    "varieta": "Mulberry",
+    "varieta": "Indian Summer Boysenberry",
+    "impianto": "2025-07-03",
+    "note": ""
+  },
+  "heuchera-1777374996905": {
+    "specie": "heuchera",
+    "zona": "Scivolo",
+    "sottozona": "Lato Sinistro",
+    "varieta": "Indian Summer Boysenberry",
     "impianto": "2025-07-03",
     "note": ""
   }
