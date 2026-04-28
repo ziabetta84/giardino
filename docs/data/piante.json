@@ -519,10 +519,18 @@
     "impianto": "2026-04-15",
     "note": ""
   },
-  "camelia-1777384488349": {
-    "specie": "camelia",
+  "fico-di-mare-1777384451612": {
+    "specie": "fico-di-mare",
     "zona": "Vialetto",
     "sottozona": "Fioriere",
+    "varieta": "",
+    "impianto": "2024-06-12",
+    "note": ""
+  },
+  "gerani-1777384587172": {
+    "specie": "gerani",
+    "zona": "Vialetto",
+    "sottozona": "Ringhiera",
     "varieta": "",
     "impianto": "",
     "note": ""
