@@ -239,12 +239,20 @@
     "impianto": "",
     "note": "Ricavata talea dalla pianta nella scalinata, vaso in acqua sulla libreria del soggiorno."
   },
-  "echeveria-1777371244080": {
-    "specie": "echeveria",
+  "cactus-ago-di-eva-monstroso-1777371216196": {
+    "specie": "cactus-ago-di-eva-monstroso",
     "zona": "casa",
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "",
     "note": "Pianta sofferente, terreno troppo drenante e freddo intenso."
+  },
+  "ipoeste-1777371404317": {
+    "specie": "ipoeste",
+    "zona": "casa",
+    "sottozona": "Soggiorno",
+    "varieta": "Rosa",
+    "impianto": "2026-03-03",
+    "note": "Pianta acquistata in vivaio, probabilmente ha preso poca luce, i rami hanno filato e la pianta si è diradata. Il vasetto è sulla libreria."
   }
 }
