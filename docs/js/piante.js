@@ -50,6 +50,38 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   list.innerHTML = "";
 
+  // 🔥 Variabile globale per la modale
+  let deleteId = null;
+
+  // 🔥 Funzioni modale
+  function openDeleteModal(id) {
+    deleteId = id;
+    document.getElementById("delete-modal").style.display = "flex";
+  }
+
+  function closeDeleteModal() {
+    deleteId = null;
+    document.getElementById("delete-modal").style.display = "none";
+  }
+
+  // Pulsanti modale
+  document.getElementById("modal-cancel").onclick = closeDeleteModal;
+
+  document.getElementById("modal-confirm").onclick = async () => {
+    if (!deleteId) return;
+
+    delete piante[deleteId];
+    const saved = await saveJSON("piante.json", piante);
+
+    if (saved) {
+      closeDeleteModal();
+      location.reload();
+    } else {
+      alert("Errore durante l'eliminazione.");
+    }
+  };
+
+  // 🔥 Generazione card piante
   for (const id of keys) {
     const p = piante[id];
     const sp = specie[p.specie];
@@ -86,18 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const delBtn = document.createElement("button");
     delBtn.className = "sottozona-btn delete-btn";
     delBtn.textContent = "Elimina";
-    delBtn.onclick = async () => {
-      const ok = confirm(`Eliminare questa pianta (${sp.nome})?`);
-      if (!ok) return;
-
-      delete piante[id];
-      const saved = await saveJSON("piante.json", piante);
-
-      if (saved) {
-        alert("Pianta eliminata.");
-        location.reload();
-      }
-    };
+    delBtn.onclick = () => openDeleteModal(id);
 
     btnRow.appendChild(viewBtn);
     btnRow.appendChild(editBtn);
