@@ -17,7 +17,7 @@
   },
   "bellis-perennis-1777363227803": {
     "specie": "bellis-perennis",
-    "zona": "est",
+    "zona": "Est",
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-02",
@@ -25,15 +25,15 @@
   },
   "narciso-1777363322805": {
     "specie": "narciso",
-    "zona": "est",
+    "zona": "Est",
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-03",
     "note": ""
   },
-  "narciso-1777363341739": {
+  "narciso-1777363329872": {
     "specie": "narciso",
-    "zona": "est",
+    "zona": "Est",
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-03",
@@ -41,7 +41,7 @@
   },
   "primula-1777363417524": {
     "specie": "primula",
-    "zona": "est",
+    "zona": "Est",
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-02",
