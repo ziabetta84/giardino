@@ -425,16 +425,8 @@
   },
   "garofano-1777375626451": {
     "specie": "garofano",
-    "zona": "Vialetto",
-    "sottozona": "Ringhiera",
-    "varieta": "",
-    "impianto": "2026-03-03",
-    "note": ""
-  },
-  "garofano-1777375640018": {
-    "specie": "garofano",
-    "zona": "Vialetto",
-    "sottozona": "Ringhiera",
+    "zona": "Scivolo",
+    "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2026-03-03",
     "note": ""
