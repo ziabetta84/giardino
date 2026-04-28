@@ -70,5 +70,21 @@
     "varieta": "",
     "impianto": "2026-04-15",
     "note": "Fiore bianco"
+  },
+  "zinnia-1777367970649": {
+    "specie": "zinnia",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "2026-04-15",
+    "note": "Fiore rosa"
+  },
+  "zinnia-1777367970650": {
+    "specie": "zinnia",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "2026-04-15",
+    "note": "Fiore arancione"
   }
 }
