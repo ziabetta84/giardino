@@ -255,60 +255,28 @@
     "impianto": "2026-03-03",
     "note": "Pianta acquistata in vivaio, probabilmente ha preso poca luce, i rami hanno filato e la pianta si è diradata. Il vasetto è sulla libreria."
   },
-  "mammillaria-allungata-1777371474735": {
-    "specie": "mammillaria-allungata",
+  "pianta-panda-1777371531186": {
+    "specie": "pianta-panda",
     "zona": "casa",
     "sottozona": null,
     "varieta": "",
     "impianto": "",
     "note": "Pianta sofferente, terreno troppo drenante e freddo intenso."
   },
-  "carex-1777371678589": {
-    "specie": "carex",
-    "zona": "Scivolo",
-    "sottozona": "Lato Destro",
-    "varieta": "oshimensis ‘Evergold’",
-    "impianto": "2026-03-03",
-    "note": "Messa a dimora nell'estremità est"
-  },
-  "glechoma-hederacea-1777371821092": {
+  "glechoma-hederacea-1777371796274": {
     "specie": "glechoma-hederacea",
     "zona": "Scivolo",
     "sottozona": "Lato Destro",
     "varieta": "variegata",
     "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
+    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Hanno ottimamente superato il trapianto."
   },
-  "glechoma-hederacea-1777371826508": {
-    "specie": "glechoma-hederacea",
+  "iris-spontaneo-1777371968728": {
+    "specie": "iris-spontaneo",
     "zona": "Scivolo",
     "sottozona": "Lato Destro",
-    "varieta": "variegata",
-    "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
-  },
-  "glechoma-hederacea-1777371835525": {
-    "specie": "glechoma-hederacea",
-    "zona": "Scivolo",
-    "sottozona": "Lato Destro",
-    "varieta": "variegata",
-    "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
-  },
-  "glechoma-hederacea-1777371837892": {
-    "specie": "glechoma-hederacea",
-    "zona": "Scivolo",
-    "sottozona": "Lato Destro",
-    "varieta": "variegata",
-    "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
-  },
-  "glechoma-hederacea-1777371858209": {
-    "specie": "glechoma-hederacea",
-    "zona": "Scivolo",
-    "sottozona": "Lato Destro",
-    "varieta": "variegata",
-    "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
+    "varieta": "",
+    "impianto": "2025-09-21",
+    "note": "Non ha mai fiorito da quando l'ho acquistata."
   }
 }
