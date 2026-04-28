@@ -23,8 +23,24 @@
     "impianto": "2026-03-02",
     "note": ""
   },
-  "gazania-1777363304121": {
-    "specie": "gazania",
+  "narciso-1777363322805": {
+    "specie": "narciso",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "2026-03-03",
+    "note": ""
+  },
+  "narciso-1777363329872": {
+    "specie": "narciso",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "2026-03-03",
+    "note": ""
+  },
+  "narciso-1777363341739": {
+    "specie": "narciso",
     "zona": "Est",
     "sottozona": null,
     "varieta": "",
