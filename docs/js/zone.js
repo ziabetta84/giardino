@@ -21,92 +21,119 @@ document.addEventListener("DOMContentLoaded", async () => {
     return nomeA.localeCompare(nomeB);
   });
 
-for (const key of zoneKeys) {
-  const z = zone[key];
+  // Variabile globale per la modale
+  let deleteZonaKey = null;
 
-  // CARD
-  const card = document.createElement("div");
-  card.className = "card zone-card";
+  // Funzioni modale
+  function openDeleteModal(key) {
+    deleteZonaKey = key;
+    document.getElementById("delete-modal").style.display = "flex";
+  }
 
-  // TITOLO
-  const title = document.createElement("div");
-  title.className = "zone-title";
-  title.textContent = z.nome || key;
+  function closeDeleteModal() {
+    deleteZonaKey = null;
+    document.getElementById("delete-modal").style.display = "none";
+  }
 
-  // CONTENITORE BOTTONI
-  const btnRow = document.createElement("div");
-  btnRow.className = "zone-btn-row";
+  // Pulsanti modale
+  document.getElementById("modal-cancel").onclick = closeDeleteModal;
 
-  // Pulsante Esplora
-  const exploreBtn = document.createElement("button");
-  exploreBtn.className = "zone-btn explore-btn";
-  exploreBtn.textContent = "Esplora";
-  exploreBtn.onclick = () => {
-    window.location.href = `sottozona.html?zona=${encodeURIComponent(key)}`;
-  };
+  document.getElementById("modal-confirm").onclick = async () => {
+    if (!deleteZonaKey) return;
 
-  // Pulsante Modifica
-  const editBtn = document.createElement("button");
-  editBtn.className = "zone-btn edit-btn";
-  editBtn.textContent = "Modifica";
-  editBtn.onclick = () => {
-    const token = localStorage.getItem("github_token");
-    if (!token) {
-      alert("Devi effettuare il login per modificare.");
-      return;
-    }
-    window.location.href = `edit-zona.html?zona=${encodeURIComponent(key)}`;
-  };
-
-  // ❌ Pulsante Elimina
-  const deleteBtn = document.createElement("button");
-  deleteBtn.className = "zone-btn delete-btn";
-  deleteBtn.textContent = "Elimina";
-  deleteBtn.onclick = async () => {
-    const token = localStorage.getItem("github_token");
-    if (!token) {
-      alert("Devi effettuare il login per eliminare.");
-      return;
-    }
-
-    const conferma = confirm(`Vuoi davvero eliminare la zona "${z.nome}" e tutte le sue sottozone?`);
-    if (!conferma) return;
-
-    // Carica JSON
     const zoneData = await loadJSON("zone.json");
     const sottoData = await loadJSON("sottozone.json");
 
     // Elimina zona
-    delete zoneData[key];
+    delete zoneData[deleteZonaKey];
 
     // Elimina sottozone collegate
-    if (sottoData[key]) {
-      delete sottoData[key];
+    for (const sKey of Object.keys(sottoData)) {
+      if (sottoData[sKey].zona === deleteZonaKey) {
+        delete sottoData[sKey];
+      }
     }
 
-    // Salva entrambi
     notifySaving();
     const ok1 = await saveJSON("zone.json", zoneData);
     const ok2 = await saveJSON("sottozone.json", sottoData);
 
     if (ok1 && ok2) {
-      alert("Zona eliminata con successo.");
-      notifySaving();
+      closeDeleteModal();
       location.reload();
     } else {
       alert("Errore durante l'eliminazione.");
     }
   };
 
-  // Assembla
-  btnRow.appendChild(exploreBtn);
-  btnRow.appendChild(editBtn);
-  btnRow.appendChild(deleteBtn);
+  // Generazione card zone
+  for (const key of zoneKeys) {
+    const z = zone[key];
 
-  card.appendChild(title);
-  card.appendChild(btnRow);
+    // CARD
+    const card = document.createElement("div");
+    card.className = "card zone-card";
 
-  container.appendChild(card);
-}
+    // TITOLO
+    const title = document.createElement("div");
+    title.className = "zone-title";
+    title.textContent = z.nome || key;
 
+    // CONTENITORE BOTTONI
+    const btnRow = document.createElement("div");
+    btnRow.className = "zone-btn-row";
+
+    // Pulsante Sottozone
+    const sottoBtn = document.createElement("button");
+    sottoBtn.className = "zone-btn explore-btn";
+    sottoBtn.textContent = "Sottozone";
+    sottoBtn.onclick = () => {
+      window.location.href = `sottozona.html?zona=${encodeURIComponent(z.nome)}`;
+    };
+
+    // Pulsante Piante
+    const pianteBtn = document.createElement("button");
+    pianteBtn.className = "zone-btn explore-btn";
+    pianteBtn.textContent = "Piante";
+    pianteBtn.onclick = () => {
+      window.location.href = `piante.html?zona=${encodeURIComponent(z.nome)}`;
+    };
+
+    // Pulsante Modifica
+    const editBtn = document.createElement("button");
+    editBtn.className = "zone-btn edit-btn";
+    editBtn.textContent = "Modifica";
+    editBtn.onclick = () => {
+      const token = localStorage.getItem("github_token");
+      if (!token) {
+        alert("Devi effettuare il login per modificare.");
+        return;
+      }
+      window.location.href = `edit-zona.html?zona=${encodeURIComponent(key)}`;
+    };
+
+    // Pulsante Elimina (modale)
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "zone-btn delete-btn";
+    deleteBtn.textContent = "Elimina";
+    deleteBtn.onclick = () => {
+      const token = localStorage.getItem("github_token");
+      if (!token) {
+        alert("Devi effettuare il login per eliminare.");
+        return;
+      }
+      openDeleteModal(key);
+    };
+
+    // Assembla
+    btnRow.appendChild(sottoBtn);
+    btnRow.appendChild(pianteBtn);
+    btnRow.appendChild(editBtn);
+    btnRow.appendChild(deleteBtn);
+
+    card.appendChild(title);
+    card.appendChild(btnRow);
+
+    container.appendChild(card);
+  }
 });
