@@ -5,6 +5,14 @@ function getParam(name) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+  // 🔐 Controllo token GitHub
+  const token = localStorage.getItem("github_token");
+  if (!token) {
+    window.location.href = "https://giardino.robertagenovese.workers.dev/login";
+    return;
+  }
+
   const id = getParam("id");
   const zonaParam = getParam("zona");
   const sottoParam = getParam("sottozona");
@@ -31,12 +39,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // -----------------------------
-  // POPOLA SELECT ZONE (usa NOME, non chiave)
+  // POPOLA SELECT ZONE (usa NOME)
   // -----------------------------
   const zonaSel = document.getElementById("zona");
   for (const key of Object.keys(zone)) {
     const opt = document.createElement("option");
-    opt.value = zone[key].nome;      // <-- valore = "Casa"
+    opt.value = zone[key].nome;      // valore = "Casa"
     opt.textContent = zone[key].nome;
     zonaSel.appendChild(opt);
   }
@@ -45,7 +53,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // AGGIORNA SOTTOZONE
   // -----------------------------
   zonaSel.onchange = () => {
-    const z = zonaSel.value; // <-- ora è "Casa", "Est", ecc.
+    const z = zonaSel.value; // "Casa", "Est", ecc.
     const sottoSel = document.getElementById("sottozona");
     sottoSel.innerHTML = `<option value="">(nessuna)</option>`;
 
@@ -70,7 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     specieSel.value = current.specie;
 
-    // zona = nome leggibile (Casa, Est…)
     zonaSel.value = current.zona;
     zonaSel.onchange();
 
@@ -228,8 +235,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ---------------------------------------
     const data = {
       specie: specieSel.value,
-      zona: zonaSel.value, // <-- ora è "Casa", "Est", ecc.
-      sottozona: document.getElementById("sottozona").value || null,
+      zona: zonaSel.value,
+      sottozona: document.getElementById("sottozona").value || "",
       varieta: document.getElementById("varieta").value.trim(),
       impianto: document.getElementById("impianto").value,
       note: document.getElementById("note").value.trim()
