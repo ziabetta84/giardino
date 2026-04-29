@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const list = document.getElementById("piante-list");
   const addBtn = document.getElementById("add-plant-btn");
 
-  // Titolo dinamico
+  // Titolo dinamico + link aggiungi
   if (zona && sottozona) {
     title.textContent = `${zona} / ${sottozona}`;
     addBtn.href = `edit-pianta.html?zona=${zona}&sottozona=${sottozona}`;
@@ -33,12 +33,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Filtra istanze
+  // -----------------------------
+  // 🔥 FILTRO ZONA + SOTTOZONA
+  // -----------------------------
   const keys = Object.keys(piante).filter(id => {
     const p = piante[id];
 
+    // filtro zona
     if (zona && p.zona.toLowerCase() !== zona.toLowerCase()) return false;
-    if (sottozona && p.sottozona.toLowerCase() !== sottozona.toLowerCase()) return false;
+
+    // filtro sottozona (robusto)
+    if (sottozona) {
+      const ps = p.sottozona ? p.sottozona.toLowerCase() : "";
+      if (ps !== sottozona.toLowerCase()) return false;
+    }
 
     return true;
   });
@@ -88,6 +96,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   for (const id of keys) {
     const p = piante[id];
+
+    // se ha sottozona → gruppo = sottozona
+    // se non ce l'ha → gruppo = zona
     const key = p.sottozona ? p.sottozona : p.zona;
 
     if (!gruppi[key]) gruppi[key] = [];
@@ -95,7 +106,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // -----------------------------
-  // 🔥 GENERAZIONE CARD PER SOTTOZONA
+  // 🔥 GENERAZIONE CARD
   // -----------------------------
   for (const sotto of Object.keys(gruppi)) {
     const sottoCard = document.createElement("div");
@@ -147,10 +158,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     list.appendChild(sottoCard);
   }
 
-
-buildZoneMenu();
+  // -----------------------------
+  // 🔥 MENU ZONE DINAMICO
+  // -----------------------------
+  buildZoneMenu();
 });
 
+// -----------------------------
+// 🔥 FUNZIONE MENU ZONE
+// -----------------------------
 async function buildZoneMenu() {
   const zonaAttiva = new URLSearchParams(location.search).get("zona");
   const container = document.getElementById("zone-submenu");
@@ -182,4 +198,3 @@ async function buildZoneMenu() {
     container.appendChild(link);
   }
 }
-

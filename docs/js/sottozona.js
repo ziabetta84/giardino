@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   header.textContent = zona;
 
-  // 🔥 Pulsante "Aggiungi sottozona" dinamico
+  // Pulsante "Aggiungi sottozona"
   const addBtn = document.getElementById("add-subzone-btn");
   addBtn.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=NUOVA`;
 
@@ -49,31 +49,71 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   container.innerHTML = "";
 
+  // Variabile globale per modale
+  let deleteKey = null;
+
+  // Funzioni modale
+  function openDeleteModal(key) {
+    deleteKey = key;
+    document.getElementById("delete-modal").style.display = "flex";
+  }
+
+  function closeDeleteModal() {
+    deleteKey = null;
+    document.getElementById("delete-modal").style.display = "none";
+  }
+
+  // Pulsanti modale
+  document.getElementById("modal-cancel").onclick = closeDeleteModal;
+
+  document.getElementById("modal-confirm").onclick = async () => {
+    if (!deleteKey) return;
+
+    const data = await loadJSON("sottozone.json");
+
+    // Elimina la sottozona
+    delete data[zona][deleteKey];
+
+    // Se la zona rimane vuota, elimina anche il contenitore
+    if (Object.keys(data[zona]).length === 0) {
+      delete data[zona];
+    }
+
+    notifySaving();
+    const ok = await saveJSON("sottozone.json", data);
+
+    if (ok) {
+      closeDeleteModal();
+      location.reload();
+    } else {
+      alert("Errore durante l'eliminazione.");
+    }
+  };
+
+  // Generazione card sottozone
   for (const key of keys) {
     const s = elenco[key];
 
-    // CARD stile zone.js
     const card = document.createElement("div");
     card.className = "card sottozona-card";
 
-    // TITOLO
     const title = document.createElement("div");
     title.className = "sottozona-title";
     title.textContent = s.nome || key;
 
-    // BOTTONI
     const btnRow = document.createElement("div");
     btnRow.className = "sottozona-btn-row";
 
-    // Esplora
-    const exploreBtn = document.createElement("button");
-    exploreBtn.className = "sottozona-btn explore-btn";
-    exploreBtn.textContent = "Esplora";
-    exploreBtn.onclick = () => {
-      window.location.href = `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
+    // Pulsante Piante
+    const pianteBtn = document.createElement("button");
+    pianteBtn.className = "sottozona-btn explore-btn";
+    pianteBtn.textContent = "Piante";
+    pianteBtn.onclick = () => {
+      window.location.href =
+        `piante.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
-    // Modifica
+    // Pulsante Modifica
     const editBtn = document.createElement("button");
     editBtn.className = "sottozona-btn edit-btn";
     editBtn.textContent = "Modifica";
@@ -83,49 +123,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         alert("Devi effettuare il login per modificare.");
         return;
       }
-      window.location.href = `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
+      window.location.href =
+        `edit-sottozona.html?zona=${encodeURIComponent(zona)}&sottozona=${encodeURIComponent(key)}`;
     };
 
-    // ❌ Elimina
+    // Pulsante Elimina (modale)
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "sottozona-btn delete-btn";
     deleteBtn.textContent = "Elimina";
-    deleteBtn.onclick = async () => {
+    deleteBtn.onclick = () => {
       const token = localStorage.getItem("github_token");
       if (!token) {
         alert("Devi effettuare il login per eliminare.");
         return;
       }
-
-      const conferma = confirm(`Vuoi davvero eliminare la sottozona "${s.nome}"?`);
-      if (!conferma) return;
-
-      // Carica JSON
-      const data = await loadJSON("sottozone.json");
-
-      // Elimina la sottozona
-      delete data[zona][key];
-
-      // Se la zona rimane vuota, elimina anche il contenitore
-      if (Object.keys(data[zona]).length === 0) {
-        delete data[zona];
-      }
-
-      // Salva
-      notifySaving();
-      const ok = await saveJSON("sottozone.json", data);
-
-      if (ok) {
-        alert("Sottozona eliminata.");
-        notifySaving();
-        location.reload();
-      } else {
-        alert("Errore durante l'eliminazione.");
-      }
+      openDeleteModal(key);
     };
 
-    // Assembla
-    btnRow.appendChild(exploreBtn);
+    btnRow.appendChild(pianteBtn);
     btnRow.appendChild(editBtn);
     btnRow.appendChild(deleteBtn);
 
@@ -134,5 +149,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     container.appendChild(card);
   }
-
 });
