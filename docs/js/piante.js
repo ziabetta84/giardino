@@ -147,3 +147,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     list.appendChild(sottoCard);
   }
 });
+
+async function buildZoneMenu() {
+  const zonaAttiva = new URLSearchParams(location.search).get("zona");
+  const container = document.getElementById("zone-submenu");
+
+  const zone = await loadJSON("zone.json");
+  if (!zone) return;
+
+  // Link "Tutte"
+  const allLink = document.createElement("a");
+  allLink.href = "piante.html";
+  allLink.textContent = "Tutte";
+  allLink.className = "zone-link";
+  if (!zonaAttiva) allLink.classList.add("active");
+  container.appendChild(allLink);
+
+  // Link dinamici per ogni zona
+  for (const key of Object.keys(zone)) {
+    const z = zone[key];
+    const link = document.createElement("a");
+
+    link.href = `piante.html?zona=${encodeURIComponent(z.nome)}`;
+    link.textContent = z.nome;
+    link.className = "zone-link";
+
+    if (zonaAttiva === z.nome) {
+      link.classList.add("active");
+    }
+
+    container.appendChild(link);
+  }
+}
+
+buildZoneMenu();
