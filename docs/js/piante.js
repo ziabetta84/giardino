@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const keys = Object.keys(piante).filter(id => {
     const p = piante[id];
 
-    if (zona && p.zona !== zona) return false;
-    if (sottozona && p.sottozona !== sottozona) return false;
+    if (zona && p.zona.toLowerCase() !== zona.toLowerCase()) return false;
+    if (sottozona && p.sottozona.toLowerCase() !== sottozona.toLowerCase()) return false;
 
     return true;
   });
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   for (const id of keys) {
     const p = piante[id];
-    const key = p.sottozona || "Senza sottozona";
+    const key = p.sottozona ? p.sottozona : p.zona;
 
     if (!gruppi[key]) gruppi[key] = [];
     gruppi[key].push({ id, ...p });
