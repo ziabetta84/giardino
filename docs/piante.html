@@ -109,6 +109,23 @@
 <script src="js/api.js"></script>
 <script src="js/piante.js"></script>
 <script src="js/status.js"></script>
+
+<script>
+  const zona = new URLSearchParams(location.search).get("zona");
+  const links = document.querySelectorAll(".zone-link");
+
+  links.forEach(link => {
+    const url = new URL(link.href);
+    const z = url.searchParams.get("zona");
+
+    if (!zona && !z) {
+      link.classList.add("active"); // "Tutte"
+    } else if (zona === z) {
+      link.classList.add("active");
+    }
+  });
+</script>
+
 <script>
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("sw.js");

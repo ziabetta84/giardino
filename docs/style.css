@@ -442,3 +442,33 @@ button.home-card {
 .delete-inline-btn {
   right: 0;
 }
+.zone-submenu {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  scrollbar-width: thin;
+}
+
+.zone-link {
+  padding: 8px 14px;
+  background: #eee;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #333;
+  white-space: nowrap;
+  font-size: 0.9em;
+  transition: 0.2s;
+}
+
+.zone-link:hover {
+  background: #ddd;
+}
+
+.zone-link.active {
+  background: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
