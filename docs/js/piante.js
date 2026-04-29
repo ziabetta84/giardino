@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Filtra istanze in base ai parametri
+  // Filtra istanze
   const keys = Object.keys(piante).filter(id => {
     const p = piante[id];
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   if (keys.length === 0) {
-    list.innerHTML = "<div class='card'>Nessuna pianta in questa zona.</div>";
+    list.innerHTML = "<div class='card'>Nessuna pianta trovata.</div>";
     return;
   }
 
@@ -82,29 +82,30 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // -----------------------------
-  // 🔥 RAGGRUPPAMENTO PER ZONA
+  // 🔥 RAGGRUPPAMENTO PER SOTTOZONA
   // -----------------------------
   const gruppi = {};
 
   for (const id of keys) {
     const p = piante[id];
-    if (!gruppi[p.zona]) gruppi[p.zona] = [];
-    gruppi[p.zona].push({ id, ...p });
+    const key = p.sottozona || "Senza sottozona";
+
+    if (!gruppi[key]) gruppi[key] = [];
+    gruppi[key].push({ id, ...p });
   }
 
   // -----------------------------
-  // 🔥 GENERAZIONE CARD PER ZONA
+  // 🔥 GENERAZIONE CARD PER SOTTOZONA
   // -----------------------------
-  for (const zonaNome of Object.keys(gruppi)) {
-    const zonaCard = document.createElement("div");
-    zonaCard.className = "card zone-group-card";
+  for (const sotto of Object.keys(gruppi)) {
+    const sottoCard = document.createElement("div");
+    sottoCard.className = "card zone-group-card";
 
-    const zonaTitle = document.createElement("h2");
-    zonaTitle.textContent = "📍 " + zonaNome;
-    zonaCard.appendChild(zonaTitle);
+    const sottoTitle = document.createElement("h2");
+    sottoTitle.textContent = "📍 " + sotto;
+    sottoCard.appendChild(sottoTitle);
 
-    // Lista piante della zona
-    for (const p of gruppi[zonaNome]) {
+    for (const p of gruppi[sotto]) {
       const sp = specie[p.specie];
 
       const item = document.createElement("div");
@@ -112,12 +113,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       item.innerHTML = `
         <strong>${sp.nome}${p.varieta ? " (" + p.varieta + ")" : ""}</strong>
-        <div class="small">${p.sottozona || ""}</div>
+        <div class="small">${p.zona}</div>
       `;
 
       // Click → scheda pianta
       item.onclick = () => {
-        window.location.href = `pianta.html?specie=${p.specie}`;
+        window.location.href = `pianta.html?id=${p.id}`;
+      };
+
+      // Pulsante modifica
+      const editBtn = document.createElement("button");
+      editBtn.className = "edit-inline-btn";
+      editBtn.textContent = "✏️";
+      editBtn.onclick = (e) => {
+        e.stopPropagation();
+        window.location.href = `edit-pianta.html?id=${p.id}`;
       };
 
       // Pulsante elimina
@@ -129,10 +139,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         openDeleteModal(p.id);
       };
 
+      item.appendChild(editBtn);
       item.appendChild(delBtn);
-      zonaCard.appendChild(item);
+      sottoCard.appendChild(item);
     }
 
-    list.appendChild(zonaCard);
+    list.appendChild(sottoCard);
   }
 });

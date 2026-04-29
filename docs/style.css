@@ -403,13 +403,14 @@ button.home-card {
   background: #1f5f2e;
   transform: translateY(-2px);
 }
+
 .zone-group-card {
   padding: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .plant-item {
-  padding: 10px 0;
+  padding: 12px 0;
   border-bottom: 1px solid #ddd;
   cursor: pointer;
   position: relative;
@@ -424,12 +425,20 @@ button.home-card {
   color: #666;
 }
 
+.edit-inline-btn,
 .delete-inline-btn {
   position: absolute;
-  right: 0;
-  top: 8px;
+  top: 10px;
   background: transparent;
   border: none;
   font-size: 1.1em;
   cursor: pointer;
+}
+
+.edit-inline-btn {
+  right: 35px;
+}
+
+.delete-inline-btn {
+  right: 0;
 }
