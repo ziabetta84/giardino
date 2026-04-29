@@ -44,5 +44,10 @@
 <script src="js/status.js"></script>
 <script src="js/api.js"></script>
 <script src="js/sottozona.js"></script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
 </body>
 </html>

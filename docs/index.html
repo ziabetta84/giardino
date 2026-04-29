@@ -60,6 +60,11 @@ document.getElementById("login-btn").onclick = () => {
   window.location.href = "https://giardino.robertagenovese.workers.dev/login";
 };
 </script>
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
 
 </body>
 </html>
