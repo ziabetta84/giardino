@@ -403,3 +403,33 @@ button.home-card {
   background: #1f5f2e;
   transform: translateY(-2px);
 }
+.zone-group-card {
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.plant-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  position: relative;
+}
+
+.plant-item:last-child {
+  border-bottom: none;
+}
+
+.plant-item .small {
+  font-size: 0.85em;
+  color: #666;
+}
+
+.delete-inline-btn {
+  position: absolute;
+  right: 0;
+  top: 8px;
+  background: transparent;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+}
