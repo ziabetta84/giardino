@@ -146,6 +146,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     list.appendChild(sottoCard);
   }
+
+
+buildZoneMenu();
 });
 
 async function buildZoneMenu() {
@@ -180,4 +183,3 @@ async function buildZoneMenu() {
   }
 }
 
-buildZoneMenu();
