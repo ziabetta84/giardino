@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Filtra istanze
+  // Filtra istanze in base ai parametri
   const keys = Object.keys(piante).filter(id => {
     const p = piante[id];
 
@@ -50,10 +50,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   list.innerHTML = "";
 
-  // 🔥 Variabile globale per la modale
+  // -----------------------------
+  // 🔥 MODALE ELIMINAZIONE
+  // -----------------------------
   let deleteId = null;
 
-  // 🔥 Funzioni modale
   function openDeleteModal(id) {
     deleteId = id;
     document.getElementById("delete-modal").style.display = "flex";
@@ -64,7 +65,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("delete-modal").style.display = "none";
   }
 
-  // Pulsanti modale
   document.getElementById("modal-cancel").onclick = closeDeleteModal;
 
   document.getElementById("modal-confirm").onclick = async () => {
@@ -81,53 +81,58 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   };
 
-  // 🔥 Generazione card piante
+  // -----------------------------
+  // 🔥 RAGGRUPPAMENTO PER ZONA
+  // -----------------------------
+  const gruppi = {};
+
   for (const id of keys) {
     const p = piante[id];
-    const sp = specie[p.specie];
+    if (!gruppi[p.zona]) gruppi[p.zona] = [];
+    gruppi[p.zona].push({ id, ...p });
+  }
 
-    const card = document.createElement("div");
-    card.className = "card plant-card";
+  // -----------------------------
+  // 🔥 GENERAZIONE CARD PER ZONA
+  // -----------------------------
+  for (const zonaNome of Object.keys(gruppi)) {
+    const zonaCard = document.createElement("div");
+    zonaCard.className = "card zone-group-card";
 
-    const titleDiv = document.createElement("div");
-    titleDiv.className = "card-title";
-    titleDiv.textContent = sp.nome + (p.varieta ? ` (${p.varieta})` : "");
+    const zonaTitle = document.createElement("h2");
+    zonaTitle.textContent = "📍 " + zonaNome;
+    zonaCard.appendChild(zonaTitle);
 
-    const subtitle = document.createElement("div");
-    subtitle.className = "card-subtitle";
-    subtitle.textContent = `${p.zona}${p.sottozona ? " / " + p.sottozona : ""}`;
+    // Lista piante della zona
+    for (const p of gruppi[zonaNome]) {
+      const sp = specie[p.specie];
 
-    // Pulsanti
-    const btnRow = document.createElement("div");
-    btnRow.className = "sottozona-btn-row";
+      const item = document.createElement("div");
+      item.className = "plant-item";
 
-    const viewBtn = document.createElement("button");
-    viewBtn.className = "sottozona-btn explore-btn";
-    viewBtn.textContent = "Scheda";
-    viewBtn.onclick = () => {
-      window.location.href = `pianta.html?specie=${p.specie}`;
-    };
+      item.innerHTML = `
+        <strong>${sp.nome}${p.varieta ? " (" + p.varieta + ")" : ""}</strong>
+        <div class="small">${p.sottozona || ""}</div>
+      `;
 
-    const editBtn = document.createElement("button");
-    editBtn.className = "sottozona-btn edit-btn";
-    editBtn.textContent = "Modifica";
-    editBtn.onclick = () => {
-      window.location.href = `edit-pianta.html?id=${id}`;
-    };
+      // Click → scheda pianta
+      item.onclick = () => {
+        window.location.href = `pianta.html?specie=${p.specie}`;
+      };
 
-    const delBtn = document.createElement("button");
-    delBtn.className = "sottozona-btn delete-btn";
-    delBtn.textContent = "Elimina";
-    delBtn.onclick = () => openDeleteModal(id);
+      // Pulsante elimina
+      const delBtn = document.createElement("button");
+      delBtn.className = "delete-inline-btn";
+      delBtn.textContent = "🗑️";
+      delBtn.onclick = (e) => {
+        e.stopPropagation();
+        openDeleteModal(p.id);
+      };
 
-    btnRow.appendChild(viewBtn);
-    btnRow.appendChild(editBtn);
-    btnRow.appendChild(delBtn);
+      item.appendChild(delBtn);
+      zonaCard.appendChild(item);
+    }
 
-    card.appendChild(titleDiv);
-    card.appendChild(subtitle);
-    card.appendChild(btnRow);
-
-    list.appendChild(card);
+    list.appendChild(zonaCard);
   }
 });
