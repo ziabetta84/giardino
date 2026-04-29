@@ -31,12 +31,12 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // -----------------------------
-  // POPOLA SELECT ZONE
+  // POPOLA SELECT ZONE (usa NOME, non chiave)
   // -----------------------------
   const zonaSel = document.getElementById("zona");
   for (const key of Object.keys(zone)) {
     const opt = document.createElement("option");
-    opt.value = key;
+    opt.value = zone[key].nome;      // <-- valore = "Casa"
     opt.textContent = zone[key].nome;
     zonaSel.appendChild(opt);
   }
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // AGGIORNA SOTTOZONE
   // -----------------------------
   zonaSel.onchange = () => {
-    const z = zonaSel.value;
+    const z = zonaSel.value; // <-- ora è "Casa", "Est", ecc.
     const sottoSel = document.getElementById("sottozona");
     sottoSel.innerHTML = `<option value="">(nessuna)</option>`;
 
@@ -69,6 +69,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     title.textContent = "Modifica Pianta";
 
     specieSel.value = current.specie;
+
+    // zona = nome leggibile (Casa, Est…)
     zonaSel.value = current.zona;
     zonaSel.onchange();
 
@@ -76,12 +78,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("varieta").value = current.varieta || "";
     document.getElementById("impianto").value = current.impianto || "";
     document.getElementById("note").value = current.note || "";
+
   } else {
+    // -----------------------------
+    // NUOVA PIANTA
+    // -----------------------------
     title.textContent = "Nuova Pianta";
 
     if (zonaParam) zonaSel.value = zonaParam;
     zonaSel.onchange();
-    if (sottoParam) document.getElementById("sottozona").value = sottoParam;
+
+    if (sottoParam) {
+      document.getElementById("sottozona").value = sottoParam;
+    }
   }
 
   // ============================================================
@@ -104,7 +113,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("specie-terreno").value = "";
       document.getElementById("specie-alert").value = "";
 
-      // manutenzione vuota
       [
         "man-irrig-primavera","man-irrig-estate","man-irrig-autunno","man-irrig-inverno",
         "man-conc-primavera","man-conc-estate","man-conc-autunno","man-conc-inverno",
@@ -144,12 +152,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     box.style.display = "block";
   }
 
-  // Pulsante: Nuova specie
   document.getElementById("new-specie-btn").onclick = () => {
     openSpecieEditor(null, null);
   };
 
-  // Pulsante: Modifica specie
   document.getElementById("edit-specie-btn").onclick = () => {
     const key = specieSel.value;
     if (!key) return alert("Seleziona una specie da modificare.");
@@ -163,9 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   form.onsubmit = async (e) => {
     e.preventDefault();
 
-    // ---------------------------------------
-    // SALVA SPECIE SE L'EDITOR È APERTO
-    // ---------------------------------------
+    // Salva specie se editor aperto
     if (document.getElementById("specie-editor").style.display === "block") {
       const nome = document.getElementById("specie-nome").value.trim();
       const specieBot = document.getElementById("specie-specie").value.trim();
@@ -201,7 +205,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       let key = editingSpecieKey;
 
-      // Se è nuova specie → genera slug
       if (!key) {
         key = nome.toLowerCase().replace(/[^a-z0-9]+/g, "-");
         specieSel.value = key;
@@ -225,7 +228,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ---------------------------------------
     const data = {
       specie: specieSel.value,
-      zona: zonaSel.value,
+      zona: zonaSel.value, // <-- ora è "Casa", "Est", ecc.
       sottozona: document.getElementById("sottozona").value || null,
       varieta: document.getElementById("varieta").value.trim(),
       impianto: document.getElementById("impianto").value,
