@@ -2590,39 +2590,5 @@
         "inverno": "nessuna"
       }
     }
-  },
-  "pianta-delle-monete": {
-    "nome": "Pianta delle Monete",
-    "specie": "Pilea peperomioides",
-    "descrizione": "Indice\n\n    Caratteristiche della pianta delle monete\n    Dove tenere la pianta delle monete\n    Terriccio, irrigazioni e concimazioni\n    Potatura, moltiplicazione e rinvaso\n    Malattie e parassiti\n    Cosa fare se la Pilea ha perso foglie e lo stelo sembra annerito\n    La Pilea è tossica per cani e gatti?\n\nLa Pilea peperomioides è un’originale pianta succulenta dalle foglie tondeggianti simili a monete. Simbolo di ricchezza, abbondanza e fortuna, la Pilea è semplice da coltivare in appartamento anche per chi non ha esperienza in giardinaggio.\n\nConsiderata una pianta iconica degli anni ’70, sta vivendo un ritorno di grande successo. La Pilea peperomioides, con le sue foglie piatte e rotonde che ricordano piccole monete, è tornata alla ribalta come pianta retrò.\n\nOriginaria della Cina e conosciuta anche come Pianta delle monete, è molto apprezzata per la sua facilità di cura e propagazione tramite talea. Vale ogni centesimo investito, rendendola una scelta eccellente per ogni collezionista di piante.",
-    "esigenze": {
-      "luce": "Ama posizioni molto luminose, a temperature comprese tra i 15 e i 25°C",
-      "acqua": "Preferisce ambienti umidi",
-      "terreno": "Preferisce terricci ricchi e ben drenati"
-    },
-    "alert": [
-      "Soffre sotto i 10 gradi",
-      "Nei periodi freddi, tenere in casa in zona luminosa vicino ad un termosifone"
-    ],
-    "manutenzione": {
-      "irrigazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
-      },
-      "concimazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
-      },
-      "potatura": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
-      }
-    }
   }
 }
