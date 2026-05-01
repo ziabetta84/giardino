@@ -104,7 +104,12 @@
 
 <body>
 
-
+<script>
+const urlParams = new URLSearchParams(location.search);
+if (urlParams.get("token")) {
+  localStorage.setItem("github_token", urlParams.get("token"));
+}
+</script>
 <nav class="topnav">
   <a href="index.html">🐈‍⬛ Home</a>
   <a href="meteo.html">⛅ Meteo</a>
