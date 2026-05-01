@@ -6,11 +6,10 @@ function getParam(name) {
 
 document.addEventListener("DOMContentLoaded", async () => {
 
-  // 🔐 Controllo token GitHub
-  const token = localStorage.getItem("github_token");
-  if (!token) {
-    window.location.href = "https://giardino.robertagenovese.workers.dev/login";
-    return;
+  // 🔐 Se il token arriva dal login → salvalo
+  const urlParams = new URLSearchParams(location.search);
+  if (urlParams.get("token")) {
+    localStorage.setItem("github_token", urlParams.get("token"));
   }
 
   const id = getParam("id");
@@ -44,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const zonaSel = document.getElementById("zona");
   for (const key of Object.keys(zone)) {
     const opt = document.createElement("option");
-    opt.value = zone[key].nome;      // valore = "Casa"
+    opt.value = zone[key].nome;
     opt.textContent = zone[key].nome;
     zonaSel.appendChild(opt);
   }
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // AGGIORNA SOTTOZONE
   // -----------------------------
   zonaSel.onchange = () => {
-    const z = zonaSel.value; // "Casa", "Est", ecc.
+    const z = zonaSel.value;
     const sottoSel = document.getElementById("sottozona");
     sottoSel.innerHTML = `<option value="">(nessuna)</option>`;
 
