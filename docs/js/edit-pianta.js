@@ -213,7 +213,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (!key) {
         key = nome.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-        specieSel.value = key;
       }
 
       specie[key] = {
@@ -227,6 +226,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const okSpecie = await saveJSON("specie.json", specie);
       if (!okSpecie) return alert("Errore nel salvataggio della specie.");
+
+      // 🔥 FIX: reimposta il valore DOPO il salvataggio
+      specieSel.value = key;
     }
 
     // ---------------------------------------
