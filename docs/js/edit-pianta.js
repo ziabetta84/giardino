@@ -210,6 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       };
 
       let key = editingSpecieKey;
+      const isNew = !key;
 
       if (!key) {
         key = nome.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -227,7 +228,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       const okSpecie = await saveJSON("specie.json", specie);
       if (!okSpecie) return alert("Errore nel salvataggio della specie.");
 
-      // 🔥 FIX: reimposta il valore DOPO il salvataggio
+      // se è nuova, aggiungi l'option alla select
+      if (isNew) {
+        const opt = document.createElement("option");
+        opt.value = key;
+        opt.textContent = nome;
+        specieSel.appendChild(opt);
+      } else {
+        // se è modifica, aggiorna il testo dell'option esistente
+        const existingOpt = Array.from(specieSel.options).find(o => o.value === key);
+        if (existingOpt) existingOpt.textContent = nome;
+      }
+
+      // seleziona sempre la specie giusta
       specieSel.value = key;
     }
 
