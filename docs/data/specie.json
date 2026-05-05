@@ -2621,5 +2621,42 @@
         "inverno": ""
       }
     }
+  },
+  "pianta-della-fortuna": {
+    "nome": "Pianta della Fortuna",
+    "specie": "Soleirolia soleirolii",
+    "descrizione": "Pianta tappezzante con foglioline tonde, minuscole e morbide. Forma cuscini fitti e verdi, ideale in ambienti umidi e luminosi.",
+    "esigenze": {
+      "luce": "Molto luminosa ma indiretta; evitare sole diretto forte",
+      "acqua": "Terreno costantemente leggermente umido, senza ristagni",
+      "terreno": "Morbido, ricco di sostanza organica, ben drenante ma capace di trattenere umidità"
+    },
+    "alert": [
+      "\"teme i ristagni idrici (rischio marciumi radicali)\",",
+      "\"foglie che ingialliscono ai bordi → aria troppo secca\",",
+      "\"foglie pallide → luce insufficiente\",",
+      "\"secchezza rapida del terriccio → vaso troppo piccolo o ambiente troppo caldo\",",
+      "\"non tollera sole diretto nelle ore centrali\""
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "mantenere il terreno leggermente umido, bagnare quando la superficie inizia ad asciugare",
+        "estate": "controllo frequente; irrigare ogni 2-4 giorni a seconda del caldo",
+        "autunno": "ridurre leggermente, mantenere umidità costante",
+        "inverno": "innaffiature moderate, solo quando il primo strato asciuga"
+      },
+      "concimazione": {
+        "primavera": "ogni 4 settimane con concime leggero per verdi",
+        "estate": "una volta al mese, dose ridotta",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "spuntare per mantenere il cuscino compatto",
+        "estate": "taglio leggero se si allunga troppo",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      }
+    }
   }
 }
