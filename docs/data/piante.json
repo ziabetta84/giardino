@@ -223,6 +223,22 @@
     "impianto": "",
     "note": "Ricavata talea dalla pianta nella scalinata, vaso in acqua sulla libreria del soggiorno."
   },
+  "pothos-1777371136995": {
+    "specie": "pothos",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "Ricavata talea dalla pianta nella scalinata, vaso in acqua sulla libreria del soggiorno."
+  },
+  "pothos-1777371141028": {
+    "specie": "pothos",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "Ricavata talea dalla pianta nella scalinata, vaso in acqua sulla libreria del soggiorno."
+  },
   "cactus-ago-di-eva-monstroso-1777371216196": {
     "specie": "cactus-ago-di-eva-monstroso",
     "zona": "Casa",
@@ -548,6 +564,14 @@
     "zona": "Casa",
     "sottozona": "Bagni",
     "varieta": "",
+    "impianto": "2026-05-03",
+    "note": ""
+  },
+  "-1777978449541": {
+    "specie": "",
+    "zona": "Casa",
+    "sottozona": "Cucina",
+    "varieta": "Piccante calabrese",
     "impianto": "2026-05-03",
     "note": ""
   }
