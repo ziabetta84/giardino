@@ -2590,5 +2590,36 @@
         "inverno": "nessuna"
       }
     }
+  },
+  "pianta-delle-monete": {
+    "nome": "Pianta delle Monete",
+    "specie": "pilea peperomioides",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "molta",
+      "acqua": "Preferisce ambienti umidi",
+      "terreno": "Preferisce terricci ricchi e ben drenati"
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      }
+    }
   }
 }
