@@ -2658,5 +2658,42 @@
         "inverno": "sospesa"
       }
     }
+  },
+  "peperoncino": {
+    "nome": "Peperoncino",
+    "specie": "capsicum annuum",
+    "descrizione": "Peperoncino molto produttivo, piccante, con frutti piccoli e allungati. Crescita rapida, ideale in vaso e in pieno sole.",
+    "esigenze": {
+      "luce": "Pieno sole per almeno 6-8 ore al giorno",
+      "acqua": "Regolare ma senza ristagni; preferisce asciugare leggermente tra un’irrigazione e l’altra",
+      "terreno": "Ricco, drenante, leggermente sabbioso; ideale un terriccio per orticole con aggiunta di perlite"
+    },
+    "alert": [
+      "Teme i ristagni idrici (rischio marciume del colletto)",
+      "Foglie che si afflosciano → carenza d’acqua o vaso troppo piccolo\"",
+      "Fioritura scarsa → poca luce o eccesso di azoto",
+      "Ingiallimenti fogliari → irrigazioni irregolari o carenze nutritive",
+      "Sensibile al freddo sotto i 12°C"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3-5 giorni, mantenendo il terreno leggermente umido",
+        "estate": "ogni 2-3 giorni; nei periodi molto caldi anche quotidiana",
+        "autunno": "ogni 4-6 giorni, riducendo gradualmente",
+        "inverno": "quasi sospesa; solo se coltivato in interno e il terreno asciuga completamente"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime equilibrato (NPK 10-10-10)",
+        "estate": "ogni 10-14 giorni con concime ricco in potassio per stimolare fruttificazione",
+        "autunno": "una volta al mese finché continua a fruttificare",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "spuntare le cime per favorire la ramificazione",
+        "estate": "rimuovere foglie basse e rami deboli per migliorare aerazione",
+        "autunno": "eliminare rami secchi e frutti rimasti",
+        "inverno": "nessuna (pianta annuale in esterno)"
+      }
+    }
   }
 }
