@@ -2632,11 +2632,11 @@
       "terreno": "Morbido, ricco di sostanza organica, ben drenante ma capace di trattenere umidità"
     },
     "alert": [
-      "\"teme i ristagni idrici (rischio marciumi radicali)\",",
-      "\"foglie che ingialliscono ai bordi → aria troppo secca\",",
-      "\"foglie pallide → luce insufficiente\",",
-      "\"secchezza rapida del terriccio → vaso troppo piccolo o ambiente troppo caldo\",",
-      "\"non tollera sole diretto nelle ore centrali\""
+      "teme i ristagni idrici (rischio marciumi radicali)",
+      "foglie che ingialliscono ai bordi → aria troppo secca",
+      "foglie pallide → luce insufficiente",
+      "secchezza rapida del terriccio → vaso troppo piccolo o ambiente troppo caldo",
+      "non tollera sole diretto nelle ore centrali"
     ],
     "manutenzione": {
       "irrigazione": {
