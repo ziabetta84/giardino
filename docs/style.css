@@ -472,3 +472,53 @@ button.home-card {
   font-weight: bold;
 }
 
+ /* MODALE ELIMINAZIONE */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 320px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      text-align: center;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+
+    .btn-cancel {
+      background: #ddd;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-delete {
+      background: #d9534f;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+      background: #ccc;
+    }
+
+    .btn-delete:hover {
+      background: #c9302c;
+    }

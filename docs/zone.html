@@ -2,10 +2,33 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <title>Zone</title>
+  <title>Il Giardino di Zorba - Zone</title> 
+  <!-- Favicon e icone app -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
+  <script src="js/auth-token.js"></script>
 </head>
 <body>
+<script>
+(function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get("token");
+
+  if (token) {
+    // Salva il token
+    localStorage.setItem("github_token", token);
+
+    // Ricarica la pagina SENZA parametri (fondamentale per la PWA)
+    const cleanUrl = window.location.origin + window.location.pathname;
+    window.location.replace(cleanUrl);
+  }
+})();
+</script>
 
 <nav class="topnav">
   <a href="index.html">🏠 Home</a>
