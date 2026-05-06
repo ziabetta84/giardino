@@ -2728,5 +2728,42 @@
         "inverno": "Sospesa"
       }
     }
+  },
+  "ulivo": {
+    "nome": "Ulivo",
+    "specie": "Olea europaea",
+    "descrizione": "L'ulivo è un albero sempreverde e una latifoglie, la cui attività vegetativa è pressoché continua, con attenuazione nel periodo invernale. Ha crescita lenta ed è molto longevo: in condizioni climatiche favorevoli può diventare millenario e arrivare ad altezze di 15-20 metri.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Irrigazione moderata senza ristagni",
+      "terreno": "Tollera terreni poveri e sassosi"
+    },
+    "alert": [
+      "Evitare ristagni idrici: l'olivo è molto sensibile a marciumi radicali.",
+      "Le giovani piante possono soffrire gelate sotto -5°C.",
+      "In vaso richiede più acqua rispetto alla coltivazione in piena terra",
+      "Potature drastiche riducono la produzione per 1–2 anni.",
+      "Attenzione a: Mosca dell'olivo (Bactrocera oleae), Cocciniglia mezzo grano di pepe, Occhio di pavone (Spilocaea oleaginea), Rogna dell'olivo (Pseudomonas savastanoi)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "Ogni 10-14 giorni",
+        "estate": "Ogni 10-14 giorni",
+        "autunno": "Solo in caso di siccità prolungata",
+        "inverno": "Sospesa"
+      },
+      "concimazione": {
+        "primavera": "Concime organico o pellettato ricco in potassio; una sola somministrazione è spesso sufficiente.",
+        "estate": "Facoltativa; solo per piante in vaso o terreni molto poveri.",
+        "autunno": "Leggera concimazione organica se necessario.",
+        "inverno": "Sospesa"
+      },
+      "potatura": {
+        "primavera": "Potatura di formazione e pulizia dopo il rischio gelate; eliminare rami secchi o incrociati.",
+        "estate": "Eventuale spuntatura leggera per contenere la chioma.",
+        "autunno": "Sospesa",
+        "inverno": "Solo rimozione rami danneggiati dal vento o dal gelo."
+      }
+    }
   }
 }
