@@ -2695,5 +2695,38 @@
         "inverno": "nessuna (pianta annuale in esterno)"
       }
     }
+  },
+  "origano": {
+    "nome": "Origano",
+    "specie": "Origanum vulgare",
+    "descrizione": "Pianta aromatica mediterranea perenne, con fusti eretti e foglie piccole e ovali, molto profumate. In estate produce fiori rosa-violacei che attirano impollinatori. È una delle aromatiche più resistenti e facili da coltivare.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Irrigare quando il terreno è completamente asciutto",
+      "terreno": "Ben drenato"
+    },
+    "alert": [
+      "Non irrigare né concimare troppo, ne risente il profumo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "Ogni 10–14 giorni",
+        "estate": "Ogni 7 giorni",
+        "autunno": "Ogni 14–20 giorni",
+        "inverno": "Sospesa"
+      },
+      "concimazione": {
+        "primavera": "Ogni 30 giorni",
+        "estate": "Ogni 30 giorni",
+        "autunno": "Sospesa",
+        "inverno": "Sospesa"
+      },
+      "potatura": {
+        "primavera": "Accorcia i fusti di 1/3",
+        "estate": "Mantieni almeno 10 cm di vegetazione per stimolare la produzione",
+        "autunno": "Accorcia leggermente i fusti sfioriti",
+        "inverno": "Sospesa"
+      }
+    }
   }
 }
