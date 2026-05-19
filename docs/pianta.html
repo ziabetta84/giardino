@@ -1,27 +1,10 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>Il Giardino di Zorba - Pianta</title> 
-  <!-- Favicon e icone app -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
-  <script src="js/auth-token.js"></script>
-</head>
-<body>
+---
+layout: default
+title: "Il Giardino di Zorba - Pianta"
+scripts: |
+  <script src="js/pianta.js"></script>
+---
 
-<nav class="topnav">
-  <a href="index.html">🐈‍⬛ Home</a>
-  <a href="meteo.html">⛅ Meteo</a>
-  <a href="zone.html">📍 Zone</a>
-  <a href="piante.html">🌿 Piante</a>
-  <a href="gallery.html">🖼️ Gallery</a>
-</nav>
 <h1 id="pianta-title"></h1>
 
 <h2>Informazioni</h2>
@@ -34,22 +17,4 @@
 <div id="pianta-alert"></div>
 
 <button id="modifica-pianta">Modifica</button>
-<div id="status-bar">
-  <div id="status-left">
-    <span id="status-icon">🟢</span>
-    <span id="status-text">Pronto</span>
-  </div>
-  <button id="status-action">Aggiorna</button>
-</div>
 
-
-<script src="js/status.js"></script>
-<script src="js/api.js"></script>
-<script src="js/pianta.js"></script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
-</body>
-</html>

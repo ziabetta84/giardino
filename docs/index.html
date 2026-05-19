@@ -1,74 +1,45 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>Il Giardino di Zorba - Home</title>  
-  <!-- Favicon e icone app -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2b2b2b">
-  <link rel="stylesheet" href="style.css">
-  <script src="js/auth-token.js"></script>
-</head>
-<body>
+---
+layout: default
+title: "Il Giardino di Zorba - Home"
+scripts: |
+  <script>
+  document.getElementById("login-btn").onclick = () => {
+    window.location.href = "https://giardino.robertagenovese.workers.dev/login";
+  };
+  </script>
+---
 
   <div class="logo-container">
     <img src="apple-touch-icon.png" alt="Logo Il Giardino di Zorba" class="logo">
   </div>
-<h1 class="home-title">Il Giardino di Zorba</h1>
+  <h1 class="home-title">Il Giardino di Zorba</h1>
 
-<div class="card-grid">
+  <div class="card-grid">
 
-  <a class="home-card" href="meteo.html">
-    <div class="icon">⛅</div>
-    <div class="label">Meteo</div>
-  </a>
+    <a class="home-card" href="meteo.html">
+      <div class="icon">⛅</div>
+      <div class="label">Meteo</div>
+    </a>
 
-  <a class="home-card" href="zone.html">
-    <div class="icon">📍</div>
-    <div class="label">Zone</div>
-  </a>
+    <a class="home-card" href="zone.html">
+      <div class="icon">📍</div>
+      <div class="label">Zone</div>
+    </a>
 
-  <a class="home-card" href="piante.html">
-    <div class="icon">🌿</div>
-    <div class="label">Piante</div>
-  </a>
+    <a class="home-card" href="piante.html">
+      <div class="icon">🌿</div>
+      <div class="label">Piante</div>
+    </a>
 
-  <a class="home-card" href="gallery.html">
-    <div class="icon">🖼️</div>
-    <div class="label">Gallery</div>
-  </a>
+    <a class="home-card" href="gallery.html">
+      <div class="icon">🖼️</div>
+      <div class="label">Gallery</div>
+    </a>
 
-  <button id="login-btn" class="home-card">
-    <div class="icon">🔐</div>
-    <div class="label">Login GitHub</div>
-  </button>
+    <button id="login-btn" class="home-card">
+      <div class="icon">🔐</div>
+      <div class="label">Login GitHub</div>
+    </button>
 
-</div>
-
-<div id="status-bar">
-  <div id="status-left">
-    <span id="status-icon">🟢</span>
-    <span id="status-text">Pronto</span>
   </div>
-  <button id="status-action">Aggiorna</button>
-</div>
 
-<script src="js/status.js"></script>
-<script>
-document.getElementById("login-btn").onclick = () => {
-  window.location.href = "https://giardino.robertagenovese.workers.dev/login";
-};
-</script>
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
-
-</body>
-</html>
