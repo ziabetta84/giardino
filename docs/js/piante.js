@@ -133,7 +133,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         if (p.foto && p.foto.length) {
           const latest = p.foto.reduce((a, b) => new Date(a.date) > new Date(b.date) ? a : b);
-          thumb.src = `gallery/piante/${p.id}/${latest.filename}`;
+          // Usa percorso assoluto basato sul repo per evitare risoluzioni errate
+          const base = `${location.origin}/${REPO_NAME}`;
+          thumb.src = `${base}/gallery/piante/${p.id}/${latest.filename}`;
         } else {
           thumb.style.display = "none";
         }
@@ -210,7 +212,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             const saved = await saveJSON("piante.json", piante);
             if (saved) {
-              thumb.src = `gallery/piante/${p.id}/${filename}`;
+              const base = `${location.origin}/${REPO_NAME}`;
+              thumb.src = `${base}/gallery/piante/${p.id}/${filename}`;
               thumb.style.display = "inline-block";
               alert("Foto caricata e catalogo aggiornato.");
             } else {
