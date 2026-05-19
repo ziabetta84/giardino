@@ -6,14 +6,14 @@ function getParam(name) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const nome = getParam("nome");
+  const id = getParam("id");
 
   const header = document.getElementById("pianta-title");
   const infoContainer = document.getElementById("pianta-info");
   const attivitaContainer = document.getElementById("pianta-attivita");
   const alertContainer = document.getElementById("pianta-alert");
 
-  if (!nome) {
+  if (!id) {
     header.textContent = "Pianta non specificata";
     return;
   }
@@ -21,15 +21,15 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Carica tutte le piante
   const piante = await loadJSON("piante.json");
 
-  if (!piante || !piante[nome]) {
+  if (!piante || !piante[id]) {
     header.textContent = "Pianta non trovata";
     return;
   }
 
-  const p = piante[nome];
+  const p = piante[id];
 
   // Titolo
-  header.textContent = p.nome || nome;
+  header.textContent = p.specie || id;
 
   // -----------------------------
   // 1) INFO GENERALI
@@ -88,6 +88,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       alert("Devi effettuare il login per modificare.");
       return;
     }
-    window.location.href = `edit-pianta.html?nome=${encodeURIComponent(nome)}`;
+    window.location.href = `edit-pianta.html?id=${encodeURIComponent(id)}`;
   };
 });
