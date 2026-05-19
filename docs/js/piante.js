@@ -121,11 +121,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const item = document.createElement("div");
       item.className = "plant-item";
-
+      
       item.innerHTML = `
         <strong>${sp.nome}${p.varieta ? " (" + p.varieta + ")" : ""}</strong>
         <div class="small">${p.zona}</div>
       `;
+
+      // Thumbnail: se esistono foto, mostra la più recente
+      const thumb = document.createElement("img");
+      thumb.className = "plant-thumb";
+      try {
+        if (p.foto && p.foto.length) {
+          const latest = p.foto.reduce((a, b) => new Date(a.date) > new Date(b.date) ? a : b);
+          thumb.src = `gallery/piante/${p.id}/${latest.filename}`;
+        } else {
+          thumb.style.display = "none";
+        }
+      } catch (e) {
+        thumb.style.display = "none";
+      }
+
+      item.prepend(thumb);
 
       // Click → scheda pianta
       item.onclick = () => {
@@ -150,7 +166,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         openDeleteModal(p.id);
       };
 
+      // Pulsante upload foto
+      const uploadBtn = document.createElement("button");
+      uploadBtn.className = "upload-inline-btn";
+      uploadBtn.textContent = "📷";
+      uploadBtn.onclick = (e) => {
+        e.stopPropagation();
+
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+
+        input.onchange = async (ev) => {
+          const file = ev.target.files[0];
+          if (!file) return;
+
+          const safeName = file.name.replace(/\s+/g, "_");
+          const filename = `${Date.now()}_${safeName}`;
+          const path = `gallery/piante/${p.id}/${filename}`;
+
+          const ok = await uploadFoto(path, file);
+          if (!ok) {
+            alert("Upload fallito. Controlla il login e riprova.");
+            return;
+          }
+
+          // aggiorna piante.json con la foto e la data (usa lastModified del file)
+          if (!piante[p.id]) piante[p.id] = p;
+          piante[p.id].foto = piante[p.id].foto || [];
+          piante[p.id].foto.push({ filename, date: new Date(file.lastModified).toISOString() });
+
+          const saved = await saveJSON("piante.json", piante);
+          if (saved) {
+            thumb.src = `gallery/piante/${p.id}/${filename}`;
+            thumb.style.display = "inline-block";
+            alert("Foto caricata e catalogo aggiornato.");
+          } else {
+            alert("Foto caricata ma non ho potuto aggiornare il catalogo (piante.json).");
+          }
+        };
+
+        input.click();
+      };
+
       item.appendChild(editBtn);
+      item.appendChild(uploadBtn);
       item.appendChild(delBtn);
       sottoCard.appendChild(item);
     }
