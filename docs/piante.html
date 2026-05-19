@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>Il Giardino di Zorba - Piante</title> 
-  <!-- Favicon e icone app -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
-  <script src="js/auth-token.js"></script>
-</head>
+---
+layout: default
+title: "Il Giardino di Zorba - Piante"
+scripts: |
+  <script src="js/piante.js"></script>
+  <script>
+    const zona = new URLSearchParams(location.search).get("zona");
+    const links = document.querySelectorAll(".zone-link");
 
-<body>
+    links.forEach(link => {
+      const url = new URL(link.href);
+      const z = url.searchParams.get("zona");
 
-<nav class="topnav">
-  <a href="index.html">🐈‍⬛ Home</a>
-  <a href="meteo.html">⛅ Meteo</a>
-  <a href="zone.html">📍 Zone</a>
-  <a href="piante.html">🌿 Piante</a>
-  <a href="gallery.html">🖼️ Gallery</a>
-</nav>
+      if (!zona && !z) {
+        link.classList.add("active"); // "Tutte"
+      } else if (zona === z) {
+        link.classList.add("active");
+      }
+    });
+  </script>
+---
+
 <div id="zone-submenu" class="zone-submenu"></div>
 
 <h1 id="page-title">Piante</h1>
@@ -32,14 +29,6 @@
 </div>
 
 <div id="piante-list"></div>
-
-<div id="status-bar">
-  <div id="status-left">
-    <span id="status-icon">🟢</span>
-    <span id="status-text">Pronto</span>
-  </div>
-  <button id="status-action">Aggiorna</button>
-</div>
 
 <!-- MODALE ELIMINAZIONE -->
 <div id="delete-modal" class="modal-overlay" style="display:none;">
@@ -54,32 +43,3 @@
   </div>
 </div>
 
-<!-- Scripts -->
-<script src="js/api.js"></script>
-<script src="js/piante.js"></script>
-<script src="js/status.js"></script>
-
-<script>
-  const zona = new URLSearchParams(location.search).get("zona");
-  const links = document.querySelectorAll(".zone-link");
-
-  links.forEach(link => {
-    const url = new URL(link.href);
-    const z = url.searchParams.get("zona");
-
-    if (!zona && !z) {
-      link.classList.add("active"); // "Tutte"
-    } else if (zona === z) {
-      link.classList.add("active");
-    }
-  });
-</script>
-
-<script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("sw.js");
-}
-</script>
-
-</body>
-</html>

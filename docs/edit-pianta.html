@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8">
-  <title>Il Giardino di Zorba - Modifica Pianta</title>
-  <!-- Favicon e icone app -->
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="shortcut icon" href="favicon.ico">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
-  <script src="js/auth-token.js"></script>
-
+---
+layout: default
+title: "Il Giardino di Zorba - Modifica Pianta"
+extra_head: |
   <style>
     /* Editor specie */
     #specie-editor {
@@ -99,23 +88,24 @@
       padding: 4px;
     }
   </style>
-</head>
+scripts: |
+  <script src="js/edit-pianta.js"></script>
+  <script>
+    document.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("tab-btn")) return;
 
-<body>
+      const tab = e.target.dataset.tab;
 
-<script>
-const urlParams = new URLSearchParams(location.search);
-if (urlParams.get("token")) {
-  localStorage.setItem("github_token", urlParams.get("token"));
-}
-</script>
-<nav class="topnav">
-  <a href="index.html">🐈‍⬛ Home</a>
-  <a href="meteo.html">⛅ Meteo</a>
-  <a href="zone.html">📍 Zone</a>
-  <a href="piante.html">🌿 Piante</a>
-  <a href="gallery.html">🖼️ Gallery</a>
-</nav>
+      document.querySelectorAll(".tab-btn").forEach(btn =>
+        btn.classList.toggle("active", btn === e.target)
+      );
+
+      document.querySelectorAll(".tab-content").forEach(box =>
+        box.classList.toggle("active", box.id === tab)
+      );
+    });
+  </script>
+---
 
 <h1 id="edit-title">Modifica Pianta</h1>
 
@@ -220,34 +210,3 @@ if (urlParams.get("token")) {
   <button type="submit" class="save-btn">Salva</button>
 </form>
 
-<div id="status-bar">
-  <div id="status-left">
-    <span id="status-icon">🟢</span>
-    <span id="status-text">Pronto</span>
-  </div>
-  <button id="status-action">Aggiorna</button>
-</div>
-
-<script src="js/api.js"></script>
-<script src="js/edit-pianta.js"></script>
-<script src="js/status.js"></script>
-
-<!-- SCRIPT TAB -->
-<script>
-  document.addEventListener("click", (e) => {
-    if (!e.target.classList.contains("tab-btn")) return;
-
-    const tab = e.target.dataset.tab;
-
-    document.querySelectorAll(".tab-btn").forEach(btn =>
-      btn.classList.toggle("active", btn === e.target)
-    );
-
-    document.querySelectorAll(".tab-content").forEach(box =>
-      box.classList.toggle("active", box.id === tab)
-    );
-  });
-</script>
-
-</body>
-</html>
