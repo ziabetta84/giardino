@@ -8,15 +8,17 @@ async function uploadFoto(path, file) {
   const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/docs/${path}`;
 
   const arrayBuffer = await file.arrayBuffer();
-  // Convert ArrayBuffer -> base64 without using spread (evita RangeError su file grandi)
-  const bytes = new Uint8Array(arrayBuffer);
-  let binary = "";
-  const chunkSize = 0x8000; // 32KB chunks
-  for (let i = 0; i < bytes.length; i += chunkSize) {
-    const sub = bytes.subarray(i, i + chunkSize);
-    binary += String.fromCharCode.apply(null, sub);
-  }
-  const base64 = btoa(binary);
+  // Use FileReader to get data URL (base64) to avoid large-argument RangeError
+  const base64 = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error('FileReader error'));
+    reader.onload = () => {
+      const result = reader.result || '';
+      const comma = result.indexOf(',');
+      resolve(result.slice(comma + 1));
+    };
+    reader.readAsDataURL(new Blob([arrayBuffer]));
+  });
 
   const res = await fetch(apiUrl, {
     method: "PUT",
