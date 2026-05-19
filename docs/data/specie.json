@@ -2765,5 +2765,36 @@
         "inverno": "Solo rimozione rami danneggiati dal vento o dal gelo."
       }
     }
+  },
+  "gaura": {
+    "nome": "Gaura",
+    "specie": "Gaura lindheimeri",
+    "descrizione": "Perenne erbacea dal portamento leggero e informale, con fusti sottili e flessibili alti 50–150 cm, foglie lanceolate verdi o rossastre e lunghissima fioritura da primavera all’autunno. I fiori, bianchi o rosa, oscillano al vento ricordando piccole farfalle.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Poca",
+      "terreno": "Povero e asciutto"
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "Ogni 7-10 giorni",
+        "estate": "Ogni 4-6 giorni",
+        "autunno": "Ogni 10-14 giorni",
+        "inverno": "Sospesa"
+      },
+      "concimazione": {
+        "primavera": "Una sola concimazione leggera con compost maturo",
+        "estate": "Nessuna concimazione",
+        "autunno": "Nessuna concimazione",
+        "inverno": "Nessuna concimazione"
+      },
+      "potatura": {
+        "primavera": "A fine stagione accorcia di 1/3 la lunghezza",
+        "estate": "Taglia gli steli sfioriti appena sotto la spiga",
+        "autunno": "Rimuovi solo gli steli secchi",
+        "inverno": "Nessuna"
+      }
+    }
   }
 }
