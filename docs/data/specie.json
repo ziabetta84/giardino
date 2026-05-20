@@ -1495,11 +1495,11 @@
     }
   },
   "iris-spontaneo": {
-    "nome": "Iris spontaneo",
-    "specie": "Iris germanica",
-    "descrizione": "<p>Perenne rizomatosa molto rustica.</p>",
+    "nome": "Sisyrinchium",
+    "specie": "Sisyrinchium californicus.",
+    "descrizione": "Il Sisyrinchium californicum è una piccola pianta perenne, cugina dell'Iris, che offre il beneficio di una lunga fioritura estiva a stelle giallo brillante. Adatta alla siccità, apprezza comunque una certa freschezza, il che la rende adatta sia per i giardini rocciosi che per decorare le aree ben drenate intorno ai laghetti.",
     "esigenze": {
-      "luce": "Pieno sole",
+      "luce": "Pieno sole o mezz'ombra",
       "acqua": "Moderata",
       "terreno": "Drenato"
     },
