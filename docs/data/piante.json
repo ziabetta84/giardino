@@ -113,7 +113,13 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-21",
-    "note": "Sembra abbia sofferto molto il trapianto, tenere d'occhio"
+    "note": "Sembra abbia sofferto molto il trapianto, tenere d'occhio",
+    "foto": [
+      {
+        "filename": "1779422123496_1000164436.jpg",
+        "date": "2026-05-22T03:55:23.425Z"
+      }
+    ]
   },
   "scilla-marittima-1777368528461": {
     "specie": "scilla-marittima",
