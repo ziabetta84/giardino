@@ -535,7 +535,13 @@
     "sottozona": "",
     "varieta": "",
     "impianto": "2026-04-15",
-    "note": "6/6"
+    "note": "6/6",
+    "foto": [
+      {
+        "filename": "1779862928372_1000166673.jpg",
+        "date": "2026-05-27T06:17:15.903Z"
+      }
+    ]
   },
   "violaciocca-1777375944007": {
     "specie": "violaciocca",
