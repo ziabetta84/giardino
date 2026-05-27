@@ -389,7 +389,13 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-24",
-    "note": ""
+    "note": "",
+    "foto": [
+      {
+        "filename": "1779862176803_1000166728.jpg",
+        "date": "2026-05-27T06:09:33.111Z"
+      }
+    ]
   },
   "heuchera-1777374979071": {
     "specie": "heuchera",
