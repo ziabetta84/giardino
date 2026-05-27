@@ -87,7 +87,13 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-04-15",
-    "note": "Fiore rosa"
+    "note": "Fiore rosa",
+    "foto": [
+      {
+        "filename": "1779862153863_1000166732.jpg",
+        "date": "2026-05-27T06:09:13.795Z"
+      }
+    ]
   },
   "zinnia-1777367970650": {
     "specie": "zinnia",
