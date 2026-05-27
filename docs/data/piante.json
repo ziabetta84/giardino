@@ -479,7 +479,13 @@
     "sottozona": "",
     "varieta": "",
     "impianto": "2026-04-15",
-    "note": "2/6"
+    "note": "2/6",
+    "foto": [
+      {
+        "filename": "1779862602157_1000166669.jpg",
+        "date": "2026-05-27T06:16:42.111Z"
+      }
+    ]
   },
   "sedum-spurium-1777375809740": {
     "specie": "sedum-acre",
