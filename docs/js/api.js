@@ -26,9 +26,16 @@ function getAuthHeaders() {
 // ------------------------------
 async function loadJSON(filename) {
   const apiUrl = `https://api.github.com/repos/${REPO_USER}/${REPO_NAME}/contents/docs/data/${filename}`;
+  const token = localStorage.getItem("github_token");
 
   try {
-    const res = await fetch(apiUrl, { headers: getAuthHeaders() });
+    let res = await fetch(apiUrl, { headers: getAuthHeaders() });
+
+    if (res.status === 401 && token) {
+      console.warn("loadJSON: token GitHub non valido, rimuovo e riprovo senza token", filename);
+      localStorage.removeItem("github_token");
+      res = await fetch(apiUrl, { headers: { "Accept": "application/vnd.github.v3+json" } });
+    }
 
     if (!res.ok) {
       console.error("Errore loadJSON:", filename, res.status);
@@ -64,10 +71,16 @@ async function saveJSON(filename, data) {
 
   try {
     // 1. Recupera SHA del file esistente
-    const getRes = await fetch(apiUrl, { headers: getAuthHeaders() });
+    let getRes = await fetch(apiUrl, { headers: getAuthHeaders() });
+
+    if (getRes.status === 401) {
+      console.warn("saveJSON: token GitHub non valido, rimuovo e richiedo di nuovo", filename);
+      localStorage.removeItem("github_token");
+      getRes = await fetch(apiUrl, { headers: { "Accept": "application/vnd.github.v3+json" } });
+    }
 
     if (!getRes.ok) {
-      console.error("Errore nel recupero SHA:", filename);
+      console.error("Errore nel recupero SHA:", filename, getRes.status);
       return false;
     }
 
