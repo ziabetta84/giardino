@@ -12,26 +12,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   const list = document.getElementById("piante-list");
   const addBtn = document.getElementById("add-plant-btn");
 
-  // Titolo dinamico + link aggiungi
-  if (zona && sottozona) {
-    title.textContent = `${zona} / ${sottozona}`;
-    addBtn.href = `edit-pianta.html?zona=${zona}&sottozona=${sottozona}`;
-  } else if (zona) {
-    title.textContent = zona;
-    addBtn.href = `edit-pianta.html?zona=${zona}`;
-  } else {
-    title.textContent = "Tutte le piante";
-    addBtn.href = `edit-pianta.html`;
-  }
+  try {
+    // Titolo dinamico + link aggiungi
+    if (zona && sottozona) {
+      title.textContent = `${zona} / ${sottozona}`;
+      addBtn.href = `edit-pianta.html?zona=${zona}&sottozona=${sottozona}`;
+    } else if (zona) {
+      title.textContent = zona;
+      addBtn.href = `edit-pianta.html?zona=${zona}`;
+    } else {
+      title.textContent = "Tutte le piante";
+      addBtn.href = `edit-pianta.html`;
+    }
 
-  // Carica dati
-  const specie = await loadJSON("specie.json");
-  const piante = await loadJSON("piante.json");
+    // Carica dati
+    const specie = await loadJSON("specie.json");
+    const piante = await loadJSON("piante.json");
 
-  if (!piante) {
-    list.innerHTML = "<div class='card'>Nessuna pianta trovata.</div>";
-    return;
-  }
+    if (!specie || !piante) {
+      list.innerHTML = "<div class='card'>Errore nel caricamento dell'elenco piante. Controlla la console.</div>";
+      return;
+    }
 
   // -----------------------------
   // 🔥 FILTRO ZONA + SOTTOZONA
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     sottoCard.appendChild(sottoTitle);
 
     for (const p of gruppi[sotto]) {
-      const sp = specie[p.specie];
+      const sp = specie && specie[p.specie] ? specie[p.specie] : { nome: p.specie || "Specie sconosciuta" };
 
       const item = document.createElement("div");
       item.className = "plant-item";
@@ -245,6 +246,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 🔥 MENU ZONE DINAMICO
   // -----------------------------
   buildZoneMenu();
+  } catch (error) {
+    console.error("Errore piante.js:", error);
+    list.innerHTML = "<div class='card'>Errore nel caricamento dell'elenco piante. Controlla la console.</div>";
+  }
 });
 
 // -----------------------------
