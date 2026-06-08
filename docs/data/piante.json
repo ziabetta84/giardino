@@ -761,14 +761,12 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "2026-02-28",
-    "note": ""
-  },
-  "lucky-bamboo-1780905253124": {
-    "specie": "lucky-bamboo",
-    "zona": "Casa",
-    "sottozona": "Cucina",
-    "varieta": "",
-    "impianto": "2025-11-15",
-    "note": ""
+    "note": "",
+    "foto": [
+      {
+        "filename": "1780905419178_1000168348.jpg",
+        "date": "2026-06-08T07:56:59.119Z"
+      }
+    ]
   }
 }
