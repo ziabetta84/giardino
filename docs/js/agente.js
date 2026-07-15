@@ -116,6 +116,61 @@ async function inviaAlWorker({ message, context, image }) {
   return data.reply;
 }
 
+// Variante per le azioni a risposta strutturata (identificazione specie,
+// generazione scheda): non tocca chatHistory, ritorna il body JSON intero
+// così il chiamante legge il campo che gli serve (candidati / scheda).
+async function chiamaWorkerStrutturato({ action, message, context, image, speciesName }) {
+  const token = localStorage.getItem("github_token");
+  if (!token) throw new Error("Devi effettuare il login per usare l'assistente.");
+
+  let res;
+  try {
+    res = await fetch(WORKER_CHAT_URL, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ action, message, context, image, speciesName })
+    });
+  } catch (e) {
+    throw new Error("Worker non raggiungibile: verifica che l'endpoint /agente/chat sia stato distribuito.");
+  }
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.error || `Il Worker ha risposto con errore (${res.status}).`);
+  }
+
+  return data;
+}
+
+// Gestisce anteprima + validazione di un input file, richiamando onChange(file|null).
+function wireUploadPreview(inputId, previewId, onChange) {
+  document.getElementById(inputId).onchange = (e) => {
+    const file = e.target.files[0];
+    const preview = document.getElementById(previewId);
+
+    if (!file) {
+      preview.innerHTML = "";
+      onChange(null);
+      return;
+    }
+
+    if (file.size > MAX_FOTO_BYTES_ORIGINALE) {
+      alert("La foto è troppo grande (limite 25MB).");
+      e.target.value = "";
+      preview.innerHTML = "";
+      onChange(null);
+      return;
+    }
+
+    preview.innerHTML = `<img src="${URL.createObjectURL(file)}" class="salute-foto-thumb">`;
+    onChange(file);
+  };
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const piantaParam = getParam("pianta");
   const azioneParam = getParam("azione");
@@ -159,32 +214,20 @@ document.addEventListener("DOMContentLoaded", async () => {
     salutePanel.style.display = "block";
   }
 
+  const identificaPanel = document.getElementById("identifica-panel");
+
+  document.getElementById("azione-identifica").onclick = () => {
+    identificaPanel.style.display = identificaPanel.style.display === "none" ? "block" : "none";
+  };
+
   // -----------------------------
   // Anteprima foto
   // -----------------------------
   let fotoFile = null;
+  wireUploadPreview("salute-foto-input", "salute-foto-preview", file => { fotoFile = file; });
 
-  document.getElementById("salute-foto-input").onchange = (e) => {
-    const file = e.target.files[0];
-    const preview = document.getElementById("salute-foto-preview");
-
-    if (!file) {
-      preview.innerHTML = "";
-      fotoFile = null;
-      return;
-    }
-
-    if (file.size > MAX_FOTO_BYTES_ORIGINALE) {
-      alert("La foto è troppo grande (limite 25MB).");
-      e.target.value = "";
-      preview.innerHTML = "";
-      fotoFile = null;
-      return;
-    }
-
-    fotoFile = file;
-    preview.innerHTML = `<img src="${URL.createObjectURL(file)}" class="salute-foto-thumb">`;
-  };
+  let fotoIdentifica = null;
+  wireUploadPreview("identifica-foto-input", "identifica-foto-preview", file => { fotoIdentifica = file; });
 
   // -----------------------------
   // Azione rapida: Cosa fare oggi (nessuna chiamata LLM)
@@ -303,6 +346,198 @@ document.addEventListener("DOMContentLoaded", async () => {
     } finally {
       btn.disabled = false;
       btn.textContent = "Invia per la valutazione";
+    }
+  };
+
+  // -----------------------------
+  // Azione: Identifica nuova specie da foto (identificazione + scheda)
+  // -----------------------------
+  function popolaFormSpecie(scheda, nomeFallback) {
+    const s = scheda || {};
+    document.getElementById("specie-nome").value = s.nome || nomeFallback || "";
+    document.getElementById("specie-specie").value = s.specie || "";
+    document.getElementById("specie-descrizione").value = s.descrizione || "";
+    document.getElementById("specie-luce").value = s.esigenze?.luce || "";
+    document.getElementById("specie-acqua").value = s.esigenze?.acqua || "";
+    document.getElementById("specie-terreno").value = s.esigenze?.terreno || "";
+    document.getElementById("specie-alert").value = (s.alert || []).join("\n");
+
+    const m = s.manutenzione || {};
+    [
+      ["irrigazione", "man-irrig"],
+      ["concimazione", "man-conc"],
+      ["potatura", "man-pot"]
+    ].forEach(([tipo, prefix]) => {
+      ["primavera", "estate", "autunno", "inverno"].forEach(stagione => {
+        document.getElementById(`${prefix}-${stagione}`).value = m[tipo]?.[stagione] || "";
+      });
+    });
+
+    const form = document.getElementById("specie-editor");
+    form.style.display = "block";
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function confermaSpecieScelta(nomeScelto) {
+    appendBubble("user", `🔍 Prepara la scheda per: ${nomeScelto}`);
+
+    try {
+      let image;
+      if (fotoIdentifica) {
+        image = await resizeImageForAgente(fotoIdentifica);
+      }
+
+      const result = await chiamaWorkerStrutturato({
+        action: "genera_scheda_specie",
+        speciesName: nomeScelto,
+        message: `Genera la scheda di cura completa per "${nomeScelto}".`,
+        image
+      });
+
+      popolaFormSpecie(result.scheda, nomeScelto);
+      appendBubble("assistant", `Ho preparato una bozza di scheda per "${nomeScelto}". Controllala e modificala prima di salvare.`);
+    } catch (err) {
+      appendBubble("assistant", `⚠️ ${err.message}`);
+    }
+  }
+
+  function renderCandidati(candidati) {
+    const container = document.getElementById("identifica-candidati");
+
+    container.innerHTML = candidati.length
+      ? candidati.map((c, i) => `
+          <label class="candidato-specie-row">
+            <input type="radio" name="candidato-specie" value="${i}">
+            <strong>${c.nome}</strong>
+            <span class="small">(${c.specieBotanica || ""} — confidenza ${c.confidenza || "?"})</span>
+            ${c.note ? `<div class="small">${c.note}</div>` : ""}
+          </label>
+        `).join("")
+      : "<p>Nessun candidato identificato con sicurezza. Indica tu il nome qui sotto.</p>";
+
+    container.querySelectorAll('input[name="candidato-specie"]').forEach((radio, i) => {
+      radio.onchange = () => confermaSpecieScelta(candidati[i].nome);
+    });
+
+    document.getElementById("identifica-manuale").style.display = "block";
+  }
+
+  document.getElementById("identifica-conferma-manuale").onclick = () => {
+    const nome = document.getElementById("identifica-nome-manuale").value.trim();
+    if (!nome) {
+      alert("Indica un nome.");
+      return;
+    }
+    confermaSpecieScelta(nome);
+  };
+
+  document.getElementById("identifica-invia").onclick = async () => {
+    if (!fotoIdentifica) {
+      alert("Allega una foto della pianta da identificare.");
+      return;
+    }
+
+    appendBubble("user", "🔍 Identifica questa pianta dalla foto allegata.");
+
+    const btn = document.getElementById("identifica-invia");
+    btn.disabled = true;
+    btn.textContent = "Comprimo la foto...";
+
+    try {
+      const image = await resizeImageForAgente(fotoIdentifica);
+      btn.textContent = "Identificazione in corso...";
+
+      const specieEsistenti = Object.values(specieData || {}).map(s => s.nome);
+
+      const result = await chiamaWorkerStrutturato({
+        action: "identifica_specie",
+        message: "Identifica questa pianta dalla foto allegata.",
+        context: { specieEsistenti },
+        image
+      });
+
+      const candidati = result.candidati || [];
+      renderCandidati(candidati);
+
+      appendBubble("assistant", candidati.length
+        ? `Ecco le specie candidate:\n${candidati.map(c => `- ${c.nome} (${c.specieBotanica || "?"})`).join("\n")}`
+        : "Non sono riuscito a identificare la specie con sicurezza. Indica tu il nome qui sotto.");
+    } catch (err) {
+      appendBubble("assistant", `⚠️ ${err.message}`);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Identifica";
+    }
+  };
+
+  document.getElementById("salva-specie-btn").onclick = async () => {
+    const nome = document.getElementById("specie-nome").value.trim();
+    if (!nome) {
+      alert("Il nome della specie è obbligatorio.");
+      return;
+    }
+
+    const manutenzione = {
+      irrigazione: {
+        primavera: document.getElementById("man-irrig-primavera").value.trim(),
+        estate: document.getElementById("man-irrig-estate").value.trim(),
+        autunno: document.getElementById("man-irrig-autunno").value.trim(),
+        inverno: document.getElementById("man-irrig-inverno").value.trim()
+      },
+      concimazione: {
+        primavera: document.getElementById("man-conc-primavera").value.trim(),
+        estate: document.getElementById("man-conc-estate").value.trim(),
+        autunno: document.getElementById("man-conc-autunno").value.trim(),
+        inverno: document.getElementById("man-conc-inverno").value.trim()
+      },
+      potatura: {
+        primavera: document.getElementById("man-pot-primavera").value.trim(),
+        estate: document.getElementById("man-pot-estate").value.trim(),
+        autunno: document.getElementById("man-pot-autunno").value.trim(),
+        inverno: document.getElementById("man-pot-inverno").value.trim()
+      }
+    };
+
+    const nuovaSpecie = {
+      nome,
+      specie: document.getElementById("specie-specie").value.trim(),
+      descrizione: document.getElementById("specie-descrizione").value.trim(),
+      esigenze: {
+        luce: document.getElementById("specie-luce").value.trim(),
+        acqua: document.getElementById("specie-acqua").value.trim(),
+        terreno: document.getElementById("specie-terreno").value.trim()
+      },
+      alert: document.getElementById("specie-alert").value.split("\n").map(s => s.trim()).filter(Boolean),
+      manutenzione
+    };
+
+    const slug = nome.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-+|-+$)/g, "");
+
+    const btn = document.getElementById("salva-specie-btn");
+    btn.disabled = true;
+    btn.textContent = "Salvataggio...";
+
+    try {
+      const specieAggiornate = await loadJSON("specie.json");
+      if (!specieAggiornate) throw new Error("Impossibile leggere il database specie.");
+
+      if (specieAggiornate[slug] && !confirm(`Esiste già una specie "${specieAggiornate[slug].nome}" con questo nome. Sovrascriverla?`)) {
+        return;
+      }
+
+      specieAggiornate[slug] = nuovaSpecie;
+      notifySaving();
+      const ok = await saveJSON("specie.json", specieAggiornate);
+      if (!ok) throw new Error("Salvataggio non riuscito. Controlla di essere ancora loggato e riprova.");
+
+      specieData[slug] = nuovaSpecie;
+      appendBubble("assistant", `✅ Specie "${nome}" salvata nel database.`);
+      document.getElementById("specie-editor").style.display = "none";
+    } catch (err) {
+      alert(`Errore: ${err.message}`);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "💾 Salva nel database specie";
     }
   };
 

@@ -37,6 +37,16 @@ esistente, non verrà deployato da qui.
 
 5. **Deploy** con la normale procedura del progetto Worker (`wrangler deploy`).
 
+## Azioni supportate
+
+L'endpoint `/agente/chat` gestisce tre azioni tramite il campo `action` nel body:
+
+- **(default, senza `action`)** chat libera e valutazione salute pianta: risposta testuale (`{ reply }`).
+- **`identifica_specie`**: identifica una pianta da una foto e propone fino a 4 specie candidate. Usa il tool-use di Anthropic con `tool_choice` forzato per garantire una risposta strutturata (`{ candidati: [{nome, specieBotanica, confidenza, note}] }`) invece di dover fare parsing di testo libero.
+- **`genera_scheda_specie`**: dato un nome di specie (scelto tra i candidati o inserito manualmente dall'utente), genera la scheda di cura completa nello stesso formato di un record in `docs/data/specie.json` (`{ scheda: {...} }`), sempre via tool-use.
+
+Vedi i commenti in cima a `agente-worker.js` per il contratto esatto di richiesta/risposta di ciascuna azione.
+
 ## Note
 
 - Il frontend invia il token GitHub già salvato in `localStorage` (lo stesso
