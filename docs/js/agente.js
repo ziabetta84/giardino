@@ -10,7 +10,11 @@ function getParam(name) {
 }
 
 const WORKER_CHAT_URL = "https://giardino.robertagenovese.workers.dev/agente/chat";
-const MAX_FOTO_BYTES = 5 * 1024 * 1024;
+// Limite solo di buon senso sul file originale scelto dall'utente: la foto
+// viene comunque ridimensionata/compressa prima dell'invio (vedi
+// resizeImageForAgente), quindi le foto scattate da smartphone (spesso 8-15MB)
+// non vengono più rifiutate.
+const MAX_FOTO_BYTES_ORIGINALE = 25 * 1024 * 1024;
 
 let chatHistory = [];
 
@@ -21,6 +25,54 @@ function appendBubble(role, text) {
   bubble.textContent = text;
   win.appendChild(bubble);
   win.scrollTop = win.scrollHeight;
+}
+
+// Ridimensiona/comprime la foto lato client prima di inviarla al Worker:
+// le foto da smartphone spesso superano i 5-15MB, ben oltre quanto serve
+// per l'analisi visiva (Claude ridimensiona comunque le immagini oltre
+// ~1568px sul lato lungo) e oltre i limiti pratici di dimensione richiesta.
+function resizeImageForAgente(file, maxDim = 1568, quality = 0.85) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+
+      let { width, height } = img;
+      if (width > maxDim || height > maxDim) {
+        const scale = maxDim / Math.max(width, height);
+        width = Math.round(width * scale);
+        height = Math.round(height * scale);
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(blob => {
+        if (!blob) {
+          reject(new Error("Impossibile comprimere la foto."));
+          return;
+        }
+        const reader = new FileReader();
+        reader.onerror = () => reject(new Error("Errore nella lettura della foto compressa."));
+        reader.onload = () => resolve({
+          mediaType: "image/jpeg",
+          data: (reader.result || "").split(",")[1] || ""
+        });
+        reader.readAsDataURL(blob);
+      }, "image/jpeg", quality);
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      reject(new Error("Impossibile leggere la foto selezionata."));
+    };
+
+    img.src = objectUrl;
+  });
 }
 
 function stripHtml(html) {
@@ -122,8 +174,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    if (file.size > MAX_FOTO_BYTES) {
-      alert("La foto è troppo grande (limite 5MB).");
+    if (file.size > MAX_FOTO_BYTES_ORIGINALE) {
+      alert("La foto è troppo grande (limite 25MB).");
       e.target.value = "";
       preview.innerHTML = "";
       fotoFile = null;
@@ -215,15 +267,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const btn = document.getElementById("salute-invia");
     btn.disabled = true;
-    btn.textContent = "Invio in corso...";
+    btn.textContent = "Comprimo la foto...";
 
     try {
-      const base64 = await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onerror = () => reject(new Error("Errore nella lettura della foto."));
-        reader.onload = () => resolve((reader.result || "").split(",")[1] || "");
-        reader.readAsDataURL(fotoFile);
-      });
+      const { mediaType, data: base64 } = await resizeImageForAgente(fotoFile);
+
+      btn.textContent = "Invio in corso...";
 
       if (document.getElementById("salute-salva-galleria").checked) {
         const token = localStorage.getItem("github_token");
@@ -245,7 +294,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const reply = await inviaAlWorker({
         message: "Valuta lo stato di salute di questa pianta a partire dalla foto allegata, tenendo conto del contesto fornito.",
         context: contesto,
-        image: { mediaType: fotoFile.type, data: base64 }
+        image: { mediaType, data: base64 }
       });
 
       appendBubble("assistant", reply);
