@@ -5,7 +5,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sansevieria-1777363126334": {
     "specie": "sansevieria",
@@ -13,7 +17,11 @@
     "sottozona": "Scalinata",
     "varieta": "",
     "impianto": "",
-    "note": "Ha una foglia rovinata nella metà superiore"
+    "note": "Ha una foglia rovinata nella metà superiore",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "bellis-perennis-1777363227803": {
     "specie": "bellis-perennis",
@@ -21,7 +29,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-02",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "narciso-1777363322805": {
     "specie": "narciso",
@@ -29,7 +41,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "narciso-1777363329872": {
     "specie": "narciso",
@@ -37,7 +53,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "primula-1777363417524": {
     "specie": "primula",
@@ -45,7 +65,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-02",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "spiraea-arguta-1777367805928": {
     "specie": "spiraea-arguta",
@@ -59,7 +83,11 @@
         "filename": "1779862209168_1000166729.jpg",
         "date": "2026-05-27T06:10:09.131Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "uva-di-gatto-1777367850796": {
     "specie": "uva-di-gatto",
@@ -67,7 +95,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "zinnia-1777367970648": {
     "specie": "zinnia",
@@ -85,7 +117,11 @@
         "filename": "1779862122110_1000166734.jpg",
         "date": "2026-05-27T06:08:42.067Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "zinnia-1777367970649": {
     "specie": "zinnia",
@@ -99,7 +135,11 @@
         "filename": "1779862153863_1000166732.jpg",
         "date": "2026-05-27T06:09:13.795Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "zinnia-1777367970650": {
     "specie": "zinnia",
@@ -113,7 +153,11 @@
         "filename": "1779862162092_1000166733.jpg",
         "date": "2026-05-27T06:09:20.787Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "arancio-navel-1777368187352": {
     "specie": "arancio-navel",
@@ -127,7 +171,11 @@
         "filename": "1779421858187_1000159873.jpg",
         "date": "2026-05-22T03:50:58.121Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "prunus-taoflora-1777368271371": {
     "specie": "prunus-taoflora",
@@ -141,7 +189,11 @@
         "filename": "1779422123496_1000164436.jpg",
         "date": "2026-05-22T03:55:23.425Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "scilla-marittima-1777368528461": {
     "specie": "scilla-marittima",
@@ -149,7 +201,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "",
-    "note": "Primo di tre bulbi, il più sano. Messo a dimora una decina di anni fa."
+    "note": "Primo di tre bulbi, il più sano. Messo a dimora una decina di anni fa.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "scilla-marittima-1777368917100": {
     "specie": "scilla-marittima",
@@ -157,7 +213,11 @@
     "sottozona": null,
     "varieta": "",
     "impianto": "",
-    "note": "Terzo di tre bulbi, messo a dimora una decina di anni fa. Quest'anno aveva sviluppato molte foglie, ma è stato danneggiato accidentalmente. È comunque ancora in salute."
+    "note": "Terzo di tre bulbi, messo a dimora una decina di anni fa. Quest'anno aveva sviluppato molte foglie, ma è stato danneggiato accidentalmente. È comunque ancora in salute.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "timo-serpillo-1777369172155": {
     "specie": "timo-serpillo",
@@ -171,7 +231,11 @@
         "filename": "1779422170948_1000159946.jpg",
         "date": "2026-05-22T03:56:10.889Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "orchidea-1777369350942": {
     "specie": "orchidea",
@@ -191,7 +255,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "",
-    "note": "A Casa da circa estate/autunno 2025, non ricordo la data esatta.\nLa pianta è cresciuta molto, ma ha prodotto dei rami molto lunghi e le foglie all'estremità sono molto piccole.\nAd aprile 2026 ha attirato molti moscerini. In fase di intervento."
+    "note": "A Casa da circa estate/autunno 2025, non ricordo la data esatta.\nLa pianta è cresciuta molto, ma ha prodotto dei rami molto lunghi e le foglie all'estremità sono molto piccole.\nAd aprile 2026 ha attirato molti moscerini. In fase di intervento.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "fragola-rifiorente-1777369695599": {
     "specie": "fragola-rifiorente",
@@ -199,7 +267,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "2026-04-10",
-    "note": "Acquistata in vivaio.\nÈ in un grande vaso nel terrazzo della cucina, esposta a nord/ovest.\nAd aprile 2026 ha diversi fiori, i frutti sembrano faticare a maturare.\nAttendo che superi la fase di trapianto per valutare interventi."
+    "note": "Acquistata in vivaio.\nÈ in un grande vaso nel terrazzo della cucina, esposta a nord/ovest.\nAd aprile 2026 ha diversi fiori, i frutti sembrano faticare a maturare.\nAttendo che superi la fase di trapianto per valutare interventi.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "salvia-1777369833635": {
     "specie": "salvia",
@@ -207,7 +279,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "2026-04-17",
-    "note": "Acquistata al Conad. Il vaso è esposto ad ovest sulla finestra della cucina insieme ad altre piante aromatiche."
+    "note": "Acquistata al Conad. Il vaso è esposto ad ovest sulla finestra della cucina insieme ad altre piante aromatiche.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "anthurium-1777370314662": {
     "specie": "anthurium",
@@ -217,7 +293,8 @@
     "impianto": "2025-02-22",
     "note": "Ricevuta in regalo, è stata travasata in un vaso più grande. Ora è in soggiorno, accanto alla finestra del terrazzo, prende il sole il pomeriggio. Le foglie sono molto grandi, ad aprile 2026 ha ricominciato a fiorire.",
     "ultima_cura": {
-      "irrigazione": "2026-07-15"
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
     }
   },
   "calancola-1777370622068": {
@@ -226,7 +303,11 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": "Pianta acquistata in vaso, è stata in giardino (scivolo) per molto tempo, da aprile 2026 l'ho spostata sul terrazzo del soggiorno e ha iniziato a fiorire."
+    "note": "Pianta acquistata in vaso, è stata in giardino (scivolo) per molto tempo, da aprile 2026 l'ho spostata sul terrazzo del soggiorno e ha iniziato a fiorire.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "ficus-ginseng-1777370883256": {
     "specie": "ficus-ginseng",
@@ -234,7 +315,11 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "",
-    "note": "Acquistato alla Coop, durante la primavera 2025.\nLa pianta è stabile, non cresce, ma non soffre.\nÈ in vaso, sulla libreria del soggiorno."
+    "note": "Acquistato alla Coop, durante la primavera 2025.\nLa pianta è stabile, non cresce, ma non soffre.\nÈ in vaso, sulla libreria del soggiorno.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "mammillaria-piumosa-1777370930591": {
     "specie": "mammillaria-piumosa",
@@ -242,7 +327,11 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "",
-    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso."
+    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "pothos-1777371125844": {
     "specie": "pothos",
@@ -250,7 +339,11 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "",
-    "note": "Ricavata talea dalla pianta nella scalinata, vaso in acqua sulla libreria del soggiorno."
+    "note": "Ricavata talea dalla pianta nella scalinata, vaso in acqua sulla libreria del soggiorno.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "pothos-1777371141028": {
     "specie": "pothos",
@@ -258,7 +351,11 @@
     "sottozona": "Scalinata",
     "varieta": "",
     "impianto": "2025-06-02",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "cactus-ago-di-eva-monstroso-1777371216196": {
     "specie": "cactus-ago-di-eva-monstroso",
@@ -266,7 +363,11 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "",
-    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso."
+    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "mammillaria-allungata-1777371474735": {
     "specie": "mammillaria-allungata",
@@ -274,7 +375,11 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "",
-    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso."
+    "note": "Pianta sofferente, terreno troppo drenante e freddo intenso.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "carex-1777371678589": {
     "specie": "carex",
@@ -282,7 +387,11 @@
     "sottozona": "Lato Destro",
     "varieta": "oshimensis ‘Evergold’",
     "impianto": "2026-03-03",
-    "note": "Messa a dimora nell'estremità est"
+    "note": "Messa a dimora nell'estremità est",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "glechoma-hederacea-1777371821092": {
     "specie": "glechoma-hederacea",
@@ -290,7 +399,11 @@
     "sottozona": "Lato Destro",
     "varieta": "variegata",
     "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
+    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "glechoma-hederacea-1777371826508": {
     "specie": "glechoma-hederacea",
@@ -298,7 +411,11 @@
     "sottozona": "Lato Destro",
     "varieta": "variegata",
     "impianto": "2026-03-21",
-    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto."
+    "note": "Messa a dimora nell'area centrale/ovest dello scivolo. Ha ottimamente superato il trapianto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "iris-spontaneo-1777372009645": {
     "specie": "iris-spontaneo",
@@ -306,7 +423,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": "Non ha mai fiorito da quando l'ho acquistata.\n\nAggiornamento: ha fiorito a maggio 2026"
+    "note": "Non ha mai fiorito da quando l'ho acquistata.\n\nAggiornamento: ha fiorito a maggio 2026",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "iris-spontaneo-1777372021612": {
     "specie": "iris-spontaneo",
@@ -314,7 +435,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": "Non ha mai fiorito da quando l'ho acquistata."
+    "note": "Non ha mai fiorito da quando l'ho acquistata.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "iris-spontaneo-1777372029779": {
     "specie": "iris-spontaneo",
@@ -322,7 +447,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": "Non ha mai fiorito da quando l'ho acquistata."
+    "note": "Non ha mai fiorito da quando l'ho acquistata.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "marsilea-quadrifolia-1777372125348": {
     "specie": "marsilea-quadrifolia",
@@ -330,7 +459,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2925-09-21",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "marsilea-quadrifolia-1777372130014": {
     "specie": "marsilea-quadrifolia",
@@ -338,7 +471,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "marsilea-quadrifolia-1777372140848": {
     "specie": "marsilea-quadrifolia",
@@ -346,7 +483,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "pennisetum-cinese-1777374111987": {
     "specie": "pennisetum-cinese",
@@ -354,7 +495,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-23",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "salcerella-1777374227256": {
     "specie": "salcerella",
@@ -362,7 +507,11 @@
     "sottozona": "Lato Destro",
     "varieta": "",
     "impianto": "2025-09-21",
-    "note": "La pianta è stata pesantemente potata. \nNon ha mai fiorito da quando l'ho comprata.\nSembrava stesse morendo durante l'inverno 2025/2026.\nAd aprile 2026 sta ricominciando a germogliare."
+    "note": "La pianta è stata pesantemente potata. \nNon ha mai fiorito da quando l'ho comprata.\nSembrava stesse morendo durante l'inverno 2025/2026.\nAd aprile 2026 sta ricominciando a germogliare.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "mesembriantemo-1777374488562": {
     "specie": "mesembriantemo",
@@ -370,7 +519,11 @@
     "sottozona": "Lato Frontale",
     "varieta": "Fiori arancioni",
     "impianto": "",
-    "note": "Pianta presente da moltissimi anni, circa dal 2016. Non godono di un ottimo aspetto, probabilmente a causa del freddo invernale, ma rifiorisce ogni anno.\nÈ in vaso. Il fusto è molto sottile e secco e ricoperto di muschio."
+    "note": "Pianta presente da moltissimi anni, circa dal 2016. Non godono di un ottimo aspetto, probabilmente a causa del freddo invernale, ma rifiorisce ogni anno.\nÈ in vaso. Il fusto è molto sottile e secco e ricoperto di muschio.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "mesembriantemo-1777374488563": {
     "specie": "mesembriantemo",
@@ -378,7 +531,11 @@
     "sottozona": "Lato Frontale",
     "varieta": "Fiori fucsia",
     "impianto": "",
-    "note": "Pianta presente da moltissimi anni, circa dal 2016. Non godono di un ottimo aspetto, probabilmente a causa del freddo invernale, ma rifiorisce ogni anno.\nÈ in vaso. Il fusto è molto sottile e secco e ricoperto di muschio."
+    "note": "Pianta presente da moltissimi anni, circa dal 2016. Non godono di un ottimo aspetto, probabilmente a causa del freddo invernale, ma rifiorisce ogni anno.\nÈ in vaso. Il fusto è molto sottile e secco e ricoperto di muschio.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "allium-sphaerocephalon-1777374758167": {
     "specie": "allium-sphaerocephalon",
@@ -386,7 +543,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-07-03",
-    "note": "Non ha mai fiorito, ma ha prodotto nuovi bulbi. \nAttendo fioritura per il 2026"
+    "note": "Non ha mai fiorito, ma ha prodotto nuovi bulbi. \nAttendo fioritura per il 2026",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "erica-1777374845935": {
     "specie": "erica",
@@ -400,7 +561,11 @@
         "filename": "1779862176803_1000166728.jpg",
         "date": "2026-05-27T06:09:33.111Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "heuchera-1777374979071": {
     "specie": "heuchera",
@@ -408,7 +573,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "Mulberry",
     "impianto": "2025-07-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "heuchera-1777374996905": {
     "specie": "heuchera",
@@ -416,7 +585,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "Indian Summer Boysenberry",
     "impianto": "2025-07-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "osteospermum-1777375208726": {
     "specie": "osteospermum",
@@ -424,7 +597,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "margherita-delle-canarie-1777375185959": {
     "specie": "margherita-delle-canarie",
@@ -432,7 +609,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "",
-    "note": "Pianta presente da diversi anni, è cresciuta moltissimo, lignificando durante l'inverno 2026."
+    "note": "Pianta presente da diversi anni, è cresciuta moltissimo, lignificando durante l'inverno 2026.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "centaurea-ragusina-1777375525082": {
     "specie": "centaurea-ragusina",
@@ -440,7 +621,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-09-23",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "garofano-1777375626451": {
     "specie": "garofano",
@@ -448,7 +633,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "garofano-1777375655252": {
     "specie": "garofano",
@@ -456,7 +645,11 @@
     "sottozona": "Ringhiera",
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1777375809738": {
     "specie": "sedum-acre",
@@ -470,7 +663,11 @@
         "filename": "1779862595719_1000166668.jpg",
         "date": "2026-05-27T06:16:35.623Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1777375809739": {
     "specie": "sedum-acre",
@@ -484,7 +681,11 @@
         "filename": "1779862602157_1000166669.jpg",
         "date": "2026-05-27T06:16:42.111Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1777375809740": {
     "specie": "sedum-acre",
@@ -498,7 +699,11 @@
         "filename": "1779862879645_1000166670.jpg",
         "date": "2026-05-27T06:16:51.279Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1777375809741": {
     "specie": "sedum-acre",
@@ -512,7 +717,11 @@
         "filename": "1779862895912_1000166671.jpg",
         "date": "2026-05-27T06:16:58.667Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1777375809742": {
     "specie": "sedum-acre",
@@ -526,7 +735,11 @@
         "filename": "1779862910490_1000166672.jpg",
         "date": "2026-05-27T06:17:05.039Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1777375809743": {
     "specie": "sedum-acre",
@@ -540,7 +753,11 @@
         "filename": "1779862928372_1000166673.jpg",
         "date": "2026-05-27T06:17:15.903Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "violaciocca-1777375944007": {
     "specie": "violaciocca",
@@ -548,7 +765,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-09-15",
-    "note": "Pianta cresciuta a dismisura da alcuni semini.\nNecessita potatura e contenimento."
+    "note": "Pianta cresciuta a dismisura da alcuni semini.\nNecessita potatura e contenimento.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "alisso-1777383914130": {
     "specie": "alisso",
@@ -556,7 +777,11 @@
     "sottozona": "Ringhiera",
     "varieta": "Fucsia",
     "impianto": "2026-04-15",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "alisso-1777384242450": {
     "specie": "alisso",
@@ -564,7 +789,11 @@
     "sottozona": "Ringhiera",
     "varieta": "rosa",
     "impianto": "2026-04-15",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "alisso-1777384355125": {
     "specie": "alisso",
@@ -572,7 +801,11 @@
     "sottozona": "Fioriere",
     "varieta": "Rosa",
     "impianto": "2026-04-15",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "fico-di-mare-1777384451612": {
     "specie": "fico-di-mare",
@@ -586,7 +819,11 @@
         "filename": "1779193441957_IMG-20260513-WA0025.jpeg",
         "date": "2026-05-19T12:17:57.288Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "gerani-1777384587172": {
     "specie": "gerani",
@@ -594,7 +831,11 @@
     "sottozona": "Ringhiera",
     "varieta": "",
     "impianto": "",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "cuphea-1777384757383": {
     "specie": "cuphea",
@@ -602,7 +843,11 @@
     "sottozona": "Ringhiera",
     "varieta": "rossa",
     "impianto": "2025-06-05",
-    "note": "Rinata dopo l'inverno a marzo/aprile 2026 nonostante la gelata"
+    "note": "Rinata dopo l'inverno a marzo/aprile 2026 nonostante la gelata",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "gerani-1777467070630": {
     "specie": "gerani",
@@ -610,7 +855,11 @@
     "sottozona": "Fioriere",
     "varieta": "",
     "impianto": "",
-    "note": "I gerani in realtà sono molti, alcuni presenti da due anni, altri da poco."
+    "note": "I gerani in realtà sono molti, alcuni presenti da due anni, altri da poco.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "pianta-delle-monete-1777976593937": {
     "specie": "pianta-delle-monete",
@@ -618,7 +867,11 @@
     "sottozona": "Bagni",
     "varieta": "",
     "impianto": "2026-03-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "peperoncino-1777978449541": {
     "specie": "peperoncino",
@@ -626,7 +879,11 @@
     "sottozona": "Cucina",
     "varieta": "Piccante calabrese",
     "impianto": "2026-05-03",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "basilico-1777978871099": {
     "specie": "basilico",
@@ -634,7 +891,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "timo-serpillo-1777978958251": {
     "specie": "timo-serpillo",
@@ -642,7 +903,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "erba-cipollina-1778052974074": {
     "specie": "erba-cipollina",
@@ -650,7 +915,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "",
-    "note": "Ricevuta in regalo in autunno/inverno 2025, ha fiorito ad aprile/maggio 2026"
+    "note": "Ricevuta in regalo in autunno/inverno 2025, ha fiorito ad aprile/maggio 2026",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "prezzemolo-1778053056632": {
     "specie": "prezzemolo",
@@ -658,7 +927,11 @@
     "sottozona": "Cucina",
     "varieta": "",
     "impianto": "",
-    "note": "Ricevuta in regalo in autunno/inverno 2025, è poco florida ma in salute"
+    "note": "Ricevuta in regalo in autunno/inverno 2025, è poco florida ma in salute",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "aquilegia-1778053172271": {
     "specie": "aquilegia",
@@ -666,7 +939,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-06-02",
-    "note": "1/3"
+    "note": "1/3",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "aquilegia-1778053352918": {
     "specie": "aquilegia",
@@ -674,7 +951,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-06-02",
-    "note": "2/3"
+    "note": "2/3",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "aquilegia-1778053389888": {
     "specie": "aquilegia",
@@ -682,7 +963,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-06-02",
-    "note": "3/3"
+    "note": "3/3",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1778053639949": {
     "specie": "sedum-spurium",
@@ -690,7 +975,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "Tricolor",
     "impianto": "2025-07-04",
-    "note": "1/3"
+    "note": "1/3",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1778053693627": {
     "specie": "sedum-spurium",
@@ -698,7 +987,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "Tricolor",
     "impianto": "2025-07-04",
-    "note": "2/3"
+    "note": "2/3",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "sedum-spurium-1778053720562": {
     "specie": "sedum-spurium",
@@ -706,7 +999,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "Tricolor",
     "impianto": "2025-07-04",
-    "note": "3/3"
+    "note": "3/3",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "verbena-1778054686199": {
     "specie": "verbena",
@@ -714,7 +1011,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "",
     "impianto": "2025-07-18",
-    "note": "radicato con fatica, a maggio 2026 ha ripreso a crescere"
+    "note": "radicato con fatica, a maggio 2026 ha ripreso a crescere",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "echinacea-1778054793534": {
     "specie": "echinacea",
@@ -722,7 +1023,11 @@
     "sottozona": "Lato Sinistro",
     "varieta": "Meditation Pink",
     "impianto": "2025-07-04",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "orchidea-1778055260710": {
     "specie": "orchidea",
@@ -730,7 +1035,11 @@
     "sottozona": "Camera di Marta",
     "varieta": "Mini",
     "impianto": "2026-05-02",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "ulivo-1778057620941": {
     "specie": "ulivo",
@@ -738,7 +1047,11 @@
     "sottozona": "",
     "varieta": "",
     "impianto": "2021-08-05",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "gaura-1779190970541": {
     "specie": "gaura",
@@ -746,7 +1059,11 @@
     "sottozona": "",
     "varieta": "Rosa",
     "impianto": "2026-05-17",
-    "note": ""
+    "note": "",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "alloro-1779862848569": {
     "specie": "alloro",
@@ -760,7 +1077,11 @@
         "filename": "1779862861855_1000166726.jpg",
         "date": "2026-05-27T06:21:01.811Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   },
   "lucky-bamboo-1780521613886": {
     "specie": "lucky-bamboo",
@@ -774,6 +1095,10 @@
         "filename": "1780905419178_1000168348.jpg",
         "date": "2026-06-08T07:56:59.119Z"
       }
-    ]
+    ],
+    "ultima_cura": {
+      "irrigazione": "2026-07-15",
+      "concimazione": "2026-07-15"
+    }
   }
 }
