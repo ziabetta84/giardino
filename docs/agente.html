@@ -12,6 +12,7 @@ scripts: |
 <div class="agente-quick-actions">
   <button type="button" id="azione-oggi">📋 Cosa fare oggi</button>
   <button type="button" id="azione-salute">🩺 Valuta salute pianta</button>
+  <button type="button" id="azione-identifica">🔍 Identifica nuova specie</button>
 </div>
 
 <div id="salute-panel" class="card" style="display:none;">
@@ -29,6 +30,83 @@ scripts: |
   </label>
 
   <button type="button" id="salute-invia" class="save-btn">Invia per la valutazione</button>
+</div>
+
+<div id="identifica-panel" class="card" style="display:none;">
+  <h3>Identifica una nuova specie da una foto</h3>
+  <p class="field-hint">Carica una foto della pianta: l'assistente propone alcune specie candidate, tu scegli quella giusta (o ne indichi una tu), poi genera una bozza di scheda da rivedere e salvare nel database.</p>
+
+  <label for="identifica-foto-input">Foto</label>
+  <input type="file" id="identifica-foto-input" accept="image/*">
+  <div id="identifica-foto-preview"></div>
+
+  <button type="button" id="identifica-invia" class="save-btn">Identifica</button>
+
+  <div id="identifica-candidati"></div>
+
+  <div id="identifica-manuale" style="display:none;">
+    <label for="identifica-nome-manuale">Non è tra i suggerimenti? Indica tu il nome</label>
+    <div class="identifica-manuale-row">
+      <input type="text" id="identifica-nome-manuale" placeholder="es. Iberis sempervirens">
+      <button type="button" id="identifica-conferma-manuale">Usa questo nome</button>
+    </div>
+  </div>
+
+  <div id="specie-editor" style="display:none;">
+    <h3 id="specie-editor-title">Scheda specie (bozza generata dall'assistente)</h3>
+
+    <label>Nome comune</label>
+    <input id="specie-nome" type="text">
+
+    <label>Nome scientifico</label>
+    <input id="specie-specie" type="text">
+
+    <label>Descrizione (HTML)</label>
+    <textarea id="specie-descrizione" rows="4"></textarea>
+
+    <label>Luce</label>
+    <input id="specie-luce" type="text">
+
+    <label>Acqua</label>
+    <input id="specie-acqua" type="text">
+
+    <label>Terreno</label>
+    <input id="specie-terreno" type="text">
+
+    <label>Alert (uno per riga)</label>
+    <textarea id="specie-alert" rows="3"></textarea>
+
+    <h3>Manutenzione</h3>
+
+    <div class="tabs">
+      <button type="button" class="tab-btn active" data-tab="tab-irrig">Irrigazione</button>
+      <button type="button" class="tab-btn" data-tab="tab-conc">Concimazione</button>
+      <button type="button" class="tab-btn" data-tab="tab-pot">Potatura</button>
+    </div>
+
+    <div id="tab-irrig" class="tab-content active">
+      <label>Primavera <input id="man-irrig-primavera" type="text"></label>
+      <label>Estate <input id="man-irrig-estate" type="text"></label>
+      <label>Autunno <input id="man-irrig-autunno" type="text"></label>
+      <label>Inverno <input id="man-irrig-inverno" type="text"></label>
+    </div>
+
+    <div id="tab-conc" class="tab-content">
+      <label>Primavera <input id="man-conc-primavera" type="text"></label>
+      <label>Estate <input id="man-conc-estate" type="text"></label>
+      <label>Autunno <input id="man-conc-autunno" type="text"></label>
+      <label>Inverno <input id="man-conc-inverno" type="text"></label>
+    </div>
+
+    <div id="tab-pot" class="tab-content">
+      <label>Primavera <input id="man-pot-primavera" type="text"></label>
+      <label>Estate <input id="man-pot-estate" type="text"></label>
+      <label>Autunno <input id="man-pot-autunno" type="text"></label>
+      <label>Inverno <input id="man-pot-inverno" type="text"></label>
+    </div>
+
+    <button type="button" id="salva-specie-btn" class="save-btn">💾 Salva nel database specie</button>
+  </div>
 </div>
 
 <div id="chat-window" class="chat-window"></div>
