@@ -31,47 +31,43 @@ function appendBubble(role, text) {
 // le foto da smartphone spesso superano i 5-15MB, ben oltre quanto serve
 // per l'analisi visiva (Claude ridimensiona comunque le immagini oltre
 // ~1568px sul lato lungo) e oltre i limiti pratici di dimensione richiesta.
-function resizeImageForAgente(file, maxDim = 1568, quality = 0.85) {
+//
+// Usa createImageBitmap invece di <img>.onload: quest'ultimo è un evento DOM
+// asincrono che alcuni browser (Firefox in modalità anti-fingerprinting) non
+// associano più al click originale, bloccando la lettura del canvas con
+// "extracting canvas data because no user input was detected". Con
+// createImageBitmap l'intera pipeline resta una singola catena di await
+// avviata direttamente dal gestore del click.
+async function resizeImageForAgente(file, maxDim = 1568, quality = 0.85) {
+  const bitmap = await createImageBitmap(file);
+
+  let { width, height } = bitmap;
+  if (width > maxDim || height > maxDim) {
+    const scale = maxDim / Math.max(width, height);
+    width = Math.round(width * scale);
+    height = Math.round(height * scale);
+  }
+
+  const canvas = document.createElement("canvas");
+  canvas.width = width;
+  canvas.height = height;
+  canvas.getContext("2d").drawImage(bitmap, 0, 0, width, height);
+  bitmap.close();
+
   return new Promise((resolve, reject) => {
-    const img = new Image();
-    const objectUrl = URL.createObjectURL(file);
-
-    img.onload = () => {
-      URL.revokeObjectURL(objectUrl);
-
-      let { width, height } = img;
-      if (width > maxDim || height > maxDim) {
-        const scale = maxDim / Math.max(width, height);
-        width = Math.round(width * scale);
-        height = Math.round(height * scale);
+    canvas.toBlob(blob => {
+      if (!blob) {
+        reject(new Error("Impossibile comprimere la foto."));
+        return;
       }
-
-      const canvas = document.createElement("canvas");
-      canvas.width = width;
-      canvas.height = height;
-      canvas.getContext("2d").drawImage(img, 0, 0, width, height);
-
-      canvas.toBlob(blob => {
-        if (!blob) {
-          reject(new Error("Impossibile comprimere la foto."));
-          return;
-        }
-        const reader = new FileReader();
-        reader.onerror = () => reject(new Error("Errore nella lettura della foto compressa."));
-        reader.onload = () => resolve({
-          mediaType: "image/jpeg",
-          data: (reader.result || "").split(",")[1] || ""
-        });
-        reader.readAsDataURL(blob);
-      }, "image/jpeg", quality);
-    };
-
-    img.onerror = () => {
-      URL.revokeObjectURL(objectUrl);
-      reject(new Error("Impossibile leggere la foto selezionata."));
-    };
-
-    img.src = objectUrl;
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error("Errore nella lettura della foto compressa."));
+      reader.onload = () => resolve({
+        mediaType: "image/jpeg",
+        data: (reader.result || "").split(",")[1] || ""
+      });
+      reader.readAsDataURL(blob);
+    }, "image/jpeg", quality);
   });
 }
 
