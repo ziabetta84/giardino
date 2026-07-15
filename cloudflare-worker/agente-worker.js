@@ -118,7 +118,9 @@ async function chat({ message, context, history, image, env }) {
   if (!anthropicRes.ok) {
     const errText = await anthropicRes.text();
     console.error("Errore Anthropic:", anthropicRes.status, errText);
-    return jsonResponse({ error: "Errore nella chiamata al modello." }, 502);
+    // Il dettaglio vero arriva fino alla chat: comodo per un'app a uso
+    // personale, evita di dover andare a cercare nei log del Worker.
+    return jsonResponse({ error: `Errore Anthropic (${anthropicRes.status}): ${errText.slice(0, 300)}` }, 502);
   }
 
   const data = await anthropicRes.json();
@@ -161,7 +163,7 @@ async function callAnthropicTool({ env, systemPrompt, userContent, tool }) {
   if (!res.ok) {
     const errText = await res.text();
     console.error("Errore Anthropic (tool-use):", res.status, errText);
-    throw new Error("Errore nella chiamata al modello.");
+    throw new Error(`Errore Anthropic (${res.status}): ${errText.slice(0, 300)}`);
   }
 
   const data = await res.json();
