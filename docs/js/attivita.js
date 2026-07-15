@@ -104,13 +104,28 @@ document.addEventListener("DOMContentLoaded", async () => {
           alert("Devi effettuare il login per registrare una cura.");
           return;
         }
-        const id = btn.dataset.id;
-        const tipo = btn.dataset.tipo;
-        const piante = await loadJSON("piante.json");
-        piante[id].ultima_cura = { ...(piante[id].ultima_cura || {}), [tipo]: new Date().toISOString().slice(0, 10) };
-        notifySaving();
-        const ok = await saveJSON("piante.json", piante);
-        if (ok) location.reload();
+
+        const prevText = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = "⏳ Salvataggio...";
+
+        try {
+          const id = btn.dataset.id;
+          const tipo = btn.dataset.tipo;
+          const pianteAggiornate = await loadJSON("piante.json");
+          if (!pianteAggiornate || !pianteAggiornate[id]) {
+            throw new Error("Pianta non trovata (dati non aggiornati?).");
+          }
+          pianteAggiornate[id].ultima_cura = { ...(pianteAggiornate[id].ultima_cura || {}), [tipo]: new Date().toISOString().slice(0, 10) };
+          notifySaving();
+          const ok = await saveJSON("piante.json", pianteAggiornate);
+          if (!ok) throw new Error("Salvataggio non riuscito. Controlla di essere ancora loggato e riprova.");
+          location.reload();
+        } catch (err) {
+          alert(`Errore: ${err.message}`);
+          btn.disabled = false;
+          btn.textContent = prevText;
+        }
       };
     });
   }

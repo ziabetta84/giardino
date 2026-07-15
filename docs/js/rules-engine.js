@@ -43,16 +43,25 @@ function parseFrequency(text) {
 
 // Recupera dati meteo (ultime 48h + oggi) per le soglie del motore regole.
 // Query separata da js/meteo.js: qui servono past_days e variabili diverse
-// (probabilità pioggia, vento, umidità) non usate dalla card meteo.
+// (probabilità pioggia, vento) non usate dalla card meteo.
+//
+// Nota: "relative_humidity_2m_max" NON è una variabile giornaliera valida per
+// l'API Open-Meteo (l'umidità è disponibile solo a risoluzione oraria). Se
+// inclusa, l'intera richiesta "daily" viene rifiutata (400) e fetchMeteoPerRegole
+// ritorna sempre null — per questo l'alert "rischio muffe" non è più calcolato.
 async function fetchMeteoPerRegole(lat, lon) {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
-    `&daily=precipitation_sum,precipitation_probability_max,temperature_2m_min,temperature_2m_max,windspeed_10m_max,relative_humidity_2m_max` +
+    `&daily=precipitation_sum,precipitation_probability_max,temperature_2m_min,temperature_2m_max,windspeed_10m_max` +
     `&past_days=2&forecast_days=1&timezone=auto`;
 
   try {
     const res = await fetch(url);
     const data = await res.json();
-    if (!data.daily || !data.daily.time) return null;
+
+    if (!res.ok || !data.daily || !data.daily.time) {
+      console.error("Errore meteo regole:", res.status, data.reason || data);
+      return null;
+    }
 
     const d = data.daily;
     const iOggi = d.time.length - 1;
@@ -63,8 +72,7 @@ async function fetchMeteoPerRegole(lat, lon) {
       probPioggiaOggi: d.precipitation_probability_max?.[iOggi] ?? 0,
       tempMinOggi: d.temperature_2m_min[iOggi],
       tempMaxOggi: d.temperature_2m_max[iOggi],
-      ventoMaxOggi: d.windspeed_10m_max?.[iOggi] ?? 0,
-      umiditaMaxOggi: d.relative_humidity_2m_max?.[iOggi] ?? 0
+      ventoMaxOggi: d.windspeed_10m_max?.[iOggi] ?? 0
     };
   } catch (e) {
     console.error("Errore fetch meteo regole:", e);
@@ -122,7 +130,6 @@ function alertMeteo(meteo) {
   if (meteo.pioggia48h > 20) alerts.push("⚠️ Rischio ristagno idrico (pioggia abbondante nelle ultime 48h)");
   if (meteo.tempMinOggi < 3) alerts.push("❄️ Rischio gelo (temperatura minima sotto i 3°C)");
   if (meteo.ventoMaxOggi > 40) alerts.push("💨 Rischio danni da vento forte");
-  if (meteo.umiditaMaxOggi > 90) alerts.push("🍄 Rischio muffe/funghi (umidità molto alta)");
   return alerts;
 }
 
