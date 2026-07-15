@@ -5,6 +5,13 @@ function getParam(name) {
   return params.get(name);
 }
 
+const STAGIONI = ["primavera", "estate", "autunno", "inverno"];
+const CURE = [
+  { tipo: "irrigazione", label: "Irrigazione", icon: "💧" },
+  { tipo: "concimazione", label: "Concimazione", icon: "🌱" },
+  { tipo: "potatura", label: "Potatura", icon: "✂️" }
+];
+
 document.addEventListener("DOMContentLoaded", async () => {
   const id = getParam("id");
 
@@ -18,7 +25,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Carica tutte le piante
   const piante = await loadJSON("piante.json");
 
   if (!piante || !piante[id]) {
@@ -26,60 +32,112 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  const p = piante[id];
+  const [specieData, zoneData, sottozoneData, settings] = await Promise.all([
+    loadJSON("specie.json"),
+    loadJSON("zone.json"),
+    loadJSON("sottozone.json"),
+    loadJSON("settings.json")
+  ]);
 
+  const p = piante[id];
+  const specie = specieData?.[p.specie];
+  const zonaInfo = zoneData?.[p.zona];
+
+  let meteo = null;
+  if (settings?.location) {
+    meteo = await fetchMeteoPerRegole(settings.location.lat, settings.location.lon);
+  }
+
+  // -----------------------------
   // Titolo
-  header.textContent = p.specie || id;
+  // -----------------------------
+  header.textContent = specie?.nome || p.specie || id;
 
   // -----------------------------
   // 1) INFO GENERALI
   // -----------------------------
   infoContainer.innerHTML = `
     <div class="info-block">
-      <p><strong>Specie:</strong> ${p.specie || "-"}</p>
+      <p><strong>Specie:</strong> ${specie?.nome || p.specie || "-"}</p>
       <p><strong>Zona:</strong> ${p.zona || "-"}</p>
       <p><strong>Sottozona:</strong> ${p.sottozona || "-"}</p>
+      ${p.varieta ? `<p><strong>Varietà:</strong> ${p.varieta}</p>` : ""}
+      ${p.impianto ? `<p><strong>Impianto:</strong> ${p.impianto}</p>` : ""}
+      ${p.note ? `<p><strong>Note:</strong> ${p.note}</p>` : ""}
     </div>
   `;
 
   // -----------------------------
   // 2) ATTIVITÀ (irrigazione, concimazione, potatura)
   // -----------------------------
-  const a = p.attivita || {};
+  if (!specie) {
+    attivitaContainer.innerHTML = "<p>Specie non trovata: nessuna indicazione di cura disponibile.</p>";
+  } else {
+    attivitaContainer.innerHTML = CURE.map(({ tipo, label, icon }) => {
+      const stagioneTabs = STAGIONI.map(s => `
+        <li><strong>${s.charAt(0).toUpperCase() + s.slice(1)}:</strong> ${specie.manutenzione?.[tipo]?.[s] || "-"}</li>
+      `).join("");
 
-  attivitaContainer.innerHTML = `
-    <h3>Irrigazione</h3>
-    <ul>
-      <li><strong>Primavera:</strong> ${a.irrigazione?.primavera || "-"}</li>
-      <li><strong>Estate:</strong> ${a.irrigazione?.estate || "-"}</li>
-      <li><strong>Autunno:</strong> ${a.irrigazione?.autunno || "-"}</li>
-      <li><strong>Inverno:</strong> ${a.irrigazione?.inverno || "-"}</li>
-    </ul>
+      let stato;
+      if (tipo === "potatura") {
+        // La potatura è un suggerimento stagionale con priorità, non una soglia a giorni.
+        const { priorita } = valutaPotatura(specie);
+        if (priorita === 0) {
+          stato = `<span class="cura-badge cura-badge-off">nessuna azione richiesta</span>`;
+        } else if (priorita === 1) {
+          stato = `<span class="cura-badge cura-badge-due">priorità alta</span>`;
+        } else {
+          stato = `<span class="cura-badge cura-badge-ok">priorità normale</span>`;
+        }
+      } else {
+        const esito = valutaCura(p, specie, zonaInfo, meteo, tipo);
+        if (esito.motivo === "sospesa") {
+          stato = `<span class="cura-badge cura-badge-off">sospesa in questa stagione</span>`;
+        } else if (esito.daFare) {
+          stato = `<span class="cura-badge cura-badge-due">da fare (${esito.giorni} giorni)</span>`;
+        } else {
+          stato = `<span class="cura-badge cura-badge-ok">${esito.motivo === "recente" ? `fatta ${esito.giorni} giorni fa` : esito.motivo}</span>`;
+        }
+      }
 
-    <h3>Concimazione</h3>
-    <ul>
-      <li><strong>Primavera:</strong> ${a.concimazione?.primavera || "-"}</li>
-      <li><strong>Estate:</strong> ${a.concimazione?.estate || "-"}</li>
-      <li><strong>Autunno:</strong> ${a.concimazione?.autunno || "-"}</li>
-      <li><strong>Inverno:</strong> ${a.concimazione?.inverno || "-"}</li>
-    </ul>
+      return `
+        <div class="cura-item">
+          <h3>${icon} ${label} ${stato}</h3>
+          <ul>${stagioneTabs}</ul>
+          <button type="button" class="btn-fatto" data-tipo="${tipo}">✅ Fatto oggi</button>
+        </div>
+      `;
+    }).join("");
 
-    <h3>Potatura</h3>
-    <ul>
-      <li><strong>Primavera:</strong> ${a.potatura?.primavera || "-"}</li>
-      <li><strong>Estate:</strong> ${a.potatura?.estate || "-"}</li>
-      <li><strong>Autunno:</strong> ${a.potatura?.autunno || "-"}</li>
-      <li><strong>Inverno:</strong> ${a.potatura?.inverno || "-"}</li>
-    </ul>
-  `;
+    attivitaContainer.querySelectorAll(".btn-fatto").forEach(btn => {
+      btn.onclick = async () => {
+        const token = localStorage.getItem("github_token");
+        if (!token) {
+          alert("Devi effettuare il login per registrare una cura.");
+          return;
+        }
+        const tipo = btn.dataset.tipo;
+        p.ultima_cura = { ...(p.ultima_cura || {}), [tipo]: new Date().toISOString().slice(0, 10) };
+        piante[id] = p;
+        const ok = await saveJSON("piante.json", piante);
+        if (ok) location.reload();
+      };
+    });
+  }
 
   // -----------------------------
-  // 3) ALERT (HTML libero)
+  // 3) ALERT (statici da specie + dinamici da meteo)
   // -----------------------------
-  alertContainer.innerHTML = p.alert || "<p>Nessun alert.</p>";
+  const alertStatici = specie?.alert || [];
+  const alertDinamici = alertMeteo(meteo);
+  const tuttiAlert = [...alertStatici, ...alertDinamici];
+
+  alertContainer.innerHTML = tuttiAlert.length
+    ? `<ul>${tuttiAlert.map(a => `<li>${a}</li>`).join("")}</ul>`
+    : "<p>Nessun alert.</p>";
 
   // -----------------------------
-  // 4) Pulsante Modifica
+  // 4) Pulsanti azione
   // -----------------------------
   const btn = document.getElementById("modifica-pianta");
   btn.onclick = () => {
@@ -90,4 +148,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
     window.location.href = `edit-pianta.html?id=${encodeURIComponent(id)}`;
   };
+
+  const agenteLink = document.getElementById("agente-pianta-link");
+  agenteLink.href = `agente.html?pianta=${encodeURIComponent(id)}&azione=salute`;
 });

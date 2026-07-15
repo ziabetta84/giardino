@@ -247,7 +247,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     // ---------------------------------------
     // SALVA PIANTA
     // ---------------------------------------
+    // Parte dal record esistente per non perdere campi non gestiti da questo
+    // form (es. "foto" caricate dalla gallery, "ultima_cura" registrata da pianta.html).
     const data = {
+      ...(current || {}),
       specie: specieSel.value,
       zona: zonaSel.value,
       sottozona: document.getElementById("sottozona").value || "",
