@@ -1,0 +1,39 @@
+---
+layout: default
+title: "Il Giardino di Zorba - Assistente"
+scripts: |
+  <script src="js/agente.js"></script>
+---
+
+<h1>🤖 Assistente</h1>
+
+<p class="field-hint">L'assistente risponde usando i dati del giardino (zone, piante, progetti, meteo). Per la chat libera e la valutazione foto serve il login GitHub.</p>
+
+<div class="agente-quick-actions">
+  <button type="button" id="azione-oggi">📋 Cosa fare oggi</button>
+  <button type="button" id="azione-salute">🩺 Valuta salute pianta</button>
+</div>
+
+<div id="salute-panel" class="card" style="display:none;">
+  <h3>Valuta lo stato di salute di una pianta</h3>
+
+  <label for="salute-pianta-select">Pianta</label>
+  <select id="salute-pianta-select"></select>
+
+  <label for="salute-foto-input">Foto</label>
+  <input type="file" id="salute-foto-input" accept="image/*">
+  <div id="salute-foto-preview"></div>
+
+  <label class="checkbox-label">
+    <input type="checkbox" id="salute-salva-galleria"> Salva anche in galleria
+  </label>
+
+  <button type="button" id="salute-invia" class="save-btn">Invia per la valutazione</button>
+</div>
+
+<div id="chat-window" class="chat-window"></div>
+
+<form id="chat-form" class="inline-add-form">
+  <input type="text" id="chat-input" placeholder="Scrivi un messaggio...">
+  <button type="submit">Invia</button>
+</form>
