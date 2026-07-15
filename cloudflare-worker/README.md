@@ -43,9 +43,11 @@ esistente, non verrà deployato da qui.
   usato per leggere/scrivere `docs/data/*.json`) come `Authorization: Bearer`.
   Il Worker lo valida chiamando `GET https://api.github.com/user` prima di
   autorizzare la chiamata a pagamento verso Anthropic.
-- Le foto per la valutazione salute pianta sono limitate a 5MB lato client
-  (`docs/js/agente.js`); non serve una configurazione aggiuntiva sul Worker,
-  ma tienilo presente se cambi quel limite.
+- Le foto per la valutazione salute pianta vengono ridimensionate/compresse
+  lato client (`resizeImageForAgente` in `docs/js/agente.js`, max 1568px sul
+  lato lungo, JPEG qualità 0.85) prima dell'invio, così anche gli scatti da
+  smartphone (spesso 8-15MB) arrivano al Worker già leggeri; non serve alcuna
+  configurazione aggiuntiva sul Worker per gestirle.
 - Finché questo endpoint non è distribuito, `docs/agente.html` resta
   utilizzabile: l'azione "Cosa fare oggi" funziona comunque (non chiama il
   Worker), mentre chat libera e valutazione salute mostreranno un errore
