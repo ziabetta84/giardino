@@ -215,7 +215,10 @@
     "sottozona": "Soggiorno",
     "varieta": "",
     "impianto": "2025-02-22",
-    "note": "Ricevuta in regalo, è stata travasata in un vaso più grande. Ora è in soggiorno, accanto alla finestra del terrazzo, prende il sole il pomeriggio. Le foglie sono molto grandi, ad aprile 2026 ha ricominciato a fiorire."
+    "note": "Ricevuta in regalo, è stata travasata in un vaso più grande. Ora è in soggiorno, accanto alla finestra del terrazzo, prende il sole il pomeriggio. Le foglie sono molto grandi, ad aprile 2026 ha ricominciato a fiorire.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-15"
+    }
   },
   "calancola-1777370622068": {
     "specie": "calancola",
