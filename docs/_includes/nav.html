@@ -3,5 +3,17 @@
   <a href="meteo.html">⛅ Meteo</a>
   <a href="zone.html">📍 Zone</a>
   <a href="piante.html">🌿 Piante</a>
+  <a href="progetti.html">🗂️ Progetti</a>
+  <a href="attivita.html">🔔 Attività <span id="nav-badge-attivita" class="nav-badge" style="display:none;"></span></a>
+  <a href="agente.html">🤖 Assistente</a>
   <a href="gallery.html">🖼️ Gallery</a>
 </nav>
+<script>
+(function () {
+  var here = location.pathname.split("/").pop() || "index.html";
+  document.querySelectorAll(".topnav a").forEach(function (a) {
+    var href = a.getAttribute("href");
+    if (href === here) a.classList.add("active");
+  });
+})();
+</script>

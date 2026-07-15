@@ -1,0 +1,48 @@
+---
+layout: default
+title: "Il Giardino di Zorba - Modifica Progetto"
+scripts: |
+  <script src="js/edit-progetto.js"></script>
+---
+
+<h1 id="edit-title">Progetto</h1>
+
+<form id="edit-form">
+
+  <h2>Nome</h2>
+  <input id="nome" type="text" required>
+
+  <h2>Zona</h2>
+  <select id="zona">
+    <option value="">(nessuna, idea generale)</option>
+  </select>
+
+  <h2>Stato</h2>
+  <select id="stato">
+    <option value="idea">Idea</option>
+    <option value="pianificato">Pianificato</option>
+    <option value="in_corso">In corso</option>
+    <option value="completato">Completato</option>
+    <option value="archiviato">Archiviato</option>
+  </select>
+
+  <h2>Avanzamento (%)</h2>
+  <input id="avanzamento" type="number" min="0" max="100" value="0">
+
+  <h2>Obiettivo</h2>
+  <textarea id="obiettivo" rows="3"></textarea>
+
+  <h2>Condizioni</h2>
+  <p class="field-hint">Es. "assenza di pioggia", "temperatura &gt; 15°C", "giornata non troppo ventosa" — usate per valutare quando è il momento giusto per agire.</p>
+  <div id="condizioni-list" class="dynamic-list"></div>
+  <button type="button" id="add-condizione" class="add-row-btn">➕ Aggiungi condizione</button>
+
+  <h2>Task</h2>
+  <div id="task-list" class="dynamic-list"></div>
+  <button type="button" id="add-task" class="add-row-btn">➕ Aggiungi task</button>
+
+  <h2>Note</h2>
+  <textarea id="note" rows="4"></textarea>
+
+  <button type="submit">Salva</button>
+</form>
