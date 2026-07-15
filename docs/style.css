@@ -542,3 +542,374 @@ button.home-card {
     .btn-delete:hover {
       background: #c9302c;
     }
+
+/* --------------------------------------------------
+   NAV: badge conteggio e voce attiva
+-------------------------------------------------- */
+
+.topnav a.active {
+  background: var(--accent);
+  color: white;
+}
+
+.nav-badge {
+  display: inline-block;
+  background: #c0392b;
+  color: white;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 1px 7px;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* --------------------------------------------------
+   STATI VUOTI / SUGGERIMENTI
+-------------------------------------------------- */
+
+.empty-state {
+  text-align: center;
+  opacity: 0.75;
+  padding: 30px 15px;
+}
+
+.field-hint {
+  font-size: 0.85em;
+  opacity: 0.75;
+  margin-top: -6px;
+  margin-bottom: 10px;
+}
+
+/* --------------------------------------------------
+   PROGETTI
+-------------------------------------------------- */
+
+.progetti-filtri {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin: 15px 0;
+}
+
+.progetti-filtri select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.progetto-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progetto-title {
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.progetto-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.progetto-zona {
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+.progetto-btn-row {
+  margin-top: 5px;
+}
+
+.stato-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.8em;
+  font-weight: 700;
+  color: white;
+}
+
+.stato-idea { background: #7f8c8d; }
+.stato-pianificato { background: #2980b9; }
+.stato-in_corso { background: var(--accent); }
+.stato-completato { background: #16a085; }
+.stato-archiviato { background: #95a5a6; }
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--bg);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width .3s ease;
+}
+
+.dynamic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.dynamic-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dynamic-row input,
+.dynamic-row select {
+  margin: 0 !important;
+}
+
+.task-row {
+  flex-wrap: wrap;
+}
+
+.add-row-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.add-row-btn:hover {
+  background: #ccc;
+}
+
+.remove-row-btn {
+  background: transparent;
+  border: none;
+  color: #c0392b;
+  font-size: 1.1em;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.timeline {
+  list-style: none;
+  padding: 0;
+}
+
+.timeline li {
+  padding: 8px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.timeline li:last-child {
+  border-bottom: none;
+}
+
+.inline-add-form {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.inline-add-form input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.inline-add-form button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------
+   ATTIVITÀ / CURA PIANTE
+-------------------------------------------------- */
+
+.cura-item {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 0;
+}
+
+.cura-item:last-child {
+  border-bottom: none;
+}
+
+.cura-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.75em;
+  font-weight: 700;
+  color: white;
+  vertical-align: middle;
+}
+
+.cura-badge-due { background: #c0392b; }
+.cura-badge-ok { background: var(--accent); }
+.cura-badge-off { background: #95a5a6; }
+
+.btn-fatto {
+  margin-left: 10px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  cursor: pointer;
+  font-size: 0.85em;
+}
+
+.btn-fatto:hover {
+  background: #1f5f2e;
+}
+
+.pianta-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.pianta-actions button,
+.agente-link-btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.pianta-actions button:hover,
+.agente-link-btn:hover {
+  background: #1f5f2e;
+}
+
+.attivita-pianta-row {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.attivita-pianta-row:last-child {
+  border-bottom: none;
+}
+
+.attivita-azione {
+  padding-left: 15px;
+  margin-top: 4px;
+}
+
+.meteo-alert-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.digest-box {
+  background: var(--card-bg);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 1px 4px var(--card-shadow);
+  white-space: pre-wrap;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+  overflow-x: auto;
+}
+
+/* --------------------------------------------------
+   AGENTE AI
+-------------------------------------------------- */
+
+.agente-quick-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.agente-quick-actions button {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.agente-quick-actions button:hover {
+  background: #1f5f2e;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.salute-foto-thumb {
+  max-width: 200px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: block;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 150px;
+  max-height: 50vh;
+  overflow-y: auto;
+  padding: 15px;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px var(--card-shadow);
+  margin: 15px 0;
+}
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+.chat-bubble-user {
+  align-self: flex-end;
+  background: var(--accent);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-bubble-assistant {
+  align-self: flex-start;
+  background: var(--bg);
+  color: var(--fg);
+  border-bottom-left-radius: 4px;
+}
