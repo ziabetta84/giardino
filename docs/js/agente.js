@@ -36,13 +36,14 @@ function appendBubble(role, text) {
 
 // Ridimensiona/comprime la foto lato client prima di inviarla: le foto da
 // smartphone spesso superano i 5-15MB, ben oltre i limiti pratici di
-// dimensione di un commit. maxDim/quality sono più alti di quanto servisse
-// per il vecchio Worker (che li usava per stare sotto un limite di payload
+// dimensione di un commit. maxDim è più alto di quanto servisse per il
+// vecchio Worker (che lo usava per stare sotto un limite di payload
 // dell'API a pagamento): ora la foto viene letta direttamente da chi elabora
-// la coda, quindi conviene preservare più dettaglio possibile per non
-// penalizzare l'identificazione della specie (a scapito di file leggermente
-// più pesanti, comunque temporanei: vengono cancellati a elaborazione
-// completata).
+// la coda, quindi conviene preservare più risoluzione per non penalizzare
+// l'identificazione della specie. La qualità JPEG resta invece a 0.85: oltre
+// quella soglia il file cresce molto (spesso il doppio) per un guadagno
+// visivo quasi impercettibile, e le foto restano comunque nella cronologia
+// git anche dopo essere state rimosse dall'ultimo commit.
 //
 // Usa createImageBitmap invece di <img>.onload: quest'ultimo è un evento DOM
 // asincrono che alcuni browser (Firefox in modalità anti-fingerprinting) non
@@ -50,7 +51,7 @@ function appendBubble(role, text) {
 // "extracting canvas data because no user input was detected". Con
 // createImageBitmap l'intera pipeline resta una singola catena di await
 // avviata direttamente dal gestore del click.
-async function resizeImageForAgente(file, maxDim = 2048, quality = 0.92) {
+async function resizeImageForAgente(file, maxDim = 2048, quality = 0.85) {
   const bitmap = await createImageBitmap(file);
 
   let { width, height } = bitmap;
