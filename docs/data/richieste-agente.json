@@ -85,11 +85,13 @@
       ]
     },
     "speciesName": null,
-    "foto": "uploads/richieste/richiesta-1784197711073-va9vf.jpg",
-    "stato": "in_attesa",
+    "foto": null,
+    "stato": "errore",
     "creata": "2026-07-16T10:28:32.707Z",
-    "elaborata": null,
-    "risposta": null
+    "elaborata": "2026-07-16T12:06:42.000Z",
+    "risposta": {
+      "messaggio": "La foto allegata non è leggibile: risulta un'immagine di rumore/pattern (a righe/puntinato), non una fotografia reale della pianta. Impossibile procedere con l'identificazione. Si consiglia di ricaricare una foto nitida e ben illuminata della pianta."
+    }
   },
   "richiesta-1784198586438-ba9m4": {
     "tipo": "identifica_specie",
@@ -177,10 +179,72 @@
       ]
     },
     "speciesName": null,
-    "foto": "uploads/richieste/richiesta-1784198586438-ba9m4.jpg",
-    "stato": "in_attesa",
+    "foto": null,
+    "stato": "completata",
     "creata": "2026-07-16T10:43:08.058Z",
-    "elaborata": null,
-    "risposta": null
+    "elaborata": "2026-07-16T12:06:42.000Z",
+    "risposta": {
+      "candidati": [
+        {
+          "nome": "Aglio",
+          "specieBotanica": "Allium sativum",
+          "confidenza": "media",
+          "note": "Il germoglio singolo, appuntito e ancora ripiegato su se stesso che emerge dal terreno è tipico della ricrescita di uno spicchio d'aglio piantato in vaso."
+        },
+        {
+          "nome": "Cipolla",
+          "specieBotanica": "Allium cepa",
+          "confidenza": "bassa",
+          "note": "Germoglio molto simile a quello dell'aglio nella prima fase di crescita; senza vedere il bulbo è difficile distinguere le due specie con certezza."
+        },
+        {
+          "nome": "Narciso",
+          "specieBotanica": "Narcissus sp.",
+          "confidenza": "bassa",
+          "note": "I bulbi di narciso producono foglie a lama simili, ma di solito emergono in gruppi di più foglie e non come germoglio singolo."
+        },
+        {
+          "nome": "Giacinto",
+          "specieBotanica": "Hyacinthus orientalis",
+          "confidenza": "bassa",
+          "note": "Possibile bulbo ornamentale in fase di ricrescita; l'identificazione andrà confermata quando le foglie saranno più sviluppate."
+        }
+      ],
+      "schedaTop": {
+        "nome": "Aglio",
+        "specie": "Allium sativum",
+        "descrizione": "<p>Pianta bulbosa orticola coltivata per gli spicchi aromatici. Si ricresce facilmente da uno spicchio piantato in vaso o in piena terra, producendo inizialmente un unico germoglio appuntito.</p>",
+        "esigenze": {
+          "luce": "Pieno sole",
+          "acqua": "Moderata e regolare durante la crescita attiva",
+          "terreno": "Ben drenato e ricco di sostanza organica"
+        },
+        "alert": [
+          "Teme i ristagni idrici (rischio marciume del bulbo)",
+          "Necessita di pieno sole per uno sviluppo ottimale",
+          "Identificazione da confermare: nella foto la pianta è ancora a uno stadio di germinazione molto precoce"
+        ],
+        "manutenzione": {
+          "irrigazione": {
+            "primavera": "ogni 5-7 giorni se non piove",
+            "estate": "ogni 4-6 giorni evitando ristagni",
+            "autunno": "ogni 10-14 giorni (tipico periodo di impianto)",
+            "inverno": "nessuna, salvo gelate prolungate senza pioggia"
+          },
+          "concimazione": {
+            "primavera": "concime azotato leggero a inizio crescita",
+            "estate": "sospesa in prossimità della raccolta",
+            "autunno": "concime organico al momento dell'impianto",
+            "inverno": "nessuna"
+          },
+          "potatura": {
+            "primavera": "rimozione di eventuali scapi fiorali per favorire lo sviluppo del bulbo",
+            "estate": "nessuna",
+            "autunno": "nessuna",
+            "inverno": "nessuna"
+          }
+        }
+      }
+    }
   }
 }
