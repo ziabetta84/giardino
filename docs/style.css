@@ -1039,3 +1039,64 @@ button.home-card {
   color: var(--fg);
   border-bottom-left-radius: 4px;
 }
+
+/* --------------------------------------------------
+   PANNELLO RICHIESTE IN CODA (agente.html)
+-------------------------------------------------- */
+
+.richieste-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.richieste-panel-header h3 {
+  margin: 0;
+}
+
+#richieste-refresh {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #ddd;
+}
+
+#richieste-refresh:hover {
+  background: #ccc;
+}
+
+.richiesta-item {
+  padding: 12px 14px;
+  margin-top: 12px;
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.richiesta-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.richiesta-badge {
+  font-size: 0.85em;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.richiesta-rimuovi {
+  margin-top: 8px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: #eee;
+  font-size: 0.85em;
+}
+
+.richiesta-rimuovi:hover {
+  background: #ddd;
+}
