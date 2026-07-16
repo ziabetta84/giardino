@@ -7,12 +7,20 @@ scripts: |
 
 <h1>🤖 Assistente</h1>
 
-<p class="field-hint">L'assistente risponde usando i dati del giardino (zone, piante, progetti, meteo). Per la chat libera e la valutazione foto serve il login GitHub.</p>
+<p class="field-hint">"Cosa fare oggi" risponde subito. Le altre richieste (valutazione salute, identificazione specie, chat) al momento non sono immediate: a causa di un problema con l'account collegato al modello AI, vengono messe in coda e elaborate entro un'ora circa — controlla il pannello "Le mie richieste" per l'esito. Per tutte serve il login GitHub.</p>
 
 <div class="agente-quick-actions">
   <button type="button" id="azione-oggi">📋 Cosa fare oggi</button>
   <button type="button" id="azione-salute">🩺 Valuta salute pianta</button>
   <button type="button" id="azione-identifica">🔍 Identifica nuova specie</button>
+</div>
+
+<div class="card">
+  <div class="richieste-panel-header">
+    <h3>📥 Le mie richieste</h3>
+    <button type="button" id="richieste-refresh">🔄 Aggiorna</button>
+  </div>
+  <div id="richieste-lista"></div>
 </div>
 
 <div id="salute-panel" class="card" style="display:none;">
@@ -42,15 +50,7 @@ scripts: |
 
   <button type="button" id="identifica-invia" class="save-btn">Identifica</button>
 
-  <div id="identifica-candidati"></div>
-
-  <div id="identifica-manuale" style="display:none;">
-    <label for="identifica-nome-manuale">Non è tra i suggerimenti? Indica tu il nome</label>
-    <div class="identifica-manuale-row">
-      <input type="text" id="identifica-nome-manuale" placeholder="es. Iberis sempervirens">
-      <button type="button" id="identifica-conferma-manuale">Usa questo nome</button>
-    </div>
-  </div>
+  <p class="field-hint">L'esito (candidati e bozza di scheda) comparirà nel pannello "Le mie richieste" qui sopra.</p>
 
   <div id="specie-editor" style="display:none;">
     <h3 id="specie-editor-title">Scheda specie (bozza generata dall'assistente)</h3>

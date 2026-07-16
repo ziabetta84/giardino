@@ -1,5 +1,5 @@
 // Lista dei file da monitorare
-const FILES = ["data/zone.json", "data/sottozone.json", "data/piante.json", "data/progetti.json"];
+const FILES = ["data/zone.json", "data/sottozone.json", "data/piante.json", "data/progetti.json", "data/richieste-agente.json"];
 
 let localCache = {};
 
