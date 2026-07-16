@@ -1,20 +1,27 @@
 // docs/js/agente.js
 //
-// Frontend dell'assistente AI. Il modello vero e proprio gira dietro un
-// endpoint sul Worker Cloudflare già usato per il login (la chiave API resta
-// lato server, vedi cloudflare-worker/agente-worker.js per il riferimento
-// da distribuire manualmente).
+// Frontend dell'assistente AI.
+//
+// L'endpoint sul Worker Cloudflare (cloudflare-worker/agente-worker.js) non è
+// al momento utilizzabile: l'account Anthropic collegato è bloccato. In
+// attesa di una soluzione, le richieste che servono un modello (valutazione
+// salute, identificazione specie, chat libera) non vengono più inviate al
+// Worker: vengono invece scritte in coda in docs/data/richieste-agente.json
+// e restano "in_attesa". Un'altra sessione (o la stessa, richiamata a mano
+// o da una Routine schedulata) le elabora leggendo/scrivendo lo stesso file,
+// senza bisogno di alcuna chiave API. Vedi cloudflare-worker/README.md per
+// lo schema completo della coda.
 
 function getParam(name) {
   return new URLSearchParams(location.search).get(name);
 }
 
-const WORKER_CHAT_URL = "https://giardino.robertagenovese.workers.dev/agente/chat";
 // Limite solo di buon senso sul file originale scelto dall'utente: la foto
 // viene comunque ridimensionata/compressa prima dell'invio (vedi
 // resizeImageForAgente), quindi le foto scattate da smartphone (spesso 8-15MB)
 // non vengono più rifiutate.
 const MAX_FOTO_BYTES_ORIGINALE = 25 * 1024 * 1024;
+const TRACKED_KEY = "richieste_agente_tracked";
 
 let chatHistory = [];
 
@@ -27,10 +34,9 @@ function appendBubble(role, text) {
   win.scrollTop = win.scrollHeight;
 }
 
-// Ridimensiona/comprime la foto lato client prima di inviarla al Worker:
-// le foto da smartphone spesso superano i 5-15MB, ben oltre quanto serve
-// per l'analisi visiva (Claude ridimensiona comunque le immagini oltre
-// ~1568px sul lato lungo) e oltre i limiti pratici di dimensione richiesta.
+// Ridimensiona/comprime la foto lato client prima di inviarla: le foto da
+// smartphone spesso superano i 5-15MB, ben oltre quanto serve per l'analisi
+// visiva e oltre i limiti pratici di dimensione di un commit.
 //
 // Usa createImageBitmap invece di <img>.onload: quest'ultimo è un evento DOM
 // asincrono che alcuni browser (Firefox in modalità anti-fingerprinting) non
@@ -78,68 +84,108 @@ function stripHtml(html) {
   return div.textContent || div.innerText || "";
 }
 
-async function inviaAlWorker({ message, context, image }) {
-  const token = localStorage.getItem("github_token");
-  if (!token) throw new Error("Devi effettuare il login per usare l'assistente.");
-
-  const body = { message, context, history: chatHistory };
-  if (image) body.image = image;
-
-  let res;
-  try {
-    res = await fetch(WORKER_CHAT_URL, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(body)
-    });
-  } catch (e) {
-    throw new Error("Worker non raggiungibile: verifica che l'endpoint /agente/chat sia stato distribuito.");
-  }
-
-  if (!res.ok) {
-    throw new Error(`Il Worker ha risposto con errore (${res.status}).`);
-  }
-
-  const data = await res.json();
-  if (!data.reply) throw new Error("Risposta non valida dal Worker.");
-
-  chatHistory.push({ role: "user", content: message });
-  chatHistory.push({ role: "assistant", content: data.reply });
-
-  return data.reply;
+function base64ToBlob(base64, mediaType) {
+  const bytes = atob(base64);
+  const arr = new Uint8Array(bytes.length);
+  for (let i = 0; i < bytes.length; i++) arr[i] = bytes.charCodeAt(i);
+  return new Blob([arr], { type: mediaType });
 }
 
-// Variante per le azioni a risposta strutturata (identificazione specie,
-// generazione scheda): non tocca chatHistory, ritorna il body JSON intero
-// così il chiamante legge il campo che gli serve (candidati / scheda).
-async function chiamaWorkerStrutturato({ action, message, context, image, speciesName }) {
+// Carica la foto allegata a una richiesta in coda, come file a sé stante
+// (non dentro il JSON), così può essere rimossa singolarmente una volta
+// elaborata senza toccare lo storico delle richieste.
+async function uploadRichiestaImage(path, blob) {
   const token = localStorage.getItem("github_token");
   if (!token) throw new Error("Devi effettuare il login per usare l'assistente.");
 
-  let res;
+  const apiUrl = `https://api.github.com/repos/ziabetta84/giardino/contents/docs/${path}`;
+
+  const base64 = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("Errore nella lettura della foto."));
+    reader.onload = () => resolve((reader.result || "").split(",")[1] || "");
+    reader.readAsDataURL(blob);
+  });
+
+  const res = await fetch(apiUrl, {
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: "Richiesta agente: allega foto", content: base64 })
+  });
+
+  if (!res.ok) throw new Error(`Impossibile caricare la foto (${res.status}).`);
+}
+
+function nuovaRichiestaId() {
+  return `richiesta-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+}
+
+// Scrive una nuova richiesta in coda in richieste-agente.json. Non chiama
+// nessun modello: la richiesta resta "in_attesa" finché qualcuno (io stesso
+// su richiesta manuale, o la Routine oraria) non la elabora e riscrive lo
+// stesso file con stato "completata"/"errore" e il campo "risposta".
+async function creaRichiesta({ tipo, contesto, messaggio, image, speciesName }) {
+  const token = localStorage.getItem("github_token");
+  if (!token) throw new Error("Devi effettuare il login per usare l'assistente.");
+
+  const id = nuovaRichiestaId();
+  let fotoPath = null;
+
+  if (image) {
+    fotoPath = `uploads/richieste/${id}.jpg`;
+    const blob = base64ToBlob(image.data, image.mediaType || "image/jpeg");
+    await uploadRichiestaImage(fotoPath, blob);
+  }
+
+  const richieste = await loadJSON("richieste-agente.json");
+  if (!richieste) throw new Error("Impossibile leggere la coda delle richieste.");
+
+  richieste[id] = {
+    tipo,
+    messaggio: messaggio || "",
+    contesto: contesto || null,
+    speciesName: speciesName || null,
+    foto: fotoPath,
+    stato: "in_attesa",
+    creata: new Date().toISOString(),
+    elaborata: null,
+    risposta: null
+  };
+
+  notifySaving();
+  const ok = await saveJSON("richieste-agente.json", richieste);
+  if (!ok) throw new Error("Impossibile salvare la richiesta in coda.");
+
+  return id;
+}
+
+// -----------------------------
+// Tracciamento locale delle richieste inviate da questo browser
+// (solo per sapere quali mostrare nel pannello: la coda vera è nel repo)
+// -----------------------------
+function getTracked() {
   try {
-    res = await fetch(WORKER_CHAT_URL, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ action, message, context, image, speciesName })
-    });
-  } catch (e) {
-    throw new Error("Worker non raggiungibile: verifica che l'endpoint /agente/chat sia stato distribuito.");
+    return JSON.parse(localStorage.getItem(TRACKED_KEY) || "[]");
+  } catch {
+    return [];
   }
+}
 
-  const data = await res.json().catch(() => ({}));
+function saveTracked(list) {
+  localStorage.setItem(TRACKED_KEY, JSON.stringify(list));
+}
 
-  if (!res.ok) {
-    throw new Error(data.error || `Il Worker ha risposto con errore (${res.status}).`);
-  }
+function trackRichiesta(id, tipo, label) {
+  const list = getTracked();
+  list.unshift({ id, tipo, label, creata: new Date().toISOString() });
+  saveTracked(list);
+}
 
-  return data;
+function untrackRichiesta(id) {
+  saveTracked(getTracked().filter(r => r.id !== id));
 }
 
 // Gestisce anteprima + validazione di un input file, richiamando onChange(file|null).
@@ -177,6 +223,190 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadJSON("zone.json"),
     loadJSON("sottozone.json")
   ]);
+
+  // -----------------------------
+  // Pannello "Le mie richieste"
+  // -----------------------------
+  function statoBadge(stato) {
+    if (stato === "completata") return "✅ Completata";
+    if (stato === "errore") return "⚠️ Errore";
+    return "⏳ In attesa";
+  }
+
+  function popolaFormSpecie(scheda, nomeFallback) {
+    const s = scheda || {};
+    document.getElementById("specie-nome").value = s.nome || nomeFallback || "";
+    document.getElementById("specie-specie").value = s.specie || "";
+    document.getElementById("specie-descrizione").value = s.descrizione || "";
+    document.getElementById("specie-luce").value = s.esigenze?.luce || "";
+    document.getElementById("specie-acqua").value = s.esigenze?.acqua || "";
+    document.getElementById("specie-terreno").value = s.esigenze?.terreno || "";
+    document.getElementById("specie-alert").value = (s.alert || []).join("\n");
+
+    const m = s.manutenzione || {};
+    [
+      ["irrigazione", "man-irrig"],
+      ["concimazione", "man-conc"],
+      ["potatura", "man-pot"]
+    ].forEach(([tipo, prefix]) => {
+      ["primavera", "estate", "autunno", "inverno"].forEach(stagione => {
+        document.getElementById(`${prefix}-${stagione}`).value = m[tipo]?.[stagione] || "";
+      });
+    });
+
+    const form = document.getElementById("specie-editor");
+    form.style.display = "block";
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  async function richiediSchedaPerCandidato(nomeScelto, fotoIdentificaAttuale) {
+    try {
+      let image;
+      if (fotoIdentificaAttuale) {
+        image = await resizeImageForAgente(fotoIdentificaAttuale);
+      }
+
+      const id = await creaRichiesta({
+        tipo: "genera_scheda_specie",
+        speciesName: nomeScelto,
+        messaggio: `Genera la scheda di cura completa per "${nomeScelto}".`,
+        image
+      });
+
+      trackRichiesta(id, "genera_scheda_specie", `Scheda per "${nomeScelto}"`);
+      await renderRichiestePanel();
+    } catch (err) {
+      alert(`Errore: ${err.message}`);
+    }
+  }
+
+  async function renderRichiestePanel() {
+    const container = document.getElementById("richieste-lista");
+    const tracked = getTracked();
+
+    if (!tracked.length) {
+      container.innerHTML = "<p class=\"small\">Nessuna richiesta in corso. Le richieste che invii con l'assistente compariranno qui.</p>";
+      return;
+    }
+
+    const richieste = await loadJSON("richieste-agente.json") || {};
+    container.innerHTML = "";
+
+    tracked.forEach(t => {
+      const r = richieste[t.id];
+      const box = document.createElement("div");
+      box.className = "richiesta-item";
+
+      if (!r) {
+        box.innerHTML = `
+          <div class="richiesta-header">
+            <strong>${t.label}</strong>
+            <span class="richiesta-badge">⚠️ Non trovata</span>
+          </div>
+          <button type="button" class="richiesta-rimuovi">Rimuovi dall'elenco</button>
+        `;
+        box.querySelector(".richiesta-rimuovi").onclick = () => {
+          untrackRichiesta(t.id);
+          renderRichiestePanel();
+        };
+        container.appendChild(box);
+        return;
+      }
+
+      const header = document.createElement("div");
+      header.className = "richiesta-header";
+      header.innerHTML = `<strong>${t.label}</strong><span class="richiesta-badge">${statoBadge(r.stato)}</span>`;
+      box.appendChild(header);
+
+      if (r.stato === "in_attesa") {
+        const p = document.createElement("p");
+        p.className = "small";
+        p.textContent = "In coda: verrà elaborata entro un'ora circa, o prima se qualcuno controlla manualmente la coda.";
+        box.appendChild(p);
+      } else if (r.stato === "errore") {
+        const p = document.createElement("p");
+        p.textContent = `⚠️ ${r.risposta?.messaggio || "Elaborazione non riuscita."}`;
+        box.appendChild(p);
+      } else if (r.stato === "completata") {
+        if (r.tipo === "salute" || r.tipo === "chat") {
+          const p = document.createElement("p");
+          p.textContent = r.risposta?.testo || "(nessuna risposta)";
+          box.appendChild(p);
+        } else if (r.tipo === "identifica_specie") {
+          const candidati = r.risposta?.candidati || [];
+
+          if (!candidati.length) {
+            const p = document.createElement("p");
+            p.className = "small";
+            p.textContent = "Nessun candidato identificato con sicurezza. Indica tu il nome qui sotto.";
+            box.appendChild(p);
+          } else {
+            candidati.forEach((c, i) => {
+              const row = document.createElement("div");
+              row.className = "candidato-specie-row";
+              row.innerHTML = `
+                <strong>${c.nome}</strong>
+                <span class="small">(${c.specieBotanica || ""} — confidenza ${c.confidenza || "?"})</span>
+                ${c.note ? `<div class="small">${c.note}</div>` : ""}
+              `;
+              const btn = document.createElement("button");
+              btn.type = "button";
+              btn.textContent = (i === 0 && r.risposta?.schedaTop) ? "Usa la bozza già pronta" : "Genera scheda per questa";
+              btn.onclick = () => {
+                if (i === 0 && r.risposta?.schedaTop) {
+                  popolaFormSpecie(r.risposta.schedaTop, c.nome);
+                } else {
+                  richiediSchedaPerCandidato(c.nome, window.__fotoIdentificaAttuale || null);
+                }
+              };
+              row.appendChild(btn);
+              box.appendChild(row);
+            });
+          }
+
+          const manualRow = document.createElement("div");
+          manualRow.className = "identifica-manuale-row";
+          manualRow.innerHTML = `<input type="text" placeholder="Non è tra questi? indica tu il nome">`;
+          const manualBtn = document.createElement("button");
+          manualBtn.type = "button";
+          manualBtn.textContent = "Usa questo nome";
+          manualRow.appendChild(manualBtn);
+          box.appendChild(manualRow);
+
+          manualBtn.onclick = () => {
+            const nome = manualRow.querySelector("input").value.trim();
+            if (!nome) {
+              alert("Indica un nome.");
+              return;
+            }
+            richiediSchedaPerCandidato(nome, window.__fotoIdentificaAttuale || null);
+          };
+        } else if (r.tipo === "genera_scheda_specie") {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "save-btn";
+          btn.textContent = "Usa questa bozza";
+          btn.onclick = () => popolaFormSpecie(r.risposta?.scheda, r.speciesName);
+          box.appendChild(btn);
+        }
+      }
+
+      const rimBtn = document.createElement("button");
+      rimBtn.type = "button";
+      rimBtn.className = "richiesta-rimuovi";
+      rimBtn.textContent = "Rimuovi dall'elenco";
+      rimBtn.onclick = () => {
+        untrackRichiesta(t.id);
+        renderRichiestePanel();
+      };
+      box.appendChild(rimBtn);
+
+      container.appendChild(box);
+    });
+  }
+
+  document.getElementById("richieste-refresh").onclick = () => renderRichiestePanel();
+  await renderRichiestePanel();
 
   // -----------------------------
   // Selettore pianta (per la valutazione salute)
@@ -223,10 +453,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   wireUploadPreview("salute-foto-input", "salute-foto-preview", file => { fotoFile = file; });
 
   let fotoIdentifica = null;
-  wireUploadPreview("identifica-foto-input", "identifica-foto-preview", file => { fotoIdentifica = file; });
+  wireUploadPreview("identifica-foto-input", "identifica-foto-preview", file => {
+    fotoIdentifica = file;
+    window.__fotoIdentificaAttuale = file;
+  });
 
   // -----------------------------
-  // Azione rapida: Cosa fare oggi (nessuna chiamata LLM)
+  // Azione rapida: Cosa fare oggi (nessuna chiamata LLM, resta istantanea)
   // -----------------------------
   document.getElementById("azione-oggi").onclick = async () => {
     appendBubble("user", "Cosa fare oggi?");
@@ -263,7 +496,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // -----------------------------
-  // Azione: Valuta salute pianta (con foto, chiamata LLM multimodale)
+  // Azione: Valuta salute pianta (con foto) — messa in coda
   // -----------------------------
   document.getElementById("salute-invia").onclick = async () => {
     const id = selettore.value;
@@ -309,9 +542,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     btn.textContent = "Comprimo la foto...";
 
     try {
-      const { mediaType, data: base64 } = await resizeImageForAgente(fotoFile);
+      const image = await resizeImageForAgente(fotoFile);
 
-      btn.textContent = "Invio in corso...";
+      btn.textContent = "Metto in coda...";
 
       if (document.getElementById("salute-salva-galleria").checked) {
         const token = localStorage.getItem("github_token");
@@ -330,13 +563,17 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       }
 
-      const reply = await inviaAlWorker({
-        message: "Valuta lo stato di salute di questa pianta a partire dalla foto allegata, tenendo conto del contesto fornito.",
-        context: contesto,
-        image: { mediaType, data: base64 }
+      const richiestaId = await creaRichiesta({
+        tipo: "salute",
+        messaggio: "Valuta lo stato di salute di questa pianta a partire dalla foto allegata, tenendo conto del contesto fornito.",
+        contesto,
+        image
       });
 
-      appendBubble("assistant", reply);
+      trackRichiesta(richiestaId, "salute", `Salute: ${specie?.nome || p.specie}`);
+      await renderRichiestePanel();
+
+      appendBubble("assistant", "📥 Richiesta inviata e in coda. Trovi l'esito nel pannello \"Le mie richieste\" qui sotto (di solito entro un'ora).");
     } catch (err) {
       appendBubble("assistant", `⚠️ ${err.message}`);
     } finally {
@@ -346,87 +583,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // -----------------------------
-  // Azione: Identifica nuova specie da foto (identificazione + scheda)
+  // Azione: Identifica nuova specie da foto — messa in coda
   // -----------------------------
-  function popolaFormSpecie(scheda, nomeFallback) {
-    const s = scheda || {};
-    document.getElementById("specie-nome").value = s.nome || nomeFallback || "";
-    document.getElementById("specie-specie").value = s.specie || "";
-    document.getElementById("specie-descrizione").value = s.descrizione || "";
-    document.getElementById("specie-luce").value = s.esigenze?.luce || "";
-    document.getElementById("specie-acqua").value = s.esigenze?.acqua || "";
-    document.getElementById("specie-terreno").value = s.esigenze?.terreno || "";
-    document.getElementById("specie-alert").value = (s.alert || []).join("\n");
-
-    const m = s.manutenzione || {};
-    [
-      ["irrigazione", "man-irrig"],
-      ["concimazione", "man-conc"],
-      ["potatura", "man-pot"]
-    ].forEach(([tipo, prefix]) => {
-      ["primavera", "estate", "autunno", "inverno"].forEach(stagione => {
-        document.getElementById(`${prefix}-${stagione}`).value = m[tipo]?.[stagione] || "";
-      });
-    });
-
-    const form = document.getElementById("specie-editor");
-    form.style.display = "block";
-    form.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  async function confermaSpecieScelta(nomeScelto) {
-    appendBubble("user", `🔍 Prepara la scheda per: ${nomeScelto}`);
-
-    try {
-      let image;
-      if (fotoIdentifica) {
-        image = await resizeImageForAgente(fotoIdentifica);
-      }
-
-      const result = await chiamaWorkerStrutturato({
-        action: "genera_scheda_specie",
-        speciesName: nomeScelto,
-        message: `Genera la scheda di cura completa per "${nomeScelto}".`,
-        image
-      });
-
-      popolaFormSpecie(result.scheda, nomeScelto);
-      appendBubble("assistant", `Ho preparato una bozza di scheda per "${nomeScelto}". Controllala e modificala prima di salvare.`);
-    } catch (err) {
-      appendBubble("assistant", `⚠️ ${err.message}`);
-    }
-  }
-
-  function renderCandidati(candidati) {
-    const container = document.getElementById("identifica-candidati");
-
-    container.innerHTML = candidati.length
-      ? candidati.map((c, i) => `
-          <label class="candidato-specie-row">
-            <input type="radio" name="candidato-specie" value="${i}">
-            <strong>${c.nome}</strong>
-            <span class="small">(${c.specieBotanica || ""} — confidenza ${c.confidenza || "?"})</span>
-            ${c.note ? `<div class="small">${c.note}</div>` : ""}
-          </label>
-        `).join("")
-      : "<p>Nessun candidato identificato con sicurezza. Indica tu il nome qui sotto.</p>";
-
-    container.querySelectorAll('input[name="candidato-specie"]').forEach((radio, i) => {
-      radio.onchange = () => confermaSpecieScelta(candidati[i].nome);
-    });
-
-    document.getElementById("identifica-manuale").style.display = "block";
-  }
-
-  document.getElementById("identifica-conferma-manuale").onclick = () => {
-    const nome = document.getElementById("identifica-nome-manuale").value.trim();
-    if (!nome) {
-      alert("Indica un nome.");
-      return;
-    }
-    confermaSpecieScelta(nome);
-  };
-
   document.getElementById("identifica-invia").onclick = async () => {
     if (!fotoIdentifica) {
       alert("Allega una foto della pianta da identificare.");
@@ -441,23 +599,21 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
       const image = await resizeImageForAgente(fotoIdentifica);
-      btn.textContent = "Identificazione in corso...";
+      btn.textContent = "Metto in coda...";
 
       const specieEsistenti = Object.values(specieData || {}).map(s => s.nome);
 
-      const result = await chiamaWorkerStrutturato({
-        action: "identifica_specie",
-        message: "Identifica questa pianta dalla foto allegata.",
-        context: { specieEsistenti },
+      const richiestaId = await creaRichiesta({
+        tipo: "identifica_specie",
+        messaggio: "Identifica questa pianta dalla foto allegata e proponi una bozza di scheda per il candidato più probabile.",
+        contesto: { specieEsistenti },
         image
       });
 
-      const candidati = result.candidati || [];
-      renderCandidati(candidati);
+      trackRichiesta(richiestaId, "identifica_specie", "Identificazione da foto");
+      await renderRichiestePanel();
 
-      appendBubble("assistant", candidati.length
-        ? `Ecco le specie candidate:\n${candidati.map(c => `- ${c.nome} (${c.specieBotanica || "?"})`).join("\n")}`
-        : "Non sono riuscito a identificare la specie con sicurezza. Indica tu il nome qui sotto.");
+      appendBubble("assistant", "📥 Richiesta inviata e in coda. Trovi i candidati nel pannello \"Le mie richieste\" qui sotto (di solito entro un'ora).");
     } catch (err) {
       appendBubble("assistant", `⚠️ ${err.message}`);
     } finally {
@@ -538,7 +694,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // -----------------------------
-  // Chat libera
+  // Chat libera — messa in coda
   // -----------------------------
   document.getElementById("chat-form").onsubmit = async (e) => {
     e.preventDefault();
@@ -565,8 +721,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         meteo
       };
 
-      const reply = await inviaAlWorker({ message, context: contesto });
-      appendBubble("assistant", reply);
+      const richiestaId = await creaRichiesta({ tipo: "chat", messaggio: message, contesto });
+      trackRichiesta(richiestaId, "chat", `Chat: "${message.slice(0, 40)}${message.length > 40 ? "…" : ""}"`);
+      await renderRichiestePanel();
+
+      appendBubble("assistant", "📥 Messaggio inviato e in coda. Trovi la risposta nel pannello \"Le mie richieste\" qui sotto (di solito entro un'ora).");
     } catch (err) {
       appendBubble("assistant", `⚠️ ${err.message}`);
     }
