@@ -333,11 +333,74 @@
       ]
     },
     "speciesName": null,
-    "foto": "uploads/richieste/richiesta-1784205784227-jzyam.jpg",
-    "stato": "in_attesa",
+    "foto": null,
+    "stato": "completata",
     "creata": "2026-07-16T12:43:06.769Z",
-    "elaborata": null,
-    "risposta": null
+    "elaborata": "2026-07-16T13:42:29.000Z",
+    "risposta": {
+      "candidati": [
+        {
+          "nome": "Aloe",
+          "specieBotanica": "Aloe vera",
+          "confidenza": "media",
+          "note": "Getto singolo, carnoso e appuntito con margine leggermente arrossato, tipico di un pollone di aloe appena rinvasato e stressato dal sole diretto."
+        },
+        {
+          "nome": "Agave",
+          "specieBotanica": "Agave americana",
+          "confidenza": "media",
+          "note": "Forma e portamento della foglia molto simili a un giovane pollone di agave; senza denti/spine sui margini o il colore più glauco tipico dell'agave adulta non si può escludere."
+        },
+        {
+          "nome": "Yucca",
+          "specieBotanica": "Yucca gloriosa",
+          "confidenza": "bassa",
+          "note": "Le foglie a lancia rigida della yucca possono sembrare simili in fase iniziale, ma di solito sono più grigio-verdi e meno carnose."
+        },
+        {
+          "nome": "Furcraea",
+          "specieBotanica": "Furcraea foetida",
+          "confidenza": "bassa",
+          "note": "Succulenta a rosetta con foglia a lama simile nelle primissime fasi di crescita, meno comune nei giardini domestici."
+        }
+      ],
+      "schedaTop": {
+        "nome": "Aloe",
+        "specie": "Aloe vera",
+        "descrizione": "<p>Succulenta a rosetta basale, foglie carnose lanceolate con gel trasparente all'interno. Si propaga facilmente per polloni/getti basali come quello mostrato in foto.</p>",
+        "esigenze": {
+          "luce": "Pieno sole o mezz'ombra luminosa",
+          "acqua": "Scarsa, tollera bene la siccità",
+          "terreno": "Molto drenante, tipo misto per cactacee"
+        },
+        "alert": [
+          "Teme fortemente i ristagni idrici (rischio marciume radicale)",
+          "Foglie che virano al rossastro/arancio indicano stress da sole intenso o freddo, non necessariamente un problema",
+          "Non tollera gelate prolungate: proteggere o ritirare sotto i 5°C",
+          "Identificazione da confermare: pianta ancora molto giovane, un solo getto emerso dal terreno"
+        ],
+        "manutenzione": {
+          "irrigazione": {
+            "primavera": "ogni 10-14 giorni lasciando asciugare bene il terreno",
+            "estate": "ogni 7-10 giorni, evitando ristagni anche col caldo",
+            "autunno": "ogni 15-20 giorni",
+            "inverno": "molto scarsa, quasi nulla se al riparo dal gelo"
+          },
+          "concimazione": {
+            "primavera": "concime per succulente/cactacee una volta al mese",
+            "estate": "concime per succulente ogni 4-6 settimane",
+            "autunno": "sospesa",
+            "inverno": "sospesa"
+          },
+          "potatura": {
+            "primavera": "rimozione delle foglie secche o danneggiate alla base",
+            "estate": "nessuna",
+            "autunno": "nessuna",
+            "inverno": "nessuna"
+          }
+        }
+      }
+    }
   },
   "richiesta-1784205796462-bbyn9": {
     "tipo": "identifica_specie",
@@ -425,11 +488,74 @@
       ]
     },
     "speciesName": null,
-    "foto": "uploads/richieste/richiesta-1784205796462-bbyn9.jpg",
-    "stato": "in_attesa",
+    "foto": null,
+    "stato": "completata",
     "creata": "2026-07-16T12:43:18.082Z",
-    "elaborata": null,
-    "risposta": null
+    "elaborata": "2026-07-16T13:42:29.000Z",
+    "risposta": {
+      "candidati": [
+        {
+          "nome": "Aloe",
+          "specieBotanica": "Aloe vera",
+          "confidenza": "media",
+          "note": "Getto singolo, carnoso e appuntito con margine leggermente arrossato, tipico di un pollone di aloe appena rinvasato e stressato dal sole diretto."
+        },
+        {
+          "nome": "Agave",
+          "specieBotanica": "Agave americana",
+          "confidenza": "media",
+          "note": "Forma e portamento della foglia molto simili a un giovane pollone di agave; senza denti/spine sui margini o il colore più glauco tipico dell'agave adulta non si può escludere."
+        },
+        {
+          "nome": "Yucca",
+          "specieBotanica": "Yucca gloriosa",
+          "confidenza": "bassa",
+          "note": "Le foglie a lancia rigida della yucca possono sembrare simili in fase iniziale, ma di solito sono più grigio-verdi e meno carnose."
+        },
+        {
+          "nome": "Furcraea",
+          "specieBotanica": "Furcraea foetida",
+          "confidenza": "bassa",
+          "note": "Succulenta a rosetta con foglia a lama simile nelle primissime fasi di crescita, meno comune nei giardini domestici."
+        }
+      ],
+      "schedaTop": {
+        "nome": "Aloe",
+        "specie": "Aloe vera",
+        "descrizione": "<p>Succulenta a rosetta basale, foglie carnose lanceolate con gel trasparente all'interno. Si propaga facilmente per polloni/getti basali come quello mostrato in foto.</p>",
+        "esigenze": {
+          "luce": "Pieno sole o mezz'ombra luminosa",
+          "acqua": "Scarsa, tollera bene la siccità",
+          "terreno": "Molto drenante, tipo misto per cactacee"
+        },
+        "alert": [
+          "Teme fortemente i ristagni idrici (rischio marciume radicale)",
+          "Foglie che virano al rossastro/arancio indicano stress da sole intenso o freddo, non necessariamente un problema",
+          "Non tollera gelate prolungate: proteggere o ritirare sotto i 5°C",
+          "Identificazione da confermare: pianta ancora molto giovane, un solo getto emerso dal terreno"
+        ],
+        "manutenzione": {
+          "irrigazione": {
+            "primavera": "ogni 10-14 giorni lasciando asciugare bene il terreno",
+            "estate": "ogni 7-10 giorni, evitando ristagni anche col caldo",
+            "autunno": "ogni 15-20 giorni",
+            "inverno": "molto scarsa, quasi nulla se al riparo dal gelo"
+          },
+          "concimazione": {
+            "primavera": "concime per succulente/cactacee una volta al mese",
+            "estate": "concime per succulente ogni 4-6 settimane",
+            "autunno": "sospesa",
+            "inverno": "sospesa"
+          },
+          "potatura": {
+            "primavera": "rimozione delle foglie secche o danneggiate alla base",
+            "estate": "nessuna",
+            "autunno": "nessuna",
+            "inverno": "nessuna"
+          }
+        }
+      }
+    }
   },
   "richiesta-1784205824815-o0skv": {
     "tipo": "chat",
@@ -456,9 +582,11 @@
     },
     "speciesName": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-07-16T12:43:44.844Z",
-    "elaborata": null,
-    "risposta": null
+    "elaborata": "2026-07-16T13:42:29.000Z",
+    "risposta": {
+      "testo": "Senza una foto allegata non posso confermare a quale pianta ti riferisci, ma questi sono i tratti che le distinguono: l'Agave ha foglie rigide, spesso grigio-azzurre (glauche), con margini dentati e una spina apicale dura e pungente; l'Aloe ha foglie più carnose e morbide, verdi (a volte maculate), con dentini flessibili non pungenti sui bordi e, se spezzate, rilasciano il tipico gel trasparente (assente nell'agave). Con le condizioni attuali (max 28,6°C, pioggia praticamente assente) entrambe reggono bene annaffiature scarse su terreno ben drenato; la differenza pratica è che l'agave tollera meglio sole pieno e siccità prolungata, mentre l'aloe preferisce riparo dalle ore più calde in piena estate e teme il gelo più dell'agave adulta. Se carichi una foto della pianta in questione posso darti un'identificazione più precisa."
+    }
   }
 }
