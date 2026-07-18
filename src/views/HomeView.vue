@@ -2,7 +2,7 @@
   <div>
     <!-- Hero -->
     <div style="text-align:center;padding:32px 0 36px;">
-      <img src="/giardino/apple-touch-icon.png" alt="logo" class="app-logo">
+      <img :src="`${base}apple-touch-icon.png`" alt="logo" class="app-logo">
       <h1 class="title-display gradient-title" style="font-size:2.3rem;font-weight:800;margin-bottom:6px;">
         Il Giardino di Zorba
       </h1>
@@ -92,6 +92,7 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
+const base = import.meta.env.BASE_URL
 import { useDatiStore } from '@/stores/dati'
 import { useMeteo } from '@/composables/useMeteo'
 import { valutaCura, cureUrgentiPianta } from '@/composables/useCure'
