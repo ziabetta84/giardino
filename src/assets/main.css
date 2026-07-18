@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  --rose:        #cc6e6e;
+  --rose-dark:   #b85f5f;
+  --rose-light:  #f0d0d0;
+  --rose-pale:   #fdf4f4;
+  --gold:        #e0b84a;
+  --gold-dark:   #b8902a;
+  --gold-light:  #f5e9bc;
+  --gold-pale:   #fdfbf0;
+  --sage:        #7a9e82;
+  --sage-dark:   #5a7e62;
+  --sage-light:  #c8d9c8;
+  --sage-pale:   #f2f7f2;
+  --olive:       #9aaa5a;
+  --olive-light: #d8e4b0;
+  --ink:         #2a2218;
+  --ink-mid:     #5a4e3e;
+  --ink-soft:    #9a8e7e;
+  --ink-faint:   #c8bfb0;
+  --cream:       #faf7f2;
+  --cream-dark:  #f0ebe2;
+  --white:       #ffffff;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif:   'Lora', Georgia, serif;
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--cream);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Sfondo organico */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(ellipse 800px 600px at 10% 20%, rgba(204,110,110,0.07) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 500px at 90% 80%, rgba(122,158,130,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 60% 10%, rgba(224,184,74,0.06) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* Animazione pagina */
+.page-enter-active { animation: pageIn 0.22s ease; }
+.page-leave-active { animation: pageOut 0.15s ease; }
+@keyframes pageIn  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes pageOut { from { opacity:1; } to { opacity:0; } }
+
+/* Skeleton */
+@keyframes shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, var(--cream-dark) 25%, var(--cream) 50%, var(--cream-dark) 75%);
+  background-size: 600px 100%;
+  animation: shimmer 1.4s infinite linear;
+  border-radius: 8px;
+}
+
+/* Tipografia */
+.title-display { font-family: var(--font-display); letter-spacing: -0.01em; }
+.title-serif   { font-family: var(--font-serif); }
+.gradient-title {
+  background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 55%, var(--olive) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card */
+.card {
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(42,34,24,0.06);
+}
+.card-urgent {
+  background: var(--rose-pale);
+  border-color: var(--rose-light);
+}
+
+/* Hover card */
+.hover-card { transition: all 0.2s cubic-bezier(0.4,0,0.2,1); cursor: pointer; }
+.hover-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(42,34,24,0.12) !important; }
+.hover-card:active { transform: scale(0.985); }
+
+/* Badge */
+.badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; }
+.badge-ok   { background: var(--sage-pale); color: var(--sage); border: 1px solid var(--sage-light); }
+.badge-warn { background: var(--rose-pale); color: var(--rose-dark); border: 1px solid var(--rose-light); }
+.badge-gold { background: var(--gold-pale); color: #8a6820; border: 1px solid var(--gold-light); }
+
+/* Bottoni */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; padding: 10px 18px; border-radius: 12px;
+  font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+  transition: all 0.18s; font-family: var(--font-sans); min-height: 44px;
+}
+.btn-rose { background: var(--rose); color: white; box-shadow: 0 3px 14px rgba(204,110,110,0.3); }
+.btn-rose:hover { background: var(--rose-dark); transform: translateY(-1px); }
+.btn-rose:active { transform: scale(0.97); }
+.btn-sage { background: var(--sage); color: white; box-shadow: 0 3px 14px rgba(122,158,130,0.3); }
+.btn-sage:hover { background: #6a8e72; transform: translateY(-1px); }
+.btn-ghost { background: var(--cream-dark); color: var(--ink-mid); border: 1px solid var(--cream-dark); }
+.btn-ghost:hover { background: #e0d8cc; }
+
+/* Pill filtri */
+.pill {
+  padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 500;
+  border: 1px solid var(--cream-dark); background: var(--white); color: var(--ink-soft);
+  cursor: pointer; transition: all 0.18s; white-space: nowrap; min-height: 36px;
+  font-family: var(--font-sans);
+}
+.pill.active { background: var(--sage); color: white; border-color: var(--sage); box-shadow: 0 2px 10px rgba(122,158,130,0.3); }
+.pill:hover:not(.active) { border-color: var(--sage-light); color: var(--sage); }
+
+/* Search */
+.search-input {
+  width: 100%; height: 44px;
+  padding: 0 16px 0 42px;
+  border-radius: 14px;
+  border: 1px solid var(--cream-dark);
+  background: var(--white);
+  font-family: var(--font-sans); font-size: 14px; color: var(--ink);
+  box-shadow: 0 2px 8px rgba(42,34,24,0.05);
+  transition: border 0.18s, box-shadow 0.18s;
+  outline: none;
+}
+.search-input::placeholder { color: var(--ink-faint); }
+.search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.15); }
+
+/* Form input (senza icona search a sinistra) */
+.form-input {
+  width: 100%; min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  border: 1px solid var(--cream-dark);
+  background: var(--white);
+  font-family: var(--font-sans); font-size: 14px; color: var(--ink);
+  box-shadow: 0 2px 8px rgba(42,34,24,0.05);
+  transition: border 0.18s, box-shadow 0.18s;
+  outline: none;
+}
+.form-input::placeholder { color: var(--ink-faint); }
+.form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.15); }
+
+/* Zona tag */
+.zona-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; display: inline-block; }
+
+/* Section label */
+.section-label { font-family: var(--font-serif); font-size: 12px; font-weight: 600; font-style: italic; color: var(--ink-soft); margin-bottom: 8px; }
+
+/* Scrollbar hidden */
+.no-scroll::-webkit-scrollbar { display: none; }
+.no-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Divider */
+.divider { border: none; border-top: 1px solid var(--cream-dark); }
+
+/* Dot glow */
+.dot-glow { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 6px rgba(122,158,130,0.7); display: inline-block; }

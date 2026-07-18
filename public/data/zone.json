@@ -1,0 +1,74 @@
+{
+  "Casa": {
+    "nome": "Casa",
+    "descrizione": "<div>Ambiente <b>interno</b> con finestre e terrazzi.</div>",
+    "esposizione": [
+      "nord",
+      "sud",
+      "est",
+      "ovest"
+    ],
+    "microclima": "<div>La casa è tendenzialmente umida ed esposta al vento.</div><div><br></div><div>Non essendo \ncoibentata, in inverno diventa molto fredda ed è riscaldata tramite \ntermosifoni in ghisa alimentati a gas.</div><div><br></div><div>Ad aprile la temperatura è di \ncirca 18-19°C e l'umidità è al 62%, il riscaldamento è spento.</div>",
+    "criticita": "<div>Richiede particolare attenzione \nla prevenzione e rimozione della muffa sulle pareti esterne, soprattutto\n nei punti più freddi e meno ventilati.</div>",
+    "manutenzione": "<div>Bisogna fare attenzione alla presenza di muffa sul terriccio delle piante in vaso.</div>",
+    "tipo": "interno"
+  },
+  "Crinale": {
+    "nome": "Crinale",
+    "descrizione": "<div>La zona più grande del giardino.&nbsp;</div><div><br></div><div>Si sviluppa verso sud fino al confine \ncon un bosco collinare di proprietà altrui.</div><div><p dir=\"auto\">Sul margine orientale del crinale è presente un <strong>muretto a secco rivolto verso est</strong>, che <strong>curva verso nord</strong> fino a raggiungere il confine con il giardino dei vicini.</p></div>",
+    "esposizione": [
+      "est",
+      "ovest"
+    ],
+    "microclima": "<div>La posizione di cresta la rende la zona più ventilata del giardino, \nesposta ai venti da sud e da nord. Il confine con il bosco collinare \ncrea un'influenza microambientale: umidità più alta rispetto alle zone \naperte, lettiera di foglie che arricchisce il suolo nel tempo, e \npossibile ingresso di specie spontanee dal bosco. In estate la \nvegetazione esistente mitiga il calore; in inverno i venti da nord \npossono essere intensi.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Vento</strong>: zona più esposta della proprietà; privilegiare specie robuste con radici profonde</li><li><strong>Siccità estiva</strong>: l’esposizione a sud e il forte irraggiamento prosciugano rapidamente il suolo</li><li><strong>Invasione di specie spontanee dal bosco</strong>: rovi, infestanti e semi trasportati dal vento</li><li><strong>Parietaria sul muretto</strong>: crescita rapida e continua, richiede controllo regolare</li><li><strong>Accesso e manutenzione</strong>: zona ampia e distante dalla casa, richiede tempo e sforzo</li></ul>",
+    "manutenzione": "<div>Questa zona del giardino tende a seccare molto durante l'estate.</div><div>Bisogna fare attenzione alle infestanti lungo il muretto e lungo il dorso del crinale.</div>",
+    "tipo": "esterno"
+  },
+  "Est": {
+    "nome": "Est",
+    "descrizione": "<div>Lato orientale della proprietà.</div>",
+    "esposizione": [
+      "est"
+    ],
+    "microclima": "<div></div><div>Sole \ndiretto dal mattino fino al primo pomeriggio (circa 5–6 ore di sole \ndiretto). Il pomeriggio la casa proietta ombra parziale su questa zona e il tetto lo ripara dalla pioggia.</div><div><br></div><div>La collina alle spalle della proprietà funge da schermo naturale per i \nventi da nord e nord-ovest, rendendo questa zona relativamente riparata.\n Il lato est riceve il sole del mattino con calore progressivo durante \nla giornata.&nbsp;</div><div><br></div><div>Le gelate invernali sono \nrare ma possibili (gennaio–febbraio), attenuate dalla massa termica \ndella collina.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Ombra pomeridiana</strong>: a seconda dell'altezza della \ncollina e della vegetazione sul crinale, questa zona potrebbe ricevere \nombra nelle ore tarde; da monitorare in funzione delle piante scelte</li><li><strong>Suolo asciutto sotto la tettoia</strong>: la zona fiorita è \nriparata dalla tettoia della casa, che impedisce alla pioggia di \nraggiungere direttamente il terreno; il suolo tende a rimanere piuttosto\n asciutto e richiede irrigazione supplementare indipendentemente dalle \nprecipitazioni</li><li><strong>Umidità persistente al mattino</strong>: l'esposizione est \ncon scarsa ventilazione da ovest può favorire la permanenza della \nrugiada e umidità fogliare prolungata, aumentando il rischio di malattie\n fungine</li><li><strong>Escursione termica</strong>: la collina riduce la ventilazione notturna, portando a escursioni termiche più marcate rispetto a zone più aperte</li></ul>",
+    "manutenzione": "<div>Accertarsi <b>quotidianamente</b> dello stato di idratazione delle piante fiorite.</div>",
+    "tipo": "esterno"
+  },
+  "Orto": {
+    "nome": "Orto",
+    "descrizione": "<div>Area pianeggiante nella parte est/nord-est della proprietà.</div>",
+    "esposizione": [
+      "nord",
+      "est"
+    ],
+    "microclima": "<div>Zona relativamente riparata rispetto alle altre aree del giardino grazie\n alla posizione arretrata rispetto alla strada e alla presenza di \nvegetazione circostante. Il terreno pianeggiante favorisce ristagno \nidrico se il drenaggio non è adeguato. Le temperature sono leggermente \npiù alte rispetto alle zone in pendio grazie alla minore ventilazione.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Siccità estiva</strong>: il clima adriatico porta estati calde e secche; l'orto necessita di irrigazione regolare da giugno ad agosto</li><li><strong>Ristagno idrico</strong>: il terreno pianeggiante può accumulare acqua in autunno/inverno in caso di piogge intense; verificare il drenaggio</li><li><strong>Parassiti orticoli</strong>: afidi, lumache e nottue sono comuni nelle zone vegetali costiere marchigiane</li></ul>",
+    "manutenzione": "",
+    "tipo": "esterno"
+  },
+  "Scivolo": {
+    "nome": "Scivolo",
+    "descrizione": "<div>Striscia che si sviluppa da <strong>ovest verso est</strong>, tra la struttura superiore (garage/dependance) e la casa principale.</div>",
+    "esposizione": [
+      "est",
+      "ovest"
+    ],
+    "microclima": "<h2 tabindex=\"-1\" class=\"heading-element\" dir=\"auto\"></h2>La\n zona è riparata dal vento grazie alle strutture adiacenti e agli alberi\n ai lati. Il pomeriggio estivo porta calore diretto sulla parte centrale\n e sul lato sinistro (ovest), che si scalda rapidamente. Il <strong>lato destro</strong>\n ha un microclima distinto: fresco, ombroso e con umidità costantemente \npiù alta a causa dell'acqua di drenaggio proveniente dalle fioriere \ndella ringhiera sovrastante. Le temperature su questo lato sono stabili e\n più basse rispetto al resto della zona.",
+    "criticita": "<ul dir=\"auto\"><li><strong>Calore pomeridiano estivo</strong>: il lato sinistro e la \nparte centrale possono subire stress da calore nelle ore più calde; \npreferire piante resistenti al sole intenso e alla siccità estiva</li><li><strong>Umidità eccessiva sul lato destro</strong>: il drenaggio continuo delle fioriere sovrastanti può portare a ristagno e marciume radicale su specie non adatte all'umidità</li><li><strong>Luminosità disomogenea</strong>: la forte differenza tra il \nlato sinistro (soleggiato) e il lato destro (sempre in ombra) richiede \nscelte botaniche molto diverse per le due estremità</li></ul>",
+    "manutenzione": "",
+    "tipo": "esterno"
+  },
+  "Vialetto": {
+    "nome": "Vialetto",
+    "descrizione": "<div>Percorso pedonale sopraelevato che si sviluppa lungo un lato della casa. È composto da due sotto-zone: le <strong>fioriere</strong> (grandi contenitori in legno lungo il camminamento) e la <strong>ringhiera</strong>\n (piccole fioriere appese alla ringhiera del camminamento). Il drenaggio\n delle fioriere scende nella sotto-zona lato-destro dello scivolo \nsottostante.</div>",
+    "esposizione": [
+      "ovest"
+    ],
+    "microclima": "<div>Caldo e soleggiato nel pomeriggio, con buona ventilazione grazie alla \nposizione sopraelevata sul camminamento. Le fioriere in contenitore (sia\n grandi che piccole) si scaldano rapidamente e perdono umidità più in \nfretta rispetto al terreno aperto. Le fioriere in legno grandi \nmantengono l'umidità meglio di quelle piccole in plastica o terracotta.</div>",
+    "criticita": "<ul dir=\"auto\"><li><strong>Cacyreus marshalli</strong> (farfallina dei gerani): \nparassita che depone le uova sui gerani e le cui larve perforano steli e\n gemme dall'interno. L'anno scorso ha richiesto una potatura abbondante.\n Da monitorare da primavera: trattamenti preventivi con insetticida \nspecifico o Bacillus thuringiensis all'inizio della stagione</li><li><strong>Essiccamento rapido</strong>: le fioriere, soprattutto \nquelle piccole della ringhiera, si asciugano velocemente in estate; \nirrigazione frequente indispensabile nelle settimane più calde</li><li><strong>Stress termico estivo</strong>: il calore pomeridiano combinato con substrato limitato può stressare le radici nelle fioriere piccole</li></ul>",
+    "manutenzione": "<div>In estate è richiesta molta irrigazione, a causa dell'esposizione al sole e al vento.</div>",
+    "tipo": "esterno"
+  }
+}

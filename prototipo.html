@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Giardino di Zorba</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    [v-cloak] { display: none; }
+
+    :root {
+      --rose:        #cc6e6e;
+      --rose-dark:   #b85f5f;
+      --rose-light:  #f0d0d0;
+      --rose-pale:   #fdf4f4;
+      --gold:        #e0b84a;
+      --gold-light:  #f5e9bc;
+      --gold-pale:   #fdfbf0;
+      --sage:        #7a9e82;
+      --sage-light:  #c8d9c8;
+      --sage-pale:   #f2f7f2;
+      --olive:       #9aaa5a;
+      --olive-light: #d8e4b0;
+      --ink:         #2a2218;
+      --ink-mid:     #5a4e3e;
+      --ink-soft:    #9a8e7e;
+      --ink-faint:   #c8bfb0;
+      --cream:       #faf7f2;
+      --cream-dark:  #f0ebe2;
+      --white:       #ffffff;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        radial-gradient(ellipse 800px 600px at 10% 20%, rgba(204,110,110,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 600px 500px at 90% 80%, rgba(122,158,130,0.08) 0%, transparent 70%),
+        radial-gradient(ellipse 400px 400px at 60% 10%, rgba(224,184,74,0.06) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Navbar desktop ── */
+    .navbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(250,247,242,0.9);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .navbar-inner {
+      max-width: 920px; margin: 0 auto;
+      display: flex; align-items: center; gap: 0;
+      padding: 0 16px; height: 52px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .navbar-inner::-webkit-scrollbar { display: none; }
+    .nav-item {
+      display: flex; align-items: center; gap: 5px;
+      padding: 6px 10px; height: 44px;
+      font-size: 13px; font-weight: 500;
+      color: var(--ink-soft);
+      transition: color 0.22s ease; white-space: nowrap;
+      cursor: pointer; border: none; background: none;
+      text-decoration: none; position: relative; z-index: 0;
+    }
+    .nav-item::before {
+      content: '';
+      position: absolute; inset: 4px;
+      border-radius: 5px;
+      background: var(--gold-light);
+      opacity: 0;
+      transform: scaleX(0.3);
+      transform-origin: left center;
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+      z-index: -1;
+    }
+    .nav-item:hover { color: var(--ink); }
+    .nav-item:hover::before { opacity: 0.65; transform: scaleX(1); }
+    .nav-item.active { color: var(--rose); font-weight: 600; }
+    .nav-item.active::before { opacity: 0.85; transform: scaleX(1); }
+
+    /* ── Bottom nav mobile ── */
+    .bottom-nav {
+      display: none;
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 60;
+      background: rgba(250,247,242,0.96);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--cream-dark);
+      padding: 6px 0 env(safe-area-inset-bottom, 6px);
+    }
+    .bottom-nav-inner {
+      display: flex; justify-content: space-around; align-items: center;
+    }
+    .bottom-nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      min-width: 56px; min-height: 44px; padding: 4px 8px;
+      font-size: 10px; font-weight: 500; color: var(--ink-soft);
+      border: none; background: none; cursor: pointer;
+      transition: color 0.18s; position: relative;
+    }
+    .bottom-nav-item .bn-emoji { font-size: 20px; line-height: 1; }
+    .bottom-nav-item.active { color: var(--rose); font-weight: 600; }
+    .bottom-nav-item .bn-badge {
+      position: absolute; top: 2px; right: 6px;
+      background: var(--rose); color: white;
+      border-radius: 999px; font-size: 9px; font-weight: 700;
+      padding: 1px 5px; line-height: 1.4;
+    }
+
+    @media (max-width: 640px) {
+      .navbar { display: none; }
+      .bottom-nav { display: block; }
+      .main { padding-bottom: 80px !important; }
+    }
+
+    /* ── Layout ── */
+    .main { max-width: 920px; margin: 0 auto; padding: 28px 16px 80px; position: relative; z-index: 1; }
+
+    /* ── Card ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--cream-dark);
+      border-radius: 20px;
+      box-shadow: 0 2px 12px rgba(42,34,24,0.06);
+    }
+    .card-urgent {
+      background: var(--rose-pale);
+      border-color: var(--rose-light);
+    }
+
+    /* ── Bottoni ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 6px; padding: 10px 18px; border-radius: 12px;
+      font-size: 13px; font-weight: 600; border: none; cursor: pointer;
+      transition: all 0.18s; font-family: inherit; min-height: 44px;
+    }
+    .btn-rose {
+      background: var(--rose); color: white;
+      box-shadow: 0 3px 14px rgba(204,110,110,0.3);
+    }
+    .btn-rose:hover { background: var(--rose-dark); transform: translateY(-1px); box-shadow: 0 5px 18px rgba(204,110,110,0.38); }
+    .btn-rose:active { transform: scale(0.97); }
+    .btn-sage {
+      background: var(--sage); color: white;
+      box-shadow: 0 3px 14px rgba(122,158,130,0.3);
+    }
+    .btn-sage:hover { background: #6a8e72; transform: translateY(-1px); }
+    .btn-ghost {
+      background: var(--cream-dark); color: var(--ink-mid);
+      border: 1px solid var(--cream-dark);
+    }
+    .btn-ghost:hover { background: #e0d8cc; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block; padding: 3px 10px;
+      border-radius: 999px; font-size: 11px; font-weight: 600;
+    }
+    .badge-ok   { background: var(--sage-pale); color: var(--sage); border: 1px solid var(--sage-light); }
+    .badge-warn { background: var(--rose-pale); color: var(--rose-dark); border: 1px solid var(--rose-light); }
+    .badge-gold { background: var(--gold-pale); color: #8a6820; border: 1px solid var(--gold-light); }
+
+    /* ── Hover card ── */
+    .hover-card { transition: all 0.2s cubic-bezier(0.4,0,0.2,1); cursor: pointer; }
+    .hover-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(42,34,24,0.12) !important; }
+    .hover-card:active { transform: scale(0.985); }
+
+    /* ── Tipografia ── */
+    .title-display { font-family: 'Playfair Display', Georgia, serif; letter-spacing: -0.01em; }
+    .title-serif   { font-family: 'Lora', Georgia, serif; }
+    .gradient-title {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 55%, var(--olive) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ── Search ── */
+    .search-wrap {
+      position: relative; margin-bottom: 12px;
+    }
+    .search-icon {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--ink-faint); font-size: 15px; pointer-events: none;
+    }
+    .search-input {
+      width: 100%; height: 44px;
+      padding: 0 16px 0 42px;
+      border-radius: 14px;
+      border: 1px solid var(--cream-dark);
+      background: var(--white);
+      font-family: inherit; font-size: 14px; color: var(--ink);
+      box-shadow: 0 2px 8px rgba(42,34,24,0.05);
+      transition: border 0.18s, box-shadow 0.18s;
+      outline: none;
+    }
+    .search-input::placeholder { color: var(--ink-faint); }
+    .search-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(224,184,74,0.15);
+    }
+
+    /* ── Pill filtri ── */
+    .pill {
+      padding: 7px 14px; border-radius: 999px; font-size: 12px; font-weight: 500;
+      border: 1px solid var(--cream-dark); background: var(--white); color: var(--ink-soft);
+      cursor: pointer; transition: all 0.18s; white-space: nowrap; min-height: 36px;
+    }
+    .pill.active { background: var(--sage); color: white; border-color: var(--sage); box-shadow: 0 2px 10px rgba(122,158,130,0.3); }
+    .pill:hover:not(.active) { border-color: var(--sage-light); color: var(--sage); }
+
+    /* ── Skeleton ── */
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position: 600px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, var(--cream-dark) 25%, var(--cream) 50%, var(--cream-dark) 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite linear;
+      border-radius: 8px;
+    }
+
+    /* ── Status bar ── */
+    .statusbar {
+      position: fixed; bottom: 0; left: 0; right: 0; height: 44px; z-index: 50;
+      background: rgba(250,247,242,0.95);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--cream-dark);
+      display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
+    }
+    @media (max-width: 640px) { .statusbar { display: none; } }
+
+    /* ── Utils ── */
+    .divider { border: none; border-top: 1px solid var(--cream-dark); }
+    .page-in { animation: pageIn 0.22s ease; }
+    @keyframes pageIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .no-scroll::-webkit-scrollbar { display: none; }
+    .no-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    .botanical-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .dot-glow { width: 7px; height: 7px; border-radius: 50%; background: var(--sage); box-shadow: 0 0 6px rgba(122,158,130,0.7); display: inline-block; }
+    .zona-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; display: inline-block; }
+    .section-label { font-family: 'Lora', Georgia, serif; font-size: 12px; font-weight: 600; font-style: italic; color: var(--ink-soft); margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+
+<div id="app" v-cloak>
+
+  <!-- NAVBAR desktop -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a v-for="item in nav" :key="item.id" class="nav-item" :class="{active: pagina===item.id}" @click.prevent="pagina=item.id" href="#">
+        <span>{{ item.emoji }}</span>
+        <span>{{ item.label }}</span>
+        <span v-if="item.badge" style="background:var(--rose);color:white;border-radius:999px;font-size:10px;font-weight:700;padding:1px 6px;line-height:1.5;">{{ item.badge }}</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- BOTTOM NAV mobile -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <button v-for="item in bottomNav" :key="item.id"
+        class="bottom-nav-item" :class="{active: pagina===item.id}"
+        @click="pagina=item.id">
+        <span class="bn-badge" v-if="item.badge">{{ item.badge }}</span>
+        <span class="bn-emoji">{{ item.emoji }}</span>
+        <span>{{ item.label }}</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- ── HOME ── -->
+    <div v-if="pagina==='home'" class="page-in">
+
+      <!-- Hero -->
+      <div style="text-align:center;padding:32px 0 36px;">
+        <img src="docs/apple-touch-icon.png" alt="logo"
+          style="width:88px;height:88px;border-radius:22px;display:block;margin:0 auto 20px;filter:drop-shadow(0 8px 20px rgba(42,34,24,0.18));">
+        <h1 class="title-display gradient-title" style="font-size:2.3rem;font-weight:700;margin-bottom:6px;">
+          Il Giardino di Zorba
+        </h1>
+        <p class="title-serif" style="color:var(--ink-soft);font-size:14px;font-style:italic;">{{ oggi }} · Centinarola, Fano</p>
+        <div style="display:flex;justify-content:center;gap:8px;margin-top:14px;">
+          <span class="botanical-dot" style="background:var(--rose-light);"></span>
+          <span class="botanical-dot" style="background:var(--gold-light);"></span>
+          <span class="botanical-dot" style="background:var(--olive-light);"></span>
+          <span class="botanical-dot" style="background:var(--sage-light);"></span>
+        </div>
+      </div>
+
+      <!-- Meteo -->
+      <div class="card hover-card" style="padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:14px;" @click="pagina='meteo'">
+        <div style="width:46px;height:46px;border-radius:13px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:1px solid var(--gold-light);">⛅</div>
+        <div style="flex:1;">
+          <div style="font-weight:600;font-size:14px;">22°C · Parzialmente nuvoloso</div>
+          <div style="color:var(--ink-soft);font-size:12px;margin-top:1px;">Umidità 65% · Vento 12 km/h · Nessuna pioggia</div>
+        </div>
+        <span style="color:var(--rose);font-size:14px;font-weight:700;">→</span>
+      </div>
+
+      <!-- Card grid — con dati contestuali -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+        <div v-for="card in homeCards" :key="card.id"
+          class="card hover-card" style="padding:16px 10px;text-align:center;border-radius:18px;"
+          @click="pagina=card.id">
+          <div style="font-size:24px;margin-bottom:6px;">{{ card.emoji }}</div>
+          <div style="font-weight:600;font-size:12px;color:var(--ink);">{{ card.label }}</div>
+          <div v-if="card.count" :style="`color:${card.urgent ? 'var(--rose-dark)' : 'var(--ink-soft)'};font-weight:${card.urgent ? '700' : '400'}`"
+            style="font-size:11px;margin-top:3px;">{{ card.count }}</div>
+        </div>
+      </div>
+
+      <!-- Da fare oggi -->
+      <div class="card" style="overflow:hidden;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;">
+          <h2 class="title-serif" style="font-size:16px;font-weight:600;">Da fare oggi</h2>
+          <span class="badge badge-warn">3 in scadenza</span>
+        </div>
+        <hr class="divider">
+
+        <!-- Skeleton loading (simulato con v-if) -->
+        <div v-if="loading" style="padding:14px 18px;display:flex;flex-direction:column;gap:12px;">
+          <div v-for="i in 3" :key="i" style="display:flex;align-items:center;gap:12px;">
+            <div class="skeleton" style="width:38px;height:38px;border-radius:12px;flex-shrink:0;"></div>
+            <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
+              <div class="skeleton" style="height:12px;width:60%;"></div>
+              <div class="skeleton" style="height:10px;width:40%;"></div>
+            </div>
+            <div class="skeleton" style="width:64px;height:32px;border-radius:8px;"></div>
+          </div>
+        </div>
+
+        <div v-else>
+          <div v-for="(a,i) in attivitaOggi" :key="a.id">
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;">
+              <div :style="`background:${a.colore}22;border:1px solid ${a.colore}44;`"
+                style="width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
+                {{ a.emoji }}
+              </div>
+              <div style="flex:1;">
+                <div style="font-weight:500;font-size:13px;text-transform:capitalize;">{{ a.pianta }}</div>
+                <div style="font-size:11px;color:var(--ink-soft);">{{ a.azione }}</div>
+              </div>
+              <button class="btn btn-sage" style="padding:8px 16px;font-size:12px;border-radius:10px;min-height:40px;">✓ Fatto</button>
+            </div>
+            <hr v-if="i < attivitaOggi.length-1" class="divider" style="margin-left:72px;">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PIANTE ── -->
+    <div v-else-if="pagina==='piante'" class="page-in">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:700;">Piante</h1>
+        <button class="btn btn-rose" style="padding:8px 16px;">＋ Aggiungi</button>
+      </div>
+
+      <!-- Search -->
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" v-model="cerca" type="search" placeholder="Cerca per nome o specie…">
+      </div>
+
+      <!-- Filtri zona -->
+      <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:16px;" class="no-scroll">
+        <button v-for="z in ['Tutte','Scivolo','Vialetto','Est','Crinale','Orto','Casa']" :key="z"
+          class="pill" :class="{active: filtroZona===z}" @click="filtroZona=z">{{ z }}</button>
+      </div>
+
+      <!-- Sezione urgenti -->
+      <div v-if="pianteUrgenti.length && filtroZona==='Tutte' && !cerca">
+        <p class="section-label">⚠ Da curare</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+          <div v-for="p in pianteUrgenti" :key="'u'+p.id"
+            class="card card-urgent hover-card"
+            style="display:flex;align-items:center;gap:14px;padding:12px 16px;"
+            @click="piantaSelezionata=p;pagina='pianta'">
+            <div style="width:52px;height:52px;border-radius:14px;background:var(--rose-light);border:1px solid var(--rose-light);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🌱</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:600;font-size:14px;text-transform:capitalize;">{{ p.nome }}</div>
+              <div style="font-size:11px;color:var(--ink-soft);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.specie }}</div>
+              <div style="font-size:11px;color:var(--ink-faint);margin-top:1px;">{{ p.zona }}</div>
+            </div>
+            <span class="badge badge-warn">⚠ cura</span>
+          </div>
+        </div>
+        <p class="section-label">Tutte le piante</p>
+      </div>
+
+      <!-- Lista principale -->
+      <div v-if="pianteFiltrate.length" style="display:flex;flex-direction:column;gap:8px;">
+        <div v-for="p in pianteFiltrate" :key="p.id"
+          class="card hover-card"
+          style="display:flex;align-items:center;gap:14px;padding:12px 16px;"
+          @click="piantaSelezionata=p;pagina='pianta'">
+          <div style="width:52px;height:52px;border-radius:14px;background:var(--sage-pale);border:1px solid var(--sage-light);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🌱</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-weight:600;font-size:14px;text-transform:capitalize;">{{ p.nome }}</div>
+            <div style="font-size:11px;color:var(--ink-soft);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ p.specie }}</div>
+            <div style="font-size:11px;color:var(--ink-faint);margin-top:1px;">{{ p.zona }}</div>
+          </div>
+          <span :class="p.stato==='ok' ? 'badge badge-ok' : 'badge badge-warn'">
+            {{ p.stato==='ok' ? '✓ ok' : '⚠ cura' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Stato vuoto -->
+      <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
+        <div style="font-size:40px;margin-bottom:12px;">🌾</div>
+        <p style="font-size:14px;color:var(--ink-soft);">Nessuna pianta trovata</p>
+        <p style="font-size:12px;margin-top:4px;">Prova a cambiare il filtro o la ricerca</p>
+      </div>
+    </div>
+
+    <!-- ── DETTAGLIO PIANTA ── -->
+    <div v-else-if="pagina==='pianta' && piantaSelezionata" class="page-in">
+      <button @click="pagina='piante'"
+        style="display:flex;align-items:center;gap:5px;color:var(--rose-dark);font-size:13px;font-weight:500;margin-bottom:20px;background:none;border:none;cursor:pointer;min-height:44px;padding:0;">
+        ← Piante
+      </button>
+      <div class="card" style="overflow:hidden;">
+        <div style="height:170px;background:linear-gradient(135deg,var(--rose-pale),var(--gold-pale),var(--sage-pale));display:flex;align-items:center;justify-content:center;font-size:70px;position:relative;">
+          🌿
+          <div style="position:absolute;bottom:14px;right:14px;display:flex;gap:8px;">
+            <button class="btn btn-ghost" style="padding:0;width:44px;height:44px;font-size:16px;border-radius:12px;">✏️</button>
+            <button class="btn btn-ghost" style="padding:0;width:44px;height:44px;font-size:16px;border-radius:12px;">🤖</button>
+          </div>
+        </div>
+        <div style="padding:20px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;">
+            <div>
+              <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:700;text-transform:capitalize;">{{ piantaSelezionata.nome }}</h1>
+              <p class="title-serif" style="font-size:13px;color:var(--ink-soft);font-style:italic;margin-top:2px;">{{ piantaSelezionata.specie }}</p>
+            </div>
+            <span :class="piantaSelezionata.stato==='ok' ? 'badge badge-ok' : 'badge badge-warn'" style="margin-top:4px;flex-shrink:0;">
+              {{ piantaSelezionata.stato==='ok' ? '✓ ok' : '⚠ cura' }}
+            </span>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px;">
+            <span class="zona-tag" style="background:var(--sage-pale);color:var(--sage);border:1px solid var(--sage-light);">{{ piantaSelezionata.zona }}</span>
+            <span class="zona-tag" style="background:var(--gold-pale);color:#8a6820;border:1px solid var(--gold-light);">{{ piantaSelezionata.famiglia }}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:18px;">
+            <div style="background:var(--cream);border:1px solid var(--cream-dark);border-radius:14px;padding:12px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">💧</div>
+              <div style="font-size:10px;color:var(--ink-soft);">Irrigazione</div>
+              <div style="font-size:12px;font-weight:600;margin-top:1px;">7 giorni</div>
+            </div>
+            <div style="background:var(--cream);border:1px solid var(--cream-dark);border-radius:14px;padding:12px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">📅</div>
+              <div style="font-size:10px;color:var(--ink-soft);">Ultima cura</div>
+              <div style="font-size:12px;font-weight:600;margin-top:1px;">3 gg fa</div>
+            </div>
+            <div style="background:var(--cream);border:1px solid var(--cream-dark);border-radius:14px;padding:12px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">☀️</div>
+              <div style="font-size:10px;color:var(--ink-soft);">Esposizione</div>
+              <div style="font-size:12px;font-weight:600;margin-top:1px;">Pieno sole</div>
+            </div>
+          </div>
+          <button class="btn btn-rose" style="width:100%;padding:14px;font-size:14px;border-radius:14px;">✓ Registra cura</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ZONE ── -->
+    <div v-else-if="pagina==='zone'" class="page-in">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+        <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:700;">Zone</h1>
+        <button class="btn btn-rose" style="padding:8px 16px;">＋ Aggiungi</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;">
+        <div v-for="z in zone" :key="z.id" class="card hover-card" style="padding:18px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <span style="font-size:28px;">{{ z.emoji }}</span>
+            <span class="badge badge-gold">{{ z.piante }} piante</span>
+          </div>
+          <h3 class="title-display" style="font-weight:600;font-size:16px;text-transform:capitalize;margin-bottom:4px;">{{ z.nome }}</h3>
+          <p style="font-size:11px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;">{{ z.desc }}</p>
+          <button class="btn btn-sage" style="width:100%;padding:10px;font-size:12px;border-radius:10px;min-height:40px;">Esplora →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PLACEHOLDER ── -->
+    <div v-else class="page-in" style="text-align:center;padding:80px 0;color:var(--ink-faint);">
+      <div style="font-size:52px;margin-bottom:16px;">{{ nav.find(n=>n.id===pagina)?.emoji }}</div>
+      <h2 class="title-display" style="font-size:22px;font-weight:600;color:var(--ink-soft);">{{ nav.find(n=>n.id===pagina)?.label }}</h2>
+      <p style="font-size:13px;margin-top:6px;">Sarà migrata in Vue</p>
+    </div>
+
+  </div>
+
+  <!-- STATUS BAR desktop -->
+  <div class="statusbar">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="dot-glow"></span>
+      <span style="font-size:12px;color:var(--ink-soft);">Pronto</span>
+    </div>
+    <button class="btn btn-ghost" style="padding:5px 14px;font-size:11px;border-radius:8px;min-height:32px;">Aggiorna</button>
+  </div>
+
+</div>
+
+<script type="module">
+import { createApp, ref, computed } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+createApp({
+  setup() {
+    const pagina            = ref('home')
+    const filtroZona        = ref('Tutte')
+    const piantaSelezionata = ref(null)
+    const cerca             = ref('')
+    const loading           = ref(false)
+
+    const oggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
+
+    const nav = [
+      { id:'home',     emoji:'🐈‍⬛', label:'Home' },
+      { id:'meteo',    emoji:'⛅',   label:'Meteo' },
+      { id:'zone',     emoji:'📍',   label:'Zone' },
+      { id:'piante',   emoji:'🌿',   label:'Piante' },
+      { id:'progetti', emoji:'🗂️',   label:'Progetti' },
+      { id:'attivita', emoji:'🔔',   label:'Attività', badge:3 },
+      { id:'agente',   emoji:'🤖',   label:'Assistente' },
+      { id:'gallery',  emoji:'🖼️',   label:'Gallery' },
+    ]
+
+    const bottomNav = [
+      { id:'home',     emoji:'🐈‍⬛', label:'Home' },
+      { id:'piante',   emoji:'🌿',   label:'Piante' },
+      { id:'attivita', emoji:'🔔',   label:'Attività', badge:3 },
+      { id:'agente',   emoji:'🤖',   label:'Assistente' },
+      { id:'zone',     emoji:'📍',   label:'Zone' },
+    ]
+
+    const homeCards = [
+      { id:'zone',     emoji:'📍', label:'Zone',       count:'6 zone' },
+      { id:'piante',   emoji:'🌿', label:'Piante',     count:'2 da curare', urgent:true },
+      { id:'attivita', emoji:'🔔', label:'Attività',   count:'3 in scadenza', urgent:true },
+      { id:'gallery',  emoji:'🖼️', label:'Gallery',    count:'48 foto' },
+      { id:'agente',   emoji:'🤖', label:'Assistente', count:'1 risposta pronta', urgent:false },
+      { id:'progetti', emoji:'🗂️', label:'Progetti',   count:'2 in corso' },
+    ]
+
+    const attivitaOggi = [
+      { id:1, pianta:'Lavanda', azione:'Irrigazione — scaduta ieri',  emoji:'💧', colore:'#7a9e82' },
+      { id:2, pianta:'Camelia', azione:'Concimazione — scaduta 2 gg fa', emoji:'🌱', colore:'#9aaa5a' },
+      { id:3, pianta:'Gerani',  azione:'Irrigazione — scade oggi',    emoji:'💧', colore:'#7a9e82' },
+    ]
+
+    const piante = [
+      { id:1, nome:'lavanda',        specie:'Lavandula angustifolia', zona:'Scivolo · lato sinistro', famiglia:'Lamiaceae',   stato:'cura' },
+      { id:2, nome:'camelia',        specie:'Camellia japonica',      zona:'Vialetto · fioriere',     famiglia:'Theaceae',    stato:'ok'   },
+      { id:3, nome:'gerani',         specie:'Pelargonium zonale',     zona:'Vialetto · fioriere',     famiglia:'Geraniaceae', stato:'ok'   },
+      { id:4, nome:'rosmarino',      specie:'Salvia rosmarinus',      zona:'Crinale',                 famiglia:'Lamiaceae',   stato:'ok'   },
+      { id:5, nome:'iris spontaneo', specie:'Iris germanica',         zona:'Scivolo · lato destro',   famiglia:'Iridaceae',   stato:'cura' },
+      { id:6, nome:'echinacea',      specie:'Echinacea purpurea',     zona:'Scivolo · lato sinistro', famiglia:'Asteraceae',  stato:'ok'   },
+    ]
+
+    const zone = [
+      { id:'scivolo',  nome:'Scivolo',  emoji:'🏔️', piante:24, desc:'Area in pendenza con tre sottozone: lato sinistro, frontale e destro.' },
+      { id:'vialetto', nome:'Vialetto', emoji:'🚶', piante:18, desc:'Percorso d\'ingresso con fioriere e ringhiera.' },
+      { id:'est',      nome:'Est',      emoji:'🌅', piante:12, desc:'Zona esposta a est, ottima per piante che amano il sole mattutino.' },
+      { id:'crinale',  nome:'Crinale',  emoji:'🌄', piante:8,  desc:'Cresta del terreno, molto esposta al vento.' },
+      { id:'orto',     nome:'Orto',     emoji:'🥕', piante:15, desc:'Area dedicata agli ortaggi e alle erbe aromatiche.' },
+      { id:'casa',     nome:'Casa',     emoji:'🏠', piante:22, desc:'Piante d\'interno: soggiorno, cucina, ingresso e bagni.' },
+    ]
+
+    const pianteFiltrate = computed(() => {
+      let lista = piante
+      if (filtroZona.value !== 'Tutte')
+        lista = lista.filter(p => p.zona.toLowerCase().includes(filtroZona.value.toLowerCase()))
+      if (cerca.value.trim())
+        lista = lista.filter(p =>
+          p.nome.includes(cerca.value.toLowerCase()) ||
+          p.specie.toLowerCase().includes(cerca.value.toLowerCase())
+        )
+      // Urgenti in cima solo se filtriamo, altrimenti sono mostrate nella sezione separata
+      if (filtroZona.value !== 'Tutte' || cerca.value.trim())
+        lista = [...lista].sort((a,b) => (a.stato==='cura' ? -1 : 1))
+      else
+        lista = lista.filter(p => p.stato === 'ok')
+      return lista
+    })
+
+    const pianteUrgenti = computed(() =>
+      piante.filter(p => p.stato === 'cura')
+    )
+
+    return {
+      pagina, filtroZona, piantaSelezionata, cerca, loading, oggi,
+      nav, bottomNav, homeCards, attivitaOggi, piante, pianteFiltrate, pianteUrgenti, zone
+    }
+  }
+}).mount('#app')
+</script>
+</body>
+</html>
