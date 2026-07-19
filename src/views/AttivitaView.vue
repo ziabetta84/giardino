@@ -20,22 +20,14 @@
       <template v-if="daFare.length">
         <p class="section-label">⚠ Da fare</p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
-          <div v-for="item in daFare" :key="item.key" class="card"
-            style="display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);">
-            <div style="width:40px;height:40px;border-radius:12px;background:var(--rose-light);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
-              {{ icona(item.tipo) }}
-            </div>
-            <div style="flex:1;min-width:0;">
-              <div class="title-serif" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                {{ item.nomeSpecie }}
-              </div>
-              <div style="font-size:11px;color:var(--rose-dark);margin-top:2px;">{{ item.label }}</div>
-            </div>
-            <button @click="registra(item)" :disabled="salvando === item.key" class="btn btn-rose"
-              style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
-              {{ salvando === item.key ? '⏳' : '✓ Fatto' }}
-            </button>
-          </div>
+          <AttivitaRiga
+            v-for="item in daFare"
+            :key="item.key"
+            :item="item"
+            variante="urgente"
+            :disabled="salvando === item.key"
+            @registra="registra"
+          />
         </div>
       </template>
 
@@ -43,22 +35,14 @@
       <template v-if="inScadenza.length">
         <p class="section-label">🕐 In scadenza (entro 3 giorni)</p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
-          <div v-for="item in inScadenza" :key="item.key" class="card"
-            style="display:flex;align-items:center;gap:12px;padding:12px 16px;">
-            <div style="width:40px;height:40px;border-radius:12px;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">
-              {{ icona(item.tipo) }}
-            </div>
-            <div style="flex:1;min-width:0;">
-              <div class="title-serif" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                {{ item.nomeSpecie }}
-              </div>
-              <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">{{ item.label }}</div>
-            </div>
-            <button @click="registra(item)" :disabled="salvando === item.key" class="btn btn-ghost"
-              style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
-              {{ salvando === item.key ? '⏳' : '✓ Fatto' }}
-            </button>
-          </div>
+          <AttivitaRiga
+            v-for="item in inScadenza"
+            :key="item.key"
+            :item="item"
+            variante="scadenza"
+            :disabled="salvando === item.key"
+            @registra="registra"
+          />
         </div>
       </template>
 
@@ -77,16 +61,13 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { valutaCura } from '@/composables/useCure'
+import AttivitaRiga from '@/components/AttivitaRiga.vue'
 
 const store    = useDatiStore()
 const { saveJSON } = useApi()
 const salvando = ref(null)
 
 const dataOggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
-
-function icona(tipo) {
-  return tipo === 'irrigazione' ? '💧' : tipo === 'concimazione' ? '🌱' : '✂️'
-}
 
 const attivita = computed(() => {
   if (!store.piante) return []
