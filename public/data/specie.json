@@ -2827,5 +2827,40 @@
         "inverno": ""
       }
     }
+  },
+  "agave": {
+    "nome": "Agave",
+    "specie": "Agave sp.",
+    "descrizione": "<p>Giovane pollone identificato a luglio 2026 (probabile Agave americana). Rosetta di foglie carnose che da adulta sviluppa margini spinosi.</p>",
+    "esigenze": {
+      "luce": "Pieno sole / molto luminoso",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante, sabbioso"
+    },
+    "alert": [
+      "Teme i ristagni idrici più di ogni altra cosa",
+      "Da adulta le foglie diventano spinose e appuntite: posizionarla lontano dal passaggio",
+      "In casa richiede la posizione più luminosa possibile, idealmente vicino a una finestra/terrazzo esposto a sud"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 12-15 giorni",
+        "estate": "ogni 10-15 giorni, solo a terreno completamente asciutto",
+        "autunno": "ogni 20-25 giorni",
+        "inverno": "ogni 30-40 giorni, minima"
+      },
+      "concimazione": {
+        "primavera": "una concimazione con concime per piante grasse/succulente",
+        "estate": "facoltativa, una sola volta a inizio stagione",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rimozione foglie secche o danneggiate",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
   }
 }
