@@ -1,16 +1,19 @@
 <template>
   <div style="display:flex;flex-direction:column;min-height:calc(100dvh - 130px);">
     <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:4px;">Assistente</h1>
-    <p style="font-size:12px;color:var(--ink-soft);margin-bottom:16px;">Gemini 2.0 Flash · conosce il tuo giardino</p>
+    <p style="font-size:12px;color:var(--ink-soft);margin-bottom:16px;">
+      Llama 3.2 Vision · conosce il tuo giardino
+      <button v-if="apiKey" @click="rimuoviKey" style="margin-left:10px;font-size:11px;color:var(--ink-faint);background:none;border:none;cursor:pointer;text-decoration:underline;">cambia chiave</button>
+    </p>
 
     <!-- Setup chiave API -->
     <div v-if="!apiKey" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
-      <p style="font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">🔑 Chiave API Gemini richiesta</p>
+      <p style="font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">🔑 Chiave API OpenRouter richiesta</p>
       <p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">
-        Ottienila gratis su <strong>aistudio.google.com</strong> → Get API Key
+        Ottienila gratis su <strong>openrouter.ai/keys</strong> → Create Key (nessuna carta richiesta)
       </p>
       <div style="display:flex;gap:8px;">
-        <input v-model="keyInput" type="password" placeholder="AIza…" class="form-input"
+        <input v-model="keyInput" type="password" placeholder="sk-or-…" class="form-input"
           style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="salvaKey">
         <button @click="salvaKey" :disabled="!keyInput.trim()" class="btn btn-sage"
           style="min-height:36px;padding:6px 14px;font-size:13px;">Salva</button>
@@ -92,7 +95,7 @@ import { useDatiStore } from '@/stores/dati'
 const store = useDatiStore()
 const chatArea = ref(null)
 
-const apiKey      = ref(localStorage.getItem('gemini_api_key') || '')
+const apiKey      = ref(localStorage.getItem('openrouter_api_key') || '')
 const keyInput    = ref('')
 const testo       = ref('')
 const fotoBase64  = ref(null)
@@ -129,13 +132,13 @@ onMounted(async () => {
 
 function salvaKey() {
   if (!keyInput.value.trim()) return
-  localStorage.setItem('gemini_api_key', keyInput.value.trim())
+  localStorage.setItem('openrouter_api_key', keyInput.value.trim())
   apiKey.value = keyInput.value.trim()
   keyInput.value = ''
 }
 
 function rimuoviKey() {
-  localStorage.removeItem('gemini_api_key')
+  localStorage.removeItem('openrouter_api_key')
   apiKey.value = ''
 }
 
@@ -210,18 +213,39 @@ async function invia() {
     if (userMsg.testo) currentParts.push({ text: userMsg.testo })
     contents.push({ role: 'user', parts: currentParts })
 
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey.value}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: systemPrompt.value }] },
-          contents,
-          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
-        }),
+    // Costruisce messaggi in formato OpenAI
+    const messages = [{ role: 'system', content: systemPrompt.value }]
+    for (const m of messaggi.value.filter(m => !m.caricamento).slice(0, -1)) {
+      if (m.ruolo === 'user') {
+        const content = []
+        if (m.testo) content.push({ type: 'text', text: m.testo })
+        if (m.fotoBase64) content.push({ type: 'image_url', image_url: { url: `data:image/jpeg;base64,${m.fotoBase64}` } })
+        messages.push({ role: 'user', content: content.length === 1 && !m.fotoBase64 ? m.testo : content })
+      } else {
+        messages.push({ role: 'assistant', content: m.testo })
       }
-    )
+    }
+    // Messaggio corrente
+    const currentContent = []
+    if (userMsg.testo) currentContent.push({ type: 'text', text: userMsg.testo })
+    if (userMsg.fotoBase64) currentContent.push({ type: 'image_url', image_url: { url: `data:image/jpeg;base64,${userMsg.fotoBase64}` } })
+    messages.push({ role: 'user', content: userMsg.fotoBase64 ? currentContent : userMsg.testo })
+
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey.value}`,
+        'HTTP-Referer': 'https://ziabetta84.github.io/giardino',
+        'X-Title': 'Il Giardino di Zorba',
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.2-11b-vision-instruct:free',
+        messages,
+        temperature: 0.7,
+        max_tokens: 1024,
+      }),
+    })
 
     if (!res.ok) {
       const err = await res.json().catch(() => ({}))
@@ -229,7 +253,7 @@ async function invia() {
     }
 
     const data = await res.json()
-    const risposta = data.candidates?.[0]?.content?.parts?.[0]?.text ?? 'Nessuna risposta ricevuta.'
+    const risposta = data.choices?.[0]?.message?.content ?? 'Nessuna risposta ricevuta.'
 
     const idx = messaggi.value.findIndex(m => m.id === loadingId)
     if (idx !== -1) messaggi.value[idx] = { id: loadingId, ruolo: 'model', testo: risposta, caricamento: false }
