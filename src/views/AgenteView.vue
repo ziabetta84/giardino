@@ -34,7 +34,7 @@
           <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">{{ fotoPreview ? 'Tocca per cambiare' : 'JPG, PNG — max 5 MB' }}</div>
         </div>
         <img v-if="fotoPreview" :src="fotoPreview" style="width:48px;height:48px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-        <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" style="display:none;">
+        <input type="file" accept="image/*" @change="selezionaFoto" style="display:none;">
       </label>
 
       <textarea v-model="nuovoMessaggio" placeholder="Descrivi la richiesta…"
