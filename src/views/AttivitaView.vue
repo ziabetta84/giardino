@@ -65,7 +65,6 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { valutaCura } from '@/composables/useCure'
-import AttivitaRiga from '@/components/AttivitaRiga.vue'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 
@@ -99,7 +98,7 @@ const gruppiDaFare = computed(() => raggruppaPerZona(daFare.value, store.piante)
 const gruppiInScadenza = computed(() => raggruppaPerZona(inScadenza.value, store.piante))
 
 async function registra(item) {
-  if (salvando.value) return
+  if (salvando.value || salvandoGruppo.value) return
   salvando.value = item.key
   try {
     const nuove = { ...store.piante }
@@ -118,7 +117,7 @@ async function registra(item) {
 }
 
 async function registraGruppo(gruppo) {
-  if (salvandoGruppo.value) return
+  if (salvandoGruppo.value || salvando.value) return
   salvandoGruppo.value = gruppo.chiave
   try {
     const nuove = { ...store.piante }
