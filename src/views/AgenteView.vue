@@ -1,173 +1,258 @@
 <template>
-  <div>
-    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:20px;">Assistente AI</h1>
+  <div style="display:flex;flex-direction:column;min-height:calc(100dvh - 130px);">
+    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:4px;">Assistente</h1>
+    <p style="font-size:12px;color:var(--ink-soft);margin-bottom:16px;">Gemini 2.0 Flash · conosce il tuo giardino</p>
 
-    <!-- Token mancante -->
-    <div v-if="!tokenSalvato" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
-      <p style="font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">🔑 Token GitHub richiesto</p>
-      <p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">Per inviare richieste serve un token con permesso <code>contents:write</code>.</p>
+    <!-- Setup chiave API -->
+    <div v-if="!apiKey" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
+      <p style="font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">🔑 Chiave API Gemini richiesta</p>
+      <p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">
+        Ottienila gratis su <strong>aistudio.google.com</strong> → Get API Key
+      </p>
       <div style="display:flex;gap:8px;">
-        <input v-model="tokenInput" type="password" placeholder="ghp_…" class="form-input" style="flex:1;min-height:36px;font-size:13px;">
-        <button @click="configuratToken" :disabled="!tokenInput.trim()" class="btn btn-sage" style="min-height:36px;padding:6px 14px;font-size:13px;">Salva</button>
+        <input v-model="keyInput" type="password" placeholder="AIza…" class="form-input"
+          style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="salvaKey">
+        <button @click="salvaKey" :disabled="!keyInput.trim()" class="btn btn-sage"
+          style="min-height:36px;padding:6px 14px;font-size:13px;">Salva</button>
       </div>
     </div>
 
-    <!-- Nuova richiesta -->
-    <div class="card" style="padding:16px;margin-bottom:20px;border-color:var(--sage-light);">
-      <p class="section-label" style="margin-bottom:10px;">Nuova richiesta</p>
-      <select v-model="nuovoTipo" class="form-input" style="margin-bottom:10px;">
-        <option value="identifica_specie">Identifica specie da foto</option>
-        <option value="consiglio_cura">Consiglio per cura</option>
-        <option value="diagnosi">Diagnosi problema</option>
-        <option value="altro">Altro</option>
-      </select>
+    <!-- Chat -->
+    <div v-else style="display:flex;flex-direction:column;flex:1;">
 
-      <!-- Upload foto (solo per identifica_specie) -->
-      <div v-if="nuovoTipo === 'identifica_specie'" style="margin-bottom:10px;">
-        <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);">
-          <span style="font-size:22px;">📷</span>
-          <div style="flex:1;">
-            <div style="font-size:13px;font-weight:600;color:var(--sage-dark);">{{ fotoPreview ? nomeFile : 'Allega una foto' }}</div>
-            <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">{{ fotoPreview ? 'Tocca per cambiare' : 'JPG, PNG — max 5 MB' }}</div>
+      <!-- Messaggi -->
+      <div ref="chatArea" style="flex:1;display:flex;flex-direction:column;gap:12px;overflow-y:auto;padding-bottom:8px;margin-bottom:12px;">
+
+        <!-- Empty state -->
+        <div v-if="!messaggi.length" style="text-align:center;padding:40px 20px;color:var(--ink-faint);">
+          <div style="font-size:40px;margin-bottom:12px;">🌿</div>
+          <p style="font-size:13px;line-height:1.6;">Chiedi qualcosa sul tuo giardino.<br>Posso identificare piante, diagnosticare problemi e darti consigli di cura.</p>
+        </div>
+
+        <template v-for="msg in messaggi" :key="msg.id">
+          <!-- Utente -->
+          <div v-if="msg.ruolo === 'user'" style="display:flex;justify-content:flex-end;">
+            <div style="max-width:80%;background:var(--sage);color:#fff;border-radius:18px 18px 4px 18px;padding:10px 14px;">
+              <img v-if="msg.foto" :src="msg.foto" style="width:100%;max-width:200px;border-radius:10px;display:block;margin-bottom:8px;">
+              <p style="font-size:13px;line-height:1.5;white-space:pre-wrap;">{{ msg.testo }}</p>
+            </div>
           </div>
-          <img v-if="fotoPreview" :src="fotoPreview" style="width:48px;height:48px;object-fit:cover;border-radius:8px;">
+
+          <!-- Assistente -->
+          <div v-else style="display:flex;justify-content:flex-start;">
+            <div style="max-width:88%;background:var(--white);border:1px solid var(--cream-dark);border-radius:18px 18px 18px 4px;padding:10px 14px;">
+              <div v-if="msg.caricamento" style="display:flex;gap:4px;align-items:center;padding:4px 0;">
+                <span class="dot-pulse"></span><span class="dot-pulse" style="animation-delay:.15s"></span><span class="dot-pulse" style="animation-delay:.3s"></span>
+              </div>
+              <p v-else style="font-size:13px;color:var(--ink-mid);line-height:1.6;white-space:pre-wrap;">{{ msg.testo }}</p>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- Anteprima foto -->
+      <div v-if="fotoPreview" style="margin-bottom:8px;position:relative;display:inline-block;">
+        <img :src="fotoPreview" style="height:64px;border-radius:10px;border:1.5px solid var(--sage-light);">
+        <button @click="rimuoviFoto" style="position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:var(--rose);border:none;color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">✕</button>
+      </div>
+
+      <!-- Input -->
+      <div style="display:flex;gap:8px;align-items:flex-end;">
+        <label style="cursor:pointer;width:36px;height:36px;border-radius:10px;background:var(--cream-dark);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid var(--ink-faint);">
+          📷
           <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" style="display:none;">
         </label>
+        <textarea v-model="testo" placeholder="Scrivi un messaggio…" rows="1"
+          class="form-input" style="flex:1;resize:none;font-family:inherit;min-height:36px;max-height:120px;overflow-y:auto;padding-top:8px;padding-bottom:8px;"
+          @input="autoResize" @keydown.enter.exact.prevent="invia"></textarea>
+        <button @click="invia" :disabled="(!testo.trim() && !fotoBase64) || inviando"
+          class="btn btn-sage" style="width:36px;height:36px;padding:0;border-radius:10px;font-size:16px;flex-shrink:0;">
+          {{ inviando ? '⏳' : '↑' }}
+        </button>
       </div>
 
-      <textarea v-model="nuovoMessaggio" placeholder="Descrivi la richiesta…"
-        rows="3" class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
-      <div v-if="errore" style="margin-top:8px;padding:8px 12px;background:var(--rose-pale);border-radius:10px;border:1px solid var(--rose-light);">
-        <p style="font-size:12px;color:var(--rose-dark);">⚠ {{ errore }}</p>
-      </div>
-      <button @click="aggiungiRichiesta" :disabled="!nuovoMessaggio.trim() || aggiungendo" class="btn btn-sage"
-        style="margin-top:10px;width:100%;">
-        {{ aggiungendo ? '⏳ Invio…' : '+ Invia richiesta' }}
-      </button>
-    </div>
-
-    <!-- Lista richieste -->
-    <p v-if="richieste.length" class="section-label" style="margin-bottom:10px;">Storico</p>
-    <div style="display:flex;flex-direction:column;gap:8px;">
-      <div v-for="r in richieste" :key="r.id" class="card" style="padding:14px 16px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
-          <span class="badge" :style="badgeStato(r.stato)">{{ r.stato }}</span>
-          <span style="font-size:11px;color:var(--ink-faint);">{{ formatData(r.creata) }}</span>
-        </div>
-        <p style="font-size:13px;font-weight:500;color:var(--ink-mid);margin-bottom:4px;text-transform:capitalize;">
-          {{ r.tipo?.replace(/_/g, ' ') }}
-        </p>
-        <p style="font-size:12px;color:var(--ink-soft);line-height:1.5;white-space:pre-wrap;">{{ r.messaggio }}</p>
-        <div v-if="r.risposta?.messaggio" style="margin-top:10px;padding:10px;background:var(--cream-dark);border-radius:10px;border-left:3px solid var(--sage);">
-          <p style="font-size:12px;color:var(--ink-mid);line-height:1.6;white-space:pre-wrap;">{{ r.risposta.messaggio }}</p>
-        </div>
-      </div>
-
-      <div v-if="!richieste.length" style="text-align:center;padding:40px 20px;color:var(--ink-faint);">
-        <div style="font-size:40px;margin-bottom:12px;">🤖</div>
-        <p style="font-size:13px;">Nessuna richiesta ancora</p>
+      <!-- Reset -->
+      <div v-if="messaggi.length" style="text-align:center;margin-top:10px;">
+        <button @click="nuovaChat" style="font-size:11px;color:var(--ink-faint);background:none;border:none;cursor:pointer;">
+          Nuova conversazione
+        </button>
+        <span style="color:var(--ink-faint);font-size:11px;margin:0 8px;">·</span>
+        <button @click="rimuoviKey" style="font-size:11px;color:var(--ink-faint);background:none;border:none;cursor:pointer;">
+          Cambia chiave API
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useApi } from '@/composables/useApi'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 
 const store = useDatiStore()
-const { saveJSON, isAutenticato, salvaToken } = useApi()
+const chatArea = ref(null)
 
-const raw            = ref({})
-const nuovoTipo      = ref('identifica_specie')
-const nuovoMessaggio = ref('')
-const aggiungendo    = ref(false)
-const fotoBase64     = ref(null)
-const fotoPreview    = ref(null)
-const nomeFile       = ref('')
-const errore         = ref(null)
-const tokenInput     = ref('')
-const tokenSalvato   = ref(isAutenticato())
+const apiKey      = ref(localStorage.getItem('gemini_api_key') || '')
+const keyInput    = ref('')
+const testo       = ref('')
+const fotoBase64  = ref(null)
+const fotoPreview = ref(null)
+const inviando    = ref(false)
+const messaggi    = ref([])
 
-const BASE = import.meta.env.BASE_URL
+const stagione = () => {
+  const m = new Date().getMonth() + 1
+  if (m >= 3 && m <= 5) return 'primavera'
+  if (m >= 6 && m <= 8) return 'estate'
+  if (m >= 9 && m <= 11) return 'autunno'
+  return 'inverno'
+}
+
+const systemPrompt = computed(() => {
+  const zone = store.zone
+    ? Object.entries(store.zone).map(([k, z]) => `${k}: ${z.nome} (${z.tipo ?? ''}, ${z.esposizione ?? ''})`).join('; ')
+    : 'non disponibili'
+  const specie = store.specie
+    ? Object.values(store.specie).slice(0, 40).map(s => s.nome).join(', ')
+    : 'non disponibili'
+  return `Sei un esperto agronomo e botanico che assiste il proprietario di un giardino privato a Centinarola, Fano (Marche, Italia), zona climatica mediterranea collinare. Stagione attuale: ${stagione()}.
+
+Zone del giardino: ${zone}.
+Specie presenti (campione): ${specie}.
+
+Rispondi in italiano, in modo pratico e conciso. Se l'utente allega una foto, analizzala attentamente per identificare la specie o diagnosticare il problema mostrato. Dai consigli specifici per il clima marchigiano.`
+})
 
 onMounted(async () => {
   await store.caricaTutto()
-  try {
-    const res = await fetch(`${BASE}data/richieste-agente.json`)
-    raw.value = res.ok ? await res.json() : {}
-  } catch { raw.value = {} }
 })
 
-const richieste = computed(() =>
-  Object.entries(raw.value)
-    .map(([id, r]) => ({ id, ...r }))
-    .sort((a, b) => new Date(b.creata) - new Date(a.creata))
-)
-
-function badgeStato(stato) {
-  if (stato === 'completata') return 'background:var(--sage-pale);color:var(--sage-dark);'
-  if (stato === 'errore')     return 'background:var(--rose-pale);color:var(--rose-dark);'
-  return 'background:var(--gold-pale);color:var(--gold-dark);'
+function salvaKey() {
+  if (!keyInput.value.trim()) return
+  localStorage.setItem('gemini_api_key', keyInput.value.trim())
+  apiKey.value = keyInput.value.trim()
+  keyInput.value = ''
 }
 
-function formatData(iso) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('it-IT', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' })
+function rimuoviKey() {
+  localStorage.removeItem('gemini_api_key')
+  apiKey.value = ''
+}
+
+function nuovaChat() {
+  messaggi.value = []
 }
 
 function selezionaFoto(e) {
   const file = e.target.files?.[0]
   if (!file) return
-  nomeFile.value = file.name
   const reader = new FileReader()
   reader.onload = () => {
     fotoPreview.value = reader.result
     fotoBase64.value  = reader.result.split(',')[1]
   }
   reader.readAsDataURL(file)
+  e.target.value = ''
 }
 
-function configuratToken() {
-  if (!tokenInput.value.trim()) return
-  salvaToken(tokenInput.value.trim())
-  tokenSalvato.value = true
-  tokenInput.value   = ''
-  window.location.reload()
+function rimuoviFoto() {
+  fotoPreview.value = null
+  fotoBase64.value  = null
 }
 
-async function aggiungiRichiesta() {
-  if (!nuovoMessaggio.value.trim() || aggiungendo.value) return
-  aggiungendo.value = true
-  errore.value = null
+function autoResize(e) {
+  e.target.style.height = 'auto'
+  e.target.style.height = Math.min(e.target.scrollHeight, 120) + 'px'
+}
+
+async function scrollGiu() {
+  await nextTick()
+  if (chatArea.value) chatArea.value.scrollTop = chatArea.value.scrollHeight
+}
+
+async function invia() {
+  const testoPulito = testo.value.trim()
+  if ((!testoPulito && !fotoBase64.value) || inviando.value) return
+  inviando.value = true
+
+  const userMsg = {
+    id: Date.now(),
+    ruolo: 'user',
+    testo: testoPulito,
+    foto: fotoPreview.value,
+    fotoBase64: fotoBase64.value,
+  }
+  messaggi.value.push(userMsg)
+
+  const loadingId = Date.now() + 1
+  messaggi.value.push({ id: loadingId, ruolo: 'model', testo: '', caricamento: true })
+
+  testo.value = ''
+  fotoBase64.value  = null
+  fotoPreview.value = null
+  await scrollGiu()
+
   try {
-    const id = `richiesta-${Date.now()}-${Math.random().toString(36).slice(2,7)}`
-    const specieEsistenti = store.specie ? Object.values(store.specie).map(s => s.nome) : []
-    const nuove = {
-      ...raw.value,
-      [id]: {
-        tipo: nuovoTipo.value,
-        messaggio: nuovoMessaggio.value.trim(),
-        contesto: { specieEsistenti },
-        speciesName: null,
-        foto: fotoBase64.value ?? null,
-        stato: 'in_attesa',
-        creata: new Date().toISOString(),
-        elaborata: null,
-        risposta: null,
+    // Costruisce la history per Gemini (esclude il messaggio di caricamento)
+    const contents = messaggi.value
+      .filter(m => !m.caricamento)
+      .slice(0, -1) // escludi l'ultimo (quello appena aggiunto) — lo aggiungiamo strutturato
+      .map(m => {
+        const parts = []
+        if (m.fotoBase64) parts.push({ inline_data: { mime_type: 'image/jpeg', data: m.fotoBase64 } })
+        if (m.testo) parts.push({ text: m.testo })
+        return { role: m.ruolo === 'user' ? 'user' : 'model', parts }
+      })
+
+    // Aggiunge il messaggio corrente
+    const currentParts = []
+    if (userMsg.fotoBase64) currentParts.push({ inline_data: { mime_type: 'image/jpeg', data: userMsg.fotoBase64 } })
+    if (userMsg.testo) currentParts.push({ text: userMsg.testo })
+    contents.push({ role: 'user', parts: currentParts })
+
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey.value}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: systemPrompt.value }] },
+          contents,
+          generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
+        }),
       }
+    )
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error(err?.error?.message || `Errore ${res.status}`)
     }
-    await saveJSON('richieste-agente.json', nuove)
-    raw.value = nuove
-    nuovoMessaggio.value = ''
-    fotoBase64.value  = null
-    fotoPreview.value = null
-    nomeFile.value    = ''
+
+    const data = await res.json()
+    const risposta = data.candidates?.[0]?.content?.parts?.[0]?.text ?? 'Nessuna risposta ricevuta.'
+
+    const idx = messaggi.value.findIndex(m => m.id === loadingId)
+    if (idx !== -1) messaggi.value[idx] = { id: loadingId, ruolo: 'model', testo: risposta, caricamento: false }
+
   } catch (e) {
-    errore.value = e.message || 'Errore durante l\'invio della richiesta'
+    const idx = messaggi.value.findIndex(m => m.id === loadingId)
+    if (idx !== -1) messaggi.value[idx] = { id: loadingId, ruolo: 'model', testo: `⚠ ${e.message}`, caricamento: false }
   } finally {
-    aggiungendo.value = false
+    inviando.value = false
+    await scrollGiu()
   }
 }
 </script>
+
+<style scoped>
+.dot-pulse {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ink-faint);
+  display: inline-block;
+  animation: pulse 1s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: .3; transform: scale(.8); }
+  50%       { opacity: 1;  transform: scale(1.1); }
+}
+</style>
