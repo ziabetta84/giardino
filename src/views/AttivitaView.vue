@@ -19,14 +19,16 @@
       <!-- Da fare -->
       <template v-if="daFare.length">
         <p class="section-label">⚠ Da fare</p>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
-          <AttivitaRiga
-            v-for="item in daFare"
-            :key="item.key"
-            :item="item"
+        <div style="margin-bottom:24px;">
+          <AttivitaGruppoZona
+            v-for="gruppo in gruppiDaFare"
+            :key="gruppo.chiave"
+            :gruppo="gruppo"
             variante="urgente"
-            :disabled="salvando === item.key"
+            :salvando="salvando"
+            :salvando-gruppo="salvandoGruppo"
             @registra="registra"
+            @registra-gruppo="registraGruppo"
           />
         </div>
       </template>
@@ -34,14 +36,16 @@
       <!-- In scadenza -->
       <template v-if="inScadenza.length">
         <p class="section-label">🕐 In scadenza (entro 3 giorni)</p>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
-          <AttivitaRiga
-            v-for="item in inScadenza"
-            :key="item.key"
-            :item="item"
+        <div style="margin-bottom:24px;">
+          <AttivitaGruppoZona
+            v-for="gruppo in gruppiInScadenza"
+            :key="gruppo.chiave"
+            :gruppo="gruppo"
             variante="scadenza"
-            :disabled="salvando === item.key"
+            :salvando="salvando"
+            :salvando-gruppo="salvandoGruppo"
             @registra="registra"
+            @registra-gruppo="registraGruppo"
           />
         </div>
       </template>
@@ -62,10 +66,13 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { valutaCura } from '@/composables/useCure'
 import AttivitaRiga from '@/components/AttivitaRiga.vue'
+import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
+import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 
 const store    = useDatiStore()
 const { saveJSON } = useApi()
 const salvando = ref(null)
+const salvandoGruppo = ref(null)
 
 const dataOggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
 
@@ -88,6 +95,9 @@ const attivita = computed(() => {
 const daFare = computed(() => attivita.value.filter(i => i.urgente).sort((a, b) => a.giorni - b.giorni))
 const inScadenza = computed(() => attivita.value.filter(i => !i.urgente && i.giorni !== null && i.giorni <= 3).sort((a, b) => a.giorni - b.giorni))
 
+const gruppiDaFare = computed(() => raggruppaPerZona(daFare.value, store.piante))
+const gruppiInScadenza = computed(() => raggruppaPerZona(inScadenza.value, store.piante))
+
 async function registra(item) {
   if (salvando.value) return
   salvando.value = item.key
@@ -104,6 +114,25 @@ async function registra(item) {
     store.piante = nuove
   } finally {
     salvando.value = null
+  }
+}
+
+async function registraGruppo(gruppo) {
+  if (salvandoGruppo.value) return
+  salvandoGruppo.value = gruppo.chiave
+  try {
+    const nuove = { ...store.piante }
+    const oggi = new Date().toISOString().split('T')[0]
+    for (const item of gruppo.items) {
+      nuove[item.piantaId] = {
+        ...nuove[item.piantaId],
+        ultima_cura: { ...nuove[item.piantaId].ultima_cura, [item.tipo]: oggi },
+      }
+    }
+    await saveJSON('piante.json', nuove)
+    store.piante = nuove
+  } finally {
+    salvandoGruppo.value = null
   }
 }
 </script>
