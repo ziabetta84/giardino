@@ -44,11 +44,22 @@
         <p class="section-label">Tutte le piante</p>
       </template>
 
-      <!-- Lista principale -->
-      <div v-if="pianteFiltrate.length" style="display:flex;flex-direction:column;gap:8px;">
-        <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p"
-          @elimina="avviaElimina(p)" />
-      </div>
+      <!-- Lista principale: raggruppata per sottozona (o zona) quando non si sta cercando -->
+      <template v-if="pianteFiltrate.length">
+        <div v-if="cerca.trim()" style="display:flex;flex-direction:column;gap:8px;">
+          <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p"
+            @elimina="avviaElimina(p)" />
+        </div>
+        <template v-else>
+          <template v-for="gruppo in gruppiPiante" :key="gruppo.chiave">
+            <p class="section-label" style="margin-top:16px;">📍 {{ gruppo.sottozona ? (filtroZona === 'tutte' ? gruppo.zona + ' - ' + gruppo.sottozona : gruppo.sottozona) : gruppo.zona }}</p>
+            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;">
+              <PiantaRiga v-for="p in gruppo.items" :key="p.id" :pianta="p"
+                @elimina="avviaElimina(p)" />
+            </div>
+          </template>
+        </template>
+      </template>
 
       <!-- Stato vuoto -->
       <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
@@ -122,6 +133,28 @@ const pianteFiltrate = computed(() => {
 const pianteUrgenti = computed(() =>
   piante.value.filter(p => p.urgente && (filtroZona.value === 'tutte' || p.zona === filtroZona.value))
 )
+
+// Raggruppa la lista principale per sottozona (o per zona, se la pianta non
+// ne ha una): comportamento della vecchia webapp, dove le piante erano
+// sempre organizzate sotto l'intestazione della propria sottozona/zona.
+const gruppiPiante = computed(() => {
+  const gruppi = new Map()
+  for (const p of pianteFiltrate.value) {
+    const chiave = p.sottozona ? `${p.zona}|${p.sottozona}` : p.zona
+    if (!gruppi.has(chiave)) gruppi.set(chiave, { chiave, zona: p.zona, sottozona: p.sottozona, items: [] })
+    gruppi.get(chiave).items.push(p)
+  }
+  // Ordine deterministico (alfabetico zona poi sottozona): pianteFiltrate può
+  // essere ordinata per urgenza, che cambia nel tempo e farebbe "saltare" i
+  // gruppi in giro a ogni variazione di stato invece di restare stabili.
+  return [...gruppi.values()].sort((a, b) => {
+    const ordZona = a.zona.localeCompare(b.zona)
+    if (ordZona !== 0) return ordZona
+    if (!a.sottozona) return -1
+    if (!b.sottozona) return 1
+    return a.sottozona.localeCompare(b.sottozona)
+  })
+})
 
 function avviaElimina(pianta) {
   daEliminare.value = pianta
