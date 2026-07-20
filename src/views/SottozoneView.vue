@@ -113,7 +113,7 @@ function apriNuovo() {
 
 function apriModifica(sz) {
   modificaOriginale.value = sz.nome
-  form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', esposizione: sz.esposizione ?? [] }
+  form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', esposizione: sz.esposizione ? [...sz.esposizione] : [] }
   errore.value = null
   mostraForm.value = true
 }
