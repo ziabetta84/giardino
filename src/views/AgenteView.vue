@@ -27,15 +27,33 @@
       </select>
 
       <!-- Upload foto -->
-      <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);margin-bottom:10px;">
-        <span style="font-size:22px;">📷</span>
-        <div style="flex:1;">
-          <div style="font-size:13px;font-weight:600;color:var(--sage-dark);">{{ fotoPreview ? nomeFile : 'Allega una foto (opzionale)' }}</div>
-          <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">{{ fotoPreview ? 'Tocca per cambiare' : 'JPG, PNG — max 5 MB' }}</div>
+      <div style="margin-bottom:10px;">
+        <div v-if="fotoPreview" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--sage-light);border-radius:12px;background:var(--sage-pale);margin-bottom:8px;">
+          <img :src="fotoPreview" alt="Anteprima della foto selezionata" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+          <div style="flex:1;font-size:13px;font-weight:600;color:var(--sage-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ nomeFile }}</div>
+          <button type="button" @click="rimuoviFoto" aria-label="Rimuovi foto" style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">×</button>
         </div>
-        <img v-if="fotoPreview" :src="fotoPreview" style="width:48px;height:48px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-        <input type="file" accept="image/*" @change="selezionaFoto" style="display:none;">
-      </label>
+
+        <!-- Due bottoni separati invece di un unico input generico: su alcuni
+             browser/telefoni Android un input "accept=image/*" senza capture
+             viene comunque risolto dal sistema verso la fotocamera, saltando
+             la scelta della libreria. Un bottone dedicato alla libreria (senza
+             alcun attributo capture) e uno dedicato alla fotocamera evitano
+             del tutto questa ambiguità. Nascosti quando una foto è già
+             selezionata (rimuovila con la "×" per sceglierne un'altra), per
+             non occupare spazio prezioso su schermo mobile. -->
+        <div v-else style="display:flex;gap:8px;">
+          <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
+            🖼️ Libreria
+            <input type="file" accept="image/*" @change="selezionaFoto" style="display:none;">
+          </label>
+          <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
+            📷 Fotocamera
+            <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" style="display:none;">
+          </label>
+        </div>
+        <p v-if="!fotoPreview" style="font-size:11px;color:var(--ink-soft);margin-top:6px;text-align:center;">JPG, PNG — max 5 MB</p>
+      </div>
 
       <textarea v-model="nuovoMessaggio" placeholder="Descrivi la richiesta…"
         rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
@@ -172,9 +190,17 @@ function formatData(iso) {
   return new Date(iso).toLocaleDateString('it-IT', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' })
 }
 
+const MAX_FOTO_BYTES = 5 * 1024 * 1024
+
 function selezionaFoto(e) {
   const file = e.target.files?.[0]
   if (!file) return
+  if (file.size > MAX_FOTO_BYTES) {
+    errore.value = 'La foto è troppo grande (limite 5 MB).'
+    e.target.value = ''
+    return
+  }
+  errore.value = null
   nomeFile.value = file.name
   const reader = new FileReader()
   reader.onload = () => {
@@ -183,6 +209,12 @@ function selezionaFoto(e) {
   }
   reader.readAsDataURL(file)
   e.target.value = ''
+}
+
+function rimuoviFoto() {
+  fotoBase64.value  = null
+  fotoPreview.value = null
+  nomeFile.value    = ''
 }
 
 function configuratToken() {
