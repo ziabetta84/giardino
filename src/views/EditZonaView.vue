@@ -84,18 +84,20 @@ onMounted(async () => {
 async function salva() {
   if (!form.value.nome.trim() || salvando.value) return
   salvando.value = true
+  const key = isNuova.value ? form.value.nome.trim() : route.params.zona
   try {
-    const nuove = { ...store.zone }
-    const key   = isNuova.value ? form.value.nome.trim() : route.params.zona
-    nuove[key] = {
-      ...(isNuova.value ? {} : nuove[key]),
-      nome:        form.value.nome.trim(),
-      tipo:        form.value.tipo,
-      descrizione: form.value.descrizione.trim() || '',
-      microclima:  form.value.microclima.trim()  || '',
-      esposizione: form.value.esposizione,
-    }
-    await saveJSON('zone.json', nuove)
+    const nuove = await saveJSON('zone.json', (correnti) => {
+      const base = { ...(correnti ?? store.zone) }
+      base[key] = {
+        ...(isNuova.value ? {} : base[key]),
+        nome:        form.value.nome.trim(),
+        tipo:        form.value.tipo,
+        descrizione: form.value.descrizione.trim() || '',
+        microclima:  form.value.microclima.trim()  || '',
+        esposizione: form.value.esposizione,
+      }
+      return base
+    })
     store.zone = nuove
     router.push('/zone')
   } finally {

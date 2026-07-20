@@ -157,16 +157,20 @@ const cureUrgenti = computed(() =>
 async function registraCura(tipo) {
   if (!pianta.value || salvando.value) return
   salvando.value = tipo
+  const id = pianta.value.id
   try {
-    const nuove = { ...store.piante }
-    nuove[pianta.value.id] = {
-      ...nuove[pianta.value.id],
-      ultima_cura: {
-        ...nuove[pianta.value.id].ultima_cura,
-        [tipo]: new Date().toISOString().split('T')[0],
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      const piantaEsistente = base[id] || {}
+      base[id] = {
+        ...piantaEsistente,
+        ultima_cura: {
+          ...(piantaEsistente.ultima_cura || {}),
+          [tipo]: new Date().toISOString().split('T')[0],
+        }
       }
-    }
-    await saveJSON('piante.json', nuove)
+      return base
+    })
     store.piante = nuove
   } finally {
     salvando.value = null
@@ -176,10 +180,13 @@ async function registraCura(tipo) {
 async function eliminaPianta() {
   if (!pianta.value) return
   eliminando.value = true
+  const id = pianta.value.id
   try {
-    const nuove = { ...store.piante }
-    delete nuove[pianta.value.id]
-    await saveJSON('piante.json', nuove)
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      delete base[id]
+      return base
+    })
     store.piante = nuove
     router.push('/piante')
   } finally {

@@ -89,10 +89,10 @@ function badgeStato(stato) {
 async function salvaProgetto() {
   if (!form.value.titolo.trim() || salvando.value) return
   salvando.value = true
+  const id = `progetto-${Date.now()}`
   try {
-    const id = `progetto-${Date.now()}`
-    const nuovi = {
-      ...store.progetti,
+    const nuovi = await saveJSON('progetti.json', (correnti) => ({
+      ...(correnti ?? store.progetti),
       [id]: {
         titolo: form.value.titolo.trim(),
         descrizione: form.value.descrizione.trim() || null,
@@ -101,8 +101,7 @@ async function salvaProgetto() {
         stato: 'bozza',
         creato: new Date().toISOString().split('T')[0],
       }
-    }
-    await saveJSON('progetti.json', nuovi)
+    }))
     store.progetti = nuovi
     mostraForm.value = false
     form.value = { titolo: '', descrizione: '', zona: '', scadenza: '' }

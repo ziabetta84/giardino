@@ -104,20 +104,23 @@ onMounted(async () => {
 async function salva() {
   if (!form.value.specie || !form.value.zona || salvando.value) return
   salvando.value = true
+  const id = isNuova.value ? `${form.value.specie}-${Date.now()}` : route.params.id
   try {
-    const nuove = { ...store.piante }
-    const id = isNuova.value ? `${form.value.specie}-${Date.now()}` : route.params.id
-    nuove[id] = {
-      ...(isNuova.value ? {} : nuove[id]),
-      specie:    form.value.specie,
-      zona:      form.value.zona,
-      sottozona: form.value.sottozona || null,
-      varieta:   form.value.varieta  || '',
-      impianto:  form.value.impianto || '',
-      note:      form.value.note     || '',
-      ...( isNuova.value ? { ultima_cura: {} } : {} ),
-    }
-    await saveJSON('piante.json', nuove)
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      const piantaEsistente = isNuova.value ? {} : (base[id] || {})
+      base[id] = {
+        ...piantaEsistente,
+        specie:    form.value.specie,
+        zona:      form.value.zona,
+        sottozona: form.value.sottozona || null,
+        varieta:   form.value.varieta  || '',
+        impianto:  form.value.impianto || '',
+        note:      form.value.note     || '',
+        ultima_cura: piantaEsistente.ultima_cura || {},
+      }
+      return base
+    })
     store.piante = nuove
     router.push(isNuova.value ? '/piante' : `/piante/${id}`)
   } finally {
