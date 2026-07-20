@@ -2970,5 +2970,36 @@
         "inverno": "nessuna"
       }
     }
+  },
+  "passiflora-caerulea": {
+    "nome": "Passiflora caerulea",
+    "specie": "Passiflora caerulea",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "Pieno sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Substrato fertile, ben drenante e leggermente acido o neutro"
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3 giorni",
+        "estate": "ogni 2 giorni",
+        "autunno": "ogni 7 giorni",
+        "inverno": "ogni 15 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 15 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      }
+    }
   }
 }
