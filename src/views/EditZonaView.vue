@@ -22,12 +22,10 @@
 
       <div class="card" style="padding:16px;">
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Descrizione</label>
-        <textarea v-model="form.descrizione" placeholder="Descrizione breve della zona…"
-          rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:12px;"></textarea>
+        <MiniEditor v-model="form.descrizione" placeholder="Descrizione breve della zona…" />
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Microclima</label>
-        <textarea v-model="form.microclima" placeholder="Caratteristiche di luce, temperatura, umidità…"
-          rows="3" class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 6px;">Microclima</label>
+        <MiniEditor v-model="form.microclima" placeholder="Caratteristiche di luce, temperatura, umidità…" />
       </div>
 
       <div class="card" style="padding:16px;">
@@ -54,6 +52,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import MiniEditor from '@/components/MiniEditor.vue'
 
 const route  = useRoute()
 const router = useRouter()
