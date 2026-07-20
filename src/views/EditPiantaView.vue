@@ -88,7 +88,35 @@
           <input v-model="nuovaSpecie.acqua" placeholder="Acqua, es. Moderata" class="form-input" style="margin-bottom:8px;">
           <input v-model="nuovaSpecie.terreno" placeholder="Terreno, es. Ben drenato" class="form-input" style="margin-bottom:16px;">
 
-          <div style="display:flex;gap:10px;justify-content:flex-end;">
+          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Manutenzione (opzionale)</label>
+          <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
+          <div class="manutenzione-grid">
+            <div></div>
+            <div class="stagione-header">Pri</div>
+            <div class="stagione-header">Est</div>
+            <div class="stagione-header">Aut</div>
+            <div class="stagione-header">Inv</div>
+
+            <div class="tipo-label">💧 Irrigazione</div>
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
+
+            <div class="tipo-label">🌱 Concimazione</div>
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
+
+            <div class="tipo-label">✂️ Potatura</div>
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.inverno" placeholder="gg">
+          </div>
+
+          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
             <button class="btn btn-ghost" @click="chiudiNuovaSpecie" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salvaNuovaSpecie" :disabled="!nuovaSpecie.nome.trim() || salvandoSpecie"
               style="min-height:40px;padding:8px 16px;">
@@ -155,7 +183,31 @@ function chiudiDropdown() {
 const mostraNuovaSpecie = ref(false)
 const salvandoSpecie    = ref(false)
 const erroreSpecie      = ref(null)
-const nuovaSpecie = ref({ nome: '', descrizione: '', luce: '', acqua: '', terreno: '' })
+
+function manutenzioneVuota() {
+  const perStagione = () => ({ primavera: '', estate: '', autunno: '', inverno: '' })
+  return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione() }
+}
+
+const nuovaSpecie = ref({ nome: '', descrizione: '', luce: '', acqua: '', terreno: '', manutenzione: manutenzioneVuota() })
+
+// Converte i giorni inseriti nella tabella manutenzione nel formato testuale
+// già usato da tutte le specie esistenti e atteso da useCure.js (parseGiorni
+// estrae il primo numero da stringhe come "ogni 7 giorni"): così le nuove
+// specie restano compatibili senza dover cambiare la logica di valutazione
+// cure o migrare i dati esistenti. Campo vuoto → stringa vuota, trattata da
+// valutaCura come "non necessario" (nessuna cura mai segnalata come urgente).
+function generaManutenzione(struttura) {
+  const risultato = {}
+  for (const tipo of ['irrigazione', 'concimazione', 'potatura']) {
+    risultato[tipo] = {}
+    for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
+      const giorni = struttura?.[tipo]?.[stagione]
+      risultato[tipo][stagione] = (typeof giorni === 'number' && giorni > 0) ? `ogni ${giorni} giorni` : ''
+    }
+  }
+  return risultato
+}
 
 function slug(testo) {
   return testo
@@ -166,7 +218,7 @@ function slug(testo) {
 }
 
 function apriNuovaSpecie() {
-  nuovaSpecie.value = { nome: specieQuery.value.trim(), descrizione: '', luce: '', acqua: '', terreno: '' }
+  nuovaSpecie.value = { nome: specieQuery.value.trim(), descrizione: '', luce: '', acqua: '', terreno: '', manutenzione: manutenzioneVuota() }
   erroreSpecie.value = null
   dropdownAperto.value = false
   mostraNuovaSpecie.value = true
@@ -205,7 +257,7 @@ async function salvaNuovaSpecie() {
           terreno: nuovaSpecie.value.terreno.trim() || '',
         },
         alert: [],
-        manutenzione: { irrigazione: {}, concimazione: {}, potatura: {} },
+        manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione),
       }
       return base
     })
@@ -297,6 +349,30 @@ async function salva() {
   color: var(--sage-dark);
   font-weight: 600;
   border-top: 1px solid var(--cream-dark);
+}
+.manutenzione-grid {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 44px 44px 44px 44px;
+  gap: 6px;
+  align-items: center;
+}
+.stagione-header {
+  font-size: 10px;
+  color: var(--ink-faint);
+  text-align: center;
+}
+.tipo-label {
+  font-size: 12px;
+  color: var(--ink-mid);
+}
+.manutenzione-grid input {
+  width: 100%;
+  padding: 6px 4px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid var(--cream-dark);
+  border-radius: 8px;
+  font-family: inherit;
 }
 .overlay {
   position: fixed; inset: 0; z-index: 200;
