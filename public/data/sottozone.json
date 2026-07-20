@@ -72,7 +72,9 @@
       "nome": "Camera di Paolo",
       "descrizione": "Piccolo terrazzo esposto a sud",
       "tipo": "interno",
-      "esposizione": [],
+      "esposizione": [
+        "sud"
+      ],
       "microclima": "",
       "criticita": "",
       "manutenzione": ""
