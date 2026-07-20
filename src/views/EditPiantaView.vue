@@ -98,22 +98,22 @@
             <div class="stagione-header">Inv</div>
 
             <div class="tipo-label">💧 Irrigazione</div>
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
 
             <div class="tipo-label">🌱 Concimazione</div>
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
 
             <div class="tipo-label">✂️ Potatura</div>
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.potatura.primavera" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.potatura.estate" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.potatura.autunno" placeholder="gg">
-            <input type="number" min="0" v-model.number="nuovaSpecie.manutenzione.potatura.inverno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.inverno" placeholder="gg">
           </div>
 
           <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
@@ -202,8 +202,8 @@ function generaManutenzione(struttura) {
   for (const tipo of ['irrigazione', 'concimazione', 'potatura']) {
     risultato[tipo] = {}
     for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
-      const giorni = struttura[tipo][stagione]
-      risultato[tipo][stagione] = giorni ? `ogni ${giorni} giorni` : ''
+      const giorni = struttura?.[tipo]?.[stagione]
+      risultato[tipo][stagione] = (typeof giorni === 'number' && giorni > 0) ? `ogni ${giorni} giorni` : ''
     }
   }
   return risultato
