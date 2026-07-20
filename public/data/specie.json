@@ -2898,5 +2898,41 @@
         "inverno": "nessuna"
       }
     }
+  },
+  "sedum-morganianum": {
+    "nome": "Sedum morganianum",
+    "specie": "Sedum morganianum / burrito",
+    "descrizione": "<p>Succulenta ricadente con foglioline tonde e carnose disposte a grappolo su fusti pendenti, ideale per vasi sospesi o davanzali.</p>",
+    "esigenze": {
+      "luce": "Molto luminosa, sole diretto alcune ore",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante"
+    },
+    "alert": [
+      "le foglie si staccano facilmente al tocco: maneggiare con cura",
+      "evitare assolutamente ristagni idrici",
+      "se etiola (fusti allungati e radi) → luce insufficiente",
+      "foglie rugose e svuotate → sete prolungata"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 14-20 giorni",
+        "inverno": "ogni 20-30 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero per succulente",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
   }
 }
