@@ -3001,5 +3001,36 @@
         "inverno": ""
       }
     }
+  },
+  "senecio": {
+    "nome": "Senecio",
+    "specie": "Senecio",
+    "descrizione": "Succulenta pendente da interno con foglie sferiche simili a perline disposte lungo fusti sottili; molto decorativa in vasi sospesi.",
+    "esigenze": {
+      "luce": "Luminosa, sole diretto filtrato al mattino",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante, sabbioso"
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 12 giorni",
+        "estate": "ogni 8 giorni",
+        "autunno": "ogni 17 giorni",
+        "inverno": "ogni 25 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni",
+        "estate": "ogni 30 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "Taglio leggero per infoltire",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      }
+    }
   }
 }
