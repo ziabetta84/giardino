@@ -2934,5 +2934,41 @@
         "inverno": "nessuna"
       }
     }
+  },
+  "gasteria": {
+    "nome": "Gasteria",
+    "specie": "Gasteria spp.",
+    "descrizione": "<p>Succulenta a foglie carnose disposte a ventaglio, superficie maculata di punti chiari su fondo scuro; tollera bene la luce indiretta.</p>",
+    "esigenze": {
+      "luce": "Luminosa, sole diretto solo filtrato",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante"
+    },
+    "alert": [
+      "a differenza di altre succulente tollera bene la luce indiretta: evitare sole diretto nelle ore più calde (rischio scottature)",
+      "colorazione bronzo/porpora intensa è normale risposta a luce forte o freddo, non segno di malattia",
+      "evitare ristagni idrici, soprattutto se ciottoli decorativi sono a contatto con la base delle foglie",
+      "base molle o scura → marciume, intervenire subito"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-25 giorni",
+        "inverno": "ogni 30 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime leggero per succulente",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
   }
 }
