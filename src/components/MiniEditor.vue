@@ -50,6 +50,13 @@ function sanitizza(html) {
     ;[...nodo.childNodes].forEach(figlio => {
       if (figlio.nodeType !== 1) return // testo/commenti: lasciati stare
 
+      // Pulisce prima i figli (bottom-up): se ripulissimo il nodo corrente
+      // prima di ricorrere, un tag non ammesso rimosso qui (es. <span>)
+      // potrebbe "risalire" figli pericolosi (es. <script>) nel genitore
+      // senza che vengano più visitati, dato che l'iterazione avviene su
+      // uno snapshot statico dei childNodes preso a inizio forEach.
+      pulisciNodo(figlio)
+
       // I browser contenteditable spesso usano <div> per i paragrafi: li
       // trattiamo come equivalenti a <p>.
       const tag = figlio.tagName === 'DIV' ? 'P' : figlio.tagName
@@ -63,15 +70,13 @@ function sanitizza(html) {
 
       if (figlio.tagName === 'DIV') {
         const p = document.createElement('p')
-        p.innerHTML = figlio.innerHTML
+        while (figlio.firstChild) p.appendChild(figlio.firstChild)
         nodo.replaceChild(p, figlio)
-        pulisciNodo(p)
         return
       }
 
       // Rimuove tutti gli attributi (style, class, ecc.)
       ;[...figlio.attributes].forEach(attr => figlio.removeAttribute(attr.name))
-      pulisciNodo(figlio)
     })
   }
 
@@ -103,7 +108,12 @@ onMounted(() => {
 // Riallinea il contenuto se il valore esterno cambia per motivi non legati
 // alla digitazione (es. reset del form, caricamento di un altro record).
 watch(() => props.modelValue, (nuovo) => {
-  if (editabileEl.value && nuovo !== editabileEl.value.innerHTML) {
+  // Confronta con la versione sanitizzata dell'HTML corrente, non con
+  // l'innerHTML grezzo del browser: quest'ultimo può differire leggermente
+  // (spazi, formattazione tag) dal valore sanitizzato anche quando il
+  // contenuto logico non è cambiato, causando altrimenti un riassegnamento
+  // di innerHTML ad ogni digitazione e il salto del cursore all'inizio.
+  if (editabileEl.value && nuovo !== sanitizza(editabileEl.value.innerHTML)) {
     editabileEl.value.innerHTML = nuovo || ''
   }
 })

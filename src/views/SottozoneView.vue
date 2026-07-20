@@ -47,6 +47,7 @@
           </h3>
           <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
           <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
+          <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin:6px 0 0;">{{ errore }}</p>
           <select v-model="form.tipo" class="form-input" style="margin:10px 0 16px;">
             <option value="esterno">Esterno</option>
             <option value="interno">Interno</option>
@@ -77,6 +78,7 @@ const { saveJSON } = useApi()
 
 const mostraForm = ref(false)
 const salvando   = ref(false)
+const errore     = ref(null)
 const form = ref({ nome: '', descrizione: '', tipo: 'esterno' })
 // Nome originale della sottozona in modifica (null quando si sta creando una
 // nuova sottozona): serve per sapere quale chiave aggiornare/rinominare in
@@ -98,12 +100,14 @@ function descrizioneBreve(sz) {
 function apriNuovo() {
   modificaOriginale.value = null
   form.value = { nome: '', descrizione: '', tipo: 'esterno' }
+  errore.value = null
   mostraForm.value = true
 }
 
 function apriModifica(sz) {
   modificaOriginale.value = sz.nome
   form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno' }
+  errore.value = null
   mostraForm.value = true
 }
 
@@ -111,13 +115,25 @@ function chiudiForm() {
   mostraForm.value = false
   modificaOriginale.value = null
   form.value = { nome: '', descrizione: '', tipo: 'esterno' }
+  errore.value = null
 }
 
 async function salva() {
   if (!form.value.nome.trim() || salvando.value) return
-  salvando.value = true
   const nomeOriginale = modificaOriginale.value
   const nomeNuovo = form.value.nome.trim()
+
+  // Evita di sovrascrivere silenziosamente un'altra sottozona già esistente
+  // con lo stesso nome (perderebbe esposizione/microclima/criticita/
+  // manutenzione non gestiti da questo form).
+  const sottozoneDellaZona = store.sottozone?.[route.params.zona] ?? {}
+  if (sottozoneDellaZona[nomeNuovo] && nomeNuovo !== nomeOriginale) {
+    errore.value = 'Una sottozona con questo nome esiste già in questa zona.'
+    return
+  }
+  errore.value = null
+
+  salvando.value = true
   try {
     const nuove = await saveJSON('sottozone.json', (correnti) => {
       const base = { ...(correnti ?? store.sottozone) }
