@@ -108,12 +108,15 @@
             <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
             <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
             <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
+          </div>
 
-            <div class="tipo-label">✂️ Potatura</div>
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.primavera" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.estate" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.autunno" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.potatura.inverno" placeholder="gg">
+          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
+          <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <input v-model="nuovaSpecie.manutenzione.potatura.primavera" placeholder="Primavera" class="form-input">
+            <input v-model="nuovaSpecie.manutenzione.potatura.estate" placeholder="Estate" class="form-input">
+            <input v-model="nuovaSpecie.manutenzione.potatura.autunno" placeholder="Autunno" class="form-input">
+            <input v-model="nuovaSpecie.manutenzione.potatura.inverno" placeholder="Inverno" class="form-input">
           </div>
 
           <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
@@ -197,14 +200,23 @@ const nuovaSpecie = ref({ nome: '', descrizione: '', luce: '', acqua: '', terren
 // specie restano compatibili senza dover cambiare la logica di valutazione
 // cure o migrare i dati esistenti. Campo vuoto → stringa vuota, trattata da
 // valutaCura come "non necessario" (nessuna cura mai segnalata come urgente).
+//
+// La potatura fa eccezione: nei dati reali delle ~80 specie esistenti non è
+// quasi mai a cadenza numerica ("ogni N giorni"), ma descrittiva/stagionale
+// ("taglio leggero", "post-fioritura", "nessuna") — per questo resta testo
+// libero invece di essere convertita da un numero di giorni.
 function generaManutenzione(struttura) {
   const risultato = {}
-  for (const tipo of ['irrigazione', 'concimazione', 'potatura']) {
+  for (const tipo of ['irrigazione', 'concimazione']) {
     risultato[tipo] = {}
     for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
       const giorni = struttura?.[tipo]?.[stagione]
       risultato[tipo][stagione] = (typeof giorni === 'number' && giorni > 0) ? `ogni ${giorni} giorni` : ''
     }
+  }
+  risultato.potatura = {}
+  for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
+    risultato.potatura[stagione] = (struttura?.potatura?.[stagione] || '').trim()
   }
   return risultato
 }
