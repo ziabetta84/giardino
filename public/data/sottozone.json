@@ -67,6 +67,15 @@
       "criticita": "Tende ad accumulare muffa facilmente, Marta ama fare pasticci e potrebbe non essere affidabile con le piante :-)",
       "manutenzione": "Controllo e pulizia periodica della muffa.",
       "tipo": "interno"
+    },
+    "Camera di Paolo": {
+      "nome": "Camera di Paolo",
+      "descrizione": "Piccolo terrazzo esposto a sud",
+      "tipo": "interno",
+      "esposizione": [],
+      "microclima": "",
+      "criticita": "",
+      "manutenzione": ""
     }
   },
   "Scivolo": {
