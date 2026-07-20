@@ -33,7 +33,7 @@
         <h3 class="title-display" style="font-size:16px;font-weight:600;text-transform:capitalize;margin-bottom:4px;">
           {{ z.nome }}
         </h3>
-        <p style="font-size:11px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;" v-html="descrizioneBreve(z)"></p>
+        <p style="font-size:11px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;">{{ descrizioneBreve(z) }}</p>
         <div style="display:flex;gap:8px;">
           <RouterLink :to="`/piante?zona=${z.key}`" class="btn btn-sage" style="flex:1;padding:8px;font-size:12px;border-radius:10px;text-decoration:none;min-height:38px;">
             Piante →
@@ -84,7 +84,8 @@ const zoneList = computed(() => {
 function descrizioneBreve(z) {
   const testo = z.descrizione || z.microclima
   if (!testo) return '—'
-  return testo.replace(/<[^>]+>/g, '').slice(0, 150)
+  const pulito = testo.replace(/<[^>]+>/g, '')
+  return pulito.length > 150 ? pulito.slice(0, 150) + '…' : pulito
 }
 
 function contaPiante(zonaKey) {
