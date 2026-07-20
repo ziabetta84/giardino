@@ -12,11 +12,21 @@
     </div>
 
     <!-- Filtri zona -->
-    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:16px;" class="no-scroll">
+    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:8px;" class="no-scroll">
       <button v-for="z in filtriZona" :key="z.key"
         class="pill" :class="{ active: filtroZona === z.key }"
-        @click="filtroZona = z.key">
+        @click="selezionaZona(z.key)">
         {{ z.label }}
+      </button>
+    </div>
+
+    <!-- Filtri sottozona (solo se la zona selezionata ne ha) -->
+    <div v-if="filtriSottozona.length" style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:16px;" class="no-scroll">
+      <button v-for="s in filtriSottozona" :key="s"
+        class="pill" :class="{ active: filtroSottozona === s }"
+        @click="filtroSottozona = s"
+        style="font-size:12px;">
+        {{ s === 'tutte' ? 'Tutte' : s }}
       </button>
     </div>
 
@@ -44,22 +54,11 @@
         <p class="section-label">Tutte le piante</p>
       </template>
 
-      <!-- Lista principale: raggruppata per sottozona (o zona) quando non si sta cercando -->
-      <template v-if="pianteFiltrate.length">
-        <div v-if="cerca.trim()" style="display:flex;flex-direction:column;gap:8px;">
-          <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p"
-            @elimina="avviaElimina(p)" />
-        </div>
-        <template v-else>
-          <template v-for="gruppo in gruppiPiante" :key="gruppo.chiave">
-            <p class="section-label" style="margin-top:16px;">📍 {{ gruppo.sottozona ? (filtroZona === 'tutte' ? gruppo.zona + ' - ' + gruppo.sottozona : gruppo.sottozona) : gruppo.zona }}</p>
-            <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;">
-              <PiantaRiga v-for="p in gruppo.items" :key="p.id" :pianta="p"
-                @elimina="avviaElimina(p)" />
-            </div>
-          </template>
-        </template>
-      </template>
+      <!-- Lista principale -->
+      <div v-if="pianteFiltrate.length" style="display:flex;flex-direction:column;gap:8px;">
+        <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p"
+          @elimina="avviaElimina(p)" />
+      </div>
 
       <!-- Stato vuoto -->
       <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
@@ -95,6 +94,7 @@ const { saveJSON } = useApi()
 
 const cerca      = ref('')
 const filtroZona = ref(route.query.zona ?? 'tutte')
+const filtroSottozona = ref('tutte')
 const daEliminare = ref(null)
 const eliminando  = ref(false)
 
@@ -102,6 +102,24 @@ const filtriZona = computed(() => {
   const zone = store.zone ? Object.entries(store.zone).map(([key, z]) => ({ key, label: z.nome ?? key })) : []
   return [{ key: 'tutte', label: 'Tutte' }, ...zone]
 })
+
+// Sottozone effettivamente presenti tra le piante della zona selezionata
+// (non tutte quelle configurate in sottozone.json: solo quelle in uso, per
+// non mostrare filtri vuoti). Vuoto se la zona è "tutte" o non ha sottozone.
+const filtriSottozona = computed(() => {
+  if (filtroZona.value === 'tutte' || !store.piante) return []
+  const nomi = new Set()
+  for (const p of Object.values(store.piante)) {
+    if (p.zona === filtroZona.value && p.sottozona) nomi.add(p.sottozona)
+  }
+  if (!nomi.size) return []
+  return ['tutte', ...[...nomi].sort((a, b) => a.localeCompare(b))]
+})
+
+function selezionaZona(key) {
+  filtroZona.value = key
+  filtroSottozona.value = 'tutte'
+}
 
 const piante = computed(() => {
   if (!store.piante) return []
@@ -116,6 +134,8 @@ const pianteFiltrate = computed(() => {
   let lista = piante.value
   if (filtroZona.value !== 'tutte')
     lista = lista.filter(p => p.zona === filtroZona.value)
+  if (filtroZona.value !== 'tutte' && filtroSottozona.value !== 'tutte')
+    lista = lista.filter(p => p.sottozona === filtroSottozona.value)
   if (cerca.value.trim()) {
     const q = cerca.value.toLowerCase()
     lista = lista.filter(p =>
@@ -133,28 +153,6 @@ const pianteFiltrate = computed(() => {
 const pianteUrgenti = computed(() =>
   piante.value.filter(p => p.urgente && (filtroZona.value === 'tutte' || p.zona === filtroZona.value))
 )
-
-// Raggruppa la lista principale per sottozona (o per zona, se la pianta non
-// ne ha una): comportamento della vecchia webapp, dove le piante erano
-// sempre organizzate sotto l'intestazione della propria sottozona/zona.
-const gruppiPiante = computed(() => {
-  const gruppi = new Map()
-  for (const p of pianteFiltrate.value) {
-    const chiave = p.sottozona ? `${p.zona}|${p.sottozona}` : p.zona
-    if (!gruppi.has(chiave)) gruppi.set(chiave, { chiave, zona: p.zona, sottozona: p.sottozona, items: [] })
-    gruppi.get(chiave).items.push(p)
-  }
-  // Ordine deterministico (alfabetico zona poi sottozona): pianteFiltrate può
-  // essere ordinata per urgenza, che cambia nel tempo e farebbe "saltare" i
-  // gruppi in giro a ogni variazione di stato invece di restare stabili.
-  return [...gruppi.values()].sort((a, b) => {
-    const ordZona = a.zona.localeCompare(b.zona)
-    if (ordZona !== 0) return ordZona
-    if (!a.sottozona) return -1
-    if (!b.sottozona) return 1
-    return a.sottozona.localeCompare(b.sottozona)
-  })
-})
 
 function avviaElimina(pianta) {
   daEliminare.value = pianta
