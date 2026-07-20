@@ -2862,5 +2862,41 @@
         "inverno": "nessuna"
       }
     }
+  },
+  "ferocactus": {
+    "nome": "Ferocactus",
+    "specie": "Ferocactus sp.",
+    "descrizione": "<p>Cactus a botte con spine radiali robuste e ben visibili, a crescita lenta.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso, molto drenante"
+    },
+    "alert": [
+      "identificazione da confermare quando sarà più sviluppato",
+      "richiede molta luce diretta",
+      "evitare assolutamente ristagni idrici",
+      "spine robuste, maneggiare con attenzione"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime per cactacee",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      }
+    }
   }
 }
