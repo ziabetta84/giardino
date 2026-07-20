@@ -1221,5 +1221,14 @@
     "ultima_cura": {
       "irrigazione": "2026-07-20"
     }
+  },
+  "senecio-1784561662759": {
+    "specie": "senecio",
+    "zona": "Casa",
+    "sottozona": "Cucina",
+    "varieta": "",
+    "impianto": "2026-06-25",
+    "note": "Aggiunta nel vaso della ceropegia",
+    "ultima_cura": {}
   }
 }
