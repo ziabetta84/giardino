@@ -52,7 +52,7 @@
         </div>
         <template v-else>
           <template v-for="gruppo in gruppiPiante" :key="gruppo.chiave">
-            <p class="section-label" style="margin-top:16px;">📍 {{ gruppo.sottozona ?? gruppo.zona }}</p>
+            <p class="section-label" style="margin-top:16px;">📍 {{ gruppo.sottozona ? (filtroZona === 'tutte' ? gruppo.zona + ' - ' + gruppo.sottozona : gruppo.sottozona) : gruppo.zona }}</p>
             <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:8px;">
               <PiantaRiga v-for="p in gruppo.items" :key="p.id" :pianta="p"
                 @elimina="avviaElimina(p)" />
@@ -144,7 +144,16 @@ const gruppiPiante = computed(() => {
     if (!gruppi.has(chiave)) gruppi.set(chiave, { chiave, zona: p.zona, sottozona: p.sottozona, items: [] })
     gruppi.get(chiave).items.push(p)
   }
-  return [...gruppi.values()]
+  // Ordine deterministico (alfabetico zona poi sottozona): pianteFiltrate può
+  // essere ordinata per urgenza, che cambia nel tempo e farebbe "saltare" i
+  // gruppi in giro a ogni variazione di stato invece di restare stabili.
+  return [...gruppi.values()].sort((a, b) => {
+    const ordZona = a.zona.localeCompare(b.zona)
+    if (ordZona !== 0) return ordZona
+    if (!a.sottozona) return -1
+    if (!b.sottozona) return 1
+    return a.sottozona.localeCompare(b.sottozona)
+  })
 })
 
 function avviaElimina(pianta) {
