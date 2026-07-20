@@ -103,10 +103,11 @@ async function registra(item) {
   try {
     const nuove = await saveJSON('piante.json', (correnti) => {
       const base = { ...(correnti ?? store.piante) }
+      const piantaEsistente = base[item.piantaId] || {}
       base[item.piantaId] = {
-        ...base[item.piantaId],
+        ...piantaEsistente,
         ultima_cura: {
-          ...base[item.piantaId].ultima_cura,
+          ...(piantaEsistente.ultima_cura || {}),
           [item.tipo]: new Date().toISOString().split('T')[0],
         }
       }
@@ -126,9 +127,10 @@ async function registraGruppo(gruppo) {
     const nuove = await saveJSON('piante.json', (correnti) => {
       const base = { ...(correnti ?? store.piante) }
       for (const item of gruppo.items) {
+        const piantaEsistente = base[item.piantaId] || {}
         base[item.piantaId] = {
-          ...base[item.piantaId],
-          ultima_cura: { ...base[item.piantaId].ultima_cura, [item.tipo]: oggi },
+          ...piantaEsistente,
+          ultima_cura: { ...(piantaEsistente.ultima_cura || {}), [item.tipo]: oggi },
         }
       }
       return base

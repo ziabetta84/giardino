@@ -161,10 +161,11 @@ async function registraCura(tipo) {
   try {
     const nuove = await saveJSON('piante.json', (correnti) => {
       const base = { ...(correnti ?? store.piante) }
+      const piantaEsistente = base[id] || {}
       base[id] = {
-        ...base[id],
+        ...piantaEsistente,
         ultima_cura: {
-          ...base[id].ultima_cura,
+          ...(piantaEsistente.ultima_cura || {}),
           [tipo]: new Date().toISOString().split('T')[0],
         }
       }

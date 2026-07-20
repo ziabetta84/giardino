@@ -41,7 +41,9 @@ export function useApi() {
       if (info.ok) {
         const json = await info.json()
         sha = json.sha
-        corrente = JSON.parse(decodeURIComponent(escape(atob(json.content))))
+        // L'API GitHub restituisce il base64 con newline ogni 76 caratteri:
+        // atob() lancia un'eccezione se non vengono rimossi prima.
+        corrente = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\s/g, '')))))
       } else if (info.status !== 404) {
         throw new Error(`Errore lettura file: ${info.status}`)
       }

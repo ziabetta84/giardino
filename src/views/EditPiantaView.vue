@@ -108,15 +108,16 @@ async function salva() {
   try {
     const nuove = await saveJSON('piante.json', (correnti) => {
       const base = { ...(correnti ?? store.piante) }
+      const piantaEsistente = isNuova.value ? {} : (base[id] || {})
       base[id] = {
-        ...(isNuova.value ? {} : base[id]),
+        ...piantaEsistente,
         specie:    form.value.specie,
         zona:      form.value.zona,
         sottozona: form.value.sottozona || null,
         varieta:   form.value.varieta  || '',
         impianto:  form.value.impianto || '',
         note:      form.value.note     || '',
-        ...( isNuova.value ? { ultima_cura: {} } : {} ),
+        ultima_cura: piantaEsistente.ultima_cura || {},
       }
       return base
     })
