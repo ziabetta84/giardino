@@ -91,17 +91,22 @@ function contaPiante(zonaKey) {
 async function eliminaZona() {
   if (!daEliminare.value) return
   eliminando.value = true
+  const zonaKey = daEliminare.value
   try {
-    const nuoveZone = { ...store.zone }
-    delete nuoveZone[daEliminare.value]
-    await saveJSON('zone.json', nuoveZone)
+    const nuoveZone = await saveJSON('zone.json', (correnti) => {
+      const base = { ...(correnti ?? store.zone) }
+      delete base[zonaKey]
+      return base
+    })
     store.zone = nuoveZone
 
     // Elimina sottozone collegate
-    if (store.sottozone?.[daEliminare.value]) {
-      const nuoveSottozone = { ...store.sottozone }
-      delete nuoveSottozone[daEliminare.value]
-      await saveJSON('sottozone.json', nuoveSottozone)
+    if (store.sottozone?.[zonaKey]) {
+      const nuoveSottozone = await saveJSON('sottozone.json', (correnti) => {
+        const base = { ...(correnti ?? store.sottozone) }
+        delete base[zonaKey]
+        return base
+      })
       store.sottozone = nuoveSottozone
     }
     daEliminare.value = null

@@ -86,20 +86,22 @@ async function salva() {
   if (!form.value.nome.trim() || salvando.value) return
   salvando.value = true
   try {
-    const nuove = { ...store.sottozone }
-    nuove[route.params.zona] = {
-      ...(nuove[route.params.zona] ?? {}),
-      [form.value.nome]: {
-        nome:        form.value.nome.trim(),
-        descrizione: form.value.descrizione.trim() || '',
-        tipo:        form.value.tipo,
-        esposizione: [],
-        microclima:  '',
-        criticita:   '',
-        manutenzione:'',
+    const nuove = await saveJSON('sottozone.json', (correnti) => {
+      const base = { ...(correnti ?? store.sottozone) }
+      base[route.params.zona] = {
+        ...(base[route.params.zona] ?? {}),
+        [form.value.nome]: {
+          nome:        form.value.nome.trim(),
+          descrizione: form.value.descrizione.trim() || '',
+          tipo:        form.value.tipo,
+          esposizione: [],
+          microclima:  '',
+          criticita:   '',
+          manutenzione:'',
+        }
       }
-    }
-    await saveJSON('sottozone.json', nuove)
+      return base
+    })
     store.sottozone = nuove
     mostraForm.value = false
     form.value = { nome: '', descrizione: '', tipo: 'esterno' }

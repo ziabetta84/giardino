@@ -130,10 +130,13 @@ function avviaElimina(pianta) {
 async function eliminaPianta() {
   if (!daEliminare.value) return
   eliminando.value = true
+  const id = daEliminare.value.id
   try {
-    const nuove = { ...store.piante }
-    delete nuove[daEliminare.value.id]
-    await saveJSON('piante.json', nuove)
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      delete base[id]
+      return base
+    })
     store.piante = nuove
     daEliminare.value = null
   } finally {

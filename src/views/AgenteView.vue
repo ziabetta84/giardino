@@ -199,8 +199,8 @@ async function aggiungiRichiesta() {
   errore.value = null
   try {
     const id = `r-${Date.now()}-${Math.random().toString(36).slice(2,6)}`
-    const nuove = {
-      ...raw.value,
+    const nuove = await saveJSON('richieste-agente.json', (correnti) => ({
+      ...(correnti ?? raw.value),
       [id]: {
         tipo: nuovoTipo.value,
         messaggio: nuovoMessaggio.value.trim(),
@@ -209,8 +209,7 @@ async function aggiungiRichiesta() {
         creata: new Date().toISOString(),
         risposta: null,
       }
-    }
-    await saveJSON('richieste-agente.json', nuove)
+    }))
     raw.value = nuove
     nuovoMessaggio.value = ''
     fotoBase64.value  = null

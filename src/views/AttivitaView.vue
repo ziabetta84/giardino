@@ -101,15 +101,17 @@ async function registra(item) {
   if (salvando.value || salvandoGruppo.value) return
   salvando.value = item.key
   try {
-    const nuove = { ...store.piante }
-    nuove[item.piantaId] = {
-      ...nuove[item.piantaId],
-      ultima_cura: {
-        ...nuove[item.piantaId].ultima_cura,
-        [item.tipo]: new Date().toISOString().split('T')[0],
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      base[item.piantaId] = {
+        ...base[item.piantaId],
+        ultima_cura: {
+          ...base[item.piantaId].ultima_cura,
+          [item.tipo]: new Date().toISOString().split('T')[0],
+        }
       }
-    }
-    await saveJSON('piante.json', nuove)
+      return base
+    })
     store.piante = nuove
   } finally {
     salvando.value = null
@@ -120,15 +122,17 @@ async function registraGruppo(gruppo) {
   if (salvandoGruppo.value || salvando.value) return
   salvandoGruppo.value = gruppo.chiave
   try {
-    const nuove = { ...store.piante }
     const oggi = new Date().toISOString().split('T')[0]
-    for (const item of gruppo.items) {
-      nuove[item.piantaId] = {
-        ...nuove[item.piantaId],
-        ultima_cura: { ...nuove[item.piantaId].ultima_cura, [item.tipo]: oggi },
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      for (const item of gruppo.items) {
+        base[item.piantaId] = {
+          ...base[item.piantaId],
+          ultima_cura: { ...base[item.piantaId].ultima_cura, [item.tipo]: oggi },
+        }
       }
-    }
-    await saveJSON('piante.json', nuove)
+      return base
+    })
     store.piante = nuove
   } finally {
     salvandoGruppo.value = null
