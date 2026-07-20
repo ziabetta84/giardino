@@ -141,10 +141,15 @@ function selezionaSpecie(s) {
 }
 
 function chiudiDropdown() {
-  dropdownAperto.value = false
-  // Se l'utente ha digitato senza selezionare nulla dall'elenco, ripristina
-  // il testo sul nome della specie effettivamente selezionata (o vuoto).
-  specieQuery.value = store.specie?.[form.value.specie]?.nome ?? ''
+  // Ritardo breve: su alcuni browser mobile il blur dell'input scatta prima
+  // che il tap sull'opzione (gestito da @mousedown.prevent) venga elaborato,
+  // altrimenti il dropdown sparirebbe dal DOM prima della selezione.
+  setTimeout(() => {
+    dropdownAperto.value = false
+    // Se l'utente ha digitato senza selezionare nulla dall'elenco, ripristina
+    // il testo sul nome della specie effettivamente selezionata (o vuoto).
+    specieQuery.value = store.specie?.[form.value.specie]?.nome ?? ''
+  }, 150)
 }
 
 const mostraNuovaSpecie = ref(false)
@@ -176,6 +181,10 @@ async function salvaNuovaSpecie() {
   const nome = nuovaSpecie.value.nome.trim()
   if (!nome || salvandoSpecie.value) return
   const chiave = slug(nome)
+  if (!chiave) {
+    erroreSpecie.value = 'Il nome della specie deve contenere almeno una lettera o un numero.'
+    return
+  }
   if (store.specie?.[chiave]) {
     erroreSpecie.value = 'Una specie con questo nome esiste già.'
     return
@@ -203,6 +212,8 @@ async function salvaNuovaSpecie() {
     store.specie = nuove
     selezionaSpecie({ key: chiave, nome })
     mostraNuovaSpecie.value = false
+  } catch (e) {
+    erroreSpecie.value = e.message || 'Errore durante il salvataggio della specie.'
   } finally {
     salvandoSpecie.value = false
   }
