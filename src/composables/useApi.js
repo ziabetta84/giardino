@@ -41,9 +41,21 @@ export function useApi() {
       if (info.ok) {
         const json = await info.json()
         sha = json.sha
-        // L'API GitHub restituisce il base64 con newline ogni 76 caratteri:
-        // atob() lancia un'eccezione se non vengono rimossi prima.
-        corrente = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\s/g, '')))))
+        if (json.content) {
+          // L'API GitHub restituisce il base64 con newline ogni 76 caratteri:
+          // atob() lancia un'eccezione se non vengono rimossi prima.
+          corrente = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\s/g, '')))))
+        } else {
+          // Per i file oltre 1MB l'API Contents non include il contenuto
+          // inline: lo richiediamo in formato raw con l'header Accept
+          // dedicato, riusando lo stesso token (a differenza di download_url,
+          // che su repo privati è null o comunque non autenticato).
+          const raw = await fetch(url, {
+            headers: { ...getHeaders(), Accept: 'application/vnd.github.v3.raw' }
+          })
+          if (!raw.ok) throw new Error(`Errore lettura file raw: ${raw.status}`)
+          corrente = await raw.json()
+        }
       } else if (info.status !== 404) {
         throw new Error(`Errore lettura file: ${info.status}`)
       }
