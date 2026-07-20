@@ -1150,5 +1150,53 @@
       "irrigazione": "2026-07-20",
       "concimazione": "2026-07-20"
     }
+  },
+  "echeveria-1784550000101": {
+    "specie": "echeveria",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "2026-07-20",
+    "note": "Rosetta blu-verde compatta nel vaso a forma di gatto (giallo), sul davanzale del soggiorno. Identificata il 20/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-20",
+      "concimazione": "2026-07-20"
+    }
+  },
+  "sedum-morganianum-1784550000102": {
+    "specie": "sedum-morganianum",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "2026-07-20",
+    "note": "Succulenta ricadente con foglioline tonde a grappolo nel vaso coniglio bianco, sul davanzale del soggiorno. Identificata il 20/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-20",
+      "concimazione": "2026-07-20"
+    }
+  },
+  "echeveria-1784550000103": {
+    "specie": "echeveria",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "2026-07-20",
+    "note": "Piccola rosetta giovane grigio-verde nel vaso coniglio crema, sul davanzale del soggiorno. Specie non certa a questo stadio (possibile Graptopetalum paraguayense). Identificata il 20/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-20",
+      "concimazione": "2026-07-20"
+    }
+  },
+  "mammillaria-1784550000104": {
+    "specie": "mammillaria",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "2026-07-20",
+    "note": "Cactus globoso con spine bianche raggiate a stella, nel vaso in terracotta sul davanzale del soggiorno. Identificata il 20/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-20",
+      "concimazione": "2026-07-20"
+    }
   }
 }
