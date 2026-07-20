@@ -2,30 +2,30 @@
   "Casa": {
     "Bagni": {
       "nome": "Bagni",
-      "descrizione": "<p dir=\"auto\">I bagni sono esposti a <strong>est</strong>. Hanno finestre ma non terrazzi, quindi al momento non è prevista l’aggiunta di piante da esterno.</p><p dir=\"auto\">Ricevono <strong>molta luce al mattino</strong>, durante tutto l’anno.</p><p dir=\"auto\"><br></p>",
+      "descrizione": "I bagni sono esposti a est. Hanno finestre ma non terrazzi, quindi al momento non è prevista l’aggiunta di piante da esterno. Ricevono molta luce al mattino, durante tutto l’anno.",
       "esposizione": [
         "est"
       ],
-      "microclima": "<ul dir=\"auto\"><li><strong>Luce intensa al mattino</strong></li><li><strong>Umidità elevata</strong>, tipica degli ambienti bagno</li><li><strong>Temperature fresche</strong>, soprattutto nei mesi freddi</li><li><strong>Ventilazione variabile</strong>, dipendente dall’apertura delle finestre</li></ul>\n<p dir=\"auto\">Questo microclima è ideale per piante che amano umidità e luce filtrata.</p>",
+      "microclima": "Luce intensa al mattino Umidità elevata, tipica degli ambienti bagno Temperature fresche, soprattutto nei mesi freddi Ventilazione variabile, dipendente dall’apertura delle finestre\nQuesto microclima è ideale per piante che amano umidità e luce filtrata.",
       "criticita": "",
-      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione moderata</strong>: evitare ristagni, soprattutto per l’orchidea.</li><li><strong>Asciugatura foglie</strong>: dopo docce calde, asciugare eventuale condensa sulle foglie della pilea.</li><li><strong>Ventilazione quotidiana</strong> per ridurre l’umidità e prevenire muffe.</li><li><strong>Controllo radici</strong> dell’orchidea ogni 6–12 mesi.</li><li><strong>Pulizia foglie</strong> per rimuovere calcare e residui di vapore.</li><li><strong>Evitare sole diretto</strong> nelle ore del mattino se troppo intenso.</li></ul>",
+      "manutenzione": "Irrigazione moderata: evitare ristagni, soprattutto per l’orchidea. Asciugatura foglie: dopo docce calde, asciugare eventuale condensa sulle foglie della pilea. Ventilazione quotidiana per ridurre l’umidità e prevenire muffe. Controllo radici dell’orchidea ogni 6–12 mesi. Pulizia foglie per rimuovere calcare e residui di vapore. Evitare sole diretto nelle ore del mattino se troppo intenso.",
       "tipo": "interno"
     },
     "Cucina": {
       "nome": "Cucina",
-      "descrizione": "<p dir=\"auto\">In cucina sono presenti due finestre esposte a <strong>ovest</strong> e un terrazzo esposto a <strong>nord/ovest</strong>.</p>",
+      "descrizione": "In cucina sono presenti due finestre esposte a ovest e un terrazzo esposto a nord/ovest.",
       "esposizione": [
         "nord",
         "ovest"
       ],
-      "microclima": "<ul dir=\"auto\"><li><strong>Luce intensa</strong> nel pomeriggio grazie alle finestre a ovest</li><li><strong>Temperature variabili</strong>, con tendenza al caldo nelle ore pomeridiane</li><li><strong>Umidità elevata</strong> dovuta alla cottura dei cibi</li><li><strong>Buona ventilazione</strong> grazie al terrazzo e alle finestre apribili</li></ul>\n<p dir=\"auto\">Questo microclima è ideale per molte piante aromatiche e per piante da interno che tollerano luce intensa e umidità variabile.</p>",
+      "microclima": "Luce intensa nel pomeriggio grazie alle finestre a ovest Temperature variabili, con tendenza al caldo nelle ore pomeridiane Umidità elevata dovuta alla cottura dei cibi Buona ventilazione grazie al terrazzo e alle finestre apribili\nQuesto microclima è ideale per molte piante aromatiche e per piante da interno che tollerano luce intensa e umidità variabile.",
       "criticita": "",
-      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione regolare</strong> per le aromatiche, evitando ristagni.</li><li><strong>Controllo esposizione</strong>: il basilico preferisce luce indiretta nelle ore più calde.</li><li><strong>Pulizia foglie</strong> di dracaena e ceropegia per rimuovere grasso e polvere tipici della cucina.</li><li><strong>Rotazione dei vasi</strong> per garantire crescita uniforme.</li><li><strong>Monitoraggio parassiti</strong>: le aromatiche attirano facilmente afidi e moscerini.</li><li><strong>Ricambio d’aria</strong> quotidiano per ridurre umidità e odori.</li></ul>",
+      "manutenzione": "Irrigazione regolare per le aromatiche, evitando ristagni. Controllo esposizione: il basilico preferisce luce indiretta nelle ore più calde. Pulizia foglie di dracaena e ceropegia per rimuovere grasso e polvere tipici della cucina. Rotazione dei vasi per garantire crescita uniforme. Monitoraggio parassiti: le aromatiche attirano facilmente afidi e moscerini. Ricambio d’aria quotidiano per ridurre umidità e odori.",
       "tipo": "interno"
     },
     "Ingresso": {
       "nome": "Ingresso",
-      "descrizione": "<p dir=\"auto\">Lo spazio dell'ingresso dell'appartamento è stretto, non \nha finestre proprie, ma prende luce sia dal bagno ad est che dalla \ncucina e soggiorno a ovest.</p>",
+      "descrizione": "Lo spazio dell'ingresso dell'appartamento è stretto, non\nha finestre proprie, ma prende luce sia dal bagno ad est che dalla\ncucina e soggiorno a ovest.",
       "esposizione": [
         "est",
         "ovest"
@@ -37,23 +37,23 @@
     },
     "Soggiorno": {
       "nome": "Soggiorno",
-      "descrizione": "<p dir=\"auto\">Il soggiorno è una stanza ampia e molto luminosa, con esposizione a <strong>ovest</strong>.<br>\nDurante l’estate il sole pomeridiano la rende particolarmente calda, richiedendo l’uso dell’aria condizionata.</p>\n<p dir=\"auto\">È collegato al <strong>terrazzo più grande</strong> della casa, che contribuisce alla luminosità e alla ventilazione.</p>",
+      "descrizione": "Il soggiorno è una stanza ampia e molto luminosa, con esposizione a ovest.\nDurante l’estate il sole pomeridiano la rende particolarmente calda, richiedendo l’uso dell’aria condizionata.\nÈ collegato al terrazzo più grande della casa, che contribuisce alla luminosità e alla ventilazione.",
       "esposizione": [
         "sud",
         "ovest"
       ],
-      "microclima": "<ul dir=\"auto\"><li><strong>Molto luminoso</strong> nel pomeriggio</li><li><strong>Tendenza al surriscaldamento</strong> estivo</li><li><strong>Aria secca</strong> con aria condizionata</li><li><strong>Buona ventilazione</strong> grazie al terrazzo</li></ul>",
+      "microclima": "Molto luminoso nel pomeriggio Tendenza al surriscaldamento estivo Aria secca con aria condizionata Buona ventilazione grazie al terrazzo",
       "criticita": "",
-      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione controllata</strong>, più frequente in estate.</li><li><strong>Protezione dal sole diretto</strong> nelle ore più calde.</li><li><strong>Umidificazione leggera</strong> per anthurium e bonsai.</li><li><strong>Controllo parassiti</strong> (cocciniglia, acari).</li><li><strong>Rotazione dei vasi</strong> ogni 1–2 settimane.</li><li><strong>Cambio acqua</strong> delle talee ogni 7–10 giorni.</li></ul>",
+      "manutenzione": "Irrigazione controllata, più frequente in estate. Protezione dal sole diretto nelle ore più calde. Umidificazione leggera per anthurium e bonsai. Controllo parassiti (cocciniglia, acari). Rotazione dei vasi ogni 1–2 settimane. Cambio acqua delle talee ogni 7–10 giorni.",
       "tipo": "interno"
     },
     "Scalinata": {
       "nome": "Scalinata",
-      "descrizione": "La scalinata è un ambiente fresco e poco illuminato, ma con <strong>buona ventilazione</strong>.<br><div>\nLa luce proviene da due piccole finestre, mentre l’aria circola grazie a\n una finestra spesso aperta e al collegamento diretto con il garage.</div>",
+      "descrizione": "La scalinata è un ambiente fresco e poco illuminato, ma con buona ventilazione.\nLa luce proviene da due piccole finestre, mentre l’aria circola grazie a\nuna finestra spesso aperta e al collegamento diretto con il garage.",
       "esposizione": [],
-      "microclima": "<ul dir=\"auto\"><li><strong>Freddo</strong> per gran parte dell’anno</li><li><strong>Luce scarsa</strong></li><li><strong>Buona ventilazione</strong></li><li><strong>Umidità moderata</strong></li></ul>",
-      "criticita": "<li><strong>Monitoraggio muffe</strong> nei mesi più umidi.</li><li><strong>Attenzione alle correnti d’aria</strong> per piante sensibili.</li>",
-      "manutenzione": "<ul dir=\"auto\"><li><strong>Irrigazione minima</strong>, solo a terreno completamente asciutto.</li><li><strong>Pulizia foglie</strong> per migliorare la fotosintesi.</li><li><strong>Controllo radici</strong> ogni 6–12 mesi.</li><li><strong>Rotazione dei vasi</strong> ogni 2–3 settimane.</li></ul>",
+      "microclima": "Freddo per gran parte dell’anno Luce scarsa Buona ventilazione Umidità moderata",
+      "criticita": "Monitoraggio muffe nei mesi più umidi. Attenzione alle correnti d’aria per piante sensibili.",
+      "manutenzione": "Irrigazione minima, solo a terreno completamente asciutto. Pulizia foglie per migliorare la fotosintesi. Controllo radici ogni 6–12 mesi. Rotazione dei vasi ogni 2–3 settimane.",
       "tipo": "interno"
     },
     "Camera di Marta": {
@@ -63,45 +63,45 @@
         "sud",
         "est"
       ],
-      "microclima": "<div>Fresco e umido</div>",
-      "criticita": "<div>Tende ad accumulare muffa facilmente, Marta ama fare pasticci e potrebbe non essere affidabile con le piante :-)&nbsp;</div>",
-      "manutenzione": "<div>Controllo e pulizia periodica della muffa.</div>",
+      "microclima": "Fresco e umido",
+      "criticita": "Tende ad accumulare muffa facilmente, Marta ama fare pasticci e potrebbe non essere affidabile con le piante :-)",
+      "manutenzione": "Controllo e pulizia periodica della muffa.",
       "tipo": "interno"
     }
   },
   "Scivolo": {
     "Lato Destro": {
       "nome": "Lato Destro",
-      "descrizione": "<p dir=\"auto\">Sotto-zona orientale dello scivolo. È l'estremità più a est della striscia, adiacente alla zona vialetto/ringhiera.</p><p dir=\"auto\"><strong>Sempre in ombra</strong>: le fioriere soprastanti della zona \nvialetto/ringhiera schermano completamente la luce solare diretta. Non \nriceve sole né al mattino né al pomeriggio in nessun periodo dell'anno.</p>",
+      "descrizione": "Sotto-zona orientale dello scivolo. È l'estremità più a est della striscia, adiacente alla zona vialetto/ringhiera. Sempre in ombra: le fioriere soprastanti della zona\nvialetto/ringhiera schermano completamente la luce solare diretta. Non\nriceve sole né al mattino né al pomeriggio in nessun periodo dell'anno.",
       "esposizione": [
         "est",
         "ovest"
       ],
-      "microclima": "<div>Fresco e costantemente umido. Il drenaggio continuo delle fioriere \nsovrastanti apporta acqua regolarmente al suolo, mantenendo un'umidità \npersistente. È la sotto-zona più fresca e stabile dell'intero scivolo, \ncon escursioni termiche minime. Le condizioni ricordano un ambiente di \nsottobosco.</div>",
+      "microclima": "Fresco e costantemente umido. Il drenaggio continuo delle fioriere\nsovrastanti apporta acqua regolarmente al suolo, mantenendo un'umidità\npersistente. È la sotto-zona più fresca e stabile dell'intero scivolo,\ncon escursioni termiche minime. Le condizioni ricordano un ambiente di\nsottobosco.",
       "criticita": "",
-      "manutenzione": "<ul dir=\"auto\"><li><strong>Ristagno idrico</strong>: l'apporto costante di acqua dalle \nfioriere può causare asfissia radicale su specie non adatte; il \ndrenaggio del suolo è fondamentale</li><li><strong>Malattie fungine</strong>: l'umidità persistente e l'assenza di ventilazione favoriscono muffe e marciumi; evitare piante sensibili</li><li><strong>Assenza totale di luce diretta</strong>: limita fortemente la scelta delle specie; escludere qualsiasi pianta che richieda anche solo mezza ombra</li></ul>",
+      "manutenzione": "Ristagno idrico: l'apporto costante di acqua dalle\nfioriere può causare asfissia radicale su specie non adatte; il\ndrenaggio del suolo è fondamentale Malattie fungine: l'umidità persistente e l'assenza di ventilazione favoriscono muffe e marciumi; evitare piante sensibili Assenza totale di luce diretta: limita fortemente la scelta delle specie; escludere qualsiasi pianta che richieda anche solo mezza ombra",
       "tipo": "esterno"
     },
     "Lato Frontale": {
       "nome": "Lato Frontale",
-      "descrizione": "<p dir=\"auto\">Sotto-zona centrale dello scivolo, posizionata tra il lato sinistro (ovest) e il lato destro (est).</p><p dir=\"auto\">Esposizione intermedia: riceve il sole del pomeriggio, ma con minor \nintensità rispetto al lato sinistro. La presenza delle strutture \nlaterali crea una leggera penombra nelle ore mattutine e nelle prime ore\n del pomeriggio. È la zona di transizione tra il pieno sole e l'ombra \npermanente del lato destro.</p>",
+      "descrizione": "Sotto-zona centrale dello scivolo, posizionata tra il lato sinistro (ovest) e il lato destro (est). Esposizione intermedia: riceve il sole del pomeriggio, ma con minor\nintensità rispetto al lato sinistro. La presenza delle strutture\nlaterali crea una leggera penombra nelle ore mattutine e nelle prime ore\ndel pomeriggio. È la zona di transizione tra il pieno sole e l'ombra\npermanente del lato destro.",
       "esposizione": [
         "ovest"
       ],
-      "microclima": "<div>Condizioni bilanciate: né troppo asciutto come il lato sinistro, né \ntroppo umido come il lato destro. La ventilazione è leggermente più \nlimitata rispetto alle estremità. Il suolo mantiene una certa freschezza\n grazie all'ombra mattutina, pur scaldandosi nel pomeriggio.</div>",
-      "criticita": "<ul dir=\"auto\"><li><strong>Variabilità stagionale</strong>: le condizioni cambiano \nsensibilmente tra estate (caldo pomeridiano diretto) e inverno (ombra \nquasi totale); scegliere piante adattabili a entrambe le situazioni</li><li><strong>Competizione radicale</strong>: zona di confine tra microclimi diversi, dove le radici delle piante dei lati adiacenti possono sovrapporsi</li></ul>",
+      "microclima": "Condizioni bilanciate: né troppo asciutto come il lato sinistro, né\ntroppo umido come il lato destro. La ventilazione è leggermente più\nlimitata rispetto alle estremità. Il suolo mantiene una certa freschezza\ngrazie all'ombra mattutina, pur scaldandosi nel pomeriggio.",
+      "criticita": "Variabilità stagionale: le condizioni cambiano\nsensibilmente tra estate (caldo pomeridiano diretto) e inverno (ombra\nquasi totale); scegliere piante adattabili a entrambe le situazioni Competizione radicale: zona di confine tra microclimi diversi, dove le radici delle piante dei lati adiacenti possono sovrapporsi",
       "manutenzione": "",
       "tipo": "esterno"
     },
     "Lato Sinistro": {
       "nome": "Lato Sinistro",
-      "descrizione": "<p dir=\"auto\">Sotto-zona occidentale dello scivolo. È l'estremità più a ovest della striscia.</p><p dir=\"auto\">Riceve\n il sole del pomeriggio in modo diretto e prolungato, essendo la parte \npiù aperta verso ovest. In estate l'irraggiamento pomeridiano è intenso.\n Al mattino è in ombra. È la sotto-zona più soleggiata e calda \ndell'intero scivolo.</p><p dir=\"auto\"><br></p>",
+      "descrizione": "Sotto-zona occidentale dello scivolo. È l'estremità più a ovest della striscia. Riceve\nil sole del pomeriggio in modo diretto e prolungato, essendo la parte\npiù aperta verso ovest. In estate l'irraggiamento pomeridiano è intenso.\nAl mattino è in ombra. È la sotto-zona più soleggiata e calda\ndell'intero scivolo.",
       "esposizione": [
         "est",
         "ovest"
       ],
-      "microclima": "<p dir=\"auto\">Caldo e asciutto nel pomeriggio estivo. La scarsa ombra e \nla buona esposizione al sole fanno evaporare rapidamente l'umidità del \nsuolo. Riparato dai venti grazie alle strutture adiacenti. Le \ntemperature possono essere elevate nelle ore pomeridiane estive.</p>",
-      "criticita": "<ul dir=\"auto\"><li><strong>Siccità estiva</strong>: il calore pomeridiano e la rapida \nevaporazione richiedono piante resistenti alla siccità o irrigazione \nsupplementare nei mesi più caldi</li><li><strong>Stress termico</strong>: nelle giornate più calde le piante delicate possono soffrire per il calore accumulato dalla parete e dal suolo</li></ul>",
+      "microclima": "Caldo e asciutto nel pomeriggio estivo. La scarsa ombra e\nla buona esposizione al sole fanno evaporare rapidamente l'umidità del\nsuolo. Riparato dai venti grazie alle strutture adiacenti. Le\ntemperature possono essere elevate nelle ore pomeridiane estive.",
+      "criticita": "Siccità estiva: il calore pomeridiano e la rapida\nevaporazione richiedono piante resistenti alla siccità o irrigazione\nsupplementare nei mesi più caldi Stress termico: nelle giornate più calde le piante delicate possono soffrire per il calore accumulato dalla parete e dal suolo",
       "manutenzione": "",
       "tipo": "esterno"
     }
@@ -109,23 +109,23 @@
   "Vialetto": {
     "Fioriere": {
       "nome": "Fioriere",
-      "descrizione": "<div>Sotto-zona del vialetto composta da <strong>grandi fioriere in legno</strong>\n disposte lungo il camminamento. Ospita la maggior parte dei gerani e \naltre piante da fiore di dimensioni medie. Il drenaggio di queste \nfioriere confluisce nella sotto-zona lato-destro dello scivolo \nsottostante.</div>",
+      "descrizione": "Sotto-zona del vialetto composta da grandi fioriere in legno\ndisposte lungo il camminamento. Ospita la maggior parte dei gerani e\naltre piante da fiore di dimensioni medie. Il drenaggio di queste\nfioriere confluisce nella sotto-zona lato-destro dello scivolo\nsottostante.",
       "esposizione": [
         "ovest"
       ],
-      "microclima": "<p dir=\"auto\"><strong>Molto sole pomeridiano</strong>. Le fioriere in \nlegno, essendo ampie e profonde, permettono un buon sviluppo radicale. \nLa camelia presente potrebbe preferire una posizione leggermente più \nriparata dal sole diretto intenso del pomeriggio estivo.</p>Le\n fioriere in legno offrono un buon isolamento termico rispetto ai \ncontenitori in plastica o terracotta: il substrato si scalda meno \nrapidamente e trattiene meglio l'umidità. La posizione sopraelevata sul \ncamminamento garantisce una buona ventilazione attorno alle piante, \nriducendo il rischio di ristagno in superficie.",
-      "criticita": "<ul dir=\"auto\"><li><strong>Cacyreus marshalli</strong> (farfallina dei gerani): il \nparassita principale della zona. Le larve perforano steli e gemme dei \ngerani dall'interno, causando avvizzimento e morte dei rami colpiti. \nTrattamento preventivo da maggio con insetticida sistemico o Bacillus \nthuringiensis</li><li><b>Esposizione alle intemperie e al sole eccessivo</b>: in inverno il vento e in estate l'estrema caluria rendono necessarie alcune accortezze</li></ul>",
-      "manutenzione": "<ul><li><b>Valutare</b> di proteggere le piante presenti in inverno.</li><li><b>Prevenzione</b>&nbsp;dai danni di farfallina dei gerani e lumache.</li></ul><div><br></div>",
+      "microclima": "Molto sole pomeridiano. Le fioriere in\nlegno, essendo ampie e profonde, permettono un buon sviluppo radicale.\nLa camelia presente potrebbe preferire una posizione leggermente più\nriparata dal sole diretto intenso del pomeriggio estivo. Le\nfioriere in legno offrono un buon isolamento termico rispetto ai\ncontenitori in plastica o terracotta: il substrato si scalda meno\nrapidamente e trattiene meglio l'umidità. La posizione sopraelevata sul\ncamminamento garantisce una buona ventilazione attorno alle piante,\nriducendo il rischio di ristagno in superficie.",
+      "criticita": "Cacyreus marshalli (farfallina dei gerani): il\nparassita principale della zona. Le larve perforano steli e gemme dei\ngerani dall'interno, causando avvizzimento e morte dei rami colpiti.\nTrattamento preventivo da maggio con insetticida sistemico o Bacillus\nthuringiensis Esposizione alle intemperie e al sole eccessivo: in inverno il vento e in estate l'estrema caluria rendono necessarie alcune accortezze",
+      "manutenzione": "Valutare di proteggere le piante presenti in inverno. Prevenzione dai danni di farfallina dei gerani e lumache.",
       "tipo": "esterno"
     },
     "Ringhiera": {
       "nome": "Ringhiera",
-      "descrizione": "<div>Sotto-zona del vialetto composta da <strong>piccole fioriere appese alla ringhiera</strong>\n del camminamento. Il volume ridotto di substrato impone una gestione \npiù attenta dell'irrigazione rispetto alle grandi fioriere adiacenti. Il\n drenaggio scende anch'esso verso il lato-destro dello scivolo \nsottostante.</div>",
+      "descrizione": "Sotto-zona del vialetto composta da piccole fioriere appese alla ringhiera\ndel camminamento. Il volume ridotto di substrato impone una gestione\npiù attenta dell'irrigazione rispetto alle grandi fioriere adiacenti. Il\ndrenaggio scende anch'esso verso il lato-destro dello scivolo\nsottostante.",
       "esposizione": [
         "ovest"
       ],
-      "microclima": "<p dir=\"auto\">M<strong>olto sole pomeridiano</strong>.\n Le fioriere appese, essendo sospese e non a contatto col suolo, sono \nesposte al sole e al vento su tutti i lati, aumentando ulteriormente la \nperdita di umidità.<a id=\"user-content-microclima\" class=\"anchor\" aria-label=\"Permalink: Microclima\" href=\"https://github.com/ziabetta84/giardino/blob/main/zone/vialetto/ringhiera/ringhiera.md#microclima\"><svg class=\"octicon octicon-link\" viewBox=\"0 0 16 16\" width=\"16\" height=\"16\" aria-hidden=\"true\"></svg></a></p>Il\n volume ridotto di substrato e la posizione completamente aerea rendono \nqueste fioriere le più vulnerabili al caldo e alla siccità di tutta la \nproprietà. Si scaldano velocemente e si asciugano in poche ore nelle \ngiornate estive. In inverno possono subire gelate più facilmente \nrispetto alle fioriere a terra, essendo esposte anche dal basso all'aria\n fredda.",
-      "criticita": "<ul dir=\"auto\"><li><strong>Essiccamento rapido</strong>: in estate può essere \nnecessaria irrigazione quotidiana o più volte al giorno; valutare \nl'installazione di un sistema di irrigazione a goccia</li><li><strong>Gelo invernale</strong>: le radici delle piante nelle \nfioriere appese sono esposte al freddo su tutti i lati; proteggere o \nportare al riparo le specie più sensibili in caso di gelate prolungate</li><li><strong>Peso e stabilità</strong>: le fioriere cariche di substrato bagnato esercitano una tensione sulla ringhiera; verificare periodicamente i supporti</li></ul>",
+      "microclima": "Molto sole pomeridiano.\nLe fioriere appese, essendo sospese e non a contatto col suolo, sono\nesposte al sole e al vento su tutti i lati, aumentando ulteriormente la\nperdita di umidità. Il\nvolume ridotto di substrato e la posizione completamente aerea rendono\nqueste fioriere le più vulnerabili al caldo e alla siccità di tutta la\nproprietà. Si scaldano velocemente e si asciugano in poche ore nelle\ngiornate estive. In inverno possono subire gelate più facilmente\nrispetto alle fioriere a terra, essendo esposte anche dal basso all'aria\nfredda.",
+      "criticita": "Essiccamento rapido: in estate può essere\nnecessaria irrigazione quotidiana o più volte al giorno; valutare\nl'installazione di un sistema di irrigazione a goccia Gelo invernale: le radici delle piante nelle\nfioriere appese sono esposte al freddo su tutti i lati; proteggere o\nportare al riparo le specie più sensibili in caso di gelate prolungate Peso e stabilità: le fioriere cariche di substrato bagnato esercitano una tensione sulla ringhiera; verificare periodicamente i supporti",
       "manutenzione": "",
       "tipo": "esterno"
     }

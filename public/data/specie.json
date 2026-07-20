@@ -2,7 +2,7 @@
   "iberis-sempervirens": {
     "nome": "Iberis sempervirens",
     "specie": "Iberis sempervirens",
-    "descrizione": "<p>Perenne sempreverde a cuscino, fioritura bianca abbondante in primavera.</p>",
+    "descrizione": "Perenne sempreverde a cuscino, fioritura bianca abbondante in primavera.",
     "esigenze": {
       "luce": "Pieno sole o mezz'ombra",
       "acqua": "Moderata",
@@ -40,7 +40,7 @@
   "sansevieria": {
     "nome": "Sansevieria",
     "specie": "Sansevieria trifasciata",
-    "descrizione": "<p>Pianta d'appartamento molto resistente.</p>",
+    "descrizione": "Pianta d'appartamento molto resistente.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Scarsa",
@@ -53,7 +53,7 @@
   "bellis-perennis": {
     "nome": "Bellis perennis",
     "specie": "Bellis perennis",
-    "descrizione": "<p>Margherita perenne ideale per bordure.</p>",
+    "descrizione": "Margherita perenne ideale per bordure.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Regolare",
@@ -90,7 +90,7 @@
   "erica": {
     "nome": "Erica",
     "specie": "Erica carnea",
-    "descrizione": "<p>Arbusto sempreverde con fioritura invernale.</p>",
+    "descrizione": "Arbusto sempreverde con fioritura invernale.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -128,7 +128,7 @@
   "gazania": {
     "nome": "Gazania",
     "specie": "Gazania rigens",
-    "descrizione": "<p>Perenne mediterranea dai fiori molto colorati.</p>",
+    "descrizione": "Perenne mediterranea dai fiori molto colorati.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -166,7 +166,7 @@
   "narciso": {
     "nome": "Narciso",
     "specie": "Narcissus spp.",
-    "descrizione": "<p>Bulbosa primaverile molto rustica.</p>",
+    "descrizione": "Bulbosa primaverile molto rustica.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
@@ -205,7 +205,7 @@
   "primula": {
     "nome": "Primula",
     "specie": "Primula vulgaris",
-    "descrizione": "<p>Perenne da mezz'ombra con fioritura precoce.</p>",
+    "descrizione": "Perenne da mezz'ombra con fioritura precoce.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -243,7 +243,7 @@
   "spiraea-arguta": {
     "nome": "Spiraea arguta",
     "specie": "Spiraea × arguta",
-    "descrizione": "<p>Arbusto ornamentale con fioritura bianca primaverile.</p>",
+    "descrizione": "Arbusto ornamentale con fioritura bianca primaverile.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -281,7 +281,7 @@
   "stracchino": {
     "nome": "Stracchino (Iberis)",
     "specie": "Iberis sempervirens",
-    "descrizione": "<p>Nome comune dell'Iberis sempervirens.</p>",
+    "descrizione": "Nome comune dell'Iberis sempervirens.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -318,7 +318,7 @@
   "uva-di-gatto": {
     "nome": "Uva di gatto",
     "specie": "Muscari armeniacum",
-    "descrizione": "<p>Bulbosa primaverile molto rustica, nota per le infiorescenze blu a grappolo simili a piccoli acini.</p>",
+    "descrizione": "Bulbosa primaverile molto rustica, nota per le infiorescenze blu a grappolo simili a piccoli acini.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata in primavera, quasi nulla in estate",
@@ -358,7 +358,7 @@
   "zinnia": {
     "nome": "Zinnia",
     "specie": "Zinnia elegans",
-    "descrizione": "<p>Annuale dai fiori grandi e colorati.</p>",
+    "descrizione": "Annuale dai fiori grandi e colorati.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
@@ -395,7 +395,7 @@
   "alloro": {
     "nome": "Alloro",
     "specie": "Laurus nobilis",
-    "descrizione": "<p>Arbusto aromatico sempreverde, molto resistente.</p>",
+    "descrizione": "Arbusto aromatico sempreverde, molto resistente.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
@@ -433,7 +433,7 @@
   "arancio-navel": {
     "nome": "Arancio Navel",
     "specie": "Citrus sinensis",
-    "descrizione": "<p>Agrume ornamentale e produttivo, sensibile al freddo.</p>",
+    "descrizione": "Agrume ornamentale e produttivo, sensibile al freddo.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Regolare",
@@ -471,7 +471,7 @@
   "prunus-taoflora": {
     "nome": "Prunus taoflora",
     "specie": "Prunus spp.",
-    "descrizione": "<p>Albero ornamentale a fioritura primaverile.</p>",
+    "descrizione": "Albero ornamentale a fioritura primaverile.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -509,7 +509,7 @@
   "rosmarino": {
     "nome": "Rosmarino",
     "specie": "Rosmarinus officinalis",
-    "descrizione": "<p>Aromatica mediterranea sempreverde, molto rustica.</p>",
+    "descrizione": "Aromatica mediterranea sempreverde, molto rustica.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -547,7 +547,7 @@
   "scilla-marittima": {
     "nome": "Scilla marittima",
     "specie": "Drimia maritima",
-    "descrizione": "<p>Bulbosa mediterranea molto resistente alla siccità.</p>",
+    "descrizione": "Bulbosa mediterranea molto resistente alla siccità.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -585,7 +585,7 @@
   "sedum-acre": {
     "nome": "Sedum acre",
     "specie": "Sedum acre",
-    "descrizione": "<p>Succulenta tappezzante molto rustica e invasiva.</p>",
+    "descrizione": "Succulenta tappezzante molto rustica e invasiva.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Scarsa",
@@ -623,7 +623,7 @@
   "timo-serpillo": {
     "nome": "Timo serpillo",
     "specie": "Thymus serpyllum",
-    "descrizione": "<p>Aromatica tappezzante molto resistente.</p>",
+    "descrizione": "Aromatica tappezzante molto resistente.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -661,7 +661,7 @@
   "orchidea": {
     "nome": "Orchidea",
     "specie": "Phalaenopsis",
-    "descrizione": "<p>Pianta da interno elegante, ama ambienti umidi.</p>",
+    "descrizione": "Pianta da interno elegante, ama ambienti umidi.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
@@ -698,7 +698,7 @@
   "basilico": {
     "nome": "Basilico",
     "specie": "Ocimum basilicum",
-    "descrizione": "<p>Aromatica annuale molto coltivata in estate.</p>",
+    "descrizione": "Aromatica annuale molto coltivata in estate.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
@@ -735,7 +735,7 @@
   "ceropegia": {
     "nome": "Ceropegia",
     "specie": "Ceropegia woodii",
-    "descrizione": "<p>Succulenta pendente da interno, molto decorativa.</p>",
+    "descrizione": "Succulenta pendente da interno, molto decorativa.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Scarsa",
@@ -773,7 +773,7 @@
   "erba-cipollina": {
     "nome": "Erba cipollina",
     "specie": "Allium schoenoprasum",
-    "descrizione": "<p>Aromatica perenne rustica, facile da coltivare.</p>",
+    "descrizione": "Aromatica perenne rustica, facile da coltivare.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
@@ -809,7 +809,7 @@
   "fragola-rifiorente": {
     "nome": "Fragola rifiorente",
     "specie": "Fragaria × ananassa",
-    "descrizione": "<p>Fragola che produce più volte l'anno.</p>",
+    "descrizione": "Fragola che produce più volte l'anno.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
@@ -846,7 +846,7 @@
   "prezzemolo": {
     "nome": "Prezzemolo",
     "specie": "Petroselinum crispum",
-    "descrizione": "<p>Aromatica biennale molto coltivata.</p>",
+    "descrizione": "Aromatica biennale molto coltivata.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -882,7 +882,7 @@
   "salvia": {
     "nome": "Salvia",
     "specie": "Salvia officinalis",
-    "descrizione": "<p>Aromatica mediterranea sempreverde.</p>",
+    "descrizione": "Aromatica mediterranea sempreverde.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -919,7 +919,7 @@
   "sedum-makinoi": {
     "nome": "Sedum makinoi",
     "specie": "Sedum makinoi",
-    "descrizione": "<p>Succulenta tappezzante ornamentale.</p>",
+    "descrizione": "Succulenta tappezzante ornamentale.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Scarsa",
@@ -956,7 +956,7 @@
   "tradescantia": {
     "nome": "Tradescantia",
     "specie": "Tradescantia zebrina",
-    "descrizione": "<p>Pendente da interno molto decorativa.</p>",
+    "descrizione": "Pendente da interno molto decorativa.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
@@ -997,7 +997,7 @@
   "calathea": {
     "nome": "Calathea",
     "specie": "Calathea spp.",
-    "descrizione": "<p>Pianta da interno con foglie ornamentali e disegni particolari.</p>",
+    "descrizione": "Pianta da interno con foglie ornamentali e disegni particolari.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Regolare",
@@ -1036,7 +1036,7 @@
   "anthurium": {
     "nome": "Anthurium",
     "specie": "Anthurium andraeanum",
-    "descrizione": "<p>Pianta da interno con fiori cerosi molto decorativi.</p>",
+    "descrizione": "Pianta da interno con fiori cerosi molto decorativi.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
@@ -1074,7 +1074,7 @@
   "calancola": {
     "nome": "Calancola",
     "specie": "Kalanchoe blossfeldiana",
-    "descrizione": "<p>Succulenta da interno con fioritura prolungata e colori vivaci.</p>",
+    "descrizione": "Succulenta da interno con fioritura prolungata e colori vivaci.",
     "esigenze": {
       "luce": "Luce intensa",
       "acqua": "Scarsa",
@@ -1112,7 +1112,7 @@
   "ficus-ginseng": {
     "nome": "Ficus ginseng",
     "specie": "Ficus microcarpa",
-    "descrizione": "<p>Bonsai da interno molto diffuso e resistente.</p>",
+    "descrizione": "Bonsai da interno molto diffuso e resistente.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
@@ -1150,7 +1150,7 @@
   "mammillaria": {
     "nome": "Mammillaria",
     "specie": "Mammillaria spp.",
-    "descrizione": "<p>Cactus globoso molto resistente e facile da coltivare.</p>",
+    "descrizione": "Cactus globoso molto resistente e facile da coltivare.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1187,7 +1187,7 @@
   "mammillaria-piumosa": {
     "nome": "Mammillaria piumosa",
     "specie": "Mammillaria plumosa",
-    "descrizione": "<p>Cactus bianco piumoso dall'aspetto delicato.</p>",
+    "descrizione": "Cactus bianco piumoso dall'aspetto delicato.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1225,7 +1225,7 @@
   "pothos": {
     "nome": "Pothos",
     "specie": "Epipremnum aureum",
-    "descrizione": "<p>Pendente da interno molto resistente e adattabile.</p>",
+    "descrizione": "Pendente da interno molto resistente e adattabile.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
@@ -1236,7 +1236,7 @@
   "cactus-ago-di-eva-monstroso": {
     "nome": "Cactus Ago di Eva (mostruoso)",
     "specie": "Euphorbia trigona",
-    "descrizione": "<p>Succulenta colonnare ornamentale con portamento irregolare.</p>",
+    "descrizione": "Succulenta colonnare ornamentale con portamento irregolare.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1274,7 +1274,7 @@
   "echeveria": {
     "nome": "Echeveria",
     "specie": "Echeveria spp.",
-    "descrizione": "<p>Succulenta a rosetta molto decorativa e resistente.</p>",
+    "descrizione": "Succulenta a rosetta molto decorativa e resistente.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1311,7 +1311,7 @@
   "ipoeste": {
     "nome": "Ipoeste",
     "specie": "Hypoestes phyllostachya",
-    "descrizione": "<p>Pianta da interno con foglie maculate molto ornamentali.</p>",
+    "descrizione": "Pianta da interno con foglie maculate molto ornamentali.",
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Regolare",
@@ -1348,7 +1348,7 @@
   "mammillaria-allungata": {
     "nome": "Mammillaria allungata",
     "specie": "Mammillaria elongata",
-    "descrizione": "<p>Cactus cilindrico molto resistente e facile da coltivare.</p>",
+    "descrizione": "Cactus cilindrico molto resistente e facile da coltivare.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1385,7 +1385,7 @@
   "pianta-panda": {
     "nome": "Pianta panda",
     "specie": "Kalanchoe tomentosa",
-    "descrizione": "<p>Succulenta con foglie vellutate e bordi scuri.</p>",
+    "descrizione": "Succulenta con foglie vellutate e bordi scuri.",
     "esigenze": {
       "luce": "Luce intensa",
       "acqua": "Scarsa",
@@ -1422,7 +1422,7 @@
   "carex": {
     "nome": "Carex",
     "specie": "Carex oshimensis",
-    "descrizione": "<p>Graminacea ornamentale sempreverde.</p>",
+    "descrizione": "Graminacea ornamentale sempreverde.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
@@ -1459,7 +1459,7 @@
   "glechoma-hederacea": {
     "nome": "Glechoma hederacea",
     "specie": "Glechoma hederacea",
-    "descrizione": "<p>Perenne tappezzante vigorosa e aromatica.</p>",
+    "descrizione": "Perenne tappezzante vigorosa e aromatica.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -1534,7 +1534,7 @@
   "marsilea-quadrifolia": {
     "nome": "Marsilea quadrifolia",
     "specie": "Marsilea quadrifolia",
-    "descrizione": "<p>Piantina acquatica simile a un quadrifoglio.</p>",
+    "descrizione": "Piantina acquatica simile a un quadrifoglio.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Molto abbondante",
@@ -1571,7 +1571,7 @@
   "pennisetum-cinese": {
     "nome": "Pennisetum cinese",
     "specie": "Pennisetum alopecuroides",
-    "descrizione": "<p>Graminacea ornamentale con spighe decorative.</p>",
+    "descrizione": "Graminacea ornamentale con spighe decorative.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Moderata",
@@ -1608,7 +1608,7 @@
   "salcerella": {
     "nome": "Salcerella",
     "specie": "Lythrum salicaria",
-    "descrizione": "<p>Perenne da zone umide con fiori rosa-viola.</p>",
+    "descrizione": "Perenne da zone umide con fiori rosa-viola.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Abbondante",
@@ -1645,7 +1645,7 @@
   "clematis-montana": {
     "nome": "Clematis montana",
     "specie": "Clematis montana",
-    "descrizione": "<p>Rampicante vigorosa con fioritura primaverile abbondante.</p>",
+    "descrizione": "Rampicante vigorosa con fioritura primaverile abbondante.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Regolare",
@@ -1682,7 +1682,7 @@
   "mesembriantemo": {
     "nome": "Mesembriantemo",
     "specie": "Lampranthus spp.",
-    "descrizione": "<p>Succulenta tappezzante dai fiori molto luminosi.</p>",
+    "descrizione": "Succulenta tappezzante dai fiori molto luminosi.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1719,7 +1719,7 @@
   "stipa-tenuissima": {
     "nome": "Stipa tenuissima",
     "specie": "Nassella tenuissima",
-    "descrizione": "<p>Graminacea ornamentale leggera e ondeggiante.</p>",
+    "descrizione": "Graminacea ornamentale leggera e ondeggiante.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -1755,7 +1755,7 @@
   "allium-sphaerocephalon": {
     "nome": "Allium sphaerocephalon",
     "specie": "Allium sphaerocephalon",
-    "descrizione": "<p>Bulbosa ornamentale con infiorescenze viola sferiche.</p>",
+    "descrizione": "Bulbosa ornamentale con infiorescenze viola sferiche.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -1791,7 +1791,7 @@
   "echinacea": {
     "nome": "Echinacea",
     "specie": "Echinacea purpurea",
-    "descrizione": "<p>Perenne rustica con fiori grandi e appariscenti.</p>",
+    "descrizione": "Perenne rustica con fiori grandi e appariscenti.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -1827,7 +1827,7 @@
   "heuchera": {
     "nome": "Heuchera",
     "specie": "Heuchera spp.",
-    "descrizione": "<p>Perenne ornamentale con foglie colorate.</p>",
+    "descrizione": "Perenne ornamentale con foglie colorate.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -1863,7 +1863,7 @@
   "margherita-delle-canarie": {
     "nome": "Margherita delle Canarie",
     "specie": "Argyranthemum frutescens",
-    "descrizione": "<p>Arbustiva mediterranea con fioritura prolungata.</p>",
+    "descrizione": "Arbustiva mediterranea con fioritura prolungata.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -1899,7 +1899,7 @@
   "osteospermum": {
     "nome": "Osteospermum",
     "specie": "Osteospermum ecklonis",
-    "descrizione": "<p>Perenne mediterranea con fiori simili a margherite.</p>",
+    "descrizione": "Perenne mediterranea con fiori simili a margherite.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -1936,7 +1936,7 @@
   "verbena": {
     "nome": "Verbena",
     "specie": "Verbena hybrida",
-    "descrizione": "<p>Annuale o perenne con fioritura continua.</p>",
+    "descrizione": "Annuale o perenne con fioritura continua.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
@@ -1973,7 +1973,7 @@
   "aquilegia": {
     "nome": "Aquilegia",
     "specie": "Aquilegia vulgaris",
-    "descrizione": "<p>Perenne elegante con fiori penduli primaverili.</p>",
+    "descrizione": "Perenne elegante con fiori penduli primaverili.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -2009,7 +2009,7 @@
   "centaurea-ragusina": {
     "nome": "Centaurea ragusina",
     "specie": "Centaurea ragusina",
-    "descrizione": "<p>Perenne argentata molto ornamentale.</p>",
+    "descrizione": "Perenne argentata molto ornamentale.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Scarsa",
@@ -2045,7 +2045,7 @@
   "garofano": {
     "nome": "Garofano",
     "specie": "Dianthus spp.",
-    "descrizione": "<p>Perenne o annuale con fiori profumati.</p>",
+    "descrizione": "Perenne o annuale con fiori profumati.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -2081,7 +2081,7 @@
   "lavanda": {
     "nome": "Lavanda",
     "specie": "Lavandula angustifolia",
-    "descrizione": "<p>Arbustiva aromatica molto rustica.</p>",
+    "descrizione": "Arbustiva aromatica molto rustica.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -2118,7 +2118,7 @@
   "sedum-spurium": {
     "nome": "Sedum spurium",
     "specie": "Sedum spurium",
-    "descrizione": "<p>Succulenta tappezzante molto resistente.</p>",
+    "descrizione": "Succulenta tappezzante molto resistente.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Scarsa",
@@ -2155,7 +2155,7 @@
   "violaciocca": {
     "nome": "Violaciocca",
     "specie": "Matthiola incana",
-    "descrizione": "<p>Biennale o perenne con fiori profumati.</p>",
+    "descrizione": "Biennale o perenne con fiori profumati.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -2191,7 +2191,7 @@
   "alisso": {
     "nome": "Alisso",
     "specie": "Lobularia maritima",
-    "descrizione": "<p>Perenne tappezzante con fiori profumati.</p>",
+    "descrizione": "Perenne tappezzante con fiori profumati.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -2227,7 +2227,7 @@
   "camelia": {
     "nome": "Camelia",
     "specie": "Camellia japonica",
-    "descrizione": "<p>Arbusto acidofilo con fioritura invernale o primaverile.</p>",
+    "descrizione": "Arbusto acidofilo con fioritura invernale o primaverile.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -2264,7 +2264,7 @@
   "fico-di-mare": {
     "nome": "Fico di mare",
     "specie": "Carpobrotus edulis",
-    "descrizione": "<p>Succulenta tappezzante molto vigorosa.</p>",
+    "descrizione": "Succulenta tappezzante molto vigorosa.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -2301,7 +2301,7 @@
   "gerani": {
     "nome": "Gerani",
     "specie": "Pelargonium spp.",
-    "descrizione": "<p>Piante ornamentali molto diffuse in balconi e giardini.</p>",
+    "descrizione": "Piante ornamentali molto diffuse in balconi e giardini.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
@@ -2338,7 +2338,7 @@
   "cuphea": {
     "nome": "Cuphea",
     "specie": "Cuphea hyssopifolia",
-    "descrizione": "<p>Arbustiva compatta con fiori piccoli e numerosi.</p>",
+    "descrizione": "Arbustiva compatta con fiori piccoli e numerosi.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
@@ -2374,7 +2374,7 @@
   "erica-del-messico": {
     "nome": "Erica del Messico",
     "specie": "Cuphea hyssopifolia",
-    "descrizione": "<p>Arbustiva sempreverde con fioritura continua.</p>",
+    "descrizione": "Arbustiva sempreverde con fioritura continua.",
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
@@ -2410,7 +2410,7 @@
   "lewisia": {
     "nome": "Lewisia",
     "specie": "Lewisia cotyledon",
-    "descrizione": "<p>Perenne da roccaglia con fiori molto decorativi.</p>",
+    "descrizione": "Perenne da roccaglia con fiori molto decorativi.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Moderata",
@@ -2447,7 +2447,7 @@
   "saponaria": {
     "nome": "Saponaria",
     "specie": "Saponaria ocymoides",
-    "descrizione": "<p>Perenne tappezzante con fiori rosa primaverili.</p>",
+    "descrizione": "Perenne tappezzante con fiori rosa primaverili.",
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
@@ -2483,7 +2483,7 @@
   "sassifraga": {
     "nome": "Sassifraga",
     "specie": "Saxifraga arendsii",
-    "descrizione": "<p>Perenne tappezzante ideale per zone fresche.</p>",
+    "descrizione": "Perenne tappezzante ideale per zone fresche.",
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
@@ -2800,7 +2800,7 @@
   "lucky-bamboo": {
     "nome": "Lucky Bamboo",
     "specie": "Dracaena sanderiana",
-    "descrizione": "Il lucky bamboo  è molto semplice da allevare e non richiede cure particolari.  \nInfatti questi rami possono essere allevati sia in terra che in acqua con la differenza che in acqua sono molto più semplici da crescere piuttosto che in terra; in terra sono  meno spettacolari ma crescono più rigogliosi sviluppando molti più ciuffi di foglie.",
+    "descrizione": "Il lucky bamboo è molto semplice da allevare e non richiede cure particolari.\nInfatti questi rami possono essere allevati sia in terra che in acqua con la differenza che in acqua sono molto più semplici da crescere piuttosto che in terra; in terra sono meno spettacolari ma crescono più rigogliosi sviluppando molti più ciuffi di foglie.",
     "esigenze": {
       "luce": "Molta luce, non sole diretto",
       "acqua": "Coltivato in acqua",
@@ -2831,7 +2831,7 @@
   "agave": {
     "nome": "Agave",
     "specie": "Agave sp.",
-    "descrizione": "<p>Giovane pollone identificato a luglio 2026 (probabile Agave americana). Rosetta di foglie carnose che da adulta sviluppa margini spinosi.</p>",
+    "descrizione": "Giovane pollone identificato a luglio 2026 (probabile Agave americana). Rosetta di foglie carnose che da adulta sviluppa margini spinosi.",
     "esigenze": {
       "luce": "Pieno sole / molto luminoso",
       "acqua": "Scarsa",
@@ -2866,7 +2866,7 @@
   "ferocactus": {
     "nome": "Ferocactus",
     "specie": "Ferocactus sp.",
-    "descrizione": "<p>Cactus a botte con spine radiali robuste e ben visibili, a crescita lenta.</p>",
+    "descrizione": "Cactus a botte con spine radiali robuste e ben visibili, a crescita lenta.",
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
@@ -2902,7 +2902,7 @@
   "sedum-morganianum": {
     "nome": "Sedum morganianum",
     "specie": "Sedum morganianum / burrito",
-    "descrizione": "<p>Succulenta ricadente con foglioline tonde e carnose disposte a grappolo su fusti pendenti, ideale per vasi sospesi o davanzali.</p>",
+    "descrizione": "Succulenta ricadente con foglioline tonde e carnose disposte a grappolo su fusti pendenti, ideale per vasi sospesi o davanzali.",
     "esigenze": {
       "luce": "Molto luminosa, sole diretto alcune ore",
       "acqua": "Scarsa",
@@ -2938,7 +2938,7 @@
   "gasteria": {
     "nome": "Gasteria",
     "specie": "Gasteria spp.",
-    "descrizione": "<p>Succulenta a foglie carnose disposte a ventaglio, superficie maculata di punti chiari su fondo scuro; tollera bene la luce indiretta.</p>",
+    "descrizione": "Succulenta a foglie carnose disposte a ventaglio, superficie maculata di punti chiari su fondo scuro; tollera bene la luce indiretta.",
     "esigenze": {
       "luce": "Luminosa, sole diretto solo filtrato",
       "acqua": "Scarsa",
