@@ -22,20 +22,22 @@ const WMO_LABEL = {
 }
 
 export function useMeteo() {
-  const giorni   = ref([])
-  const oggi     = ref(null)
-  const loading  = ref(false)
-  const errore   = ref(null)
+  const giorni      = ref([])
+  const oggi        = ref(null)
+  const orarieOggi  = ref([])
+  const loading     = ref(false)
+  const errore      = ref(null)
 
   async function carica(lat, lon, days = 7) {
     loading.value = true
     errore.value  = null
     try {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max&forecast_days=${days}&timezone=Europe/Rome`
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=${days}&timezone=Europe/Rome`
       const res  = await fetch(url)
       if (!res.ok) throw new Error('Errore API meteo')
       const raw  = await res.json()
       const d    = raw.daily
+      const h    = raw.hourly
 
       giorni.value = d.time.map((data, i) => ({
         data,
@@ -49,6 +51,16 @@ export function useMeteo() {
         vento: Math.round(d.windspeed_10m_max[i]),
       }))
       oggi.value = giorni.value[0] ?? null
+
+      orarieOggi.value = h?.time ? h.time.slice(0, 24).map((ora, i) => ({
+        ora,
+        label: new Date(ora).toLocaleTimeString('it-IT', { hour:'2-digit', minute:'2-digit' }),
+        icona: WMO[h.weathercode[i]] ?? '🌡️',
+        descrizione: WMO_LABEL[h.weathercode[i]] ?? '',
+        temp: Math.round(h.temperature_2m[i]),
+        pioggiaProb: h.precipitation_probability?.[i] ?? null,
+        vento: Math.round(h.windspeed_10m[i]),
+      })) : []
     } catch (e) {
       errore.value = e.message
     } finally {
@@ -56,5 +68,5 @@ export function useMeteo() {
     }
   }
 
-  return { giorni, oggi, loading, errore, carica }
+  return { giorni, oggi, orarieOggi, loading, errore, carica }
 }
