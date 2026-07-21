@@ -1457,7 +1457,9 @@
     "varieta": "",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "plumbago-1784639951288": {
     "specie": "plumbago",
