@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
+      <div class="meteo-giorni-grid">
         <div v-for="g in giorniSuccessivi" :key="g.data"
           class="card"
           style="padding:18px;text-align:center;">
@@ -97,4 +97,12 @@ onMounted(async () => {
 }
 .ora-box { background: var(--cream); }
 .ora-corrente { background: var(--gold-pale); border: 1px solid var(--gold-light); }
+.meteo-giorni-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+@media (min-width: 641px) {
+  .meteo-giorni-grid { grid-template-columns: repeat(3, 1fr); }
+}
 </style>
