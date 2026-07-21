@@ -1248,5 +1248,14 @@
     "impianto": "",
     "note": "",
     "ultima_cura": {}
+  },
+  "geranio-parigino-1784626280045": {
+    "specie": "geranio-parigino",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "Rosa",
+    "impianto": "2026-04-25",
+    "note": "",
+    "ultima_cura": {}
   }
 }
