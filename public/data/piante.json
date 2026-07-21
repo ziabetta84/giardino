@@ -1371,7 +1371,9 @@
     "varieta": "a frutto grosso",
     "impianto": "2026-05-18",
     "note": "4 piante, impiantate il 18/5/26",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "scalogno-1784630168942": {
     "specie": "scalogno",
