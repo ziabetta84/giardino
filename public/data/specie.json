@@ -1132,46 +1132,41 @@
   "tradescantia": {
     "nome": "Tradescantia",
     "specie": "Tradescantia zebrina",
-    "descrizione": "Pendente da interno molto decorativa.",
+    "descrizione": "Tappezzante da esterno a crescita rapida e spontanea, con fusti striscianti fucsia e foglie striate; si comporta da infestante una volta ambientata.",
     "esigenze": {
-      "luce": "Luce diffusa",
-      "acqua": "Moderata",
-      "terreno": "Drenato"
+      "luce": "Mezz'ombra o sole filtrato",
+      "acqua": "Scarsa, si adatta alla pioggia naturale",
+      "terreno": "Non esigente, tollera anche terreni poveri"
     },
     "alert": [
-      "teme freddo intenso (sotto 0°C va protetta)",
-      "luce luminosa ma non sole forte",
-      "evitare ristagni idrici",
-      "crescita rapida",
-      "luce intensa per mantenere la variegatura",
-      "se i tralci si allungano troppo → luce insufficiente",
-      "evitare ristagni idrici (rischio marciumi)",
-      "foglie molli → troppa acqua",
-      "foglie secche ai bordi → aria troppo secca o poca acqua"
+      "teme il gelo intenso (sotto 0°C la parte aerea può seccare, ma ricaccia in primavera se le radici sono protette)",
+      "crescita molto rapida e invasiva: monitorare e contenere l'espansione",
+      "si radica facilmente da ogni frammento di fusto a contatto col terreno",
+      "evitare ristagni idrici prolungati"
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "ogni 5-7 giorni",
-        "estate": "ogni 4-6 giorni",
-        "autunno": "ogni 7-10 giorni",
-        "inverno": "ogni 10-14 giorni"
+        "primavera": "nessuna, si adatta alla pioggia naturale",
+        "estate": "ogni 12-15 giorni in assenza di pioggia prolungata",
+        "autunno": "nessuna, si adatta alla pioggia naturale",
+        "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "ogni 2 settimane con concime leggero",
-        "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
-        "inverno": "sospesa"
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
       },
       "potatura": {
-        "primavera": "taglio leggero",
-        "estate": "taglio leggero",
+        "primavera": "taglio di contenimento per limitare l'espansione",
+        "estate": "taglio di contenimento se necessario",
         "autunno": "nessuna",
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": "20-10-10",
-        "estate": "20-10-10",
-        "autunno": "20-10-10",
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
         "inverno": null
       }
     }
