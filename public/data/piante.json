@@ -1207,7 +1207,9 @@
     "varieta": "",
     "impianto": "2026-06-25",
     "note": "Aggiunta nel vaso della ceropegia",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "delosperma-1784625705060": {
     "specie": "delosperma",
