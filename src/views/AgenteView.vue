@@ -22,6 +22,7 @@
       <select v-model="nuovoTipo" class="form-input" style="margin-bottom:10px;">
         <option value="identifica_specie">🌿 Identifica specie da foto</option>
         <option value="consiglio_cura">💧 Consiglio per cura</option>
+        <option value="consiglio_concimazione">🌱 Consiglio concimazione</option>
         <option value="diagnosi">🔍 Diagnosi problema</option>
         <option value="altro">💬 Altro</option>
       </select>
