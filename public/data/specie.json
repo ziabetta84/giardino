@@ -54,7 +54,33 @@
     },
     "alert": [
       "Sensibile a eccesso d'acqua"
-    ]
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   },
   "bellis-perennis": {
     "nome": "Bellis perennis",
@@ -136,8 +162,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-5-5",
+        "estate": "10-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -313,7 +339,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "10-10-10",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -356,8 +382,8 @@
         "inverno": ""
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -489,8 +515,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-5-5",
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -577,7 +603,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "10-10-10",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -621,8 +647,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-5-5",
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -709,7 +735,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -753,8 +779,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-5-5",
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -796,9 +822,9 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
-        "autunno": null,
+        "primavera": "20-20-20",
+        "estate": "20-20-20",
+        "autunno": "10-30-20",
         "inverno": null
       }
     }
@@ -839,8 +865,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-5-5",
+        "estate": "10-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -883,7 +909,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -925,8 +951,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-5-5",
+        "estate": "10-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -968,9 +994,9 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
-        "autunno": null,
+        "primavera": "5-10-15",
+        "estate": "5-10-15",
+        "autunno": "5-10-15",
         "inverno": null
       }
     }
@@ -1010,8 +1036,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-5-5",
+        "estate": "10-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -1053,8 +1079,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-5-5",
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -1143,8 +1169,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1188,8 +1214,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1320,8 +1346,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1423,7 +1449,33 @@
       "acqua": "Moderata",
       "terreno": "Drenato"
     },
-    "alert": []
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   },
   "cactus-ago-di-eva-monstroso": {
     "nome": "Cactus Ago di Eva (mostruoso)",
@@ -1548,8 +1600,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1677,7 +1729,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "10-10-10",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -1721,7 +1773,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -1764,8 +1816,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1807,8 +1859,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-10-10",
+        "estate": "10-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1893,8 +1945,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-10-10",
+        "estate": "10-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1936,8 +1988,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -1979,7 +2031,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -2021,7 +2073,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "10-10-10",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -2105,8 +2157,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2147,8 +2199,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2189,8 +2241,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2232,8 +2284,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2275,8 +2327,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2317,8 +2369,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2359,7 +2411,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -2401,8 +2453,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2444,8 +2496,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-5-5",
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -2487,7 +2539,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -2529,8 +2581,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2571,8 +2623,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2614,7 +2666,7 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -2657,8 +2709,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2699,8 +2751,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2741,8 +2793,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2784,8 +2836,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2826,8 +2878,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2869,8 +2921,8 @@
         "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -2992,8 +3044,8 @@
         "inverno": ""
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -3035,8 +3087,8 @@
         "inverno": "sospesa"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -3117,8 +3169,8 @@
         "inverno": "Sospesa"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "5-5-5",
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
@@ -3197,7 +3249,7 @@
         "inverno": "Nessuna"
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
@@ -3234,8 +3286,8 @@
         "inverno": ""
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }
@@ -3438,8 +3490,8 @@
         "inverno": ""
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "10-10-10",
+        "estate": "5-10-15",
         "autunno": null,
         "inverno": null
       }
@@ -3475,7 +3527,7 @@
         "inverno": ""
       },
       "npk": {
-        "primavera": null,
+        "primavera": "5-5-5",
         "estate": null,
         "autunno": null,
         "inverno": null
