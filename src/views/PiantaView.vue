@@ -68,7 +68,7 @@
                 🌱 Consigliato: {{ suggerimentoConcime.nome }} ({{ suggerimentoConcime.npk.n }}-{{ suggerimentoConcime.npk.p }}-{{ suggerimentoConcime.npk.k }})
               </div>
               <div v-else-if="tipo === 'concimazione' && fabbisognoNpk && !suggerimentoConcime" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
-                Nessun concime adatto in dispensa
+                Nessun concime adatto in dispensa (fabbisogno {{ fabbisognoNpk }})
               </div>
             </div>
             <button @click="registraCura(tipo)" :disabled="salvando === tipo" class="btn btn-sage"
