@@ -20,11 +20,26 @@ La risposta deve essere:
 - In italiano
 - Pratica e concisa (max 200 parole)
 - Specifica per il tipo di richiesta:
-  - `identifica_specie`: nome comune, nome scientifico, caratteristiche distintive
+  - `identifica_specie`: vedi procedura dedicata sotto
   - `consiglio_cura`: azione concreta con tempistiche per il clima marchigiano
   - `consiglio_concimazione`: vedi procedura dedicata sotto
   - `diagnosi`: causa probabile + rimedio immediato
   - `altro`: risposta libera pertinente al contesto del giardino
+
+## Procedura per `identifica_specie`
+
+Oltre a nome comune, nome scientifico e caratteristiche distintive dalla foto, includi nella risposta una proposta di **fabbisogno NPK per stagione**, nello stesso formato usato in `specie.json` (`"N-P-K"`, es. `"10-5-5"`, o assenza di valore per le stagioni senza necessità specifica) — così, se l'utente aggiunge poi la specie tramite il form "nuova specie", ha già i valori pronti da inserire nella tabella invece di dover cercare altrove.
+
+- Prima di proporre un valore, controlla se la specie identificata (o una molto simile) esiste già in `specie.json`: se sì, usa lo stesso NPK già presente lì invece di inventarne uno diverso, per coerenza tra voci della stessa specie/categoria.
+- Altrimenti, assegna il fabbisogno in base alla categoria botanica della pianta (lo stesso criterio già usato per popolare `specie.json`):
+  - fogliame da interno → azoto prevalente (es. "20-10-10")
+  - succulente/grasse → fabbisogno minimo, solo primavera (es. "5-5-5")
+  - aromatiche mediterranee → scarso e bilanciato (es. "5-5-5")
+  - aromatiche da foglia → azoto moderato (es. "10-5-5")
+  - fiorite/perenni ornamentali → fosforo prevalente (es. "5-10-10")
+  - da frutto → potassio prevalente (es. "5-10-15")
+  - specie note per sensibilità a un nutriente specifico (es. l'avocado teme l'eccesso di fosforo) → tienine conto esplicitamente, preferendo un profilo azotato basso in fosforo invece del generico bilanciato
+- Se non hai elementi sufficienti per una stima ragionevole (specie molto incerta o poco nota), ometti la proposta NPK invece di inventarne una a caso, e dillo nella risposta.
 
 ## Procedura per `consiglio_concimazione`
 
