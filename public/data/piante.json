@@ -1230,5 +1230,14 @@
     "impianto": "2026-06-25",
     "note": "Aggiunta nel vaso della ceropegia",
     "ultima_cura": {}
+  },
+  "camelia-1784621603934": {
+    "specie": "camelia",
+    "zona": "Vialetto",
+    "sottozona": "Fioriere",
+    "varieta": "Rossa",
+    "impianto": "2024-09-21",
+    "note": "",
+    "ultima_cura": {}
   }
 }
