@@ -64,7 +64,8 @@
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
-import { valutaCura } from '@/composables/useCure'
+import { valutaCura, stagione } from '@/composables/useCure'
+import { concimeConsigliato } from '@/composables/useConcimi'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 
@@ -77,6 +78,7 @@ const dataOggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'n
 
 const attivita = computed(() => {
   if (!store.piante) return []
+  const stagioneCorrente = stagione()
   const items = []
   for (const [id, p] of Object.entries(store.piante)) {
     const sp = store.specie?.[p.specie] ?? null
@@ -84,7 +86,10 @@ const attivita = computed(() => {
     for (const tipo of ['irrigazione', 'concimazione', 'potatura']) {
       const c = valutaCura(p, sp, tipo)
       if (c.giorni !== null) {
-        items.push({ key: `${id}-${tipo}`, piantaId: id, tipo, nomeSpecie, label: c.label, giorni: c.giorni, urgente: c.urgente })
+        const suggerimento = tipo === 'concimazione'
+          ? concimeConsigliato(sp?.manutenzione?.npk?.[stagioneCorrente], store.concimi)
+          : null
+        items.push({ key: `${id}-${tipo}`, piantaId: id, tipo, nomeSpecie, label: c.label, giorni: c.giorni, urgente: c.urgente, suggerimento })
       }
     }
   }

@@ -6,6 +6,9 @@
         {{ item.nomeSpecie }}
       </div>
       <div :style="labelStyle">{{ item.label }}</div>
+      <div v-if="item.tipo === 'concimazione' && item.suggerimento" style="font-size:11px;color:var(--sage-dark);margin-top:2px;">
+        🌱 Consigliato: {{ item.suggerimento.nome }} ({{ item.suggerimento.npk.n }}-{{ item.suggerimento.npk.p }}-{{ item.suggerimento.npk.k }})
+      </div>
     </div>
     <button @click="$emit('registra', item)" :disabled="disabled"
       :class="['btn', variante === 'urgente' ? 'btn-rose' : 'btn-ghost']"
