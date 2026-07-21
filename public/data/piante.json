@@ -1382,7 +1382,9 @@
     "varieta": "",
     "impianto": "2026-05-18",
     "note": "6 piante, impiantate il 18/5/26",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "basilico-1784630168943": {
     "specie": "basilico",
