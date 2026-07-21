@@ -28,7 +28,7 @@ La risposta deve essere:
 
 ## Procedura per `identifica_specie`
 
-Oltre a nome comune, nome scientifico e caratteristiche distintive dalla foto, includi nella risposta una proposta di **fabbisogno NPK per stagione**, nello stesso formato usato in `specie.json` (`"N-P-K"`, es. `"10-5-5"`, o assenza di valore per le stagioni senza necessità specifica) — così, se l'utente aggiunge poi la specie tramite il form "nuova specie", ha già i valori pronti da inserire nella tabella invece di dover cercare altrove.
+Oltre a nome comune, nome scientifico e caratteristiche distintive dalla foto, includi nella risposta una proposta di **fabbisogno NPK per ciascuna delle quattro stagioni** (primavera, estate, autunno, inverno), nello stesso formato usato in `specie.json` (`"N-P-K"`, es. `"10-5-5"`, o indicando esplicitamente l'assenza di concimazione per le stagioni di riposo vegetativo — tipicamente l'inverno nel clima marchigiano) — così, se l'utente aggiunge poi la specie tramite il form "nuova specie", ha già i valori pronti da inserire nella tabella invece di dover cercare altrove.
 
 - Prima di proporre un valore, controlla se la specie identificata (o una molto simile) esiste già in `specie.json`: se sì, usa lo stesso NPK già presente lì invece di inventarne uno diverso, per coerenza tra voci della stessa specie/categoria.
 - Altrimenti, assegna il fabbisogno in base alla categoria botanica della pianta (lo stesso criterio già usato per popolare `specie.json`):
