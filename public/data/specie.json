@@ -3533,5 +3533,48 @@
         "inverno": null
       }
     }
+  },
+  "delosperma": {
+    "nome": "Delosperma",
+    "specie": "Delosperma cooperi",
+    "descrizione": "Succulenta tappezzante originaria del Sudafrica, con fioritura vistosa rosa-viola per gran parte dell'estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Sabbioso, molto drenante"
+    },
+    "alert": [
+      "Teme i ristagni idrici più del freddo (più rustica al gelo di molte succulente)",
+      "richiede pieno sole per fiorire abbondantemente",
+      "ottima resistenza alla siccità",
+      "perfetta per bordure, muretti e scarpate",
+      "fioritura molto lunga da tarda primavera a fine estate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-12 giorni",
+        "estate": "ogni 7-10 giorni nei periodi più caldi",
+        "autunno": "ogni 15 giorni",
+        "inverno": "sospesa, salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "una tantum a inizio ripresa vegetativa",
+        "estate": "",
+        "autunno": "",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rimozione parti secche",
+        "estate": "",
+        "autunno": "taglio di pulizia post-fioritura",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-5-5",
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }

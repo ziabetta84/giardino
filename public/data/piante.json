@@ -1230,5 +1230,23 @@
     "impianto": "2026-06-25",
     "note": "Aggiunta nel vaso della ceropegia",
     "ultima_cura": {}
+  },
+  "delosperma-1784625705060": {
+    "specie": "delosperma",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
+  },
+  "gerani-1784625705061": {
+    "specie": "gerani",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "Parigino",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
   }
 }
