@@ -37,7 +37,13 @@ export function useApi() {
       // Ottieni SHA e contenuto attuali (null/undefined se il file non esiste ancora)
       let sha
       let corrente = null
-      const info = await fetch(url, { headers: getHeaders() })
+      // cache: 'no-store' è essenziale qui: l'API Contents risponde con
+      // Cache-Control: public, max-age=60, quindi senza disabilitare la
+      // cache del browser una scrittura seguita a breve da un'altra
+      // rileggerebbe lo SHA precedente alla prima scrittura, causando un
+      // conflitto "does not match" che i retry non risolvono (rileggono
+      // la stessa risposta cache-stale).
+      const info = await fetch(url, { headers: getHeaders(), cache: 'no-store' })
       if (info.ok) {
         const json = await info.json()
         sha = json.sha
@@ -51,7 +57,8 @@ export function useApi() {
           // dedicato, riusando lo stesso token (a differenza di download_url,
           // che su repo privati è null o comunque non autenticato).
           const raw = await fetch(url, {
-            headers: { ...getHeaders(), Accept: 'application/vnd.github.v3.raw' }
+            headers: { ...getHeaders(), Accept: 'application/vnd.github.v3.raw' },
+            cache: 'no-store',
           })
           if (!raw.ok) throw new Error(`Errore lettura file raw: ${raw.status}`)
           corrente = await raw.json()
@@ -89,7 +96,7 @@ export function useApi() {
 
     // Controlla se esiste già (per ottenere SHA)
     let sha
-    const check = await fetch(url, { headers: getHeaders() })
+    const check = await fetch(url, { headers: getHeaders(), cache: 'no-store' })
     if (check.ok) {
       const existing = await check.json()
       sha = existing.sha
