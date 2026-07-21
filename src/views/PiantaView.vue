@@ -64,6 +64,12 @@
               <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
                 {{ valutaCura(pianta, specie, tipo).label ?? 'Non configurata' }}
               </div>
+              <div v-if="tipo === 'concimazione' && fabbisognoNpk && suggerimentoConcime" style="font-size:11px;color:var(--sage-dark);margin-top:2px;">
+                🌱 Consigliato: {{ suggerimentoConcime.nome }} ({{ suggerimentoConcime.npk.n }}-{{ suggerimentoConcime.npk.p }}-{{ suggerimentoConcime.npk.k }})
+              </div>
+              <div v-else-if="tipo === 'concimazione' && fabbisognoNpk && !suggerimentoConcime" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
+                Nessun concime adatto in dispensa
+              </div>
             </div>
             <button @click="registraCura(tipo)" :disabled="salvando === tipo" class="btn btn-sage"
               style="font-size:11px;padding:4px 10px;min-height:28px;">
@@ -128,7 +134,8 @@ import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
-import { valutaCura, cureUrgentiPianta } from '@/composables/useCure'
+import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
+import { concimeConsigliato } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
 
 const route  = useRoute()
@@ -152,6 +159,11 @@ const specie = computed(() =>
 
 const cureUrgenti = computed(() =>
   pianta.value ? cureUrgentiPianta(pianta.value, specie.value) : []
+)
+
+const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
+const suggerimentoConcime = computed(() =>
+  fabbisognoNpk.value ? concimeConsigliato(fabbisognoNpk.value, store.concimi) : null
 )
 
 async function registraCura(tipo) {
