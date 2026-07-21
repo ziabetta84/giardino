@@ -3485,7 +3485,7 @@
       },
       "npk": {
         "primavera": "5-5-5",
-        "estate": null,
+        "estate": "5-5-5",
         "autunno": null,
         "inverno": null
       }
