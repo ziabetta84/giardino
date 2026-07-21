@@ -1329,7 +1329,9 @@
     "varieta": "",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "pomodoro-1784630168938": {
     "specie": "pomodoro",
