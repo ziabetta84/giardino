@@ -108,6 +108,12 @@
             <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
             <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
             <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
+
+            <div class="tipo-label">🧪 NPK</div>
+            <input v-model="nuovaSpecie.manutenzione.npk.primavera" placeholder="N-P-K">
+            <input v-model="nuovaSpecie.manutenzione.npk.estate" placeholder="N-P-K">
+            <input v-model="nuovaSpecie.manutenzione.npk.autunno" placeholder="N-P-K">
+            <input v-model="nuovaSpecie.manutenzione.npk.inverno" placeholder="N-P-K">
           </div>
 
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
@@ -189,7 +195,7 @@ const erroreSpecie      = ref(null)
 
 function manutenzioneVuota() {
   const perStagione = () => ({ primavera: '', estate: '', autunno: '', inverno: '' })
-  return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione() }
+  return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione(), npk: perStagione() }
 }
 
 const nuovaSpecie = ref({ nome: '', descrizione: '', luce: '', acqua: '', terreno: '', manutenzione: manutenzioneVuota() })
@@ -217,6 +223,11 @@ function generaManutenzione(struttura) {
   risultato.potatura = {}
   for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
     risultato.potatura[stagione] = (struttura?.potatura?.[stagione] || '').trim()
+  }
+  risultato.npk = {}
+  for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
+    const valore = (struttura?.npk?.[stagione] || '').trim()
+    risultato.npk[stagione] = valore || null
   }
   return risultato
 }
