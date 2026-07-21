@@ -3619,5 +3619,42 @@
         "inverno": null
       }
     }
+  },
+  "avocado": {
+    "nome": "Avocado",
+    "specie": "Persea americana",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "Luce indiretta",
+      "acqua": "Umidità costante",
+      "terreno": "Ben drenato"
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5 giorni",
+        "estate": "ogni 1 giorni",
+        "autunno": "ogni 7 giorni",
+        "inverno": "ogni 10 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 30 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "Tagli di ritorno per ridurre l'altezza della pianta e sfoltire il centro della chioma.",
+        "estate": "Cimatura dei nuovi germogli",
+        "autunno": "Elimina i rami secchi a inizio stagione",
+        "inverno": "Nessuna potatura"
+      },
+      "npk": {
+        "primavera": "20-20-20",
+        "estate": "15-5-30",
+        "autunno": "0-10-10",
+        "inverno": null
+      }
+    }
   }
 }
