@@ -1247,7 +1247,9 @@
     "varieta": "",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "geranio-parigino-1784626280045": {
     "specie": "geranio-parigino",
