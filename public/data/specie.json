@@ -3656,5 +3656,42 @@
         "inverno": null
       }
     }
+  },
+  "agapanto": {
+    "nome": "Agapanto",
+    "specie": "Agapanthus",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "",
+      "terreno": "Ricco, fertile e soprattutto ben drenato"
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3 giorni",
+        "estate": "ogni 2 giorni",
+        "autunno": "ogni 7 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 15 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "Rimuovi le foglie danneggiate dal gelo",
+        "estate": "Taglia gli steli fioriti",
+        "autunno": "Pulisci le foglie secche o ingiallite",
+        "inverno": "Nessuna potatura"
+      },
+      "npk": {
+        "primavera": "20-10-20",
+        "estate": "10-20-30",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
