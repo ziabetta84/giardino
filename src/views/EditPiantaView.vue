@@ -23,8 +23,9 @@
           autocomplete="off"
         >
         <div v-if="dropdownAperto" class="specie-dropdown">
-          <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)">
-            {{ s.nome }}
+          <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione-riga">
+            <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)">{{ s.nome }}</div>
+            <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie">✏️</button>
           </div>
           <p v-if="!specieFiltrate.length" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
           <div class="specie-opzione specie-nuova" @mousedown.prevent="apriNuovaSpecie">
@@ -75,9 +76,12 @@
     <Teleport to="body">
       <div v-if="mostraNuovaSpecie" class="overlay" @click.self="chiudiNuovaSpecie">
         <div class="modal-box">
-          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:16px;">Nuova specie</h3>
+          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:16px;">
+            {{ specieModificaOriginale ? 'Modifica specie' : 'Nuova specie' }}
+          </h3>
 
-          <input v-model="nuovaSpecie.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
+          <input v-model="nuovaSpecie.nome" placeholder="Nome comune *" class="form-input" style="margin-bottom:10px;">
+          <input v-model="nuovaSpecie.nomeScientifico" placeholder="Nome scientifico (es. Passiflora caerulea)" class="form-input" style="margin-bottom:10px;">
           <p v-if="erroreSpecie" style="font-size:11px;color:var(--rose-dark);margin:0 0 10px;">{{ erroreSpecie }}</p>
 
           <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione (opzionale)"
@@ -86,7 +90,12 @@
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esigenze (opzionale)</label>
           <input v-model="nuovaSpecie.luce" placeholder="Luce, es. Pieno sole" class="form-input" style="margin-bottom:8px;">
           <input v-model="nuovaSpecie.acqua" placeholder="Acqua, es. Moderata" class="form-input" style="margin-bottom:8px;">
-          <input v-model="nuovaSpecie.terreno" placeholder="Terreno, es. Ben drenato" class="form-input" style="margin-bottom:16px;">
+          <input v-model="nuovaSpecie.terreno" placeholder="Terreno, es. Ben drenato" class="form-input" style="margin-bottom:8px;">
+
+          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Avvertenze (opzionale)</label>
+          <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
+          <textarea v-model="nuovaSpecie.alert" placeholder="Una avvertenza per riga…"
+            rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
 
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Manutenzione (opzionale)</label>
           <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
@@ -129,7 +138,7 @@
             <button class="btn btn-ghost" @click="chiudiNuovaSpecie" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salvaNuovaSpecie" :disabled="!nuovaSpecie.nome.trim() || salvandoSpecie"
               style="min-height:40px;padding:8px 16px;">
-              {{ salvandoSpecie ? '⏳' : 'Aggiungi' }}
+              {{ salvandoSpecie ? '⏳' : (specieModificaOriginale ? 'Salva' : 'Aggiungi') }}
             </button>
           </div>
         </div>
@@ -192,13 +201,37 @@ function chiudiDropdown() {
 const mostraNuovaSpecie = ref(false)
 const salvandoSpecie    = ref(false)
 const erroreSpecie      = ref(null)
+// Chiave della specie in modifica (null quando si sta creando una nuova
+// specie): serve per sapere se salvaNuovaSpecie() deve creare o rinominare/
+// aggiornare una voce esistente in specie.json.
+const specieModificaOriginale = ref(null)
+
+const STAGIONI = ['primavera', 'estate', 'autunno', 'inverno']
 
 function manutenzioneVuota() {
   const perStagione = () => ({ primavera: '', estate: '', autunno: '', inverno: '' })
   return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione(), npk: perStagione() }
 }
 
-const nuovaSpecie = ref({ nome: '', descrizione: '', luce: '', acqua: '', terreno: '', manutenzione: manutenzioneVuota() })
+// Per irrigazione/concimazione il campo del form è solo numerico ("ogni N
+// giorni"), ma i dati reali delle specie esistenti spesso non sono in quel
+// formato pulito (es. "ogni 7-10 giorni", "minima", "una volta al mese").
+// Quando in modifica il testo originale non è convertibile in un numero
+// pulito, il campo numerico parte vuoto e questo testo viene tenuto come
+// fallback: se l'utente lo lascia vuoto, il valore originale non viene perso;
+// se digita un numero, lo sostituisce intenzionalmente.
+const manutenzioneOriginale = ref({
+  irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+  concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+})
+
+function estraiGiorniPuliti(testo) {
+  if (typeof testo === 'number') return testo
+  const m = String(testo || '').match(/^ogni (\d+) giorni$/)
+  return m ? parseInt(m[1], 10) : null
+}
+
+const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota() })
 
 // Converte i giorni inseriti nella tabella manutenzione nel formato testuale
 // già usato da tutte le specie esistenti e atteso da useCure.js (parseGiorni
@@ -211,21 +244,23 @@ const nuovaSpecie = ref({ nome: '', descrizione: '', luce: '', acqua: '', terren
 // quasi mai a cadenza numerica ("ogni N giorni"), ma descrittiva/stagionale
 // ("taglio leggero", "post-fioritura", "nessuna") — per questo resta testo
 // libero invece di essere convertita da un numero di giorni.
-function generaManutenzione(struttura) {
+function generaManutenzione(struttura, originale) {
   const risultato = {}
   for (const tipo of ['irrigazione', 'concimazione']) {
     risultato[tipo] = {}
-    for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
+    for (const stagione of STAGIONI) {
       const giorni = struttura?.[tipo]?.[stagione]
-      risultato[tipo][stagione] = (typeof giorni === 'number' && giorni > 0) ? `ogni ${giorni} giorni` : ''
+      risultato[tipo][stagione] = (typeof giorni === 'number' && giorni > 0)
+        ? `ogni ${giorni} giorni`
+        : (originale?.[tipo]?.[stagione] || '')
     }
   }
   risultato.potatura = {}
-  for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
+  for (const stagione of STAGIONI) {
     risultato.potatura[stagione] = (struttura?.potatura?.[stagione] || '').trim()
   }
   risultato.npk = {}
-  for (const stagione of ['primavera', 'estate', 'autunno', 'inverno']) {
+  for (const stagione of STAGIONI) {
     const valore = (struttura?.npk?.[stagione] || '').trim()
     risultato.npk[stagione] = valore || null
   }
@@ -241,7 +276,45 @@ function slug(testo) {
 }
 
 function apriNuovaSpecie() {
-  nuovaSpecie.value = { nome: specieQuery.value.trim(), descrizione: '', luce: '', acqua: '', terreno: '', manutenzione: manutenzioneVuota() }
+  nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota() }
+  manutenzioneOriginale.value = { irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' }, concimazione: { primavera: '', estate: '', autunno: '', inverno: '' } }
+  specieModificaOriginale.value = null
+  erroreSpecie.value = null
+  dropdownAperto.value = false
+  mostraNuovaSpecie.value = true
+}
+
+function apriModificaSpecie(s) {
+  const record = store.specie?.[s.key]
+  if (!record) return
+
+  const manutenzione = manutenzioneVuota()
+  const originale = { irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' }, concimazione: { primavera: '', estate: '', autunno: '', inverno: '' } }
+  for (const tipo of ['irrigazione', 'concimazione']) {
+    for (const stagione of STAGIONI) {
+      const testo = record.manutenzione?.[tipo]?.[stagione] || ''
+      const numero = estraiGiorniPuliti(testo)
+      manutenzione[tipo][stagione] = numero ?? ''
+      originale[tipo][stagione] = numero === null ? testo : ''
+    }
+  }
+  for (const stagione of STAGIONI) {
+    manutenzione.potatura[stagione] = record.manutenzione?.potatura?.[stagione] || ''
+    manutenzione.npk[stagione] = record.manutenzione?.npk?.[stagione] || ''
+  }
+
+  nuovaSpecie.value = {
+    nome: record.nome ?? s.nome,
+    nomeScientifico: record.specie ?? '',
+    descrizione: record.descrizione ?? '',
+    luce: record.esigenze?.luce ?? '',
+    acqua: record.esigenze?.acqua ?? '',
+    terreno: record.esigenze?.terreno ?? '',
+    alert: Array.isArray(record.alert) ? record.alert.join('\n') : (record.alert ?? ''),
+    manutenzione,
+  }
+  manutenzioneOriginale.value = originale
+  specieModificaOriginale.value = s.key
   erroreSpecie.value = null
   dropdownAperto.value = false
   mostraNuovaSpecie.value = true
@@ -255,12 +328,13 @@ function chiudiNuovaSpecie() {
 async function salvaNuovaSpecie() {
   const nome = nuovaSpecie.value.nome.trim()
   if (!nome || salvandoSpecie.value) return
+  const chiaveOriginale = specieModificaOriginale.value
   const chiave = slug(nome)
   if (!chiave) {
     erroreSpecie.value = 'Il nome della specie deve contenere almeno una lettera o un numero.'
     return
   }
-  if (store.specie?.[chiave]) {
+  if (store.specie?.[chiave] && chiave !== chiaveOriginale) {
     erroreSpecie.value = 'Una specie con questo nome esiste già.'
     return
   }
@@ -268,23 +342,49 @@ async function salvaNuovaSpecie() {
 
   salvandoSpecie.value = true
   try {
+    // Se la specie viene rinominata, aggiorna prima le piante che la
+    // referenziano e solo dopo la specie stessa: se questo primo passaggio
+    // fallisce, specie.json non è ancora stato toccato e l'utente può
+    // semplicemente riprovare. Nell'ordine opposto, un fallimento del
+    // salvataggio delle piante dopo un rename già scritto lascerebbe sia
+    // piante orfane (puntano a una chiave specie non più esistente) sia un
+    // nuovo tentativo bloccato dal controllo duplicati (la chiave nuova
+    // risulterebbe già presente in store.specie).
+    if (chiaveOriginale && chiaveOriginale !== chiave) {
+      const nuovePiante = await saveJSON('piante.json', (correnti) => {
+        const base = { ...(correnti ?? store.piante) }
+        for (const id of Object.keys(base)) {
+          if (base[id].specie === chiaveOriginale) {
+            base[id] = { ...base[id], specie: chiave }
+          }
+        }
+        return base
+      })
+      store.piante = nuovePiante
+      if (form.value.specie === chiaveOriginale) form.value.specie = chiave
+    }
+
     const nuove = await saveJSON('specie.json', (correnti) => {
       const base = { ...(correnti ?? store.specie) }
+      if (chiaveOriginale && chiaveOriginale !== chiave) {
+        delete base[chiaveOriginale]
+      }
       base[chiave] = {
         nome,
-        specie: nome,
+        specie: nuovaSpecie.value.nomeScientifico.trim() || nome,
         descrizione: nuovaSpecie.value.descrizione.trim() || '',
         esigenze: {
           luce:    nuovaSpecie.value.luce.trim()    || '',
           acqua:   nuovaSpecie.value.acqua.trim()   || '',
           terreno: nuovaSpecie.value.terreno.trim() || '',
         },
-        alert: [],
-        manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione),
+        alert: nuovaSpecie.value.alert.split('\n').map(a => a.trim()).filter(Boolean),
+        manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value),
       }
       return base
     })
     store.specie = nuove
+
     selezionaSpecie({ key: chiave, nome })
     mostraNuovaSpecie.value = false
   } catch (e) {
@@ -373,6 +473,27 @@ async function salva() {
   font-weight: 600;
   border-top: 1px solid var(--cream-dark);
 }
+.specie-opzione-riga {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-right: 6px;
+}
+.specie-opzione-riga:hover {
+  background: var(--cream);
+}
+.specie-opzione-riga .specie-opzione {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.specie-opzione-riga .icon-btn {
+  background: none; border: none; cursor: pointer;
+  padding: 4px 6px; border-radius: 8px; font-size: 13px; line-height: 1;
+  color: var(--ink-soft); flex-shrink: 0;
+}
 .manutenzione-grid {
   display: grid;
   grid-template-columns: minmax(0,1fr) 44px 44px 44px 44px;
@@ -405,6 +526,7 @@ async function salva() {
 .modal-box {
   background: var(--white); border-radius: 20px; padding: 24px;
   width: 100%; max-width: 360px;
+  max-height: 90vh; overflow-y: auto;
   box-shadow: 0 20px 60px rgba(42,34,24,0.2);
 }
 </style>
