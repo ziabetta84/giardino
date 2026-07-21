@@ -1304,7 +1304,9 @@
     "varieta": "Gialla",
     "impianto": "2026-06-25",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "calathea-1784629447642": {
     "specie": "calathea",
