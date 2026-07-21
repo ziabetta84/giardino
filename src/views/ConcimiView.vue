@@ -21,6 +21,7 @@
           <div style="flex:1;min-width:0;">
             <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ c.nome }}</h3>
             <span class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
+            <p v-if="c.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:6px;">{{ descrizioneBreve(c) }}</p>
           </div>
           <button @click.stop="avviaElimina(c)" aria-label="Elimina concime"
             style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;padding:4px;">×</button>
@@ -48,6 +49,9 @@
             <input v-model.number="form.p" type="number" min="0" placeholder="P" class="form-input" style="text-align:center;">
             <input v-model.number="form.k" type="number" min="0" placeholder="K" class="form-input" style="text-align:center;">
           </div>
+          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Descrizione (opzionale)</label>
+          <textarea v-model="form.descrizione" placeholder="Preparazione, dosi, tempo di macerazione…"
+            rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
           <div style="display:flex;gap:10px;justify-content:flex-end;">
             <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
@@ -82,7 +86,7 @@ const { saveJSON } = useApi()
 const mostraForm = ref(false)
 const modificaId  = ref(null)
 const salvando    = ref(false)
-const form = ref({ nome: '', n: null, p: null, k: null })
+const form = ref({ nome: '', n: null, p: null, k: null, descrizione: '' })
 
 const daEliminare = ref(null)
 const eliminando  = ref(false)
@@ -96,14 +100,19 @@ const concimi = computed(() => {
 
 function apriNuovo() {
   modificaId.value = null
-  form.value = { nome: '', n: null, p: null, k: null }
+  form.value = { nome: '', n: null, p: null, k: null, descrizione: '' }
   mostraForm.value = true
 }
 
 function apriModifica(c) {
   modificaId.value = c.id
-  form.value = { nome: c.nome, n: c.npk.n, p: c.npk.p, k: c.npk.k }
+  form.value = { nome: c.nome, n: c.npk.n, p: c.npk.p, k: c.npk.k, descrizione: c.descrizione ?? '' }
   mostraForm.value = true
+}
+
+function descrizioneBreve(c) {
+  const testo = c.descrizione || ''
+  return testo.length > 150 ? testo.slice(0, 150) + '…' : testo
 }
 
 function chiudiForm() {
@@ -121,6 +130,7 @@ async function salva() {
       [id]: {
         nome,
         npk: { n: form.value.n || 0, p: form.value.p || 0, k: form.value.k || 0 },
+        descrizione: form.value.descrizione.trim() || '',
       }
     }))
     store.concimi = nuovi
