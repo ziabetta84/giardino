@@ -3736,5 +3736,300 @@
         "inverno": null
       }
     }
+  },
+  "pomodoro": {
+    "nome": "Pomodoro",
+    "specie": "Solanum lycopersicum",
+    "descrizione": "Ortaggio annuale da frutto, ampiamente coltivato in estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare e abbondante",
+      "terreno": "Fertile, ben drenato"
+    },
+    "alert": [
+      "Teme i ristagni idrici (rischio marciume radicale)",
+      "necessita di tutori/sostegni, soprattutto per le varietà a crescita indeterminata",
+      "controllare afidi e mosca bianca",
+      "rischio peronospora con umidità elevata e scarsa ventilazione",
+      "rimuovere i succhioni ascellari per favorire la fruttificazione"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3-4 giorni",
+        "estate": "ogni 2 giorni",
+        "autunno": "ogni 5-7 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 10-15 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "rimozione succhioni ascellari",
+        "estate": "rimozione succhioni e foglie basali ingiallite",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-15",
+        "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "cetriolo": {
+    "nome": "Cetriolo",
+    "specie": "Cucumis sativus",
+    "descrizione": "Ortaggio annuale rampicante o strisciante, da frutto estivo.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Abbondante e regolare",
+      "terreno": "Fertile, ricco di sostanza organica"
+    },
+    "alert": [
+      "Molto sensibile alla siccità (frutti amari o deformi se manca acqua)",
+      "richiede un supporto/tutore se coltivato come rampicante",
+      "controllare oidio e afidi",
+      "raccogliere i frutti giovani per stimolare nuova produzione"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3 giorni",
+        "estate": "ogni 1-2 giorni",
+        "autunno": "ogni 5 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 10 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "cimatura per favorire la ramificazione laterale",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-15",
+        "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "zucchina": {
+    "nome": "Zucchina",
+    "specie": "Cucurbita pepo",
+    "descrizione": "Ortaggio annuale da frutto, produzione abbondante per tutta l'estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Abbondante",
+      "terreno": "Fertile, ben drenato"
+    },
+    "alert": [
+      "Molto sensibile a oidio in estate avanzata",
+      "raccogliere i frutti giovani per stimolare nuova produzione",
+      "evitare di bagnare le foglie (favorisce le malattie fungine)",
+      "impollinazione manuale utile in assenza di insetti impollinatori"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3-4 giorni",
+        "estate": "ogni 2 giorni",
+        "autunno": "ogni 7 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 10-15 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "rimozione foglie basali ingiallite",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-15",
+        "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "melanzana": {
+    "nome": "Melanzana",
+    "specie": "Solanum melongena",
+    "descrizione": "Ortaggio annuale da frutto, ama il caldo estivo.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile, ben drenato"
+    },
+    "alert": [
+      "Teme il freddo anche in primavera (crescita rallentata sotto i 15°C)",
+      "controllare dorifora e ragnetto rosso",
+      "necessita di un tutore per le varietà a frutto grosso",
+      "cimare i primi getti per favorire la ramificazione e la fruttificazione"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 4 giorni",
+        "estate": "ogni 2-3 giorni",
+        "autunno": "ogni 7 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 10-15 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "cimatura dei primi getti",
+        "estate": "rimozione succhioni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-15",
+        "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "scalogno": {
+    "nome": "Scalogno",
+    "specie": "Allium ascalonicum",
+    "descrizione": "Bulbosa aromatica, simile alla cipolla ma dal sapore più delicato.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Moderata",
+      "terreno": "Ben drenato, sciolto"
+    },
+    "alert": [
+      "Teme i ristagni idrici (rischio marciume del bulbo)",
+      "non richiede grandi quantità d'acqua una volta radicato",
+      "raccogliere quando il fogliame inizia a seccare",
+      "evitare eccessi di azoto (favorisce il fogliame a scapito del bulbo)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 7-10 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "una tantum a inizio ciclo",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "10-5-10",
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "calendula": {
+    "nome": "Calendula",
+    "specie": "Calendula officinalis",
+    "descrizione": "Annuale a rapido ciclo, fiori arancioni/gialli eduli e officinali, fioritura abbondante e prolungata.",
+    "esigenze": {
+      "luce": "Pieno sole o mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Qualsiasi, anche povero"
+    },
+    "alert": [
+      "Si risemina facilmente (spesso spontanea l'anno successivo)",
+      "rimuovere i fiori appassiti per prolungare la fioritura",
+      "molto rustica e poco esigente",
+      "attira impollinatori"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 5 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 20 giorni",
+        "estate": "ogni 20 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "rimozione fiori appassiti",
+        "estate": "rimozione fiori appassiti",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "zucca": {
+    "nome": "Zucca",
+    "specie": "Cucurbita moschata",
+    "descrizione": "Ortaggio annuale rampicante/strisciante a maturazione autunnale; la varietà Butternut ha polpa arancione dolce.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Abbondante durante la crescita",
+      "terreno": "Fertile, ricco di sostanza organica"
+    },
+    "alert": [
+      "Richiede molto spazio per svilupparsi (rampicante vigorosa)",
+      "teme il freddo: mettere a dimora solo dopo le ultime gelate",
+      "impollinazione manuale utile in assenza di insetti impollinatori",
+      "raccolta a fine estate/inizio autunno, quando la buccia si indurisce"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 3-4 giorni",
+        "estate": "ogni 2-3 giorni",
+        "autunno": "ogni 7 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 10-15 giorni",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "eventuale cimatura per contenere lo sviluppo",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-15",
+        "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
