@@ -45,7 +45,8 @@
       "n": 1,
       "p": 3,
       "k": 8
-    }
+    },
+    "descrizione": "Metti 2-3 bucce di banana a pezzi in un litro d'acqua, lascia macerare 2-3 giorni a temperatura ambiente mescolando ogni tanto, poi filtra. Usa il liquido puro per innaffiare, senza ulteriore diluizione."
   },
   "concime-1784631235087": {
     "nome": "Fatto in casa - Fondi di caffè (macerato)",
@@ -53,7 +54,8 @@
       "n": 10,
       "p": 2,
       "k": 4
-    }
+    },
+    "descrizione": "Metti in infusione una tazza di fondi di caffè esausti (freddi) in un litro d'acqua per 2-3 giorni, mescolando di tanto in tanto, poi filtra. Diluisci il liquido 1:1 con acqua prima di innaffiare."
   },
   "concime-1784631235088": {
     "nome": "Fatto in casa - Macerato di ortica",
@@ -61,7 +63,8 @@
       "n": 8,
       "p": 2,
       "k": 4
-    }
+    },
+    "descrizione": "Riempi un contenitore con ortica fresca tritata (circa 1 kg per 10 litri d'acqua) e lascia macerare 1-2 settimane, mescolando ogni giorno; è pronto quando smette di fare schiuma. Filtra e diluisci 1:10 con acqua prima dell'uso. Attenzione all'odore forte durante la fermentazione: tienilo lontano da casa."
   },
   "concime-1784631235089": {
     "nome": "Fatto in casa - Acqua di cottura verdure",
@@ -69,6 +72,7 @@
       "n": 2,
       "p": 1,
       "k": 4
-    }
+    },
+    "descrizione": "Riutilizza l'acqua di cottura di verdure (non salata), lasciata raffreddare a temperatura ambiente. Usala pura per innaffiare, senza bisogno di diluizione o macerazione."
   }
 }
