@@ -2675,7 +2675,7 @@
   },
   "gerani": {
     "nome": "Gerani",
-    "specie": "Pelargonium spp.",
+    "specie": "Pelargonium zonale",
     "descrizione": "Piante ornamentali molto diffuse in balconi e giardini.",
     "esigenze": {
       "luce": "Sole",
@@ -2691,15 +2691,15 @@
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "ogni 5-7 giorni",
-        "estate": "ogni 3-5 giorni",
-        "autunno": "ogni 7-10 giorni",
+        "primavera": "ogni 6 giorni",
+        "estate": "ogni 4 giorni",
+        "autunno": "ogni 8 giorni",
         "inverno": "minima"
       },
       "concimazione": {
-        "primavera": "ogni 2 settimane",
-        "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "primavera": "ogni 14 giorni",
+        "estate": "ogni 14 giorni",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
