@@ -1291,7 +1291,9 @@
     "varieta": "",
     "impianto": "2026-04-30",
     "note": "Nocciolo messo a radicare il 30/4/26 e messo in terra in vaso il 17/7/26",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "avocado-1784628103064": {
     "specie": "avocado",
