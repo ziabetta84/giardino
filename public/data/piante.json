@@ -1292,5 +1292,14 @@
     "impianto": "2026-06-25",
     "note": "",
     "ultima_cura": {}
+  },
+  "echinacea-1784628634058": {
+    "specie": "echinacea",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "Gialla",
+    "impianto": "2026-06-25",
+    "note": "",
+    "ultima_cura": {}
   }
 }
