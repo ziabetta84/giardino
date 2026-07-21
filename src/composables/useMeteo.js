@@ -32,7 +32,7 @@ export function useMeteo() {
     loading.value = true
     errore.value  = null
     try {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=${days}&timezone=Europe/Rome`
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&forecast_days=${days}&timezone=auto`
       const res  = await fetch(url)
       if (!res.ok) throw new Error('Errore API meteo')
       const raw  = await res.json()
@@ -54,7 +54,7 @@ export function useMeteo() {
 
       orarieOggi.value = h?.time ? h.time.slice(0, 24).map((ora, i) => ({
         ora,
-        label: new Date(ora).toLocaleTimeString('it-IT', { hour:'2-digit', minute:'2-digit' }),
+        label: ora.slice(11, 16),
         icona: WMO[h.weathercode[i]] ?? '🌡️',
         descrizione: WMO_LABEL[h.weathercode[i]] ?? '',
         temp: Math.round(h.temperature_2m[i]),

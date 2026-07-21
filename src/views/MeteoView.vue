@@ -59,7 +59,10 @@ const { giorni, orarieOggi, loading, errore, carica } = useMeteo()
 const store = useDatiStore()
 
 function oraCorrente(o) {
-  return new Date(o.ora).getHours() === new Date().getHours()
+  const d = new Date()
+  const oggiStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const oraStr = String(d.getHours()).padStart(2, '0')
+  return o.ora === `${oggiStr}T${oraStr}:00`
 }
 
 onMounted(async () => {
