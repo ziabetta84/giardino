@@ -1293,7 +1293,9 @@
     "varieta": "Bianco",
     "impianto": "2026-06-25",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-21"
+    }
   },
   "echinacea-1784628634058": {
     "specie": "echinacea",
