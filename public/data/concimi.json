@@ -6,5 +6,21 @@
       "p": 0,
       "k": 14
     }
+  },
+  "concime-1784619253871": {
+    "nome": "Bottos Summer K",
+    "npk": {
+      "n": 10,
+      "p": 0,
+      "k": 30
+    }
+  },
+  "concime-1784619311672": {
+    "nome": "Bottos Autumn K",
+    "npk": {
+      "n": 21,
+      "p": 0,
+      "k": 25
+    }
   }
 }
