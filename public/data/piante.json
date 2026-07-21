@@ -1313,5 +1313,14 @@
       "irrigazione": "2026-07-21",
       "concimazione": "2026-07-21"
     }
+  },
+  "cosmos-atrosanguineus-1784629658444": {
+    "specie": "cosmos-atrosanguineus",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
   }
 }

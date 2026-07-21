@@ -3693,5 +3693,48 @@
         "inverno": null
       }
     }
+  },
+  "cosmos-atrosanguineus": {
+    "nome": "Cosmo cioccolato",
+    "specie": "Cosmos atrosanguineus",
+    "descrizione": "Perenne tuberosa messicana, con fiori vellutati color rosso scuro/marrone e un caratteristico profumo di cioccolato.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Moderata",
+      "terreno": "Fertile, ben drenato"
+    },
+    "alert": [
+      "Teme il gelo intenso: nei climi rigidi il tubero va protetto con pacciamatura o sollevato in inverno",
+      "richiede pieno sole per una fioritura abbondante",
+      "evitare ristagni idrici (rischio marciume del tubero)",
+      "fiori profumati di cioccolato, particolarmente nelle ore calde",
+      "rimuovere i fiori appassiti per prolungare la fioritura estiva"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "sospesa (tubero in riposo)"
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni",
+        "estate": "ogni 15 giorni",
+        "autunno": "",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "rimozione fiori appassiti",
+        "autunno": "taglio della parte aerea dopo le prime gelate",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
