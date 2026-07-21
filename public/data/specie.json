@@ -3576,5 +3576,48 @@
         "inverno": null
       }
     }
+  },
+  "geranio-parigino": {
+    "nome": "Geranio parigino",
+    "specie": "Pelargonium peltatum",
+    "descrizione": "Piante ornamentali molto diffuse in balconi e giardini.",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Sensibili al gelo",
+      "ama sole pieno",
+      "teme ristagni idrici",
+      "fioritura molto lunga",
+      "ottimi in fioriere e balconiere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 6 giorni",
+        "estate": "ogni 4 giorni",
+        "autunno": "ogni 8 giorni",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "ogni 14 giorni",
+        "estate": "ogni 14 giorni",
+        "autunno": "ogni 30 giorni",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
