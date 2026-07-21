@@ -226,7 +226,8 @@ const manutenzioneOriginale = ref({
 })
 
 function estraiGiorniPuliti(testo) {
-  const m = (testo || '').match(/^ogni (\d+) giorni$/)
+  if (typeof testo === 'number') return testo
+  const m = String(testo || '').match(/^ogni (\d+) giorni$/)
   return m ? parseInt(m[1], 10) : null
 }
 
@@ -309,7 +310,7 @@ function apriModificaSpecie(s) {
     luce: record.esigenze?.luce ?? '',
     acqua: record.esigenze?.acqua ?? '',
     terreno: record.esigenze?.terreno ?? '',
-    alert: (record.alert ?? []).join('\n'),
+    alert: Array.isArray(record.alert) ? record.alert.join('\n') : (record.alert ?? ''),
     manutenzione,
   }
   manutenzioneOriginale.value = originale
@@ -341,6 +342,28 @@ async function salvaNuovaSpecie() {
 
   salvandoSpecie.value = true
   try {
+    // Se la specie viene rinominata, aggiorna prima le piante che la
+    // referenziano e solo dopo la specie stessa: se questo primo passaggio
+    // fallisce, specie.json non è ancora stato toccato e l'utente può
+    // semplicemente riprovare. Nell'ordine opposto, un fallimento del
+    // salvataggio delle piante dopo un rename già scritto lascerebbe sia
+    // piante orfane (puntano a una chiave specie non più esistente) sia un
+    // nuovo tentativo bloccato dal controllo duplicati (la chiave nuova
+    // risulterebbe già presente in store.specie).
+    if (chiaveOriginale && chiaveOriginale !== chiave) {
+      const nuovePiante = await saveJSON('piante.json', (correnti) => {
+        const base = { ...(correnti ?? store.piante) }
+        for (const id of Object.keys(base)) {
+          if (base[id].specie === chiaveOriginale) {
+            base[id] = { ...base[id], specie: chiave }
+          }
+        }
+        return base
+      })
+      store.piante = nuovePiante
+      if (form.value.specie === chiaveOriginale) form.value.specie = chiave
+    }
+
     const nuove = await saveJSON('specie.json', (correnti) => {
       const base = { ...(correnti ?? store.specie) }
       if (chiaveOriginale && chiaveOriginale !== chiave) {
@@ -361,22 +384,6 @@ async function salvaNuovaSpecie() {
       return base
     })
     store.specie = nuove
-
-    // Se la specie è stata rinominata, aggiorna anche le piante che la
-    // referenziano: altrimenti resterebbero orfane (specie inesistente).
-    if (chiaveOriginale && chiaveOriginale !== chiave) {
-      const nuovePiante = await saveJSON('piante.json', (correnti) => {
-        const base = { ...(correnti ?? store.piante) }
-        for (const id of Object.keys(base)) {
-          if (base[id].specie === chiaveOriginale) {
-            base[id] = { ...base[id], specie: chiave }
-          }
-        }
-        return base
-      })
-      store.piante = nuovePiante
-      if (form.value.specie === chiaveOriginale) form.value.specie = chiave
-    }
 
     selezionaSpecie({ key: chiave, nome })
     mostraNuovaSpecie.value = false
