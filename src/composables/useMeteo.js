@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const WMO = {
   0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
@@ -19,6 +19,18 @@ const WMO_LABEL = {
   71:'Neve leggera', 73:'Neve moderata', 75:'Neve intensa',
   80:'Rovesci leggeri', 81:'Rovesci moderati', 82:'Rovesci intensi',
   95:'Temporale', 96:'Temporale con grandine', 99:'Temporale forte',
+}
+
+const CODICI_TEMPORALE = [95, 96, 99]
+
+function valutaAvvisi(g) {
+  const avvisi = []
+  if (g.tMin <= 3) avvisi.push({ icona:'❄️', testo:`Rischio gelo (min ${g.tMin}°)` })
+  if (g.tMax >= 35) avvisi.push({ icona:'🥵', testo:`Caldo estremo (max ${g.tMax}°)` })
+  if (g.vento >= 40) avvisi.push({ icona:'💨', testo:`Vento forte (${g.vento} km/h)` })
+  if (CODICI_TEMPORALE.includes(g.codice)) avvisi.push({ icona:'⛈️', testo:'Temporale previsto' })
+  else if (parseFloat(g.pioggia) >= 20) avvisi.push({ icona:'🌧️', testo:`Pioggia intensa (${g.pioggia} mm)` })
+  return avvisi
 }
 
 export function useMeteo() {
@@ -68,5 +80,9 @@ export function useMeteo() {
     }
   }
 
-  return { giorni, oggi, orarieOggi, loading, errore, carica }
+  const avvisi = computed(() => giorni.value.flatMap((g, i) =>
+    valutaAvvisi(g).map(a => ({ ...a, giorno: i === 0 ? 'Oggi' : g.label, key: `${g.data}-${a.testo}` }))
+  ))
+
+  return { giorni, oggi, orarieOggi, avvisi, loading, errore, carica }
 }
