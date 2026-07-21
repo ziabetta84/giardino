@@ -38,5 +38,37 @@
       "p": 5,
       "k": 7
     }
+  },
+  "concime-1784631235086": {
+    "nome": "Fatto in casa - Acqua di buccia di banana (macerato)",
+    "npk": {
+      "n": 1,
+      "p": 3,
+      "k": 8
+    }
+  },
+  "concime-1784631235087": {
+    "nome": "Fatto in casa - Fondi di caffè (macerato)",
+    "npk": {
+      "n": 10,
+      "p": 2,
+      "k": 4
+    }
+  },
+  "concime-1784631235088": {
+    "nome": "Fatto in casa - Macerato di ortica",
+    "npk": {
+      "n": 8,
+      "p": 2,
+      "k": 4
+    }
+  },
+  "concime-1784631235089": {
+    "nome": "Fatto in casa - Acqua di cottura verdure",
+    "npk": {
+      "n": 2,
+      "p": 1,
+      "k": 4
+    }
   }
 }
