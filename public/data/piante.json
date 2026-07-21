@@ -1420,5 +1420,32 @@
     "ultima_cura": {
       "irrigazione": "2026-07-21"
     }
+  },
+  "tradescantia-1784633400156": {
+    "specie": "tradescantia",
+    "zona": "Scivolo",
+    "sottozona": "Lato Frontale",
+    "varieta": "",
+    "impianto": "",
+    "note": "Da una piccola talea ricevuta, cresciuta spontaneamente all'aperto come infestante. Fusti fucsia, foglie a punta striate, piccoli fiori bianchi/rosa molto chiaro.",
+    "ultima_cura": {}
+  },
+  "clematis-montana-1784633400157": {
+    "specie": "clematis-montana",
+    "zona": "Scivolo",
+    "sottozona": "Lato Frontale",
+    "varieta": "fiore viola",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
+  },
+  "stipa-tenuissima-1784633400158": {
+    "specie": "stipa-tenuissima",
+    "zona": "Scivolo",
+    "sottozona": "Lato Frontale",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
   }
 }
