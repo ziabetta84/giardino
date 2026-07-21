@@ -2673,49 +2673,6 @@
       }
     }
   },
-  "gerani": {
-    "nome": "Gerani",
-    "specie": "Pelargonium zonale",
-    "descrizione": "Piante ornamentali molto diffuse in balconi e giardini.",
-    "esigenze": {
-      "luce": "Sole",
-      "acqua": "Regolare",
-      "terreno": "Fertile"
-    },
-    "alert": [
-      "Sensibili al gelo",
-      "ama sole pieno",
-      "teme ristagni idrici",
-      "fioritura molto lunga",
-      "ottimi in fioriere e balconiere"
-    ],
-    "manutenzione": {
-      "irrigazione": {
-        "primavera": "ogni 6 giorni",
-        "estate": "ogni 4 giorni",
-        "autunno": "ogni 8 giorni",
-        "inverno": "minima"
-      },
-      "concimazione": {
-        "primavera": "ogni 14 giorni",
-        "estate": "ogni 14 giorni",
-        "autunno": "ogni 30 giorni",
-        "inverno": "sospesa"
-      },
-      "potatura": {
-        "primavera": "taglio leggero",
-        "estate": "taglio leggero",
-        "autunno": "taglio post-fioritura",
-        "inverno": "nessuna"
-      },
-      "npk": {
-        "primavera": "5-10-10",
-        "estate": "5-10-10",
-        "autunno": null,
-        "inverno": null
-      }
-    }
-  },
   "cuphea": {
     "nome": "Cuphea",
     "specie": "Cuphea hyssopifolia",
@@ -3572,6 +3529,49 @@
       "npk": {
         "primavera": "5-5-5",
         "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    }
+  },
+  "geranio-zonale": {
+    "nome": "Geranio zonale",
+    "specie": "Pelargonium zonale",
+    "descrizione": "Piante ornamentali molto diffuse in balconi e giardini.",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile"
+    },
+    "alert": [
+      "Sensibili al gelo",
+      "ama sole pieno",
+      "teme ristagni idrici",
+      "fioritura molto lunga",
+      "ottimi in fioriere e balconiere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 6 giorni",
+        "estate": "ogni 4 giorni",
+        "autunno": "ogni 8 giorni",
+        "inverno": "minima"
+      },
+      "concimazione": {
+        "primavera": "ogni 14 giorni",
+        "estate": "ogni 14 giorni",
+        "autunno": "ogni 30 giorni",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "taglio leggero",
+        "autunno": "taglio post-fioritura",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
         "autunno": null,
         "inverno": null
       }
