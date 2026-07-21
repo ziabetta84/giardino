@@ -17,6 +17,15 @@
     </div>
 
     <template v-else>
+      <div v-if="avvisi.length" class="card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:16px;">
+        <p style="font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">⚠ Condizioni avverse in arrivo</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div v-for="a in avvisi" :key="a.key" style="font-size:13px;color:var(--rose-dark);">
+            {{ a.icona }} <strong>{{ a.giorno }}</strong> — {{ a.testo }}
+          </div>
+        </div>
+      </div>
+
       <div v-if="orarieDaAdesso.length" class="card" style="padding:16px;margin-bottom:16px;">
         <p class="section-label" style="margin-bottom:10px;">Oggi, ora per ora</p>
         <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;">
@@ -54,7 +63,7 @@ import { onMounted, onUnmounted, ref, computed } from 'vue'
 import { useMeteo } from '@/composables/useMeteo'
 import { useDatiStore } from '@/stores/dati'
 
-const { giorni, orarieOggi, loading, errore, carica } = useMeteo()
+const { giorni, orarieOggi, avvisi, loading, errore, carica } = useMeteo()
 const store = useDatiStore()
 
 const giorniSuccessivi = computed(() => giorni.value.slice(1))
