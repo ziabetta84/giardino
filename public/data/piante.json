@@ -1449,5 +1449,23 @@
     "impianto": "",
     "note": "",
     "ultima_cura": {}
+  },
+  "mandarino-cinese-1784639951287": {
+    "specie": "mandarino-cinese",
+    "zona": "Scivolo",
+    "sottozona": "Lato Sinistro",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
+  },
+  "plumbago-1784639951288": {
+    "specie": "plumbago",
+    "zona": "Scivolo",
+    "sottozona": "Lato Sinistro",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
   }
 }

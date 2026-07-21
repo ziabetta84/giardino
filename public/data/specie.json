@@ -4026,5 +4026,90 @@
         "inverno": null
       }
     }
+  },
+  "mandarino-cinese": {
+    "nome": "Mandarino cinese (Kumquat)",
+    "specie": "Citrus japonica",
+    "descrizione": "Agrume ornamentale a portamento arbustivo compatto, con piccoli frutti dalla buccia dolce commestibile anche con la buccia; più rustico e resistente al freddo rispetto agli altri agrumi.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare",
+      "terreno": "Ricco e drenato"
+    },
+    "alert": [
+      "Più resistente al freddo degli altri agrumi, ma proteggere comunque sotto i -5/-6°C",
+      "evitare ristagni idrici",
+      "attenzione al vento forte sul crinale dello Scivolo",
+      "controllare eventuali cocciniglie in estate",
+      "i frutti si mangiano interi, buccia compresa"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-12 giorni",
+        "inverno": "sospesa salvo siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane con concime agrumi",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero per mantenere la forma compatta",
+        "estate": "nessuna",
+        "autunno": "rimozione parti secche",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "12-6-6",
+        "estate": "12-6-6",
+        "autunno": "12-6-6",
+        "inverno": null
+      }
+    }
+  },
+  "plumbago": {
+    "nome": "Plumbago",
+    "specie": "Plumbago auriculata",
+    "descrizione": "Arbusto rampicante/ricadente a fioritura estiva-autunnale prolungata, con fiori azzurro cielo a grappoli.",
+    "esigenze": {
+      "luce": "Pieno sole o mezz'ombra",
+      "acqua": "Regolare in estate",
+      "terreno": "Ben drenato, fertile"
+    },
+    "alert": [
+      "teme il gelo intenso (sotto i -5°C la parte aerea può seccare, ma ricaccia dalla base)",
+      "portamento vigoroso e rampicante: necessita di supporto o contenimento",
+      "fioritura continua da giugno a ottobre",
+      "evitare ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 4-6 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "minima, solo in caso di siccità prolungata"
+      },
+      "concimazione": {
+        "primavera": "ogni 2-3 settimane per favorire la fioritura",
+        "estate": "ogni 2-3 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio di contenimento e stimolo alla fioritura",
+        "estate": "rimozione dei fiori sfioriti",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": "5-10-10",
+        "inverno": null
+      }
+    }
   }
 }
