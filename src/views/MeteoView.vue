@@ -17,10 +17,10 @@
     </div>
 
     <template v-else>
-      <div v-if="orarieOggi.length" class="card" style="padding:16px;margin-bottom:16px;">
+      <div v-if="orarieDaAdesso.length" class="card" style="padding:16px;margin-bottom:16px;">
         <p class="section-label" style="margin-bottom:10px;">Oggi, ora per ora</p>
         <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;">
-          <div v-for="o in orarieOggi" :key="o.ora"
+          <div v-for="o in orarieDaAdesso" :key="o.ora"
             class="ora-box"
             :class="{ 'ora-corrente': oraCorrente(o) }"
             style="flex-shrink:0;text-align:center;padding:8px 10px;border-radius:12px;min-width:56px;">
@@ -33,11 +33,10 @@
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
-        <div v-for="(g, i) in giorni" :key="g.data"
+        <div v-for="g in giorniSuccessivi" :key="g.data"
           class="card"
-          :class="{ 'card-oggi': i === 0 }"
           style="padding:18px;text-align:center;">
-          <div class="meteo-label">{{ i === 0 ? 'Oggi' : g.label }}</div>
+          <div class="meteo-label">{{ g.label }}</div>
           <div style="font-size:40px;margin:10px 0;">{{ g.icona }}</div>
           <div style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
           <div style="font-weight:600;font-size:15px;">{{ g.tMax }}° / {{ g.tMin }}°</div>
@@ -51,18 +50,37 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted, ref, computed } from 'vue'
 import { useMeteo } from '@/composables/useMeteo'
 import { useDatiStore } from '@/stores/dati'
 
 const { giorni, orarieOggi, loading, errore, carica } = useMeteo()
 const store = useDatiStore()
 
-function oraCorrente(o) {
-  const d = new Date()
+const giorniSuccessivi = computed(() => giorni.value.slice(1))
+
+const adesso = ref(new Date())
+let timer = null
+onMounted(() => {
+  timer = setInterval(() => { adesso.value = new Date() }, 60000)
+})
+onUnmounted(() => {
+  if (timer) clearInterval(timer)
+})
+
+function chiaveOra(d) {
   const oggiStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
   const oraStr = String(d.getHours()).padStart(2, '0')
-  return o.ora === `${oggiStr}T${oraStr}:00`
+  return `${oggiStr}T${oraStr}:00`
+}
+
+const orarieDaAdesso = computed(() => {
+  const chiave = chiaveOra(adesso.value)
+  return orarieOggi.value.filter(o => o.ora >= chiave)
+})
+
+function oraCorrente(o) {
+  return o.ora === chiaveOra(adesso.value)
 }
 
 onMounted(async () => {
@@ -73,7 +91,6 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.card-oggi { border-color: var(--gold-light); background: var(--gold-pale); }
 .meteo-label {
   font-family: var(--font-serif); font-size: 13px;
   font-weight: 600; color: var(--ink-mid); text-transform: capitalize;
