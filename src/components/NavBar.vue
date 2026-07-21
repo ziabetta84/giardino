@@ -17,6 +17,7 @@ const nav = [
   { id:'zone',     to:'/zone',      emoji:'📍',   label:'Zone' },
   { id:'piante',   to:'/piante',    emoji:'🌿',   label:'Piante' },
   { id:'progetti', to:'/progetti',  emoji:'🗂️',   label:'Progetti' },
+  { id:'concimi',  to:'/concimi',   emoji:'🧪',   label:'Concimi' },
   { id:'attivita', to:'/attivita',  emoji:'🔔',   label:'Attività', badge: null },
   { id:'agente',   to:'/agente',    emoji:'🤖',   label:'Assistente' },
   { id:'gallery',  to:'/gallery',   emoji:'🖼️',   label:'Gallery' },

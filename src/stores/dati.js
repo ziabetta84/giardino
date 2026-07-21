@@ -16,6 +16,7 @@ export const useDatiStore = defineStore('dati', () => {
   const sottozone = ref(null)
   const progetti  = ref(null)
   const settings  = ref(null)
+  const concimi   = ref(null)
   const loading   = ref(false)
   const errore    = ref(null)
 
@@ -24,7 +25,7 @@ export const useDatiStore = defineStore('dati', () => {
     loading.value = true
     errore.value = null
     try {
-      ;[piante.value, specie.value, zone.value, sottozone.value, progetti.value, settings.value] =
+      ;[piante.value, specie.value, zone.value, sottozone.value, progetti.value, settings.value, concimi.value] =
         await Promise.all([
           caricaJSON('piante.json'),
           caricaJSON('specie.json'),
@@ -32,6 +33,7 @@ export const useDatiStore = defineStore('dati', () => {
           caricaJSON('sottozone.json'),
           caricaJSON('progetti.json'),
           caricaJSON('settings.json'),
+          caricaJSON('concimi.json'),
         ])
     } catch (e) {
       errore.value = e.message
@@ -45,5 +47,5 @@ export const useDatiStore = defineStore('dati', () => {
     await caricaTutto()
   }
 
-  return { piante, specie, zone, sottozone, progetti, settings, loading, errore, caricaTutto, aggiorna }
+  return { piante, specie, zone, sottozone, progetti, settings, concimi, loading, errore, caricaTutto, aggiorna }
 })
