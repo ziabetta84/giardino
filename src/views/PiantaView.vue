@@ -25,7 +25,7 @@
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
         <div>
           <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
-            {{ specie?.nome ?? pianta.specie }}<template v-if="pianta.varieta"> <span style="font-size:1.1rem;">({{ pianta.varieta }})</span></template>
+            {{ specie?.nome ?? pianta.specie }}
           </h1>
           <p style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
             {{ specie?.specie }}
@@ -33,6 +33,7 @@
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
             <span class="badge badge-gold">{{ pianta.zona }}</span>
             <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
+            <span v-if="pianta.varieta" class="badge badge-warn">{{ pianta.varieta }}</span>
           </div>
         </div>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"
