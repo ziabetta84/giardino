@@ -7,11 +7,12 @@ Elabora le richieste pendenti dell'assistente AI dalla coda `public/data/richies
 3. Per ogni richiesta in attesa:
    - Leggi `public/data/piante.json` e `public/data/specie.json` per avere il contesto del giardino
    - Per `consiglio_concimazione`, leggi anche `public/data/concimi.json` (la dispensa dei concimi posseduti)
+   - Per `revisione_specie`, vedi procedura dedicata sotto: **aggiorna anche `public/data/specie.json`**, non solo la risposta testuale
    - Se la richiesta contiene una foto in base64, analizzala
    - Genera una risposta dettagliata e pratica, in italiano, specifica per il giardino di Centinarola (Fano, clima mediterraneo collinare)
    - Aggiorna la richiesta nel JSON: `stato: "completata"`, `risposta: { messaggio: "...", elaborata: "<ISO date>" }`
    - **Imposta `foto: null`**: una volta elaborata la richiesta la foto non serve più. Il campo `foto` in base64 può pesare centinaia di KB per immagine; lasciarlo fa crescere `richieste-agente.json` oltre 1MB, soglia oltre la quale l'API Contents di GitHub non restituisce più il contenuto inline e l'app smette di riuscire a leggerlo (errore "Unexpected end of JSON input" in saveJSON).
-4. Salva il file aggiornato con `saveJSON` (via GitHub Contents API) oppure direttamente su disco se sei in locale
+4. Salva il file aggiornato con `saveJSON` (via GitHub Contents API) oppure direttamente su disco se sei in locale — per `revisione_specie` salva nello stesso passaggio anche `specie.json` con le modifiche
 5. Fai commit e push con messaggio "Elabora richieste agente pendenti"
 
 ## Formato risposta
@@ -21,6 +22,7 @@ La risposta deve essere:
 - Pratica e concisa (max 200 parole)
 - Specifica per il tipo di richiesta:
   - `identifica_specie`: vedi procedura dedicata sotto
+  - `revisione_specie`: vedi procedura dedicata sotto
   - `consiglio_cura`: azione concreta con tempistiche per il clima marchigiano
   - `consiglio_concimazione`: vedi procedura dedicata sotto
   - `diagnosi`: causa probabile + rimedio immediato
@@ -40,6 +42,17 @@ Oltre a nome comune, nome scientifico e caratteristiche distintive dalla foto, i
   - da frutto → potassio prevalente (es. "5-10-15")
   - specie note per sensibilità a un nutriente specifico (es. l'avocado teme l'eccesso di fosforo) → tienine conto esplicitamente, preferendo un profilo azotato basso in fosforo invece del generico bilanciato
 - Se non hai elementi sufficienti per una stima ragionevole (specie molto incerta o poco nota), ometti la proposta NPK invece di inventarne una a caso, e dillo nella risposta.
+
+## Procedura per `revisione_specie`
+
+L'utente indica una specie tramite il selettore del form (campo `specie` della richiesta, chiave in `specie.json`) e chiede di completare i campi mancanti o rivedere quelli già presenti — non serve indovinare la specie, è già identificata.
+
+1. Leggi il record attuale in `specie.json` per la chiave in `r.specie`. Se la chiave non esiste più (es. rinominata o eliminata nel frattempo), dillo nella risposta e fermati per questa richiesta senza modificare nulla.
+2. Per ogni campo vuoto/mancante (`descrizione`, `esigenze.luce/acqua/terreno`, `alert`, `manutenzione.irrigazione/concimazione/potatura/npk` per le quattro stagioni), proponi un valore usando la stessa categorizzazione botanica già in uso in questo file (fogliame da interno, succulente, aromatiche mediterranee/da foglia, fiorite/perenni ornamentali, da frutto) e lo stesso criterio per specie note per sensibilità particolari (es. l'avocado teme l'eccesso di fosforo).
+3. Per i campi già presenti, correggili solo se c'è un'inconsistenza chiara (es. una schedulazione di concimazione reale per una stagione ma npk assente per la stessa stagione, un dato botanico palesemente errato) — non riscrivere valori plausibili solo per uniformarli a uno stile diverso: "revisiona" non vuol dire sovrascrivere tutto.
+4. Se nel messaggio dell'utente (campo `messaggio`, opzionale) ci sono osservazioni dirette (es. "quest'inverno ha sofferto il freddo più del previsto"), tienine conto nella revisione.
+5. Aggiorna direttamente `specie.json` con le modifiche, nello stesso commit di `richieste-agente.json`.
+6. Nella risposta, riassumi in italiano cosa hai aggiunto/corretto e perché (elenco puntato per campo), così l'utente ha un resoconto leggibile senza dover confrontare il JSON a mano. Se non c'era nulla da aggiungere o correggere, dillo esplicitamente invece di inventare modifiche cosmetiche.
 
 ## Procedura per `consiglio_concimazione`
 

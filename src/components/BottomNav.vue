@@ -13,7 +13,7 @@ const nav = [
   { id:'home',     to:'/',         emoji:'🐈‍⬛', label:'Home' },
   { id:'piante',   to:'/piante',   emoji:'🌿',   label:'Piante' },
   { id:'attivita', to:'/attivita', emoji:'🔔',   label:'Attività', badge: null },
-  { id:'agente',   to:'/agente',   emoji:'🤖',   label:'Assistente' },
+  { id:'agente',   to:'/agente',   emoji:'😺',   label:'Zorba dice' },
   { id:'zone',     to:'/zone',     emoji:'📍',   label:'Zone' },
 ]
 </script>

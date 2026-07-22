@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:4px;">Assistente</h1>
+    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:4px;">😺 Zorba dice</h1>
     <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">Elaborato da Claude Code · risposte entro pochi minuti</p>
 
     <!-- Token mancante -->
@@ -21,14 +21,21 @@
 
       <select v-model="nuovoTipo" class="form-input" style="margin-bottom:10px;">
         <option value="identifica_specie">🌿 Identifica specie da foto</option>
+        <option value="revisione_specie">📋 Revisiona/completa specie</option>
         <option value="consiglio_cura">💧 Consiglio per cura</option>
         <option value="consiglio_concimazione">🌱 Consiglio concimazione</option>
         <option value="diagnosi">🔍 Diagnosi problema</option>
         <option value="altro">💬 Altro</option>
       </select>
 
+      <!-- Revisione specie: indica quale specie, non serve una foto -->
+      <div v-if="nuovoTipo === 'revisione_specie'" style="margin-bottom:10px;">
+        <SelettoreSpecie v-model="specieSelezionata" />
+        <p style="font-size:11px;color:var(--ink-soft);margin-top:6px;">Zorba controlla i campi mancanti o incompleti della scheda e li completa.</p>
+      </div>
+
       <!-- Upload foto -->
-      <div style="margin-bottom:10px;">
+      <div v-else style="margin-bottom:10px;">
         <div v-if="fotoPreview" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--sage-light);border-radius:12px;background:var(--sage-pale);margin-bottom:8px;">
           <img :src="fotoPreview" alt="Anteprima della foto selezionata" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">
           <div style="flex:1;font-size:13px;font-weight:600;color:var(--sage-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ nomeFile }}</div>
@@ -56,14 +63,14 @@
         <p v-if="!fotoPreview" style="font-size:11px;color:var(--ink-soft);margin-top:6px;text-align:center;">JPG, PNG — max 5 MB</p>
       </div>
 
-      <textarea v-model="nuovoMessaggio" placeholder="Descrivi la richiesta…"
+      <textarea v-model="nuovoMessaggio" :placeholder="nuovoTipo === 'revisione_specie' ? 'Note aggiuntive (opzionale)…' : 'Descrivi la richiesta…'"
         rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
 
       <div v-if="errore" style="margin-bottom:10px;padding:8px 12px;background:var(--rose-pale);border-radius:10px;border:1px solid var(--rose-light);">
         <p style="font-size:12px;color:var(--rose-dark);">⚠ {{ errore }}</p>
       </div>
 
-      <button @click="aggiungiRichiesta" :disabled="!nuovoMessaggio.trim() || aggiungendo || !tokenSalvato"
+      <button @click="aggiungiRichiesta" :disabled="!puoInviare || aggiungendo || !tokenSalvato"
         class="btn btn-sage" style="width:100%;">
         {{ aggiungendo ? '⏳ Invio…' : '→ Invia richiesta' }}
       </button>
@@ -91,8 +98,13 @@
             {{ r.tipo?.replace(/_/g,' ') }}
           </p>
 
+          <!-- Specie coinvolta (solo revisione_specie) -->
+          <p v-if="r.specie" style="font-size:13px;font-weight:600;color:var(--sage-dark);margin-bottom:4px;">
+            🌿 {{ store.specie?.[r.specie]?.nome ?? r.specie }}
+          </p>
+
           <!-- Messaggio utente -->
-          <p style="font-size:13px;color:var(--ink-mid);line-height:1.5;white-space:pre-wrap;">{{ r.messaggio }}</p>
+          <p v-if="r.messaggio" style="font-size:13px;color:var(--ink-mid);line-height:1.5;white-space:pre-wrap;">{{ r.messaggio }}</p>
 
           <!-- Foto allegata -->
           <div v-if="r.foto" style="margin-top:8px;">
@@ -124,6 +136,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useApi } from '@/composables/useApi'
 import { useDatiStore } from '@/stores/dati'
+import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 
 const store = useDatiStore()
 const { saveJSON, isAutenticato, salvaToken } = useApi()
@@ -132,6 +145,7 @@ const BASE = import.meta.env.BASE_URL
 const raw          = ref({})
 const nuovoTipo    = ref('identifica_specie')
 const nuovoMessaggio = ref('')
+const specieSelezionata = ref('')
 const aggiungendo  = ref(false)
 const fotoBase64   = ref(null)
 const fotoPreview  = ref(null)
@@ -139,6 +153,10 @@ const nomeFile     = ref('')
 const errore       = ref(null)
 const tokenInput   = ref('')
 const tokenSalvato = ref(isAutenticato())
+
+const puoInviare = computed(() =>
+  nuovoTipo.value === 'revisione_specie' ? !!specieSelezionata.value : !!nuovoMessaggio.value.trim()
+)
 
 let pollTimer = null
 
@@ -227,7 +245,7 @@ function configuratToken() {
 }
 
 async function aggiungiRichiesta() {
-  if (!nuovoMessaggio.value.trim() || aggiungendo.value) return
+  if (!puoInviare.value || aggiungendo.value) return
   aggiungendo.value = true
   errore.value = null
   try {
@@ -237,6 +255,7 @@ async function aggiungiRichiesta() {
       [id]: {
         tipo: nuovoTipo.value,
         messaggio: nuovoMessaggio.value.trim(),
+        specie: nuovoTipo.value === 'revisione_specie' ? specieSelezionata.value : null,
         foto: fotoBase64.value ?? null,
         stato: 'in_attesa',
         creata: new Date().toISOString(),
@@ -245,6 +264,7 @@ async function aggiungiRichiesta() {
     }))
     raw.value = nuove
     nuovoMessaggio.value = ''
+    specieSelezionata.value = ''
     fotoBase64.value  = null
     fotoPreview.value = null
     nomeFile.value    = ''
