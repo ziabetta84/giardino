@@ -28,12 +28,11 @@
             {{ specie?.nome ?? pianta.specie }}
           </h1>
           <p style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
-            {{ specie?.specie }}
+            {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
           </p>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
             <span class="badge badge-gold">{{ pianta.zona }}</span>
             <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
-            <span v-if="pianta.varieta" class="badge badge-warn">{{ pianta.varieta }}</span>
           </div>
         </div>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"

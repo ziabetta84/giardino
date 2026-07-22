@@ -9,8 +9,11 @@
       <div class="title-serif" style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
         {{ specie?.nome ?? pianta.specie }}
       </div>
+      <div v-if="pianta.varieta" style="font-size:11px;color:var(--ink-faint);font-style:italic;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+        {{ pianta.varieta }}
+      </div>
       <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
-        {{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}{{ pianta.varieta ? ' · ' + pianta.varieta : '' }}
+        {{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}
       </div>
       <div v-if="urgente && cureUrgenti.length" style="font-size:11px;color:var(--rose-dark);margin-top:3px;font-weight:500;">
         {{ cureUrgenti.map(c => c.label).join(' · ') }}
