@@ -19,7 +19,7 @@ const nav = [
   { id:'progetti', to:'/progetti',  emoji:'🗂️',   label:'Progetti' },
   { id:'concimi',  to:'/concimi',   emoji:'🧪',   label:'Concimi' },
   { id:'attivita', to:'/attivita',  emoji:'🔔',   label:'Attività', badge: null },
-  { id:'agente',   to:'/agente',    emoji:'🤖',   label:'Assistente' },
+  { id:'agente',   to:'/agente',    emoji:'😺',   label:'Zorba dice' },
   { id:'gallery',  to:'/gallery',   emoji:'🖼️',   label:'Gallery' },
 ]
 </script>

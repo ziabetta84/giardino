@@ -139,7 +139,7 @@ const homeCards = computed(() => [
   { id:'piante',   to:'/piante',   emoji:'🌿', label:'Piante',     count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value !== null ? `${numPiante.value} piante` : null), urgent: !!numUrgenti.value },
   { id:'attivita', to:'/attivita', emoji:'🔔', label:'Attività',   count: daFareOggi.value.length ? `${daFareOggi.value.length} urgent${daFareOggi.value.length === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: daFareOggi.value.length > 0 },
   { id:'gallery',  to:'/gallery',  emoji:'🖼️', label:'Gallery',    count: null, urgent: false },
-  { id:'agente',   to:'/agente',   emoji:'🤖', label:'Assistente', count: null, urgent: false },
+  { id:'agente',   to:'/agente',   emoji:'😺', label:'Zorba dice', count: null, urgent: false },
   { id:'progetti', to:'/progetti', emoji:'🗂️', label:'Progetti',   count: null, urgent: false },
 ])
 
