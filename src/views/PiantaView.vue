@@ -105,6 +105,21 @@
         <p style="font-size:13px;color:var(--ink-mid);line-height:1.6;">{{ pianta.note }}</p>
       </div>
 
+      <!-- Foto -->
+      <div v-if="caricandoFoto || fotoPianta.length" class="card" style="padding:16px;margin-bottom:12px;">
+        <p class="section-label" style="margin-bottom:10px;">Foto</p>
+        <div v-if="caricandoFoto" style="display:flex;gap:8px;">
+          <div v-for="i in 3" :key="i" class="skeleton" style="width:72px;height:72px;border-radius:12px;flex-shrink:0;"></div>
+        </div>
+        <div v-else style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
+          <div v-for="f in fotoPianta" :key="f.path"
+            @click="luce = f"
+            style="width:72px;height:72px;border-radius:12px;overflow:hidden;cursor:pointer;background:var(--cream-dark);flex-shrink:0;">
+            <img :src="f.url" :alt="f.nome" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+          </div>
+        </div>
+      </div>
+
       <!-- Info impianto -->
       <div v-if="pianta.impianto" class="card" style="padding:14px 16px;margin-bottom:12px;">
         <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ pianta.impianto }}</strong></p>
@@ -121,31 +136,99 @@
     <ModalConferma
       :aperto="daEliminare"
       titolo="Eliminare questa pianta?"
-      messaggio="Questa azione non può essere annullata."
+      :messaggio="messaggioEliminaPianta"
       :caricamento="eliminando"
       @conferma="eliminaPianta"
       @annulla="daEliminare = false"
+    />
+
+    <LightboxFoto
+      :foto="luce"
+      :titolo="specie?.nome ?? pianta?.specie ?? ''"
+      :ha-precedente="indiceLuce > 0"
+      :ha-successivo="indiceLuce < fotoPianta.length - 1"
+      :indice="indiceLuce"
+      :totale="fotoPianta.length"
+      @chiudi="luce = null"
+      @naviga="dir => { luce = fotoPianta[indiceLuce + dir] }"
+      @elimina="daEliminareFoto = luce"
+    />
+
+    <ModalConferma
+      :aperto="!!daEliminareFoto"
+      titolo="Eliminare questa foto?"
+      messaggio="Questa azione non può essere annullata."
+      :caricamento="eliminandoFoto"
+      @conferma="confermaEliminaFoto"
+      @annulla="daEliminareFoto = null"
     />
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { useGalleria } from '@/composables/useGalleria'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
+import LightboxFoto from '@/components/LightboxFoto.vue'
 
 const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
 const { saveJSON } = useApi()
+const galleria = useGalleria()
 
 const salvando   = ref(null)
 const daEliminare = ref(false)
 const eliminando  = ref(false)
+
+const fotoPianta    = ref([])
+const caricandoFoto = ref(false)
+const luce          = ref(null)
+const daEliminareFoto = ref(null)
+const eliminandoFoto  = ref(false)
+
+const indiceLuce = computed(() => luce.value ? fotoPianta.value.findIndex(f => f.path === luce.value.path) : -1)
+
+const messaggioEliminaPianta = computed(() => {
+  const n = fotoPianta.value.length
+  if (!n) return 'Questa azione non può essere annullata.'
+  return n === 1
+    ? 'Questa azione non può essere annullata. Verrà eliminata anche la foto associata.'
+    : `Questa azione non può essere annullata. Verranno eliminate anche le ${n} foto associate.`
+})
+
+async function caricaFotoPianta(id) {
+  if (!id) { fotoPianta.value = []; return }
+  caricandoFoto.value = true
+  try {
+    fotoPianta.value = await galleria.listaFoto(id)
+  } catch {
+    fotoPianta.value = []
+  } finally {
+    caricandoFoto.value = false
+  }
+}
+
+onMounted(() => caricaFotoPianta(route.params.id))
+watch(() => route.params.id, (id) => caricaFotoPianta(id))
+
+async function confermaEliminaFoto() {
+  if (!daEliminareFoto.value) return
+  eliminandoFoto.value = true
+  try {
+    await galleria.elimina(daEliminareFoto.value)
+    fotoPianta.value = fotoPianta.value.filter(f => f.path !== daEliminareFoto.value.path)
+    if (luce.value?.path === daEliminareFoto.value.path) luce.value = null
+    daEliminareFoto.value = null
+  } finally {
+    eliminandoFoto.value = false
+  }
+}
 
 const pianta = computed(() => {
   if (!store.piante) return null
@@ -199,6 +282,7 @@ async function eliminaPianta() {
   eliminando.value = true
   const id = pianta.value.id
   try {
+    await galleria.eliminaCartella(id)
     const nuove = await saveJSON('piante.json', (correnti) => {
       const base = { ...(correnti ?? store.piante) }
       delete base[id]

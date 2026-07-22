@@ -27,7 +27,7 @@ defineEmits(['conferma', 'annulla'])
 
 <style scoped>
 .overlay {
-  position: fixed; inset: 0; z-index: 200;
+  position: fixed; inset: 0; z-index: 400;
   background: rgba(42,34,24,0.4);
   display: flex; align-items: center; justify-content: center;
   padding: 16px;
