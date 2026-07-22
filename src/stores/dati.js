@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { useMeteo } from '@/composables/useMeteo'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -17,6 +18,7 @@ export const useDatiStore = defineStore('dati', () => {
   const progetti  = ref(null)
   const settings  = ref(null)
   const concimi   = ref(null)
+  const meteo     = ref(null)
   const loading   = ref(false)
   const errore    = ref(null)
 
@@ -40,6 +42,18 @@ export const useDatiStore = defineStore('dati', () => {
     } finally {
       loading.value = false
     }
+
+    // Previsioni meteo (solo oggi/domani): usate da useCure per sospendere
+    // l'irrigazione delle piante esterne quando è prevista pioggia sufficiente.
+    // Un eventuale errore di rete resta silenzioso: senza dati meteo affidabili
+    // le cure vengono valutate come se non piovesse (nessuna soppressione).
+    const lat = settings.value?.location?.lat
+    const lon = settings.value?.location?.lon
+    if (lat && lon) {
+      const { giorni, carica } = useMeteo()
+      await carica(lat, lon, 2)
+      meteo.value = giorni.value
+    }
   }
 
   async function aggiorna() {
@@ -47,5 +61,5 @@ export const useDatiStore = defineStore('dati', () => {
     await caricaTutto()
   }
 
-  return { piante, specie, zone, sottozone, progetti, settings, concimi, loading, errore, caricaTutto, aggiorna }
+  return { piante, specie, zone, sottozone, progetti, settings, concimi, meteo, loading, errore, caricaTutto, aggiorna }
 })

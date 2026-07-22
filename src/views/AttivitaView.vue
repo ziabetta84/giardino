@@ -80,11 +80,13 @@ const attivita = computed(() => {
   if (!store.piante) return []
   const stagioneCorrente = stagione()
   const items = []
+  const contestoMeteo = { meteo: store.meteo }
   for (const [id, p] of Object.entries(store.piante)) {
     const sp = store.specie?.[p.specie] ?? null
     const nomeSpecie = sp?.nome ?? p.specie
+    const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno' }
     for (const tipo of ['irrigazione', 'concimazione', 'potatura']) {
-      const c = valutaCura(p, sp, tipo)
+      const c = valutaCura(p, sp, tipo, contesto)
       if (c.giorni !== null) {
         const suggerimento = tipo === 'concimazione'
           ? concimeConsigliato(sp?.manutenzione?.npk?.[stagioneCorrente], store.concimi)

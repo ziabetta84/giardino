@@ -62,7 +62,7 @@
             <div>
               <div style="font-size:13px;font-weight:500;text-transform:capitalize;">{{ tipo }}</div>
               <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
-                {{ valutaCura(pianta, specie, tipo).label ?? 'Non configurata' }}
+                {{ valutaCura(pianta, specie, tipo, contestoCura).label ?? 'Non configurata' }}
               </div>
               <div v-if="tipo === 'concimazione' && fabbisognoNpk && suggerimentoConcime" style="font-size:11px;color:var(--sage-dark);margin-top:2px;">
                 🌱 Consigliato: {{ suggerimentoConcime.nome }} ({{ suggerimentoConcime.npk.n }}-{{ suggerimentoConcime.npk.p }}-{{ suggerimentoConcime.npk.k }})
@@ -157,8 +157,13 @@ const specie = computed(() =>
   pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null
 )
 
+const contestoCura = computed(() => ({
+  esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
+  meteo: store.meteo,
+}))
+
 const cureUrgenti = computed(() =>
-  pianta.value ? cureUrgentiPianta(pianta.value, specie.value) : []
+  pianta.value ? cureUrgentiPianta(pianta.value, specie.value, contestoCura.value) : []
 )
 
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)

@@ -18,7 +18,16 @@ function parseGiorni(testo) {
   return match ? parseInt(match[1]) : null
 }
 
-export function valutaCura(pianta, specie, tipo) {
+// Pioggia cumulata (oggi + domani) considerata sufficiente da sostituire un'irrigazione manuale
+const SOGLIA_PIOGGIA_MM = 5
+
+function pioggiaInArrivo(meteoGiorni) {
+  if (!Array.isArray(meteoGiorni) || !meteoGiorni.length) return false
+  const cumulata = meteoGiorni.slice(0, 2).reduce((tot, g) => tot + (parseFloat(g.pioggia) || 0), 0)
+  return cumulata >= SOGLIA_PIOGGIA_MM
+}
+
+export function valutaCura(pianta, specie, tipo, contesto = {}) {
   const stagCorrente = stagione()
   const manutenzione = specie?.manutenzione?.[tipo]?.[stagCorrente]
   if (!manutenzione || manutenzione === 'mai' || manutenzione === 'non necessario') {
@@ -28,6 +37,10 @@ export function valutaCura(pianta, specie, tipo) {
   const intervallo = parseGiorni(manutenzione)
   const ultimaStr  = pianta?.ultima_cura?.[tipo]
   if (!intervallo) return { urgente: false, label: manutenzione, giorni: null }
+
+  if (tipo === 'irrigazione' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
+    return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
+  }
 
   if (!ultimaStr) {
     return { urgente: true, label: `${tipo} — mai registrata`, giorni: Infinity }
@@ -50,8 +63,8 @@ export function valutaCura(pianta, specie, tipo) {
   }
 }
 
-export function cureUrgentiPianta(pianta, specie) {
+export function cureUrgentiPianta(pianta, specie, contesto) {
   return ['irrigazione','concimazione','potatura']
-    .map(tipo => ({ tipo, ...valutaCura(pianta, specie, tipo) }))
+    .map(tipo => ({ tipo, ...valutaCura(pianta, specie, tipo, contesto) }))
     .filter(c => c.urgente)
 }
