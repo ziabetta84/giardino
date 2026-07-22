@@ -25,7 +25,7 @@
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
         <div>
           <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
-            {{ specie?.nome ?? pianta.specie }}
+            {{ specie?.nome ?? pianta.specie }}<template v-if="pianta.varieta"> <span style="font-size:1.1rem;">({{ pianta.varieta }})</span></template>
           </h1>
           <p style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
             {{ specie?.specie }}

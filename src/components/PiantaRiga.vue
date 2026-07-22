@@ -7,7 +7,7 @@
     </div>
     <div style="flex:1;min-width:0;">
       <div class="title-serif" style="font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-        {{ specie?.nome ?? pianta.specie }}
+        {{ specie?.nome ?? pianta.specie }}{{ pianta.varieta ? ` (${pianta.varieta})` : '' }}
       </div>
       <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
         {{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}
