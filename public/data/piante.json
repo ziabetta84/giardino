@@ -1517,7 +1517,9 @@
     "varieta": "",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-23"
+    }
   },
   "coreopsis-1784841747263": {
     "specie": "coreopsis",
