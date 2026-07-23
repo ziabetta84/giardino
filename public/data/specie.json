@@ -4280,26 +4280,33 @@
   },
   "calibrachoa": {
     "nome": "Calibrachoa",
-    "specie": "Calibrachoa",
-    "descrizione": "",
+    "specie": "Calibrachoa spp.",
+    "descrizione": "<p>Pianta annuale a portamento ricadente, simile a una piccola petunia, ideale per fioriere e vasi sospesi. Fioritura abbondante e continua da primavera ad autunno.</p>",
     "esigenze": {
-      "luce": "",
-      "acqua": "",
-      "terreno": ""
+      "luce": "Sole pieno",
+      "acqua": "Regolare",
+      "terreno": "Fertile, ben drenato, leggermente acido"
     },
-    "alert": [],
+    "alert": [
+      "Sensibile al gelo",
+      "ama sole pieno per una fioritura abbondante",
+      "teme ristagni idrici",
+      "in vaso sospeso si asciuga più rapidamente delle piante a terra",
+      "preferisce terreno leggermente acido: acqua molto calcarea o pH troppo alto possono causare clorosi fogliare (ingiallimento tra le nervature) da carenza di ferro",
+      "fioritura continua da primavera ad autunno"
+    ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "nessuna (pianta annuale)"
       },
       "concimazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
       },
       "calcio": {
         "primavera": "",
@@ -4308,15 +4315,15 @@
         "inverno": ""
       },
       "potatura": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
+        "primavera": "cimatura per favorire la ramificazione",
+        "estate": "taglio leggero per stimolare nuova fioritura",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
-        "autunno": null,
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": "5-10-10",
         "inverno": null
       }
     }

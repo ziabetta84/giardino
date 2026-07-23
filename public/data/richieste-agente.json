@@ -790,8 +790,11 @@
     "messaggio": "",
     "specie": "calibrachoa",
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-07-23T15:00:19.276Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Scheda \"Calibrachoa\" completata (era interamente vuota). Ecco cosa ho aggiunto, per categoria \"fiorite/perenni ornamentali\" (stessa logica già usata per geranio parigino e verbena):\n\n- Descrizione: pianta annuale ricadente simile a una piccola petunia, ideale in fioriere e vasi sospesi.\n- Esigenze: sole pieno, acqua regolare, terreno fertile e leggermente acido.\n- Alert: sensibilità al gelo, ristagni da evitare, essiccazione più rapida in vaso sospeso, e in particolare rischio di clorosi fogliare da carenza di ferro se il terreno/acqua è troppo calcareo (specie sensibile al pH alto, diversamente da geranio e verbena).\n- Irrigazione: ogni 5-7gg in primavera, 3-5gg in estate, 7-10gg in autunno, nessuna in inverno (pianta annuale).\n- Concimazione: ogni 2 settimane primavera/estate, mensile in autunno, sospesa in inverno.\n- Potatura: cimatura in primavera, taglio leggero in estate/autunno per rifiorire.\n- NPK: 5-10-10 primavera/estate/autunno, vuoto in inverno.\n\nIl campo \"calcio\" (per carenze da marciume apicale) è rimasto vuoto: riguarda solo ortaggi da frutto (pomodoro, peperoncino...), non pertinente per una fiorita ornamentale come la calibrachoa.",
+      "elaborata": "2026-07-23T15:03:18.000Z"
+    }
   }
 }
