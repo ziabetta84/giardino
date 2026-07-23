@@ -103,27 +103,30 @@ export function useGalleria() {
   // Ridimensiona un'immagine via canvas (lato client, nessun servizio
   // esterno): usata per generare una thumbnail leggera da mostrare
   // nell'elenco piante invece del file originale a piena risoluzione.
-  function ridimensiona(dataUrl, maxDim = 400, qualita = 0.8) {
-    return new Promise((resolve, reject) => {
-      const img = new Image()
-      img.onload = () => {
-        let { width, height } = img
-        if (width > height && width > maxDim) {
-          height = Math.round(height * maxDim / width)
-          width = maxDim
-        } else if (height > maxDim) {
-          width = Math.round(width * maxDim / height)
-          height = maxDim
-        }
-        const canvas = document.createElement('canvas')
-        canvas.width = width
-        canvas.height = height
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height)
-        resolve(canvas.toDataURL('image/jpeg', qualita).split(',')[1])
-      }
-      img.onerror = () => reject(new Error('Impossibile leggere l\'immagine per la thumbnail'))
-      img.src = dataUrl
-    })
+  // Usa createImageBitmap con resize nativo del browser invece di un
+  // singolo drawImage in downscale: su alcuni motori di rendering un
+  // ridimensionamento manuale molto spinto (es. 4000px+ → 400px in un
+  // solo passaggio) produce un'immagine corrotta (artefatti a strisce),
+  // mentre il resize nativo in fase di decodifica è affidabile.
+  async function ridimensiona(file, maxDim = 400, qualita = 0.8) {
+    const originale = await createImageBitmap(file)
+    let { width, height } = originale
+    if (width > height && width > maxDim) {
+      height = Math.round(height * maxDim / width)
+      width = maxDim
+    } else if (height > maxDim) {
+      width = Math.round(width * maxDim / height)
+      height = maxDim
+    }
+    originale.close()
+
+    const bitmap = await createImageBitmap(file, { resizeWidth: width, resizeHeight: height, resizeQuality: 'high' })
+    const canvas = document.createElement('canvas')
+    canvas.width = width
+    canvas.height = height
+    canvas.getContext('2d').drawImage(bitmap, 0, 0)
+    bitmap.close()
+    return canvas.toDataURL('image/jpeg', qualita).split(',')[1]
   }
 
   // Legge la data di scatto dai metadati EXIF del file (DateTimeOriginal),
@@ -150,7 +153,9 @@ export function useGalleria() {
   // dataScatto (opzionale): se nota (letta da leggiDataScatto), sostituisce
   // il momento del caricamento come timestamp del file, così l'ordinamento
   // e la data mostrata riflettono quando la foto è stata scattata.
-  async function carica(cartella, dataUrl, base64, dataScatto = null) {
+  // file: il File/Blob originale, usato da createImageBitmap per generare
+  // la thumbnail (vedi commento su ridimensiona).
+  async function carica(cartella, file, base64, dataScatto = null) {
     const ts   = dataScatto instanceof Date ? dataScatto.getTime() : Date.now()
     const nome = `${ts}_upload.jpg`
     const path = `${FOLDER}/${cartella}/${nome}`
@@ -158,7 +163,7 @@ export function useGalleria() {
 
     if (cartella && cartella !== 'generale') {
       try {
-        const thumbBase64 = await ridimensiona(dataUrl)
+        const thumbBase64 = await ridimensiona(file)
         const thumbNome = `${ts}_thumb.jpg`
         await uploadFile(`${FOLDER}/${cartella}/${thumbNome}`, thumbBase64, `Aggiunge thumbnail ${thumbNome}`)
       } catch {
