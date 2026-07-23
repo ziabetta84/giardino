@@ -103,11 +103,13 @@ export function useGalleria() {
   // Ridimensiona un'immagine via canvas (lato client, nessun servizio
   // esterno): usata per generare una thumbnail leggera da mostrare
   // nell'elenco piante invece del file originale a piena risoluzione.
-  // Usa createImageBitmap con resize nativo del browser invece di un
-  // singolo drawImage in downscale: su alcuni motori di rendering un
-  // ridimensionamento manuale molto spinto (es. 4000px+ → 400px in un
-  // solo passaggio) produce un'immagine corrotta (artefatti a strisce),
-  // mentre il resize nativo in fase di decodifica è affidabile.
+  // Usa createImageBitmap con resize nativo del browser per il downscale
+  // (più affidabile di un singolo drawImage manuale su ridimensionamenti
+  // spinti), e willReadFrequently sul contesto 2d per forzare un canvas
+  // non accelerato via GPU: su alcuni dispositivi mobili (osservato con
+  // GPU Mali/MediaTek) il readback del canvas accelerato produce
+  // un'immagine corrotta (artefatti a strisce o a scacchiera) pur
+  // restando un JPEG valido a livello di contenitore.
   async function ridimensiona(file, maxDim = 400, qualita = 0.8) {
     const originale = await createImageBitmap(file)
     let { width, height } = originale
@@ -124,7 +126,7 @@ export function useGalleria() {
     const canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
-    canvas.getContext('2d').drawImage(bitmap, 0, 0)
+    canvas.getContext('2d', { willReadFrequently: true }).drawImage(bitmap, 0, 0)
     bitmap.close()
     return canvas.toDataURL('image/jpeg', qualita).split(',')[1]
   }
