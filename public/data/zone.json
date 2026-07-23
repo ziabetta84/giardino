@@ -70,5 +70,14 @@
     "criticita": "Cacyreus marshalli (farfallina dei gerani):\nparassita che depone le uova sui gerani e le cui larve perforano steli e\ngemme dall'interno. L'anno scorso ha richiesto una potatura abbondante.\nDa monitorare da primavera: trattamenti preventivi con insetticida\nspecifico o Bacillus thuringiensis all'inizio della stagione Essiccamento rapido: le fioriere, soprattutto\nquelle piccole della ringhiera, si asciugano velocemente in estate;\nirrigazione frequente indispensabile nelle settimane più calde Stress termico estivo: il calore pomeridiano combinato con substrato limitato può stressare le radici nelle fioriere piccole",
     "manutenzione": "In estate è richiesta molta irrigazione, a causa dell'esposizione al sole e al vento.",
     "tipo": "esterno"
+  },
+  "Terrazzo soggiorno": {
+    "nome": "Terrazzo soggiorno",
+    "tipo": "esterno",
+    "descrizione": "Esterno esposto ad ovest,",
+    "microclima": "Molto ventoso e con tantissime ore di luce, particolarmente caldo in estate",
+    "esposizione": [
+      "ovest"
+    ]
   }
 }
