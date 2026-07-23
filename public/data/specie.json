@@ -140,7 +140,8 @@
       "evitare ristagni idrici (rischio marciumi)",
       "non potare sul legno vecchio (non ributta)",
       "se ingiallisce → acqua dura o terreno troppo calcareo",
-      "fioritura molto lunga se ben esposta"
+      "fioritura molto lunga se ben esposta",
+      "evitare gusci d'uovo o altri ammendanti calcitanti (alzano ulteriormente il pH)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3086,6 +3087,12 @@
         "estate": "5-5-10",
         "autunno": "5-5-10",
         "inverno": null
+      },
+      "calcio": {
+        "primavera": "ogni 21 giorni",
+        "estate": "ogni 21 giorni",
+        "autunno": "ogni 21 giorni",
+        "inverno": null
       }
     }
   },
@@ -3772,6 +3779,12 @@
         "estate": "5-10-15",
         "autunno": null,
         "inverno": null
+      },
+      "calcio": {
+        "primavera": "ogni 21 giorni",
+        "estate": "ogni 21 giorni",
+        "autunno": null,
+        "inverno": null
       }
     }
   },
@@ -3812,6 +3825,12 @@
       "npk": {
         "primavera": "5-10-15",
         "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      },
+      "calcio": {
+        "primavera": "ogni 21 giorni",
+        "estate": "ogni 21 giorni",
         "autunno": null,
         "inverno": null
       }
@@ -3856,6 +3875,12 @@
         "estate": "5-10-15",
         "autunno": null,
         "inverno": null
+      },
+      "calcio": {
+        "primavera": "ogni 21 giorni",
+        "estate": "ogni 21 giorni",
+        "autunno": null,
+        "inverno": null
       }
     }
   },
@@ -3896,6 +3921,12 @@
       "npk": {
         "primavera": "5-10-15",
         "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      },
+      "calcio": {
+        "primavera": "ogni 21 giorni",
+        "estate": "ogni 21 giorni",
         "autunno": null,
         "inverno": null
       }
@@ -4022,6 +4053,12 @@
       "npk": {
         "primavera": "5-10-15",
         "estate": "5-10-15",
+        "autunno": null,
+        "inverno": null
+      },
+      "calcio": {
+        "primavera": "ogni 21 giorni",
+        "estate": "ogni 21 giorni",
         "autunno": null,
         "inverno": null
       }
