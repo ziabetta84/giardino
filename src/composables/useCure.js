@@ -64,7 +64,7 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
 }
 
 export function cureUrgentiPianta(pianta, specie, contesto) {
-  return ['irrigazione','concimazione','potatura']
+  return ['irrigazione','concimazione','potatura','calcio']
     .map(tipo => ({ tipo, ...valutaCura(pianta, specie, tipo, contesto) }))
     .filter(c => c.urgente)
 }
