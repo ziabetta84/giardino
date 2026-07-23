@@ -4111,5 +4111,47 @@
         "inverno": null
       }
     }
+  },
+  "aeonium": {
+    "nome": "Aeonium",
+    "specie": "Aeonium arboreum",
+    "descrizione": "<p>Succulenta arbustiva con fusti legnosi e rosette carnose lucide all'apice; si propaga facilmente per talea. Cresce attivamente in autunno-primavera e va in semi-riposo durante la calura estiva.</p>",
+    "esigenze": {
+      "luce": "Pieno sole / molto luminoso",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante"
+    },
+    "alert": [
+      "cresce in autunno-primavera, va in semi-riposo in estate (perdita di qualche foglia basale è normale)",
+      "teme il gelo intenso e prolungato",
+      "evitare ristagni idrici",
+      "si propaga facilmente per talea di fusto"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 10-14 giorni",
+        "estate": "ogni 15-20 giorni, ridotta per il riposo estivo",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "ogni 20-25 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime leggero per succulente",
+        "estate": "sospesa (riposo vegetativo)",
+        "autunno": "una volta a inizio ripresa vegetativa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "cimatura per favorire la ramificazione",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": null,
+        "autunno": "2-7-7",
+        "inverno": null
+      }
+    }
   }
 }

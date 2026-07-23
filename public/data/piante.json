@@ -1483,5 +1483,17 @@
     "ultima_cura": {
       "irrigazione": "2026-07-22"
     }
+  },
+  "aeonium-1784793743683": {
+    "specie": "aeonium",
+    "zona": "Vialetto",
+    "sottozona": "Fioriere",
+    "varieta": "",
+    "impianto": "2026-04-01",
+    "note": "Talee ricevute in regalo da mia madre ad aprile. Identificata il 23/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-23",
+      "concimazione": "2026-07-23"
+    }
   }
 }
