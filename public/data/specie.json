@@ -4277,5 +4277,48 @@
         "inverno": null
       }
     }
+  },
+  "calibrachoa": {
+    "nome": "Calibrachoa",
+    "specie": "Calibrachoa",
+    "descrizione": "",
+    "esigenze": {
+      "luce": "",
+      "acqua": "",
+      "terreno": ""
+    },
+    "alert": [],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "concimazione": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "calcio": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
