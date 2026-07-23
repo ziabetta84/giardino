@@ -4190,5 +4190,47 @@
         "inverno": null
       }
     }
+  },
+  "falso-gelsomino": {
+    "nome": "Falso gelsomino",
+    "specie": "Trachelospermum jasminoides",
+    "descrizione": "Rampicante sempreverde a crescita vigorosa, con foglie ovali lucide e fiori bianchi stellati molto profumati in tarda primavera.",
+    "esigenze": {
+      "luce": "Luminosa, tollera mezz'ombra",
+      "acqua": "Moderata",
+      "terreno": "Fertile, ben drenato"
+    },
+    "alert": [
+      "crescita vigorosa: necessita di un supporto per arrampicarsi",
+      "teme le correnti d'aria fredda vicino a finestre in inverno",
+      "evitare ristagni idrici",
+      "fioritura profumata in tarda primavera/inizio estate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7 giorni",
+        "estate": "ogni 5 giorni",
+        "autunno": "ogni 10 giorni",
+        "inverno": "ogni 14 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 20 giorni",
+        "estate": "ogni 20 giorni",
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "",
+        "estate": "taglio di contenimento dopo la fioritura",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }

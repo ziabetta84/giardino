@@ -1483,5 +1483,14 @@
       "irrigazione": "2026-07-23",
       "concimazione": "2026-07-23"
     }
+  },
+  "falso-gelsomino-1784799343775": {
+    "specie": "falso-gelsomino",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
   }
 }
