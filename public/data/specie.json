@@ -4327,5 +4327,48 @@
         "inverno": null
       }
     }
+  },
+  "coreopsis": {
+    "nome": "Coreopsis",
+    "specie": "Coreopsis grandiflora",
+    "descrizione": "<p>Perenne rustica a fioritura estiva prolungata, con capolini gialli su steli lunghi e sottili sopra un cespo di foglie semplici lanceolate leggermente pelose. La varietà in giardino è a fioritura doppia (\"flore pleno\", tipo Sunray/Early Sunrise): i petali numerosi ed embricati formano una testa densa e arrotondata a palla, invece della classica margherita piatta.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa/moderata",
+      "terreno": "Ben drenato, anche povero"
+    },
+    "alert": [
+      "molto resistente alla siccità una volta radicata",
+      "rimuovere i fiori secchi (deadheading) per prolungare la fioritura",
+      "evitare ristagni idrici",
+      "in piena estate, con caldo estremo, i fiori possono seccare rapidamente: è normale",
+      "cultivar a fioritura doppia, forma a palla anziché a margherita piatta"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni nei periodi molto caldi",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 4-6 settimane con concime per fiorite",
+        "estate": "ogni 4-6 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio leggero",
+        "estate": "rimozione fiori secchi",
+        "autunno": "taglio di pulizia",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }

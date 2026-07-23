@@ -1518,5 +1518,17 @@
     "impianto": "",
     "note": "",
     "ultima_cura": {}
+  },
+  "coreopsis-1784841747263": {
+    "specie": "coreopsis",
+    "zona": "Casa",
+    "sottozona": "Terrazzo soggiorno",
+    "varieta": "Fioritura doppia a palla (tipo Sunray/Early Sunrise)",
+    "impianto": "",
+    "note": "Fiori gialli a sfera di circa 3cm, con petali veri che seccano rapidamente in caso di caldo estremo. Identificata il 23/07/2026 dall'assistente AI a partire da una foto, dopo alcuni tentativi di identificazione corretti insieme all'utente.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-23",
+      "concimazione": "2026-07-23"
+    }
   }
 }
