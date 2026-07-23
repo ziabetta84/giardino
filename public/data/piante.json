@@ -1446,7 +1446,9 @@
     "varieta": "fiore viola",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-23"
+    }
   },
   "stipa-tenuissima-1784633400158": {
     "specie": "stipa-tenuissima",
@@ -1455,7 +1457,9 @@
     "varieta": "",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-23"
+    }
   },
   "mandarino-cinese-1784639951287": {
     "specie": "mandarino-cinese",
