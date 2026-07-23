@@ -81,8 +81,8 @@
     },
     "Terrazzo soggiorno": {
       "nome": "Terrazzo soggiorno",
-      "descrizione": "",
-      "tipo": "interno",
+      "descrizione": "Zona esposta a tante ore di luce e molto ventosa",
+      "tipo": "esterno",
       "esposizione": [
         "ovest"
       ],
