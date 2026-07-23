@@ -4232,5 +4232,50 @@
         "inverno": null
       }
     }
+  },
+  "camelia": {
+    "nome": "Camelia",
+    "specie": "Camellia japonica",
+    "descrizione": "Arbusto sempreverde ornamentale, foglie lucide e fioritura vistosa tra fine inverno e primavera.",
+    "esigenze": {
+      "luce": "Mezz'ombra, teme il sole diretto intenso del pomeriggio estivo",
+      "acqua": "Costante, senza ristagni",
+      "terreno": "Acido, ricco di sostanza organica, ben drenato"
+    },
+    "alert": [
+      "non tollera terreni calcarei: usare terriccio specifico per acidofile",
+      "evitare gusci d'uovo o altri ammendanti calcitanti (alzano il pH)",
+      "teme il sole diretto e intenso del primo pomeriggio estivo: posizione riparata preferibile",
+      "evitare ristagni idrici (rischio marciumi radicali)",
+      "non potare sul legno vecchio subito prima della fioritura",
+      "i boccioli possono cadere per stress idrico o sbalzi termici",
+      "fioritura tra fine inverno e primavera"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 4-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "ogni 10-14 giorni"
+      },
+      "concimazione": {
+        "primavera": "ogni 20-30 giorni con concime per acidofile",
+        "estate": "ogni 30 giorni",
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "leggera, subito dopo la fioritura",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
+      "npk": {
+        "primavera": "10-5-5",
+        "estate": "10-5-5",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
