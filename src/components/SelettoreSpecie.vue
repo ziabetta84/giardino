@@ -72,7 +72,14 @@
             <input v-model="nuovaSpecie.manutenzione.npk.estate" placeholder="N-P-K">
             <input v-model="nuovaSpecie.manutenzione.npk.autunno" placeholder="N-P-K">
             <input v-model="nuovaSpecie.manutenzione.npk.inverno" placeholder="N-P-K">
+
+            <div class="tipo-label">🥚 Calcio</div>
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.primavera" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.estate" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.autunno" placeholder="gg">
+            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.inverno" placeholder="gg">
           </div>
+          <p style="font-size:11px;color:var(--ink-faint);margin:6px 0 0;">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
 
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
           <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
@@ -162,7 +169,7 @@ const STAGIONI = ['primavera', 'estate', 'autunno', 'inverno']
 
 function manutenzioneVuota() {
   const perStagione = () => ({ primavera: '', estate: '', autunno: '', inverno: '' })
-  return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione(), npk: perStagione() }
+  return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione(), npk: perStagione(), calcio: perStagione() }
 }
 
 // Per irrigazione/concimazione il campo del form è solo numerico ("ogni N
@@ -175,6 +182,7 @@ function manutenzioneVuota() {
 const manutenzioneOriginale = ref({
   irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
   concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+  calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
 })
 
 function estraiGiorniPuliti(testo) {
@@ -198,7 +206,7 @@ const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: 
 // libero invece di essere convertita da un numero di giorni.
 function generaManutenzione(struttura, originale) {
   const risultato = {}
-  for (const tipo of ['irrigazione', 'concimazione']) {
+  for (const tipo of ['irrigazione', 'concimazione', 'calcio']) {
     risultato[tipo] = {}
     for (const stagione of STAGIONI) {
       const giorni = struttura?.[tipo]?.[stagione]
@@ -229,7 +237,11 @@ function slug(testo) {
 
 function apriNuovaSpecie() {
   nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota() }
-  manutenzioneOriginale.value = { irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' }, concimazione: { primavera: '', estate: '', autunno: '', inverno: '' } }
+  manutenzioneOriginale.value = {
+    irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+    concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+    calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
+  }
   specieModificaOriginale.value = null
   erroreSpecie.value = null
   dropdownAperto.value = false
@@ -241,8 +253,12 @@ function apriModificaSpecie(s) {
   if (!record) return
 
   const manutenzione = manutenzioneVuota()
-  const originale = { irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' }, concimazione: { primavera: '', estate: '', autunno: '', inverno: '' } }
-  for (const tipo of ['irrigazione', 'concimazione']) {
+  const originale = {
+    irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+    concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
+    calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
+  }
+  for (const tipo of ['irrigazione', 'concimazione', 'calcio']) {
     for (const stagione of STAGIONI) {
       const testo = record.manutenzione?.[tipo]?.[stagione] || ''
       const numero = estraiGiorniPuliti(testo)

@@ -57,7 +57,7 @@
       <div class="card" style="padding:16px;margin-bottom:12px;">
         <p class="section-label" style="margin-bottom:10px;">Stato cure</p>
         <div style="display:flex;flex-direction:column;gap:10px;">
-          <div v-for="tipo in ['irrigazione','concimazione','potatura']" :key="tipo"
+          <div v-for="tipo in tipiCura" :key="tipo"
             style="display:flex;align-items:center;justify-content:space-between;">
             <div>
               <div style="font-size:13px;font-weight:500;text-transform:capitalize;">{{ tipo }}</div>
@@ -244,6 +244,16 @@ const contestoCura = computed(() => ({
   esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
   meteo: store.meteo,
 }))
+
+// "calcio" riguarda solo le poche specie con un beneficio documentato (vedi
+// specie.json): mostrarlo comunque per tutte le altre come "Non configurata"
+// sarebbe rumore, a differenza di irrigazione/concimazione/potatura che sono
+// pertinenti ovunque.
+const tipiCura = computed(() => {
+  const base = ['irrigazione', 'concimazione', 'potatura']
+  if (specie.value?.manutenzione?.calcio) base.push('calcio')
+  return base
+})
 
 const cureUrgenti = computed(() =>
   pianta.value ? cureUrgentiPianta(pianta.value, specie.value, contestoCura.value) : []

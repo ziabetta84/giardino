@@ -85,7 +85,7 @@ const attivita = computed(() => {
     const sp = store.specie?.[p.specie] ?? null
     const nomeSpecie = sp?.nome ?? p.specie
     const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno' }
-    for (const tipo of ['irrigazione', 'concimazione', 'potatura']) {
+    for (const tipo of ['irrigazione', 'concimazione', 'potatura', 'calcio']) {
       const c = valutaCura(p, sp, tipo, contesto)
       if (c.giorni !== null) {
         const suggerimento = tipo === 'concimazione'

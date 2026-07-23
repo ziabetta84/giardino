@@ -28,8 +28,9 @@ const props = defineProps({
 })
 defineEmits(['registra'])
 
+const ICONE = { irrigazione: '💧', concimazione: '🌱', potatura: '✂️', calcio: '🥚' }
 function icona(tipo) {
-  return tipo === 'irrigazione' ? '💧' : tipo === 'concimazione' ? '🌱' : '✂️'
+  return ICONE[tipo] ?? '🌿'
 }
 
 const cardStyle = computed(() => {
