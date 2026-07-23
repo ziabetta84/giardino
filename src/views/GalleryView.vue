@@ -95,7 +95,7 @@
           <select v-model="uploadPiantaId" class="form-input" style="margin-bottom:14px;">
             <option value="">Nessuna (foto generica)</option>
             <optgroup v-for="(ps, zona) in piantaPerZona" :key="zona" :label="zona">
-              <option v-for="p in ps" :key="p.id" :value="p.id">{{ p.nomeSpecie }}</option>
+              <option v-for="p in ps" :key="p.id" :value="p.id">{{ p.etichetta }}</option>
             </optgroup>
           </select>
 
@@ -162,7 +162,8 @@ const piantaPerZona = computed(() => {
     const sp = store.specie?.[p.specie]
     const zona = p.zona ?? 'Altro'
     if (!gruppi[zona]) gruppi[zona] = []
-    gruppi[zona].push({ id, nomeSpecie: sp?.nome ?? p.specie })
+    const nomeSpecie = sp?.nome ?? p.specie
+    gruppi[zona].push({ id, nomeSpecie, etichetta: p.varieta ? `${nomeSpecie} — ${p.varieta}` : nomeSpecie })
   }
   return gruppi
 })
