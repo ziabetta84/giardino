@@ -1508,5 +1508,14 @@
       "irrigazione": "2026-07-23",
       "concimazione": "2026-07-23"
     }
+  },
+  "calibrachoa-1784818548637": {
+    "specie": "calibrachoa",
+    "zona": "Vialetto",
+    "sottozona": "Ringhiera",
+    "varieta": "",
+    "impianto": "",
+    "note": "",
+    "ultima_cura": {}
   }
 }
