@@ -71,7 +71,7 @@
     "Camera di Paolo": {
       "nome": "Camera di Paolo",
       "descrizione": "Piccolo terrazzo esposto a sud",
-      "tipo": "interno",
+      "tipo": "esterno",
       "esposizione": [
         "sud"
       ],
