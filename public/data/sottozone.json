@@ -78,6 +78,17 @@
       "microclima": "",
       "criticita": "",
       "manutenzione": ""
+    },
+    "Terrazzo soggiorno": {
+      "nome": "Terrazzo soggiorno",
+      "descrizione": "",
+      "tipo": "interno",
+      "esposizione": [
+        "ovest"
+      ],
+      "microclima": "",
+      "criticita": "",
+      "manutenzione": ""
     }
   },
   "Scivolo": {
