@@ -12,7 +12,7 @@
     </div>
   </Transition>
 
-  <main style="max-width:920px;margin:0 auto;padding:28px 16px 80px;position:relative;z-index:1;">
+  <main class="app-main" style="max-width:920px;margin:0 auto;padding:28px 16px 80px;position:relative;z-index:1;">
     <RouterView v-slot="{ Component }">
       <Transition name="page" mode="out-in">
         <component :is="Component" />
@@ -39,3 +39,12 @@ const mostraBanner = ref(true)
 
 onMounted(() => store.caricaTutto())
 </script>
+
+<style scoped>
+/* Su mobile la statusbar si aggiunge sopra la BottomNav (vedi StatusBar.vue):
+   serve più spazio in fondo alla pagina perché il contenuto non finisca dietro
+   a entrambe. */
+@media (max-width: 640px) {
+  .app-main { padding-bottom: 128px; }
+}
+</style>
