@@ -8,7 +8,15 @@
         <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.9);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ titolo }}</span>
         <span style="font-size:11px;color:rgba(255,255,255,0.5);">{{ foto.dataEstesa }}</span>
         <button @click="$emit('elimina')" aria-label="Elimina foto" title="Elimina foto"
-          style="background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:32px;height:32px;color:white;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">🗑️</button>
+          style="background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:32px;height:32px;color:white;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            <path d="M10 11v6"></path>
+            <path d="M14 11v6"></path>
+            <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+          </svg>
+        </button>
         <button @click="$emit('chiudi')" aria-label="Chiudi"
           style="background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:32px;height:32px;color:white;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">×</button>
       </div>
