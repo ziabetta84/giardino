@@ -151,6 +151,7 @@ const mostraFormUpload = ref(false)
 const uploadPiantaId  = ref('')
 const uploadFile64    = ref(null)
 const uploadDataUrl   = ref(null)
+const uploadFileObj   = ref(null)
 const uploadPreview   = ref(null)
 const dataScattoRilevata = ref(null)
 
@@ -241,6 +242,7 @@ onMounted(async () => {
 function selezionaUpload(e) {
   const file = e.target.files?.[0]
   if (!file) return
+  uploadFileObj.value = file
   dataScattoRilevata.value = null
   galleria.leggiDataScatto(file).then(d => { dataScattoRilevata.value = d })
   const reader = new FileReader()
@@ -258,11 +260,12 @@ async function caricaFoto() {
   erroreUpload.value = null
   try {
     const cartella = uploadPiantaId.value || 'generale'
-    const nuovaFoto = await galleria.carica(cartella, uploadDataUrl.value, uploadFile64.value, dataScattoRilevata.value)
+    const nuovaFoto = await galleria.carica(cartella, uploadFileObj.value, uploadFile64.value, dataScattoRilevata.value)
     foto.value.unshift(nuovaFoto)
     mostraFormUpload.value = false
     uploadFile64.value  = null
     uploadDataUrl.value = null
+    uploadFileObj.value  = null
     uploadPreview.value = null
     uploadPiantaId.value = ''
     dataScattoRilevata.value = null
