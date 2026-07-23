@@ -1491,7 +1491,9 @@
     "varieta": "",
     "impianto": "",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-23"
+    }
   },
   "camelia-1784803547526": {
     "specie": "camelia",
