@@ -48,7 +48,7 @@
       <template v-if="!cerca && filtroZona === 'tutte' && pianteUrgenti.length">
         <p class="section-label">⚠ Da curare</p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
-          <PiantaRiga v-for="p in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente
+          <PiantaRiga v-for="p in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
             @elimina="avviaElimina(p)" />
         </div>
         <p class="section-label">Tutte le piante</p>
@@ -56,7 +56,7 @@
 
       <!-- Lista principale -->
       <div v-if="pianteFiltrate.length" style="display:flex;flex-direction:column;gap:8px;">
-        <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p"
+        <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
           @elimina="avviaElimina(p)" />
       </div>
 
@@ -71,7 +71,7 @@
     <ModalConferma
       :aperto="!!daEliminare"
       titolo="Eliminare questa pianta?"
-      messaggio="Questa azione non può essere annullata."
+      messaggio="Questa azione non può essere annullata. Verranno eliminate anche eventuali foto associate."
       :caricamento="eliminando"
       @conferma="eliminaPianta"
       @annulla="daEliminare = null"
@@ -80,10 +80,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { useGalleria } from '@/composables/useGalleria'
 import { cureUrgentiPianta } from '@/composables/useCure'
 import ModalConferma from '@/components/ModalConferma.vue'
 import PiantaRiga from '@/components/PiantaRiga.vue'
@@ -91,6 +92,19 @@ import PiantaRiga from '@/components/PiantaRiga.vue'
 const store      = useDatiStore()
 const route      = useRoute()
 const { saveJSON } = useApi()
+const galleria   = useGalleria()
+
+// Una sola chiamata per tutte le piante (vedi useGalleria.mappaThumbnail):
+// se fallisce (rete assente, repo privata senza token, ecc.) l'elenco resta
+// comunque utilizzabile, semplicemente senza le miniature.
+const thumbnail = ref({})
+onMounted(async () => {
+  try {
+    thumbnail.value = await galleria.mappaThumbnail()
+  } catch {
+    thumbnail.value = {}
+  }
+})
 
 const cerca      = ref('')
 const filtroZona = ref(route.query.zona ?? 'tutte')
@@ -163,6 +177,7 @@ async function eliminaPianta() {
   eliminando.value = true
   const id = daEliminare.value.id
   try {
+    await galleria.eliminaCartella(id)
     const nuove = await saveJSON('piante.json', (correnti) => {
       const base = { ...(correnti ?? store.piante) }
       delete base[id]

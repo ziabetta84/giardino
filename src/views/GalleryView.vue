@@ -61,37 +61,26 @@
     </template>
 
     <!-- Lightbox -->
-    <Teleport to="body">
-      <div v-if="luce" @click.self="luce = null"
-        style="position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.94);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+    <LightboxFoto
+      :foto="luce?.foto ?? null"
+      :titolo="luce?.gruppo?.nomeSpecie ?? ''"
+      :ha-precedente="indiceLuce > 0"
+      :ha-successivo="indiceLuce < tutteLeImmagini.length - 1"
+      :indice="indiceLuce"
+      :totale="tutteLeImmagini.length"
+      @chiudi="luce = null"
+      @naviga="navigaLuce"
+      @elimina="daEliminareFoto = luce.foto"
+    />
 
-        <!-- Info pianta in alto -->
-        <div style="position:absolute;top:0;left:0;right:0;padding:14px 16px;display:flex;align-items:center;gap:10px;">
-          <RouterLink :to="`/piante/${luce.gruppo.piantaId}`" @click="luce = null"
-            style="font-size:13px;font-weight:600;color:rgba(255,255,255,0.9);text-decoration:none;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-            {{ luce.gruppo.nomeSpecie }}
-          </RouterLink>
-          <span style="font-size:11px;color:rgba(255,255,255,0.5);">{{ luce.foto.dataEstesa }}</span>
-          <button @click="luce = null"
-            style="background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:32px;height:32px;color:white;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;">×</button>
-        </div>
-
-        <!-- Immagine -->
-        <img :src="luce.foto.url" :alt="luce.foto.nome"
-          style="max-width:100%;max-height:calc(100vh - 100px);object-fit:contain;border-radius:8px;padding:56px 8px 44px;">
-
-        <!-- Navigazione prev/next -->
-        <button v-if="indiceLuce > 0" @click="navigaLuce(-1)"
-          style="position:absolute;left:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:40px;height:40px;color:white;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
-        <button v-if="indiceLuce < tutteLeImmagini.length - 1" @click="navigaLuce(1)"
-          style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;border-radius:50%;width:40px;height:40px;color:white;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
-
-        <!-- Contatore -->
-        <div style="position:absolute;bottom:14px;left:0;right:0;text-align:center;">
-          <span style="font-size:11px;color:rgba(255,255,255,0.4);">{{ indiceLuce + 1 }} / {{ tutteLeImmagini.length }}</span>
-        </div>
-      </div>
-    </Teleport>
+    <ModalConferma
+      :aperto="!!daEliminareFoto"
+      titolo="Eliminare questa foto?"
+      messaggio="Questa azione non può essere annullata."
+      :caricamento="eliminandoFoto"
+      @conferma="confermaEliminaFoto"
+      @annulla="daEliminareFoto = null"
+    />
 
     <!-- Modal upload -->
     <Teleport to="body">
@@ -139,10 +128,12 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useGalleria } from '@/composables/useGalleria'
+import LightboxFoto from '@/components/LightboxFoto.vue'
+import ModalConferma from '@/components/ModalConferma.vue'
 
 const store = useDatiStore()
-const { uploadFile } = useApi()
+const galleria = useGalleria()
 
 const foto            = ref([])
 const caricandoLista  = ref(false)
@@ -150,42 +141,13 @@ const caricandoUpload = ref(false)
 const errore          = ref(null)
 const erroreUpload    = ref(null)
 const luce            = ref(null)   // { foto, gruppo }
+const daEliminareFoto = ref(null)
+const eliminandoFoto  = ref(false)
 const mostraFormUpload = ref(false)
 const uploadPiantaId  = ref('')
 const uploadFile64    = ref(null)
+const uploadDataUrl   = ref(null)
 const uploadPreview   = ref(null)
-
-const OWNER  = 'ziabetta84'
-const REPO   = 'giardino'
-const BRANCH = 'main'
-const FOLDER = 'docs/gallery/piante'
-
-function rawUrl(path) {
-  return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}`
-}
-function apiHeaders() {
-  const token = localStorage.getItem('github_token')
-  return token ? { Authorization: `Bearer ${token}` } : {}
-}
-async function listDir(path) {
-  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, { headers: apiHeaders() })
-  if (res.status === 404) return []
-  if (!res.ok) throw new Error(`Errore API GitHub: ${res.status}`)
-  return res.json()
-}
-function parseData(nome) {
-  const ts = parseInt(nome.split('_')[0])
-  if (!ts || isNaN(ts)) return null
-  return new Date(ts)
-}
-function formatBreve(d) {
-  if (!d) return ''
-  return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: '2-digit' })
-}
-function formatEstesa(d) {
-  if (!d) return ''
-  return d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 // Piante raggruppate per zona (per il select dell'upload)
 const piantaPerZona = computed(() => {
@@ -235,6 +197,19 @@ function navigaLuce(dir) {
   }
 }
 
+async function confermaEliminaFoto() {
+  if (!daEliminareFoto.value) return
+  eliminandoFoto.value = true
+  try {
+    await galleria.elimina(daEliminareFoto.value)
+    foto.value = foto.value.filter(f => f.path !== daEliminareFoto.value.path)
+    if (luce.value?.foto.path === daEliminareFoto.value.path) luce.value = null
+    daEliminareFoto.value = null
+  } finally {
+    eliminandoFoto.value = false
+  }
+}
+
 // Tastiera per lightbox
 function onKey(e) {
   if (!luce.value) return
@@ -249,29 +224,7 @@ onMounted(async () => {
   caricandoLista.value = true
   errore.value = null
   try {
-    const cartelle = await listDir(FOLDER)
-    const tutte = []
-    await Promise.all(
-      cartelle
-        .filter(f => f.type === 'dir')
-        .map(async cartella => {
-          const files = await listDir(cartella.path)
-          files
-            .filter(f => f.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(f.name))
-            .forEach(f => {
-              const d = parseData(f.name)
-              tutte.push({
-                path:      f.path,
-                nome:      f.name,
-                cartella:  cartella.name,
-                url:       rawUrl(f.path),
-                dataBreve: formatBreve(d),
-                dataEstesa: formatEstesa(d),
-              })
-            })
-        })
-    )
-    foto.value = tutte
+    foto.value = await galleria.listaTutte()
   } catch (e) {
     errore.value = e.message
   } finally {
@@ -285,6 +238,7 @@ function selezionaUpload(e) {
   const reader = new FileReader()
   reader.onload = () => {
     uploadPreview.value = reader.result
+    uploadDataUrl.value = reader.result
     uploadFile64.value  = reader.result.split(',')[1]
   }
   reader.readAsDataURL(file)
@@ -295,20 +249,12 @@ async function caricaFoto() {
   caricandoUpload.value = true
   erroreUpload.value = null
   try {
-    const ts     = Date.now()
     const cartella = uploadPiantaId.value || 'generale'
-    const nome   = `${ts}_upload.jpg`
-    const path   = `${FOLDER}/${cartella}/${nome}`
-    await uploadFile(path, uploadFile64.value, `Aggiunge foto ${nome}`)
-    const d = new Date(ts)
-    foto.value.unshift({
-      path, nome, cartella,
-      url:       rawUrl(path),
-      dataBreve: formatBreve(d),
-      dataEstesa: formatEstesa(d),
-    })
+    const nuovaFoto = await galleria.carica(cartella, uploadDataUrl.value, uploadFile64.value)
+    foto.value.unshift(nuovaFoto)
     mostraFormUpload.value = false
     uploadFile64.value  = null
+    uploadDataUrl.value = null
     uploadPreview.value = null
     uploadPiantaId.value = ''
   } catch (e) {

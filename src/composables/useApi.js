@@ -117,6 +117,20 @@ export function useApi() {
     return res.json()
   }
 
+  async function deleteFile(repoPath, sha, message = 'Elimina file') {
+    const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${repoPath}`
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: getHeaders(),
+      body: JSON.stringify({ message, sha, branch: BRANCH }),
+    })
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}))
+      throw new Error(err.message || 'Errore eliminazione file')
+    }
+    return res.json()
+  }
+
   function isAutenticato() {
     return !!getToken()
   }
@@ -125,5 +139,5 @@ export function useApi() {
     localStorage.setItem('github_token', token)
   }
 
-  return { saveJSON, uploadFile, isAutenticato, salvaToken }
+  return { saveJSON, uploadFile, deleteFile, isAutenticato, salvaToken }
 }
