@@ -3,6 +3,7 @@
 // canvas al momento del caricamento, e mappa delle thumbnail per l'elenco
 // piante (una sola chiamata alla Git Trees API invece di una per pianta).
 import { useApi } from '@/composables/useApi'
+import { parse as parseExif } from 'exifr/dist/lite.esm.mjs'
 
 const OWNER  = 'ziabetta84'
 const REPO   = 'giardino'
@@ -125,13 +126,32 @@ export function useGalleria() {
     })
   }
 
+  // Legge la data di scatto dai metadati EXIF del file (DateTimeOriginal),
+  // così una foto importata da un altro dispositivo/servizio (es. scaricata
+  // da Google Photos) viene datata con il momento in cui è stata scattata
+  // invece che con quello del caricamento nell'app. Restituisce null se il
+  // file non ha EXIF leggibili (comune per screenshot, immagini già
+  // rielaborate, o alcuni export che rimuovono i metadati) — non è quindi
+  // una garanzia, solo un recupero quando l'informazione è disponibile.
+  async function leggiDataScatto(file) {
+    try {
+      const exif = await parseExif(file)
+      return exif?.DateTimeOriginal instanceof Date ? exif.DateTimeOriginal : null
+    } catch {
+      return null
+    }
+  }
+
   // Carica la foto originale e, se associata a una pianta, anche una
   // thumbnail ridotta accanto ad essa (stesso prefisso timestamp, suffisso
   // "_thumb"): mappaThumbnail() la userà per l'elenco piante. Il fallimento
   // della sola generazione/upload della thumbnail non blocca il
   // caricamento della foto originale, che resta l'obiettivo primario.
-  async function carica(cartella, dataUrl, base64) {
-    const ts   = Date.now()
+  // dataScatto (opzionale): se nota (letta da leggiDataScatto), sostituisce
+  // il momento del caricamento come timestamp del file, così l'ordinamento
+  // e la data mostrata riflettono quando la foto è stata scattata.
+  async function carica(cartella, dataUrl, base64, dataScatto = null) {
+    const ts   = dataScatto instanceof Date ? dataScatto.getTime() : Date.now()
     const nome = `${ts}_upload.jpg`
     const path = `${FOLDER}/${cartella}/${nome}`
     await uploadFile(path, base64, `Aggiunge foto ${nome}`)
@@ -178,5 +198,5 @@ export function useGalleria() {
     return Object.fromEntries(Object.entries(mappa).map(([cartella, v]) => [cartella, v.url]))
   }
 
-  return { listaFoto, listaTutte, elimina, eliminaCartella, ridimensiona, carica, mappaThumbnail, rawUrl }
+  return { listaFoto, listaTutte, elimina, eliminaCartella, ridimensiona, carica, leggiDataScatto, mappaThumbnail, rawUrl }
 }
