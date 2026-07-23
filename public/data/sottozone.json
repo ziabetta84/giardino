@@ -89,6 +89,18 @@
       "microclima": "",
       "criticita": "",
       "manutenzione": ""
+    },
+    "Terrazzo cucina": {
+      "nome": "Terrazzo cucina",
+      "descrizione": "Zona ad nord-ovest, soleggiata ma più riparata&nbsp;",
+      "tipo": "esterno",
+      "esposizione": [
+        "nord",
+        "ovest"
+      ],
+      "microclima": "",
+      "criticita": "",
+      "manutenzione": ""
     }
   },
   "Scivolo": {
