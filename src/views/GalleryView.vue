@@ -111,6 +111,10 @@
             <input type="file" accept="image/*" capture="environment" @change="selezionaUpload" style="display:none;">
           </label>
 
+          <p v-if="dataScattoRilevata" style="font-size:11px;color:var(--sage-dark);margin-top:8px;">
+            📅 Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
+          </p>
+
           <p v-if="erroreUpload" style="font-size:12px;color:var(--rose-dark);margin-top:8px;">⚠ {{ erroreUpload }}</p>
 
           <div style="display:flex;gap:10px;margin-top:16px;">
@@ -148,6 +152,7 @@ const uploadPiantaId  = ref('')
 const uploadFile64    = ref(null)
 const uploadDataUrl   = ref(null)
 const uploadPreview   = ref(null)
+const dataScattoRilevata = ref(null)
 
 // Piante raggruppate per zona (per il select dell'upload)
 const piantaPerZona = computed(() => {
@@ -235,6 +240,8 @@ onMounted(async () => {
 function selezionaUpload(e) {
   const file = e.target.files?.[0]
   if (!file) return
+  dataScattoRilevata.value = null
+  galleria.leggiDataScatto(file).then(d => { dataScattoRilevata.value = d })
   const reader = new FileReader()
   reader.onload = () => {
     uploadPreview.value = reader.result
@@ -250,13 +257,14 @@ async function caricaFoto() {
   erroreUpload.value = null
   try {
     const cartella = uploadPiantaId.value || 'generale'
-    const nuovaFoto = await galleria.carica(cartella, uploadDataUrl.value, uploadFile64.value)
+    const nuovaFoto = await galleria.carica(cartella, uploadDataUrl.value, uploadFile64.value, dataScattoRilevata.value)
     foto.value.unshift(nuovaFoto)
     mostraFormUpload.value = false
     uploadFile64.value  = null
     uploadDataUrl.value = null
     uploadPreview.value = null
     uploadPiantaId.value = ''
+    dataScattoRilevata.value = null
   } catch (e) {
     erroreUpload.value = e.message
   } finally {
