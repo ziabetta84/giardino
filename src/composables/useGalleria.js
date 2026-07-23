@@ -76,8 +76,25 @@ export function useGalleria() {
     return risultati.flat()
   }
 
-  function elimina(foto) {
-    return deleteFile(foto.path, foto.sha, `Elimina foto ${foto.nome}`)
+  // Elimina la foto e, se presente, anche la sua thumbnail gemella (stesso
+  // prefisso timestamp, esclusa da listaFoto perché è un dettaglio interno):
+  // senza questo passaggio la thumbnail resterebbe orfana nel repository.
+  // Il fallimento di questa pulizia non blocca l'eliminazione della foto,
+  // che è l'azione principale richiesta dall'utente.
+  async function elimina(foto) {
+    const risultato = await deleteFile(foto.path, foto.sha, `Elimina foto ${foto.nome}`)
+    if (foto.cartella && foto.cartella !== 'generale') {
+      try {
+        const ts = parseInt(foto.nome.split('_')[0])
+        const thumbNome = `${ts}_thumb.jpg`
+        const files = await listDir(`${FOLDER}/${foto.cartella}`)
+        const thumb = files.find(f => f.name === thumbNome)
+        if (thumb) await deleteFile(thumb.path, thumb.sha, `Elimina thumbnail ${thumbNome}`)
+      } catch {
+        // Vedi commento sopra.
+      }
+    }
+    return risultato
   }
 
   // Cancellazione best-effort di tutte le foto di una pianta (chiamata prima
