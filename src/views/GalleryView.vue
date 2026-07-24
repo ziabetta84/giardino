@@ -99,17 +99,28 @@
             </optgroup>
           </select>
 
-          <!-- Area drop foto -->
-          <label style="display:block;cursor:pointer;">
-            <div style="border:2px dashed var(--sage-light);border-radius:14px;padding:24px;text-align:center;background:var(--sage-pale);transition:all 0.18s;"
-              :style="uploadPreview ? 'border-color:var(--sage);' : ''">
-              <img v-if="uploadPreview" :src="uploadPreview" style="max-height:160px;border-radius:8px;object-fit:contain;margin-bottom:8px;">
-              <div v-else style="font-size:32px;margin-bottom:8px;">📷</div>
-              <p style="font-size:13px;color:var(--sage-dark);font-weight:600;">{{ uploadPreview ? 'Tocca per cambiare' : 'Seleziona foto' }}</p>
-              <p style="font-size:11px;color:var(--ink-faint);margin-top:2px;">JPG o PNG · max 10 MB</p>
-            </div>
-            <input type="file" accept="image/*" capture="environment" @change="selezionaUpload" style="display:none;">
-          </label>
+          <!-- Selezione foto: due bottoni separati invece di un unico input
+               generico, perché su alcuni browser/telefoni Android un input
+               "accept=image/*" senza capture viene comunque risolto dal
+               sistema verso la fotocamera, saltando la scelta della libreria
+               (stesso pattern di AgenteView.vue). -->
+          <div v-if="uploadPreview" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--sage-light);border-radius:12px;background:var(--sage-pale);">
+            <img :src="uploadPreview" alt="Anteprima della foto selezionata" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+            <div style="flex:1;font-size:13px;font-weight:600;color:var(--sage-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ uploadNomeFile }}</div>
+            <button type="button" @click="rimuoviUpload" aria-label="Rimuovi foto" style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">×</button>
+          </div>
+
+          <div v-else style="display:flex;gap:8px;">
+            <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
+              🖼️ Libreria
+              <input type="file" accept="image/*" @change="selezionaUpload" style="display:none;">
+            </label>
+            <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
+              📷 Fotocamera
+              <input type="file" accept="image/*" capture="environment" @change="selezionaUpload" style="display:none;">
+            </label>
+          </div>
+          <p v-if="!uploadPreview" style="font-size:11px;color:var(--ink-faint);margin-top:6px;text-align:center;">JPG o PNG · max 10 MB</p>
 
           <p v-if="dataScattoRilevata" style="font-size:11px;color:var(--sage-dark);margin-top:8px;">
             📅 Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
@@ -153,6 +164,7 @@ const uploadFile64    = ref(null)
 const uploadDataUrl   = ref(null)
 const uploadFileObj   = ref(null)
 const uploadPreview   = ref(null)
+const uploadNomeFile  = ref('')
 const dataScattoRilevata = ref(null)
 
 // Piante raggruppate per zona (per il select dell'upload)
@@ -243,6 +255,7 @@ function selezionaUpload(e) {
   const file = e.target.files?.[0]
   if (!file) return
   uploadFileObj.value = file
+  uploadNomeFile.value = file.name
   dataScattoRilevata.value = null
   galleria.leggiDataScatto(file).then(d => { dataScattoRilevata.value = d })
   const reader = new FileReader()
@@ -254,6 +267,15 @@ function selezionaUpload(e) {
   reader.readAsDataURL(file)
 }
 
+function rimuoviUpload() {
+  uploadFile64.value  = null
+  uploadDataUrl.value = null
+  uploadFileObj.value  = null
+  uploadPreview.value = null
+  uploadNomeFile.value = ''
+  dataScattoRilevata.value = null
+}
+
 async function caricaFoto() {
   if (!uploadFile64.value || caricandoUpload.value) return
   caricandoUpload.value = true
@@ -263,12 +285,8 @@ async function caricaFoto() {
     const nuovaFoto = await galleria.carica(cartella, uploadFileObj.value, uploadFile64.value, dataScattoRilevata.value)
     foto.value.unshift(nuovaFoto)
     mostraFormUpload.value = false
-    uploadFile64.value  = null
-    uploadDataUrl.value = null
-    uploadFileObj.value  = null
-    uploadPreview.value = null
+    rimuoviUpload()
     uploadPiantaId.value = ''
-    dataScattoRilevata.value = null
   } catch (e) {
     erroreUpload.value = e.message
   } finally {
