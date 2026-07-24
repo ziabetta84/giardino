@@ -1581,5 +1581,17 @@
       "irrigazione": "2026-07-24",
       "concimazione": "2026-07-24"
     }
+  },
+  "scindapsus-1784868306171": {
+    "specie": "scindapsus",
+    "zona": "Casa",
+    "sottozona": "Soggiorno",
+    "varieta": "",
+    "impianto": "",
+    "note": "Foglie cuoriformi con macchie argentate irregolari, diverso dal comune pothos già in catalogo. Identificata il 24/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-24",
+      "concimazione": "2026-07-24"
+    }
   }
 }

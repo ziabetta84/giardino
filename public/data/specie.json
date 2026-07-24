@@ -4455,5 +4455,47 @@
         "inverno": null
       }
     }
+  },
+  "scindapsus": {
+    "nome": "Pothos argento (Scindapsus)",
+    "specie": "Scindapsus pictus",
+    "descrizione": "<p>Rampicante/ricadente da interno, diverso dal comune Pothos (Epipremnum aureum): foglie cuoriformi verde scuro opaco con vistose macchie argentate irregolari, effetto quasi metallico.</p>",
+    "esigenze": {
+      "luce": "Luce diffusa, tollera anche poca luce",
+      "acqua": "Moderata",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "tollera bene ambienti poco luminosi, ma con più luce la variegatura argentata è più marcata",
+      "evitare ristagni idrici",
+      "foglie che perdono la variegatura → probabile luce insufficiente",
+      "si propaga facilmente per talea"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni",
+        "estate": "ogni 5-7 giorni",
+        "autunno": "ogni 10-14 giorni",
+        "inverno": "ogni 15-20 giorni"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese con concime per piante verdi",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "taglio dei rami troppo lunghi",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
