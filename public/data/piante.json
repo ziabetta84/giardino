@@ -1569,5 +1569,17 @@
       "irrigazione": "2026-07-24",
       "concimazione": "2026-07-24"
     }
+  },
+  "gerbera-1784859493907": {
+    "specie": "gerbera",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "",
+    "impianto": "",
+    "note": "Fiore rosso-arancio. Ogni fioritura produce uno stelo corto e ripiegato, con petali mancanti sul lato compresso (sviluppo meccanico ostacolato, non danno da parassiti) — probabile luce insufficiente o rosetta di foglie troppo fitta. Identificata il 24/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-24",
+      "concimazione": "2026-07-24"
+    }
   }
 }

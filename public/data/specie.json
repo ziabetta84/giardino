@@ -4412,5 +4412,48 @@
         "inverno": null
       }
     }
+  },
+  "gerbera": {
+    "nome": "Gerbera",
+    "specie": "Gerbera jamesonii",
+    "descrizione": "<p>Perenne a rosetta basale, senza fusto legnoso: le foglie grandi, allungate e leggermente lobate/ondulate nascono direttamente dalla base, così come gli steli fiorali (scapi). Fiore grande a margherita in molti colori.</p>",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare",
+      "terreno": "Fertile, ben drenato"
+    },
+    "alert": [
+      "scapo fiorale corto/debole e ripiegato → luce insufficiente o rosetta di foglie troppo fitta che ostacola lo sviluppo dritto dello stelo",
+      "fiori che si aprono schiacciati con petali mancanti su un lato → sviluppo meccanico impedito, non danno da parassiti",
+      "evitare eccesso di azoto: favorisce steli deboli",
+      "assicurare buon apporto di potassio per irrobustire i tessuti dello scapo",
+      "teme i ristagni idrici a livello del colletto"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 5-7 giorni",
+        "estate": "ogni 3-5 giorni",
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "ridotta"
+      },
+      "concimazione": {
+        "primavera": "ogni 2-3 settimane con concime per fiorite",
+        "estate": "ogni 2-3 settimane",
+        "autunno": "una volta al mese",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rimozione fiori e foglie secche",
+        "estate": "rimozione fiori secchi",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
