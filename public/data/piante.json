@@ -1545,5 +1545,17 @@
       "irrigazione": "2026-07-23",
       "concimazione": "2026-07-23"
     }
+  },
+  "zinnia-1784852184048": {
+    "specie": "zinnia",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "Profusion Gold",
+    "impianto": "",
+    "note": "Fiore singolo giallo-dorato. Identificata il 24/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-24",
+      "concimazione": "2026-07-24"
+    }
   }
 }
