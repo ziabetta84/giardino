@@ -1557,5 +1557,17 @@
       "irrigazione": "2026-07-23",
       "concimazione": "2026-07-23"
     }
+  },
+  "zinnia-1784858101918": {
+    "specie": "zinnia",
+    "zona": "Est",
+    "sottozona": null,
+    "varieta": "Profusion Cherry",
+    "impianto": "",
+    "note": "Fiore singolo rosa/magenta acceso con disco centrale arancio, petali larghi e sovrapposti — diversa dalla Lilliput rosa a pompon già presente. Identificata il 24/07/2026 dall'assistente AI a partire da una foto.",
+    "ultima_cura": {
+      "irrigazione": "2026-07-24",
+      "concimazione": "2026-07-24"
+    }
   }
 }
