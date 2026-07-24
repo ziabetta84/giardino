@@ -898,8 +898,11 @@
     "messaggio": "Qual è il momento in cui raccogliere le melanzane?",
     "specie": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-07-24T02:39:22.037Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Le tue melanzane a frutto grosso (impiantate il 18/5) in genere sono pronte 70-85 giorni dopo il trapianto: indicativamente da inizio-metà agosto, ma il momento giusto va valutato frutto per frutto, non a calendario.\n\nCome riconoscerlo: la buccia deve essere lucida e ben tesa, di colore viola uniforme e intenso — quando diventa opaca è già oltre, i semi si induriscono e la polpa amareggia. Fai la prova del dito: premi leggermente la buccia, se torna subito indietro (elastica) è pronta; se resta il segno (troppo molle) è passata; se è durissima e non cede per niente, aspetta ancora qualche giorno. Il calice (la parte verde sopra il picciolo) deve essere ancora fresco e turgido.\n\nRaccolta: taglia con forbici o coltello lasciando 2-3 cm di picciolo, non tirare a mano (rischi di spezzare il ramo). Una volta iniziata la produzione, controlla ogni 4-6 giorni: raccogliere regolarmente stimola la pianta a produrre altri frutti invece di esaurire le energie su pochi frutti grossi.",
+      "elaborata": "2026-07-24T02:40:29.000Z"
+    }
   }
 }
