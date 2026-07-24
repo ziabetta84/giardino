@@ -24,8 +24,8 @@
         "inverno": "nessuna, salvo siccità prolungata"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per fiorite",
-        "estate": "facoltativa una concimazione mensile",
+        "primavera": "ogni 30 giorni, con concime leggero per fiorite",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -106,8 +106,8 @@
         "inverno": "nessuna, salvo siccità prolungata"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per fiorite",
-        "estate": "una volta al mese (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime leggero per fiorite",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "nessuna",
         "inverno": "nessuna"
       },
@@ -148,11 +148,11 @@
         "primavera": "ogni 7-10 giorni se non piove",
         "estate": "ogni 5-7 giorni nei periodi caldi",
         "autunno": "ogni 10-12 giorni",
-        "inverno": "solo se il terreno è completamente asciutto"
+        "inverno": "ogni 20-25 giorni, solo se il terreno è completamente asciutto"
       },
       "concimazione": {
-        "primavera": "una volta con concime per acidofile",
-        "estate": "una volta al mese (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime per acidofile",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "nessuna",
         "inverno": "nessuna"
       },
@@ -240,9 +240,9 @@
         "inverno": "nessuna, salvo siccità prolungata"
       },
       "concimazione": {
-        "primavera": "una volta dopo la fioritura con concime per bulbose",
+        "primavera": "ogni 30 giorni, dopo la fioritura con concime per bulbose",
         "estate": "nessuna",
-        "autunno": "una volta con concime leggero (facoltativo)",
+        "autunno": "ogni 30 giorni, con concime leggero (facoltativo)",
         "inverno": "nessuna"
       },
       "potatura": {
@@ -281,11 +281,11 @@
         "primavera": "ogni 4-6 giorni se non piove",
         "estate": "ogni 5-7 giorni (preferisce terreno fresco)",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima, solo se il terreno è asciutto"
+        "inverno": "ogni 12-15 giorni, solo se il terreno è asciutto"
       },
       "concimazione": {
         "primavera": "ogni 3-4 settimane con concime per fiorite",
-        "estate": "una volta al mese (facoltativo)",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -328,9 +328,9 @@
         "inverno": "nessuna, salvo siccità prolungata"
       },
       "concimazione": {
-        "primavera": "una volta con concime organico leggero",
+        "primavera": "ogni 30 giorni, con concime organico leggero",
         "estate": "nessuna",
-        "autunno": "facoltativa una leggera concimazione",
+        "autunno": "ogni 30 giorni (facoltativo)",
         "inverno": "nessuna"
       },
       "potatura": {
@@ -414,12 +414,12 @@
         "primavera": "ogni 7-10 giorni durante la fioritura",
         "estate": "nessuna (bulbo in riposo)",
         "autunno": "ogni 10-14 giorni se il terreno è molto secco",
-        "inverno": "minima, solo se asciutto"
+        "inverno": "ogni 20-25 giorni, solo se asciutto"
       },
       "concimazione": {
-        "primavera": "una volta dopo la fioritura con concime per bulbose",
+        "primavera": "ogni 30 giorni, dopo la fioritura con concime per bulbose",
         "estate": "nessuna",
-        "autunno": "facoltativa una concimazione leggera",
+        "autunno": "ogni 30 giorni (facoltativo)",
         "inverno": "nessuna"
       },
       "potatura": {
@@ -460,7 +460,7 @@
         "inverno": "nessuna (pianta annuale)"
       },
       "concimazione": {
-        "primavera": "una volta con concime per fiorite",
+        "primavera": "ogni 30 giorni, con concime per fiorite",
         "estate": "ogni 3-4 settimane con concime leggero",
         "autunno": "sospesa",
         "inverno": "sospesa"
@@ -504,7 +504,7 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con concime organico leggero (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime organico leggero (facoltativo)",
         "estate": "nessuna",
         "autunno": "nessuna",
         "inverno": "nessuna"
@@ -550,7 +550,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime agrumi",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -592,7 +592,7 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con concime organico o pellet di stallatico",
+        "primavera": "ogni 30 giorni, con concime organico o pellet di stallatico",
         "estate": "nessuna",
         "autunno": "nessuna",
         "inverno": "nessuna"
@@ -636,7 +636,7 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con compost leggero (facoltativo)",
+        "primavera": "ogni 30 giorni, con compost leggero (facoltativo)",
         "estate": "nessuna",
         "autunno": "nessuna",
         "inverno": "nessuna"
@@ -813,7 +813,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime per orchidee",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -849,14 +849,14 @@
     "manutenzione": {
       "irrigazione": {
         "primavera": "ogni 2-3 giorni",
-        "estate": "quotidiana se fa caldo",
+        "estate": "ogni 1-2 giorni, quotidiana nei giorni più caldi",
         "autunno": "ogni 3-4 giorni",
-        "inverno": "minima, solo quando il substrato è asciutto"
+        "inverno": "ogni 10 giorni, solo quando il substrato è asciutto"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane con concime leggero",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -898,8 +898,8 @@
         "inverno": "ogni 20-30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -937,12 +937,12 @@
         "primavera": "ogni 3-4 giorni",
         "estate": "ogni 2-3 giorni",
         "autunno": "ogni 4-5 giorni",
-        "inverno": "minima, solo quando il terreno è asciutto"
+        "inverno": "ogni 12-15 giorni, solo quando il terreno è asciutto"
       },
       "concimazione": {
         "primavera": "ogni 3 settimane con concime leggero",
         "estate": "ogni 3 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -978,14 +978,14 @@
     "manutenzione": {
       "irrigazione": {
         "primavera": "ogni 2-3 giorni",
-        "estate": "quotidiana se fa caldo",
+        "estate": "ogni 2-3 giorni, quotidiana nei giorni più caldi",
         "autunno": "ogni 3-4 giorni",
-        "inverno": "minima, solo se il substrato è asciutto"
+        "inverno": "ogni 15 giorni, solo se il substrato è asciutto"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane con concime per fragole o piante da frutto",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1020,14 +1020,14 @@
     "manutenzione": {
       "irrigazione": {
         "primavera": "ogni 2-3 giorni",
-        "estate": "quotidiana se fa caldo",
+        "estate": "ogni 2-3 giorni, quotidiana nei giorni più caldi",
         "autunno": "ogni 3-4 giorni",
-        "inverno": "minima, solo quando il terreno è asciutto"
+        "inverno": "ogni 12-15 giorni, solo quando il terreno è asciutto"
       },
       "concimazione": {
         "primavera": "ogni 3 settimane con concime leggero",
         "estate": "ogni 3 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1065,12 +1065,12 @@
         "primavera": "ogni 5-7 giorni",
         "estate": "ogni 3-5 giorni nei periodi caldi",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima, solo quando il substrato è completamente asciutto"
+        "inverno": "ogni 20-25 giorni, solo quando il substrato è completamente asciutto"
       },
       "concimazione": {
         "primavera": "ogni 3-4 settimane con concime leggero",
         "estate": "ogni 3-4 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1111,8 +1111,8 @@
         "inverno": "ogni 20-30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero per succulente",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero per succulente",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1200,7 +1200,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime leggero",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1244,7 +1244,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime per piante da fiore",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1288,7 +1288,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime per piante fiorite",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1332,7 +1332,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime per bonsai o piante verdi",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1373,8 +1373,8 @@
         "inverno": "sospesa"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime per cactacee",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1417,8 +1417,8 @@
         "inverno": "sospesa"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero per cactacee",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero per cactacee",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1498,8 +1498,8 @@
         "inverno": "sospesa (solo se il substrato è completamente secco)"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime per cactacee",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1541,8 +1541,8 @@
         "inverno": "ogni 20-30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero per succulente",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero per succulente",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1586,7 +1586,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime leggero",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -1627,8 +1627,8 @@
         "inverno": "sospesa"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime per cactacee",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1670,8 +1670,8 @@
         "inverno": "ogni 20-30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero per succulente",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero per succulente",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1710,11 +1710,11 @@
         "primavera": "ogni 7-10 giorni se non piove",
         "estate": "ogni 5-7 giorni nei periodi caldi",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima, solo se il terreno è asciutto"
+        "inverno": "ogni 15-20 giorni, solo se il terreno è asciutto"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per graminacee o fiorite",
-        "estate": "facoltativa una concimazione mensile",
+        "primavera": "ogni 30 giorni, con concime leggero per graminacee o fiorite",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1754,11 +1754,11 @@
         "primavera": "ogni 7-10 giorni se non piove",
         "estate": "ogni 5-7 giorni nei periodi caldi",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima, solo se il terreno è asciutto"
+        "inverno": "ogni 15 giorni, solo se il terreno è asciutto"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero",
-        "estate": "facoltativa una concimazione mensile",
+        "primavera": "ogni 30 giorni, con concime leggero",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1794,14 +1794,14 @@
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "mantenere il terreno costantemente umido",
+        "primavera": "ogni 3-4 giorni",
         "estate": "irrigare regolarmente (ogni 3-5 giorni) per evitare stress idrico",
-        "autunno": "mantenere umidità moderata",
-        "inverno": "minima, solo se il terreno è completamente asciutto"
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "ogni 20-25 giorni, solo se il terreno è completamente asciutto"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per rizomatose",
-        "estate": "una volta al mese (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime leggero per rizomatose",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1837,14 +1837,14 @@
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "mantenere il terreno costantemente umido",
+        "primavera": "ogni 2-3 giorni",
         "estate": "irrigare frequentemente (ogni 2-4 giorni) per evitare disseccamento",
-        "autunno": "mantenere umidità moderata",
-        "inverno": "minima, solo se il terreno è asciutto"
+        "autunno": "ogni 5-7 giorni",
+        "inverno": "ogni 15 giorni, solo se il terreno è asciutto"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per piante acquatiche o palustri",
-        "estate": "una volta al mese (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime leggero per piante acquatiche o palustri",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1886,8 +1886,8 @@
         "inverno": "nessuna, salvo siccità prolungata"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per graminacee",
-        "estate": "facoltativa una concimazione mensile",
+        "primavera": "ogni 30 giorni, con concime leggero per graminacee",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1923,14 +1923,14 @@
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "mantenere il terreno costantemente umido",
+        "primavera": "ogni 3-4 giorni",
         "estate": "irrigare frequentemente (ogni 2-4 giorni) per sostenere la fioritura",
-        "autunno": "mantenere umidità moderata",
-        "inverno": "minima, solo se il terreno è asciutto"
+        "autunno": "ogni 5-7 giorni",
+        "inverno": "ogni 15 giorni, solo se il terreno è asciutto"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per perenni",
-        "estate": "una concimazione mensile (facoltativa)",
+        "primavera": "ogni 30 giorni, con concime leggero per perenni",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -1969,11 +1969,11 @@
         "primavera": "ogni 7-10 giorni",
         "estate": "ogni 5-7 giorni nei periodi caldi",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 20-25 giorni"
       },
       "concimazione": {
-        "primavera": "una volta con concime organico",
-        "estate": "una volta al mese (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime organico",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2015,8 +2015,8 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero",
-        "estate": "una volta al mese (facoltativo)",
+        "primavera": "ogni 30 giorni, con concime leggero",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2057,7 +2057,7 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero",
+        "primavera": "ogni 30 giorni, con concime leggero",
         "estate": "nessuna",
         "autunno": "sospesa",
         "inverno": "sospesa"
@@ -2094,12 +2094,12 @@
     "manutenzione": {
       "irrigazione": {
         "primavera": "ogni 7-10 giorni",
-        "estate": "minima (bulbo in riposo)",
+        "estate": "ogni 25-30 giorni, bulbo in riposo",
         "autunno": "ogni 10-14 giorni",
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con concime per bulbose",
+        "primavera": "ogni 30 giorni, con concime per bulbose",
         "estate": "nessuna",
         "autunno": "nessuna",
         "inverno": "nessuna"
@@ -2141,8 +2141,8 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta con concime per perenni",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime per perenni",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2180,11 +2180,11 @@
         "primavera": "ogni 7-10 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
-        "primavera": "una volta",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2222,12 +2222,12 @@
         "primavera": "ogni 7 giorni",
         "estate": "ogni 4-6 giorni",
         "autunno": "ogni 10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2265,12 +2265,12 @@
         "primavera": "ogni 7 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2308,12 +2308,12 @@
         "primavera": "ogni 5-7 giorni",
         "estate": "ogni 4-6 giorni",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2350,11 +2350,11 @@
         "primavera": "ogni 7-10 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
-        "primavera": "una volta",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2395,7 +2395,7 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta",
+        "primavera": "ogni 30 giorni",
         "estate": "nessuna",
         "autunno": "sospesa",
         "inverno": "sospesa"
@@ -2434,12 +2434,12 @@
         "primavera": "ogni 7 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2480,7 +2480,7 @@
         "inverno": "nessuna"
       },
       "concimazione": {
-        "primavera": "una volta",
+        "primavera": "ogni 30 giorni",
         "estate": "nessuna",
         "autunno": "sospesa",
         "inverno": "sospesa"
@@ -2519,7 +2519,7 @@
       "irrigazione": {
         "primavera": "nessuna salvo siccità estrema",
         "estate": "ogni 10-14 giorni",
-        "autunno": "minima",
+        "autunno": "ogni 20-25 giorni",
         "inverno": "nessuna"
       },
       "concimazione": {
@@ -2562,12 +2562,12 @@
         "primavera": "ogni 7 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 12-15 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2604,12 +2604,12 @@
         "primavera": "ogni 5-7 giorni",
         "estate": "ogni 3-5 giorni",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2646,7 +2646,7 @@
       "irrigazione": {
         "primavera": "nessuna salvo siccità estrema",
         "estate": "ogni 10-14 giorni",
-        "autunno": "minima",
+        "autunno": "ogni 20-25 giorni",
         "inverno": "nessuna"
       },
       "concimazione": {
@@ -2689,12 +2689,12 @@
         "primavera": "ogni 5-7 giorni",
         "estate": "ogni 3-5 giorni",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2731,12 +2731,12 @@
         "primavera": "ogni 5-7 giorni",
         "estate": "ogni 3-5 giorni",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 20-25 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -2774,11 +2774,11 @@
         "primavera": "ogni 7-10 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 25-30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2816,11 +2816,11 @@
         "primavera": "ogni 7-10 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 20-25 giorni"
       },
       "concimazione": {
-        "primavera": "una volta",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2859,11 +2859,11 @@
         "primavera": "ogni 7 giorni",
         "estate": "ogni 5-7 giorni",
         "autunno": "ogni 10 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
-        "primavera": "una volta",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -2945,11 +2945,11 @@
         "primavera": "ogni 5-7 giorni se il terreno asciuga",
         "estate": "ogni 4-6 giorni (ama terreno fresco)",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "minima, solo se completamente asciutto"
+        "inverno": "ogni 15-20 giorni, solo se completamente asciutto"
       },
       "concimazione": {
         "primavera": "ogni 4 settimane con concime leggero per fiorite",
-        "estate": "una volta al mese (facoltativo)",
+        "estate": "ogni 30 giorni (facoltativo)",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -3022,14 +3022,14 @@
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "mantenere il terreno leggermente umido, bagnare quando la superficie inizia ad asciugare",
+        "primavera": "ogni 5-7 giorni",
         "estate": "controllo frequente; irrigare ogni 2-4 giorni a seconda del caldo",
-        "autunno": "ridurre leggermente, mantenere umidità costante",
-        "inverno": "innaffiature moderate, solo quando il primo strato asciuga"
+        "autunno": "ogni 7-10 giorni",
+        "inverno": "ogni 12-15 giorni, solo quando il primo strato asciuga"
       },
       "concimazione": {
         "primavera": "ogni 4 settimane con concime leggero per verdi",
-        "estate": "una volta al mese, dose ridotta",
+        "estate": "ogni 30 giorni, dose ridotta",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -3073,7 +3073,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime equilibrato (NPK 10-10-10)",
         "estate": "ogni 10-14 giorni con concime ricco in potassio per stimolare fruttificazione",
-        "autunno": "una volta al mese finché continua a fruttificare",
+        "autunno": "ogni 30 giorni, finché continua a fruttificare",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -3155,13 +3155,13 @@
       "irrigazione": {
         "primavera": "Ogni 10-14 giorni",
         "estate": "Ogni 10-14 giorni",
-        "autunno": "Solo in caso di siccità prolungata",
+        "autunno": "ogni 30 giorni, solo in caso di siccità prolungata",
         "inverno": "Sospesa"
       },
       "concimazione": {
-        "primavera": "Concime organico o pellettato ricco in potassio; una sola somministrazione è spesso sufficiente.",
-        "estate": "Facoltativa; solo per piante in vaso o terreni molto poveri.",
-        "autunno": "Leggera concimazione organica se necessario.",
+        "primavera": "ogni 90 giorni, concime organico o pellettato ricco in potassio",
+        "estate": "ogni 60 giorni, facoltativa per piante in vaso o terreni molto poveri",
+        "autunno": "ogni 90 giorni, se necessario",
         "inverno": "Sospesa"
       },
       "potatura": {
@@ -3196,7 +3196,7 @@
         "inverno": "Sospesa"
       },
       "concimazione": {
-        "primavera": "Una sola concimazione leggera con compost maturo",
+        "primavera": "ogni 90 giorni, con compost maturo",
         "estate": "Nessuna concimazione",
         "autunno": "Nessuna concimazione",
         "inverno": "Nessuna concimazione"
@@ -3274,8 +3274,8 @@
         "inverno": "ogni 30-40 giorni, minima"
       },
       "concimazione": {
-        "primavera": "una concimazione con concime per piante grasse/succulente",
-        "estate": "facoltativa, una sola volta a inizio stagione",
+        "primavera": "ogni 90 giorni, con concime per piante grasse/succulente",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -3316,8 +3316,8 @@
         "inverno": "sospesa"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime per cactacee",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -3358,8 +3358,8 @@
         "inverno": "ogni 20-30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero per succulente",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero per succulente",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -3400,8 +3400,8 @@
         "inverno": "ogni 30 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime leggero per succulente",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime leggero per succulente",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
@@ -3517,7 +3517,7 @@
         "inverno": "sospesa, salvo siccità prolungata"
       },
       "concimazione": {
-        "primavera": "una tantum a inizio ripresa vegetativa",
+        "primavera": "ogni 90 giorni",
         "estate": "",
         "autunno": "",
         "inverno": "sospesa"
@@ -3557,7 +3557,7 @@
         "primavera": "ogni 6 giorni",
         "estate": "ogni 4 giorni",
         "autunno": "ogni 8 giorni",
-        "inverno": "minima"
+        "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
         "primavera": "ogni 14 giorni",
@@ -3955,7 +3955,7 @@
         "inverno": ""
       },
       "concimazione": {
-        "primavera": "una tantum a inizio ciclo",
+        "primavera": "ogni 90 giorni",
         "estate": "",
         "autunno": "",
         "inverno": ""
@@ -4090,7 +4090,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane con concime agrumi",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -4127,12 +4127,12 @@
         "primavera": "ogni 7-10 giorni",
         "estate": "ogni 4-6 giorni",
         "autunno": "ogni 10-14 giorni",
-        "inverno": "minima, solo in caso di siccità prolungata"
+        "inverno": "ogni 25-30 giorni, solo in caso di siccità prolungata"
       },
       "concimazione": {
         "primavera": "ogni 2-3 settimane per favorire la fioritura",
         "estate": "ogni 2-3 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -4172,9 +4172,9 @@
         "inverno": "ogni 20-25 giorni"
       },
       "concimazione": {
-        "primavera": "una volta con concime leggero per succulente",
+        "primavera": "ogni 30 giorni, con concime leggero per succulente",
         "estate": "sospesa (riposo vegetativo)",
-        "autunno": "una volta a inizio ripresa vegetativa",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -4305,7 +4305,7 @@
       "concimazione": {
         "primavera": "ogni 2 settimane",
         "estate": "ogni 2 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "calcio": {
@@ -4394,7 +4394,7 @@
         "inverno": "nessuna (pianta annuale)"
       },
       "concimazione": {
-        "primavera": "una volta con concime per fiorite",
+        "primavera": "ogni 30 giorni, con concime per fiorite",
         "estate": "ogni 3-4 settimane con concime leggero",
         "autunno": "sospesa",
         "inverno": "sospesa"
@@ -4434,12 +4434,12 @@
         "primavera": "ogni 5-7 giorni",
         "estate": "ogni 3-5 giorni",
         "autunno": "ogni 7-10 giorni",
-        "inverno": "ridotta"
+        "inverno": "ogni 12-15 giorni"
       },
       "concimazione": {
         "primavera": "ogni 2-3 settimane con concime per fiorite",
         "estate": "ogni 2-3 settimane",
-        "autunno": "una volta al mese",
+        "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
       "potatura": {
@@ -4479,8 +4479,8 @@
         "inverno": "ogni 15-20 giorni"
       },
       "concimazione": {
-        "primavera": "una volta al mese con concime per piante verdi",
-        "estate": "una volta al mese",
+        "primavera": "ogni 30 giorni, con concime per piante verdi",
+        "estate": "ogni 30 giorni",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
