@@ -4456,36 +4456,36 @@
       }
     }
   },
-  "scindapsus": {
-    "nome": "Pothos argento (Scindapsus)",
-    "specie": "Scindapsus pictus",
-    "descrizione": "<p>Rampicante/ricadente da interno, diverso dal comune Pothos (Epipremnum aureum): foglie cuoriformi verde scuro opaco con vistose macchie argentate irregolari, effetto quasi metallico.</p>",
+  "fittonia": {
+    "nome": "Fittonia",
+    "specie": "Fittonia albivenis",
+    "descrizione": "<p>Pianta da interno bassa e tappezzante, foglie piccole ovali con una fitta rete di venature e chiazze rosa chiaro (a seconda della cultivar anche bianche o rosse) su fondo verde scuro. Molto sensibile alla siccità dell'aria e del terreno: appassisce vistosamente se si secca, ma recupera rapidamente con l'acqua.</p>",
     "esigenze": {
-      "luce": "Luce diffusa, tollera anche poca luce",
-      "acqua": "Moderata",
-      "terreno": "Drenato"
+      "luce": "Luce indiretta filtrata, mai sole diretto",
+      "acqua": "Costante, terreno sempre leggermente umido",
+      "terreno": "Ricco, ben drenato"
     },
     "alert": [
-      "tollera bene ambienti poco luminosi, ma con più luce la variegatura argentata è più marcata",
-      "evitare ristagni idrici",
-      "foglie che perdono la variegatura → probabile luce insufficiente",
-      "si propaga facilmente per talea"
+      "foglie che si afflosciano vistosamente → terreno troppo asciutto, annaffiare subito (di solito recupera in poche ore)",
+      "ama umidità ambientale elevata, soffre l'aria secca dei riscaldamenti",
+      "evitare sole diretto: scotta le foglie sottili",
+      "tende ad allungarsi (etiolare) con luce insufficiente"
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "ogni 7-10 giorni",
-        "estate": "ogni 5-7 giorni",
-        "autunno": "ogni 10-14 giorni",
-        "inverno": "ogni 15-20 giorni"
+        "primavera": "ogni 3-4 giorni",
+        "estate": "ogni 2-3 giorni",
+        "autunno": "ogni 5-7 giorni",
+        "inverno": "ogni 7-10 giorni"
       },
       "concimazione": {
-        "primavera": "ogni 30 giorni, con concime per piante verdi",
-        "estate": "ogni 30 giorni",
+        "primavera": "una volta al mese con concime bilanciato leggero",
+        "estate": "una volta al mese",
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
       "potatura": {
-        "primavera": "taglio dei rami troppo lunghi",
+        "primavera": "cimatura per mantenerla compatta",
         "estate": "nessuna",
         "autunno": "nessuna",
         "inverno": "nessuna"
