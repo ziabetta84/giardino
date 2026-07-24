@@ -4370,5 +4370,47 @@
         "inverno": null
       }
     }
+  },
+  "zinnia-angustifolia": {
+    "nome": "Zinnia a foglia stretta",
+    "specie": "Zinnia angustifolia",
+    "descrizione": "<p>Specie diversa dalla comune Zinnia elegans: fiore singolo più aperto, con petali stretti e distanziati (non sovrapposti) e centro ispido/arruffato. Molto più rustica e resistente a siccità e oidio della Zinnia elegans. Spesso venduta come serie \"Star\" (es. Golden/Yellow Star).</p>",
+    "esigenze": {
+      "luce": "Sole",
+      "acqua": "Scarsa/moderata",
+      "terreno": "Ben drenato, anche povero"
+    },
+    "alert": [
+      "molto più resistente a siccità e oidio della Zinnia elegans comune",
+      "portamento compatto e ramificato, ottima da bordura",
+      "fioritura abbondante e continua",
+      "teme comunque i ristagni idrici"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 7-10 giorni se non piove",
+        "estate": "ogni 5-7 giorni nei periodi caldi",
+        "autunno": "ogni 10 giorni",
+        "inverno": "nessuna (pianta annuale)"
+      },
+      "concimazione": {
+        "primavera": "una volta con concime per fiorite",
+        "estate": "ogni 3-4 settimane con concime leggero",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "taglio leggero",
+        "autunno": "taglio leggero",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "5-10-10",
+        "estate": "5-10-10",
+        "autunno": null,
+        "inverno": null
+      }
+    }
   }
 }
