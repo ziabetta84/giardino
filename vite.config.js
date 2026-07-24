@@ -3,8 +3,23 @@ import vue from '@vitejs/plugin-vue'
 import tailwindcss from '@tailwindcss/vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath, URL } from 'node:url'
+import { execSync } from 'node:child_process'
+
+// Commit su cui è basata questa build: confrontato a runtime con l'ultimo
+// commit su main per capire se la versione caricata è quella pubblicata
+// più di recente (vedi useRepoStatus.js / StatusBar.vue).
+function commitBuild() {
+  try {
+    return execSync('git rev-parse HEAD').toString().trim()
+  } catch {
+    return null
+  }
+}
 
 export default defineConfig({
+  define: {
+    __APP_COMMIT__: JSON.stringify(commitBuild()),
+  },
   plugins: [
     vue(),
     tailwindcss(),
