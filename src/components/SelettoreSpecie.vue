@@ -174,20 +174,31 @@ function manutenzioneVuota() {
 
 // Per irrigazione/concimazione il campo del form è solo numerico ("ogni N
 // giorni"), ma i dati reali delle specie esistenti spesso non sono in quel
-// formato pulito (es. "ogni 7-10 giorni", "minima", "una volta al mese").
-// Quando in modifica il testo originale non è convertibile in un numero
-// pulito, il campo numerico parte vuoto e questo testo viene tenuto come
-// fallback: se l'utente lo lascia vuoto, il valore originale non viene perso;
-// se digita un numero, lo sostituisce intenzionalmente.
+// formato pulito (es. "ogni 7-10 giorni", "ogni 30 giorni, con concime per
+// cactacee", "minima", "una volta al mese"). Il campo mostra comunque il
+// primo numero trovato nel testo (per non apparire vuoto quando un valore
+// in realtà c'è), ma il testo originale per intero resta la fonte di
+// verità finché l'utente non cambia deliberatamente quel numero: così si
+// vede cosa c'è già configurato, senza perdere un range o una nota
+// (es. "solo se il terreno è asciutto") per il solo fatto di aver aperto e
+// richiuso il form.
 const manutenzioneOriginale = ref({
   irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
   concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
   calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
 })
+// Numero mostrato nel campo all'apertura del form (estratto dal testo
+// originale): confrontato con il valore corrente al salvataggio per capire
+// se l'utente lo ha davvero modificato (vedi generaManutenzione).
+const manutenzioneNumeroIniziale = ref({
+  irrigazione: { primavera: null, estate: null, autunno: null, inverno: null },
+  concimazione: { primavera: null, estate: null, autunno: null, inverno: null },
+  calcio: { primavera: null, estate: null, autunno: null, inverno: null },
+})
 
 function estraiGiorniPuliti(testo) {
   if (typeof testo === 'number') return testo
-  const m = String(testo || '').match(/^ogni (\d+) giorni$/)
+  const m = String(testo || '').match(/(\d+)/)
   return m ? parseInt(m[1], 10) : null
 }
 
@@ -204,15 +215,17 @@ const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: 
 // quasi mai a cadenza numerica ("ogni N giorni"), ma descrittiva/stagionale
 // ("taglio leggero", "post-fioritura", "nessuna") — per questo resta testo
 // libero invece di essere convertita da un numero di giorni.
-function generaManutenzione(struttura, originale) {
+function generaManutenzione(struttura, originale, numeroIniziale) {
   const risultato = {}
   for (const tipo of ['irrigazione', 'concimazione', 'calcio']) {
     risultato[tipo] = {}
     for (const stagione of STAGIONI) {
       const giorni = struttura?.[tipo]?.[stagione]
-      risultato[tipo][stagione] = (typeof giorni === 'number' && giorni > 0)
+      const iniziale = numeroIniziale?.[tipo]?.[stagione] ?? null
+      const modificato = typeof giorni === 'number' && giorni > 0 && giorni !== iniziale
+      risultato[tipo][stagione] = modificato
         ? `ogni ${giorni} giorni`
-        : (originale?.[tipo]?.[stagione] || '')
+        : (originale?.[tipo]?.[stagione] || (typeof giorni === 'number' && giorni > 0 ? `ogni ${giorni} giorni` : ''))
     }
   }
   risultato.potatura = {}
@@ -242,6 +255,11 @@ function apriNuovaSpecie() {
     concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
     calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
   }
+  manutenzioneNumeroIniziale.value = {
+    irrigazione: { primavera: null, estate: null, autunno: null, inverno: null },
+    concimazione: { primavera: null, estate: null, autunno: null, inverno: null },
+    calcio: { primavera: null, estate: null, autunno: null, inverno: null },
+  }
   specieModificaOriginale.value = null
   erroreSpecie.value = null
   dropdownAperto.value = false
@@ -258,12 +276,18 @@ function apriModificaSpecie(s) {
     concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
     calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
   }
+  const numeroIniziale = {
+    irrigazione: { primavera: null, estate: null, autunno: null, inverno: null },
+    concimazione: { primavera: null, estate: null, autunno: null, inverno: null },
+    calcio: { primavera: null, estate: null, autunno: null, inverno: null },
+  }
   for (const tipo of ['irrigazione', 'concimazione', 'calcio']) {
     for (const stagione of STAGIONI) {
       const testo = record.manutenzione?.[tipo]?.[stagione] || ''
       const numero = estraiGiorniPuliti(testo)
       manutenzione[tipo][stagione] = numero ?? ''
-      originale[tipo][stagione] = numero === null ? testo : ''
+      originale[tipo][stagione] = testo
+      numeroIniziale[tipo][stagione] = numero
     }
   }
   for (const stagione of STAGIONI) {
@@ -282,6 +306,7 @@ function apriModificaSpecie(s) {
     manutenzione,
   }
   manutenzioneOriginale.value = originale
+  manutenzioneNumeroIniziale.value = numeroIniziale
   specieModificaOriginale.value = s.key
   erroreSpecie.value = null
   dropdownAperto.value = false
@@ -347,7 +372,7 @@ async function salvaNuovaSpecie() {
           terreno: nuovaSpecie.value.terreno.trim() || '',
         },
         alert: nuovaSpecie.value.alert.split('\n').map(a => a.trim()).filter(Boolean),
-        manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value),
+        manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value, manutenzioneNumeroIniziale.value),
       }
       return base
     })
