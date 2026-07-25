@@ -1600,5 +1600,14 @@
       "irrigazione": "2026-07-24",
       "concimazione": "2026-07-24"
     }
+  },
+  "zucca-1784983622446": {
+    "specie": "zucca",
+    "zona": "Casa",
+    "sottozona": "Terrazzo cucina",
+    "varieta": "Butternut ",
+    "impianto": "",
+    "note": "3 piante in vaso. Soffrono lo oidio",
+    "ultima_cura": {}
   }
 }
