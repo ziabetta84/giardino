@@ -1608,6 +1608,8 @@
     "varieta": "Butternut ",
     "impianto": "",
     "note": "3 piante in vaso. Soffrono lo oidio",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "calcio": "2026-07-25"
+    }
   }
 }
