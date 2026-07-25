@@ -1292,7 +1292,8 @@
     "impianto": "2026-06-25",
     "note": "",
     "ultima_cura": {
-      "irrigazione": "2026-07-24"
+      "irrigazione": "2026-07-24",
+      "concimazione": "2026-07-25"
     }
   },
   "echinacea-1784628634058": {
@@ -1303,7 +1304,8 @@
     "impianto": "2026-06-25",
     "note": "",
     "ultima_cura": {
-      "irrigazione": "2026-07-21"
+      "irrigazione": "2026-07-21",
+      "concimazione": "2026-07-25"
     }
   },
   "calathea-1784629447642": {
