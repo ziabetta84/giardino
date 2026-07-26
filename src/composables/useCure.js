@@ -12,10 +12,20 @@ export function stagione(data = new Date()) {
   return Object.entries(STAGIONE_MESI).find(([,mesi]) => mesi.includes(mese))?.[0] ?? 'estate'
 }
 
-function parseGiorni(testo) {
+// Riconosce l'unità dopo il numero (giorni/settimane/mesi): senza questo
+// controllo un testo come "ogni 2 settimane" veniva letto come "ogni 2
+// giorni", segnalando la cura scaduta quasi ogni giorno invece che ogni due
+// settimane. In un range ("ogni 2-3 settimane") prende il primo numero,
+// come già avviene per i range in giorni.
+export function parseGiorni(testo) {
   if (!testo) return null
-  const match = testo.match(/(\d+)/)
-  return match ? parseInt(match[1]) : null
+  const match = testo.match(/(\d+)(?:-\d+)?\s*(settiman\w*|mes[ei]\b|giorn\w*)?/i)
+  if (!match) return null
+  const numero = parseInt(match[1], 10)
+  const unita = (match[2] || '').toLowerCase()
+  if (unita.startsWith('settiman')) return numero * 7
+  if (unita.startsWith('mes')) return numero * 30
+  return numero
 }
 
 // Pioggia cumulata (oggi + domani) considerata sufficiente da sostituire un'irrigazione manuale

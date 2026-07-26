@@ -111,6 +111,7 @@
 import { ref, computed, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { parseGiorni } from '@/composables/useCure'
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
@@ -196,10 +197,13 @@ const manutenzioneNumeroIniziale = ref({
   calcio: { primavera: null, estate: null, autunno: null, inverno: null },
 })
 
+// Riusa la stessa logica di useCure.js (non una regex propria): un tempo
+// questo file ne teneva una copia separata che non riconosceva "settimane"
+// come unità, mostrando "2" invece di "14" per un valore come "ogni 2
+// settimane" — la stessa causa del bug poi trovato nel motore cure.
 function estraiGiorniPuliti(testo) {
   if (typeof testo === 'number') return testo
-  const m = String(testo || '').match(/(\d+)/)
-  return m ? parseInt(m[1], 10) : null
+  return parseGiorni(testo)
 }
 
 const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota() })
