@@ -74,5 +74,13 @@
       "k": 4
     },
     "descrizione": "Riutilizza l'acqua di cottura di verdure (non salata), lasciata raffreddare a temperatura ambiente. Usala pura per innaffiare, senza bisogno di diluizione o macerazione."
+  },
+  "concime-1785048998140": {
+    "nome": "Solabiol Concime Universale NF",
+    "npk": {
+      "n": 6.5,
+      "p": 0,
+      "k": 6.5
+    }
   }
 }
