@@ -12,6 +12,7 @@ const routes = [
   { path: '/piante/:id',                name: 'pianta',         component: () => import('@/views/PiantaView.vue') },
   { path: '/piante/:id/modifica',       name: 'pianta-modifica',component: () => import('@/views/EditPiantaView.vue') },
   { path: '/progetti',                  name: 'progetti',       component: () => import('@/views/ProgettiView.vue') },
+  { path: '/progetti/:id',              name: 'progetto',       component: () => import('@/views/ProgettoView.vue') },
   { path: '/concimi',                   name: 'concimi',        component: () => import('@/views/ConcimiView.vue') },
   { path: '/attivita',                  name: 'attivita',       component: () => import('@/views/AttivitaView.vue') },
   { path: '/agente',                    name: 'agente',         component: () => import('@/views/AgenteView.vue') },

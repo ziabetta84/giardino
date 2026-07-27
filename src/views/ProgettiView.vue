@@ -16,19 +16,20 @@
 
     <template v-else>
       <div v-if="progetti.length" style="display:flex;flex-direction:column;gap:10px;">
-        <div v-for="p in progetti" :key="p.id" class="card hover-card" style="padding:16px;">
+        <RouterLink v-for="p in progetti" :key="p.id" :to="`/progetti/${p.id}`"
+          class="card hover-card" style="padding:16px;display:block;text-decoration:none;color:inherit;">
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
             <div style="flex:1;min-width:0;">
               <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ p.titolo }}</h3>
               <p v-if="p.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ p.descrizione }}</p>
             </div>
-            <span class="badge" :style="badgeStato(p.stato)">{{ p.stato ?? 'bozza' }}</span>
+            <span class="badge" :style="badgeStato(p.stato)">{{ labelStato(p.stato) }}</span>
           </div>
           <div v-if="p.zona || p.scadenza" style="display:flex;gap:10px;margin-top:10px;">
             <span v-if="p.zona" style="font-size:11px;color:var(--ink-faint);">📍 {{ p.zona }}</span>
             <span v-if="p.scadenza" style="font-size:11px;color:var(--ink-faint);">📅 {{ p.scadenza }}</span>
           </div>
-        </div>
+        </RouterLink>
       </div>
 
       <div v-else style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
@@ -80,10 +81,22 @@ const progetti = computed(() => {
     .sort((a, b) => (a.titolo ?? '').localeCompare(b.titolo ?? ''))
 })
 
+const STILI_STATO = {
+  aperto:     'background:var(--cream-dark);color:var(--ink-soft);',
+  in_corso:   'background:var(--gold-pale);color:var(--gold-dark);',
+  completato: 'background:var(--sage-pale);color:var(--sage-dark);',
+  fallito:    'background:var(--rose-pale);color:var(--rose-dark);',
+  cancellato: 'background:var(--cream-dark);color:var(--ink-faint);',
+}
+const LABEL_STATO = {
+  aperto: 'Aperto', in_corso: 'In corso', completato: 'Completato',
+  fallito: 'Fallito', cancellato: 'Cancellato',
+}
 function badgeStato(stato) {
-  if (stato === 'completato') return 'background:var(--sage-pale);color:var(--sage-dark);'
-  if (stato === 'in_corso')   return 'background:var(--gold-pale);color:var(--gold-dark);'
-  return 'background:var(--cream-dark);color:var(--ink-soft);'
+  return STILI_STATO[stato] ?? STILI_STATO.aperto
+}
+function labelStato(stato) {
+  return LABEL_STATO[stato] ?? 'Aperto'
 }
 
 async function salvaProgetto() {
@@ -98,8 +111,9 @@ async function salvaProgetto() {
         descrizione: form.value.descrizione.trim() || null,
         zona: form.value.zona.trim() || null,
         scadenza: form.value.scadenza || null,
-        stato: 'bozza',
+        stato: 'aperto',
         creato: new Date().toISOString().split('T')[0],
+        tappe: [],
       }
     }))
     store.progetti = nuovi

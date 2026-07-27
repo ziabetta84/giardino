@@ -50,8 +50,32 @@
         </div>
       </template>
 
+      <!-- Tappe progetto -->
+      <template v-if="tappeProgetto.length">
+        <p class="section-label">🗂️ Progetti</p>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
+          <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`" class="card"
+            :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
+            <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:${t.urgente ? 'var(--rose-light)' : 'var(--gold-pale)'};`">🗂️</div>
+            <div style="flex:1;min-width:0;">
+              <RouterLink :to="`/progetti/${t.progettoId}`" class="title-serif"
+                style="font-size:13px;font-weight:600;text-decoration:none;color:inherit;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                {{ t.progettoTitolo }}
+              </RouterLink>
+              <div :style="`font-size:11px;margin-top:2px;color:${t.urgente ? 'var(--rose-dark)' : 'var(--ink-soft)'};`">
+                {{ t.tappa.descrizione }} — {{ t.urgente ? `scaduta ${Math.abs(t.giorni)} gg fa` : `tra ${t.giorni} gg` }}
+              </div>
+            </div>
+            <button @click="registraTappa(t)" :disabled="salvandoTappa === `${t.progettoId}-${t.indice}`"
+              :class="['btn', t.urgente ? 'btn-rose' : 'btn-ghost']" style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
+              {{ salvandoTappa === `${t.progettoId}-${t.indice}` ? '⏳' : '✓ Fatto' }}
+            </button>
+          </div>
+        </div>
+      </template>
+
       <!-- Tutto ok -->
-      <div v-if="!daFare.length && !inScadenza.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
+      <div v-if="!daFare.length && !inScadenza.length && !tappeProgetto.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
         <div style="font-size:48px;margin-bottom:12px;">🌸</div>
         <p class="title-serif" style="font-size:16px;color:var(--sage-dark);font-weight:600;">Tutto in ordine!</p>
         <p style="font-size:13px;margin-top:4px;">Nessuna cura urgente oggi</p>
@@ -66,6 +90,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { valutaCura, stagione } from '@/composables/useCure'
 import { concimeConsigliato } from '@/composables/useConcimi'
+import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 
@@ -73,6 +98,7 @@ const store    = useDatiStore()
 const { saveJSON } = useApi()
 const salvando = ref(null)
 const salvandoGruppo = ref(null)
+const salvandoTappa = ref(null)
 
 const dataOggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
 
@@ -103,6 +129,8 @@ const inScadenza = computed(() => attivita.value.filter(i => !i.urgente && i.gio
 
 const gruppiDaFare = computed(() => raggruppaPerZona(daFare.value, store.piante))
 const gruppiInScadenza = computed(() => raggruppaPerZona(inScadenza.value, store.piante))
+
+const tappeProgetto = computed(() => tappeAttese(store.progetti).sort((a, b) => a.giorni - b.giorni))
 
 async function registra(item) {
   if (salvando.value || salvandoGruppo.value) return
@@ -145,6 +173,26 @@ async function registraGruppo(gruppo) {
     store.piante = nuove
   } finally {
     salvandoGruppo.value = null
+  }
+}
+
+async function registraTappa(t) {
+  const chiave = `${t.progettoId}-${t.indice}`
+  if (salvandoTappa.value) return
+  salvandoTappa.value = chiave
+  try {
+    const nuovi = await saveJSON('progetti.json', (correnti) => {
+      const base = { ...(correnti ?? store.progetti) }
+      const progetto = base[t.progettoId]
+      if (!progetto?.tappe?.[t.indice]) return base
+      const tappe = [...progetto.tappe]
+      tappe[t.indice] = { ...tappe[t.indice], esito: 'riuscito' }
+      base[t.progettoId] = { ...progetto, tappe }
+      return base
+    })
+    store.progetti = nuovi
+  } finally {
+    salvandoTappa.value = null
   }
 }
 </script>
