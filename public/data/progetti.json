@@ -4,8 +4,12 @@
     "descrizione": "- Taglia una talea sotto due/tre nodi\n- Togli un livello di foglie alla base e interra",
     "zona": "casa / soggiorno",
     "scadenza": "2026-07-25",
-    "stato": "aperto",
+    "stato": "in_corso",
     "creato": "2026-07-24",
-    "tappe": []
+    "tappe": [
+      { "data": "2026-07-26", "descrizione": "Tagliate e interrate 2 talee di fittonia", "esito": "riuscito" },
+      { "data": "2026-08-02", "descrizione": "Controlla ripresa talee (leggero tiro per verificare radicazione)", "esito": "atteso" },
+      { "data": "2026-08-09", "descrizione": "Verifica nuove foglioline sulle talee e nuovi getti laterali sulla pianta madre", "esito": "atteso" }
+    ]
   }
 }
