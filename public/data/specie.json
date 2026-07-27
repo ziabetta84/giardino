@@ -1174,7 +1174,7 @@
   },
   "calathea": {
     "nome": "Calathea",
-    "specie": "Calathea spp.",
+    "specie": "Calathea",
     "descrizione": "Pianta da interno con foglie ornamentali e disegni particolari.",
     "esigenze": {
       "luce": "Luce diffusa",
@@ -1202,6 +1202,12 @@
         "estate": "ogni 2 settimane",
         "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
+      },
+      "calcio": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
       },
       "potatura": {
         "primavera": "nessuna",
