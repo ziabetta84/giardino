@@ -33,8 +33,7 @@
 
         <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin-bottom:10px;">
 
-        <textarea v-model="form.descrizione" rows="4" placeholder="Descrizione, contesto, note…"
-          class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
+        <MiniEditor v-model="form.descrizione" placeholder="Descrizione, contesto, note…" />
 
         <p style="font-size:11px;color:var(--ink-faint);margin-top:8px;">Creato il {{ formatData(form.creato) }}</p>
         <p v-if="scadenza" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">📅 Scadenza (dall'ultima tappa): {{ formatData(scadenza) }}</p>
@@ -48,19 +47,22 @@
           Nessuna tappa ancora — aggiungine una qui sotto.
         </div>
 
-        <div v-else style="display:flex;flex-direction:column;gap:8px;margin-bottom:14px;">
+        <div v-else style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
           <div v-for="(t, i) in form.tappe" :key="i"
-            style="display:flex;gap:6px;align-items:center;padding:10px;border:1px solid var(--cream-dark);border-radius:10px;flex-wrap:wrap;">
-            <input type="date" v-model="t.data" class="form-input" style="flex:1;min-width:130px;">
-            <input v-model="t.descrizione" placeholder="Cosa aspettarti / cosa fare" class="form-input" style="flex:3;min-width:160px;">
-            <select v-model="t.esito" class="form-input" style="flex:1;min-width:110px;">
-              <option value="atteso">Atteso</option>
-              <option value="riuscito">Riuscito</option>
-              <option value="fallito">Fallito</option>
-              <option value="saltato">Saltato</option>
-            </select>
-            <button type="button" @click="form.tappe.splice(i, 1)" aria-label="Rimuovi tappa"
-              style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;padding:0 4px;">×</button>
+            style="padding:10px;border:1px solid var(--cream-dark);border-radius:10px;">
+            <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;">
+              <input type="date" v-model="t.data" class="form-input" style="flex:1;min-width:130px;">
+              <select v-model="t.esito" class="form-input" style="flex:1;min-width:110px;">
+                <option value="atteso">Atteso</option>
+                <option value="riuscito">Riuscito</option>
+                <option value="fallito">Fallito</option>
+                <option value="saltato">Saltato</option>
+              </select>
+              <button type="button" @click="form.tappe.splice(i, 1)" aria-label="Rimuovi tappa"
+                style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;padding:0 4px;flex-shrink:0;">×</button>
+            </div>
+            <textarea v-model="t.descrizione" placeholder="Cosa aspettarti / cosa fare" rows="2"
+              class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
           </div>
         </div>
 
@@ -102,6 +104,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
 import ModalConferma from '@/components/ModalConferma.vue'
+import MiniEditor from '@/components/MiniEditor.vue'
 
 const route  = useRoute()
 const router = useRouter()
