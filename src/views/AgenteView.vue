@@ -25,6 +25,7 @@
         <option value="consiglio_cura">💧 Consiglio per cura</option>
         <option value="consiglio_concimazione">🌱 Consiglio concimazione</option>
         <option value="diagnosi">🔍 Diagnosi problema</option>
+        <option value="pianifica_progetto">🗂️ Pianifica progetto</option>
         <option value="altro">💬 Altro</option>
       </select>
 
@@ -32,6 +33,18 @@
       <div v-if="nuovoTipo === 'revisione_specie'" style="margin-bottom:10px;">
         <SelettoreSpecie v-model="specieSelezionata" />
         <p style="font-size:11px;color:var(--ink-soft);margin-top:6px;">Zorba controlla i campi mancanti o incompleti della scheda e li completa.</p>
+      </div>
+
+      <!-- Pianifica progetto: un progetto esistente da completare, oppure uno
+           nuovo (basta il titolo, il resto lo ricava dalla descrizione) —
+           anche qui non serve una foto. -->
+      <div v-else-if="nuovoTipo === 'pianifica_progetto'" style="margin-bottom:10px;">
+        <select v-model="progettoSelezionato" class="form-input" style="margin-bottom:8px;">
+          <option value="">➕ Nuovo progetto</option>
+          <option v-for="p in progettiEsistenti" :key="p.id" :value="p.id">{{ p.titolo }}</option>
+        </select>
+        <input v-if="!progettoSelezionato" v-model="nuovoProgettoTitolo" placeholder="Titolo del nuovo progetto" class="form-input">
+        <p style="font-size:11px;color:var(--ink-soft);margin-top:6px;">Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.</p>
       </div>
 
       <!-- Upload foto -->
@@ -63,7 +76,7 @@
         <p v-if="!fotoPreview" style="font-size:11px;color:var(--ink-soft);margin-top:6px;text-align:center;">JPG, PNG — max 5 MB</p>
       </div>
 
-      <textarea v-model="nuovoMessaggio" :placeholder="nuovoTipo === 'revisione_specie' ? 'Note aggiuntive (opzionale)…' : 'Descrivi la richiesta…'"
+      <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio"
         rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
 
       <div v-if="errore" style="margin-bottom:10px;padding:8px 12px;background:var(--rose-pale);border-radius:10px;border:1px solid var(--rose-light);">
@@ -146,6 +159,8 @@ const raw          = ref({})
 const nuovoTipo    = ref('identifica_specie')
 const nuovoMessaggio = ref('')
 const specieSelezionata = ref('')
+const progettoSelezionato = ref('')
+const nuovoProgettoTitolo = ref('')
 const aggiungendo  = ref(false)
 const fotoBase64   = ref(null)
 const fotoPreview  = ref(null)
@@ -154,9 +169,26 @@ const errore       = ref(null)
 const tokenInput   = ref('')
 const tokenSalvato = ref(isAutenticato())
 
-const puoInviare = computed(() =>
-  nuovoTipo.value === 'revisione_specie' ? !!specieSelezionata.value : !!nuovoMessaggio.value.trim()
-)
+const puoInviare = computed(() => {
+  if (nuovoTipo.value === 'revisione_specie') return !!specieSelezionata.value
+  if (nuovoTipo.value === 'pianifica_progetto') {
+    return !!nuovoMessaggio.value.trim() && (!!progettoSelezionato.value || !!nuovoProgettoTitolo.value.trim())
+  }
+  return !!nuovoMessaggio.value.trim()
+})
+
+const progettiEsistenti = computed(() => {
+  if (!store.progetti) return []
+  return Object.entries(store.progetti)
+    .map(([id, p]) => ({ id, titolo: p.titolo }))
+    .sort((a, b) => a.titolo.localeCompare(b.titolo))
+})
+
+const PLACEHOLDER_MESSAGGIO = {
+  revisione_specie: 'Note aggiuntive (opzionale)…',
+  pianifica_progetto: 'Descrivi il progetto: cosa vuoi fare, dove, entro quando…',
+}
+const placeholderMessaggio = computed(() => PLACEHOLDER_MESSAGGIO[nuovoTipo.value] ?? 'Descrivi la richiesta…')
 
 let pollTimer = null
 
@@ -256,6 +288,8 @@ async function aggiungiRichiesta() {
         tipo: nuovoTipo.value,
         messaggio: nuovoMessaggio.value.trim(),
         specie: nuovoTipo.value === 'revisione_specie' ? specieSelezionata.value : null,
+        progetto: nuovoTipo.value === 'pianifica_progetto' ? (progettoSelezionato.value || null) : null,
+        titolo_progetto: nuovoTipo.value === 'pianifica_progetto' && !progettoSelezionato.value ? nuovoProgettoTitolo.value.trim() : null,
         foto: fotoBase64.value ?? null,
         stato: 'in_attesa',
         creata: new Date().toISOString(),
@@ -265,6 +299,8 @@ async function aggiungiRichiesta() {
     raw.value = nuove
     nuovoMessaggio.value = ''
     specieSelezionata.value = ''
+    progettoSelezionato.value = ''
+    nuovoProgettoTitolo.value = ''
     fotoBase64.value  = null
     fotoPreview.value = null
     nomeFile.value    = ''
