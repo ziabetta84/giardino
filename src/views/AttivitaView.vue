@@ -130,7 +130,12 @@ const inScadenza = computed(() => attivita.value.filter(i => !i.urgente && i.gio
 const gruppiDaFare = computed(() => raggruppaPerZona(daFare.value, store.piante))
 const gruppiInScadenza = computed(() => raggruppaPerZona(inScadenza.value, store.piante))
 
-const tappeProgetto = computed(() => tappeAttese(store.progetti).sort((a, b) => a.giorni - b.giorni))
+// Solo le tappe scadute o in arrivo entro 14 giorni: un progetto come una
+// germinazione da seme può avere tappe previste anche a distanza di anni,
+// che qui affollerebbero la lista senza essere ancora attuabili.
+const tappeProgetto = computed(() =>
+  tappeAttese(store.progetti).filter(t => t.giorni <= 14).sort((a, b) => a.giorni - b.giorni)
+)
 
 async function registra(item) {
   if (salvando.value || salvandoGruppo.value) return
