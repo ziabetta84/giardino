@@ -28,9 +28,50 @@
     "titolo": "Albicocco",
     "descrizione": "Far crescere un albicocco partendo da un seme",
     "zona": "Casa / cucina",
-    "scadenza": null,
-    "stato": "aperto",
+    "scadenza": "2026-10-20",
+    "stato": "in_corso",
     "creato": "2026-07-28",
-    "tappe": []
+    "tappe": [
+      {
+        "data": "2026-08-05",
+        "descrizione": "Estrarre il nocciolo da un'albicocca ben matura, pulirlo dalla polpa e lasciarlo asciugare 3-4 giorni in luogo ombreggiato e ventilato",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-10",
+        "descrizione": "Avvolgere il nocciolo in un panno umido (o sabbia umida) dentro un sacchetto forato ed inserirlo nello scomparto verdure del frigorifero: inizia la stratificazione a freddo (8-12 settimane a 3-5°C)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-09-15",
+        "descrizione": "Controllo intermedio: verificare che il panno sia ancora umido (non zuppo) ed eventualmente inumidire di nuovo",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-10-20",
+        "descrizione": "Fine stratificazione: controllare se è comparsa una radichetta. Seminare il nocciolo (leggermente incrinato aiuta) in vaso con terriccio drenante, profondità 2-3 cm, in luogo riparato e luminoso",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-12-15",
+        "descrizione": "Verificare la germinazione (attesa 4-8 settimane dalla semina). Se nulla è spuntato, riprovare con un nuovo seme stratificato in inverno per semina a fine inverno",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-04-01",
+        "descrizione": "Prima crescita della piantina in vaso: luce abbondante, irrigazione regolare senza ristagni, protezione dalle ultime gelate tardive",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-10-15",
+        "descrizione": "Dopo il primo anno e a pianta ormai a riposo, travasare in vaso più grande o mettere a dimora in piena terra in zona soleggiata e riparata dal vento (es. Est o Crinale)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2029-07-01",
+        "descrizione": "Prime fioriture/fruttificazioni non attese prima di 3-5 anni dalla semina. Nota: un albicocco da seme non garantisce frutti identici alla pianta madre — per frutti affidabili valutare l'innesto su portainnesto quando la pianta ha 1-2 anni",
+        "esito": "atteso"
+      }
+    ]
   }
 }
