@@ -76,5 +76,94 @@
         "esito": "atteso"
       }
     ]
+  },
+  "progetto-1785230672098": {
+    "titolo": "Orto Autunno-Inverno 2026-2027",
+    "descrizione": "Continuazione della stagione estiva. Lezioni dal primo anno: Nord-Ovest = massimo sole anche in autunno (posizione migliore); Est/Sud-Est = ombra pomeridiana crescente in autunno; terreno di primo anno da strutturare con compost.\n\nPiano per zona (orto 5x3,5 m, diviso in 4 quadranti da 2,5x1,75 m): Nord-Ovest -> romanesco (1 pianta) + piselli (~15 piante, fila est-ovest con gli stessi tutori di pomodori/cetrioli, non la rete perimetrale che non e' utilizzabile come spalliera); Nord-Est -> spinaci (~400 piantine dopo diradamento a 10 cm); Sud-Ovest -> verza (~6 piante) + cipolle (~15 bulbi) + scalogno reimpiantato nella stessa aiuola con terreno rilavorato in profondita'; Sud-Est -> fave (1-2 piante) al bordo del crinale.\n\nPerche' queste scelte: verza preferita al romanesco nelle zone ombreggiate (piu' rustica); piselli al posto delle fave (fissano azoto, supporto semplice); spinaci al posto delle melanzane in zona est (tollerano meglio l'ombra autunnale); scalogno nella stessa aiuola ma con lavorazione profonda per correggere il compattamento che ne ha impedito lo sviluppo quest'estate.\n\nLista acquisti stimata (~31 euro): semi romanesco/verza/piselli/spinaci/fave, bulbetti cipolle/scalogno, compost, vassoio alveolato + substrato.",
+    "zona": "Orto",
+    "stato": "aperto",
+    "creato": "2026-07-28",
+    "tappe": [
+      {
+        "data": "2026-07-28",
+        "descrizione": "Semina in semenzaio di cavolo romanesco (1 pianta) e verza (~6 piante), vassoio alveolato in balcone ombreggiato — germina in 5-7 giorni",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-07-31",
+        "descrizione": "Decidere se piantare la zucca in vaso fuori dall'orto (occupa 2-3 m di raggio, altrimenti si rinuncia)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-10",
+        "descrizione": "Semina in semenzaio dei piselli (~15 piante); preparare i tutori (gli stessi già in uso per pomodori e cetrioli) prima del trapianto",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-15",
+        "descrizione": "Semina diretta a spaglio degli spinaci in Nord-Est, da diradare poi a 10 cm (~400 piantine)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-20",
+        "descrizione": "Preparazione del terreno: rimozione residui delle piante estive, 2-3 kg/m² di compost maturo, lavorazione profonda (25-30 cm) dell'aiuola scalogno in Sud-Ovest",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-09-15",
+        "descrizione": "Trapianto in campo: romanesco (Nord-Ovest, 50 cm), verza (~6 piante, Sud-Ovest, 40 cm), piselli (~15 piante, Nord-Ovest, con tutori, 15 cm)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-09-20",
+        "descrizione": "Trapianto bulbetti di cipolle (~15 bulbi, Sud-Ovest, 15 cm)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-10-10",
+        "descrizione": "Semina diretta delle fave (1-2 piante, Sud-Est, bordo crinale, interrare a 5 cm)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-10-15",
+        "descrizione": "Reimpianto bulbetti freschi di scalogno (~15 bulbi, stessa aiuola in Sud-Ovest, 15 cm)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-10-20",
+        "descrizione": "Prima raccolta spinaci (taglio scalare, prima le foglie esterne)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-11-15",
+        "descrizione": "Raccolta cavolo romanesco (quando la testa è compatta, prima che si apra)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-11-20",
+        "descrizione": "Prima raccolta verza (più dolce dopo le prime gelate, prosegue fino a gennaio)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-04-15",
+        "descrizione": "Raccolta fave (baccelli ancora teneri)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-04-20",
+        "descrizione": "Raccolta piselli (quando il baccello è turgido)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-05-15",
+        "descrizione": "Raccolta cipolle (quando le foglie iniziano ad appassire)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-06-10",
+        "descrizione": "Raccolta scalogno",
+        "esito": "atteso"
+      }
+    ]
   }
 }
