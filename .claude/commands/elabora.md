@@ -8,11 +8,12 @@ Elabora le richieste pendenti dell'assistente AI dalla coda `public/data/richies
    - Leggi `public/data/piante.json` e `public/data/specie.json` per avere il contesto del giardino
    - Per `consiglio_concimazione`, leggi anche `public/data/concimi.json` (la dispensa dei concimi posseduti)
    - Per `revisione_specie`, vedi procedura dedicata sotto: **aggiorna anche `public/data/specie.json`**, non solo la risposta testuale
+   - Per `pianifica_progetto`, vedi procedura dedicata sotto: **aggiorna anche `public/data/progetti.json`**, non solo la risposta testuale
    - Se la richiesta contiene una foto in base64, analizzala
    - Genera una risposta dettagliata e pratica, in italiano, specifica per il giardino di Centinarola (Fano, clima mediterraneo collinare)
    - Aggiorna la richiesta nel JSON: `stato: "completata"`, `risposta: { messaggio: "...", elaborata: "<ISO date>" }`
    - **Imposta `foto: null`**: una volta elaborata la richiesta la foto non serve più. Il campo `foto` in base64 può pesare centinaia di KB per immagine; lasciarlo fa crescere `richieste-agente.json` oltre 1MB, soglia oltre la quale l'API Contents di GitHub non restituisce più il contenuto inline e l'app smette di riuscire a leggerlo (errore "Unexpected end of JSON input" in saveJSON).
-4. Salva il file aggiornato con `saveJSON` (via GitHub Contents API) oppure direttamente su disco se sei in locale — per `revisione_specie` salva nello stesso passaggio anche `specie.json` con le modifiche
+4. Salva il file aggiornato con `saveJSON` (via GitHub Contents API) oppure direttamente su disco se sei in locale — per `revisione_specie` salva nello stesso passaggio anche `specie.json` con le modifiche, per `pianifica_progetto` salva anche `progetti.json`
 5. Fai commit e push con messaggio "Elabora richieste agente pendenti"
 
 ## Formato risposta
@@ -26,6 +27,7 @@ La risposta deve essere:
   - `consiglio_cura`: azione concreta con tempistiche per il clima marchigiano
   - `consiglio_concimazione`: vedi procedura dedicata sotto
   - `diagnosi`: causa probabile + rimedio immediato
+  - `pianifica_progetto`: vedi procedura dedicata sotto
   - `altro`: risposta libera pertinente al contesto del giardino
 
 ## Procedura per `identifica_specie`
@@ -67,3 +69,37 @@ L'utente chiede quale concime usare per una pianta (es. "che concime uso per la 
    - Individua il concime con distanza minore
 5. Se nessun concime in dispensa ha un rapporto valido, se la distanza minima supera 0.15 (soglia usata anche in `useConcimi.js`), oppure la dispensa è vuota: nessun concime è abbastanza vicino. Dillo esplicitamente nella risposta e indica il rapporto NPK ideale da cercare quando ne acquista uno nuovo.
 6. Altrimenti, indica per nome il concime consigliato dalla dispensa, il suo NPK, e conferma che è adatto alla stagione corrente.
+
+## Procedura per `pianifica_progetto`
+
+L'utente descrive un progetto (campo `messaggio`) e chiede di generarne le tappe. La richiesta indica in quale progetto scrivere tramite due campi alternativi:
+- `progetto`: chiave esistente in `progetti.json` (l'utente ha scelto un progetto già creato da completare)
+- `titolo_progetto`: solo se `progetto` è `null` — titolo per un progetto nuovo da creare da zero
+
+Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProgetti.js` e `src/views/ProgettoView.vue`):
+```json
+{
+  "titolo": "string",
+  "descrizione": "testo libero",
+  "zona": "string libera, opzionale",
+  "scadenza": "YYYY-MM-DD, opzionale",
+  "stato": "aperto | in_corso | completato | fallito | cancellato",
+  "creato": "YYYY-MM-DD",
+  "tappe": [
+    { "data": "YYYY-MM-DD", "descrizione": "string", "esito": "atteso | riuscito | fallito | saltato" }
+  ]
+}
+```
+
+1. **Se `progetto` è valorizzato**: leggi il record in `progetti.json`. Se la chiave non esiste più (rinominato o eliminato nel frattempo), dillo nella risposta e fermati per questa richiesta senza modificare nulla.
+2. **Se `progetto` è `null`**: crea una nuova chiave `progetto-<timestamp in ms>` con `titolo: r.titolo_progetto`, `stato: "aperto"`, `creato` impostato alla data di elaborazione (YYYY-MM-DD), `tappe: []` — poi procedi come al punto successivo.
+3. Genera le tappe dal `messaggio`, usando la stessa logica botanica/agricola già in uso per il resto dell'app (categorizzazione per tipo di pianta/coltura, stagionalità del clima marchigiano):
+   - Ogni tappa ha una data stimata **a partire dalla data della richiesta** (campo `creata` della richiesta, non da quando la stai elaborando tu), una descrizione concreta e azionabile (cosa aspettarsi o cosa controllare/fare), ed `esito: "atteso"`.
+   - Genera un numero di tappe proporzionato alla complessità descritta: indicativamente 2-4 per un intervento semplice su una singola pianta (es. una talea: ripresa attesa, prime foglie nuove), fino a una decina per un progetto stagionale con più colture/fasi (semine, trapianti, raccolte).
+   - Se il messaggio riporta anche qualcosa già fatto (es. "ho tagliato due talee ieri"), aggiungi anche quella come tappa con `esito: "riuscito"` e la data corretta (non "atteso"), invece di ometterla.
+4. **Se stai aggiungendo tappe a un progetto esistente**: non toccare le tappe già presenti (a meno che il messaggio non riporti esplicitamente un aggiornamento su una di esse, es. "la talea del progetto fittonia è marcita" — in quel caso aggiornane l'`esito` invece di aggiungerne una nuova identica). Aggiungi le nuove tappe generate e riordina l'intero array `tappe` per `data` crescente.
+5. Aggiorna `descrizione` solo se il progetto è nuovo (usa una sintesi ordinata del `messaggio`, non necessariamente verbatim) o se `descrizione` era vuota; se il progetto esisteva già con una descrizione, non sovrascriverla.
+6. `zona`: deducila dal messaggio se è chiaramente indicata (nome zona/sottozona coerente con `zone.json`/`sottozone.json`, o un riferimento generico tipo "orto", "soggiorno"); altrimenti lascia quella già presente (o `null` per un progetto nuovo senza indicazioni).
+7. `scadenza`: se il progetto è nuovo e non viene indicata esplicitamente una data target nel messaggio, usa come riferimento la data dell'ultima tappa generata; per un progetto esistente non modificare una scadenza già impostata.
+8. Salva `progetti.json` nello stesso passaggio di `richieste-agente.json`.
+9. Nella risposta, elenca in italiano le tappe generate (data + descrizione), e se hai creato un nuovo progetto dillo esplicitamente con un link concettuale a dove trovarlo ("nuovo progetto creato: <titolo>").
