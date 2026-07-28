@@ -25,9 +25,9 @@
             </div>
             <span class="badge" :style="badgeStato(p.stato)">{{ labelStato(p.stato) }}</span>
           </div>
-          <div v-if="p.zona || p.scadenza" style="display:flex;gap:10px;margin-top:10px;">
+          <div v-if="p.zona || scadenzaCalcolata(p)" style="display:flex;gap:10px;margin-top:10px;">
             <span v-if="p.zona" style="font-size:11px;color:var(--ink-faint);">📍 {{ p.zona }}</span>
-            <span v-if="p.scadenza" style="font-size:11px;color:var(--ink-faint);">📅 {{ p.scadenza }}</span>
+            <span v-if="scadenzaCalcolata(p)" style="font-size:11px;color:var(--ink-faint);">📅 {{ scadenzaCalcolata(p) }}</span>
           </div>
         </RouterLink>
       </div>
@@ -47,8 +47,7 @@
           <input v-model="form.titolo" placeholder="Titolo" class="form-input" style="margin-bottom:10px;">
           <textarea v-model="form.descrizione" placeholder="Descrizione (opzionale)" rows="3"
             class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
-          <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin-bottom:10px;">
-          <input v-model="form.scadenza" type="date" class="form-input" style="margin-bottom:16px;">
+          <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin-bottom:16px;">
           <div style="display:flex;gap:10px;justify-content:flex-end;">
             <button class="btn btn-ghost" @click="mostraForm = false" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"
@@ -66,13 +65,14 @@
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { scadenzaCalcolata } from '@/composables/useProgetti'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()
 
 const mostraForm = ref(false)
 const salvando   = ref(false)
-const form = ref({ titolo: '', descrizione: '', zona: '', scadenza: '' })
+const form = ref({ titolo: '', descrizione: '', zona: '' })
 
 const progetti = computed(() => {
   if (!store.progetti) return []
@@ -110,7 +110,6 @@ async function salvaProgetto() {
         titolo: form.value.titolo.trim(),
         descrizione: form.value.descrizione.trim() || null,
         zona: form.value.zona.trim() || null,
-        scadenza: form.value.scadenza || null,
         stato: 'aperto',
         creato: new Date().toISOString().split('T')[0],
         tappe: [],
@@ -118,7 +117,7 @@ async function salvaProgetto() {
     }))
     store.progetti = nuovi
     mostraForm.value = false
-    form.value = { titolo: '', descrizione: '', zona: '', scadenza: '' }
+    form.value = { titolo: '', descrizione: '', zona: '' }
   } finally {
     salvando.value = false
   }

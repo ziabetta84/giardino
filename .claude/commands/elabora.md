@@ -82,7 +82,6 @@ Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProget
   "titolo": "string",
   "descrizione": "testo libero",
   "zona": "string libera, opzionale",
-  "scadenza": "YYYY-MM-DD, opzionale",
   "stato": "aperto | in_corso | completato | fallito | cancellato",
   "creato": "YYYY-MM-DD",
   "tappe": [
@@ -90,6 +89,7 @@ Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProget
   ]
 }
 ```
+Non esiste un campo `scadenza` a parte: è sempre la data dell'ultima tappa, calcolata dall'app (`scadenzaCalcolata()` in `useProgetti.js`) — non c'è nulla da impostare qui.
 
 1. **Se `progetto` è valorizzato**: leggi il record in `progetti.json`. Se la chiave non esiste più (rinominato o eliminato nel frattempo), dillo nella risposta e fermati per questa richiesta senza modificare nulla.
 2. **Se `progetto` è `null`**: crea una nuova chiave `progetto-<timestamp in ms>` con `titolo: r.titolo_progetto`, `stato: "aperto"`, `creato` impostato alla data di elaborazione (YYYY-MM-DD), `tappe: []` — poi procedi come al punto successivo.
@@ -100,6 +100,5 @@ Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProget
 4. **Se stai aggiungendo tappe a un progetto esistente**: non toccare le tappe già presenti (a meno che il messaggio non riporti esplicitamente un aggiornamento su una di esse, es. "la talea del progetto fittonia è marcita" — in quel caso aggiornane l'`esito` invece di aggiungerne una nuova identica). Aggiungi le nuove tappe generate e riordina l'intero array `tappe` per `data` crescente.
 5. Aggiorna `descrizione` solo se il progetto è nuovo (usa una sintesi ordinata del `messaggio`, non necessariamente verbatim) o se `descrizione` era vuota; se il progetto esisteva già con una descrizione, non sovrascriverla.
 6. `zona`: deducila dal messaggio se è chiaramente indicata (nome zona/sottozona coerente con `zone.json`/`sottozone.json`, o un riferimento generico tipo "orto", "soggiorno"); altrimenti lascia quella già presente (o `null` per un progetto nuovo senza indicazioni).
-7. `scadenza`: se il progetto è nuovo e non viene indicata esplicitamente una data target nel messaggio, usa come riferimento la data dell'ultima tappa generata; per un progetto esistente non modificare una scadenza già impostata.
-8. Salva `progetti.json` nello stesso passaggio di `richieste-agente.json`.
-9. Nella risposta, elenca in italiano le tappe generate (data + descrizione), e se hai creato un nuovo progetto dillo esplicitamente con un link concettuale a dove trovarlo ("nuovo progetto creato: <titolo>").
+7. Salva `progetti.json` nello stesso passaggio di `richieste-agente.json`.
+8. Nella risposta, elenca in italiano le tappe generate (data + descrizione), e se hai creato un nuovo progetto dillo esplicitamente con un link concettuale a dove trovarlo ("nuovo progetto creato: <titolo>").

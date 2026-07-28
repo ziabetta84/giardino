@@ -33,15 +33,11 @@
 
         <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin-bottom:10px;">
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">
-          Scadenza (data di riferimento, non rigida)
-        </label>
-        <input v-model="form.scadenza" type="date" class="form-input" style="margin-bottom:10px;">
-
         <textarea v-model="form.descrizione" rows="4" placeholder="Descrizione, contesto, note…"
           class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
 
         <p style="font-size:11px;color:var(--ink-faint);margin-top:8px;">Creato il {{ formatData(form.creato) }}</p>
+        <p v-if="scadenza" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">📅 Scadenza (dall'ultima tappa): {{ formatData(scadenza) }}</p>
       </div>
 
       <!-- Tappe -->
@@ -104,6 +100,7 @@ import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { scadenzaCalcolata } from '@/composables/useProgetti'
 import ModalConferma from '@/components/ModalConferma.vue'
 
 const route  = useRoute()
@@ -137,6 +134,11 @@ function formatData(d) {
   return new Date(d).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })
 }
 
+// Non un campo a parte da tenere allineato a mano: è la data dell'ultima
+// tappa, ricalcolata mentre si modificano le tappe nel form (non serve
+// salvare per vederla aggiornata).
+const scadenza = computed(() => form.value ? scadenzaCalcolata(form.value) : null)
+
 // Copia locale modificabile: il salvataggio è esplicito (bottone "Salva
 // modifiche") invece che automatico a ogni campo, per non moltiplicare le
 // scritture su GitHub mentre si sistemano più tappe in una volta.
@@ -165,7 +167,6 @@ async function salva() {
         titolo: form.value.titolo.trim(),
         descrizione: form.value.descrizione.trim() || null,
         zona: form.value.zona.trim() || null,
-        scadenza: form.value.scadenza || null,
         stato: form.value.stato,
         creato: form.value.creato,
         tappe: form.value.tappe
