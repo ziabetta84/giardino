@@ -28,33 +28,38 @@
     "titolo": "Albicocco",
     "descrizione": "Far crescere un albicocco partendo da un seme",
     "zona": "Casa / cucina",
-    "scadenza": "2026-10-20",
+    "scadenza": "2026-08-07",
     "stato": "in_corso",
     "creato": "2026-07-28",
     "tappe": [
       {
-        "data": "2026-08-05",
-        "descrizione": "Estrarre il nocciolo da un'albicocca ben matura, pulirlo dalla polpa e lasciarlo asciugare 3-4 giorni in luogo ombreggiato e ventilato",
+        "data": "2026-07-24",
+        "descrizione": "Nocciolo pulito messo a germogliare in un tovagliolo umido, dentro un sacchetto ermetico, al buio, a temperatura ambiente",
+        "esito": "riuscito"
+      },
+      {
+        "data": "2026-08-07",
+        "descrizione": "Primo controllo: verificare che il tovagliolo sia ancora umido (non zuppo, niente muffa) e ispezionare la comparsa di una radichetta",
         "esito": "atteso"
       },
       {
-        "data": "2026-08-10",
-        "descrizione": "Avvolgere il nocciolo in un panno umido (o sabbia umida) dentro un sacchetto forato ed inserirlo nello scomparto verdure del frigorifero: inizia la stratificazione a freddo (8-12 settimane a 3-5°C)",
+        "data": "2026-08-21",
+        "descrizione": "Secondo controllo: se è comparsa la radichetta, seminare subito il nocciolo in vaso con terriccio drenante (radichetta verso il basso, 2-3 cm di profondità); altrimenti continuare il monitoraggio",
         "esito": "atteso"
       },
       {
-        "data": "2026-09-15",
-        "descrizione": "Controllo intermedio: verificare che il panno sia ancora umido (non zuppo) ed eventualmente inumidire di nuovo",
+        "data": "2026-09-04",
+        "descrizione": "Se dopo circa 6 settimane a temperatura ambiente non c'è ancora germinazione, il nocciolo probabilmente necessita di un periodo di freddo per rompere la dormienza: spostare il sacchetto nello scomparto verdure del frigorifero per 6-8 settimane a 3-5°C, mantenendo l'umidità",
         "esito": "atteso"
       },
       {
-        "data": "2026-10-20",
-        "descrizione": "Fine stratificazione: controllare se è comparsa una radichetta. Seminare il nocciolo (leggermente incrinato aiuta) in vaso con terriccio drenante, profondità 2-3 cm, in luogo riparato e luminoso",
+        "data": "2026-10-30",
+        "descrizione": "Fine dell'eventuale stratificazione a freddo: controllare di nuovo la comparsa della radichetta e seminare non appena si presenta",
         "esito": "atteso"
       },
       {
         "data": "2026-12-15",
-        "descrizione": "Verificare la germinazione (attesa 4-8 settimane dalla semina). Se nulla è spuntato, riprovare con un nuovo seme stratificato in inverno per semina a fine inverno",
+        "descrizione": "Verifica generale della germinazione: se a questo punto non è ancora spuntato nulla dal terreno, riprovare con un nuovo seme stratificato in inverno per semina a fine inverno",
         "esito": "atteso"
       },
       {
