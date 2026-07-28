@@ -21,7 +21,7 @@
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
             <div style="flex:1;min-width:0;">
               <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ p.titolo }}</h3>
-              <p v-if="p.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ p.descrizione }}</p>
+              <p v-if="p.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ descrizioneBreve(p) }}</p>
             </div>
             <span class="badge" :style="badgeStato(p.stato)">{{ labelStato(p.stato) }}</span>
           </div>
@@ -45,9 +45,8 @@
         <div class="modal-box">
           <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:16px;">Nuovo progetto</h3>
           <input v-model="form.titolo" placeholder="Titolo" class="form-input" style="margin-bottom:10px;">
-          <textarea v-model="form.descrizione" placeholder="Descrizione (opzionale)" rows="3"
-            class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
-          <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin-bottom:16px;">
+          <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
+          <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin:10px 0 16px;">
           <div style="display:flex;gap:10px;justify-content:flex-end;">
             <button class="btn btn-ghost" @click="mostraForm = false" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"
@@ -66,6 +65,7 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
+import MiniEditor from '@/components/MiniEditor.vue'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()
@@ -97,6 +97,13 @@ function badgeStato(stato) {
 }
 function labelStato(stato) {
   return LABEL_STATO[stato] ?? 'Aperto'
+}
+
+// Anteprima in elenco: niente tag HTML (la formattazione ha senso solo nella
+// scheda del progetto) e troncata, come già per le zone in ZoneView.vue.
+function descrizioneBreve(p) {
+  const pulito = (p.descrizione || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
+  return pulito.length > 150 ? pulito.slice(0, 150) + '…' : pulito
 }
 
 async function salvaProgetto() {

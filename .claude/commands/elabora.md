@@ -80,7 +80,7 @@ Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProget
 ```json
 {
   "titolo": "string",
-  "descrizione": "testo libero",
+  "descrizione": "HTML semplice: solo <p>, <b>/<strong>, <i>/<em> — niente altri tag o attributi",
   "zona": "string libera, opzionale",
   "stato": "aperto | in_corso | completato | fallito | cancellato",
   "creato": "YYYY-MM-DD",
@@ -90,6 +90,8 @@ Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProget
 }
 ```
 Non esiste un campo `scadenza` a parte: è sempre la data dell'ultima tappa, calcolata dall'app (`scadenzaCalcolata()` in `useProgetti.js`) — non c'è nulla da impostare qui.
+
+`descrizione` è mostrata in pagina come HTML (editata tramite `MiniEditor.vue`, lo stesso usato per zone/sottozone): usa un paragrafo `<p>...</p>` per blocco logico (contesto, piano per zona, motivazioni, lista acquisti, ecc.) invece di un unico blocco di testo con `\n\n` — non è testo semplice.
 
 1. **Se `progetto` è valorizzato**: leggi il record in `progetti.json`. Se la chiave non esiste più (rinominato o eliminato nel frattempo), dillo nella risposta e fermati per questa richiesta senza modificare nulla.
 2. **Se `progetto` è `null`**: crea una nuova chiave `progetto-<timestamp in ms>` con `titolo: r.titolo_progetto`, `stato: "aperto"`, `creato` impostato alla data di elaborazione (YYYY-MM-DD), `tappe: []` — poi procedi come al punto successivo.

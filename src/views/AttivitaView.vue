@@ -52,7 +52,7 @@
 
       <!-- Tappe progetto -->
       <template v-if="tappeProgetto.length">
-        <p class="section-label">🗂️ Progetti</p>
+        <p class="section-label">Progetti</p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
           <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`" class="card"
             :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
