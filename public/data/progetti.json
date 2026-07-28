@@ -7,9 +7,30 @@
     "stato": "in_corso",
     "creato": "2026-07-24",
     "tappe": [
-      { "data": "2026-07-26", "descrizione": "Tagliate e interrate 2 talee di fittonia", "esito": "riuscito" },
-      { "data": "2026-08-02", "descrizione": "Controlla ripresa talee (leggero tiro per verificare radicazione)", "esito": "atteso" },
-      { "data": "2026-08-09", "descrizione": "Verifica nuove foglioline sulle talee e nuovi getti laterali sulla pianta madre", "esito": "atteso" }
+      {
+        "data": "2026-07-26",
+        "descrizione": "Tagliate e interrate 2 talee di fittonia",
+        "esito": "riuscito"
+      },
+      {
+        "data": "2026-08-02",
+        "descrizione": "Controlla ripresa talee (leggero tiro per verificare radicazione)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-09",
+        "descrizione": "Verifica nuove foglioline sulle talee e nuovi getti laterali sulla pianta madre",
+        "esito": "atteso"
+      }
     ]
+  },
+  "progetto-1785205019885": {
+    "titolo": "Albicocco",
+    "descrizione": "Far crescere un albicocco partendo da un seme",
+    "zona": "Casa / cucina",
+    "scadenza": null,
+    "stato": "aperto",
+    "creato": "2026-07-28",
+    "tappe": []
   }
 }
