@@ -100,11 +100,6 @@
         "esito": "atteso"
       },
       {
-        "data": "2026-08-15",
-        "descrizione": "Semina diretta a spaglio dello spinacio Matador in Sud-Est: 7 file da 1,75 m distanti 40 cm, semi a 5 cm sulla fila, profondità 1 cm; dopo la germinazione diradare lasciando 1 piantina su 3 (spaziatura finale ~15 cm, ~84 piantine finali)",
-        "esito": "atteso"
-      },
-      {
         "data": "2026-08-20",
         "descrizione": "Preparazione del terreno in Sud-Ovest: rimozione residui delle piante estive (zucchine/scalogno), 2-3 kg/m² di compost maturo, lavorazione profonda (25-30 cm) per correggere il compattamento",
         "esito": "atteso"
@@ -125,6 +120,11 @@
         "esito": "atteso"
       },
       {
+        "data": "2026-09-30",
+        "descrizione": "Semina diretta a spaglio dello spinacio Matador in Sud-Est (rimandata da metà agosto per lasciar posto alle melanzane ancora produttive): 7 file da 1,75 m distanti 40 cm, semi a 5 cm sulla fila, profondità 1 cm; dopo la germinazione diradare lasciando 1 piantina su 3 (spaziatura finale ~15 cm, ~84 piantine finali)",
+        "esito": "atteso"
+      },
+      {
         "data": "2026-10-05",
         "descrizione": "Diradamento delle cipolle Bianca di Maggio, lasciando le piantine a 15 cm sulla fila (~36 piante)",
         "esito": "atteso"
@@ -135,7 +135,7 @@
         "esito": "atteso"
       },
       {
-        "data": "2026-10-20",
+        "data": "2026-11-10",
         "descrizione": "Prima raccolta spinaci (taglio scalare, prima le foglie esterne)",
         "esito": "atteso"
       },
