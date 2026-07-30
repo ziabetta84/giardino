@@ -2,7 +2,7 @@
   <div>
     <!-- Hero -->
     <div style="text-align:center;padding:32px 0 36px;">
-      <img :src="`${base}apple-touch-icon.png`" alt="logo" class="app-logo">
+      <ZorbaLogo class="app-logo" />
       <h1 class="title-display gradient-title" style="font-size:2.3rem;font-weight:800;margin-bottom:6px;">
         Il Giardino di Zorba
       </h1>
@@ -92,10 +92,10 @@
 
 <script setup>
 import { computed, onMounted } from 'vue'
-const base = import.meta.env.BASE_URL
 import { useDatiStore } from '@/stores/dati'
 import { useMeteo } from '@/composables/useMeteo'
 import { valutaCura, cureUrgentiPianta } from '@/composables/useCure'
+import ZorbaLogo from '@/components/ZorbaLogo.vue'
 
 const store = useDatiStore()
 const { giorni: meteoGiorni, carica: caricaMeteo } = useMeteo()
@@ -152,8 +152,8 @@ onMounted(async () => {
 
 <style scoped>
 .app-logo {
-  width: 88px; height: 88px; border-radius: 22px;
-  display: block; margin: 0 auto 20px;
+  width: 140px; height: 140px;
+  margin: 0 auto 20px;
   filter: drop-shadow(0 8px 20px rgba(42,34,24,0.18));
 }
 .dots { display:flex; justify-content:center; gap:8px; margin-top:14px; }
