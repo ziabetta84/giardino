@@ -205,5 +205,39 @@
         "esito": "atteso"
       }
     ]
+  },
+  "progetto-1785421346590": {
+    "titolo": "Rhyncospermum tricolore da talea",
+    "descrizione": "<p>Talea di gelsomino tricolore (<i>Trachelospermum jasminoides</i> Tricolor, stessa specie del falso gelsomino già in Casa/Terrazzo soggiorno) messa in acqua per tentare la radicazione.</p>",
+    "zona": "Casa / Terrazzo soggiorno",
+    "stato": "in_corso",
+    "creato": "2026-07-30",
+    "tappe": [
+      {
+        "data": "2026-07-30",
+        "descrizione": "Rametto di gelsomino tricolore messo in acqua in attesa di radicazione",
+        "esito": "riuscito"
+      },
+      {
+        "data": "2026-08-06",
+        "descrizione": "Cambiare l'acqua ogni 3-4 giorni, tenere in luogo luminoso senza sole diretto; rimuovere eventuali foglie sommerse per evitare marciumi",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-13",
+        "descrizione": "Primo controllo radicazione: il falso gelsomino radica con relativa facilità, le prime radichette bianche filiformi possono comparire già dopo 2-3 settimane",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-27",
+        "descrizione": "Se sono presenti radici di 2-3 cm, travasare in vaso con terriccio drenante; se non c'è ancora nulla, valutare un taglio fresco alla base della talea e l'uso di ormone radicante",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-09-24",
+        "descrizione": "Verifica ripresa dopo il travaso: la comparsa di nuove foglioline conferma che la pianta si è ambientata al terriccio",
+        "esito": "atteso"
+      }
+    ]
   }
 }
