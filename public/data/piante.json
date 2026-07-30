@@ -770,7 +770,7 @@
     "impianto": "2026-04-15",
     "note": "",
     "ultima_cura": {
-      "irrigazione": "2026-07-29",
+      "irrigazione": "2026-07-30",
       "concimazione": "2026-07-25"
     }
   },
@@ -788,7 +788,7 @@
       }
     ],
     "ultima_cura": {
-      "irrigazione": "2026-07-22",
+      "irrigazione": "2026-07-30",
       "concimazione": "2026-07-15"
     }
   },
@@ -1475,7 +1475,7 @@
     "impianto": "",
     "note": "In vaso, per ora resta in vaso (spostabile per protezione dal gelo).",
     "ultima_cura": {
-      "irrigazione": "2026-07-26",
+      "irrigazione": "2026-07-30",
       "concimazione": "2026-07-25"
     }
   },
@@ -1523,7 +1523,7 @@
     "impianto": "",
     "note": "",
     "ultima_cura": {
-      "irrigazione": "2026-07-27",
+      "irrigazione": "2026-07-30",
       "concimazione": "2026-07-23"
     }
   },
