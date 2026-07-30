@@ -1,4 +1,5 @@
 <template>
+  <BootLogo />
   <NavBar />
 
   <!-- Banner token mancante (globale) -->
@@ -24,6 +25,7 @@
 </template>
 
 <script setup>
+import BootLogo  from '@/components/BootLogo.vue'
 import NavBar    from '@/components/NavBar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
