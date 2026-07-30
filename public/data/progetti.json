@@ -165,5 +165,40 @@
         "esito": "atteso"
       }
     ]
+  },
+  "progetto-1785414855637": {
+    "titolo": "Arancio da pollone",
+    "descrizione": "Un pollone emesso dalla base del tronco dell'arancio navel è stato messo in acqua per tentare la radicazione, con l'obiettivo di ottenere una nuova pianta.",
+    "zona": "Crinale",
+    "scadenza": "2026-09-24",
+    "stato": "in_corso",
+    "creato": "2026-07-30",
+    "tappe": [
+      {
+        "data": "2026-07-30",
+        "descrizione": "Pollone prelevato dalla base del tronco dell'arancio navel, messo in acqua in attesa di radicazione",
+        "esito": "riuscito"
+      },
+      {
+        "data": "2026-08-06",
+        "descrizione": "Cambiare l'acqua ogni 3-4 giorni per evitare marciumi; controllare che la base dello stelo resti soda, senza rammollimenti né cattivo odore",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-08-20",
+        "descrizione": "Se non sono ancora comparse radici, valutare il passaggio a un substrato drenante (sabbia/perlite) con ormone radicante in polvere/gel: gli agrumi radicano con difficoltà in sola acqua e rischiano marciumi se lasciati sommersi troppo a lungo",
+        "esito": "atteso"
+      },
+      {
+        "data": "2026-09-24",
+        "descrizione": "Controllo finale della radicazione: se sono presenti radici di almeno 2-3 cm, travasare in vaso con terriccio drenante specifico per agrumi; se dopo 8 settimane non c'è nulla, il tentativo va considerato non riuscito (radicazione spontanea degli agrumi da pollone/talea è tutt'altro che garantita)",
+        "esito": "atteso"
+      },
+      {
+        "data": "2027-03-15",
+        "descrizione": "Se radicato con successo, mettere a dimora in vaso capiente o in piena terra a inizio primavera, in posizione soleggiata e riparata dal vento freddo (le piante giovani di agrumi sono più sensibili al gelo dei soggetti adulti)",
+        "esito": "atteso"
+      }
+    ]
   }
 }

@@ -950,8 +950,11 @@
     "progetto": null,
     "titolo_progetto": "Arancio da pollone",
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-07-30T12:30:18.213Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "È possibile, ma con una premessa importante: gli agrumi da vivaio (compreso il tuo arancio navel) sono quasi sempre innestati su un portainnesto diverso (spesso arancio trifogliato), scelto per vigore e resistenza, non per la qualità del frutto. Un pollone che nasce dalla base del tronco, sotto il punto d'innesto, appartiene di solito al portainnesto, non alla varietà navel: se radica, potrebbe non dare gli stessi frutti. Controlla sul tronco se c'è un rigonfiamento/cicatrice (il punto d'innesto, di solito vicino al colletto) e se il pollone è nato sopra o sotto: sopra è probabilmente navel vero, sotto è quasi certamente portainnesto.\n\nSulla radicazione in sé: gli agrumi radicano con difficoltà in sola acqua e rischiano marciumi se restano sommersi troppo a lungo — meglio come tentativo iniziale, da convertire presto in substrato drenante con ormone radicante se non spunta nulla.\n\nHo creato il progetto \"Arancio da pollone\" (zona Crinale) con 5 tappe: messa in acqua (fatto), controllo/cambio acqua a 1 settimana, eventuale passaggio a substrato radicante a 3 settimane, verifica finale a 8 settimane, messa a dimora in primavera 2027 se tutto va bene.",
+      "elaborata": "2026-07-30T12:34:59.000Z"
+    }
   }
 }
