@@ -942,5 +942,16 @@
       "messaggio": "Ho pianificato le tappe nel progetto \"Albicocco\" già creato (Casa/cucina), con date realistiche per il ciclo del nocciolo:\n\n1. Ora-inizio agosto: estrai il nocciolo da un'albicocca matura, pulisci e lascia asciugare qualche giorno.\n2. Metà agosto-metà ottobre (~10 settimane): stratificazione a freddo in frigo, avvolto in panno umido dentro un sacchetto forato — l'albicocco ne ha bisogno per rompere la dormienza.\n3. Metà ottobre: semina in vaso con terriccio drenante, luogo riparato e luminoso.\n4. Dicembre: verifica germinazione (4-8 settimane dalla semina).\n5. Primavera 2027: prima crescita in vaso, protetta dalle gelate tardive.\n6. Autunno 2027: trapianto in vaso più grande o in piena terra (zona Est/Crinale, soleggiata e riparata dal vento).\n7. Non prima di 3-5 anni: prime fioriture/frutti — attenzione, un albicocco da seme non è detto dia frutti come la pianta madre; per garanzia valuta l'innesto.\n\nHo impostato lo stato del progetto su \"in corso\" e la prossima scadenza al 20/10 (fine stratificazione e semina).",
       "elaborata": "2026-07-28T05:06:11.000Z"
     }
+  },
+  "r-1785414617650-d7k1": {
+    "tipo": "pianifica_progetto",
+    "messaggio": "L'albero di arancio navel presente in giardino ha prodotto dei germogli dalla base del tronco, uno di questi l'ho messo in acqua aspettando che possa radicare. Credi sia possibile? Se sì, pianifica le varie tappe da monitorare",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": "Arancio da pollone",
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-07-30T12:30:18.213Z",
+    "risposta": null
   }
 }
