@@ -4506,26 +4506,31 @@
   },
   "zz-plant": {
     "nome": "ZZ Plant",
-    "specie": "Zamioculcas",
-    "descrizione": "",
+    "specie": "Zamioculcas zamiifolia",
+    "descrizione": "<p>Pianta da interno estremamente resistente, con rizomi carnosi sotterranei che immagazzinano acqua e riserve, e foglie pinnate lucide verde scuro. Tollera molto bene la trascuratezza, la scarsa luce e le annaffiature saltuarie.</p>",
     "esigenze": {
-      "luce": "",
-      "acqua": "",
-      "terreno": ""
+      "luce": "Tollera anche poca luce, cresce meglio con luce indiretta filtrata",
+      "acqua": "Scarsa",
+      "terreno": "Molto drenante"
     },
-    "alert": [],
+    "alert": [
+      "teme moltissimo i ristagni idrici: il marciume dei rizomi è la causa di morte più comune",
+      "tollera bene ambienti poco luminosi, ideale per angoli bui della casa",
+      "crescita lenta, non necessita di rinvasi frequenti",
+      "pianta tossica se ingerita: tenere lontano da animali domestici e bambini"
+    ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-25 giorni",
+        "inverno": "ogni 30 giorni"
       },
       "concimazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
+        "primavera": "una volta al mese con concime leggero per piante verdi",
+        "estate": "una volta al mese",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
       },
       "calcio": {
         "primavera": "",
@@ -4534,14 +4539,14 @@
         "inverno": ""
       },
       "potatura": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
+        "primavera": "rimozione foglie ingiallite o danneggiate",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
       },
       "npk": {
-        "primavera": null,
-        "estate": null,
+        "primavera": "20-10-10",
+        "estate": "20-10-10",
         "autunno": null,
         "inverno": null
       }

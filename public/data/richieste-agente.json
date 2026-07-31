@@ -978,8 +978,11 @@
     "progetto": null,
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-07-31T12:03:35.894Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Scheda \"ZZ Plant\" completata (era interamente vuota). Ecco cosa ho aggiunto, categoria \"fogliame da interno\" (coerente con pothos, scindapsus e fittonia già in catalogo):\n\n- Nome scientifico corretto: Zamioculcas zamiifolia (era genericamente \"Zamioculcas\").\n- Descrizione: pianta con rizomi carnosi sotterranei che immagazzinano acqua, foglie pinnate lucide, molto resistente alla trascuratezza.\n- Esigenze: tollera bene poca luce, acqua scarsa, terreno molto drenante.\n- Alert: il rischio principale sono i ristagni idrici (marciume dei rizomi, causa di morte più comune), crescita lenta senza bisogno di rinvasi frequenti, e tossicità se ingerita (attenzione con animali/bambini).\n- Irrigazione: molto diradata tutto l'anno (ogni 10-14gg estate, fino a 30gg in inverno).\n- Concimazione: leggera, una volta al mese in primavera/estate, sospesa nel resto dell'anno.\n- NPK: 20-10-10 primavera/estate, vuoto in autunno/inverno.\n\nIl campo \"calcio\" è rimasto vuoto: riguarda solo ortaggi da frutto, non pertinente per questa pianta da interno.",
+      "elaborata": "2026-07-31T12:05:50.000Z"
+    }
   }
 }
