@@ -1623,5 +1623,14 @@
       "concimazione": "2026-07-25",
       "irrigazione": "2026-07-30"
     }
+  },
+  "zz-plant-1785499396214": {
+    "specie": "zz-plant",
+    "zona": "Casa",
+    "sottozona": "Scalinata",
+    "varieta": "",
+    "impianto": "2026-07-29",
+    "note": "",
+    "ultima_cura": {}
   }
 }
