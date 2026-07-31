@@ -1631,6 +1631,8 @@
     "varieta": "",
     "impianto": "2026-07-29",
     "note": "",
-    "ultima_cura": {}
+    "ultima_cura": {
+      "irrigazione": "2026-07-31"
+    }
   }
 }
