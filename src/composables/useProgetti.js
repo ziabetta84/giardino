@@ -22,14 +22,14 @@ export function statoTappa(tappa) {
   return { urgente: giorni <= 0, giorni }
 }
 
-// Tutte le tappe "atteso" di tutti i progetti (non cancellati/completati),
-// con l'id del progetto e il proprio indice nell'array tappe (per poterle
-// aggiornare), pronte per essere filtrate/ordinate in Attività.
+// Tutte le tappe "atteso" di tutti i progetti (non cancellati/completati/
+// falliti), con l'id del progetto e il proprio indice nell'array tappe (per
+// poterle aggiornare), pronte per essere filtrate/ordinate in Attività.
 export function tappeAttese(progetti) {
   if (!progetti) return []
   const risultato = []
   for (const [progettoId, p] of Object.entries(progetti)) {
-    if (p.stato === 'completato' || p.stato === 'cancellato') continue
+    if (p.stato === 'completato' || p.stato === 'cancellato' || p.stato === 'fallito') continue
     ;(p.tappe || []).forEach((tappa, indice) => {
       const { urgente, giorni } = statoTappa(tappa)
       if (giorni === null) return
