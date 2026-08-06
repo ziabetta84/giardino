@@ -173,10 +173,9 @@
   },
   "progetto-1785414855637": {
     "titolo": "Arancio da pollone",
-    "descrizione": "Un pollone emesso dalla base del tronco dell'arancio navel è stato messo in acqua per tentare la radicazione, con l'obiettivo di ottenere una nuova pianta.",
+    "descrizione": "Un pollone emesso dalla base del tronco dell'arancio navel è stato messo in acqua per tentare la radicazione, con l'obiettivo di ottenere una nuova pianta.<p><br></p><p>Aggiornamento del 6/8/26: il pollone era stato messo in vaso, ma dev'essere volato via con il vento 😅</p>",
     "zona": "Crinale",
-    "scadenza": "2026-09-24",
-    "stato": "in_corso",
+    "stato": "fallito",
     "creato": "2026-07-30",
     "tappe": [
       {
