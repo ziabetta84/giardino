@@ -6,18 +6,31 @@
     </div>
     <button class="btn btn-ghost" style="padding:5px 14px;font-size:11px;border-radius:8px;min-height:32px;flex-shrink:0;"
       @click="onClick">
-      {{ repo.stato.value === 'nuova-versione' ? 'Ricarica' : 'Aggiorna' }}
+      {{ pronto ? 'Ricarica' : 'Aggiorna' }}
     </button>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useRepoStatus } from '@/composables/useRepoStatus'
+import { useAppUpdate } from '@/composables/useAppUpdate'
 
 const store = useDatiStore()
 const repo  = useRepoStatus()
+const { needRefresh, applicaAggiornamento, controllaAggiornamento } = useAppUpdate()
+
+// "Nuova versione disponibile" (da useRepoStatus, confronto commit su
+// GitHub) può comparire prima che QUESTO service worker se ne sia accorto:
+// solo needRefresh dice se c'è davvero un aggiornamento pronto da applicare
+// con un reload. Finché non lo è, il bottone resta "Aggiorna" (dati) invece
+// di promettere una ricarica che non cambierebbe nulla.
+const pronto = computed(() => repo.stato.value === 'nuova-versione' && needRefresh.value)
+
+watch(() => repo.stato.value, (nuovo) => {
+  if (nuovo === 'nuova-versione') controllaAggiornamento()
+}, { immediate: true })
 
 // Priorità: il caricamento iniziale dei dati locali copre lo stato del
 // repository (che nel frattempo può ben essere "aggiornato"), perché mentre
@@ -33,11 +46,8 @@ const testoStato = computed(() => ({
 }[statoEffettivo.value]))
 
 function onClick() {
-  if (repo.stato.value === 'nuova-versione') {
-    // Un commit già pubblicato può aver cambiato anche il codice dell'app
-    // (non solo i dati): ricaricare la pagina, non solo i JSON, garantisce
-    // di ottenere anche il bundle aggiornato.
-    window.location.reload()
+  if (pronto.value) {
+    applicaAggiornamento()
   } else {
     store.aggiorna()
   }

@@ -24,7 +24,12 @@ export default defineConfig({
     vue(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      registerType: 'prompt',
+      // Registriamo il service worker a mano (src/composables/useAppUpdate.js,
+      // via virtual:pwa-register/vue) invece di usare lo script iniettato
+      // automaticamente: così la StatusBar può sapere con certezza quando un
+      // aggiornamento è davvero pronto prima di ricaricare la pagina.
+      injectRegister: false,
       includeAssets: ['favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png', 'apple-touch-icon.png'],
       manifest: {
         name: 'Il Giardino di Zorba',
