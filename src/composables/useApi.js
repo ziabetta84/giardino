@@ -15,7 +15,45 @@ function getHeaders() {
     : { 'Content-Type': 'application/json' }
 }
 
+// Legge un file dal repo tramite l'API Contents, con cache:'no-store' (vedi
+// nota in saveJSON: l'API risponde con Cache-Control: public, max-age=60,
+// che senza questo darebbe letture stale dopo una scrittura recente).
+// Usata sia da saveJSON (che ha bisogno anche dello sha) sia da loadJSON.
+async function leggiFileGitHub(path) {
+  const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`
+  const info = await fetch(url, { headers: getHeaders(), cache: 'no-store' })
+  if (info.status === 404) return { sha: undefined, data: null }
+  if (!info.ok) throw new Error(`Errore lettura file: ${info.status}`)
+  const json = await info.json()
+  if (json.content) {
+    // L'API GitHub restituisce il base64 con newline ogni 76 caratteri:
+    // atob() lancia un'eccezione se non vengono rimossi prima.
+    return { sha: json.sha, data: JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\s/g, ''))))) }
+  }
+  // Per i file oltre 1MB l'API Contents non include il contenuto inline: lo
+  // richiediamo in formato raw con l'header Accept dedicato, riusando lo
+  // stesso token (a differenza di download_url, che su repo privati è null
+  // o comunque non autenticato).
+  const raw = await fetch(url, {
+    headers: { ...getHeaders(), Accept: 'application/vnd.github.v3.raw' },
+    cache: 'no-store',
+  })
+  if (!raw.ok) throw new Error(`Errore lettura file raw: ${raw.status}`)
+  return { sha: json.sha, data: await raw.json() }
+}
+
 export function useApi() {
+
+  // Legge un JSON di public/data/ direttamente da GitHub (stessa fonte usata
+  // da saveJSON per scrivere), scavalcando sia la cache CDN di GitHub Pages
+  // sia quella del service worker sulla copia pubblicata: usata per avere
+  // dati sempre coerenti con l'ultimo salvataggio, senza aspettare che build
+  // e deploy pubblichino una nuova copia statica.
+  async function loadJSON(filename) {
+    const { data } = await leggiFileGitHub(`public/data/${filename}`)
+    if (data === null) throw new Error(`File non trovato: ${filename}`)
+    return data
+  }
 
   // dataOrUpdater può essere:
   // - un oggetto già pronto da scrivere (comportamento storico)
@@ -34,39 +72,9 @@ export function useApi() {
     const isUpdater = typeof dataOrUpdater === 'function'
 
     for (let tentativo = 0; ; tentativo++) {
-      // Ottieni SHA e contenuto attuali (null/undefined se il file non esiste ancora)
-      let sha
-      let corrente = null
-      // cache: 'no-store' è essenziale qui: l'API Contents risponde con
-      // Cache-Control: public, max-age=60, quindi senza disabilitare la
-      // cache del browser una scrittura seguita a breve da un'altra
-      // rileggerebbe lo SHA precedente alla prima scrittura, causando un
-      // conflitto "does not match" che i retry non risolvono (rileggono
-      // la stessa risposta cache-stale).
-      const info = await fetch(url, { headers: getHeaders(), cache: 'no-store' })
-      if (info.ok) {
-        const json = await info.json()
-        sha = json.sha
-        if (json.content) {
-          // L'API GitHub restituisce il base64 con newline ogni 76 caratteri:
-          // atob() lancia un'eccezione se non vengono rimossi prima.
-          corrente = JSON.parse(decodeURIComponent(escape(atob(json.content.replace(/\s/g, '')))))
-        } else {
-          // Per i file oltre 1MB l'API Contents non include il contenuto
-          // inline: lo richiediamo in formato raw con l'header Accept
-          // dedicato, riusando lo stesso token (a differenza di download_url,
-          // che su repo privati è null o comunque non autenticato).
-          const raw = await fetch(url, {
-            headers: { ...getHeaders(), Accept: 'application/vnd.github.v3.raw' },
-            cache: 'no-store',
-          })
-          if (!raw.ok) throw new Error(`Errore lettura file raw: ${raw.status}`)
-          corrente = await raw.json()
-        }
-      } else if (info.status !== 404) {
-        throw new Error(`Errore lettura file: ${info.status}`)
-      }
-      // Se 404 → sha rimane undefined → GitHub crea il file
+      // Ottieni SHA e contenuto attuali (sha undefined, data null se il file
+      // non esiste ancora → GitHub lo crea al PUT)
+      const { sha, data: corrente } = await leggiFileGitHub(path)
 
       const data = isUpdater ? dataOrUpdater(corrente) : dataOrUpdater
       const content = btoa(unescape(encodeURIComponent(JSON.stringify(data, null, 2))))
@@ -139,5 +147,5 @@ export function useApi() {
     localStorage.setItem('github_token', token)
   }
 
-  return { saveJSON, uploadFile, deleteFile, isAutenticato, salvaToken }
+  return { saveJSON, loadJSON, uploadFile, deleteFile, isAutenticato, salvaToken }
 }
