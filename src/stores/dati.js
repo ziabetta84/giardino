@@ -1,13 +1,28 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useMeteo } from '@/composables/useMeteo'
+import { useApi } from '@/composables/useApi'
 
 const BASE = import.meta.env.BASE_URL
 
-async function caricaJSON(file) {
+async function caricaStatico(file) {
   const res = await fetch(`${BASE}data/${file}`)
   if (!res.ok) throw new Error(`Errore caricamento ${file}`)
   return res.json()
+}
+
+// Legge sempre prima da GitHub (stessa fonte usata dai salvataggi, senza
+// cache): così le modifiche sono visibili subito, senza aspettare che build
+// e deploy pubblichino una nuova copia statica su GitHub Pages. Se GitHub
+// non è raggiungibile (offline, in giardino senza campo) ripiega sull'ultima
+// copia statica pubblicata, che il service worker può servire da cache.
+async function caricaJSON(file) {
+  const { loadJSON } = useApi()
+  try {
+    return await loadJSON(file)
+  } catch {
+    return caricaStatico(file)
+  }
 }
 
 export const useDatiStore = defineStore('dati', () => {
