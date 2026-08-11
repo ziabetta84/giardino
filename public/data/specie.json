@@ -875,15 +875,14 @@
     "ciclo_vitale": "annuale",
     "coltivazione": {
       "famiglia_botanica": "Lamiaceae",
-      "giorni_germinazione": "7-14",
+      "giorni_germinazione": "15-20",
       "giorni_trapianto": "25-30",
       "giorni_raccolta": "60-70",
       "finestra_semina": [
         "primavera"
       ],
       "finestra_trapianto": [
-        "primavera",
-        "estate"
+        "primavera"
       ],
       "resistenza_gelo": "nessuna",
       "spaziatura_cm": 25,
@@ -1070,19 +1069,19 @@
     "ciclo_vitale": "biennale",
     "coltivazione": {
       "famiglia_botanica": "Apiaceae",
-      "giorni_germinazione": "15-25",
+      "giorni_germinazione": "10-20",
       "giorni_trapianto": "30-40",
-      "giorni_raccolta": "70-90",
+      "giorni_raccolta": "15-20",
       "finestra_semina": [
         "primavera",
-        "autunno"
+        "estate"
       ],
       "finestra_trapianto": [
         "primavera",
-        "autunno"
+        "estate"
       ],
-      "resistenza_gelo": "media",
-      "spaziatura_cm": 20,
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 10,
       "consociazioni_favorevoli": [
         "pomodoro",
         "asparago"
@@ -3843,7 +3842,7 @@
     "coltivazione": {
       "famiglia_botanica": "Solanaceae",
       "giorni_germinazione": "7-14",
-      "giorni_trapianto": "30-40",
+      "giorni_trapianto": "45-60",
       "giorni_raccolta": "60-85",
       "finestra_semina": [
         "primavera"
@@ -3855,6 +3854,8 @@
       "spaziatura_cm": 50,
       "consociazioni_favorevoli": [
         "basilico",
+        "prezzemolo",
+        "sedano",
         "carota",
         "cipolla"
       ],
@@ -3963,14 +3964,15 @@
     "ciclo_vitale": "annuale",
     "coltivazione": {
       "famiglia_botanica": "Cucurbitaceae",
-      "giorni_germinazione": "5-10",
-      "giorni_trapianto": "20-25",
+      "giorni_germinazione": "4-14",
+      "giorni_trapianto": "15-20",
       "giorni_raccolta": "45-60",
       "finestra_semina": [
         "primavera"
       ],
       "finestra_trapianto": [
-        "primavera"
+        "primavera",
+        "estate"
       ],
       "resistenza_gelo": "nessuna",
       "spaziatura_cm": 90,
@@ -4034,20 +4036,22 @@
     "ciclo_vitale": "annuale",
     "coltivazione": {
       "famiglia_botanica": "Solanaceae",
-      "giorni_germinazione": "8-14",
-      "giorni_trapianto": "45-60",
+      "giorni_germinazione": "14-21",
+      "giorni_trapianto": "35-45",
       "giorni_raccolta": "65-80",
       "finestra_semina": [
+        "inverno",
         "primavera"
       ],
       "finestra_trapianto": [
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 60,
+      "spaziatura_cm": 70,
       "consociazioni_favorevoli": [
-        "basilico",
-        "fagiolo"
+        "fagiolo",
+        "pisello",
+        "basilico"
       ],
       "consociazioni_sfavorevoli": [
         "finocchio"
@@ -4100,14 +4104,14 @@
       "famiglia_botanica": "Amaryllidaceae",
       "giorni_germinazione": null,
       "giorni_trapianto": null,
-      "giorni_raccolta": "90-120",
+      "giorni_raccolta": "120-150",
       "finestra_semina": [
         "autunno",
         "inverno"
       ],
       "finestra_trapianto": [],
       "resistenza_gelo": "alta",
-      "spaziatura_cm": 15,
+      "spaziatura_cm": 20,
       "consociazioni_favorevoli": [
         "carota",
         "pomodoro"
@@ -4210,7 +4214,7 @@
     "ciclo_vitale": "annuale",
     "coltivazione": {
       "famiglia_botanica": "Cucurbitaceae",
-      "giorni_germinazione": "7-10",
+      "giorni_germinazione": "10-15",
       "giorni_trapianto": "20-25",
       "giorni_raccolta": "90-120",
       "finestra_semina": [
@@ -4220,7 +4224,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 180,
+      "spaziatura_cm": 150,
       "consociazioni_favorevoli": [
         "mais",
         "fagiolo"
