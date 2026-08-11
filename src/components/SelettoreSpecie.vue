@@ -25,70 +25,138 @@
     <Teleport to="body">
       <div v-if="mostraNuovaSpecie" class="overlay" @click.self="chiudiNuovaSpecie">
         <div class="modal-box">
-          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:16px;">
+          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:12px;">
             {{ specieModificaOriginale ? 'Modifica specie' : 'Nuova specie' }}
           </h3>
 
-          <input v-model="nuovaSpecie.nome" placeholder="Nome comune *" class="form-input" style="margin-bottom:10px;">
-          <input v-model="nuovaSpecie.nomeScientifico" placeholder="Nome scientifico (es. Passiflora caerulea)" class="form-input" style="margin-bottom:10px;">
+          <div style="display:flex;gap:6px;margin-bottom:16px;">
+            <button type="button" class="pill" :class="{ active: tabAttiva === 'generale' }" @click="tabAttiva = 'generale'">Generale</button>
+            <button type="button" class="pill" :class="{ active: tabAttiva === 'cure' }" @click="tabAttiva = 'cure'">Cure</button>
+            <button type="button" class="pill" :class="{ active: tabAttiva === 'coltivazione' }" @click="tabAttiva = 'coltivazione'">Coltivazione</button>
+          </div>
+
           <p v-if="erroreSpecie" style="font-size:11px;color:var(--rose-dark);margin:0 0 10px;">{{ erroreSpecie }}</p>
 
-          <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione (opzionale)"
-            rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
+          <!-- Tab Generale -->
+          <template v-if="tabAttiva === 'generale'">
+            <input v-model="nuovaSpecie.nome" placeholder="Nome comune *" class="form-input" style="margin-bottom:10px;">
+            <input v-model="nuovaSpecie.nomeScientifico" placeholder="Nome scientifico (es. Passiflora caerulea)" class="form-input" style="margin-bottom:10px;">
 
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esigenze (opzionale)</label>
-          <input v-model="nuovaSpecie.luce" placeholder="Luce, es. Pieno sole" class="form-input" style="margin-bottom:8px;">
-          <input v-model="nuovaSpecie.acqua" placeholder="Acqua, es. Moderata" class="form-input" style="margin-bottom:8px;">
-          <input v-model="nuovaSpecie.terreno" placeholder="Terreno, es. Ben drenato" class="form-input" style="margin-bottom:8px;">
+            <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione (opzionale)"
+              rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
 
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Avvertenze (opzionale)</label>
-          <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
-          <textarea v-model="nuovaSpecie.alert" placeholder="Una avvertenza per riga…"
-            rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
+            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esigenze (opzionale)</label>
+            <input v-model="nuovaSpecie.luce" placeholder="Luce, es. Pieno sole" class="form-input" style="margin-bottom:8px;">
+            <input v-model="nuovaSpecie.acqua" placeholder="Acqua, es. Moderata" class="form-input" style="margin-bottom:8px;">
+            <input v-model="nuovaSpecie.terreno" placeholder="Terreno, es. Ben drenato" class="form-input" style="margin-bottom:16px;">
 
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Manutenzione (opzionale)</label>
-          <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
-          <div class="manutenzione-grid">
-            <div></div>
-            <div class="stagione-header">Pri</div>
-            <div class="stagione-header">Est</div>
-            <div class="stagione-header">Aut</div>
-            <div class="stagione-header">Inv</div>
+            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Avvertenze (opzionale)</label>
+            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
+            <textarea v-model="nuovaSpecie.alert" placeholder="Una avvertenza per riga…"
+              rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
 
-            <div class="tipo-label">💧 Irrigazione</div>
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
+            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Ciclo vitale (opzionale)</label>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'perenne' }" @click="nuovaSpecie.cicloVitale = 'perenne'">Perenne</button>
+              <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'annuale' }" @click="nuovaSpecie.cicloVitale = 'annuale'">Annuale</button>
+              <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'biennale' }" @click="nuovaSpecie.cicloVitale = 'biennale'">Biennale</button>
+            </div>
+          </template>
 
-            <div class="tipo-label">🌱 Concimazione</div>
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
+          <!-- Tab Cure -->
+          <template v-if="tabAttiva === 'cure'">
+            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Manutenzione (opzionale)</label>
+            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
+            <div class="manutenzione-grid">
+              <div></div>
+              <div class="stagione-header">Pri</div>
+              <div class="stagione-header">Est</div>
+              <div class="stagione-header">Aut</div>
+              <div class="stagione-header">Inv</div>
 
-            <div class="tipo-label">🧪 NPK</div>
-            <input v-model="nuovaSpecie.manutenzione.npk.primavera" placeholder="N-P-K">
-            <input v-model="nuovaSpecie.manutenzione.npk.estate" placeholder="N-P-K">
-            <input v-model="nuovaSpecie.manutenzione.npk.autunno" placeholder="N-P-K">
-            <input v-model="nuovaSpecie.manutenzione.npk.inverno" placeholder="N-P-K">
+              <div class="tipo-label">💧 Irrigazione</div>
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
 
-            <div class="tipo-label">🥚 Calcio</div>
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.primavera" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.estate" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.autunno" placeholder="gg">
-            <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.inverno" placeholder="gg">
-          </div>
-          <p style="font-size:11px;color:var(--ink-faint);margin:6px 0 0;">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
+              <div class="tipo-label">🌱 Concimazione</div>
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
 
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
-          <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
-          <div style="display:flex;flex-direction:column;gap:6px;">
-            <input v-model="nuovaSpecie.manutenzione.potatura.primavera" placeholder="Primavera" class="form-input">
-            <input v-model="nuovaSpecie.manutenzione.potatura.estate" placeholder="Estate" class="form-input">
-            <input v-model="nuovaSpecie.manutenzione.potatura.autunno" placeholder="Autunno" class="form-input">
-            <input v-model="nuovaSpecie.manutenzione.potatura.inverno" placeholder="Inverno" class="form-input">
-          </div>
+              <div class="tipo-label">🧪 NPK</div>
+              <input v-model="nuovaSpecie.manutenzione.npk.primavera" placeholder="N-P-K">
+              <input v-model="nuovaSpecie.manutenzione.npk.estate" placeholder="N-P-K">
+              <input v-model="nuovaSpecie.manutenzione.npk.autunno" placeholder="N-P-K">
+              <input v-model="nuovaSpecie.manutenzione.npk.inverno" placeholder="N-P-K">
+
+              <div class="tipo-label">🥚 Calcio</div>
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.primavera" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.estate" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.autunno" placeholder="gg">
+              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.inverno" placeholder="gg">
+            </div>
+            <p style="font-size:11px;color:var(--ink-faint);margin:6px 0 0;">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
+
+            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
+            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <input v-model="nuovaSpecie.manutenzione.potatura.primavera" placeholder="Primavera" class="form-input">
+              <input v-model="nuovaSpecie.manutenzione.potatura.estate" placeholder="Estate" class="form-input">
+              <input v-model="nuovaSpecie.manutenzione.potatura.autunno" placeholder="Autunno" class="form-input">
+              <input v-model="nuovaSpecie.manutenzione.potatura.inverno" placeholder="Inverno" class="form-input">
+            </div>
+          </template>
+
+          <!-- Tab Coltivazione: ha senso solo per specie a ciclo annuale/biennale -->
+          <template v-if="tabAttiva === 'coltivazione'">
+            <p v-if="nuovaSpecie.cicloVitale !== 'annuale' && nuovaSpecie.cicloVitale !== 'biennale'" style="font-size:12px;color:var(--ink-faint);padding:20px 0;text-align:center;">
+              Imposta il ciclo vitale su "Annuale" o "Biennale" nella tab Generale per compilare questa sezione.
+            </p>
+            <template v-else>
+              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 12px;">Dati per generare in futuro un piano di semina/trapianto/raccolta — tutto facoltativo.</p>
+
+              <input v-model="nuovaSpecie.coltivazione.famigliaBotanica" placeholder="Famiglia botanica, es. Solanaceae" class="form-input" style="margin-bottom:10px;">
+
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+                <input v-model="nuovaSpecie.coltivazione.giorniGerminazione" placeholder="Gg germinazione" class="form-input">
+                <input v-model="nuovaSpecie.coltivazione.giorniTrapianto" placeholder="Gg al trapianto" class="form-input">
+              </div>
+              <input v-model="nuovaSpecie.coltivazione.giorniRaccolta" placeholder="Gg alla raccolta" class="form-input" style="margin-bottom:14px;">
+
+              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di semina</label>
+              <div style="display:flex;gap:6px;margin-bottom:12px;">
+                <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.finestraSemina.includes(s.val) }"
+                  v-for="s in STAGIONI_PILL" :key="'sem-'+s.val" @click="toggleStagione('finestraSemina', s.val)">{{ s.label }}</button>
+              </div>
+
+              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di trapianto</label>
+              <div style="display:flex;gap:6px;margin-bottom:14px;">
+                <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.finestraTrapianto.includes(s.val) }"
+                  v-for="s in STAGIONI_PILL" :key="'trap-'+s.val" @click="toggleStagione('finestraTrapianto', s.val)">{{ s.label }}</button>
+              </div>
+
+              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Resistenza al gelo</label>
+              <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
+                <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.resistenzaGelo === r }"
+                  v-for="r in ['nessuna','bassa','media','alta']" :key="r" @click="nuovaSpecie.coltivazione.resistenzaGelo = r">{{ r }}</button>
+              </div>
+
+              <input type="number" min="1" v-model.number="nuovaSpecie.coltivazione.spaziaturaCm" placeholder="Spaziatura (cm)" class="form-input" style="margin-bottom:14px;">
+
+              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni favorevoli</label>
+              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "basilico", "carota".</p>
+              <textarea v-model="nuovaSpecie.coltivazione.consociazioniFavorevoli" placeholder="Una specie per riga…"
+                rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:12px;"></textarea>
+
+              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni sfavorevoli</label>
+              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga.</p>
+              <textarea v-model="nuovaSpecie.coltivazione.consociazioniSfavorevoli" placeholder="Una specie per riga…"
+                rows="2" class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
+            </template>
+          </template>
 
           <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
             <button class="btn btn-ghost" @click="chiudiNuovaSpecie" style="min-height:40px;padding:8px 16px;">Annulla</button>
@@ -166,7 +234,39 @@ const erroreSpecie      = ref(null)
 // aggiornare una voce esistente in specie.json.
 const specieModificaOriginale = ref(null)
 
+// Tab del modale: 'coltivazione' evita di allungare lo scroll per le ~99
+// specie perenni/da appartamento a cui semina/trapianto non si applicano.
+const tabAttiva = ref('generale')
+
 const STAGIONI = ['primavera', 'estate', 'autunno', 'inverno']
+const STAGIONI_PILL = [
+  { val: 'primavera', label: 'Pri' },
+  { val: 'estate',    label: 'Est' },
+  { val: 'autunno',   label: 'Aut' },
+  { val: 'inverno',   label: 'Inv' },
+]
+
+function coltivazioneVuota() {
+  return {
+    famigliaBotanica: '',
+    giorniGerminazione: '',
+    giorniTrapianto: '',
+    giorniRaccolta: '',
+    finestraSemina: [],
+    finestraTrapianto: [],
+    resistenzaGelo: '',
+    spaziaturaCm: null,
+    consociazioniFavorevoli: '',
+    consociazioniSfavorevoli: '',
+  }
+}
+
+function toggleStagione(campo, stagione) {
+  const arr = nuovaSpecie.value.coltivazione[campo]
+  const i = arr.indexOf(stagione)
+  if (i === -1) arr.push(stagione)
+  else arr.splice(i, 1)
+}
 
 function manutenzioneVuota() {
   const perStagione = () => ({ primavera: '', estate: '', autunno: '', inverno: '' })
@@ -206,7 +306,7 @@ function estraiGiorniPuliti(testo) {
   return parseGiorni(testo)
 }
 
-const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota() })
+const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota() })
 
 // Converte i giorni inseriti nella tabella manutenzione nel formato testuale
 // già usato da tutte le specie esistenti e atteso da useCure.js (parseGiorni
@@ -253,7 +353,8 @@ function slug(testo) {
 }
 
 function apriNuovaSpecie() {
-  nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota() }
+  nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota() }
+  tabAttiva.value = 'generale'
   manutenzioneOriginale.value = {
     irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
     concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
@@ -299,6 +400,7 @@ function apriModificaSpecie(s) {
     manutenzione.npk[stagione] = record.manutenzione?.npk?.[stagione] || ''
   }
 
+  const col = record.coltivazione ?? {}
   nuovaSpecie.value = {
     nome: record.nome ?? s.nome,
     nomeScientifico: record.specie ?? '',
@@ -308,12 +410,26 @@ function apriModificaSpecie(s) {
     terreno: record.esigenze?.terreno ?? '',
     alert: Array.isArray(record.alert) ? record.alert.join('\n') : (record.alert ?? ''),
     manutenzione,
+    cicloVitale: record.ciclo_vitale ?? '',
+    coltivazione: {
+      famigliaBotanica: col.famiglia_botanica ?? '',
+      giorniGerminazione: col.giorni_germinazione ?? '',
+      giorniTrapianto: col.giorni_trapianto ?? '',
+      giorniRaccolta: col.giorni_raccolta ?? '',
+      finestraSemina: Array.isArray(col.finestra_semina) ? [...col.finestra_semina] : [],
+      finestraTrapianto: Array.isArray(col.finestra_trapianto) ? [...col.finestra_trapianto] : [],
+      resistenzaGelo: col.resistenza_gelo ?? '',
+      spaziaturaCm: col.spaziatura_cm ?? null,
+      consociazioniFavorevoli: Array.isArray(col.consociazioni_favorevoli) ? col.consociazioni_favorevoli.join('\n') : '',
+      consociazioniSfavorevoli: Array.isArray(col.consociazioni_sfavorevoli) ? col.consociazioni_sfavorevoli.join('\n') : '',
+    },
   }
   manutenzioneOriginale.value = originale
   manutenzioneNumeroIniziale.value = numeroIniziale
   specieModificaOriginale.value = s.key
   erroreSpecie.value = null
   dropdownAperto.value = false
+  tabAttiva.value = 'generale'
   mostraNuovaSpecie.value = true
 }
 
@@ -377,6 +493,27 @@ async function salvaNuovaSpecie() {
         },
         alert: nuovaSpecie.value.alert.split('\n').map(a => a.trim()).filter(Boolean),
         manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value, manutenzioneNumeroIniziale.value),
+      }
+      // base[chiave] è appena stato ricreato da zero sopra: ciclo_vitale/
+      // coltivazione vengono aggiunti solo se impostati, senza bisogno di
+      // "ripulire" nulla per le combinazioni non applicabili.
+      if (nuovaSpecie.value.cicloVitale) {
+        base[chiave].ciclo_vitale = nuovaSpecie.value.cicloVitale
+      }
+      if (nuovaSpecie.value.cicloVitale === 'annuale' || nuovaSpecie.value.cicloVitale === 'biennale') {
+        const col = nuovaSpecie.value.coltivazione
+        base[chiave].coltivazione = {
+          famiglia_botanica: col.famigliaBotanica.trim(),
+          giorni_germinazione: col.giorniGerminazione.trim() || null,
+          giorni_trapianto: col.giorniTrapianto.trim() || null,
+          giorni_raccolta: col.giorniRaccolta.trim() || null,
+          finestra_semina: [...col.finestraSemina],
+          finestra_trapianto: [...col.finestraTrapianto],
+          resistenza_gelo: col.resistenzaGelo || null,
+          spaziatura_cm: col.spaziaturaCm || null,
+          consociazioni_favorevoli: col.consociazioniFavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
+          consociazioni_sfavorevoli: col.consociazioniSfavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
+        }
       }
       return base
     })
