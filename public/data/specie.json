@@ -871,6 +871,30 @@
         "autunno": "10-5-5",
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Lamiaceae",
+      "giorni_germinazione": "7-14",
+      "giorni_trapianto": "25-30",
+      "giorni_raccolta": "60-70",
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera",
+        "estate"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 25,
+      "consociazioni_favorevoli": [
+        "pomodoro",
+        "peperone",
+        "melanzana"
+      ],
+      "consociazioni_sfavorevoli": [
+        "ruta"
+      ]
     }
   },
   "ceropegia": {
@@ -1042,6 +1066,28 @@
         "autunno": "10-5-5",
         "inverno": null
       }
+    },
+    "ciclo_vitale": "biennale",
+    "coltivazione": {
+      "famiglia_botanica": "Apiaceae",
+      "giorni_germinazione": "15-25",
+      "giorni_trapianto": "30-40",
+      "giorni_raccolta": "70-90",
+      "finestra_semina": [
+        "primavera",
+        "autunno"
+      ],
+      "finestra_trapianto": [
+        "primavera",
+        "autunno"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 20,
+      "consociazioni_favorevoli": [
+        "pomodoro",
+        "asparago"
+      ],
+      "consociazioni_sfavorevoli": []
     }
   },
   "salvia": {
@@ -3792,6 +3838,31 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Solanaceae",
+      "giorni_germinazione": "7-14",
+      "giorni_trapianto": "30-40",
+      "giorni_raccolta": "60-85",
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 50,
+      "consociazioni_favorevoli": [
+        "basilico",
+        "carota",
+        "cipolla"
+      ],
+      "consociazioni_sfavorevoli": [
+        "finocchio",
+        "cavolo",
+        "patata"
+      ]
     }
   },
   "cetriolo": {
@@ -3888,6 +3959,29 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Cucurbitaceae",
+      "giorni_germinazione": "5-10",
+      "giorni_trapianto": "20-25",
+      "giorni_raccolta": "45-60",
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 90,
+      "consociazioni_favorevoli": [
+        "mais",
+        "fagiolo",
+        "basilico"
+      ],
+      "consociazioni_sfavorevoli": [
+        "patata"
+      ]
     }
   },
   "melanzana": {
@@ -3936,6 +4030,28 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Solanaceae",
+      "giorni_germinazione": "8-14",
+      "giorni_trapianto": "45-60",
+      "giorni_raccolta": "65-80",
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [
+        "basilico",
+        "fagiolo"
+      ],
+      "consociazioni_sfavorevoli": [
+        "finocchio"
+      ]
     }
   },
   "scalogno": {
@@ -3978,6 +4094,28 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Amaryllidaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": "90-120",
+      "finestra_semina": [
+        "autunno",
+        "inverno"
+      ],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [
+        "carota",
+        "pomodoro"
+      ],
+      "consociazioni_sfavorevoli": [
+        "fagiolo",
+        "pisello"
+      ]
     }
   },
   "calendula": {
@@ -4068,6 +4206,28 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Cucurbitaceae",
+      "giorni_germinazione": "7-10",
+      "giorni_trapianto": "20-25",
+      "giorni_raccolta": "90-120",
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 180,
+      "consociazioni_favorevoli": [
+        "mais",
+        "fagiolo"
+      ],
+      "consociazioni_sfavorevoli": [
+        "patata"
+      ]
     }
   },
   "mandarino-cinese": {
