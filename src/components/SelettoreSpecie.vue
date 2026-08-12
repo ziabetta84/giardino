@@ -109,10 +109,22 @@
             <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
             <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
             <div style="display:flex;flex-direction:column;gap:6px;">
-              <input v-model="nuovaSpecie.manutenzione.potatura.primavera" placeholder="Primavera" class="form-input">
-              <input v-model="nuovaSpecie.manutenzione.potatura.estate" placeholder="Estate" class="form-input">
-              <input v-model="nuovaSpecie.manutenzione.potatura.autunno" placeholder="Autunno" class="form-input">
-              <input v-model="nuovaSpecie.manutenzione.potatura.inverno" placeholder="Inverno" class="form-input">
+              <div>
+                <label class="campo-label">Primavera</label>
+                <input v-model="nuovaSpecie.manutenzione.potatura.primavera" placeholder="es. taglio leggero" class="form-input">
+              </div>
+              <div>
+                <label class="campo-label">Estate</label>
+                <input v-model="nuovaSpecie.manutenzione.potatura.estate" placeholder="es. nessuna" class="form-input">
+              </div>
+              <div>
+                <label class="campo-label">Autunno</label>
+                <input v-model="nuovaSpecie.manutenzione.potatura.autunno" placeholder="es. post-fioritura" class="form-input">
+              </div>
+              <div>
+                <label class="campo-label">Inverno</label>
+                <input v-model="nuovaSpecie.manutenzione.potatura.inverno" placeholder="es. nessuna" class="form-input">
+              </div>
             </div>
           </template>
 
