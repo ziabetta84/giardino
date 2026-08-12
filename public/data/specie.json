@@ -572,6 +572,12 @@
         "autunno": "ogni 30 giorni",
         "inverno": "sospesa"
       },
+      "calcio": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
       "potatura": {
         "primavera": "taglio leggero",
         "estate": "nessuna",
@@ -584,7 +590,8 @@
         "autunno": "12-6-6",
         "inverno": null
       }
-    }
+    },
+    "ciclo_vitale": "perenne"
   },
   "prunus-taoflora": {
     "nome": "Prunus taoflora",
