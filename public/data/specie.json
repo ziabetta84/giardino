@@ -465,6 +465,12 @@
         "autunno": "sospesa",
         "inverno": "sospesa"
       },
+      "calcio": {
+        "primavera": "",
+        "estate": "",
+        "autunno": "",
+        "inverno": ""
+      },
       "potatura": {
         "primavera": "nessuna",
         "estate": "taglio leggero",
@@ -477,6 +483,19 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [],
+      "resistenza_gelo": null,
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
     }
   },
   "alloro": {
