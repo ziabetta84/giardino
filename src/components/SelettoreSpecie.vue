@@ -39,16 +39,22 @@
 
           <!-- Tab Generale -->
           <template v-if="tabAttiva === 'generale'">
-            <input v-model="nuovaSpecie.nome" placeholder="Nome comune *" class="form-input" style="margin-bottom:10px;">
-            <input v-model="nuovaSpecie.nomeScientifico" placeholder="Nome scientifico (es. Passiflora caerulea)" class="form-input" style="margin-bottom:10px;">
+            <label class="campo-label">Nome comune *</label>
+            <input v-model="nuovaSpecie.nome" placeholder="es. Basilico" class="form-input" style="margin-bottom:10px;">
+            <label class="campo-label">Nome scientifico</label>
+            <input v-model="nuovaSpecie.nomeScientifico" placeholder="es. Passiflora caerulea" class="form-input" style="margin-bottom:10px;">
 
-            <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione (opzionale)"
+            <label class="campo-label">Descrizione</label>
+            <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione libera (opzionale)"
               rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
 
             <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esigenze (opzionale)</label>
-            <input v-model="nuovaSpecie.luce" placeholder="Luce, es. Pieno sole" class="form-input" style="margin-bottom:8px;">
-            <input v-model="nuovaSpecie.acqua" placeholder="Acqua, es. Moderata" class="form-input" style="margin-bottom:8px;">
-            <input v-model="nuovaSpecie.terreno" placeholder="Terreno, es. Ben drenato" class="form-input" style="margin-bottom:16px;">
+            <label class="campo-label">Luce</label>
+            <input v-model="nuovaSpecie.luce" placeholder="es. Pieno sole" class="form-input" style="margin-bottom:8px;">
+            <label class="campo-label">Acqua</label>
+            <input v-model="nuovaSpecie.acqua" placeholder="es. Moderata" class="form-input" style="margin-bottom:8px;">
+            <label class="campo-label">Terreno</label>
+            <input v-model="nuovaSpecie.terreno" placeholder="es. Ben drenato" class="form-input" style="margin-bottom:16px;">
 
             <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Avvertenze (opzionale)</label>
             <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
