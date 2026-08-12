@@ -16,43 +16,64 @@
     </div>
 
     <template v-else>
-      <!-- Da fare -->
-      <template v-if="daFare.length">
-        <p class="section-label">⚠ Da fare</p>
-        <div style="margin-bottom:24px;">
-          <AttivitaGruppoZona
-            v-for="gruppo in gruppiDaFare"
-            :key="gruppo.chiave"
-            :gruppo="gruppo"
-            variante="urgente"
-            :salvando="salvando"
-            :salvando-gruppo="salvandoGruppo"
-            @registra="registra"
-            @registra-gruppo="registraGruppo"
-          />
-        </div>
-      </template>
+      <!-- Tab: con 128 piante su 6 zone l'elenco unico diventava lunghissimo,
+           diviso per tipo di cura invece che tutto insieme. La potatura non
+           ha una tab propria: i suoi valori sono testo libero per stagione
+           (es. "taglio leggero"), non un intervallo in giorni, quindi non
+           genera mai una scadenza qui (vedi useCure.js/parseGiorni). -->
+      <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;">
+        <button type="button" class="pill" :class="{ active: tabAttiva === 'irrigazione' }" @click="tabAttiva = 'irrigazione'">
+          💧 Irrigazione
+          <span v-if="conteggioTab.irrigazione" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.irrigazione }}</span>
+        </button>
+        <button type="button" class="pill" :class="{ active: tabAttiva === 'concimi' }" @click="tabAttiva = 'concimi'">
+          🌱 Concimi &amp; calcio
+          <span v-if="conteggioTab.concimi" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.concimi }}</span>
+        </button>
+        <button type="button" class="pill" :class="{ active: tabAttiva === 'progetti' }" @click="tabAttiva = 'progetti'">
+          🗂️ Progetti
+          <span v-if="conteggioTab.progetti" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.progetti }}</span>
+        </button>
+      </div>
 
-      <!-- In scadenza -->
-      <template v-if="inScadenza.length">
-        <p class="section-label">🕐 In scadenza (entro 3 giorni)</p>
-        <div style="margin-bottom:24px;">
-          <AttivitaGruppoZona
-            v-for="gruppo in gruppiInScadenza"
-            :key="gruppo.chiave"
-            :gruppo="gruppo"
-            variante="scadenza"
-            :salvando="salvando"
-            :salvando-gruppo="salvandoGruppo"
-            @registra="registra"
-            @registra-gruppo="registraGruppo"
-          />
-        </div>
+      <template v-if="tabAttiva !== 'progetti'">
+        <!-- Da fare -->
+        <template v-if="daFareTab.length">
+          <p class="section-label">⚠ Da fare</p>
+          <div style="margin-bottom:24px;">
+            <AttivitaGruppoZona
+              v-for="gruppo in gruppiDaFareTab"
+              :key="gruppo.chiave"
+              :gruppo="gruppo"
+              variante="urgente"
+              :salvando="salvando"
+              :salvando-gruppo="salvandoGruppo"
+              @registra="registra"
+              @registra-gruppo="registraGruppo"
+            />
+          </div>
+        </template>
+
+        <!-- In scadenza -->
+        <template v-if="inScadenzaTab.length">
+          <p class="section-label">🕐 In scadenza (entro 3 giorni)</p>
+          <div style="margin-bottom:24px;">
+            <AttivitaGruppoZona
+              v-for="gruppo in gruppiInScadenzaTab"
+              :key="gruppo.chiave"
+              :gruppo="gruppo"
+              variante="scadenza"
+              :salvando="salvando"
+              :salvando-gruppo="salvandoGruppo"
+              @registra="registra"
+              @registra-gruppo="registraGruppo"
+            />
+          </div>
+        </template>
       </template>
 
       <!-- Tappe progetto -->
-      <template v-if="tappeProgetto.length">
-        <p class="section-label">Progetti</p>
+      <template v-else-if="tappeProgetto.length">
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
           <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`" class="card"
             :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
@@ -74,11 +95,11 @@
         </div>
       </template>
 
-      <!-- Tutto ok -->
-      <div v-if="!daFare.length && !inScadenza.length && !tappeProgetto.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
+      <!-- Tutto ok (per la tab attiva) -->
+      <div v-if="vuotaTab" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
         <div style="font-size:48px;margin-bottom:12px;">🌸</div>
         <p class="title-serif" style="font-size:16px;color:var(--sage-dark);font-weight:600;">Tutto in ordine!</p>
-        <p style="font-size:13px;margin-top:4px;">Nessuna cura urgente oggi</p>
+        <p style="font-size:13px;margin-top:4px;">Nessuna cura urgente qui</p>
       </div>
     </template>
   </div>
@@ -127,14 +148,36 @@ const attivita = computed(() => {
 const daFare = computed(() => attivita.value.filter(i => i.urgente).sort((a, b) => a.giorni - b.giorni))
 const inScadenza = computed(() => attivita.value.filter(i => !i.urgente && i.giorni !== null && i.giorni <= 3).sort((a, b) => a.giorni - b.giorni))
 
-const gruppiDaFare = computed(() => raggruppaPerZona(daFare.value, store.piante))
-const gruppiInScadenza = computed(() => raggruppaPerZona(inScadenza.value, store.piante))
-
 // Solo le tappe scadute o in arrivo entro 14 giorni: un progetto come una
 // germinazione da seme può avere tappe previste anche a distanza di anni,
 // che qui affollerebbero la lista senza essere ancora attuabili.
 const tappeProgetto = computed(() =>
   tappeAttese(store.progetti).filter(t => t.giorni <= 14).sort((a, b) => a.giorni - b.giorni)
+)
+
+// Tab: divide l'elenco per tipo di cura invece di mostrarlo tutto insieme
+// (con molte piante diventa uno scroll lunghissimo). Niente tab per la
+// potatura: essendo testo libero non genera mai voci in daFare/inScadenza.
+const tabAttiva = ref('irrigazione')
+const TIPI_TAB = { irrigazione: ['irrigazione'], concimi: ['concimazione', 'calcio'] }
+
+const daFareTab = computed(() =>
+  tabAttiva.value === 'progetti' ? [] : daFare.value.filter(i => TIPI_TAB[tabAttiva.value].includes(i.tipo))
+)
+const inScadenzaTab = computed(() =>
+  tabAttiva.value === 'progetti' ? [] : inScadenza.value.filter(i => TIPI_TAB[tabAttiva.value].includes(i.tipo))
+)
+const gruppiDaFareTab = computed(() => raggruppaPerZona(daFareTab.value, store.piante))
+const gruppiInScadenzaTab = computed(() => raggruppaPerZona(inScadenzaTab.value, store.piante))
+
+const conteggioTab = computed(() => ({
+  irrigazione: daFare.value.filter(i => i.tipo === 'irrigazione').length,
+  concimi: daFare.value.filter(i => i.tipo === 'concimazione' || i.tipo === 'calcio').length,
+  progetti: tappeProgetto.value.filter(t => t.urgente).length,
+}))
+
+const vuotaTab = computed(() =>
+  tabAttiva.value === 'progetti' ? !tappeProgetto.value.length : !daFareTab.value.length && !inScadenzaTab.value.length
 )
 
 async function registra(item) {
