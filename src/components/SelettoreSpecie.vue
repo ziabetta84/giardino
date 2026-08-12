@@ -118,13 +118,21 @@
             <template v-else>
               <p style="font-size:11px;color:var(--ink-faint);margin:0 0 12px;">Dati per generare in futuro un piano di semina/trapianto/raccolta — tutto facoltativo.</p>
 
-              <input v-model="nuovaSpecie.coltivazione.famigliaBotanica" placeholder="Famiglia botanica, es. Solanaceae" class="form-input" style="margin-bottom:10px;">
+              <label class="campo-label">Famiglia botanica</label>
+              <input v-model="nuovaSpecie.coltivazione.famigliaBotanica" placeholder="es. Solanaceae" class="form-input" style="margin-bottom:10px;">
 
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-                <input v-model="nuovaSpecie.coltivazione.giorniGerminazione" placeholder="Gg germinazione" class="form-input">
-                <input v-model="nuovaSpecie.coltivazione.giorniTrapianto" placeholder="Gg al trapianto" class="form-input">
+                <div>
+                  <label class="campo-label">Gg germinazione</label>
+                  <input v-model="nuovaSpecie.coltivazione.giorniGerminazione" placeholder="es. 7-14" class="form-input">
+                </div>
+                <div>
+                  <label class="campo-label">Gg al trapianto</label>
+                  <input v-model="nuovaSpecie.coltivazione.giorniTrapianto" placeholder="es. 25-30" class="form-input">
+                </div>
               </div>
-              <input v-model="nuovaSpecie.coltivazione.giorniRaccolta" placeholder="Gg alla raccolta" class="form-input" style="margin-bottom:14px;">
+              <label class="campo-label">Gg alla raccolta</label>
+              <input v-model="nuovaSpecie.coltivazione.giorniRaccolta" placeholder="es. 60-70" class="form-input" style="margin-bottom:14px;">
 
               <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di semina</label>
               <div style="display:flex;gap:6px;margin-bottom:12px;">
@@ -144,7 +152,8 @@
                   v-for="r in ['nessuna','bassa','media','alta']" :key="r" @click="nuovaSpecie.coltivazione.resistenzaGelo = r">{{ r }}</button>
               </div>
 
-              <input type="number" min="1" v-model.number="nuovaSpecie.coltivazione.spaziaturaCm" placeholder="Spaziatura (cm)" class="form-input" style="margin-bottom:14px;">
+              <label class="campo-label">Spaziatura (cm)</label>
+              <input type="number" min="1" v-model.number="nuovaSpecie.coltivazione.spaziaturaCm" placeholder="es. 50" class="form-input" style="margin-bottom:14px;">
 
               <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni favorevoli</label>
               <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "basilico", "carota".</p>
@@ -575,6 +584,12 @@ async function salvaNuovaSpecie() {
   background: none; border: none; cursor: pointer;
   padding: 4px 6px; border-radius: 8px; font-size: 13px; line-height: 1;
   color: var(--ink-soft); flex-shrink: 0;
+}
+.campo-label {
+  display: block;
+  font-size: 10px;
+  color: var(--ink-faint);
+  margin-bottom: 3px;
 }
 .manutenzione-grid {
   display: grid;
