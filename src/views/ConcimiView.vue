@@ -14,6 +14,23 @@
     </div>
 
     <template v-else>
+      <!-- Classifica per copertura reale -->
+      <div v-if="classifica.length" class="card" style="padding:16px;margin-bottom:16px;">
+        <p class="section-label" style="margin-bottom:2px;">🏆 Classifica</p>
+        <p style="font-size:11px;color:var(--ink-faint);margin:0 0 10px;">
+          Quanti fabbisogni NPK delle tue piante, in questa stagione, copre meglio ciascun concime.
+        </p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div v-for="(c, i) in classifica" :key="c.id" style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:12px;color:var(--ink-faint);min-width:16px;">{{ i + 1 }}</span>
+            <span style="flex:1;min-width:0;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ c.nome }}</span>
+            <span class="badge" :style="c.copertura ? 'background:var(--sage-pale);color:var(--sage-dark);' : 'background:var(--cream);color:var(--ink-faint);'">
+              {{ c.copertura }} piant{{ c.copertura === 1 ? 'a' : 'e' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div v-if="concimi.length" style="display:flex;flex-direction:column;gap:10px;">
         <div v-for="c in concimi" :key="c.id" class="card hover-card"
           style="padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;"
@@ -78,10 +95,14 @@
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { stagione } from '@/composables/useCure'
+import { classificaConcimi } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()
+
+const classifica = computed(() => classificaConcimi(store.piante, store.specie, store.concimi, stagione()))
 
 const mostraForm = ref(false)
 const modificaId  = ref(null)

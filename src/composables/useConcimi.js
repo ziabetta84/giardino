@@ -33,3 +33,25 @@ export function concimeConsigliato(npkRichiestoTesto, concimi) {
   if (!migliore || migliore.distanza > SOGLIA_DISTANZA) return null
   return migliore
 }
+
+// Classifica i concimi in dispensa per copertura reale: per ogni pianta con
+// un fabbisogno NPK nella stagione data, trova il concime che lo copre
+// meglio (stessa logica di concimeConsigliato, usata anche in Attività) e
+// conta quante piante ciascun concime "vince". Non è un punteggio astratto
+// sul concime in sé: riflette solo cosa serve davvero alle piante che hai.
+export function classificaConcimi(piante, specie, concimi, stagioneCorrente) {
+  if (!piante || !concimi || !Object.keys(concimi).length) return []
+
+  const copertura = {}
+  for (const id of Object.keys(concimi)) copertura[id] = 0
+
+  for (const p of Object.values(piante)) {
+    const npkRichiesto = specie?.[p.specie]?.manutenzione?.npk?.[stagioneCorrente]
+    const migliore = concimeConsigliato(npkRichiesto, concimi)
+    if (migliore) copertura[migliore.id] = (copertura[migliore.id] ?? 0) + 1
+  }
+
+  return Object.entries(concimi)
+    .map(([id, c]) => ({ id, ...c, copertura: copertura[id] ?? 0 }))
+    .sort((a, b) => b.copertura - a.copertura)
+}
