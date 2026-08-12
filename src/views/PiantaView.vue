@@ -64,11 +64,14 @@
               <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
                 {{ valutaCura(pianta, specie, tipo, contestoCura).label ?? 'Non configurata' }}
               </div>
-              <div v-if="tipo === 'concimazione' && fabbisognoNpk && suggerimentoConcime" style="font-size:11px;color:var(--sage-dark);margin-top:2px;">
-                🌱 Consigliato: {{ suggerimentoConcime.nome }} ({{ suggerimentoConcime.npk.n }}-{{ suggerimentoConcime.npk.p }}-{{ suggerimentoConcime.npk.k }})
+              <div v-if="tipo === 'concimazione' && fabbisognoNpk && classificaConcimiPianta.length" style="font-size:11px;margin-top:4px;">
+                <div style="color:var(--sage-dark);font-weight:600;margin-bottom:2px;">🌱 Concimi migliori per questa cura (fabbisogno {{ fabbisognoNpk }})</div>
+                <div v-for="(c, i) in classificaConcimiPianta" :key="c.id" style="color:var(--ink-soft);">
+                  {{ i + 1 }}. {{ c.nome }} ({{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }})
+                </div>
               </div>
-              <div v-else-if="tipo === 'concimazione' && fabbisognoNpk && !suggerimentoConcime" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
-                Nessun concime adatto in dispensa (fabbisogno {{ fabbisognoNpk }})
+              <div v-else-if="tipo === 'concimazione' && fabbisognoNpk" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
+                Nessun concime in dispensa (fabbisogno {{ fabbisognoNpk }})
               </div>
             </div>
             <button @click="registraCura(tipo)" :disabled="salvando === tipo" class="btn btn-sage"
@@ -219,7 +222,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
-import { concimeConsigliato } from '@/composables/useConcimi'
+import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'
 
@@ -312,8 +315,11 @@ const cureUrgenti = computed(() =>
 )
 
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
-const suggerimentoConcime = computed(() =>
-  fabbisognoNpk.value ? concimeConsigliato(fabbisognoNpk.value, store.concimi) : null
+// Solo i primi 3: la dispensa può avere una decina di concimi, l'intera
+// classifica affollerebbe la riga della cura senza aggiungere utilità
+// oltre i migliori candidati.
+const classificaConcimiPianta = computed(() =>
+  fabbisognoNpk.value ? classificaConcimiPerFabbisogno(fabbisognoNpk.value, store.concimi).slice(0, 3) : []
 )
 
 async function registraCura(tipo) {

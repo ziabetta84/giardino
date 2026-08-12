@@ -33,3 +33,17 @@ export function concimeConsigliato(npkRichiestoTesto, concimi) {
   if (!migliore || migliore.distanza > SOGLIA_DISTANZA) return null
   return migliore
 }
+
+// Classifica tutti i concimi in dispensa dal più al meno adatto per UN
+// fabbisogno NPK specifico (una pianta, una stagione) — a differenza di
+// concimeConsigliato(), che restituisce solo il migliore (o niente, se
+// nessuno è abbastanza vicino), qui vogliamo l'intero ordinamento per
+// mostrarlo nella scheda della pianta.
+export function classificaConcimiPerFabbisogno(npkRichiestoTesto, concimi) {
+  const richiesto = parseNPK(npkRichiestoTesto)
+  if (!richiesto || !concimi) return []
+  return Object.entries(concimi)
+    .filter(([, c]) => c.npk)
+    .map(([id, c]) => ({ id, ...c, distanza: distanza(richiesto, c.npk) }))
+    .sort((a, b) => a.distanza - b.distanza)
+}
