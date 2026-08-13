@@ -3,10 +3,10 @@
     <!-- Hero -->
     <div style="text-align:center;padding:32px 0 36px;">
       <ZorbaLogo class="app-logo" />
-      <h1 class="title-display gradient-title" style="font-size:2.3rem;font-weight:800;margin-bottom:6px;">
+      <h1 class="title-display gradient-title" style="font-size:2.6rem;line-height:1.05;font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;">
         Il Giardino di Zorba
       </h1>
-      <p class="title-serif" style="color:var(--ink-soft);font-size:14px;font-style:italic;">
+      <p class="title-serif" style="color:var(--ink-soft);font-size:15px;font-style:italic;">
         {{ oggi }} · Centinarola, Fano
       </p>
       <div class="dots">
