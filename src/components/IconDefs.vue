@@ -61,8 +61,8 @@
       </symbol>
       <symbol id="i-pin" viewBox="0 0 24 24">
         <g transform="translate(12,12) scale(0.8) translate(-12,-12)">
-          <path fill="var(--gold)" d="M12.3 21.3S4.5 14 4.6 8.5a7.4 7.4 0 1 1 14.9.3c-.2 5.5-7.2 12.5-7.2 12.5z"/>
-          <g clip-path="url(#clip-pin)"><ellipse cx="11.6" cy="16.3" rx="3.6" ry="3.8" fill="var(--gold-ink)" opacity=".35"/></g>
+          <path fill="var(--acqua)" d="M12.3 21.3S4.5 14 4.6 8.5a7.4 7.4 0 1 1 14.9.3c-.2 5.5-7.2 12.5-7.2 12.5z"/>
+          <g clip-path="url(#clip-pin)"><ellipse cx="11.6" cy="16.3" rx="3.6" ry="3.8" fill="var(--acqua-dark)" opacity=".35"/></g>
         </g>
       </symbol>
       <!-- Cornice: contiene una foto vera (sole + montagne), non un
