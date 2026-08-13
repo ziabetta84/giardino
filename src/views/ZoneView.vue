@@ -20,7 +20,9 @@
     </div>
 
     <div v-else-if="!zoneList.length" style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-      <div style="font-size:40px;margin-bottom:12px;">📍</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <Icon name="pin" style="width:24px;height:24px;" />
+      </div>
       <p style="color:var(--ink-soft);">Nessuna zona ancora configurata</p>
     </div>
 
@@ -41,8 +43,8 @@
           <RouterLink :to="`/zone/${z.key}/sottozone`" class="btn btn-ghost" style="padding:8px 12px;font-size:12px;border-radius:10px;text-decoration:none;min-height:38px;">
             Sottozone
           </RouterLink>
-          <RouterLink :to="`/zone/${z.key}/modifica`" class="btn btn-ghost" style="padding:8px 10px;font-size:13px;border-radius:10px;text-decoration:none;min-height:38px;">
-            ✏️
+          <RouterLink :to="`/zone/${z.key}/modifica`" class="btn btn-ghost" style="padding:8px 10px;font-size:13px;border-radius:10px;text-decoration:none;min-height:38px;display:flex;align-items:center;justify-content:center;">
+            <Icon name="matita" style="width:14px;height:14px;" />
           </RouterLink>
         </div>
       </div>
@@ -87,6 +89,7 @@ import { computed, ref } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import ModalConferma from '@/components/ModalConferma.vue'
+import Icon from '@/components/Icon.vue'
 
 const store      = useDatiStore()
 const { saveJSON } = useApi()

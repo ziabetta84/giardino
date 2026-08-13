@@ -21,7 +21,7 @@
           <div style="flex:1;min-width:0;">
             <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ c.nome }}</h3>
             <span class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
-            <p v-if="c.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:6px;">{{ descrizioneBreve(c) }}</p>
+            <p v-if="c.descrizione" class="text-light" style="font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:6px;">{{ descrizioneBreve(c) }}</p>
           </div>
           <button @click.stop="avviaElimina(c)" aria-label="Elimina concime"
             style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;padding:4px;">×</button>
@@ -29,9 +29,11 @@
       </div>
 
       <div v-else style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="font-size:48px;margin-bottom:12px;">🧪</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--sage-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="provetta" style="width:28px;height:28px;" />
+        </div>
         <p class="title-serif" style="font-size:15px;color:var(--ink-soft);font-weight:600;">Nessun concime ancora</p>
-        <p style="font-size:12px;margin-top:6px;">Aggiungi i concimi che possiedi per ricevere suggerimenti nelle Attività</p>
+        <p class="text-light" style="font-size:12px;margin-top:6px;">Aggiungi i concimi che possiedi per ricevere suggerimenti nelle Attività</p>
       </div>
     </template>
 
@@ -79,6 +81,7 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import ModalConferma from '@/components/ModalConferma.vue'
+import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()

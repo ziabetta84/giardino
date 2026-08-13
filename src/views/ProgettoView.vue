@@ -13,7 +13,9 @@
 
     <template v-else-if="!form">
       <div style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-        <div style="font-size:40px;margin-bottom:12px;">🗂️</div>
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="lampadina" style="width:24px;height:24px;" />
+        </div>
         <p>Progetto non trovato</p>
       </div>
     </template>
@@ -74,11 +76,13 @@
         </div>
       </div>
 
-      <p v-if="errore" style="font-size:12px;color:var(--rose-dark);margin-bottom:10px;">⚠ {{ errore }}</p>
+      <p v-if="errore" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);margin-bottom:10px;">
+        <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />{{ errore }}
+      </p>
 
       <div style="display:flex;gap:10px;">
         <button @click="daEliminare = true" class="btn" style="font-size:13px;color:var(--rose-dark);background:transparent;border-color:var(--rose-light);">
-          🗑 Elimina progetto
+          Elimina progetto
         </button>
         <button @click="salva" :disabled="!form.titolo.trim() || salvando" class="btn btn-sage" style="flex:1;">
           {{ salvando ? '⏳ Salvataggio…' : 'Salva modifiche' }}
@@ -105,6 +109,7 @@ import { useApi } from '@/composables/useApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
 import ModalConferma from '@/components/ModalConferma.vue'
 import MiniEditor from '@/components/MiniEditor.vue'
+import Icon from '@/components/Icon.vue'
 
 const route  = useRoute()
 const router = useRouter()

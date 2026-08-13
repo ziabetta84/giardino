@@ -15,7 +15,9 @@
 
     <template v-else-if="!pianta">
       <div style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-        <div style="font-size:40px;margin-bottom:12px;">🌾</div>
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="foglia" style="width:24px;height:24px;" />
+        </div>
         <p>Pianta non trovata</p>
       </div>
     </template>
@@ -51,7 +53,9 @@
           </div>
         </div>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"
-          style="flex-shrink:0;padding:8px 14px;font-size:13px;">✏️ Modifica</RouterLink>
+          style="flex-shrink:0;padding:8px 14px;font-size:13px;display:flex;align-items:center;gap:6px;">
+          <Icon name="matita" style="width:13px;height:13px;flex-shrink:0;" />Modifica
+        </RouterLink>
       </div>
 
       <!-- Urgenze -->

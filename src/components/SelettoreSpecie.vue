@@ -13,7 +13,7 @@
     <div v-if="dropdownAperto" class="specie-dropdown">
       <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione-riga">
         <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)">{{ s.nome }}</div>
-        <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie">✏️</button>
+        <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie"><Icon name="matita" style="width:13px;height:13px;" /></button>
       </div>
       <p v-if="!specieFiltrate.length" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
       <div class="specie-opzione specie-nuova" @mousedown.prevent="apriNuovaSpecie">
@@ -80,25 +80,25 @@
               <div class="stagione-header">Aut</div>
               <div class="stagione-header">Inv</div>
 
-              <div class="tipo-label">💧 Irrigazione</div>
+              <div class="tipo-label"><Icon name="goccia" style="width:13px;height:13px;flex-shrink:0;" />Irrigazione</div>
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
 
-              <div class="tipo-label">🌱 Concimazione</div>
+              <div class="tipo-label"><Icon name="concimazione" style="width:13px;height:13px;flex-shrink:0;" />Concimazione</div>
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
 
-              <div class="tipo-label">🧪 NPK</div>
+              <div class="tipo-label"><Icon name="provetta" style="width:13px;height:13px;flex-shrink:0;" />NPK</div>
               <input v-model="nuovaSpecie.manutenzione.npk.primavera" placeholder="N-P-K">
               <input v-model="nuovaSpecie.manutenzione.npk.estate" placeholder="N-P-K">
               <input v-model="nuovaSpecie.manutenzione.npk.autunno" placeholder="N-P-K">
               <input v-model="nuovaSpecie.manutenzione.npk.inverno" placeholder="N-P-K">
 
-              <div class="tipo-label">🥚 Calcio</div>
+              <div class="tipo-label"><Icon name="provetta" style="width:13px;height:13px;flex-shrink:0;" />Calcio</div>
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.primavera" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.estate" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.autunno" placeholder="gg">
@@ -106,7 +106,9 @@
             </div>
             <p style="font-size:11px;color:var(--ink-faint);margin:6px 0 0;">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
 
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 2px;">✂️ Potatura (opzionale)</label>
+            <label style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 2px;">
+              <Icon name="potatura" style="width:13px;height:13px;flex-shrink:0;" />Potatura (opzionale)
+            </label>
             <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div>
@@ -207,6 +209,7 @@ import { ref, computed, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { parseGiorni } from '@/composables/useCure'
+import Icon from '@/components/Icon.vue'
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
@@ -621,6 +624,9 @@ async function salvaNuovaSpecie() {
   text-align: center;
 }
 .tipo-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
   color: var(--ink-mid);
 }

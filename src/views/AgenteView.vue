@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:4px;">😺 Zorba dice</h1>
+    <h1 class="title-display gradient-title" style="display:flex;align-items:center;gap:9px;font-size:1.9rem;font-weight:800;margin-bottom:4px;">
+      <Icon name="gatto" style="width:26px;height:26px;flex-shrink:0;" />Zorba dice
+    </h1>
     <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">Elaborato da Claude Code · risposte entro pochi minuti</p>
 
     <!-- Token mancante -->
@@ -65,7 +67,7 @@
              non occupare spazio prezioso su schermo mobile. -->
         <div v-else style="display:flex;gap:8px;">
           <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-            🖼️ Libreria
+            <Icon name="cornice" style="width:16px;height:16px;flex-shrink:0;" />Libreria
             <input type="file" accept="image/*" @change="selezionaFoto" style="display:none;">
           </label>
           <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
@@ -80,7 +82,9 @@
         rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
 
       <div v-if="errore" style="margin-bottom:10px;padding:8px 12px;background:var(--rose-pale);border-radius:10px;border:1px solid var(--rose-light);">
-        <p style="font-size:12px;color:var(--rose-dark);">⚠ {{ errore }}</p>
+        <p style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);">
+          <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />{{ errore }}
+        </p>
       </div>
 
       <button @click="aggiungiRichiesta" :disabled="!puoInviare || aggiungendo || !tokenSalvato"
@@ -139,7 +143,9 @@
     </template>
 
     <div v-else style="text-align:center;padding:40px 20px;color:var(--ink-faint);">
-      <div style="font-size:40px;margin-bottom:12px;">🌿</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <Icon name="gatto" style="width:24px;height:24px;" />
+      </div>
       <p style="font-size:13px;">Nessuna richiesta ancora</p>
     </div>
   </div>
@@ -150,6 +156,7 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useApi } from '@/composables/useApi'
 import { useDatiStore } from '@/stores/dati'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
+import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
 const { saveJSON, isAutenticato, salvaToken } = useApi()
