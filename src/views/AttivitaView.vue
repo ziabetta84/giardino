@@ -22,16 +22,16 @@
            (es. "taglio leggero"), non un intervallo in giorni, quindi non
            genera mai una scadenza qui (vedi useCure.js/parseGiorni). -->
       <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;">
-        <button type="button" class="pill" :class="{ active: tabAttiva === 'irrigazione' }" @click="tabAttiva = 'irrigazione'">
-          💧 Irrigazione
+        <button type="button" class="pill tab-icona" :class="{ active: tabAttiva === 'irrigazione' }" @click="tabAttiva = 'irrigazione'">
+          <Icon name="goccia" />Irrigazione
           <span v-if="conteggioTab.irrigazione" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.irrigazione }}</span>
         </button>
-        <button type="button" class="pill" :class="{ active: tabAttiva === 'concimi' }" @click="tabAttiva = 'concimi'">
-          🌱 Concimi &amp; calcio
+        <button type="button" class="pill tab-icona" :class="{ active: tabAttiva === 'concimi' }" @click="tabAttiva = 'concimi'">
+          <Icon name="concimazione" />Concimi &amp; calcio
           <span v-if="conteggioTab.concimi" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.concimi }}</span>
         </button>
-        <button type="button" class="pill" :class="{ active: tabAttiva === 'progetti' }" @click="tabAttiva = 'progetti'">
-          🗂️ Progetti
+        <button type="button" class="pill tab-icona" :class="{ active: tabAttiva === 'progetti' }" @click="tabAttiva = 'progetti'">
+          <Icon name="lampadina" />Progetti
           <span v-if="conteggioTab.progetti" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.progetti }}</span>
         </button>
       </div>
@@ -39,7 +39,9 @@
       <template v-if="tabAttiva !== 'progetti'">
         <!-- Da fare -->
         <template v-if="daFareTab.length">
-          <p class="section-label">⚠ Da fare</p>
+          <p class="section-label" style="display:flex;align-items:center;gap:6px;">
+            <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da fare
+          </p>
           <div style="margin-bottom:24px;">
             <AttivitaGruppoZona
               v-for="gruppo in gruppiDaFareTab"
@@ -77,7 +79,7 @@
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
           <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`" class="card"
             :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
-            <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;background:${t.urgente ? 'var(--rose-light)' : 'var(--gold-pale)'};`">🗂️</div>
+            <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${t.urgente ? 'var(--rose-tile)' : 'var(--olive-tile)'};`"><Icon name="lampadina" style="width:18px;height:18px;" /></div>
             <div style="flex:1;min-width:0;">
               <RouterLink :to="`/progetti/${t.progettoId}`" class="title-serif"
                 style="font-size:13px;font-weight:600;text-decoration:none;color:inherit;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
@@ -114,6 +116,7 @@ import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
+import Icon from '@/components/Icon.vue'
 
 const store    = useDatiStore()
 const { saveJSON } = useApi()
@@ -244,3 +247,8 @@ async function registraTappa(t) {
   }
 }
 </script>
+
+<style scoped>
+.tab-icona { display: inline-flex; align-items: center; gap: 5px; }
+.tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
+</style>
