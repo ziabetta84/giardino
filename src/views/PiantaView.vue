@@ -86,7 +86,7 @@
             <span :style="`width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;${i === 0 ? 'background:var(--sage);color:white;' : 'background:var(--cream-dark);color:var(--ink-soft);'}`">
               {{ i + 1 }}
             </span>
-            <span style="flex:1;min-width:0;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ c.nome }}</span>
+            <span style="flex:1;min-width:0;font-size:13px;font-weight:500;line-height:1.4;">{{ c.nome }}</span>
             <span class="badge" style="background:var(--white);color:var(--ink-soft);border:1px solid var(--cream-dark);flex-shrink:0;">
               {{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}
             </span>
