@@ -1,6 +1,6 @@
 <template>
   <div class="card" :style="cardStyle">
-    <div :style="iconStyle">{{ icona(item.tipo) }}</div>
+    <div :style="iconStyle"><Icon :name="icona(item.tipo)" style="width:18px;height:18px;" /></div>
     <div style="flex:1;min-width:0;">
       <div class="title-serif" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
         {{ item.nomeSpecie }}
@@ -20,6 +20,7 @@
 
 <script setup>
 import { computed } from 'vue'
+import Icon from '@/components/Icon.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },
@@ -28,9 +29,10 @@ const props = defineProps({
 })
 defineEmits(['registra'])
 
-const ICONE = { irrigazione: '💧', concimazione: '🌱', potatura: '✂️', calcio: '🥚' }
+const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'provetta' }
+const TINTE_CURA = { irrigazione: 'acqua', concimazione: 'olive', potatura: 'rose', calcio: 'sage' }
 function icona(tipo) {
-  return ICONE[tipo] ?? '🌿'
+  return ICONE_CURA[tipo] ?? 'foglia'
 }
 
 const cardStyle = computed(() => {
@@ -41,8 +43,8 @@ const cardStyle = computed(() => {
 })
 
 const iconStyle = computed(() => {
-  const base = 'width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;'
-  return base + (props.variante === 'urgente' ? 'background:var(--rose-light);' : 'background:var(--gold-pale);')
+  const base = 'width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'
+  return base + `background:var(--${TINTE_CURA[props.item.tipo] ?? 'sage'}-tile);`
 })
 
 const labelStyle = computed(() => {
