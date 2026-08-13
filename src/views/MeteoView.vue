@@ -12,13 +12,17 @@
     </div>
 
     <div v-else-if="errore" class="card" style="padding:24px;text-align:center;color:var(--rose-dark);">
-      <div style="font-size:32px;margin-bottom:8px;">⚠️</div>
+      <div style="width:44px;height:44px;border-radius:50%;background:var(--rose-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
+        <Icon name="campanella" style="width:20px;height:20px;" />
+      </div>
       <p>{{ errore }}</p>
     </div>
 
     <template v-else>
       <div v-if="avvisi.length" class="card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:16px;">
-        <p style="font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">⚠ Condizioni avverse in arrivo</p>
+        <p style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">
+          <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />Condizioni avverse in arrivo
+        </p>
         <div style="display:flex;flex-direction:column;gap:6px;">
           <div v-for="a in avvisi" :key="a.key" style="font-size:13px;color:var(--rose-dark);">
             {{ a.icona }} <strong>{{ a.giorno }}</strong> — {{ a.testo }}
@@ -36,7 +40,7 @@
             <div style="font-size:11px;color:var(--ink-soft);">{{ o.label }}</div>
             <div style="font-size:22px;margin:4px 0;">{{ o.icona }}</div>
             <div style="font-size:12px;font-weight:600;">{{ o.temp }}°</div>
-            <div v-if="o.pioggiaProb !== null" style="font-size:10px;color:var(--ink-faint);margin-top:2px;">💧 {{ o.pioggiaProb }}%</div>
+            <div v-if="o.pioggiaProb !== null" class="text-light" style="font-size:10px;color:var(--ink-faint);margin-top:2px;">💧 {{ o.pioggiaProb }}%</div>
           </div>
         </div>
       </div>
@@ -47,9 +51,9 @@
           style="padding:18px;text-align:center;">
           <div class="meteo-label">{{ g.label }}</div>
           <div style="font-size:40px;margin:10px 0;">{{ g.icona }}</div>
-          <div style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
+          <div class="text-light" style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
           <div style="font-weight:600;font-size:15px;">{{ g.tMax }}° / {{ g.tMin }}°</div>
-          <div style="font-size:11px;color:var(--ink-soft);margin-top:4px;">
+          <div class="text-light" style="font-size:11px;color:var(--ink-soft);margin-top:4px;">
             💧 {{ g.pioggia }} mm · 💨 {{ g.vento }} km/h
           </div>
         </div>
@@ -62,6 +66,7 @@
 import { onMounted, onUnmounted, ref, computed } from 'vue'
 import { useMeteo } from '@/composables/useMeteo'
 import { useDatiStore } from '@/stores/dati'
+import Icon from '@/components/Icon.vue'
 
 const { giorni, orarieOggi, avvisi, loading, errore, carica } = useMeteo()
 const store = useDatiStore()
