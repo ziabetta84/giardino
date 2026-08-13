@@ -1,7 +1,7 @@
 <template>
   <div>
-    <!-- Back -->
-    <RouterLink to="/piante" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
+    <!-- Back (assente quando c'è la foto hero: il back vive nell'overlay) -->
+    <RouterLink v-if="!fotoHero" to="/piante" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
       ← Piante
     </RouterLink>
 
@@ -21,8 +21,23 @@
     </template>
 
     <template v-else>
-      <!-- Header -->
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
+      <!-- Header con foto: solo quando la pianta ha almeno una foto in
+           galleria. Senza foto resta l'header testuale, invece di uno
+           spazio vuoto o un placeholder. -->
+      <div v-if="fotoHero" class="plant-hero" :style="`background-image:url(${fotoHero.url});`">
+        <RouterLink to="/piante" class="plant-back"><Icon name="back" style="width:16px;height:16px;" /></RouterLink>
+        <RouterLink :to="`/piante/${route.params.id}/modifica`" class="plant-edit">
+          <Icon name="matita" style="width:12px;height:12px;" />Modifica
+        </RouterLink>
+        <div class="plant-hero-text">
+          <span class="zone-chip">{{ pianta.sottozona ? `${pianta.zona} · ${pianta.sottozona}` : pianta.zona }}</span>
+          <h1 class="plant-hero-title">{{ specie?.nome ?? pianta.specie }}</h1>
+          <p class="plant-hero-lat">{{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span></p>
+        </div>
+      </div>
+
+      <!-- Header testuale: quando non c'è ancora una foto -->
+      <div v-else style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
         <div>
           <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
             {{ specie?.nome ?? pianta.specie }}
@@ -41,7 +56,9 @@
 
       <!-- Urgenze -->
       <div v-if="cureUrgenti.length" class="card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:12px;">
-        <p style="font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">⚠ Da curare subito</p>
+        <p style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">
+          <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />Da curare subito
+        </p>
         <div style="display:flex;flex-direction:column;gap:6px;">
           <div v-for="c in cureUrgenti" :key="c.tipo" style="display:flex;align-items:center;justify-content:space-between;">
             <span style="font-size:13px;color:var(--rose-dark);">{{ c.label }}</span>
@@ -58,8 +75,9 @@
         <p class="section-label" style="margin-bottom:10px;">Stato cure</p>
         <div style="display:flex;flex-direction:column;gap:10px;">
           <div v-for="tipo in tipiCura" :key="tipo"
-            style="display:flex;align-items:center;justify-content:space-between;">
-            <div>
+            style="display:flex;align-items:center;gap:12px;">
+            <div class="cura-ic" :style="`background:var(--${tintaCura(tipo)}-tile);`"><Icon :name="iconaCura(tipo)" style="width:17px;height:17px;" /></div>
+            <div style="flex:1;min-width:0;">
               <div style="font-size:13px;font-weight:500;text-transform:capitalize;">{{ tipo }}</div>
               <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
                 {{ valutaCura(pianta, specie, tipo, contestoCura).label ?? 'Non configurata' }}
@@ -78,7 +96,9 @@
 
       <!-- Concimi consigliati per il fabbisogno attuale -->
       <div v-if="fabbisognoNpk && classificaConcimiPianta.length" class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:2px;">🌱 Concimi consigliati</p>
+        <p class="section-label" style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
+          <Icon name="concimazione" style="width:13px;height:13px;flex-shrink:0;" />Concimi consigliati
+        </p>
         <p style="font-size:11px;color:var(--ink-faint);margin:0 0 10px;">Per il fabbisogno di concimazione attuale: {{ fabbisognoNpk }}</p>
         <div style="display:flex;flex-direction:column;gap:6px;">
           <div v-for="(c, i) in classificaConcimiPianta" :key="c.id"
@@ -237,6 +257,7 @@ import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'
+import Icon from '@/components/Icon.vue'
 
 const route  = useRoute()
 const router = useRouter()
@@ -253,6 +274,15 @@ const caricandoFoto = ref(false)
 const luce          = ref(null)
 const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
+
+// La prima foto in galleria diventa l'header della scheda, al posto del
+// testo semplice — se la pianta non ha ancora foto resta l'header testuale.
+const fotoHero = computed(() => fotoPianta.value[0] ?? null)
+
+const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'provetta' }
+const TINTE_CURA = { irrigazione: 'acqua', concimazione: 'olive', potatura: 'rose', calcio: 'sage' }
+function iconaCura(tipo) { return ICONE_CURA[tipo] ?? 'foglia' }
+function tintaCura(tipo) { return TINTE_CURA[tipo] ?? 'sage' }
 
 const indiceLuce = computed(() => luce.value ? fotoPianta.value.findIndex(f => f.path === luce.value.path) : -1)
 
@@ -388,3 +418,39 @@ async function eliminaPianta() {
   }
 }
 </script>
+
+<style scoped>
+.plant-hero {
+  position: relative; height: 200px; margin: 0 -16px 20px; border-radius: 0;
+  background-size: cover; background-position: 50% 35%;
+}
+.plant-hero::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(20,14,8,0.02) 0%, rgba(20,14,8,0.08) 55%, rgba(20,14,8,0.62) 100%);
+}
+.plant-back, .plant-edit {
+  position: absolute; top: 14px; z-index: 2;
+  background: rgba(20,14,8,0.32); backdrop-filter: blur(3px);
+  color: #fdf8ee; text-decoration: none;
+}
+.plant-back {
+  left: 16px; width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.plant-edit {
+  right: 16px; display: flex; align-items: center; gap: 5px;
+  font-size: 11px; font-weight: 700; padding: 7px 12px 7px 10px; border-radius: 999px;
+}
+.plant-hero-text { position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 2; color: #fdf8ee; }
+.plant-hero-title {
+  font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; margin: 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.28);
+}
+.plant-hero-lat { font-family: var(--font-serif); font-style: italic; font-size: 12px; color: rgba(253,248,238,0.88); margin: 2px 0 0; }
+.zone-chip {
+  display: inline-block; margin-bottom: 6px; font-size: 9.5px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase; background: rgba(253,248,238,0.22);
+  color: #fdf8ee; padding: 3px 9px; border-radius: 999px;
+}
+.cura-ic { width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+</style>
