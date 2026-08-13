@@ -67,10 +67,10 @@ body::before {
 /* Liste che entrano/escono con un lieve stagger (Home, Piante, Attività):
    il ritardo per elemento è impostato inline via transitionDelay, non qui
    — questo blocco copre solo la transizione condivisa. */
-.stagger-enter-active { transition: opacity 0.35s ease, transform 0.35s ease; }
-.stagger-leave-active { transition: opacity 0.25s ease, transform 0.25s ease; }
-.stagger-enter-from { opacity: 0; transform: translateY(8px); }
-.stagger-leave-to { opacity: 0; transform: translateX(12px); }
+.stagger-enter-active { transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out; }
+.stagger-leave-active { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
+.stagger-enter-from { opacity: 0; transform: translateY(14px); }
+.stagger-leave-to { opacity: 0; transform: translateX(14px); }
 @media (prefers-reduced-motion: reduce) {
   .stagger-enter-active, .stagger-leave-active { transition: none !important; }
 }
