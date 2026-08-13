@@ -26,7 +26,7 @@
           {{ meteoOggi.tMax }}° / {{ meteoOggi.tMin }}° · {{ meteoOggi.descrizione }}
         </div>
         <div v-else style="font-weight:600;font-size:14px;color:var(--ink-faint);">Caricamento meteo…</div>
-        <div v-if="meteoOggi" style="color:var(--ink-soft);font-size:12px;margin-top:1px;">
+        <div v-if="meteoOggi" class="text-light" style="color:var(--ink-soft);font-size:12px;margin-top:1px;">
           💧 {{ meteoOggi.pioggia }} mm · 💨 {{ meteoOggi.vento }} km/h
         </div>
       </div>
@@ -86,7 +86,7 @@
       </div>
 
       <div v-else style="padding:20px 18px;text-align:center;">
-        <p style="font-size:13px;color:var(--ink-soft);">Nessuna cura urgente oggi 🌸</p>
+        <p class="text-light" style="font-size:13px;color:var(--ink-soft);">Nessuna cura urgente oggi 🌸</p>
       </div>
     </div>
   </div>

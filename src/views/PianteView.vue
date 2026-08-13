@@ -75,8 +75,8 @@
       <!-- Stato vuoto -->
       <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
         <div style="font-size:40px;margin-bottom:12px;">🌾</div>
-        <p style="font-size:14px;color:var(--ink-soft);">Nessuna pianta trovata</p>
-        <p style="font-size:12px;margin-top:4px;">Prova a cambiare il filtro o la ricerca</p>
+        <p class="text-light" style="font-size:14px;color:var(--ink-soft);">Nessuna pianta trovata</p>
+        <p class="text-light" style="font-size:12px;margin-top:4px;">Prova a cambiare il filtro o la ricerca</p>
       </div>
     </template>
 
