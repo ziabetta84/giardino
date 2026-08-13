@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-display gradient-title" style="display:flex;align-items:center;gap:9px;font-size:1.9rem;font-weight:800;margin-bottom:4px;">
-      <Icon name="gatto" style="width:26px;height:26px;flex-shrink:0;" />Zorba dice
+      <ZorbaLogo style="width:38px;height:38px;flex-shrink:0;" />Zorba dice
     </h1>
     <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">Elaborato da Claude Code · risposte entro pochi minuti</p>
 
@@ -21,15 +21,12 @@
     <div class="card" style="padding:16px;margin-bottom:20px;border-color:var(--sage-light);">
       <p class="section-label" style="margin-bottom:10px;">Nuova richiesta</p>
 
-      <select v-model="nuovoTipo" class="form-input" style="margin-bottom:10px;">
-        <option value="identifica_specie">🌿 Identifica specie da foto</option>
-        <option value="revisione_specie">📋 Revisiona/completa specie</option>
-        <option value="consiglio_cura">💧 Consiglio per cura</option>
-        <option value="consiglio_concimazione">🌱 Consiglio concimazione</option>
-        <option value="diagnosi">🔍 Diagnosi problema</option>
-        <option value="pianifica_progetto">🗂️ Pianifica progetto</option>
-        <option value="altro">💬 Altro</option>
-      </select>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+        <button v-for="t in TIPI_RICHIESTA" :key="t.value" type="button" class="pill tab-icona"
+          :class="{ active: nuovoTipo === t.value }" @click="nuovoTipo = t.value">
+          <Icon v-if="t.icon" :name="t.icon" />{{ t.label }}
+        </button>
+      </div>
 
       <!-- Revisione specie: indica quale specie, non serve una foto -->
       <div v-if="nuovoTipo === 'revisione_specie'" style="margin-bottom:10px;">
@@ -157,6 +154,7 @@ import { useApi } from '@/composables/useApi'
 import { useDatiStore } from '@/stores/dati'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Icon from '@/components/Icon.vue'
+import ZorbaLogo from '@/components/ZorbaLogo.vue'
 
 const store = useDatiStore()
 const { saveJSON, isAutenticato, salvaToken } = useApi()
@@ -175,6 +173,16 @@ const nomeFile     = ref('')
 const errore       = ref(null)
 const tokenInput   = ref('')
 const tokenSalvato = ref(isAutenticato())
+
+const TIPI_RICHIESTA = [
+  { value: 'identifica_specie',      label: 'Identifica specie da foto',  icon: 'foglia' },
+  { value: 'revisione_specie',       label: 'Revisiona/completa specie',  icon: 'matita' },
+  { value: 'consiglio_cura',         label: 'Consiglio per cura',         icon: 'goccia' },
+  { value: 'consiglio_concimazione', label: 'Consiglio concimazione',     icon: 'concimazione' },
+  { value: 'diagnosi',               label: 'Diagnosi problema',          icon: 'cerca' },
+  { value: 'pianifica_progetto',     label: 'Pianifica progetto',         icon: 'lampadina' },
+  { value: 'altro',                  label: 'Altro',                      icon: null },
+]
 
 const puoInviare = computed(() => {
   if (nuovoTipo.value === 'revisione_specie') return !!specieSelezionata.value
@@ -330,4 +338,6 @@ async function aggiungiRichiesta() {
   0%, 100% { opacity: .4; transform: scale(.8); }
   50%       { opacity: 1;  transform: scale(1.2); }
 }
+.tab-icona { display: inline-flex; align-items: center; gap: 5px; }
+.tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 </style>
