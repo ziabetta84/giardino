@@ -64,20 +64,32 @@
               <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
                 {{ valutaCura(pianta, specie, tipo, contestoCura).label ?? 'Non configurata' }}
               </div>
-              <div v-if="tipo === 'concimazione' && fabbisognoNpk && classificaConcimiPianta.length" style="font-size:11px;margin-top:4px;">
-                <div style="color:var(--sage-dark);font-weight:600;margin-bottom:2px;">🌱 Concimi migliori per questa cura (fabbisogno {{ fabbisognoNpk }})</div>
-                <div v-for="(c, i) in classificaConcimiPianta" :key="c.id" style="color:var(--ink-soft);">
-                  {{ i + 1 }}. {{ c.nome }} ({{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }})
-                </div>
-              </div>
-              <div v-else-if="tipo === 'concimazione' && fabbisognoNpk" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
+              <div v-if="tipo === 'concimazione' && fabbisognoNpk && !classificaConcimiPianta.length" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
                 Nessun concime in dispensa (fabbisogno {{ fabbisognoNpk }})
               </div>
             </div>
             <button @click="registraCura(tipo)" :disabled="salvando === tipo" class="btn btn-sage"
-              style="font-size:11px;padding:4px 10px;min-height:28px;">
+              style="font-size:11px;padding:4px 10px;min-height:28px;flex-shrink:0;white-space:nowrap;">
               {{ salvando === tipo ? '⏳' : '✓ Fatto' }}
             </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Concimi consigliati per il fabbisogno attuale -->
+      <div v-if="fabbisognoNpk && classificaConcimiPianta.length" class="card" style="padding:16px;margin-bottom:12px;">
+        <p class="section-label" style="margin-bottom:2px;">🌱 Concimi consigliati</p>
+        <p style="font-size:11px;color:var(--ink-faint);margin:0 0 10px;">Per il fabbisogno di concimazione attuale: {{ fabbisognoNpk }}</p>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div v-for="(c, i) in classificaConcimiPianta" :key="c.id"
+            :style="`display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;${i === 0 ? 'background:var(--sage-pale);' : ''}`">
+            <span :style="`width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;${i === 0 ? 'background:var(--sage);color:white;' : 'background:var(--cream-dark);color:var(--ink-soft);'}`">
+              {{ i + 1 }}
+            </span>
+            <span style="flex:1;min-width:0;font-size:13px;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ c.nome }}</span>
+            <span class="badge" style="background:var(--white);color:var(--ink-soft);border:1px solid var(--cream-dark);flex-shrink:0;">
+              {{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}
+            </span>
           </div>
         </div>
       </div>
