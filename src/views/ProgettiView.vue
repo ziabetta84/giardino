@@ -21,21 +21,25 @@
           <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
             <div style="flex:1;min-width:0;">
               <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ p.titolo }}</h3>
-              <p v-if="p.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ descrizioneBreve(p) }}</p>
+              <p v-if="p.descrizione" class="text-light" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ descrizioneBreve(p) }}</p>
             </div>
             <span class="badge" :style="badgeStato(p.stato)">{{ labelStato(p.stato) }}</span>
           </div>
           <div v-if="p.zona || scadenzaCalcolata(p)" style="display:flex;gap:10px;margin-top:10px;">
-            <span v-if="p.zona" style="font-size:11px;color:var(--ink-faint);">📍 {{ p.zona }}</span>
+            <span v-if="p.zona" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);">
+              <Icon name="pin" style="width:11px;height:11px;flex-shrink:0;" />{{ p.zona }}
+            </span>
             <span v-if="scadenzaCalcolata(p)" style="font-size:11px;color:var(--ink-faint);">📅 {{ scadenzaCalcolata(p) }}</span>
           </div>
         </RouterLink>
       </div>
 
       <div v-else style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="font-size:48px;margin-bottom:12px;">🌱</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="lampadina" style="width:28px;height:28px;" />
+        </div>
         <p class="title-serif" style="font-size:15px;color:var(--ink-soft);font-weight:600;">Nessun progetto ancora</p>
-        <p style="font-size:12px;margin-top:6px;">Pianifica interventi, trapianti o lavori in giardino</p>
+        <p class="text-light" style="font-size:12px;margin-top:6px;">Pianifica interventi, trapianti o lavori in giardino</p>
       </div>
     </template>
 
@@ -66,6 +70,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
 import MiniEditor from '@/components/MiniEditor.vue'
+import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()

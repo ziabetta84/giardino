@@ -18,7 +18,9 @@
     <template v-else>
       <!-- Nessuna foto -->
       <div v-if="!gruppi.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="font-size:48px;margin-bottom:12px;">📷</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--sage-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="cornice" style="width:28px;height:28px;" />
+        </div>
         <p class="title-serif" style="font-size:15px;color:var(--ink-soft);font-weight:600;">Nessuna foto ancora</p>
         <p style="font-size:12px;margin-top:6px;">Fotografa le tue piante e documenta la crescita</p>
         <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin-top:10px;">{{ errore }}</p>
@@ -112,7 +114,7 @@
 
           <div v-else style="display:flex;gap:8px;">
             <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-              🖼️ Libreria
+              <Icon name="cornice" style="width:16px;height:16px;flex-shrink:0;" />Libreria
               <input type="file" accept="image/*" @change="selezionaUpload" style="display:none;">
             </label>
             <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
@@ -126,7 +128,9 @@
             📅 Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
           </p>
 
-          <p v-if="erroreUpload" style="font-size:12px;color:var(--rose-dark);margin-top:8px;">⚠ {{ erroreUpload }}</p>
+          <p v-if="erroreUpload" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);margin-top:8px;">
+            <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />{{ erroreUpload }}
+          </p>
 
           <div style="display:flex;gap:10px;margin-top:16px;">
             <button @click="mostraFormUpload = false" class="btn btn-ghost" style="flex:1;min-height:44px;">Annulla</button>
@@ -146,6 +150,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useGalleria } from '@/composables/useGalleria'
 import LightboxFoto from '@/components/LightboxFoto.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
+import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
 const galleria = useGalleria()

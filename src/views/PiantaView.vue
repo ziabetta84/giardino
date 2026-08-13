@@ -51,7 +51,9 @@
           </div>
         </div>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"
-          style="flex-shrink:0;padding:8px 14px;font-size:13px;">✏️ Modifica</RouterLink>
+          style="flex-shrink:0;padding:8px 14px;font-size:13px;display:flex;align-items:center;gap:6px;">
+          <Icon name="matita" style="width:13px;height:13px;flex-shrink:0;" />Modifica
+        </RouterLink>
       </div>
 
       <!-- Urgenze -->

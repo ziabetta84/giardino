@@ -15,7 +15,9 @@
     </div>
 
     <div v-if="!sottozone.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-      <div style="font-size:40px;margin-bottom:12px;">🗺️</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <Icon name="pin" style="width:24px;height:24px;" />
+      </div>
       <p style="color:var(--ink-soft);font-size:13px;">Nessuna sottozona configurata</p>
     </div>
 
@@ -27,7 +29,7 @@
             <span v-if="sz.tipo" class="badge" :style="sz.tipo === 'interno' ? 'background:var(--sage-pale);color:var(--sage-dark);' : 'background:var(--gold-pale);color:var(--gold-dark);'">
               {{ sz.tipo }}
             </span>
-            <button type="button" class="icon-btn" @click="apriModifica(sz)" title="Modifica sottozona">✏️</button>
+            <button type="button" class="icon-btn" @click="apriModifica(sz)" title="Modifica sottozona"><Icon name="matita" style="width:13px;height:13px;" /></button>
           </div>
         </div>
         <div v-if="sz.esposizione?.length" style="font-size:11px;color:var(--ink-faint);margin-bottom:6px;">
@@ -78,6 +80,7 @@ import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import MiniEditor from '@/components/MiniEditor.vue'
+import Icon from '@/components/Icon.vue'
 
 const route = useRoute()
 const store = useDatiStore()
