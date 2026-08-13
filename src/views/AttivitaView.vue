@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:6px;">Attività</h1>
-    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">{{ dataOggi }}</p>
+    <p class="title-serif" style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:20px;">{{ dataOggi }}</p>
 
     <!-- Skeleton -->
     <div v-if="store.loading" style="display:flex;flex-direction:column;gap:8px;">
