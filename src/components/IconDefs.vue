@@ -70,21 +70,18 @@
         <path fill="var(--gold)" opacity=".2" d="M139.84,84.41v0a68.22,68.22,0,0,0-41.65,46v-.11a44.08,44.08,0,0,0-38.54,5h0a48,48,0,1,1,80.19-50.94Z"/>
         <path fill="var(--gold)" d="M164,72a76.2,76.2,0,0,0-20.26,2.73,55.63,55.63,0,0,0-9.41-11.54l9.51-13.57a8,8,0,1,0-13.11-9.18L121.22,54A55.9,55.9,0,0,0,96,48c-.58,0-1.16,0-1.74,0L91.37,31.71a8,8,0,1,0-15.75,2.77L78.5,50.82A56.1,56.1,0,0,0,55.23,65.67L41.61,56.14a8,8,0,1,0-9.17,13.11L46,78.77A55.55,55.55,0,0,0,40,104c0,.57,0,1.15,0,1.72L23.71,108.6a8,8,0,0,0,1.38,15.88,8.24,8.24,0,0,0,1.39-.12l16.32-2.88a55.74,55.74,0,0,0,5.86,12.42A52,52,0,0,0,84,224h80a76,76,0,0,0,0-152ZM56,104a40,40,0,0,1,72.54-23.24,76.26,76.26,0,0,0-35.62,40,52.14,52.14,0,0,0-31,4.17A40,40,0,0,1,56,104ZM164,208H84a36,36,0,1,1,4.78-71.69c-.37,2.37-.63,4.79-.77,7.23a8,8,0,0,0,16,.92,58.91,58.91,0,0,1,1.88-11.81c0-.16.09-.32.12-.48A60.06,60.06,0,1,1,164,208Z"/>
       </symbol>
-      <!-- Gatto sereno ("Zorba dice"): un solo colore, sorriso soltanto —
-           niente righe sulla fronte, pensato per essere rassicurante, non
-           un pattern. -->
-      <symbol id="i-gatto" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(1.25) translate(-12,-9.7)">
-          <path fill="var(--gold)" d="M6 3.6 9 7.4a8 8 0 0 1 6 0l3-3.8.6 5A7.2 7.2 0 1 1 5.4 8.6z"/>
-          <path stroke="var(--gold-ink)" fill="none" stroke-width="1.2" stroke-linecap="round" d="M10.6 16.2c.5.6 1 .9 1.4.9s.9-.3 1.4-.9"/>
-        </g>
+      <!-- Gatto "Zorba dice": icona "cat" di Phosphor, pieno oro. Il path
+           originale ha 5 dettagli ritagliati nel contorno (due occhi, tre
+           barrette verticali tipo baffi/pelliccia tra le orecchie); qui
+           restano solo gli occhi, le tre barrette sono state tolte perché
+           a 16-19px diventavano rumore visivo. -->
+      <symbol id="i-gatto" viewBox="0 0 256 256">
+        <path fill="var(--gold)" fill-rule="evenodd" d="M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54ZM84,152a12,12,0,1,1,12-12A12,12,0,0,1,84,152ZM172,152a12,12,0,1,1,12-12A12,12,0,0,1,172,152Z"/>
       </symbol>
-      <!-- Home: lo stesso profilo di Zorba, in nero pieno e senza dettagli —
-           stilizzato, senza pattern oro né occhi verdi. -->
-      <symbol id="i-gatto-nero" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(1.25) translate(-12,-9.7)">
-          <path fill="#000" d="M6 3.6 9 7.4a8 8 0 0 1 6 0l3-3.8.6 5A7.2 7.2 0 1 1 5.4 8.6z"/>
-        </g>
+      <!-- Home: la stessa icona "cat", in nero pieno e senza alcun dettaglio
+           ritagliato (né occhi né barrette) — solo il contorno. -->
+      <symbol id="i-gatto-nero" viewBox="0 0 256 256">
+        <path fill="#000" d="M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54Z"/>
       </symbol>
       <!-- Fotocamera: corpo + mirino sporgente, anello chiaro e obiettivo
            scuro con un riflesso ritagliato dentro, come le altre icone. -->
