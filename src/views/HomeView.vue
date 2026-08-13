@@ -37,7 +37,7 @@
     <div class="card-grid">
       <RouterLink v-for="card in homeCards" :key="card.id" :to="card.to"
         class="card hover-card card-item" style="text-decoration:none;color:inherit;">
-        <div style="font-size:24px;margin-bottom:6px;">{{ card.emoji }}</div>
+        <div class="card-item-ic" :style="`background:var(--${card.tinta}-tile);`"><Icon :name="card.icona" style="width:20px;height:20px;" /></div>
         <div style="font-weight:600;font-size:12px;color:var(--ink);">{{ card.label }}</div>
         <div v-if="card.count !== null"
           :style="card.urgent ? 'color:var(--rose-dark);font-weight:700;' : 'color:var(--ink-soft);'"
@@ -68,7 +68,7 @@
       <div v-else-if="daFareOggi.length">
         <div v-for="(a, i) in daFareOggi.slice(0,5)" :key="a.key">
           <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;">
-            <div class="attivita-icon">{{ icona(a.tipo) }}</div>
+            <div class="attivita-icon" :style="`background:var(--${tinta(a.tipo)}-tile);`"><Icon :name="icona(a.tipo)" style="width:18px;height:18px;" /></div>
             <div style="flex:1;min-width:0;">
               <div style="font-weight:500;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.nomeSpecie }}</div>
               <div style="font-size:11px;color:var(--rose-dark);">{{ a.label }}</div>
@@ -96,6 +96,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useMeteo } from '@/composables/useMeteo'
 import { valutaCura, cureUrgentiPianta } from '@/composables/useCure'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
 const { giorni: meteoGiorni, carica: caricaMeteo } = useMeteo()
@@ -105,7 +106,10 @@ const oggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numer
 const meteoOggi = computed(() => meteoGiorni.value?.[0] ?? null)
 
 function icona(tipo) {
-  return tipo === 'irrigazione' ? '💧' : tipo === 'concimazione' ? '🌱' : '✂️'
+  return tipo === 'irrigazione' ? 'goccia' : tipo === 'concimazione' ? 'concimazione' : 'potatura'
+}
+function tinta(tipo) {
+  return tipo === 'irrigazione' ? 'acqua' : tipo === 'concimazione' ? 'olive' : 'rose'
 }
 
 const numPiante = computed(() => store.piante ? Object.keys(store.piante).length : null)
@@ -135,12 +139,12 @@ const daFareOggi = computed(() => {
 })
 
 const homeCards = computed(() => [
-  { id:'zone',     to:'/zone',     emoji:'📍', label:'Zone',       count: numZone.value !== null ? `${numZone.value} zone` : null, urgent: false },
-  { id:'piante',   to:'/piante',   emoji:'🌿', label:'Piante',     count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value !== null ? `${numPiante.value} piante` : null), urgent: !!numUrgenti.value },
-  { id:'attivita', to:'/attivita', emoji:'🔔', label:'Attività',   count: daFareOggi.value.length ? `${daFareOggi.value.length} urgent${daFareOggi.value.length === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: daFareOggi.value.length > 0 },
-  { id:'gallery',  to:'/gallery',  emoji:'🖼️', label:'Gallery',    count: null, urgent: false },
-  { id:'agente',   to:'/agente',   emoji:'😺', label:'Zorba dice', count: null, urgent: false },
-  { id:'progetti', to:'/progetti', emoji:'🗂️', label:'Progetti',   count: null, urgent: false },
+  { id:'zone',     to:'/zone',     icona:'pin',        tinta:'gold',  label:'Zone',       count: numZone.value !== null ? `${numZone.value} zone` : null, urgent: false },
+  { id:'piante',   to:'/piante',   icona:'foglia',     tinta:'olive', label:'Piante',     count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value !== null ? `${numPiante.value} piante` : null), urgent: !!numUrgenti.value },
+  { id:'attivita', to:'/attivita', icona:'campanella', tinta:'rose',  label:'Attività',   count: daFareOggi.value.length ? `${daFareOggi.value.length} urgent${daFareOggi.value.length === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: daFareOggi.value.length > 0 },
+  { id:'gallery',  to:'/gallery',  icona:'cornice',    tinta:'sage',  label:'Gallery',    count: null, urgent: false },
+  { id:'agente',   to:'/agente',   icona:'gatto',      tinta:'gold',  label:'Zorba dice', count: null, urgent: false },
+  { id:'progetti', to:'/progetti', icona:'lampadina',  tinta:'olive', label:'Progetti',   count: null, urgent: false },
 ])
 
 onMounted(async () => {
@@ -168,11 +172,14 @@ onMounted(async () => {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
 }
 .card-item { padding: 16px 10px; text-align: center; border-radius: 18px; }
+.card-item-ic {
+  width:36px; height:36px; border-radius:11px; margin:0 auto 7px;
+  display:flex; align-items:center; justify-content:center;
+}
 .attivita-icon {
   width:42px; height:42px; border-radius:12px;
-  background:var(--rose-pale); border:1px solid var(--rose-light);
   display:flex; align-items:center; justify-content:center;
-  font-size:18px; flex-shrink:0;
+  flex-shrink:0;
 }
 @media (max-width: 400px) {
   .card-grid { grid-template-columns: repeat(2,1fr); }
