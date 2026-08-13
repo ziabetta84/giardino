@@ -1,4 +1,5 @@
 <template>
+  <IconDefs />
   <BootLogo />
   <NavBar />
 
@@ -25,6 +26,7 @@
 </template>
 
 <script setup>
+import IconDefs  from '@/components/IconDefs.vue'
 import BootLogo  from '@/components/BootLogo.vue'
 import NavBar    from '@/components/NavBar.vue'
 import BottomNav from '@/components/BottomNav.vue'

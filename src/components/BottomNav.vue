@@ -2,20 +2,22 @@
   <nav class="bottom-nav">
     <RouterLink v-for="item in nav" :key="item.id" :to="item.to" class="bn-item">
       <span class="bn-badge" v-if="item.badge">{{ item.badge }}</span>
-      <span class="bn-emoji">{{ item.emoji }}</span>
+      <Icon :name="item.icona" class="bn-icon" />
       <span class="bn-label">{{ item.label }}</span>
     </RouterLink>
   </nav>
 </template>
 
 <script setup>
+import Icon from '@/components/Icon.vue'
+
 const nav = [
-  { id:'home',     to:'/',         emoji:'🐈‍⬛', label:'Home' },
-  { id:'piante',   to:'/piante',   emoji:'🌿',   label:'Piante' },
-  { id:'attivita', to:'/attivita', emoji:'🔔',   label:'Attività', badge: null },
-  { id:'concimi',  to:'/concimi',  emoji:'🧪',   label:'Concimi' },
-  { id:'agente',   to:'/agente',   emoji:'😺',   label:'Zorba dice' },
-  { id:'zone',     to:'/zone',     emoji:'📍',   label:'Zone' },
+  { id:'home',     to:'/',         icona:'gatto-nero', label:'Home' },
+  { id:'piante',   to:'/piante',   icona:'foglia',      label:'Piante' },
+  { id:'attivita', to:'/attivita', icona:'campanella',  label:'Attività', badge: null },
+  { id:'concimi',  to:'/concimi',  icona:'provetta',    label:'Concimi' },
+  { id:'agente',   to:'/agente',   icona:'gatto',       label:'Zorba dice' },
+  { id:'zone',     to:'/zone',     icona:'pin',         label:'Zone' },
 ]
 </script>
 
@@ -36,7 +38,7 @@ const nav = [
   font-size: 10px; font-weight: 500; color: var(--ink-soft);
   text-decoration: none; transition: color 0.18s; position: relative;
 }
-.bn-emoji { font-size: 20px; line-height: 1; }
+.bn-icon { width: 20px; height: 20px; }
 .bn-label { font-size: 10px; }
 .bn-item.router-link-active { color: var(--rose); font-weight: 600; }
 .bn-badge {

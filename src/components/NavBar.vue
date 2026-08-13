@@ -2,7 +2,7 @@
   <nav class="navbar">
     <div class="navbar-inner no-scroll">
       <RouterLink v-for="item in nav" :key="item.id" :to="item.to" class="nav-item">
-        <span>{{ item.emoji }}</span>
+        <Icon :name="item.icona" class="nav-icon" />
         <span>{{ item.label }}</span>
         <span v-if="item.badge" class="nav-badge">{{ item.badge }}</span>
       </RouterLink>
@@ -11,16 +11,18 @@
 </template>
 
 <script setup>
+import Icon from '@/components/Icon.vue'
+
 const nav = [
-  { id:'home',     to:'/',          emoji:'🐈‍⬛', label:'Home' },
-  { id:'meteo',    to:'/meteo',     emoji:'⛅',   label:'Meteo' },
-  { id:'zone',     to:'/zone',      emoji:'📍',   label:'Zone' },
-  { id:'piante',   to:'/piante',    emoji:'🌿',   label:'Piante' },
-  { id:'progetti', to:'/progetti',  emoji:'🗂️',   label:'Progetti' },
-  { id:'concimi',  to:'/concimi',   emoji:'🧪',   label:'Concimi' },
-  { id:'attivita', to:'/attivita',  emoji:'🔔',   label:'Attività', badge: null },
-  { id:'agente',   to:'/agente',    emoji:'😺',   label:'Zorba dice' },
-  { id:'gallery',  to:'/gallery',   emoji:'🖼️',   label:'Gallery' },
+  { id:'home',     to:'/',          icona:'gatto-nero', label:'Home' },
+  { id:'meteo',    to:'/meteo',     icona:'meteo',       label:'Meteo' },
+  { id:'zone',     to:'/zone',      icona:'pin',         label:'Zone' },
+  { id:'piante',   to:'/piante',    icona:'foglia',      label:'Piante' },
+  { id:'progetti', to:'/progetti',  icona:'lampadina',   label:'Progetti' },
+  { id:'concimi',  to:'/concimi',   icona:'provetta',    label:'Concimi' },
+  { id:'attivita', to:'/attivita',  icona:'campanella',  label:'Attività', badge: null },
+  { id:'agente',   to:'/agente',    icona:'gatto',       label:'Zorba dice' },
+  { id:'gallery',  to:'/gallery',   icona:'cornice',     label:'Gallery' },
 ]
 </script>
 
@@ -38,6 +40,7 @@ const nav = [
   overflow-x: auto;
   border-bottom: 1px solid var(--cream-dark);
 }
+.nav-icon { width: 16px; height: 16px; flex-shrink: 0; }
 .nav-item {
   display: flex; align-items: center; gap: 5px;
   padding: 6px 10px; height: 44px;
