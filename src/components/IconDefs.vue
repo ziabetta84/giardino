@@ -16,7 +16,7 @@
       <clipPath id="clip-lampadina"><circle cx="12" cy="9.7" r="6.3"/></clipPath>
       <clipPath id="clip-meteo"><path d="M9.6 14.8h6.6a3.9 3.9 0 0 0 .4-7.8 5.3 5.3 0 0 0-9.9-1.9 4.6 4.6 0 0 0 2.9 9.7z"/></clipPath>
       <clipPath id="clip-fotocamera"><circle cx="12" cy="14.3" r="4.3"/></clipPath>
-      <clipPath id="clip-bandiera"><path d="M6.9 4.4h10.7l-3 3.8 3 3.8H6.9z"/></clipPath>
+      <clipPath id="clip-bandiera"><path d="M6.8 5.2c4.7-.6 9 .4 11.2 2.6-2.2 1.6-6.5 2.1-11.2 2.1z"/></clipPath>
 
       <symbol id="i-goccia" viewBox="0 0 24 24">
         <path fill="var(--acqua)" d="M12.7 2.6c3.2 4.2 7 9.1 6.5 12.2a6.6 6.6 0 0 1-13.1.1C5.6 11.5 9.4 6.8 12.7 2.6z"/>
@@ -110,11 +110,13 @@
         <circle fill="var(--sage)" cx="12" cy="14.3" r="3.7"/>
         <g clip-path="url(#clip-fotocamera)"><ellipse cx="10.4" cy="16.1" rx="2" ry="1.5" fill="var(--sage-dark)" opacity=".5"/></g>
       </symbol>
-      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. -->
+      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. Un solo
+           vessillo morbido (nessuna tacca a rondine, troppo minuta sotto i
+           16px) su un'asta corta e proporzionata, non uno stecchino. -->
       <symbol id="i-bandiera" viewBox="0 0 24 24">
-        <rect fill="var(--rose)" x="5.9" y="3.4" width="1.7" height="17.4" rx="0.85"/>
-        <path fill="var(--rose)" d="M6.9 4.4h10.7l-3 3.8 3 3.8H6.9z"/>
-        <g clip-path="url(#clip-bandiera)"><ellipse cx="13.4" cy="8.7" rx="3" ry="1.9" fill="var(--rose-dark)" opacity=".4"/></g>
+        <rect fill="var(--rose)" x="5.9" y="4.6" width="1.6" height="14.8" rx="0.8"/>
+        <path fill="var(--rose)" d="M6.8 5.2c4.7-.6 9 .4 11.2 2.6-2.2 1.6-6.5 2.1-11.2 2.1z"/>
+        <g clip-path="url(#clip-bandiera)"><ellipse cx="13.6" cy="8.2" rx="3" ry="1.3" fill="var(--rose-dark)" opacity=".4"/></g>
       </symbol>
       <symbol id="i-back" viewBox="0 0 24 24"><path fill="currentColor" d="M14.7 4.6 7.3 12l7.4 7.4 1.4-1.4L10.1 12l5.9-5.9z"/></symbol>
       <symbol id="i-matita" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20h4.4l10-10-4.4-4.4-10 10zM17.4 3.9 20.1 6.6l1.5-1.5a1.6 1.6 0 0 0 0-2.3l-.3-.3a1.6 1.6 0 0 0-2.3 0z"/></symbol>
