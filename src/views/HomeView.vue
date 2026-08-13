@@ -66,7 +66,7 @@
       </div>
 
       <div v-else-if="daFareOggi.length">
-        <TransitionGroup name="stagger" tag="div">
+        <TransitionGroup name="stagger" tag="div" style="position:relative;">
           <div v-for="(a, i) in daFareOggi.slice(0,5)" :key="a.key" :style="`transition-delay:${Math.min(i,5) * 0.07}s;`">
             <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;">
               <div class="attivita-icon" :style="`background:var(--${tinta(a.tipo)}-tile);`"><Icon :name="icona(a.tipo)" style="width:18px;height:18px;" /></div>
