@@ -134,9 +134,9 @@ body::before {
   font-size: 13px; font-weight: 600; border: none; cursor: pointer;
   transition: all 0.18s; font-family: var(--font-sans); min-height: 44px;
 }
+.btn:active { transform: scale(0.97); }
 .btn-rose { background: var(--rose); color: white; box-shadow: 0 3px 14px rgba(204,110,110,0.3); }
 .btn-rose:hover { background: var(--rose-dark); transform: translateY(-1px); }
-.btn-rose:active { transform: scale(0.97); }
 .btn-sage { background: var(--sage); color: white; box-shadow: 0 3px 14px rgba(122,158,130,0.3); }
 .btn-sage:hover { background: #6a8e72; transform: translateY(-1px); }
 .btn-ghost { background: var(--cream-dark); color: var(--ink-mid); border: 1px solid var(--cream-dark); }
