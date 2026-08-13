@@ -7,7 +7,7 @@
 
     <!-- Search -->
     <div style="position:relative;margin-bottom:12px;">
-      <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-faint);pointer-events:none;">🔍</span>
+      <Icon name="cerca" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--ink-faint);pointer-events:none;" />
       <input class="search-input" v-model="cerca" type="search" placeholder="Cerca per nome o specie…">
     </div>
 
@@ -46,7 +46,9 @@
     <template v-else>
       <!-- Urgenti in sezione separata (solo se nessun filtro attivo) -->
       <template v-if="!cerca && filtroZona === 'tutte' && pianteUrgenti.length">
-        <p class="section-label">⚠ Da curare</p>
+        <p class="section-label" style="display:flex;align-items:center;gap:6px;">
+          <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da curare
+        </p>
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
           <PiantaRiga v-for="p in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
             @elimina="avviaElimina(p)" />
@@ -88,6 +90,7 @@ import { useGalleria } from '@/composables/useGalleria'
 import { cureUrgentiPianta } from '@/composables/useCure'
 import ModalConferma from '@/components/ModalConferma.vue'
 import PiantaRiga from '@/components/PiantaRiga.vue'
+import Icon from '@/components/Icon.vue'
 
 const store      = useDatiStore()
 const route      = useRoute()
