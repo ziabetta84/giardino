@@ -443,10 +443,11 @@ async function eliminaPianta() {
 }
 .plant-hero-text { position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 2; color: #fdf8ee; }
 .plant-hero-title {
-  font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; margin: 0;
+  font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; line-height: 1.1;
+  letter-spacing: -0.02em; margin: 0;
   text-shadow: 0 2px 12px rgba(0,0,0,0.28);
 }
-.plant-hero-lat { font-family: var(--font-serif); font-style: italic; font-size: 12px; color: rgba(253,248,238,0.88); margin: 2px 0 0; }
+.plant-hero-lat { font-family: var(--font-serif); font-style: italic; font-size: 12.5px; color: rgba(253,248,238,0.88); margin: 3px 0 0; }
 .zone-chip {
   display: inline-block; margin-bottom: 6px; font-size: 9.5px; font-weight: 700;
   letter-spacing: .04em; text-transform: uppercase; background: rgba(253,248,238,0.22);
