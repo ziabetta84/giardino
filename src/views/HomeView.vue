@@ -144,9 +144,9 @@ const homeCards = computed(() => [
   { id:'zone',     to:'/zone',     icona:'pin',        tinta:'gold',  label:'Zone',       count: numZone.value !== null ? `${numZone.value} zone` : null, urgent: false },
   { id:'piante',   to:'/piante',   icona:'foglia',     tinta:'olive', label:'Piante',     count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value !== null ? `${numPiante.value} piante` : null), urgent: !!numUrgenti.value },
   { id:'attivita', to:'/attivita', icona:'campanella', tinta:'rose',  label:'Attività',   count: daFareOggi.value.length ? `${daFareOggi.value.length} urgent${daFareOggi.value.length === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: daFareOggi.value.length > 0 },
-  { id:'gallery',  to:'/gallery',  icona:'cornice',    tinta:'sage',  label:'Gallery',    count: null, urgent: false },
+  { id:'progetti', to:'/progetti', icona:'lampadina',  tinta:'gold',  label:'Progetti',   count: null, urgent: false },
   { id:'agente',   to:'/agente',   icona:'gatto',      tinta:'gold',  label:'Zorba dice', count: null, urgent: false },
-  { id:'progetti', to:'/progetti', icona:'lampadina',  tinta:'olive', label:'Progetti',   count: null, urgent: false },
+  { id:'gallery',  to:'/gallery',  icona:'cornice',    tinta:'sage',  label:'Gallery',    count: null, urgent: false },
 ])
 
 onMounted(async () => {

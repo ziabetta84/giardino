@@ -81,7 +81,7 @@
         <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
           <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`" class="card"
             :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
-            <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${t.urgente ? 'var(--rose-tile)' : 'var(--olive-tile)'};`"><Icon name="lampadina" style="width:18px;height:18px;" /></div>
+            <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${t.urgente ? 'var(--rose-tile)' : 'var(--gold-tile)'};`"><Icon name="lampadina" style="width:18px;height:18px;" /></div>
             <div style="flex:1;min-width:0;">
               <RouterLink :to="`/progetti/${t.progettoId}`" class="title-serif"
                 style="font-size:13px;font-weight:600;text-decoration:none;color:inherit;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">

@@ -29,13 +29,15 @@
             <span v-if="p.zona" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);">
               <Icon name="pin" style="width:11px;height:11px;flex-shrink:0;" />{{ p.zona }}
             </span>
-            <span v-if="scadenzaCalcolata(p)" style="font-size:11px;color:var(--ink-faint);">📅 {{ scadenzaCalcolata(p) }}</span>
+            <span v-if="scadenzaCalcolata(p)" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);">
+              <Icon name="bandiera" style="width:11px;height:11px;flex-shrink:0;" />{{ formatData(scadenzaCalcolata(p)) }}
+            </span>
           </div>
         </RouterLink>
       </div>
 
       <div v-else style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="width:64px;height:64px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
           <Icon name="lampadina" style="width:28px;height:28px;" />
         </div>
         <p class="title-serif" style="font-size:15px;color:var(--ink-soft);font-weight:600;">Nessun progetto ancora</p>
@@ -102,6 +104,11 @@ function badgeStato(stato) {
 }
 function labelStato(stato) {
   return LABEL_STATO[stato] ?? 'Aperto'
+}
+
+function formatData(d) {
+  if (!d) return ''
+  return new Date(d).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
 // Anteprima in elenco: niente tag HTML (la formattazione ha senso solo nella

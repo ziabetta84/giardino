@@ -13,7 +13,7 @@
 
     <template v-else-if="!form">
       <div style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
           <Icon name="lampadina" style="width:24px;height:24px;" />
         </div>
         <p>Progetto non trovato</p>
@@ -38,7 +38,9 @@
         <MiniEditor v-model="form.descrizione" placeholder="Descrizione, contesto, note…" />
 
         <p style="font-size:11px;color:var(--ink-faint);margin-top:8px;">Creato il {{ formatData(form.creato) }}</p>
-        <p v-if="scadenza" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">📅 Scadenza (dall'ultima tappa): {{ formatData(scadenza) }}</p>
+        <p v-if="scadenza" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--ink-faint);margin-top:2px;">
+          <Icon name="bandiera" style="width:11px;height:11px;flex-shrink:0;" />Scadenza (dall'ultima tappa): {{ formatData(scadenza) }}
+        </p>
       </div>
 
       <!-- Tappe -->
