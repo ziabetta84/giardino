@@ -16,7 +16,7 @@
       <div v-if="pianta.varieta" class="title-serif" style="font-size:11px;color:var(--ink-faint);font-style:italic;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
         {{ pianta.varieta }}
       </div>
-      <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
+      <div class="text-light" style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
         {{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}
       </div>
       <div v-if="urgente && cureUrgenti.length" style="font-size:11px;color:var(--rose-dark);margin-top:3px;font-weight:500;">

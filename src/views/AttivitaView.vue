@@ -103,7 +103,7 @@
       <div v-if="vuotaTab" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
         <div style="font-size:48px;margin-bottom:12px;">🌸</div>
         <p class="title-serif" style="font-size:16px;color:var(--sage-dark);font-weight:600;">Tutto in ordine!</p>
-        <p style="font-size:13px;margin-top:4px;">Nessuna cura urgente qui</p>
+        <p class="text-light" style="font-size:13px;margin-top:4px;">Nessuna cura urgente qui</p>
       </div>
       </div>
       </Transition>
