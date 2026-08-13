@@ -2,7 +2,7 @@
   <div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
       <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;">Galleria</h1>
-      <button @click="mostraFormUpload = true" class="btn btn-rose" style="padding:8px 16px;">📷 Aggiungi</button>
+      <button @click="mostraFormUpload = true" class="btn btn-rose" style="padding:8px 16px;">＋ Aggiungi</button>
     </div>
 
     <!-- Skeleton -->
@@ -118,7 +118,7 @@
               <input type="file" accept="image/*" @change="selezionaUpload" style="display:none;">
             </label>
             <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-              📷 Fotocamera
+              <Icon name="fotocamera" style="width:16px;height:16px;flex-shrink:0;" />Fotocamera
               <input type="file" accept="image/*" capture="environment" @change="selezionaUpload" style="display:none;">
             </label>
           </div>

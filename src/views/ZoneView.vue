@@ -97,7 +97,7 @@ const daEliminare  = ref(null)
 const eliminando   = ref(false)
 
 const EMOJI_ZONE = {
-  scivolo:'🏔️', vialetto:'🚶', est:'🌅', crinale:'🌄', orto:'🥕', casa:'🏠'
+  Scivolo:'🏔️', Vialetto:'🚶', Est:'🌅', Crinale:'🌄', Orto:'🥕', Casa:'🏠'
 }
 
 const zoneList = computed(() => {

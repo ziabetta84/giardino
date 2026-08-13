@@ -71,7 +71,7 @@
             <input type="file" accept="image/*" @change="selezionaFoto" style="display:none;">
           </label>
           <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-            📷 Fotocamera
+            <Icon name="fotocamera" style="width:16px;height:16px;flex-shrink:0;" />Fotocamera
             <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" style="display:none;">
           </label>
         </div>
