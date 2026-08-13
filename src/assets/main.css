@@ -97,6 +97,11 @@ body::before {
 /* Tipografia */
 .title-display { font-family: var(--font-display); letter-spacing: -0.01em; }
 .title-serif   { font-family: var(--font-serif); }
+/* Testo body alleggerito, per allargare il distacco dai titoli in
+   grassetto (800) — pensato per valori/paragrafi discorsivi, non per
+   etichette, bottoni o testo UI che deve restare ben leggibile a colpo
+   d'occhio. */
+.text-light { font-weight: 300; }
 .gradient-title {
   background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 55%, var(--olive) 100%);
   -webkit-background-clip: text;

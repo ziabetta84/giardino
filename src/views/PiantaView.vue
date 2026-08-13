@@ -121,7 +121,7 @@
           <div v-for="(val, chiave) in specie.esigenze" :key="chiave"
             style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);text-transform:capitalize;min-width:70px;">{{ chiave }}</span>
-            <span style="color:var(--ink-mid);">{{ val }}</span>
+            <span class="text-light" style="color:var(--ink-mid);">{{ val }}</span>
           </div>
         </div>
       </div>
@@ -132,43 +132,43 @@
         <div style="display:flex;flex-direction:column;gap:6px;">
           <div v-if="coltivazione.famiglia_botanica" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Famiglia</span>
-            <span style="color:var(--ink-mid);">{{ coltivazione.famiglia_botanica }}</span>
+            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.famiglia_botanica }}</span>
           </div>
           <div v-if="coltivazione.giorni_germinazione" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Germinazione</span>
-            <span style="color:var(--ink-mid);">{{ coltivazione.giorni_germinazione }} gg</span>
+            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.giorni_germinazione }} gg</span>
           </div>
           <div v-if="coltivazione.giorni_trapianto" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Giorni al trapianto</span>
-            <span style="color:var(--ink-mid);">{{ coltivazione.giorni_trapianto }} gg dalla semina</span>
+            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.giorni_trapianto }} gg dalla semina</span>
           </div>
           <div v-if="coltivazione.giorni_raccolta" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Prima raccolta</span>
-            <span style="color:var(--ink-mid);">{{ coltivazione.giorni_raccolta }} gg dal trapianto</span>
+            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.giorni_raccolta }} gg dal trapianto</span>
           </div>
           <div v-if="coltivazione.finestra_semina?.length" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Finestra semina</span>
-            <span style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.finestra_semina.join(', ') }}</span>
+            <span class="text-light" style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.finestra_semina.join(', ') }}</span>
           </div>
           <div v-if="coltivazione.finestra_trapianto?.length" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Finestra trapianto</span>
-            <span style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.finestra_trapianto.join(', ') }}</span>
+            <span class="text-light" style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.finestra_trapianto.join(', ') }}</span>
           </div>
           <div v-if="coltivazione.resistenza_gelo" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Resistenza al gelo</span>
-            <span style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.resistenza_gelo }}</span>
+            <span class="text-light" style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.resistenza_gelo }}</span>
           </div>
           <div v-if="coltivazione.spaziatura_cm" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Spaziatura</span>
-            <span style="color:var(--ink-mid);">{{ coltivazione.spaziatura_cm }} cm</span>
+            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.spaziatura_cm }} cm</span>
           </div>
           <div v-if="coltivazione.consociazioni_favorevoli?.length" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Si abbina bene con</span>
-            <span style="color:var(--sage-dark);">{{ coltivazione.consociazioni_favorevoli.join(', ') }}</span>
+            <span class="text-light" style="color:var(--sage-dark);">{{ coltivazione.consociazioni_favorevoli.join(', ') }}</span>
           </div>
           <div v-if="coltivazione.consociazioni_sfavorevoli?.length" style="display:flex;gap:8px;font-size:13px;">
             <span style="color:var(--ink-faint);min-width:120px;">Evitare vicino a</span>
-            <span style="color:var(--rose-dark);">{{ coltivazione.consociazioni_sfavorevoli.join(', ') }}</span>
+            <span class="text-light" style="color:var(--rose-dark);">{{ coltivazione.consociazioni_sfavorevoli.join(', ') }}</span>
           </div>
         </div>
       </div>
@@ -177,14 +177,14 @@
       <div v-if="specie?.alert?.length" class="card" style="padding:16px;margin-bottom:12px;border-color:var(--gold-light);background:var(--gold-pale);">
         <p class="section-label" style="margin-bottom:10px;color:var(--gold-dark);">Note tecniche</p>
         <ul style="padding-left:16px;margin:0;display:flex;flex-direction:column;gap:4px;">
-          <li v-for="a in specie.alert" :key="a" style="font-size:12px;color:var(--ink-mid);">{{ a }}</li>
+          <li v-for="a in specie.alert" :key="a" class="text-light" style="font-size:12px;color:var(--ink-mid);">{{ a }}</li>
         </ul>
       </div>
 
       <!-- Note personali -->
       <div v-if="pianta.note" class="card" style="padding:16px;margin-bottom:12px;">
         <p class="section-label" style="margin-bottom:6px;">Note</p>
-        <p style="font-size:13px;color:var(--ink-mid);line-height:1.6;">{{ pianta.note }}</p>
+        <p class="text-light" style="font-size:13px;color:var(--ink-mid);line-height:1.6;">{{ pianta.note }}</p>
       </div>
 
       <!-- Foto -->
