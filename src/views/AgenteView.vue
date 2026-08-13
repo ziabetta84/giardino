@@ -143,7 +143,9 @@
     </template>
 
     <div v-else style="text-align:center;padding:40px 20px;color:var(--ink-faint);">
-      <div style="font-size:40px;margin-bottom:12px;">🌿</div>
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <Icon name="gatto" style="width:24px;height:24px;" />
+      </div>
       <p style="font-size:13px;">Nessuna richiesta ancora</p>
     </div>
   </div>

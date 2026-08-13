@@ -74,7 +74,9 @@
 
       <!-- Stato vuoto -->
       <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
-        <div style="font-size:40px;margin-bottom:12px;">🌾</div>
+        <div style="width:64px;height:64px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="foglia" style="width:28px;height:28px;" />
+        </div>
         <p class="text-light" style="font-size:14px;color:var(--ink-soft);">Nessuna pianta trovata</p>
         <p class="text-light" style="font-size:12px;margin-top:4px;">Prova a cambiare il filtro o la ricerca</p>
       </div>

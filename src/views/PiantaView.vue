@@ -15,7 +15,9 @@
 
     <template v-else-if="!pianta">
       <div style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-        <div style="font-size:40px;margin-bottom:12px;">🌾</div>
+        <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+          <Icon name="foglia" style="width:24px;height:24px;" />
+        </div>
         <p>Pianta non trovata</p>
       </div>
     </template>
