@@ -64,6 +64,24 @@ body::before {
 @keyframes pageIn  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 @keyframes pageOut { from { opacity:1; } to { opacity:0; } }
 
+/* Liste che entrano/escono con un lieve stagger (Home, Piante, Attività):
+   il ritardo per elemento è impostato inline via transitionDelay, non qui
+   — questo blocco copre solo la transizione condivisa. */
+.stagger-enter-active { transition: opacity 0.35s ease, transform 0.35s ease; }
+.stagger-leave-active { transition: opacity 0.25s ease, transform 0.25s ease; }
+.stagger-enter-from { opacity: 0; transform: translateY(8px); }
+.stagger-leave-to { opacity: 0; transform: translateX(12px); }
+@media (prefers-reduced-motion: reduce) {
+  .stagger-enter-active, .stagger-leave-active { transition: none !important; }
+}
+
+/* Passaggio soft tra i contenuti di una tab (es. Attività) */
+.fade-enter-active, .fade-leave-active { transition: opacity 0.18s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .fade-enter-active, .fade-leave-active { transition: none !important; }
+}
+
 /* Skeleton */
 @keyframes shimmer {
   0%   { background-position: -600px 0; }

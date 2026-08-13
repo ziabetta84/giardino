@@ -49,18 +49,20 @@
         <p class="section-label" style="display:flex;align-items:center;gap:6px;">
           <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da curare
         </p>
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
-          <PiantaRiga v-for="p in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
+        <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+          <PiantaRiga v-for="(p, i) in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
+            :style="`transition-delay:${Math.min(i,8) * 0.03}s;`"
             @elimina="avviaElimina(p)" />
-        </div>
+        </TransitionGroup>
         <p class="section-label">Tutte le piante</p>
       </template>
 
       <!-- Lista principale -->
-      <div v-if="pianteFiltrate.length" style="display:flex;flex-direction:column;gap:8px;">
-        <PiantaRiga v-for="p in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
+      <TransitionGroup v-if="pianteFiltrate.length" name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;">
+        <PiantaRiga v-for="(p, i) in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
+          :style="`transition-delay:${Math.min(i,8) * 0.03}s;`"
           @elimina="avviaElimina(p)" />
-      </div>
+      </TransitionGroup>
 
       <!-- Stato vuoto -->
       <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
