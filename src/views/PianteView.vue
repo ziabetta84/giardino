@@ -51,7 +51,7 @@
         </p>
         <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
           <PiantaRiga v-for="(p, i) in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
-            :style="`transition-delay:${Math.min(i,8) * 0.03}s;`"
+            :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
             @elimina="avviaElimina(p)" />
         </TransitionGroup>
         <p class="section-label">Tutte le piante</p>
@@ -60,7 +60,7 @@
       <!-- Lista principale -->
       <TransitionGroup v-if="pianteFiltrate.length" name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;">
         <PiantaRiga v-for="(p, i) in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
-          :style="`transition-delay:${Math.min(i,8) * 0.03}s;`"
+          :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
           @elimina="avviaElimina(p)" />
       </TransitionGroup>
 

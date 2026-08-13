@@ -17,7 +17,7 @@
         :item="item"
         :variante="variante"
         :disabled="salvando === item.key || salvandoGruppo === gruppo.chiave"
-        :style="`transition-delay:${Math.min(i,6) * 0.04}s;`"
+        :style="`transition-delay:${Math.min(i,6) * 0.06}s;`"
         @registra="$emit('registra', $event)"
       />
     </TransitionGroup>
