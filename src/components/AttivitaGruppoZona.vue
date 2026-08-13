@@ -10,16 +10,17 @@
         {{ salvandoGruppo === gruppo.chiave ? '⏳' : '✓ Segna tutto fatto' }}
       </button>
     </div>
-    <div style="display:flex;flex-direction:column;gap:8px;">
+    <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;">
       <AttivitaRiga
-        v-for="item in gruppo.items"
+        v-for="(item, i) in gruppo.items"
         :key="item.key"
         :item="item"
         :variante="variante"
         :disabled="salvando === item.key || salvandoGruppo === gruppo.chiave"
+        :style="`transition-delay:${Math.min(i,6) * 0.04}s;`"
         @registra="$emit('registra', $event)"
       />
-    </div>
+    </TransitionGroup>
   </div>
 </template>
 

@@ -36,6 +36,8 @@
         </button>
       </div>
 
+      <Transition name="fade" mode="out-in">
+      <div :key="tabAttiva">
       <template v-if="tabAttiva !== 'progetti'">
         <!-- Da fare -->
         <template v-if="daFareTab.length">
@@ -103,6 +105,8 @@
         <p class="title-serif" style="font-size:16px;color:var(--sage-dark);font-weight:600;">Tutto in ordine!</p>
         <p style="font-size:13px;margin-top:4px;">Nessuna cura urgente qui</p>
       </div>
+      </div>
+      </Transition>
     </template>
   </div>
 </template>

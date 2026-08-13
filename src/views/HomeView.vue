@@ -66,16 +66,18 @@
       </div>
 
       <div v-else-if="daFareOggi.length">
-        <div v-for="(a, i) in daFareOggi.slice(0,5)" :key="a.key">
-          <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;">
-            <div class="attivita-icon" :style="`background:var(--${tinta(a.tipo)}-tile);`"><Icon :name="icona(a.tipo)" style="width:18px;height:18px;" /></div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-weight:500;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.nomeSpecie }}</div>
-              <div style="font-size:11px;color:var(--rose-dark);">{{ a.label }}</div>
+        <TransitionGroup name="stagger" tag="div">
+          <div v-for="(a, i) in daFareOggi.slice(0,5)" :key="a.key" :style="`transition-delay:${Math.min(i,5) * 0.05}s;`">
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;">
+              <div class="attivita-icon" :style="`background:var(--${tinta(a.tipo)}-tile);`"><Icon :name="icona(a.tipo)" style="width:18px;height:18px;" /></div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:500;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ a.nomeSpecie }}</div>
+                <div style="font-size:11px;color:var(--rose-dark);">{{ a.label }}</div>
+              </div>
             </div>
+            <hr v-if="i < Math.min(daFareOggi.length, 5) - 1" class="divider" style="margin-left:72px;">
           </div>
-          <hr v-if="i < Math.min(daFareOggi.length, 5) - 1" class="divider" style="margin-left:72px;">
-        </div>
+        </TransitionGroup>
         <div v-if="daFareOggi.length > 5" style="padding:10px 18px;text-align:center;">
           <RouterLink to="/attivita" style="font-size:12px;color:var(--sage-dark);text-decoration:none;font-weight:600;">
             Vedi altre {{ daFareOggi.length - 5 }} attività →
