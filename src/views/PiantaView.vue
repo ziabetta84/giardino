@@ -42,7 +42,7 @@
           <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
             {{ specie?.nome ?? pianta.specie }}
           </h1>
-          <p style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
+          <p class="title-serif" style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
             {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
           </p>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
