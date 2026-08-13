@@ -112,6 +112,7 @@
       <symbol id="i-back" viewBox="0 0 24 24"><path fill="currentColor" d="M14.7 4.6 7.3 12l7.4 7.4 1.4-1.4L10.1 12l5.9-5.9z"/></symbol>
       <symbol id="i-matita" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20h4.4l10-10-4.4-4.4-10 10zM17.4 3.9 20.1 6.6l1.5-1.5a1.6 1.6 0 0 0 0-2.3l-.3-.3a1.6 1.6 0 0 0-2.3 0z"/></symbol>
       <symbol id="i-cerca" viewBox="0 0 24 24"><circle cx="10.2" cy="10.2" r="6.4" fill="none" stroke="currentColor" stroke-width="2.1"/><line x1="15.1" y1="15.1" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></symbol>
+      <symbol id="i-lista" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2.1" stroke-linecap="round" d="M4 6.5h16M4 12h16M4 17.5h10"/></symbol>
     </defs>
   </svg>
 </template>
