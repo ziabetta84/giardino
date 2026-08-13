@@ -184,7 +184,7 @@
 
       <!-- Info impianto -->
       <div v-if="pianta.impianto" class="card" style="padding:14px 16px;margin-bottom:12px;">
-        <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ pianta.impianto }}</strong></p>
+        <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ formattaData(pianta.impianto) }}</strong></p>
       </div>
 
       <!-- Elimina -->
@@ -255,6 +255,19 @@ const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
 
 const indiceLuce = computed(() => luce.value ? fotoPianta.value.findIndex(f => f.path === luce.value.path) : -1)
+
+// Solo per la visualizzazione: pianta.impianto resta "yyyy-mm-dd" ovunque
+// altrove (è anche il formato richiesto da <input type="date"> nel form di
+// modifica). Niente new Date(): eviterebbe il fuso orario invece di
+// aggirarlo, dato che una stringa "yyyy-mm-dd" viene interpretata come
+// UTC mentre toLocaleDateString formatta nel fuso locale.
+const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
+function formattaData(iso) {
+  if (!iso) return ''
+  const [anno, mese, giorno] = iso.split('-').map(Number)
+  if (!anno || !mese || !giorno) return iso
+  return `${giorno} ${MESI[mese - 1]} ${anno}`
+}
 
 const messaggioEliminaPianta = computed(() => {
   const n = fotoPianta.value.length
