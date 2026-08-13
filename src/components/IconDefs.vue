@@ -15,6 +15,7 @@
       <clipPath id="clip-cornice"><path d="M6.4 15.6 10 11l2.6 3 2.3-2.7L17.6 15.6z"/></clipPath>
       <clipPath id="clip-lampadina"><circle cx="12" cy="9.7" r="6.3"/></clipPath>
       <clipPath id="clip-meteo"><path d="M9.6 14.8h6.6a3.9 3.9 0 0 0 .4-7.8 5.3 5.3 0 0 0-9.9-1.9 4.6 4.6 0 0 0 2.9 9.7z"/></clipPath>
+      <clipPath id="clip-fotocamera"><circle cx="12" cy="14.3" r="4.3"/></clipPath>
 
       <symbol id="i-goccia" viewBox="0 0 24 24">
         <path fill="var(--acqua)" d="M12.7 2.6c3.2 4.2 7 9.1 6.5 12.2a6.6 6.6 0 0 1-13.1.1C5.6 11.5 9.4 6.8 12.7 2.6z"/>
@@ -100,9 +101,18 @@
           <path fill="#000" d="M6 3.6 9 7.4a8 8 0 0 1 6 0l3-3.8.6 5A7.2 7.2 0 1 1 5.4 8.6z"/>
         </g>
       </symbol>
+      <!-- Fotocamera: corpo + mirino sporgente, anello chiaro e obiettivo
+           scuro con un riflesso ritagliato dentro, come le altre icone. -->
+      <symbol id="i-fotocamera" viewBox="0 0 24 24">
+        <path fill="var(--sage)" d="M8.7 5.4a1 1 0 0 1 .9-.6h4.8a1 1 0 0 1 .9.6l.8 1.7h2.5A2.3 2.3 0 0 1 21.4 9.4v8.3A2.3 2.3 0 0 1 19.1 20H4.9a2.3 2.3 0 0 1-2.3-2.3V9.4a2.3 2.3 0 0 1 2.3-2.3h2.5z"/>
+        <circle fill="var(--cream)" cx="12" cy="14.3" r="4.6"/>
+        <circle fill="var(--sage)" cx="12" cy="14.3" r="3.7"/>
+        <g clip-path="url(#clip-fotocamera)"><ellipse cx="10.4" cy="16.1" rx="2" ry="1.5" fill="var(--sage-dark)" opacity=".5"/></g>
+      </symbol>
       <symbol id="i-back" viewBox="0 0 24 24"><path fill="currentColor" d="M14.7 4.6 7.3 12l7.4 7.4 1.4-1.4L10.1 12l5.9-5.9z"/></symbol>
       <symbol id="i-matita" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20h4.4l10-10-4.4-4.4-10 10zM17.4 3.9 20.1 6.6l1.5-1.5a1.6 1.6 0 0 0 0-2.3l-.3-.3a1.6 1.6 0 0 0-2.3 0z"/></symbol>
       <symbol id="i-cerca" viewBox="0 0 24 24"><circle cx="10.2" cy="10.2" r="6.4" fill="none" stroke="currentColor" stroke-width="2.1"/><line x1="15.1" y1="15.1" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></symbol>
+      <symbol id="i-lista" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2.1" stroke-linecap="round" d="M4 6.5h16M4 12h16M4 17.5h10"/></symbol>
     </defs>
   </svg>
 </template>

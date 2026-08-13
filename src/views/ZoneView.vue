@@ -28,8 +28,7 @@
 
     <div v-else class="zone-grid">
       <div v-for="z in zoneList" :key="z.key" class="card hover-card" style="padding:18px;min-width:0;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-          <span style="font-size:26px;">{{ z.emoji }}</span>
+        <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:10px;">
           <span class="badge badge-gold">{{ contaPiante(z.key) }} piante</span>
         </div>
         <h3 class="title-display" style="font-size:16px;font-weight:600;text-transform:capitalize;margin-bottom:4px;">
@@ -96,14 +95,10 @@ const { saveJSON } = useApi()
 const daEliminare  = ref(null)
 const eliminando   = ref(false)
 
-const EMOJI_ZONE = {
-  scivolo:'🏔️', vialetto:'🚶', est:'🌅', crinale:'🌄', orto:'🥕', casa:'🏠'
-}
-
 const zoneList = computed(() => {
   if (!store.zone) return []
   return Object.entries(store.zone)
-    .map(([key, z]) => ({ key, ...z, emoji: EMOJI_ZONE[key] ?? '🌿' }))
+    .map(([key, z]) => ({ key, ...z }))
     .sort((a, b) => (a.nome ?? a.key).localeCompare(b.nome ?? b.key))
 })
 
