@@ -10,7 +10,7 @@
         {{ salvandoGruppo === gruppo.chiave ? '⏳' : '✓ Segna tutto fatto' }}
       </button>
     </div>
-    <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;">
+    <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;position:relative;">
       <AttivitaRiga
         v-for="(item, i) in gruppo.items"
         :key="item.key"

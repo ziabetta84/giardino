@@ -49,7 +49,7 @@
         <p class="section-label" style="display:flex;align-items:center;gap:6px;">
           <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da curare
         </p>
-        <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+        <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;position:relative;">
           <PiantaRiga v-for="(p, i) in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
             :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
             @elimina="avviaElimina(p)" />
@@ -57,12 +57,20 @@
         <p class="section-label">Tutte le piante</p>
       </template>
 
-      <!-- Lista principale -->
-      <TransitionGroup v-if="pianteFiltrate.length" name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;">
-        <PiantaRiga v-for="(p, i) in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
-          :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
-          @elimina="avviaElimina(p)" />
-      </TransitionGroup>
+      <!-- Lista principale: un cambio di filtro sostituisce quasi per intero
+           l'insieme delle chiavi, non lo modifica — con solo il
+           TransitionGroup, uscita e entrata si sovrappongono nello stesso
+           punto (l'effetto "carte mescolate" segnalato). Il Transition
+           esterno, agganciato al filtro, fa uscire del tutto la lista
+           vecchia prima di far entrare quella nuova, che poi si dispone
+           con il consueto stagger a cascata. -->
+      <Transition v-if="pianteFiltrate.length" name="fade" mode="out-in">
+        <TransitionGroup :key="chiaveLista" name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;position:relative;">
+          <PiantaRiga v-for="(p, i) in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
+            :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
+            @elimina="avviaElimina(p)" />
+        </TransitionGroup>
+      </Transition>
 
       <!-- Stato vuoto -->
       <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
@@ -148,6 +156,16 @@ const piante = computed(() => {
     return { id, ...p, urgente: urgenti.length > 0 }
   })
 })
+
+// Cambiare zona/sottozona sostituisce quasi per intero l'insieme delle
+// piante mostrate: la lista principale si rimonta su questa chiave (vedi
+// il <Transition mode="out-in"> nel template) per far uscire del tutto la
+// vecchia prima di far entrare la nuova. La ricerca invece resta fuori: a
+// ogni carattere digitato l'elenco si restringe sullo stesso sottoinsieme
+// (le piante che restano non cambiano posizione/chiave), quindi lo
+// TransitionGroup da solo già anima bene la rimozione senza bisogno di un
+// remount completo ad ogni tasto premuto.
+const chiaveLista = computed(() => `${filtroZona.value}|${filtroSottozona.value}`)
 
 const pianteFiltrate = computed(() => {
   let lista = piante.value
