@@ -87,7 +87,7 @@
           Elimina progetto
         </button>
         <button @click="salva" :disabled="!form.titolo.trim() || salvando" class="btn btn-sage" style="flex:1;">
-          {{ salvando ? '⏳ Salvataggio…' : 'Salva modifiche' }}
+          <Spinner v-if="salvando" />{{ salvando ? 'Salvataggio…' : 'Salva modifiche' }}
         </button>
       </div>
     </template>
@@ -112,6 +112,7 @@ import { scadenzaCalcolata } from '@/composables/useProgetti'
 import ModalConferma from '@/components/ModalConferma.vue'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const route  = useRoute()
 const router = useRouter()

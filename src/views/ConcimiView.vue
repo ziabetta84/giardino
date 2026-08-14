@@ -58,7 +58,7 @@
             <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
               style="min-height:40px;padding:8px 16px;">
-              {{ salvando ? '⏳' : 'Salva' }}
+              <Spinner v-if="salvando" /><span v-else>Salva</span>
             </button>
           </div>
         </div>
@@ -82,6 +82,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()

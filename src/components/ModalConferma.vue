@@ -7,7 +7,7 @@
         <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
           <button class="btn btn-ghost" style="min-height:40px;padding:8px 18px;" @click="$emit('annulla')">Annulla</button>
           <button class="btn" style="min-height:40px;padding:8px 18px;background:var(--rose);color:white;" @click="$emit('conferma')" :disabled="caricamento">
-            {{ caricamento ? '⏳ Eliminazione…' : 'Elimina' }}
+            <Spinner v-if="caricamento" />{{ caricamento ? 'Eliminazione…' : 'Elimina' }}
           </button>
         </div>
       </div>
@@ -16,6 +16,8 @@
 </template>
 
 <script setup>
+import Spinner from './Spinner.vue'
+
 defineProps({
   aperto:     { type: Boolean, default: false },
   titolo:     { type: String,  default: 'Conferma eliminazione' },

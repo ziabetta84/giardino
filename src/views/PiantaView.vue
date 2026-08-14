@@ -68,7 +68,7 @@
             <span style="font-size:13px;color:var(--rose-dark);">{{ c.label }}</span>
             <button @click="registraCura(c.tipo)" :disabled="salvando === c.tipo" class="btn btn-rose"
               style="font-size:11px;padding:4px 10px;min-height:28px;">
-              {{ salvando === c.tipo ? '⏳' : 'Registra' }}
+              <Spinner v-if="salvando === c.tipo" /><span v-else>Registra</span>
             </button>
           </div>
         </div>
@@ -92,7 +92,7 @@
             </div>
             <button @click="registraCura(tipo)" :disabled="salvando === tipo" class="btn btn-sage"
               style="font-size:11px;padding:4px 10px;min-height:28px;flex-shrink:0;white-space:nowrap;">
-              {{ salvando === tipo ? '⏳' : '✓ Fatto' }}
+              <Spinner v-if="salvando === tipo" /><span v-else>✓ Fatto</span>
             </button>
           </div>
         </div>
@@ -262,6 +262,7 @@ import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const route  = useRoute()
 const router = useRouter()

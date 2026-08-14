@@ -125,7 +125,7 @@
 
       <button @click="aggiungiRichiesta" :disabled="!puoInviare || aggiungendo || !tokenSalvato"
         class="btn btn-sage" style="width:100%;">
-        {{ aggiungendo ? '⏳ Invio…' : '→ Invia richiesta' }}
+        <Spinner v-if="aggiungendo" />{{ aggiungendo ? 'Invio…' : '→ Invia richiesta' }}
       </button>
     </div>
 
@@ -179,6 +179,7 @@ import { useDatiStore } from '@/stores/dati'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
 const { saveJSON, isAutenticato, salvaToken } = useApi()
@@ -295,7 +296,7 @@ onUnmounted(() => {
 function labelStato(stato) {
   if (stato === 'completata') return '✓ Completata'
   if (stato === 'errore') return '✗ Errore'
-  return '⏳ In attesa'
+  return '○ In attesa'
 }
 
 function stileBadge(stato) {

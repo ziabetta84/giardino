@@ -93,7 +93,7 @@
             </div>
             <button @click="registraTappa(t)" :disabled="salvandoTappa === `${t.progettoId}-${t.indice}`"
               :class="['btn', t.urgente ? 'btn-rose' : 'btn-ghost']" style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
-              {{ salvandoTappa === `${t.progettoId}-${t.indice}` ? '⏳' : '✓ Fatto' }}
+              <Spinner v-if="salvandoTappa === `${t.progettoId}-${t.indice}`" /><span v-else>✓ Fatto</span>
             </button>
           </div>
         </div>
@@ -123,6 +123,7 @@ import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const store    = useDatiStore()
 const { saveJSON } = useApi()

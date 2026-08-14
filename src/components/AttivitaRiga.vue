@@ -13,7 +13,7 @@
     <button @click="$emit('registra', item)" :disabled="disabled"
       :class="['btn', variante === 'urgente' ? 'btn-rose' : 'btn-ghost']"
       style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
-      {{ disabled ? '⏳' : '✓ Fatto' }}
+      <Spinner v-if="disabled" /><span v-else>✓ Fatto</span>
     </button>
   </div>
 </template>
@@ -21,6 +21,7 @@
 <script setup>
 import { computed } from 'vue'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
   item: { type: Object, required: true },
