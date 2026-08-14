@@ -80,21 +80,26 @@ body::before {
    sopra il testo, alternando le lettere tra piena luminosità e un
    lieve affievolimento — lo stesso principio dell'effetto shine
    (mask-image + mask-position animato), qui eseguito una sola volta
-   invece che in loop per restare discreto. */
+   invece che in loop per restare discreto. La banda è stretta e i
+   margini della maschera restano completamente opachi: a riposo
+   (prima e dopo il passaggio) il titolo è sempre a piena luminosità,
+   l'attenuazione si vede solo per l'istante in cui la banda transita. */
 .gradient-title.title-settle {
-  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
-  mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
-  -webkit-mask-size: 200% 100%;
-  mask-size: 200% 100%;
+  -webkit-mask-image: linear-gradient(-75deg, #000 0%, #000 40%, rgba(0,0,0,.55) 46%, #000 50%, rgba(0,0,0,.55) 54%, #000 60%, #000 100%);
+  mask-image: linear-gradient(-75deg, #000 0%, #000 40%, rgba(0,0,0,.55) 46%, #000 50%, rgba(0,0,0,.55) 54%, #000 60%, #000 100%);
+  -webkit-mask-size: 300% 100%;
+  mask-size: 300% 100%;
+  -webkit-mask-position: 0% 0%;
+  mask-position: 0% 0%;
   animation: titleSettle 0.22s ease 0.07s both, titleShine 0.9s cubic-bezier(.3,0,.2,1) 0.32s 1;
 }
 @keyframes titleShine {
-  from { -webkit-mask-position: 150% 0; mask-position: 150% 0; }
-  to   { -webkit-mask-position: -50% 0; mask-position: -50% 0; }
+  from { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
 }
 @media (prefers-reduced-motion: reduce) {
   .title-settle { animation: none; }
-  .gradient-title.title-settle { animation: none; -webkit-mask-image: none; mask-image: none; }
+  .gradient-title.title-settle { animation: none; -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
 }
 
 /* Liste che entrano/escono con un lieve stagger (Home, Piante, Attività):
