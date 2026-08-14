@@ -12,7 +12,7 @@
 import Icon from '@/components/Icon.vue'
 
 const nav = [
-  { id:'home',     to:'/',         icona:'gatto-nero', label:'Home' },
+  { id:'home',     to:'/',         icona:'casa',        label:'Home' },
   { id:'piante',   to:'/piante',   icona:'foglia',      label:'Piante' },
   { id:'attivita', to:'/attivita', icona:'campanella',  label:'Attività', badge: null },
   { id:'concimi',  to:'/concimi',  icona:'provetta',    label:'Concimi' },

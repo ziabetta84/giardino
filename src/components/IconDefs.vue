@@ -25,6 +25,7 @@
       <clipPath id="clip-fotocamera"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm-44,76a36,36,0,1,1-36-36A36,36,0,0,1,164,132Z"/></clipPath>
       <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. -->
       <clipPath id="clip-bandiera"><path d="M248,104a8,8,0,0,1-5.37,7.56L64,173.69V216a8,8,0,0,1-16,0V40a8,8,0,0,1,10.63-7.56l184,64A8,8,0,0,1,248,104Z"/></clipPath>
+      <clipPath id="clip-casa"><path d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/></clipPath>
 
       <symbol id="i-goccia" viewBox="0 0 256 256">
         <path fill="var(--acqua)" d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Zm9.85,105.59a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/>
@@ -70,18 +71,18 @@
         <path fill="var(--gold)" opacity=".2" d="M139.84,84.41v0a68.22,68.22,0,0,0-41.65,46v-.11a44.08,44.08,0,0,0-38.54,5h0a48,48,0,1,1,80.19-50.94Z"/>
         <path fill="var(--gold)" d="M164,72a76.2,76.2,0,0,0-20.26,2.73,55.63,55.63,0,0,0-9.41-11.54l9.51-13.57a8,8,0,1,0-13.11-9.18L121.22,54A55.9,55.9,0,0,0,96,48c-.58,0-1.16,0-1.74,0L91.37,31.71a8,8,0,1,0-15.75,2.77L78.5,50.82A56.1,56.1,0,0,0,55.23,65.67L41.61,56.14a8,8,0,1,0-9.17,13.11L46,78.77A55.55,55.55,0,0,0,40,104c0,.57,0,1.15,0,1.72L23.71,108.6a8,8,0,0,0,1.38,15.88,8.24,8.24,0,0,0,1.39-.12l16.32-2.88a55.74,55.74,0,0,0,5.86,12.42A52,52,0,0,0,84,224h80a76,76,0,0,0,0-152ZM56,104a40,40,0,0,1,72.54-23.24,76.26,76.26,0,0,0-35.62,40,52.14,52.14,0,0,0-31,4.17A40,40,0,0,1,56,104ZM164,208H84a36,36,0,1,1,4.78-71.69c-.37,2.37-.63,4.79-.77,7.23a8,8,0,0,0,16,.92,58.91,58.91,0,0,1,1.88-11.81c0-.16.09-.32.12-.48A60.06,60.06,0,1,1,164,208Z"/>
       </symbol>
-      <!-- Gatto "Zorba dice": icona "cat" di Phosphor, pieno oro. Il path
-           originale ha 5 dettagli ritagliati nel contorno (due occhi, tre
-           barrette verticali tipo baffi/pelliccia tra le orecchie); qui
-           restano solo gli occhi, le tre barrette sono state tolte perché
-           a 16-19px diventavano rumore visivo. -->
+      <!-- Gatto "Zorba dice": icona "cat" di Phosphor, nero pieno — come il
+           vero Zorba del logo animato (corpo nero, non dorato), senza
+           alcun dettaglio ritagliato (né occhi né barrette). -->
       <symbol id="i-gatto" viewBox="0 0 256 256">
-        <path fill="var(--gold)" fill-rule="evenodd" d="M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54ZM84,152a12,12,0,1,1,12-12A12,12,0,0,1,84,152ZM172,152a12,12,0,1,1,12-12A12,12,0,0,1,172,152Z"/>
-      </symbol>
-      <!-- Home: la stessa icona "cat", in nero pieno e senza alcun dettaglio
-           ritagliato (né occhi né barrette) — solo il contorno. -->
-      <symbol id="i-gatto-nero" viewBox="0 0 256 256">
         <path fill="#000" d="M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54Z"/>
+      </symbol>
+      <!-- Home: la classica casetta — a differenza del gatto (identità di
+           Zorba, adatta a "Zorba dice"), Home vuole un simbolo universale
+           e senza ambiguità, ma in palette come le altre icone colorate. -->
+      <symbol id="i-casa" viewBox="0 0 256 256">
+        <path fill="var(--rose)" d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/>
+        <g clip-path="url(#clip-casa)"><ellipse cx="75" cy="175" rx="32" ry="32" fill="var(--rose-dark)" opacity=".4"/></g>
       </symbol>
       <!-- Fotocamera: corpo + mirino sporgente, anello chiaro e obiettivo
            scuro con un riflesso ritagliato dentro, come le altre icone. -->

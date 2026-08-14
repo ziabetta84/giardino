@@ -14,7 +14,7 @@
 import Icon from '@/components/Icon.vue'
 
 const nav = [
-  { id:'home',     to:'/',          icona:'gatto-nero', label:'Home' },
+  { id:'home',     to:'/',          icona:'casa',       label:'Home' },
   { id:'meteo',    to:'/meteo',     icona:'meteo',       label:'Meteo' },
   { id:'zone',     to:'/zone',      icona:'pin',         label:'Zone' },
   { id:'piante',   to:'/piante',    icona:'foglia',      label:'Piante' },
