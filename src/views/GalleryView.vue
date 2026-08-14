@@ -135,7 +135,7 @@
           <div style="display:flex;gap:10px;margin-top:16px;">
             <button @click="mostraFormUpload = false" class="btn btn-ghost" style="flex:1;min-height:44px;">Annulla</button>
             <button @click="caricaFoto" :disabled="!uploadFile64 || caricandoUpload" class="btn btn-rose" style="flex:2;min-height:44px;">
-              {{ caricandoUpload ? '⏳ Caricamento…' : 'Carica foto' }}
+              <Spinner v-if="caricandoUpload" />{{ caricandoUpload ? 'Caricamento…' : 'Carica foto' }}
             </button>
           </div>
         </div>
@@ -151,6 +151,7 @@ import { useGalleria } from '@/composables/useGalleria'
 import LightboxFoto from '@/components/LightboxFoto.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
 const galleria = useGalleria()

@@ -47,7 +47,7 @@
       <!-- Salva -->
       <button @click="salva" :disabled="!form.specie || !form.zona || salvando" class="btn btn-rose"
         style="min-height:48px;font-size:15px;border-radius:16px;">
-        {{ salvando ? '⏳ Salvataggio…' : (isNuova ? 'Aggiungi pianta' : 'Salva modifiche') }}
+        <Spinner v-if="salvando" />{{ salvando ? 'Salvataggio…' : (isNuova ? 'Aggiungi pianta' : 'Salva modifiche') }}
       </button>
     </div>
   </div>
@@ -59,6 +59,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const route  = useRoute()
 const router = useRouter()

@@ -191,7 +191,7 @@
             <button class="btn btn-ghost" @click="chiudiNuovaSpecie" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salvaNuovaSpecie" :disabled="!nuovaSpecie.nome.trim() || salvandoSpecie"
               style="min-height:40px;padding:8px 16px;">
-              {{ salvandoSpecie ? '⏳' : (specieModificaOriginale ? 'Salva' : 'Aggiungi') }}
+              <Spinner v-if="salvandoSpecie" /><span v-else>{{ specieModificaOriginale ? 'Salva' : 'Aggiungi' }}</span>
             </button>
           </div>
         </div>
@@ -210,6 +210,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { parseGiorni } from '@/composables/useCure'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
   modelValue: { type: String, default: '' },

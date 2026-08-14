@@ -57,7 +57,7 @@
             <button class="btn btn-ghost" @click="mostraForm = false" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"
               style="min-height:40px;padding:8px 16px;">
-              {{ salvando ? '⏳' : 'Salva' }}
+              <Spinner v-if="salvando" /><span v-else>Salva</span>
             </button>
           </div>
         </div>
@@ -73,6 +73,7 @@ import { useApi } from '@/composables/useApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Icon from '@/components/Icon.vue'
+import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
 const { saveJSON } = useApi()

@@ -7,7 +7,7 @@
       <button @click="$emit('registraGruppo', gruppo)" :disabled="salvandoGruppo === gruppo.chiave"
         :class="['btn', variante === 'urgente' ? 'btn-rose' : 'btn-ghost']"
         style="font-size:11px;padding:4px 9px;min-height:26px;">
-        {{ salvandoGruppo === gruppo.chiave ? '⏳' : '✓ Segna tutto fatto' }}
+        <Spinner v-if="salvandoGruppo === gruppo.chiave" /><span v-else>✓ Segna tutto fatto</span>
       </button>
     </div>
     <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;position:relative;">
@@ -27,6 +27,7 @@
 <script setup>
 import { computed } from 'vue'
 import AttivitaRiga from './AttivitaRiga.vue'
+import Spinner from './Spinner.vue'
 
 const props = defineProps({
   gruppo: { type: Object, required: true },
