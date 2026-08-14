@@ -19,7 +19,7 @@
     </div>
 
     <template v-else>
-      <div v-if="adessoMeteo" class="card meteo-hero" style="padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;">
+      <div v-if="adessoMeteo" class="card meteo-hero hover-card" style="padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;" @click="apriDettaglio(giorni[0])">
         <div class="meteo-hero-icon-wrap">
           <Icon :name="adessoMeteo.icona" style="width:42px;height:42px;" />
         </div>
@@ -62,8 +62,9 @@
 
       <div class="meteo-giorni-grid">
         <div v-for="g in giorniSuccessivi" :key="g.data"
-          class="card"
-          style="padding:18px;text-align:center;">
+          class="card hover-card"
+          style="padding:18px;text-align:center;"
+          @click="apriDettaglio(g)">
           <div class="meteo-label">{{ g.label }}</div>
           <Icon :name="g.icona" style="width:40px;height:40px;margin:10px auto;" />
           <div class="text-light" style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
@@ -75,6 +76,35 @@
         </div>
       </div>
     </template>
+
+    <Teleport to="body">
+      <div v-if="giornoSelezionato" class="meteo-overlay" @click.self="chiudiDettaglio">
+        <div class="meteo-dettaglio-box">
+          <button class="meteo-dettaglio-chiudi" @click="chiudiDettaglio" aria-label="Chiudi">×</button>
+          <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+            <div class="meteo-hero-icon-wrap">
+              <Icon :name="giornoSelezionato.icona" style="width:42px;height:42px;" />
+            </div>
+            <div>
+              <div class="meteo-label" style="font-size:15px;">{{ giornoSelezionato.label }}</div>
+              <div class="text-light" style="font-size:13px;color:var(--ink-soft);">{{ giornoSelezionato.descrizione }}</div>
+            </div>
+          </div>
+          <div class="title-display" style="font-weight:800;font-size:1.8rem;margin-bottom:18px;">
+            {{ giornoSelezionato.tMax }}° / {{ giornoSelezionato.tMin }}°
+          </div>
+          <div class="meteo-dettaglio-stats">
+            <div v-for="s in statisticheDettaglio" :key="s.label" class="meteo-dettaglio-stat">
+              <Icon :name="s.icona" style="width:20px;height:20px;flex-shrink:0;" />
+              <div>
+                <div style="font-size:11px;color:var(--ink-soft);">{{ s.label }}</div>
+                <div style="font-weight:600;font-size:14px;">{{ s.valore }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -115,6 +145,23 @@ function oraCorrente(o) {
   return o.ora === chiaveOra(adesso.value)
 }
 
+const giornoSelezionato = ref(null)
+function apriDettaglio(g) { giornoSelezionato.value = g }
+function chiudiDettaglio() { giornoSelezionato.value = null }
+
+const statisticheDettaglio = computed(() => {
+  const g = giornoSelezionato.value
+  if (!g) return []
+  const stats = [
+    { icona:'goccia', label:'Pioggia', valore:`${g.pioggia} mm` },
+    { icona:'vento', label:'Vento', valore:`${g.vento} km/h` },
+  ]
+  if (g.umidita != null) stats.push({ icona:'umidita', label:'Umidità aria', valore:`${g.umidita}%` })
+  if (g.umiditaSuolo != null) stats.push({ icona:'umidita-suolo', label:'Umidità suolo', valore:`${g.umiditaSuolo}%` })
+  if (g.evapotraspirazione != null) stats.push({ icona:'evapotraspirazione', label:'Evapotraspirazione', valore:`${g.evapotraspirazione} mm` })
+  return stats
+})
+
 onMounted(async () => {
   await store.caricaTutto()
   const s = store.settings
@@ -142,5 +189,33 @@ onMounted(async () => {
 }
 @media (min-width: 641px) {
   .meteo-giorni-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.meteo-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  background: rgba(42,34,24,0.4);
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px;
+}
+.meteo-dettaglio-box {
+  background: var(--white);
+  border-radius: 20px;
+  padding: 24px;
+  width: 100%; max-width: 380px;
+  box-shadow: 0 20px 60px rgba(42,34,24,0.2);
+  position: relative;
+}
+.meteo-dettaglio-chiudi {
+  position: absolute; top: 14px; right: 14px;
+  background: none; border: none; cursor: pointer;
+  font-size: 20px; line-height: 1; color: var(--ink-soft);
+  width: 32px; height: 32px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.meteo-dettaglio-chiudi:hover { background: var(--cream-dark); }
+.meteo-dettaglio-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+}
+.meteo-dettaglio-stat {
+  display: flex; align-items: center; gap: 10px;
 }
 </style>
