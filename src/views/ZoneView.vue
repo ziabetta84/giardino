@@ -20,7 +20,7 @@
     </div>
 
     <div v-else-if="!zoneList.length" style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-      <div style="width:56px;height:56px;border-radius:50%;background:var(--gold-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+      <div style="width:56px;height:56px;border-radius:50%;background:var(--acqua-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
         <Icon name="pin" style="width:24px;height:24px;" />
       </div>
       <p style="color:var(--ink-soft);">Nessuna zona ancora configurata</p>

@@ -141,7 +141,7 @@ const daFareOggi = computed(() => {
 })
 
 const homeCards = computed(() => [
-  { id:'zone',     to:'/zone',     icona:'pin',        tinta:'gold',  label:'Zone',       count: numZone.value !== null ? `${numZone.value} zone` : null, urgent: false },
+  { id:'zone',     to:'/zone',     icona:'pin',        tinta:'acqua', label:'Zone',       count: numZone.value !== null ? `${numZone.value} zone` : null, urgent: false },
   { id:'piante',   to:'/piante',   icona:'foglia',     tinta:'olive', label:'Piante',     count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value !== null ? `${numPiante.value} piante` : null), urgent: !!numUrgenti.value },
   { id:'attivita', to:'/attivita', icona:'campanella', tinta:'rose',  label:'Attività',   count: daFareOggi.value.length ? `${daFareOggi.value.length} urgent${daFareOggi.value.length === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: daFareOggi.value.length > 0 },
   { id:'progetti', to:'/progetti', icona:'lampadina',  tinta:'gold',  label:'Progetti',   count: null, urgent: false },

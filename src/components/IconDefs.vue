@@ -1,127 +1,105 @@
 <template>
   <svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
     <defs>
-      <!-- Icone "acquerellate": silhouette piena, un colore per icona, bordo
-           organico invece che geometrico, con un accento più scuro dove il
-           colore "si raccoglie" (ritagliato dentro la forma via clipPath).
-           Nessuna linea sottile: a 16-19px (barra del menù) resterebbe
-           illeggibile — vedi issue #92. -->
-      <clipPath id="clip-goccia"><path d="M12.7 2.6c3.2 4.2 7 9.1 6.5 12.2a6.6 6.6 0 0 1-13.1.1C5.6 11.5 9.4 6.8 12.7 2.6z"/></clipPath>
-      <clipPath id="clip-foglia"><path d="M3.7 19.6C4.6 9.3 11 3.9 20.9 4.4c0 9.7-6.3 15.6-17.2 15.2z"/></clipPath>
-      <clipPath id="clip-concimazione"><path d="M12.3 21.3a1 1 0 0 1-1.1-1v-5.5c-3.4-.2-5.9-2.6-6.3-6.8 4.2.1 6.7 1.8 7.3 5.2.4-3.3 2.8-5.1 7.2-5.4-.3 4.1-2.7 6.6-6.1 7v5.5a1 1 0 0 1-1 1z"/></clipPath>
-      <clipPath id="clip-campanella"><path d="M12.2 3.3a5.7 5.7 0 0 1 5.7 5.6v2.1c0 2.5.6 3 1.5 4.3.6.9-.1 1.9-1.2 1.9H6.2c-1.1 0-1.8-1-1.2-1.9.9-1.3 1.5-1.8 1.5-4.3V8.9a5.7 5.7 0 0 1 5.7-5.6z"/></clipPath>
-      <clipPath id="clip-provetta"><path d="M9.9 4.5h4.2v8.6l3.7 5.1a3 3 0 0 1-2.5 4.9H8.6a3 3 0 0 1-2.4-4.9l3.7-5.1z"/></clipPath>
-      <clipPath id="clip-pin"><path d="M12.3 21.3S4.5 14 4.6 8.5a7.4 7.4 0 1 1 14.9.3c-.2 5.5-7.2 12.5-7.2 12.5z"/></clipPath>
-      <clipPath id="clip-cornice"><path d="M6.4 15.6 10 11l2.6 3 2.3-2.7L17.6 15.6z"/></clipPath>
-      <clipPath id="clip-lampadina"><circle cx="12" cy="9.7" r="6.3"/></clipPath>
-      <clipPath id="clip-meteo"><path d="M9.6 14.8h6.6a3.9 3.9 0 0 0 .4-7.8 5.3 5.3 0 0 0-9.9-1.9 4.6 4.6 0 0 0 2.9 9.7z"/></clipPath>
-      <clipPath id="clip-fotocamera"><circle cx="12" cy="14.3" r="4.3"/></clipPath>
-      <clipPath id="clip-bandiera"><path d="M6.8 5.2c4.7-.6 9 .4 11.2 2.6-2.2 1.6-6.5 2.1-11.2 2.1z"/></clipPath>
-
-      <symbol id="i-goccia" viewBox="0 0 24 24">
-        <path fill="var(--acqua)" d="M12.7 2.6c3.2 4.2 7 9.1 6.5 12.2a6.6 6.6 0 0 1-13.1.1C5.6 11.5 9.4 6.8 12.7 2.6z"/>
-        <g clip-path="url(#clip-goccia)"><ellipse cx="9.2" cy="16.6" rx="4.4" ry="3.5" fill="var(--acqua-dark)" opacity=".45"/></g>
-      </symbol>
-      <symbol id="i-foglia" viewBox="0 0 24 24">
-        <path fill="var(--olive)" d="M3.7 19.6C4.6 9.3 11 3.9 20.9 4.4c0 9.7-6.3 15.6-17.2 15.2z"/>
-        <g clip-path="url(#clip-foglia)"><ellipse cx="7.1" cy="16.9" rx="4.6" ry="3.2" fill="var(--olive-dark)" opacity=".45" transform="rotate(-24 7.1 16.9)"/></g>
-      </symbol>
-      <!-- Germoglio: due foglioline + stelo, per non confondersi con la
-           foglia singola usata per "Piante". -->
-      <symbol id="i-concimazione" viewBox="0 0 24 24">
-        <path fill="var(--olive)" d="M12.3 21.3a1 1 0 0 1-1.1-1v-5.5c-3.4-.2-5.9-2.6-6.3-6.8 4.2.1 6.7 1.8 7.3 5.2.4-3.3 2.8-5.1 7.2-5.4-.3 4.1-2.7 6.6-6.1 7v5.5a1 1 0 0 1-1 1z"/>
-        <g clip-path="url(#clip-concimazione)"><ellipse cx="12" cy="15.6" rx="2.7" ry="3.6" fill="var(--olive-dark)" opacity=".4"/></g>
-      </symbol>
-      <!-- Forbici: anelli + lame che si incrociano in un unico punto (il
-           perno), non due cunei separati — resta leggibile a 16px. -->
-      <symbol id="i-potatura" viewBox="0 0 24 24">
-        <path stroke="var(--rose)" fill="none" stroke-width="3" stroke-linecap="round" d="M6.6 6.9 19 17.5"/>
-        <path stroke="var(--rose)" fill="none" stroke-width="3" stroke-linecap="round" d="M6.6 17.1 19 6.5"/>
-        <circle fill="var(--rose)" cx="6.6" cy="6.9" r="3"/>
-        <circle fill="var(--rose)" cx="6.6" cy="17.1" r="3"/>
-        <circle cx="12.6" cy="12" r="1.3" fill="var(--rose-dark)" opacity=".55"/>
-      </symbol>
-      <symbol id="i-campanella" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(1.1) translate(-12,-10.9)">
-          <path fill="var(--rose)" d="M12.2 3.3a5.7 5.7 0 0 1 5.7 5.6v2.1c0 2.5.6 3 1.5 4.3.6.9-.1 1.9-1.2 1.9H6.2c-1.1 0-1.8-1-1.2-1.9.9-1.3 1.5-1.8 1.5-4.3V8.9a5.7 5.7 0 0 1 5.7-5.6z"/>
-          <g clip-path="url(#clip-campanella)"><ellipse cx="12.6" cy="14.8" rx="4" ry="3" fill="var(--rose-dark)" opacity=".4"/></g>
-          <circle fill="var(--rose)" cx="12" cy="19.3" r="1.5"/>
-        </g>
-      </symbol>
-      <!-- Dimensioni normalizzate: ogni icona della barra del menù occupa lo
-           stesso ingombro visivo (~16 unità su 24), non solo lo stesso
-           riquadro — altrimenti forme "magre" sembrano più piccole di
-           forme che riempiono l'intero canvas. -->
-      <symbol id="i-provetta" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(0.87) translate(-12,-12)">
-          <path fill="var(--sage)" d="M9 2.6h6v1.9H9z"/>
-          <path fill="var(--sage)" d="M9.9 4.5h4.2v8.6l3.7 5.1a3 3 0 0 1-2.5 4.9H8.6a3 3 0 0 1-2.4-4.9l3.7-5.1z"/>
-          <g clip-path="url(#clip-provetta)"><ellipse cx="12" cy="17.6" rx="3" ry="2.6" fill="var(--sage-dark)" opacity=".45"/></g>
-        </g>
-      </symbol>
-      <symbol id="i-pin" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(0.8) translate(-12,-12)">
-          <path fill="var(--gold)" d="M12.3 21.3S4.5 14 4.6 8.5a7.4 7.4 0 1 1 14.9.3c-.2 5.5-7.2 12.5-7.2 12.5z"/>
-          <g clip-path="url(#clip-pin)"><ellipse cx="11.6" cy="16.3" rx="3.6" ry="3.8" fill="var(--gold-ink)" opacity=".35"/></g>
-        </g>
-      </symbol>
+      <!-- Icone "acquerellate": silhouette piena (base: Phosphor Icons,
+           stile "fill", licenza MIT — https://phosphoricons.com), un colore
+           per icona, con un accento più scuro dove il colore "si raccoglie"
+           (ritagliato dentro la forma via clipPath). Ogni <symbol> usa il
+           viewBox nativo 0 0 256 256 di Phosphor: si scala da solo dentro
+           il riquadro 24×24 di <Icon>, senza bisogno di riconvertire le
+           coordinate. Nessuna linea sottile: a 16-19px (barra del menù)
+           resterebbe illeggibile — vedi issue #92. -->
+      <clipPath id="clip-goccia"><path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Zm9.85,105.59a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/></clipPath>
+      <clipPath id="clip-foglia"><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49A101.72,101.72,0,0,0,46.7,175.2a4,4,0,0,0,6.61,1.43l85-86.3a8,8,0,0,1,11.32,11.32L56.74,195.94,42.55,210.13a8.2,8.2,0,0,0-.6,11.1,8,8,0,0,0,11.71.43l16.79-16.79c14.14,6.84,28.41,10.57,42.56,11.07q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07Z"/></clipPath>
+      <!-- Germoglio: due foglioline su uno stelo (Phosphor "plant"), per non
+           confondersi con la foglia singola usata per "Piante". -->
+      <clipPath id="clip-concimazione"><path d="M205.41,159.07a60.9,60.9,0,0,1-31.83,8.86,71.71,71.71,0,0,1-27.36-5.66A55.55,55.55,0,0,0,136,194.51V224a8,8,0,0,1-8.53,8,8.18,8.18,0,0,1-7.47-8.25V211.31L81.38,172.69A52.5,52.5,0,0,1,63.44,176a45.82,45.82,0,0,1-23.92-6.67C17.73,156.09,6,125.62,8.27,87.79a8,8,0,0,1,7.52-7.52c37.83-2.23,68.3,9.46,81.5,31.25A46,46,0,0,1,103.74,140a4,4,0,0,1-6.89,2.43l-19.2-20.1a8,8,0,0,0-11.31,11.31l53.88,55.25c.06-.78.13-1.56.21-2.33a68.56,68.56,0,0,1,18.64-39.46l50.59-53.46a8,8,0,0,0-11.31-11.32l-49,51.82a4,4,0,0,1-6.78-1.74c-4.74-17.48-2.65-34.88,6.4-49.82,17.86-29.48,59.42-45.26,111.18-42.22a8,8,0,0,1,7.52,7.52C250.67,99.65,234.89,141.21,205.41,159.07Z"/></clipPath>
+      <clipPath id="clip-potatura"><path d="M236.52,187.09l-143-97.87a36,36,0,1,0-14.38,17.27l21.39,21.69L79.15,149.54l0,0a35.91,35.91,0,1,0,14.38,17.27l26.91-18.41L170,198.64a32.26,32.26,0,0,0,22.7,9.37,31.52,31.52,0,0,0,4.11-.27l.28,0,36.27-6.11a8,8,0,0,0,3.19-14.5Zm-162.38-97A20,20,0,1,1,80,76,20,20,0,0,1,74.14,90.13Zm0,104A20,20,0,1,1,80,180,20,20,0,0,1,74.14,194.15Zm61-101.5L169.94,57.4a32.19,32.19,0,0,1,26.84-9.14l.28,0,36,6.07a8.21,8.21,0,0,1,6.09,4.42,8,8,0,0,1-2.67,10.12l-69.93,47.85a4,4,0,0,1-4.51,0l-26.31-18A4,4,0,0,1,135.18,92.65Z"/></clipPath>
+      <clipPath id="clip-campanella"><path d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216Z"/></clipPath>
+      <clipPath id="clip-provetta"><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23Zm-90.08-42.91c-15.91-8.05-31.05-12.32-45.22-12.81l24.47-40.8A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167C171.4,169.34,154.29,168.34,131.61,156.86Z"/></clipPath>
+      <clipPath id="clip-pin"><path d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></clipPath>
       <!-- Cornice: contiene una foto vera (sole + montagne), non un
            rettangolo vuoto. -->
-      <symbol id="i-cornice" viewBox="0 0 24 24">
-        <path fill="var(--sage)" fill-rule="evenodd" d="M3 4.6h18v14.8H3zM5.4 7v10h13.2V7z"/>
-        <circle fill="var(--sage)" cx="15.3" cy="9.7" r="1.7"/>
-        <path fill="var(--sage)" d="M6.4 15.6 10 11l2.6 3 2.3-2.7L17.6 15.6z"/>
-        <g clip-path="url(#clip-cornice)"><ellipse cx="10.5" cy="14.6" rx="2.8" ry="1.8" fill="var(--sage-dark)" opacity=".4"/></g>
+      <clipPath id="clip-cornice"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM156,88a12,12,0,1,1-12,12A12,12,0,0,1,156,88Zm60,112H40V160.69l46.34-46.35a8,8,0,0,1,11.32,0h0L165,181.66a8,8,0,0,0,11.32-11.32l-17.66-17.65L173,138.34a8,8,0,0,1,11.31,0L216,170.07V200Z"/></clipPath>
+      <clipPath id="clip-lampadina"><path d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-32.11-9.34a57.6,57.6,0,0,0-46.56-46.55,8,8,0,0,0-2.66,15.78c16.57,2.79,30.63,16.85,33.44,33.45A8,8,0,0,0,176,104a9,9,0,0,0,1.35-.11A8,8,0,0,0,183.89,94.66Z"/></clipPath>
+      <clipPath id="clip-fotocamera"><path d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm-44,76a36,36,0,1,1-36-36A36,36,0,0,1,164,132Z"/></clipPath>
+      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. -->
+      <clipPath id="clip-bandiera"><path d="M248,104a8,8,0,0,1-5.37,7.56L64,173.69V216a8,8,0,0,1-16,0V40a8,8,0,0,1,10.63-7.56l184,64A8,8,0,0,1,248,104Z"/></clipPath>
+
+      <symbol id="i-goccia" viewBox="0 0 256 256">
+        <path fill="var(--acqua)" d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Zm9.85,105.59a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/>
+        <g clip-path="url(#clip-goccia)"><ellipse cx="95" cy="175" rx="45" ry="35" fill="var(--acqua-dark)" opacity=".4"/></g>
+      </symbol>
+      <symbol id="i-foglia" viewBox="0 0 256 256">
+        <path fill="var(--olive)" d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49A101.72,101.72,0,0,0,46.7,175.2a4,4,0,0,0,6.61,1.43l85-86.3a8,8,0,0,1,11.32,11.32L56.74,195.94,42.55,210.13a8.2,8.2,0,0,0-.6,11.1,8,8,0,0,0,11.71.43l16.79-16.79c14.14,6.84,28.41,10.57,42.56,11.07q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07Z"/>
+        <g clip-path="url(#clip-foglia)"><ellipse cx="76" cy="172" rx="48" ry="32" fill="var(--olive-dark)" opacity=".4" transform="rotate(-24 76 172)"/></g>
+      </symbol>
+      <symbol id="i-concimazione" viewBox="0 0 256 256">
+        <path fill="var(--olive)" d="M205.41,159.07a60.9,60.9,0,0,1-31.83,8.86,71.71,71.71,0,0,1-27.36-5.66A55.55,55.55,0,0,0,136,194.51V224a8,8,0,0,1-8.53,8,8.18,8.18,0,0,1-7.47-8.25V211.31L81.38,172.69A52.5,52.5,0,0,1,63.44,176a45.82,45.82,0,0,1-23.92-6.67C17.73,156.09,6,125.62,8.27,87.79a8,8,0,0,1,7.52-7.52c37.83-2.23,68.3,9.46,81.5,31.25A46,46,0,0,1,103.74,140a4,4,0,0,1-6.89,2.43l-19.2-20.1a8,8,0,0,0-11.31,11.31l53.88,55.25c.06-.78.13-1.56.21-2.33a68.56,68.56,0,0,1,18.64-39.46l50.59-53.46a8,8,0,0,0-11.31-11.32l-49,51.82a4,4,0,0,1-6.78-1.74c-4.74-17.48-2.65-34.88,6.4-49.82,17.86-29.48,59.42-45.26,111.18-42.22a8,8,0,0,1,7.52,7.52C250.67,99.65,234.89,141.21,205.41,159.07Z"/>
+        <g clip-path="url(#clip-concimazione)"><ellipse cx="128" cy="195" rx="30" ry="20" fill="var(--olive-dark)" opacity=".4"/></g>
+      </symbol>
+      <symbol id="i-potatura" viewBox="0 0 256 256">
+        <path fill="var(--rose)" d="M236.52,187.09l-143-97.87a36,36,0,1,0-14.38,17.27l21.39,21.69L79.15,149.54l0,0a35.91,35.91,0,1,0,14.38,17.27l26.91-18.41L170,198.64a32.26,32.26,0,0,0,22.7,9.37,31.52,31.52,0,0,0,4.11-.27l.28,0,36.27-6.11a8,8,0,0,0,3.19-14.5Zm-162.38-97A20,20,0,1,1,80,76,20,20,0,0,1,74.14,90.13Zm0,104A20,20,0,1,1,80,180,20,20,0,0,1,74.14,194.15Zm61-101.5L169.94,57.4a32.19,32.19,0,0,1,26.84-9.14l.28,0,36,6.07a8.21,8.21,0,0,1,6.09,4.42,8,8,0,0,1-2.67,10.12l-69.93,47.85a4,4,0,0,1-4.51,0l-26.31-18A4,4,0,0,1,135.18,92.65Z"/>
+        <g clip-path="url(#clip-potatura)"><ellipse cx="165" cy="155" rx="45" ry="20" fill="var(--rose-dark)" opacity=".4"/></g>
+      </symbol>
+      <symbol id="i-campanella" viewBox="0 0 256 256">
+        <path fill="var(--rose)" fill-rule="evenodd" d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06ZM128,216a24,24,0,0,1-22.62-16h45.24A24,24,0,0,1,128,216Z"/>
+        <g clip-path="url(#clip-campanella)"><ellipse cx="128" cy="168" rx="48" ry="25" fill="var(--rose-dark)" opacity=".4"/></g>
+      </symbol>
+      <symbol id="i-provetta" viewBox="0 0 256 256">
+        <path fill="var(--sage)" fill-rule="evenodd" d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23Zm-90.08-42.91c-15.91-8.05-31.05-12.32-45.22-12.81l24.47-40.8A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167C171.4,169.34,154.29,168.34,131.61,156.86Z"/>
+        <g clip-path="url(#clip-provetta)"><ellipse cx="128" cy="185" rx="55" ry="26" fill="var(--sage-dark)" opacity=".4"/></g>
+      </symbol>
+      <symbol id="i-pin" viewBox="0 0 256 256">
+        <path fill="var(--acqua)" fill-rule="evenodd" d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/>
+        <g clip-path="url(#clip-pin)"><ellipse cx="120" cy="175" rx="40" ry="42" fill="var(--acqua-dark)" opacity=".35"/></g>
+      </symbol>
+      <symbol id="i-cornice" viewBox="0 0 256 256">
+        <path fill="var(--sage)" fill-rule="evenodd" d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM156,88a12,12,0,1,1-12,12A12,12,0,0,1,156,88Zm60,112H40V160.69l46.34-46.35a8,8,0,0,1,11.32,0h0L165,181.66a8,8,0,0,0,11.32-11.32l-17.66-17.65L173,138.34a8,8,0,0,1,11.31,0L216,170.07V200Z"/>
+        <g clip-path="url(#clip-cornice)"><ellipse cx="95" cy="165" rx="55" ry="28" fill="var(--sage-dark)" opacity=".4"/></g>
       </symbol>
       <!-- Lampadina: idea/progetto. -->
-      <symbol id="i-lampadina" viewBox="0 0 24 24">
-        <circle fill="var(--gold)" cx="12" cy="9.7" r="6.3"/>
-        <g clip-path="url(#clip-lampadina)"><ellipse cx="12" cy="13.2" rx="3.6" ry="2.6" fill="var(--gold-dark)" opacity=".4"/></g>
-        <rect fill="var(--gold)" x="9.5" y="14.6" width="5" height="2.8" rx="0.7"/>
-        <rect fill="var(--gold)" x="9.9" y="17.8" width="4.2" height="1.8" rx="0.7"/>
+      <symbol id="i-lampadina" viewBox="0 0 256 256">
+        <path fill="var(--gold)" fill-rule="evenodd" d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-32.11-9.34a57.6,57.6,0,0,0-46.56-46.55,8,8,0,0,0-2.66,15.78c16.57,2.79,30.63,16.85,33.44,33.45A8,8,0,0,0,176,104a9,9,0,0,0,1.35-.11A8,8,0,0,0,183.89,94.66Z"/>
+        <g clip-path="url(#clip-lampadina)"><ellipse cx="118" cy="148" rx="30" ry="22" fill="var(--gold-dark)" opacity=".4"/></g>
       </symbol>
-      <symbol id="i-meteo" viewBox="0 0 24 24">
-        <circle fill="var(--gold)" cx="8.4" cy="8.4" r="3.6"/>
-        <path fill="var(--gold)" opacity=".55" d="M9.6 14.8h6.6a3.9 3.9 0 0 0 .4-7.8 5.3 5.3 0 0 0-9.9-1.9 4.6 4.6 0 0 0 2.9 9.7z"/>
-        <g clip-path="url(#clip-meteo)"><ellipse cx="13.5" cy="12.6" rx="3.6" ry="1.6" fill="var(--gold-ink)" opacity=".3"/></g>
+      <!-- Meteo: vera icona "duotone" di Phosphor (cloud-sun), non ricomposta
+           — due path, uno pieno e uno al 20% per il bagliore del sole,
+           entrambi color oro. -->
+      <symbol id="i-meteo" viewBox="0 0 256 256">
+        <path fill="var(--gold)" opacity=".2" d="M139.84,84.41v0a68.22,68.22,0,0,0-41.65,46v-.11a44.08,44.08,0,0,0-38.54,5h0a48,48,0,1,1,80.19-50.94Z"/>
+        <path fill="var(--gold)" d="M164,72a76.2,76.2,0,0,0-20.26,2.73,55.63,55.63,0,0,0-9.41-11.54l9.51-13.57a8,8,0,1,0-13.11-9.18L121.22,54A55.9,55.9,0,0,0,96,48c-.58,0-1.16,0-1.74,0L91.37,31.71a8,8,0,1,0-15.75,2.77L78.5,50.82A56.1,56.1,0,0,0,55.23,65.67L41.61,56.14a8,8,0,1,0-9.17,13.11L46,78.77A55.55,55.55,0,0,0,40,104c0,.57,0,1.15,0,1.72L23.71,108.6a8,8,0,0,0,1.38,15.88,8.24,8.24,0,0,0,1.39-.12l16.32-2.88a55.74,55.74,0,0,0,5.86,12.42A52,52,0,0,0,84,224h80a76,76,0,0,0,0-152ZM56,104a40,40,0,0,1,72.54-23.24,76.26,76.26,0,0,0-35.62,40,52.14,52.14,0,0,0-31,4.17A40,40,0,0,1,56,104ZM164,208H84a36,36,0,1,1,4.78-71.69c-.37,2.37-.63,4.79-.77,7.23a8,8,0,0,0,16,.92,58.91,58.91,0,0,1,1.88-11.81c0-.16.09-.32.12-.48A60.06,60.06,0,1,1,164,208Z"/>
       </symbol>
-      <!-- Gatto sereno ("Zorba dice"): due occhi chiusi ad arco + un
-           sorriso, un solo colore — pensato per essere rassicurante, non
-           un pattern. -->
-      <symbol id="i-gatto" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(1.25) translate(-12,-9.7)">
-          <path fill="var(--gold)" d="M6 3.6 9 7.4a8 8 0 0 1 6 0l3-3.8.6 5A7.2 7.2 0 1 1 5.4 8.6z"/>
-          <path stroke="var(--gold-ink)" fill="none" stroke-width="1.3" stroke-linecap="round" d="M8.6 12.9c.5.7 1 1 1.5.3M15.4 12.9c-.5.7-1 1-1.5.3"/>
-          <path stroke="var(--gold-ink)" fill="none" stroke-width="1.2" stroke-linecap="round" d="M10.6 16.2c.5.6 1 .9 1.4.9s.9-.3 1.4-.9"/>
-        </g>
+      <!-- Gatto "Zorba dice": icona "cat" di Phosphor, pieno oro. Il path
+           originale ha 5 dettagli ritagliati nel contorno (due occhi, tre
+           barrette verticali tipo baffi/pelliccia tra le orecchie); qui
+           restano solo gli occhi, le tre barrette sono state tolte perché
+           a 16-19px diventavano rumore visivo. -->
+      <symbol id="i-gatto" viewBox="0 0 256 256">
+        <path fill="var(--gold)" fill-rule="evenodd" d="M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54ZM84,152a12,12,0,1,1,12-12A12,12,0,0,1,84,152ZM172,152a12,12,0,1,1,12-12A12,12,0,0,1,172,152Z"/>
       </symbol>
-      <!-- Home: lo stesso profilo di Zorba, in nero pieno e senza dettagli —
-           stilizzato, senza pattern oro né occhi verdi. -->
-      <symbol id="i-gatto-nero" viewBox="0 0 24 24">
-        <g transform="translate(12,12) scale(1.25) translate(-12,-9.7)">
-          <path fill="#000" d="M6 3.6 9 7.4a8 8 0 0 1 6 0l3-3.8.6 5A7.2 7.2 0 1 1 5.4 8.6z"/>
-        </g>
+      <!-- Home: la stessa icona "cat", in nero pieno e senza alcun dettaglio
+           ritagliato (né occhi né barrette) — solo il contorno. -->
+      <symbol id="i-gatto-nero" viewBox="0 0 256 256">
+        <path fill="#000" d="M222.83,33.54a16,16,0,0,0-18.14,3.15c-.14.14-.26.27-.38.41L187.05,57A111.28,111.28,0,0,0,69,57L51.69,37.1c-.12-.14-.24-.27-.38-.41a16,16,0,0,0-18.14-3.15A16.4,16.4,0,0,0,24,48.46V136c0,49,40.06,89.63,91.56,95.32a4,4,0,0,0,4.44-4v-32l-13.42-13.43a8.22,8.22,0,0,1-.41-11.37,8,8,0,0,1,11.49-.18L128,180.68l10.34-10.35a8,8,0,0,1,11.49.18,8.22,8.22,0,0,1-.41,11.37L136,195.31v32a4,4,0,0,0,4.44,4C191.94,225.62,232,185,232,136V48.46A16.4,16.4,0,0,0,222.83,33.54Z"/>
       </symbol>
       <!-- Fotocamera: corpo + mirino sporgente, anello chiaro e obiettivo
            scuro con un riflesso ritagliato dentro, come le altre icone. -->
-      <symbol id="i-fotocamera" viewBox="0 0 24 24">
-        <path fill="var(--sage)" d="M8.7 5.4a1 1 0 0 1 .9-.6h4.8a1 1 0 0 1 .9.6l.8 1.7h2.5A2.3 2.3 0 0 1 21.4 9.4v8.3A2.3 2.3 0 0 1 19.1 20H4.9a2.3 2.3 0 0 1-2.3-2.3V9.4a2.3 2.3 0 0 1 2.3-2.3h2.5z"/>
-        <circle fill="var(--cream)" cx="12" cy="14.3" r="4.6"/>
-        <circle fill="var(--sage)" cx="12" cy="14.3" r="3.7"/>
-        <g clip-path="url(#clip-fotocamera)"><ellipse cx="10.4" cy="16.1" rx="2" ry="1.5" fill="var(--sage-dark)" opacity=".5"/></g>
+      <symbol id="i-fotocamera" viewBox="0 0 256 256">
+        <path fill="var(--sage)" fill-rule="evenodd" d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm-44,76a36,36,0,1,1-36-36A36,36,0,0,1,164,132Z"/>
+        <g clip-path="url(#clip-fotocamera)"><ellipse cx="90" cy="165" rx="40" ry="26" fill="var(--sage-dark)" opacity=".4"/></g>
       </symbol>
-      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. Un solo
-           vessillo morbido (nessuna tacca a rondine, troppo minuta sotto i
-           16px) su un'asta corta e proporzionata, non uno stecchino. -->
-      <symbol id="i-bandiera" viewBox="0 0 24 24">
-        <rect fill="var(--rose)" x="5.9" y="4.6" width="1.6" height="14.8" rx="0.8"/>
-        <path fill="var(--rose)" d="M6.8 5.2c4.7-.6 9 .4 11.2 2.6-2.2 1.6-6.5 2.1-11.2 2.1z"/>
-        <g clip-path="url(#clip-bandiera)"><ellipse cx="13.6" cy="8.2" rx="3" ry="1.3" fill="var(--rose-dark)" opacity=".4"/></g>
+      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. -->
+      <symbol id="i-bandiera" viewBox="0 0 256 256">
+        <path fill="var(--rose)" d="M248,104a8,8,0,0,1-5.37,7.56L64,173.69V216a8,8,0,0,1-16,0V40a8,8,0,0,1,10.63-7.56l184,64A8,8,0,0,1,248,104Z"/>
+        <g clip-path="url(#clip-bandiera)"><ellipse cx="150" cy="90" rx="55" ry="30" fill="var(--rose-dark)" opacity=".4"/></g>
       </symbol>
-      <symbol id="i-back" viewBox="0 0 24 24"><path fill="currentColor" d="M14.7 4.6 7.3 12l7.4 7.4 1.4-1.4L10.1 12l5.9-5.9z"/></symbol>
-      <symbol id="i-matita" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20h4.4l10-10-4.4-4.4-10 10zM17.4 3.9 20.1 6.6l1.5-1.5a1.6 1.6 0 0 0 0-2.3l-.3-.3a1.6 1.6 0 0 0-2.3 0z"/></symbol>
-      <symbol id="i-cerca" viewBox="0 0 24 24"><circle cx="10.2" cy="10.2" r="6.4" fill="none" stroke="currentColor" stroke-width="2.1"/><line x1="15.1" y1="15.1" x2="20.6" y2="20.6" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/></symbol>
-      <symbol id="i-lista" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2.1" stroke-linecap="round" d="M4 6.5h16M4 12h16M4 17.5h10"/></symbol>
+      <!-- Icone monocrome (utility): un solo colore ereditato dal contesto,
+           nessun accento — base Phosphor, stile "bold"/"fill". -->
+      <symbol id="i-back" viewBox="0 0 256 256"><path fill="currentColor" d="M168,48V208a8,8,0,0,1-13.66,5.66l-80-80a8,8,0,0,1,0-11.32l80-80A8,8,0,0,1,168,48Z"/></symbol>
+      <symbol id="i-matita" viewBox="0 0 256 256"><path fill="currentColor" d="M227.31,73.37,182.63,28.68a16,16,0,0,0-22.63,0L36.69,152A15.86,15.86,0,0,0,32,163.31V208a16,16,0,0,0,16,16H92.69A15.86,15.86,0,0,0,104,219.31L227.31,96a16,16,0,0,0,0-22.63ZM192,108.68,147.31,64l24-24L216,84.68Z"/></symbol>
+      <symbol id="i-cerca" viewBox="0 0 256 256"><path fill="currentColor" d="M168,112a56,56,0,1,1-56-56A56,56,0,0,1,168,112Zm61.66,117.66a8,8,0,0,1-11.32,0l-50.06-50.07a88,88,0,1,1,11.32-11.31l50.06,50.06A8,8,0,0,1,229.66,229.66ZM112,184a72,72,0,1,0-72-72A72.08,72.08,0,0,0,112,184Z"/></symbol>
+      <symbol id="i-lista" viewBox="0 0 256 256"><path fill="currentColor" d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"/></symbol>
     </defs>
   </svg>
 </template>
