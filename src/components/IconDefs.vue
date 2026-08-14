@@ -81,8 +81,8 @@
            Zorba, adatta a "Zorba dice"), Home vuole un simbolo universale
            e senza ambiguità, ma in palette come le altre icone colorate. -->
       <symbol id="i-casa" viewBox="0 0 256 256">
-        <path fill="var(--rose)" d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/>
-        <g clip-path="url(#clip-casa)"><ellipse cx="75" cy="175" rx="32" ry="32" fill="var(--rose-dark)" opacity=".4"/></g>
+        <path fill="var(--gold)" d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/>
+        <g clip-path="url(#clip-casa)"><ellipse cx="75" cy="175" rx="32" ry="32" fill="var(--gold-dark)" opacity=".4"/></g>
       </symbol>
       <!-- Fotocamera: corpo + mirino sporgente, anello chiaro e obiettivo
            scuro con un riflesso ritagliato dentro, come le altre icone. -->
