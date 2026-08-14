@@ -46,9 +46,10 @@ const nav = [
   padding: 6px 10px; height: 44px;
   font-size: 13px; font-weight: 500;
   color: var(--ink-soft);
-  transition: color 0.22s ease; white-space: nowrap;
+  transition: color 0.22s ease, transform 0.15s ease; white-space: nowrap;
   text-decoration: none; position: relative; z-index: 0;
 }
+.nav-item:active { transform: scale(0.95); }
 .nav-item::before {
   content: '';
   position: absolute; inset: 4px;

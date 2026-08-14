@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:24px;">Meteo</h1>
+    <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;margin-bottom:24px;">Meteo</h1>
 
     <div v-if="loading" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
       <div v-for="i in 7" :key="i" class="card" style="padding:20px;">

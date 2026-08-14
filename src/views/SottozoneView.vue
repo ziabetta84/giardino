@@ -6,7 +6,7 @@
 
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
       <div>
-        <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;">
+        <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;">
           {{ zona?.nome ?? route.params.zona }}
         </h1>
         <p style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Sottozone</p>

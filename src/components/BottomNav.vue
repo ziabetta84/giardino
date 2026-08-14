@@ -36,8 +36,9 @@ const nav = [
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   min-width: 56px; min-height: 44px; padding: 4px 8px;
   font-size: 10px; font-weight: 500; color: var(--ink-soft);
-  text-decoration: none; transition: color 0.18s; position: relative;
+  text-decoration: none; transition: color 0.18s, transform 0.15s ease; position: relative;
 }
+.bn-item:active { transform: scale(0.95); }
 .bn-icon { width: 20px; height: 20px; }
 .bn-label { font-size: 10px; }
 .bn-item.router-link-active { color: var(--rose); font-weight: 600; }

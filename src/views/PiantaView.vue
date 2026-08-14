@@ -33,7 +33,7 @@
         </RouterLink>
         <div class="plant-hero-text">
           <span class="zone-chip">{{ pianta.sottozona ? `${pianta.zona} · ${pianta.sottozona}` : pianta.zona }}</span>
-          <h1 class="plant-hero-title">{{ specie?.nome ?? pianta.specie }}</h1>
+          <h1 class="plant-hero-title title-settle">{{ specie?.nome ?? pianta.specie }}</h1>
           <p class="plant-hero-lat">{{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span></p>
         </div>
       </div>
@@ -41,7 +41,7 @@
       <!-- Header testuale: quando non c'è ancora una foto -->
       <div v-else style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
         <div>
-          <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
+          <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
             {{ specie?.nome ?? pianta.specie }}
           </h1>
           <p class="title-serif" style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
