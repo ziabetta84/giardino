@@ -60,7 +60,9 @@
 
         <!-- In scadenza -->
         <template v-if="inScadenzaTab.length">
-          <p class="section-label">🕐 In scadenza (entro 3 giorni)</p>
+          <p class="section-label" style="display:flex;align-items:center;gap:5px;">
+            <Icon name="orologio" style="width:13px;height:13px;flex-shrink:0;" />In scadenza (entro 3 giorni)
+          </p>
           <div style="margin-bottom:24px;">
             <AttivitaGruppoZona
               v-for="gruppo in gruppiInScadenzaTab"
