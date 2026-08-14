@@ -20,14 +20,15 @@
     <!-- Meteo -->
     <RouterLink to="/meteo" class="card hover-card"
       style="padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:14px;text-decoration:none;color:inherit;">
-      <div class="meteo-icon-wrap">{{ meteoOggi?.icona ?? '⛅' }}</div>
+      <div class="meteo-icon-wrap"><Icon :name="meteoOggi?.icona ?? 'meteo'" style="width:26px;height:26px;" /></div>
       <div style="flex:1;">
         <div v-if="meteoOggi" style="font-weight:600;font-size:14px;">
           {{ meteoOggi.tMax }}° / {{ meteoOggi.tMin }}° · {{ meteoOggi.descrizione }}
         </div>
         <div v-else style="font-weight:600;font-size:14px;color:var(--ink-faint);">Caricamento meteo…</div>
-        <div v-if="meteoOggi" class="text-light" style="color:var(--ink-soft);font-size:12px;margin-top:1px;">
-          💧 {{ meteoOggi.pioggia }} mm · 💨 {{ meteoOggi.vento }} km/h
+        <div v-if="meteoOggi" class="text-light" style="display:flex;align-items:center;gap:10px;color:var(--ink-soft);font-size:12px;margin-top:2px;">
+          <span style="display:flex;align-items:center;gap:3px;"><Icon name="goccia" style="width:10px;height:10px;" />{{ meteoOggi.pioggia }} mm</span>
+          <span style="display:flex;align-items:center;gap:3px;"><Icon name="vento" style="width:10px;height:10px;" />{{ meteoOggi.vento }} km/h</span>
         </div>
       </div>
       <span style="color:var(--rose);font-size:14px;font-weight:700;">→</span>

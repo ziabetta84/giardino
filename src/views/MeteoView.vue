@@ -13,19 +13,32 @@
 
     <div v-else-if="errore" class="card" style="padding:24px;text-align:center;color:var(--rose-dark);">
       <div style="width:44px;height:44px;border-radius:50%;background:var(--rose-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 10px;">
-        <Icon name="campanella" style="width:20px;height:20px;" />
+        <Icon name="meteo-errore" style="width:22px;height:22px;" />
       </div>
       <p>{{ errore }}</p>
     </div>
 
     <template v-else>
+      <div v-if="adessoMeteo" class="card meteo-hero" style="padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;">
+        <div class="meteo-hero-icon-wrap">
+          <Icon :name="adessoMeteo.icona" style="width:42px;height:42px;" />
+        </div>
+        <div style="flex:1;">
+          <p class="section-label" style="margin-bottom:2px;">Adesso</p>
+          <div style="display:flex;align-items:baseline;gap:10px;">
+            <span class="title-display" style="font-size:2.1rem;font-weight:800;line-height:1;">{{ adessoMeteo.temp }}°</span>
+            <span class="text-light" style="font-size:14px;color:var(--ink-soft);">{{ adessoMeteo.descrizione }}</span>
+          </div>
+        </div>
+      </div>
+
       <div v-if="avvisi.length" class="card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:16px;">
         <p style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">
           <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />Condizioni avverse in arrivo
         </p>
         <div style="display:flex;flex-direction:column;gap:6px;">
-          <div v-for="a in avvisi" :key="a.key" style="font-size:13px;color:var(--rose-dark);">
-            {{ a.icona }} <strong>{{ a.giorno }}</strong> — {{ a.testo }}
+          <div v-for="a in avvisi" :key="a.key" style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--rose-dark);">
+            <Icon :name="a.icona" style="width:15px;height:15px;flex-shrink:0;" /> <strong>{{ a.giorno }}</strong> — {{ a.testo }}
           </div>
         </div>
       </div>
@@ -38,9 +51,11 @@
             :class="{ 'ora-corrente': oraCorrente(o) }"
             style="flex-shrink:0;text-align:center;padding:8px 10px;border-radius:12px;min-width:56px;">
             <div style="font-size:11px;color:var(--ink-soft);">{{ o.label }}</div>
-            <div style="font-size:22px;margin:4px 0;">{{ o.icona }}</div>
+            <Icon :name="o.icona" style="width:22px;height:22px;margin:4px 0;" />
             <div style="font-size:12px;font-weight:600;">{{ o.temp }}°</div>
-            <div v-if="o.pioggiaProb !== null" class="text-light" style="font-size:10px;color:var(--ink-faint);margin-top:2px;">💧 {{ o.pioggiaProb }}%</div>
+            <div v-if="o.pioggiaProb !== null" class="text-light" style="display:flex;align-items:center;justify-content:center;gap:2px;font-size:10px;color:var(--ink-faint);margin-top:2px;">
+              <Icon name="goccia" style="width:9px;height:9px;" />{{ o.pioggiaProb }}%
+            </div>
           </div>
         </div>
       </div>
@@ -50,11 +65,12 @@
           class="card"
           style="padding:18px;text-align:center;">
           <div class="meteo-label">{{ g.label }}</div>
-          <div style="font-size:40px;margin:10px 0;">{{ g.icona }}</div>
+          <Icon :name="g.icona" style="width:40px;height:40px;margin:10px 0;" />
           <div class="text-light" style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
           <div style="font-weight:600;font-size:15px;">{{ g.tMax }}° / {{ g.tMin }}°</div>
-          <div class="text-light" style="font-size:11px;color:var(--ink-soft);margin-top:4px;">
-            💧 {{ g.pioggia }} mm · 💨 {{ g.vento }} km/h
+          <div class="text-light" style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;color:var(--ink-soft);margin-top:4px;">
+            <span style="display:flex;align-items:center;gap:3px;"><Icon name="goccia" style="width:11px;height:11px;" />{{ g.pioggia }} mm</span>
+            <span style="display:flex;align-items:center;gap:3px;"><Icon name="vento" style="width:11px;height:11px;" />{{ g.vento }} km/h</span>
           </div>
         </div>
       </div>
@@ -93,6 +109,8 @@ const orarieDaAdesso = computed(() => {
   return orarieOggi.value.filter(o => o.ora >= chiave)
 })
 
+const adessoMeteo = computed(() => orarieDaAdesso.value[0] ?? null)
+
 function oraCorrente(o) {
   return o.ora === chiaveOra(adesso.value)
 }
@@ -105,6 +123,12 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.meteo-hero-icon-wrap {
+  width: 64px; height: 64px; border-radius: 16px;
+  background: var(--gold-pale); border: 1px solid var(--gold-light);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
 .meteo-label {
   font-family: var(--font-serif); font-size: 13px;
   font-weight: 600; color: var(--ink-mid); text-transform: capitalize;

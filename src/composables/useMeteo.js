@@ -1,14 +1,14 @@
 import { ref, computed } from 'vue'
 
 const WMO = {
-  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
-  45:'🌫️', 48:'🌫️',
-  51:'🌦️', 53:'🌦️', 55:'🌦️',
-  61:'🌧️', 63:'🌧️', 65:'🌧️',
-  71:'🌨️', 73:'🌨️', 75:'🌨️',
-  77:'🌨️', 80:'🌦️', 81:'🌧️', 82:'⛈️',
-  85:'🌨️', 86:'🌨️',
-  95:'⛈️', 96:'⛈️', 99:'⛈️',
+  0:'sole', 1:'meteo', 2:'meteo', 3:'nuvola',
+  45:'nebbia', 48:'nebbia',
+  51:'pioggia', 53:'pioggia', 55:'pioggia',
+  61:'pioggia', 63:'pioggia', 65:'pioggia',
+  71:'neve', 73:'neve', 75:'neve',
+  77:'neve', 80:'pioggia', 81:'pioggia', 82:'temporale',
+  85:'neve', 86:'neve',
+  95:'temporale', 96:'temporale', 99:'temporale',
 }
 
 const WMO_LABEL = {
@@ -25,11 +25,11 @@ const CODICI_TEMPORALE = [95, 96, 99]
 
 function valutaAvvisi(g) {
   const avvisi = []
-  if (g.tMin <= 3) avvisi.push({ icona:'❄️', testo:`Rischio gelo (min ${g.tMin}°)` })
-  if (g.tMax >= 35) avvisi.push({ icona:'🥵', testo:`Caldo estremo (max ${g.tMax}°)` })
-  if (g.vento >= 40) avvisi.push({ icona:'💨', testo:`Vento forte (${g.vento} km/h)` })
-  if (CODICI_TEMPORALE.includes(g.codice)) avvisi.push({ icona:'⛈️', testo:'Temporale previsto' })
-  else if (parseFloat(g.pioggia) >= 20) avvisi.push({ icona:'🌧️', testo:`Pioggia intensa (${g.pioggia} mm)` })
+  if (g.tMin <= 3) avvisi.push({ icona:'gelo', testo:`Rischio gelo (min ${g.tMin}°)` })
+  if (g.tMax >= 35) avvisi.push({ icona:'caldo', testo:`Caldo estremo (max ${g.tMax}°)` })
+  if (g.vento >= 40) avvisi.push({ icona:'vento', testo:`Vento forte (${g.vento} km/h)` })
+  if (CODICI_TEMPORALE.includes(g.codice)) avvisi.push({ icona:'temporale', testo:'Temporale previsto' })
+  else if (parseFloat(g.pioggia) >= 20) avvisi.push({ icona:'pioggia', testo:`Pioggia intensa (${g.pioggia} mm)` })
   return avvisi
 }
 
@@ -55,7 +55,7 @@ export function useMeteo() {
         data,
         label: new Date(data).toLocaleDateString('it-IT', { weekday:'short', day:'numeric', month:'short' }),
         codice: d.weathercode[i],
-        icona: WMO[d.weathercode[i]] ?? '🌡️',
+        icona: WMO[d.weathercode[i]] ?? 'meteo',
         descrizione: WMO_LABEL[d.weathercode[i]] ?? '',
         tMax: Math.round(d.temperature_2m_max[i]),
         tMin: Math.round(d.temperature_2m_min[i]),
@@ -67,7 +67,7 @@ export function useMeteo() {
       orarieOggi.value = h?.time ? h.time.slice(0, 24).map((ora, i) => ({
         ora,
         label: ora.slice(11, 16),
-        icona: WMO[h.weathercode[i]] ?? '🌡️',
+        icona: WMO[h.weathercode[i]] ?? 'meteo',
         descrizione: WMO_LABEL[h.weathercode[i]] ?? '',
         temp: Math.round(h.temperature_2m[i]),
         pioggiaProb: h.precipitation_probability?.[i] ?? null,
