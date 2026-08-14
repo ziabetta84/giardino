@@ -46,7 +46,9 @@
 
     <!-- Token mancante -->
     <div v-if="!tokenSalvato" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
-      <p style="font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">🔑 Token GitHub richiesto</p>
+      <p style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">
+        <Icon name="chiave" style="width:14px;height:14px;flex-shrink:0;" />Token GitHub richiesto
+      </p>
       <p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">Serve un token con permesso <code>contents:write</code> per inviare richieste.</p>
       <div style="display:flex;gap:8px;">
         <input v-model="tokenInput" type="password" placeholder="ghp_…" class="form-input"

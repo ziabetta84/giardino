@@ -97,8 +97,9 @@
         </div>
       </div>
 
-      <div v-else style="padding:20px 18px;text-align:center;">
-        <p class="text-light" style="font-size:13px;color:var(--ink-soft);">Nessuna cura urgente oggi 🌸</p>
+      <div v-else style="padding:20px 18px;display:flex;align-items:center;justify-content:center;gap:6px;">
+        <p class="text-light" style="font-size:13px;color:var(--ink-soft);margin:0;">Nessuna cura urgente oggi</p>
+        <Icon name="fiore" style="width:14px;height:14px;flex-shrink:0;" />
       </div>
     </div>
   </div>

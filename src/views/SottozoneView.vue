@@ -32,8 +32,8 @@
             <button type="button" class="icon-btn" @click="apriModifica(sz)" title="Modifica sottozona"><Icon name="matita" style="width:13px;height:13px;" /></button>
           </div>
         </div>
-        <div v-if="sz.esposizione?.length" style="font-size:11px;color:var(--ink-faint);margin-bottom:6px;">
-          ☀️ {{ sz.esposizione.join(', ') }}
+        <div v-if="sz.esposizione?.length" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);margin-bottom:6px;">
+          <Icon name="sole" style="width:12px;height:12px;flex-shrink:0;" />{{ sz.esposizione.join(', ') }}
         </div>
         <p v-if="sz.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ descrizioneBreve(sz) }}</p>
       </div>

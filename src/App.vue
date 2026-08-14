@@ -7,7 +7,7 @@
   <Transition name="page">
     <div v-if="!tokenOk && mostraBanner"
       style="position:sticky;top:0;z-index:100;background:var(--gold-pale);border-bottom:1px solid var(--gold-light);padding:10px 16px;display:flex;align-items:center;gap:10px;">
-      <span style="font-size:14px;">🔑</span>
+      <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;" />
       <p style="font-size:12px;color:var(--gold-dark);flex:1;">Token GitHub non configurato — le modifiche non verranno salvate.</p>
       <RouterLink to="/agente" style="font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;">Configura →</RouterLink>
       <button @click="mostraBanner = false" style="background:none;border:none;color:var(--gold-dark);cursor:pointer;font-size:16px;line-height:1;">×</button>
@@ -31,6 +31,7 @@ import BootLogo  from '@/components/BootLogo.vue'
 import NavBar    from '@/components/NavBar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
+import Icon      from '@/components/Icon.vue'
 import { ref, onMounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'

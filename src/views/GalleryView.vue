@@ -124,8 +124,8 @@
           </div>
           <p v-if="!uploadPreview" style="font-size:11px;color:var(--ink-faint);margin-top:6px;text-align:center;">JPG o PNG · max 10 MB</p>
 
-          <p v-if="dataScattoRilevata" style="font-size:11px;color:var(--sage-dark);margin-top:8px;">
-            📅 Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
+          <p v-if="dataScattoRilevata" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sage-dark);margin-top:8px;">
+            <Icon name="calendario" style="width:13px;height:13px;flex-shrink:0;" />Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
           </p>
 
           <p v-if="erroreUpload" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);margin-top:8px;">
