@@ -33,6 +33,17 @@
       <span style="color:var(--rose);font-size:14px;font-weight:700;">→</span>
     </RouterLink>
 
+    <!-- Zorba dice -->
+    <RouterLink to="/agente" class="card hover-card"
+      style="padding:14px 18px;display:flex;align-items:center;gap:14px;margin-bottom:14px;text-decoration:none;color:inherit;">
+      <div class="zorba-icon-wrap"><Icon name="gatto" style="width:22px;height:22px;" /></div>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:14px;">Zorba dice</div>
+        <div class="text-light" style="color:var(--ink-soft);font-size:12px;margin-top:1px;">Chiedi un consiglio, identifica una specie, pianifica un progetto</div>
+      </div>
+      <span style="color:var(--rose);font-size:14px;font-weight:700;">→</span>
+    </RouterLink>
+
     <!-- Card grid -->
     <div class="card-grid">
       <RouterLink v-for="card in homeCards" :key="card.id" :to="card.to"
@@ -141,13 +152,18 @@ const daFareOggi = computed(() => {
   return items
 })
 
+// Stesso ordine della NavBar (home e meteo escluse: home è la pagina
+// stessa, meteo ha già la sua card rettangolare qui sopra) — così la
+// sequenza dei colori non cambia passando da un menù all'altro.
+// Zorba dice è anch'essa una card rettangolare (vedi sopra), non fa
+// parte di questa griglia: 6 quadrati, non 7, per restare simmetrica
+// sia a 3 che a 2 colonne.
 const homeCards = computed(() => [
   { id:'zone',     to:'/zone',     icona:'pin',        tinta:'acqua', label:'Zone',       count: numZone.value !== null ? `${numZone.value} zone` : null, urgent: false },
   { id:'piante',   to:'/piante',   icona:'foglia',     tinta:'olive', label:'Piante',     count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value !== null ? `${numPiante.value} piante` : null), urgent: !!numUrgenti.value },
+  { id:'progetti', to:'/progetti', icona:'lampadina',  tinta:'gold',  label:'Progetti',   count: null, urgent: false },
   { id:'concimi',  to:'/concimi',  icona:'provetta',   tinta:'sage',  label:'Concimi',    count: numConcimi.value !== null ? `${numConcimi.value} concimi` : null, urgent: false },
   { id:'attivita', to:'/attivita', icona:'campanella', tinta:'rose',  label:'Attività',   count: daFareOggi.value.length ? `${daFareOggi.value.length} urgent${daFareOggi.value.length === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: daFareOggi.value.length > 0 },
-  { id:'progetti', to:'/progetti', icona:'lampadina',  tinta:'gold',  label:'Progetti',   count: null, urgent: false },
-  { id:'agente',   to:'/agente',   icona:'gatto',      tinta:'ink',   label:'Zorba dice', count: null, urgent: false },
   { id:'gallery',  to:'/gallery',  icona:'cornice',    tinta:'sage',  label:'Gallery',    count: null, urgent: false },
 ])
 
@@ -171,6 +187,12 @@ onMounted(async () => {
   background:var(--gold-pale); border:1px solid var(--gold-light);
   display:flex; align-items:center; justify-content:center;
   font-size:24px; flex-shrink:0;
+}
+.zorba-icon-wrap {
+  width:46px; height:46px; border-radius:13px;
+  background:var(--ink-tile); border:1px solid var(--cream-dark);
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
 }
 .card-grid {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;

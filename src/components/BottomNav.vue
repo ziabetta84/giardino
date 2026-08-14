@@ -13,11 +13,11 @@ import Icon from '@/components/Icon.vue'
 
 const nav = [
   { id:'home',     to:'/',         icona:'casa',        label:'Home' },
-  { id:'piante',   to:'/piante',   icona:'foglia',      label:'Piante' },
-  { id:'attivita', to:'/attivita', icona:'campanella',  label:'Attività', badge: null },
-  { id:'concimi',  to:'/concimi',  icona:'provetta',    label:'Concimi' },
-  { id:'agente',   to:'/agente',   icona:'gatto',       label:'Zorba dice' },
   { id:'zone',     to:'/zone',     icona:'pin',         label:'Zone' },
+  { id:'piante',   to:'/piante',   icona:'foglia',      label:'Piante' },
+  { id:'concimi',  to:'/concimi',  icona:'provetta',    label:'Concimi' },
+  { id:'attivita', to:'/attivita', icona:'campanella',  label:'Attività', badge: null },
+  { id:'agente',   to:'/agente',   icona:'gatto',       label:'Zorba dice' },
 ]
 </script>
 
