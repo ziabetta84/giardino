@@ -4,7 +4,7 @@
       ← Zone
     </RouterLink>
 
-    <h1 class="title-display gradient-title" style="font-size:1.7rem;font-weight:800;margin-bottom:20px;">
+    <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;margin-bottom:20px;">
       {{ isNuova ? 'Nuova zona' : 'Modifica zona' }}
     </h1>
 

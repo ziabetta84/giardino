@@ -1,7 +1,7 @@
 <template>
   <div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;">Zone</h1>
+      <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;">Zone</h1>
       <RouterLink to="/zone/nuova" class="btn btn-rose" style="text-decoration:none;">＋ Aggiungi</RouterLink>
     </div>
 

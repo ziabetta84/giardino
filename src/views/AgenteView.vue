@@ -38,7 +38,7 @@
       <button type="button" class="icon-btn agente-storico-toggle" aria-label="Apri storico" @click="sidebarAperta = true">
         <Icon name="lista" style="width:18px;height:18px;" />
       </button>
-      <h1 class="title-display gradient-title" style="display:flex;align-items:center;gap:9px;font-size:1.9rem;font-weight:800;margin:0;min-width:0;">
+      <h1 class="title-display gradient-title title-settle" style="display:flex;align-items:center;gap:9px;font-size:1.9rem;font-weight:800;margin:0;min-width:0;">
         <ZorbaLogo style="width:38px;height:38px;flex-shrink:0;" />Zorba dice
       </h1>
     </div>
