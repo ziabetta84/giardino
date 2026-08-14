@@ -51,7 +51,7 @@
             :class="{ 'ora-corrente': oraCorrente(o) }"
             style="flex-shrink:0;text-align:center;padding:8px 10px;border-radius:12px;min-width:56px;">
             <div style="font-size:11px;color:var(--ink-soft);">{{ o.label }}</div>
-            <Icon :name="o.icona" style="width:22px;height:22px;margin:4px 0;" />
+            <Icon :name="o.icona" style="width:22px;height:22px;margin:4px auto;" />
             <div style="font-size:12px;font-weight:600;">{{ o.temp }}°</div>
             <div v-if="o.pioggiaProb !== null" class="text-light" style="display:flex;align-items:center;justify-content:center;gap:2px;font-size:10px;color:var(--ink-faint);margin-top:2px;">
               <Icon name="goccia" style="width:9px;height:9px;" />{{ o.pioggiaProb }}%
@@ -65,7 +65,7 @@
           class="card"
           style="padding:18px;text-align:center;">
           <div class="meteo-label">{{ g.label }}</div>
-          <Icon :name="g.icona" style="width:40px;height:40px;margin:10px 0;" />
+          <Icon :name="g.icona" style="width:40px;height:40px;margin:10px auto;" />
           <div class="text-light" style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
           <div style="font-weight:600;font-size:15px;">{{ g.tMax }}° / {{ g.tMin }}°</div>
           <div class="text-light" style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;color:var(--ink-soft);margin-top:4px;">
