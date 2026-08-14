@@ -68,22 +68,33 @@ body::before {
 /* Il titolo si assesta un filo dopo il resto della pagina (che ha già
    la sua dissolvenza in pageIn): solo un piccolissimo spostamento,
    nessuna dissolvenza propria — altrimenti le due opacità si
-   sommerebbero e il titolo apparirebbe più sbiadito del dovuto. Poi,
-   una volta assestato, un bagliore dorato si accende e si spegne una
-   sola volta — uno "scintillio" discreto, non un fascio di luce che
-   scorre (troppo tenue sui colori pastello del gradiente per essere
-   notato). drop-shadow, non text-shadow: segue la sagoma reale delle
-   lettere anche con il testo reso trasparente da gradient-title. */
+   sommerebbero e il titolo apparirebbe più sbiadito del dovuto. */
 .title-settle {
-  animation: titleSettle 0.22s ease 0.07s both, titleGlow 1.3s ease-out 0.25s 1;
+  animation: titleSettle 0.22s ease 0.07s both;
 }
 @keyframes titleSettle { from { transform: translateY(4px); } to { transform: translateY(0); } }
-@keyframes titleGlow {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(224,184,74,0)); }
-  40%      { filter: drop-shadow(0 0 10px rgba(224,184,74,0.65)); }
+
+/* Sui titoli in gradiente, un raggio di luce attraversa il testo una
+   sola volta dopo l'assestamento: una maschera con una banda più
+   opaca al centro (il "raggio") e più trasparente ai lati scorre
+   sopra il testo, alternando le lettere tra piena luminosità e un
+   lieve affievolimento — lo stesso principio dell'effetto shine
+   (mask-image + mask-position animato), qui eseguito una sola volta
+   invece che in loop per restare discreto. */
+.gradient-title.title-settle {
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200% 100%;
+  mask-size: 200% 100%;
+  animation: titleSettle 0.22s ease 0.07s both, titleShine 0.9s cubic-bezier(.3,0,.2,1) 0.32s 1;
+}
+@keyframes titleShine {
+  from { -webkit-mask-position: 150% 0; mask-position: 150% 0; }
+  to   { -webkit-mask-position: -50% 0; mask-position: -50% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .title-settle { animation: none; }
+  .gradient-title.title-settle { animation: none; -webkit-mask-image: none; mask-image: none; }
 }
 
 /* Liste che entrano/escono con un lieve stagger (Home, Piante, Attività):
