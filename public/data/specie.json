@@ -347,49 +347,6 @@
       }
     }
   },
-  "stracchino": {
-    "nome": "Stracchino (Iberis)",
-    "specie": "Iberis sempervirens",
-    "descrizione": "Nome comune dell'Iberis sempervirens.",
-    "esigenze": {
-      "luce": "Sole",
-      "acqua": "Moderata",
-      "terreno": "Drenato"
-    },
-    "alert": [
-      "richiede terreno drenante (rischio marciumi se troppo bagnato)",
-      "crescita lenta ma molto densa",
-      "teme ristagni idrici più del caldo",
-      "fioritura scarsa - poca luce o terreno impoverito",
-      "perfetta per muretti, bordure e aiuole rocciose"
-    ],
-    "manutenzione": {
-      "irrigazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
-      },
-      "concimazione": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
-      },
-      "potatura": {
-        "primavera": "",
-        "estate": "",
-        "autunno": "",
-        "inverno": ""
-      },
-      "npk": {
-        "primavera": "5-10-10",
-        "estate": "5-10-10",
-        "autunno": null,
-        "inverno": null
-      }
-    }
-  },
   "uva-di-gatto": {
     "nome": "Uva di gatto",
     "specie": "Muscari armeniacum",
