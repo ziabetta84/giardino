@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useMeteo } from '@/composables/useMeteo'
 import { useApi } from '@/composables/useApi'
+import { useSupabase } from '@/composables/useSupabase'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -25,6 +26,35 @@ async function caricaJSON(file) {
   }
 }
 
+// Pilota Fase 2: le specie vengono da Supabase (sola lettura), non più dal
+// JSON statico — ma la forma dell'oggetto resta identica a prima (stessa
+// chiave slug, stessi nomi di campo "specie" e "coltivazione") perché tutto
+// il resto dell'app si aspetta ancora quella forma. Le scritture (creare o
+// modificare una specie da SelettoreSpecie) restano su GitHub per ora: la
+// migrazione delle scritture è compito di una fase successiva, non di questa.
+// Se Supabase non risponde, ripiega sul JSON statico come le altre risorse.
+async function caricaSpecie() {
+  try {
+    const supabase = useSupabase()
+    const { data, error } = await supabase
+      .from('specie')
+      .select('slug, nome, nome_scientifico, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale')
+    if (error) throw error
+    return Object.fromEntries(data.map(riga => [riga.slug, {
+      nome: riga.nome,
+      specie: riga.nome_scientifico,
+      descrizione: riga.descrizione,
+      esigenze: riga.esigenze,
+      alert: riga.alert,
+      manutenzione: riga.manutenzione,
+      coltivazione: riga.ciclo_colturale,
+      ciclo_vitale: riga.ciclo_vitale,
+    }]))
+  } catch {
+    return caricaStatico('specie.json')
+  }
+}
+
 export const useDatiStore = defineStore('dati', () => {
   const piante    = ref(null)
   const specie    = ref(null)
@@ -45,7 +75,7 @@ export const useDatiStore = defineStore('dati', () => {
       ;[piante.value, specie.value, zone.value, sottozone.value, progetti.value, settings.value, concimi.value] =
         await Promise.all([
           caricaJSON('piante.json'),
-          caricaJSON('specie.json'),
+          caricaSpecie(),
           caricaJSON('zone.json'),
           caricaJSON('sottozone.json'),
           caricaJSON('progetti.json'),
