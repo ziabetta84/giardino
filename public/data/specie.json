@@ -3530,13 +3530,14 @@
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Fresco"
+      "terreno": "Fresco, fertile, ben drenato"
     },
     "alert": [
       "ama mezz’ombra luminosa",
       "fioritura primaverile",
       "si risemina facilmente",
-      "evitare ristagni"
+      "evitare ristagni",
+      "può essere soggetta ad afidi e a una peronospora specifica della specie (aquilegia downy mildew)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3572,7 +3573,8 @@
       "giorni_raccolta": null,
       "finestra_semina": [
         "primavera",
-        "estate"
+        "estate",
+        "autunno"
       ],
       "finestra_trapianto": [
         "autunno"
