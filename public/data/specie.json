@@ -1009,7 +1009,7 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Drenato"
     },
     "alert": [
       "Può espandersi rapidamente",
@@ -1017,7 +1017,8 @@
       "evitare irrigazioni: pianta xerofila",
       "crescita molto rapida: può espandersi oltre il punto desiderato",
       "perfetta per competere con parietaria e infestanti",
-      "fioritura gialla intensa in tarda primavera"
+      "fioritura gialla intensa in tarda primavera",
+      "la linfa può essere irritante per la pelle: usare guanti durante la manipolazione"
     ],
     "manutenzione": {
       "irrigazione": {
