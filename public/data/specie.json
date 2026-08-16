@@ -3798,16 +3798,17 @@
     "specie": "Sedum spurium",
     "descrizione": "Succulenta tappezzante molto resistente.",
     "esigenze": {
-      "luce": "Sole o mezz'ombra",
+      "luce": "Sole",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato, moderatamente fertile"
     },
     "alert": [
       "pianta xerofila → evitare irrigazioni frequenti",
       "ama sole pieno o mezz’ombra luminosa",
       "colori più intensi con luce forte e freddo",
       "perfetta come tappezzante e per bordi",
-      "teme ristagni idrici"
+      "teme ristagni idrici",
+      "può essere soggetta a lumache, limacce e larve di oziorrinco, oltre a marciume di colletto/radici (fungino o batterico) in caso di ristagno"
     ],
     "manutenzione": {
       "irrigazione": {
