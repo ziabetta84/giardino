@@ -5361,14 +5361,15 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "Sensibili al gelo",
       "ama sole pieno",
       "teme ristagni idrici",
       "fioritura molto lunga",
-      "ottimi in fioriere e balconiere"
+      "ottimi in fioriere e balconiere",
+      "può essere colpito da parassiti (tripidi, afidi, cicaline, bruchi, sciaridi, oziorrinco) e da malattie come marciume radicale in terreni umidi, muffa grigia e ruggine del pelargonio"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5410,7 +5411,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 30,
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
