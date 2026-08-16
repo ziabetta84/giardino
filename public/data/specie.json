@@ -601,14 +601,14 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
-      "Sensibile all'oidio",
       "ama sole pieno",
       "teme ristagni idrici",
-      "fioritura molto abbondante se ben concimata",
-      "sensibile all’oidio in condizioni di umidità elevata"
+      "sensibile all'oidio, soprattutto in condizioni di umidità elevata",
+      "può essere colpita anche da marciume del colletto/radici e muffa grigia (botrite) in condizioni di ristagno idrico",
+      "fioritura molto abbondante se ben concimata"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -648,10 +648,14 @@
       "giorni_germinazione": null,
       "giorni_trapianto": null,
       "giorni_raccolta": null,
-      "finestra_semina": [],
-      "finestra_trapianto": [],
-      "resistenza_gelo": null,
-      "spaziatura_cm": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
