@@ -2742,7 +2742,7 @@
     "specie": "Marsilea quadrifolia",
     "descrizione": "Piantina acquatica simile a un quadrifoglio.",
     "esigenze": {
-      "luce": "Mezz'ombra",
+      "luce": "Pieno sole",
       "acqua": "Molto abbondante",
       "terreno": "Umido"
     },
@@ -2787,10 +2787,10 @@
       "giorni_raccolta": null,
       "finestra_semina": [],
       "finestra_trapianto": [
-        "primavera"
+        "estate"
       ],
-      "resistenza_gelo": "media",
-      "spaziatura_cm": 15,
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 40,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
