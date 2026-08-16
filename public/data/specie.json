@@ -443,7 +443,7 @@
     },
     "ciclo_vitale": "annuale",
     "coltivazione": {
-      "famiglia_botanica": "",
+      "famiglia_botanica": "Asteraceae",
       "giorni_germinazione": null,
       "giorni_trapianto": null,
       "giorni_raccolta": null,
