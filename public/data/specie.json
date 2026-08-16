@@ -2682,15 +2682,15 @@
     "descrizione": "Il Sisyrinchium californicum è una piccola pianta perenne, cugina dell'Iris, che offre il beneficio di una lunga fioritura estiva a stelle giallo brillante. Adatta alla siccità, apprezza comunque una certa freschezza, il che la rende adatta sia per i giardini rocciosi che per decorare le aree ben drenate intorno ai laghetti.",
     "esigenze": {
       "luce": "Pieno sole o mezz'ombra",
-      "acqua": "Moderata",
-      "terreno": "Drenato"
+      "acqua": "Abbondante",
+      "terreno": "Umido, anche palustre"
     },
     "alert": [
       "specie palustre → preferisce terreno umido",
       "molto vigoroso: può espandersi rapidamente",
-      "evitare ristagni eccessivi solo se il terreno è pesante",
       "foglie che seccano ai bordi → terreno troppo asciutto",
-      "fioritura gialla tra aprile e giugno"
+      "fioritura gialla tra aprile e giugno",
+      "si autosemina abbondantemente: può diventare invadente se non controllata"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -2730,7 +2730,7 @@
       "finestra_trapianto": [
         "autunno"
       ],
-      "resistenza_gelo": "alta",
+      "resistenza_gelo": "media",
       "spaziatura_cm": 20,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
