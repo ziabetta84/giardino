@@ -481,6 +481,27 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rosaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "autunno"
+      ],
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 100,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 15,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.7
     }
   },
   "uva-di-gatto": {
@@ -1596,6 +1617,28 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Commelinaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera",
+        "estate"
+      ],
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 20,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.7
     }
   },
   "calathea": {
@@ -1647,6 +1690,27 @@
         "autunno": "20-10-10",
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Marantaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 18,
+      "irrigazione_fattore": 0.9
     }
   },
   "anthurium": {
@@ -1691,6 +1755,27 @@
         "autunno": "5-10-10",
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Araceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 18,
+      "irrigazione_fattore": 0.8
     }
   },
   "calancola": {
@@ -1779,6 +1864,27 @@
         "autunno": "20-10-10",
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Moraceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.7
     }
   },
   "mammillaria": {
@@ -2294,6 +2400,30 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cyperaceae",
+      "giorni_germinazione": "20-30",
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera",
+        "autunno"
+      ],
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.9
     }
   },
   "glechoma-hederacea": {
@@ -2533,6 +2663,29 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Poaceae",
+      "giorni_germinazione": "14-21",
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 10,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.7
     }
   },
   "salcerella": {
@@ -2619,6 +2772,27 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Ranunculaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "autunno"
+      ],
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 100,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 15,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.8
     }
   },
   "mesembriantemo": {
@@ -2727,6 +2901,29 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Poaceae",
+      "giorni_germinazione": "14-21",
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.4
     }
   },
   "allium-sphaerocephalon": {
@@ -3741,13 +3938,18 @@
   "pianta-delle-monete": {
     "nome": "Pianta delle Monete",
     "specie": "pilea peperomioides",
-    "descrizione": "",
+    "descrizione": "Pianta d’appartamento dalle foglie tonde e piatte simili a monete, molto facile da propagare per polloni.",
     "esigenze": {
       "luce": "molta",
       "acqua": "Preferisce ambienti umidi",
       "terreno": "Preferisce terricci ricchi e ben drenati"
     },
-    "alert": [],
+    "alert": [
+      "Foglie che si arricciano verso il basso → troppa luce diretta o poca acqua",
+      "Produce facilmente polloni alla base, ottimi per nuove piante",
+      "Ruotare il vaso periodicamente per una crescita simmetrica",
+      "Foglie gialle in eccesso → ristagno idrico"
+    ],
     "manutenzione": {
       "irrigazione": {
         "primavera": "",
@@ -3773,6 +3975,27 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Urticaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.7
     }
   },
   "pianta-della-fortuna": {
@@ -4044,9 +4267,14 @@
     "esigenze": {
       "luce": "Molta luce, non sole diretto",
       "acqua": "Coltivato in acqua",
-      "terreno": ""
+      "terreno": "Nessuno se coltivato in acqua; substrato drenante se trapiantato in vaso con terra"
     },
-    "alert": [],
+    "alert": [
+      "Se coltivato in acqua, cambiarla ogni 1-2 settimane per evitare ristagni e alghe",
+      "Il cloro dell'acqua di rubinetto può danneggiarlo: meglio acqua decantata o filtrata",
+      "Foglie che ingialliscono → eccesso di luce diretta o acqua stagnante",
+      "Non è un vero bambù (è una Dracaena): non produce germogli commestibili"
+    ],
     "manutenzione": {
       "irrigazione": {
         "primavera": "",
@@ -4072,6 +4300,25 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Asparagaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": null
     }
   },
   "agave": {
@@ -4698,13 +4945,18 @@
   "agapanto": {
     "nome": "Agapanto",
     "specie": "Agapanthus",
-    "descrizione": "",
+    "descrizione": "Perenne bulbosa/rizomatosa con vistose infiorescenze a ombrello, blu o bianche, in estate.",
     "esigenze": {
       "luce": "Pieno sole",
-      "acqua": "",
+      "acqua": "Regolare in primavera-estate, ridotta in inverno",
       "terreno": "Ricco, fertile e soprattutto ben drenato"
     },
-    "alert": [],
+    "alert": [
+      "Fiorisce meglio se leggermente rinvasata (radici compatte)",
+      "Teme il gelo intenso: pacciamare la base in inverno nelle zone più fredde",
+      "Rimuovere gli steli fioriti appassiti",
+      "Tollera bene la siccità estiva una volta ambientata"
+    ],
     "manutenzione": {
       "irrigazione": {
         "primavera": "ogni 3 giorni",
@@ -4730,6 +4982,30 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Amaryllidaceae",
+      "giorni_germinazione": "30-40",
+      "giorni_trapianto": "60-90",
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera",
+        "autunno"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 10,
+      "rinvaso_ogni_mesi": 36,
+      "irrigazione_fattore": 0.7
     }
   },
   "cosmos-atrosanguineus": {
@@ -5540,6 +5816,28 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Apocynaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera",
+        "autunno"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 100,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 15,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.7
     }
   },
   "camelia": {
@@ -5585,6 +5883,27 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Theaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "autunno"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 150,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 20,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.8
     }
   },
   "calibrachoa": {
@@ -5805,6 +6124,29 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Acanthaceae",
+      "giorni_germinazione": "14-21",
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 1.0
     }
   },
   "zz-plant": {
@@ -5853,6 +6195,27 @@
         "autunno": null,
         "inverno": null
       }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Araceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.3
     }
   }
 }
