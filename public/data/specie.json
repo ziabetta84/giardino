@@ -2292,14 +2292,15 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato, con aggiunta di sabbia grossa o ghiaia"
     },
     "alert": [
       "evitare assolutamente ristagni idrici",
       "richiede molta luce per mantenere la rosetta compatta",
       "se si allunga verso l’alto → luce insufficiente",
       "foglie molli → troppa acqua",
-      "foglie raggrinzite → sete"
+      "foglie raggrinzite → sete",
+      "può essere soggetta a cocciniglia farinosa, afidi e oziorrinco"
     ],
     "manutenzione": {
       "irrigazione": {
