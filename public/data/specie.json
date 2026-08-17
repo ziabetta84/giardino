@@ -681,7 +681,9 @@
       "tollera bene vento e sole pieno",
       "crescita vigorosa: controllare l’espansione",
       "attenzione ai polloni basali (da rimuovere se indesiderati)",
-      "possibile attacco di cocciniglia in estate molto calda"
+      "possibile attacco di cocciniglia in estate molto calda",
+      "può essere soggetto anche a psilla dell'alloro, cocciniglia dell'ippocastano e tortrice",
+      "può essere colpito da oidio, maculatura fogliare e raramente armillaria"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1434,14 +1436,16 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
-      "terreno": "Ricco"
+      "terreno": "Ricco, ben drenato"
     },
     "alert": [
       "Sensibile a oidio",
       "evitare ristagni idrici (rischio marciumi)",
       "se le foglie ingialliscono → carenza di nutrienti o vaso troppo piccolo",
       "se i frutti restano piccoli → poca luce o poca acqua",
-      "controllare afidi e ragnetto rosso in primavera-estate"
+      "controllare afidi e ragnetto rosso in primavera-estate",
+      "può essere colpita anche da lumache, limacce e larve di oziorrinco",
+      "può essere soggetta a virus della fragola e marciume radicale"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1483,7 +1487,7 @@
         "primavera",
         "autunno"
       ],
-      "resistenza_gelo": "media",
+      "resistenza_gelo": "alta",
       "spaziatura_cm": 30,
       "consociazioni_favorevoli": [
         "aglio",
@@ -4367,14 +4371,15 @@
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Fresco e drenato"
+      "terreno": "Fresco, ricco di sostanza organica, molto drenante, alcalino o neutro"
     },
     "alert": [
       "Non tollera caldo intenso",
       "preferisce mezzombra luminosa",
       "teme caldo eccessivo",
       "richiede terreno fresco ma drenante",
-      "fioritura primaverile"
+      "fioritura primaverile",
+      "può essere soggetta ad afidi, lumache, oziorrinco e ragnetto rosso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4630,10 +4635,12 @@
     },
     "alert": [
       "Teme i ristagni idrici (rischio marciume del colletto)",
-      "Foglie che si afflosciano → carenza d’acqua o vaso troppo piccolo\"",
+      "Foglie che si afflosciano → carenza d’acqua o vaso troppo piccolo",
       "Fioritura scarsa → poca luce o eccesso di azoto",
       "Ingiallimenti fogliari → irrigazioni irregolari o carenze nutritive",
-      "Sensibile al freddo sotto i 12°C"
+      "Sensibile al freddo sotto i 12°C",
+      "può essere soggetto anche a ragnetto rosso e mosca bianca da serra",
+      "può essere colpito da muffa grigia"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5289,7 +5296,8 @@
       "Perline/foglie che si afflosciano → sete d'acqua, ma attenzione a non eccedere",
       "Marciume alla base se il vaso non drena bene",
       "Fusti fragili: maneggiare con cura",
-      "Ama posizioni luminose ma non sole diretto cocente"
+      "Ama posizioni luminose ma non sole diretto cocente",
+      "può essere soggetto a mosca bianca, afidi e ragnetto rosso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5327,7 +5335,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 15,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -6147,7 +6155,9 @@
       "Si risemina facilmente (spesso spontanea l'anno successivo)",
       "rimuovere i fiori appassiti per prolungare la fioritura",
       "molto rustica e poco esigente",
-      "attira impollinatori"
+      "attira impollinatori",
+      "può essere soggetta ad afidi",
+      "può essere colpita da oidio e da un virus"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6188,7 +6198,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "media",
+      "resistenza_gelo": "alta",
       "spaziatura_cm": 25,
       "consociazioni_favorevoli": [
         "pomodoro",
