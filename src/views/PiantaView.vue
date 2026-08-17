@@ -34,7 +34,10 @@
         <div class="plant-hero-text">
           <span class="zone-chip">{{ pianta.sottozona ? `${pianta.zona} · ${pianta.sottozona}` : pianta.zona }}</span>
           <h1 class="plant-hero-title title-settle">{{ specie?.nome ?? pianta.specie }}</h1>
-          <p class="plant-hero-lat">{{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span></p>
+          <p class="plant-hero-lat">
+            {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
+            <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe" style="margin-left:6px;vertical-align:middle;">{{ badgeVerifica.testo }}</span>
+          </p>
         </div>
       </div>
 
@@ -50,6 +53,7 @@
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
             <span class="badge badge-gold">{{ pianta.zona }}</span>
             <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
+            <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe">{{ badgeVerifica.testo }}</span>
           </div>
         </div>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"
@@ -349,6 +353,20 @@ const pianta = computed(() => {
 const specie = computed(() =>
   pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null
 )
+
+// Badge di provenienza dati (#120): "verificato" = scheda controllata su
+// fonte orticola reale (RHS, Acta Plantarum, vivai); "bozza" = compilata
+// dalla sola conoscenza botanica generale, non ancora verificata su fonte.
+// stato_verifica manca solo quando i dati vengono dal fallback offline più
+// vecchio della migrazione Supabase: in quel caso nessun badge, invece di
+// dichiarare un dato che non abbiamo davvero.
+const badgeVerifica = computed(() => {
+  const stato = specie.value?.stato_verifica
+  if (!stato) return null
+  return stato === 'verificato'
+    ? { testo: 'Verificato', classe: 'badge-ok' }
+    : { testo: 'Bozza', classe: 'badge-gold' }
+})
 
 // Presente solo per le specie annuali/biennali curate dalla tab
 // Coltivazione del form specie (vedi SelettoreSpecie.vue) — assente per le
