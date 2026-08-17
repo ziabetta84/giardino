@@ -404,7 +404,7 @@
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Fresco"
+      "terreno": "Fresco, ben drenato"
     },
     "alert": [
       "Soffre caldo estivo",
@@ -412,7 +412,9 @@
       "evitare ristagni idrici (rischio marciumi al colletto)",
       "foglie molli → troppa acqua",
       "foglie bruciate → troppo sole nelle ore calde",
-      "fioritura scarsa → poca luce o terreno impoverito"
+      "fioritura scarsa → poca luce o terreno impoverito",
+      "può essere soggetta ad afidi, oziorrinco, lumache, nematodi fogliari e ragnetto rosso",
+      "può essere colpita da maculatura fogliare e muffa grigia"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -880,7 +882,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Ben drenato, da povero a moderatamente fertile"
     },
     "alert": [
       "Evitare ristagni",
@@ -888,7 +890,10 @@
       "richiede pieno sole per mantenere portamento compatto",
       "molto resistente al vento: perfetto per il crinale",
       "evitare potature drastiche sul legno vecchio",
-      "controllare eventuale presenza di cocciniglia in estati molto calde"
+      "controllare eventuale presenza di cocciniglia in estati molto calde",
+      "RHS classifica ora il rosmarino come Salvia rosmarinus (non più Rosmarinus officinalis): l'intero genere è stato riclassificato",
+      "può essere colpito da coleottero del rosmarino, sputacchina, cicalina della salvia e tortrice, oltre alla cocciniglia già segnalata",
+      "può essere colpito da oidio, verticillosi, marciume del piede/radici e raramente armillaria"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -929,8 +934,8 @@
         "primavera",
         "autunno"
       ],
-      "resistenza_gelo": "alta",
-      "spaziatura_cm": 50,
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 150,
       "consociazioni_favorevoli": [
         "salvia",
         "cavolo"
@@ -1584,14 +1589,16 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato, moderatamente fertile"
     },
     "alert": [
       "Evitare ristagni",
       "teme ristagni idrici",
       "preferisce substrato ben drenante",
       "evitare eccessi di concime",
-      "controllare eventuale presenza di afidi in primavera"
+      "controllare eventuale presenza di afidi in primavera",
+      "può essere soggetta a coleottero del rosmarino, cicalina della salvia e cimice verde",
+      "può essere colpita da oidio, verticillosi, marciume del piede/radici e raramente armillaria"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1632,7 +1639,7 @@
         "primavera",
         "autunno"
       ],
-      "resistenza_gelo": "media",
+      "resistenza_gelo": "alta",
       "spaziatura_cm": 40,
       "consociazioni_favorevoli": [
         "rosmarino",
@@ -1788,7 +1795,7 @@
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Regolare",
-      "terreno": "Ricco e drenato"
+      "terreno": "Ricco, drenato, leggermente acido"
     },
     "alert": [
       "Ama umidità elevata",
@@ -1797,7 +1804,8 @@
       "evitare correnti d’aria e sbalzi termici",
       "usare acqua non calcarea per evitare macchie sulle foglie",
       "se i bordi diventano secchi → aria troppo secca",
-      "se le foglie si arricciano → poca acqua o bassa umidità"
+      "se le foglie si arricciano → poca acqua o bassa umidità",
+      "può essere soggetta a mosca bianca da serra e ragnetto rosso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1842,7 +1850,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -1860,7 +1868,7 @@
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
-      "terreno": "Ricco e drenato"
+      "terreno": "Ricco, drenato, leggermente acido"
     },
     "alert": [
       "Non esporre a sole diretto",
@@ -1868,7 +1876,9 @@
       "mantenere alta umidità ambientale",
       "evitare ristagni idrici (rischio marciumi radicali)",
       "usare acqua non calcarea per evitare macchie sulle foglie",
-      "se le foglie diventano opache → poca umidità o troppa luce"
+      "se le foglie diventano opache → poca umidità o troppa luce",
+      "può essere soggetto a cocciniglie farinose e cocciniglie a scudo",
+      "può essere colpito da maculatura fogliare e marciume radicale da eccesso d'acqua"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1907,7 +1917,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -3106,13 +3116,12 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato, da medio a leggero, moderatamente fertile"
     },
     "alert": [
       "richiede terreno drenante",
       "teme ristagni idrici più del freddo",
-      "non va tagliata a raso",
-      "ama sole o mezz’ombra luminosa"
+      "non va tagliata a raso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3703,13 +3712,15 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Drenato, neutro o leggermente alcalino"
     },
     "alert": [
       "ama sole pieno",
       "teme ristagni",
       "fioritura lunga e profumata",
-      "ottimo in fioriere e balconiere"
+      "ottimo in fioriere e balconiere",
+      "può essere soggetto a lumache e afidi",
+      "può essere colpito da oidio, ruggine, un virus e appassimento da fusarium"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6079,13 +6090,15 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Moderata",
-      "terreno": "Ben drenato, sciolto"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "Teme i ristagni idrici (rischio marciume del bulbo)",
       "non richiede grandi quantità d'acqua una volta radicato",
       "raccogliere quando il fogliame inizia a seccare",
-      "evitare eccessi di azoto (favorisce il fogliame a scapito del bulbo)"
+      "evitare eccessi di azoto (favorisce il fogliame a scapito del bulbo)",
+      "può essere soggetto a mosca della cipolla, tignola del porro e nematode del narciso",
+      "può essere colpito da marciume bianco della cipolla, peronospora, ruggine del porro e marciume del collo"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6124,7 +6137,7 @@
         "inverno"
       ],
       "finestra_trapianto": [],
-      "resistenza_gelo": "alta",
+      "resistenza_gelo": "media",
       "spaziatura_cm": 20,
       "consociazioni_favorevoli": [
         "carota",
@@ -6220,13 +6233,14 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Abbondante durante la crescita",
-      "terreno": "Fertile, ricco di sostanza organica"
+      "terreno": "Fertile, ricco di sostanza organica, ben drenato"
     },
     "alert": [
       "Richiede molto spazio per svilupparsi (rampicante vigorosa)",
       "teme il freddo: mettere a dimora solo dopo le ultime gelate",
       "impollinazione manuale utile in assenza di insetti impollinatori",
-      "raccolta a fine estate/inizio autunno, quando la buccia si indurisce"
+      "raccolta a fine estate/inizio autunno, quando la buccia si indurisce",
+      "può essere colpita da muffa grigia e oidio"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6273,7 +6287,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 150,
+      "spaziatura_cm": 300,
       "consociazioni_favorevoli": [
         "mais",
         "fagiolo"
@@ -6361,7 +6375,7 @@
     "specie": "Plumbago auriculata",
     "descrizione": "Arbusto rampicante/ricadente a fioritura estiva-autunnale prolungata, con fiori azzurro cielo a grappoli.",
     "esigenze": {
-      "luce": "Pieno sole o mezz'ombra",
+      "luce": "Pieno sole",
       "acqua": "Regolare in estate",
       "terreno": "Ben drenato, fertile"
     },
@@ -6369,7 +6383,8 @@
       "teme il gelo intenso (sotto i -5°C la parte aerea può seccare, ma ricaccia dalla base)",
       "portamento vigoroso e rampicante: necessita di supporto o contenimento",
       "fioritura continua da giugno a ottobre",
-      "evitare ristagni idrici"
+      "evitare ristagni idrici",
+      "può essere soggetto a ragnetto rosso e mosca bianca da serra"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6410,7 +6425,7 @@
         "primavera"
       ],
       "resistenza_gelo": "bassa",
-      "spaziatura_cm": 80,
+      "spaziatura_cm": 120,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -6696,7 +6711,7 @@
     "specie": "Coreopsis grandiflora",
     "descrizione": "<p>Perenne rustica a fioritura estiva prolungata, con capolini gialli su steli lunghi e sottili sopra un cespo di foglie semplici lanceolate leggermente pelose. La varietà in giardino è a fioritura doppia (\"flore pleno\", tipo Sunray/Early Sunrise): i petali numerosi ed embricati formano una testa densa e arrotondata a palla, invece della classica margherita piatta.</p>",
     "esigenze": {
-      "luce": "Pieno sole",
+      "luce": "Pieno sole o mezz'ombra",
       "acqua": "Scarsa/moderata",
       "terreno": "Ben drenato, anche povero"
     },
@@ -6705,7 +6720,8 @@
       "rimuovere i fiori secchi (deadheading) per prolungare la fioritura",
       "evitare ristagni idrici",
       "in piena estate, con caldo estremo, i fiori possono seccare rapidamente: è normale",
-      "cultivar a fioritura doppia, forma a palla anziché a margherita piatta"
+      "cultivar a fioritura doppia, forma a palla anziché a margherita piatta",
+      "può essere soggetta a lumache e limacce"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -7015,7 +7031,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
