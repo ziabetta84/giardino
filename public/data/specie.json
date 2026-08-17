@@ -6660,15 +6660,17 @@
     "esigenze": {
       "luce": "Sole pieno",
       "acqua": "Regolare",
-      "terreno": "Fertile, ben drenato, leggermente acido"
+      "terreno": "Fertile, ben drenato, tollera anche calcareo"
     },
     "alert": [
-      "Sensibile al gelo",
+      "Sensibile al gelo intenso",
       "ama sole pieno per una fioritura abbondante",
       "teme ristagni idrici",
       "in vaso sospeso si asciuga più rapidamente delle piante a terra",
-      "preferisce terreno leggermente acido: acqua molto calcarea o pH troppo alto possono causare clorosi fogliare (ingiallimento tra le nervature) da carenza di ferro",
-      "fioritura continua da primavera ad autunno"
+      "fioritura continua da primavera ad autunno",
+      "non richiede potature, salvo un leggero taglio per rinnovare la fioritura",
+      "può essere soggetta ad afidi, lumache e limacce",
+      "può essere colpita da muffa grigia, marciume del colletto e virosi"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6715,7 +6717,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 20,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
