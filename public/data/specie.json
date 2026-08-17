@@ -2034,7 +2034,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Drenato"
     },
     "alert": [
       "richiede molta luce",
@@ -2098,7 +2098,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Molto drenato"
+      "terreno": "Drenato"
     },
     "alert": [
       "Molto delicata al tatto",
@@ -2423,7 +2423,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Drenato"
     },
     "alert": [
       "richiede luce intensa per mantenere la forma compatta",
