@@ -8246,5 +8246,67 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     }
+  },
+  "mammillaria-vetula-gracilis": {
+    "nome": "Mammillaria vetula subsp. gracilis",
+    "specie": "Mammillaria vetula subsp. gracilis",
+    "descrizione": "Piccolo cactus cespitoso dai fusti cilindrici sottili ricoperti di spicole fini (\"thimble cactus\"), che formano cuscini compatti; fiori bianchi in primavera. Si propaga facilmente per divisione dei cespi o talee dei fusti laterali.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta, con protezione nelle ore più calde dell'estate",
+      "si propaga facilmente per divisione dei cespi o talee dei fusti laterali"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
   }
 }
