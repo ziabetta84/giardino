@@ -76,10 +76,12 @@
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Scarsa",
-      "terreno": "Molto drenante"
+      "terreno": "Molto drenante, neutro o alcalino"
     },
     "alert": [
-      "Sensibile a eccesso d'acqua"
+      "Sensibile a eccesso d'acqua",
+      "tollera bene la trascuratezza, ma proteggere dall'umidità invernale eccessiva",
+      "può essere soggetta a oziorrinco"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -118,7 +120,7 @@
         "primavera"
       ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -338,7 +340,7 @@
     "esigenze": {
       "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato, fresco durante la crescita"
     },
     "alert": [
       "Non tagliare le foglie prima che secchino",
@@ -347,7 +349,8 @@
       "evitare irrigazioni estive (riposo vegetativo)",
       "fioritura scarsa → bulbi troppo profondi o poca luce",
       "si naturalizza facilmente e aumenta nel tempo",
-      "non tagliare le foglie verdi dopo la fioritura (indispensabili per ricaricare il"
+      "può essere soggetto a lumache, mosca del narciso, nematode del narciso e acaro dei bulbi",
+      "può essere colpito da marciume basale, bruciatura fogliare e virosi del narciso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -471,9 +474,9 @@
     "specie": "Spiraea × arguta",
     "descrizione": "Arbusto ornamentale con fioritura bianca primaverile.",
     "esigenze": {
-      "luce": "Sole",
+      "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Drenato, tollera la maggior parte dei terreni"
     },
     "alert": [
       "Potare dopo la fioritura",
@@ -481,7 +484,8 @@
       "fiorisce su rami dell’anno precedente → potare solo dopo la fioritura",
       "foglie che seccano ai bordi → terreno troppo asciutto",
       "crescita rapida: può espandersi molto",
-      "tollera bene vento e freddo"
+      "tollera bene vento e freddo",
+      "raramente può essere colpita da armillaria"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -520,7 +524,7 @@
         "autunno"
       ],
       "resistenza_gelo": "alta",
-      "spaziatura_cm": 100,
+      "spaziatura_cm": 150,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -817,7 +821,7 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "Sensibile a monilia",
@@ -825,7 +829,9 @@
       "evitare ristagni idrici (preferisce terreno drenante)",
       "molto resistente al vento: ideale per il crinale",
       "possibile attacco di afidi in primavera",
-      "potare solo dopo la fioritura per non perdere i fiori dell’anno successivo"
+      "potare solo dopo la fioritura per non perdere i fiori dell’anno successivo",
+      "SEGNALAZIONE IMPORTANTE: RHS classifica Prunus persica come \"High Risk Host\" per Xylella fastidiosa, lo stesso patogeno da quarantena segnalato per ulivo e lavanda — attenzione a sintomi di disseccamento anomalo",
+      "può essere colpito anche da cancro batterico, avvizzimento dei fiori, marciume bruno, arricciamento fogliare del pesco e mal del piombo, oltre alla monilia già segnalata"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -863,7 +869,7 @@
       "finestra_trapianto": [
         "autunno"
       ],
-      "resistenza_gelo": "alta",
+      "resistenza_gelo": "media",
       "spaziatura_cm": 300,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -2268,7 +2274,9 @@
       "richiede molta luce per mantenere la forma compatta",
       "apici secchi → normale nei cactus mostruosi",
       "se ingiallisce alla base → troppa acqua",
-      "se si allunga troppo → luce insufficiente"
+      "se si allunga troppo → luce insufficiente",
+      "può essere soggetto a cocciniglia farinosa",
+      "in caso di taglio/propagazione, immergere la superficie recisa in carbone attivo o acqua tiepida per fermare la fuoriuscita di lattice"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -2298,7 +2306,7 @@
     },
     "ciclo_vitale": "perenne",
     "coltivazione": {
-      "famiglia_botanica": "Cactaceae",
+      "famiglia_botanica": "Euphorbiaceae",
       "giorni_germinazione": null,
       "giorni_trapianto": null,
       "giorni_raccolta": null,
@@ -2306,8 +2314,8 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 20,
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 70,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -3050,7 +3058,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Sabbioso, ben drenato"
     },
     "alert": [
       "Non tollera gelo intenso",
@@ -3097,7 +3105,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 25,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -3311,13 +3319,15 @@
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Ricco"
+      "terreno": "Ricco, neutro, ben drenato"
     },
     "alert": [
       "preferisce mezz’ombra luminosa",
       "teme caldo eccessivo",
       "foglie decorative tutto l’anno",
-      "evitare ristagni"
+      "evitare ristagni",
+      "può essere soggetta a oziorrinco",
+      "può essere colpita da una ruggine specifica della specie (heuchera rust)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4926,7 +4936,8 @@
       "Se coltivato in acqua, cambiarla ogni 1-2 settimane per evitare ristagni e alghe",
       "Il cloro dell'acqua di rubinetto può danneggiarlo: meglio acqua decantata o filtrata",
       "Foglie che ingialliscono → eccesso di luce diretta o acqua stagnante",
-      "Non è un vero bambù (è una Dracaena): non produce germogli commestibili"
+      "Non è un vero bambù (è una Dracaena): non produce germogli commestibili",
+      "può essere soggetto a cocciniglie farinose e cocciniglie a scudo"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4963,7 +4974,7 @@
       "finestra_semina": [],
       "finestra_trapianto": [],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -4986,7 +4997,8 @@
     "alert": [
       "Teme i ristagni idrici più di ogni altra cosa",
       "Da adulta le foglie diventano spinose e appuntite: posizionarla lontano dal passaggio",
-      "In casa richiede la posizione più luminosa possibile, idealmente vicino a una finestra/terrazzo esposto a sud"
+      "In casa richiede la posizione più luminosa possibile, idealmente vicino a una finestra/terrazzo esposto a sud",
+      "può essere soggetta a cocciniglie a scudo"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5025,7 +5037,7 @@
         "primavera"
       ],
       "resistenza_gelo": "bassa",
-      "spaziatura_cm": 60,
+      "spaziatura_cm": 120,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -5043,13 +5055,14 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso, molto drenante"
+      "terreno": "Sabbioso, molto drenante, con aggiunta di ghiaia"
     },
     "alert": [
       "identificazione da confermare quando sarà più sviluppato",
       "richiede molta luce diretta",
       "evitare assolutamente ristagni idrici",
-      "spine robuste, maneggiare con attenzione"
+      "spine robuste, maneggiare con attenzione",
+      "può essere soggetto a cocciniglia farinosa"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5087,8 +5100,8 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 20,
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 70,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -5177,7 +5190,8 @@
       "a differenza di altre succulente tollera bene la luce indiretta: evitare sole diretto nelle ore più calde (rischio scottature)",
       "colorazione bronzo/porpora intensa è normale risposta a luce forte o freddo, non segno di malattia",
       "evitare ristagni idrici, soprattutto se ciottoli decorativi sono a contatto con la base delle foglie",
-      "base molle o scura → marciume, intervenire subito"
+      "base molle o scura → marciume, intervenire subito",
+      "può essere soggetta a cocciniglia farinosa"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5643,7 +5657,9 @@
       "Fiorisce meglio se leggermente rinvasata (radici compatte)",
       "Teme il gelo intenso: pacciamare la base in inverno nelle zone più fredde",
       "Rimuovere gli steli fioriti appassiti",
-      "Tollera bene la siccità estiva una volta ambientata"
+      "Tollera bene la siccità estiva una volta ambientata",
+      "può essere soggetto a lumache, limacce e alla cecidomia dell'agapanto (parassita specifico)",
+      "può essere colpito da un virus"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5775,7 +5791,9 @@
       "necessita di tutori/sostegni, soprattutto per le varietà a crescita indeterminata",
       "controllare afidi e mosca bianca",
       "rischio peronospora con umidità elevata e scarsa ventilazione",
-      "rimuovere i succhioni ascellari per favorire la fruttificazione"
+      "rimuovere i succhioni ascellari per favorire la fruttificazione",
+      "attenzione anche a nottua del pomodoro (tomato moth)",
+      "può essere colpito da marciume apicale, carenza di magnesio, virus dell'avvizzimento maculato e muffa grigia sotto vetro"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6582,7 +6600,10 @@
       "evitare ristagni idrici (rischio marciumi radicali)",
       "non potare sul legno vecchio subito prima della fioritura",
       "i boccioli possono cadere per stress idrico o sbalzi termici",
-      "fioritura tra fine inverno e primavera"
+      "fioritura tra fine inverno e primavera",
+      "RHS segnala un meccanismo di danno diverso da quello già noto: il sole del primo mattino dopo notti fredde può causare scottature da disgelo rapido sui boccioli, non solo il caldo pomeridiano estivo",
+      "può essere soggetta ad afidi, cocciniglie e oziorrinco",
+      "può essere colpita da marciume radicale (Phytophthora), galla della camelia, bruciatura fogliare, virus del mosaico giallo e blight dei petali"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6620,7 +6641,7 @@
       "finestra_trapianto": [
         "autunno"
       ],
-      "resistenza_gelo": "media",
+      "resistenza_gelo": "alta",
       "spaziatura_cm": 150,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -6826,7 +6847,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 20,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
