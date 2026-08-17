@@ -3654,15 +3654,17 @@
     "specie": "Centaurea ragusina",
     "descrizione": "Perenne argentata molto ornamentale.",
     "esigenze": {
-      "luce": "Sole",
+      "luce": "Sole pieno",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Sabbioso o ghiaioso, drenante, anche povero"
     },
     "alert": [
       "ama sole pieno",
       "fogliame argentato molto decorativo",
-      "teme ristagni",
-      "molto resistente alla siccità"
+      "teme ristagni idrici prolungati",
+      "molto resistente alla siccità, soprattutto una volta radicata",
+      "originaria delle scogliere costiere della Dalmazia (Croazia)",
+      "si abbina bene a lavanda, rosmarino, salvia, cisto ed elicriso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3704,8 +3706,14 @@
         "autunno"
       ],
       "resistenza_gelo": "alta",
-      "spaziatura_cm": 40,
-      "consociazioni_favorevoli": [],
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [
+        "lavanda",
+        "rosmarino",
+        "salvia",
+        "cisto",
+        "elicriso"
+      ],
       "consociazioni_sfavorevoli": []
     },
     "vaso": {
@@ -4196,10 +4204,12 @@
       "terreno": "Drenato"
     },
     "alert": [
-      "ama sole pieno",
+      "nonostante il nome comune non è un'erica: appartiene alla famiglia Lythraceae, non alle Ericaceae",
+      "ama sole pieno o mezz'ombra, ma va riparata dal sole cocente nelle ore più calde",
       "fioritura molto lunga",
-      "teme freddo sotto 5°C",
-      "evitare ristagni idrici"
+      "teme il gelo",
+      "evitare ristagni idrici",
+      "generalmente esente da parassiti e malattie"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4229,7 +4239,7 @@
     },
     "ciclo_vitale": "perenne",
     "coltivazione": {
-      "famiglia_botanica": "Ericaceae",
+      "famiglia_botanica": "Lythraceae",
       "giorni_germinazione": "20-30",
       "giorni_trapianto": null,
       "giorni_raccolta": null,
@@ -4239,7 +4249,7 @@
       "finestra_trapianto": [
         "autunno"
       ],
-      "resistenza_gelo": "media",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 40,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -4466,7 +4476,9 @@
       "radici marroni → troppa luce o acqua stagnante",
       "evitare luce diretta (rischio alghe)",
       "se le foglie ingialliscono → acqua da cambiare più spesso",
-      "talee pronte per il trapianto quando le radici superano i 5-7 cm"
+      "talee pronte per il trapianto quando le radici superano i 5-7 cm",
+      "tossica se ingerita, linfa irritante per pelle e occhi: maneggiare con guanti e tenere lontana da bambini e animali domestici",
+      "pianta madre generalmente esente da parassiti e malattie"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4522,7 +4534,7 @@
     "specie": "pilea peperomioides",
     "descrizione": "Pianta d’appartamento dalle foglie tonde e piatte simili a monete, molto facile da propagare per polloni.",
     "esigenze": {
-      "luce": "molta",
+      "luce": "Luminosa ma indiretta, mezz'ombra: evitare sole diretto",
       "acqua": "Preferisce ambienti umidi",
       "terreno": "Preferisce terricci ricchi e ben drenati"
     },
@@ -4530,7 +4542,11 @@
       "Foglie che si arricciano verso il basso → troppa luce diretta o poca acqua",
       "Produce facilmente polloni alla base, ottimi per nuove piante",
       "Ruotare il vaso periodicamente per una crescita simmetrica",
-      "Foglie gialle in eccesso → ristagno idrico"
+      "Foglie gialle in eccesso → ristagno idrico",
+      "richiede umidità ambientale elevata",
+      "il fusto tende a lignificare alla base con l'età",
+      "può essere soggetta a cocciniglie a scudo",
+      "può essere colpita da oidio"
     ],
     "manutenzione": {
       "irrigazione": {
