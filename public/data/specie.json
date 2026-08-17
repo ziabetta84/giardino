@@ -6949,5 +6949,1171 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     }
+  },
+  "mammillaria-magnimamma": {
+    "nome": "Mammillaria magnimamma",
+    "specie": "Mammillaria magnimamma",
+    "descrizione": "Cactus cespitoso dai fusti globosi tozzi, ricoperti di tubercoli, spine bianche e lanugine; fiori a imbuto rosa, rossi o crema in primavera e talvolta a fine estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "fioritura possibile due volte l'anno: primavera e talvolta fine estate",
+      "può essere soggetta a cocciniglia, ragnetto rosso e mosca bianca da serra",
+      "drenaggio abbondante e terreno asciutto in inverno prevengono i marciumi"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera",
+        "estate"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-bocasana": {
+    "nome": "Mammillaria bocasana",
+    "specie": "Mammillaria bocasana",
+    "descrizione": "Cactus dai fusti sferici riuniti in gruppo (\"powder puff cactus\"), ricoperti di fitte spine bianche sottili e uncinate; fiori bianco-crema sfumati di giallo e rosso.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "le spine sottili sono in parte uncinate: maneggiare con attenzione",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-surculosa": {
+    "nome": "Mammillaria surculosa",
+    "specie": "Mammillaria surculosa",
+    "descrizione": "Piccola specie che forma colonie di fusti tozzi tramite polloni (\"suckering pincushion cactus\"), con sottili peli fini e grandi fiori giallo limone all'apice in primavera.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "si moltiplica naturalmente per polloni, formando colonie compatte",
+      "può essere soggetta a cocciniglia, ragnetto rosso e mosca bianca da serra",
+      "drenaggio abbondante, poca acqua in inverno e buona circolazione d'aria prevengono i marciumi"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-baumii": {
+    "nome": "Mammillaria baumii",
+    "specie": "Mammillaria baumii",
+    "descrizione": "Cactus cespitoso dai fusti sferici (\"Baum's pincushion cactus\"), con fitte spine setolose bianche e gialle; fiori giallo brillante a imbuto in estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia, anche radicale"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "inverno",
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-bombycina": {
+    "nome": "Mammillaria bombycina",
+    "specie": "Mammillaria bombycina",
+    "descrizione": "Cactus dai fusti cilindrici riuniti in gruppo (\"silken pincushion cactus\"), con densi peli bianchi tra i tubercoli e spine centrali brune; fiori rosa intenso.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-carmenae": {
+    "nome": "Mammillaria carmenae",
+    "specie": "Mammillaria carmenae",
+    "descrizione": "Cactus cespitoso dai fusti globosi (\"Isla Carmen pincushion cactus\"), con areole a circa 100 spine radiali color crema; fiori bianchi o rosati verso l'apice in primavera-estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-compressa": {
+    "nome": "Mammillaria compressa",
+    "specie": "Mammillaria compressa",
+    "descrizione": "Cactus cespitoso dai fusti cilindrici (\"mother of hundreds\"), con spine brune chiare su tubercoli conici; produce un anello di fiori rosa attorno alla corona in primavera.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia, anche radicale"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "inverno",
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-geminispina": {
+    "nome": "Mammillaria geminispina",
+    "specie": "Mammillaria geminispina",
+    "descrizione": "Cactus che forma un cumulo di fusti riuniti (\"twin-spined cactus\"), con spine radiali bianche e spine centrali brune più lunghe a coppia; fiori bianchi striati di rosa intenso.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "il nome comune deriva dalla caratteristica coppia di spine centrali più lunghe",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-hahniana": {
+    "nome": "Mammillaria hahniana",
+    "specie": "Mammillaria hahniana",
+    "descrizione": "Cactus dai fusti solitari o riuniti (\"old lady cactus\"), ricoperti di fitte setole bianche simili a capelli e spine sottili; fiori rosa-rosso seguiti da piccoli frutti rossi.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "la fitta lanugine bianca dà il nome comune \"old lady cactus\"",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-lauii": {
+    "nome": "Mammillaria lauii",
+    "specie": "Mammillaria lauii",
+    "descrizione": "Cactus a crescita relativamente rapida, dai fusti cilindrici grigio-verdi densamente ricoperti di morbide spine bianche; fiori rosa brillante con centro giallo in primavera. Segnalata da RHS come specie adatta a chi coltiva cactus per la prima volta.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "si propaga per talea di fusto o foglia, non per seme (a differenza della maggior parte delle altre Mammillaria)",
+      "può essere soggetta a cocciniglia e cocciniglia a scudo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera",
+        "estate"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": null,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-parkinsonii": {
+    "nome": "Mammillaria parkinsonii",
+    "specie": "Mammillaria parkinsonii",
+    "descrizione": "Cactus dai fusti solitari (\"owl's eye pincushion\"), con spine radiali bianche e spine centrali brune ricurve fino a 3,5 cm; fiori giallo crema sfumati di rosa.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-petterssonii": {
+    "nome": "Mammillaria petterssonii",
+    "specie": "Mammillaria petterssonii",
+    "descrizione": "Cactus cespitoso dai fusti sferici (\"Pettersson's pincushion cactus\"), con ascelle lanose e tubercoli appuntiti da cui partono lunghe spine centrali bruno-gialle; fiori rosa o bianchi con venature centrali scure.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia, anche radicale"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "inverno",
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-pringlei": {
+    "nome": "Mammillaria pringlei",
+    "specie": "Mammillaria pringlei",
+    "descrizione": "Cactus dai fusti cilindrici solitari, talvolta ramificati (\"lemon ball\"), fino a 40 cm di altezza e 12 cm di diametro, con robuste spine centrali gialle; fiori rosa-porpora.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "specie più sviluppata in altezza (fino a 40 cm) rispetto alla maggior parte delle altre Mammillaria",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-prolifera": {
+    "nome": "Mammillaria prolifera",
+    "specie": "Mammillaria prolifera",
+    "descrizione": "Cactus che forma un cumulo di fusti globosi (\"little candles\"), con brevi spine bianche o bruno-rossastre; fiori giallo crema sfumati di rosa, striati di bruno.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-senilis": {
+    "nome": "Mammillaria senilis",
+    "specie": "Mammillaria senilis",
+    "descrizione": "Cactus a crescita lenta, generalmente solitario, ricoperto di lanugine bianca e spine; fiori a tromba arancio-rossi fino a 6 cm, più grandi della media del genere.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia, anche radicale"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "inverno",
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-sphaerica": {
+    "nome": "Mammillaria sphaerica",
+    "specie": "Mammillaria sphaerica",
+    "descrizione": "Cactus cespitoso dai fusti globosi (\"longmamma nipple cactus\"), con brevi spine bianche o gialle; fiori gialli fino a 3 cm in primavera-estate.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-spinosissima": {
+    "nome": "Mammillaria spinosissima",
+    "specie": "Mammillaria spinosissima",
+    "descrizione": "Cactus dai fusti solitari cilindrici (\"spiny pincushion cactus\") fino a 30 cm di altezza e 10 cm di diametro, con setolose spine centrali bruno-rossastre o bianche; fiori rosa carminio.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "specie più sviluppata in altezza rispetto alla maggior parte delle altre Mammillaria",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 8,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
+  },
+  "mammillaria-zeilmanniana": {
+    "nome": "Mammillaria zeilmanniana",
+    "specie": "Mammillaria zeilmanniana",
+    "descrizione": "Cactus dai fusti quasi globosi riuniti in gruppo (\"rose pincushion\"), con spine centrali rossastre e radiali bianche; fiori rosa-porpora.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Scarsa",
+      "terreno": "Drenato"
+    },
+    "alert": [
+      "evitare assolutamente ristagni idrici",
+      "richiede molta luce per mantenere la forma compatta",
+      "può essere soggetta a cocciniglia"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "ogni 14-20 giorni",
+        "estate": "ogni 10-14 giorni",
+        "autunno": "ogni 20-30 giorni",
+        "inverno": "sospesa"
+      },
+      "concimazione": {
+        "primavera": "ogni 30 giorni, con concime per cactacee",
+        "estate": "ogni 30 giorni",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": "2-7-7",
+        "estate": "2-7-7",
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Cactaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.2
+    }
   }
 }
