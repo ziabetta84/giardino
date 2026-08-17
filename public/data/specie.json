@@ -143,7 +143,8 @@
       "evitare ristagni idrici",
       "tende ad autoriseminarsi (può espandersi)",
       "foglie gialle → troppa acqua o poca luce",
-      "fioritura molto lunga se i fiori secchi vengono rimossi"
+      "fioritura molto lunga se i fiori secchi vengono rimossi",
+      "può essere colpita da ruggine"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1159,7 +1160,9 @@
       "evitare ristagni idrici nel vaso",
       "controllare radici aeree per disidratazione",
       "evitare luce diretta nelle ore centrali",
-      "attenzione a muffe se l’umidità del bagno è alta"
+      "attenzione a muffe se l’umidità del bagno è alta",
+      "può essere soggetta a cocciniglie farinose, afidi e cocciniglie a scudo",
+      "evitare di bagnare il centro della rosetta fogliare: previene marciumi batterici"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1196,7 +1199,7 @@
       "finestra_semina": [],
       "finestra_trapianto": [],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -1356,15 +1359,17 @@
     "specie": "Allium schoenoprasum",
     "descrizione": "Aromatica perenne rustica, facile da coltivare.",
     "esigenze": {
-      "luce": "Sole",
+      "luce": "Sole o mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "evitare ristagni idrici nel sottovaso",
       "se gli steli ingialliscono → troppa acqua o vaso piccolo",
       "fioritura imminente: possibile calo di produzione fogliare",
-      "pianta perenne: rigenera ogni anno"
+      "pianta perenne: rigenera ogni anno",
+      "RHS segnala che può diventare infestante se non gestita (si autosemina facilmente)",
+      "può essere colpita da marciume bianco della cipolla e peronospora della cipolla"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1502,15 +1507,17 @@
     "specie": "Petroselinum crispum",
     "descrizione": "Aromatica biennale molto coltivata.",
     "esigenze": {
-      "luce": "Mezz'ombra",
+      "luce": "Sole o mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "evitare ristagni idrici nel sottovaso",
       "foglie gialle alla base → normale ricambio, ma controllare eccesso d’acqua",
       "se gli steli diventano sottili → luce insufficiente",
-      "pianta biennale: tende a fiorire il secondo anno"
+      "pianta biennale: tende a fiorire il secondo anno",
+      "può essere soggetto a mosca della carota, afidi e minatrice fogliare del sedano",
+      "può essere colpito da maculatura fogliare e da un virus"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1552,7 +1559,7 @@
         "primavera",
         "estate"
       ],
-      "resistenza_gelo": "bassa",
+      "resistenza_gelo": "alta",
       "spaziatura_cm": 10,
       "consociazioni_favorevoli": [
         "pomodoro",
@@ -1644,16 +1651,18 @@
     "specie": "Sedum makinoi",
     "descrizione": "Succulenta tappezzante ornamentale.",
     "esigenze": {
-      "luce": "Sole o mezz'ombra",
+      "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato, con aggiunta di perlite"
     },
     "alert": [
       "evitare assolutamente ristagni idrici",
       "luce intensa per mantenere la compattezza",
       "se le foglie si allungano → luce insufficiente",
       "se le foglie si raggrinziscono → sete",
-      "vaso piccolo = asciugatura molto rapida"
+      "vaso piccolo = asciugatura molto rapida",
+      "può essere soggetto a larve di oziorrinco, cocciniglie a scudo e cocciniglia farinosa",
+      "può essere colpito da marciume di colletto/radici fungino o batterico"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1692,7 +1701,7 @@
         "primavera",
         "autunno"
       ],
-      "resistenza_gelo": "alta",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 15,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -2630,7 +2639,7 @@
     "esigenze": {
       "luce": "Mezz'ombra",
       "acqua": "Regolare",
-      "terreno": "Fresco"
+      "terreno": "Fresco, moderatamente fertile, ben drenato"
     },
     "alert": [
       "Può diventare invasiva",
@@ -2638,7 +2647,8 @@
       "preferisce mezz’ombra o sole del mattino",
       "evitare ristagni idrici",
       "foglie che scoloriscono → troppa luce diretta o poca acqua",
-      "ottima per coprire suolo e limitare infestanti"
+      "ottima per coprire suolo e limitare infestanti",
+      "può essere soggetta a lumache e limacce"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3155,13 +3165,14 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "richiede terreno drenante",
       "evitare irrigazioni estive",
       "fioritura viola a “testa di tamburo” in giugno-luglio",
-      "si naturalizza facilmente"
+      "si naturalizza facilmente",
+      "può essere colpito da marciume bianco della cipolla e peronospora"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3195,7 +3206,9 @@
       "giorni_germinazione": null,
       "giorni_trapianto": null,
       "giorni_raccolta": null,
-      "finestra_semina": [],
+      "finestra_semina": [
+        "primavera"
+      ],
       "finestra_trapianto": [
         "autunno"
       ],
@@ -3216,9 +3229,9 @@
     "specie": "Echinacea purpurea",
     "descrizione": "Perenne rustica con fiori grandi e appariscenti.",
     "esigenze": {
-      "luce": "Sole",
+      "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato, ricco di sostanza organica"
     },
     "alert": [
       "ama sole pieno o mezz’ombra luminosa",
@@ -3348,13 +3361,15 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Drenato, moderatamente fertile"
     },
     "alert": [
       "ama sole pieno",
       "teme freddo sotto 0°C",
       "fioritura molto lunga",
-      "evitare ristagni"
+      "evitare ristagni",
+      "può essere soggetta a minatori fogliari",
+      "occasionalmente può essere colpita da galla batterica del colletto"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3413,14 +3428,16 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Molto drenato, leggero, moderatamente fertile"
     },
     "alert": [
       "Chiude i fiori in ombra",
       "ama sole pieno",
       "teme freddo intenso",
       "fioritura molto abbondante",
-      "evitare ristagni"
+      "evitare ristagni",
+      "può essere soggetto ad afidi",
+      "può essere colpito da peronospora e verticillosi"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3460,7 +3477,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "bassa",
+      "resistenza_gelo": "media",
       "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -4128,7 +4145,7 @@
         "primavera"
       ],
       "resistenza_gelo": "bassa",
-      "spaziatura_cm": 30,
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -4747,14 +4764,16 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Irrigazione moderata senza ristagni",
-      "terreno": "Tollera terreni poveri e sassosi"
+      "terreno": "Fertile, ben drenato (tollera anche terreni poveri e sassosi)"
     },
     "alert": [
       "Evitare ristagni idrici: l'olivo è molto sensibile a marciumi radicali.",
       "Le giovani piante possono soffrire gelate sotto -5°C.",
       "In vaso richiede più acqua rispetto alla coltivazione in piena terra",
       "Potature drastiche riducono la produzione per 1–2 anni.",
-      "Attenzione a: Mosca dell'olivo (Bactrocera oleae), Cocciniglia mezzo grano di pepe, Occhio di pavone (Spilocaea oleaginea), Rogna dell'olivo (Pseudomonas savastanoi)"
+      "Attenzione a: Mosca dell'olivo (Bactrocera oleae), Cocciniglia mezzo grano di pepe, Occhio di pavone (Spilocaea oleaginea), Rogna dell'olivo (Pseudomonas savastanoi)",
+      "SEGNALAZIONE IMPORTANTE: RHS classifica l'olivo come \"High Risk Host\" per Xylella fastidiosa, il patogeno da quarantena responsabile del disseccamento rapido dell'olivo in Puglia — massima attenzione a sintomi di disseccamento anomalo dei rami, segnalare eventuali sospetti alle autorità fitosanitarie",
+      "raramente può essere colpito da armillaria (marciume del piede)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5665,7 +5684,8 @@
       "richiede pieno sole per una fioritura abbondante",
       "evitare ristagni idrici (rischio marciume del tubero)",
       "fiori profumati di cioccolato, particolarmente nelle ore calde",
-      "rimuovere i fiori appassiti per prolungare la fioritura estiva"
+      "rimuovere i fiori appassiti per prolungare la fioritura estiva",
+      "può essere colpito da marciume basale e muffa grigia"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5703,7 +5723,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "bassa",
+      "resistenza_gelo": "media",
       "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -6864,7 +6884,9 @@
       "foglie che si afflosciano vistosamente → terreno troppo asciutto, annaffiare subito (di solito recupera in poche ore)",
       "ama umidità ambientale elevata, soffre l'aria secca dei riscaldamenti",
       "evitare sole diretto: scotta le foglie sottili",
-      "tende ad allungarsi (etiolare) con luce insufficiente"
+      "tende ad allungarsi (etiolare) con luce insufficiente",
+      "può essere soggetta a ragnetto rosso e cocciniglia farinosa",
+      "può essere colpita da muffa grigia"
     ],
     "manutenzione": {
       "irrigazione": {
