@@ -3,6 +3,4 @@ node_modules/
 dist/
 generale/*.mp4
 generale/*.mov
-fonti/rhs/*
-fonti/legeorgiche/*
-fonti/actaplantarum/*
+fonti/*/*/
