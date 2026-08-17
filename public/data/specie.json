@@ -67,7 +67,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.5
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "sansevieria": {
     "nome": "Sansevieria",
@@ -129,7 +130,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "bellis-perennis": {
     "nome": "Bellis perennis",
@@ -197,7 +199,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "erica": {
     "nome": "Erica",
@@ -263,7 +266,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "gazania": {
     "nome": "Gazania",
@@ -331,7 +335,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.4
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "narciso": {
     "nome": "Narciso",
@@ -398,7 +403,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "primula": {
     "nome": "Primula",
@@ -467,7 +473,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "spiraea-arguta": {
     "nome": "Spiraea arguta",
@@ -533,7 +540,8 @@
       "dimensione_minima_litri": 15,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "uva-di-gatto": {
     "nome": "Uva di gatto",
@@ -598,7 +606,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "zinnia": {
     "nome": "Zinnia",
@@ -670,7 +679,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "alloro": {
     "nome": "Alloro",
@@ -738,7 +748,8 @@
       "dimensione_minima_litri": 20,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "arancio-navel": {
     "nome": "Arancio Navel",
@@ -812,7 +823,8 @@
       "dimensione_minima_litri": 30,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "prunus-taoflora": {
     "nome": "Prunus taoflora",
@@ -879,7 +891,8 @@
       "dimensione_minima_litri": 30,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "rosmarino": {
     "nome": "Rosmarino",
@@ -953,7 +966,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "scilla-marittima": {
     "nome": "Scilla marittima",
@@ -1018,7 +1032,8 @@
       "dimensione_minima_litri": 10,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.5
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "sedum-acre": {
     "nome": "Sedum acre",
@@ -1085,7 +1100,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "timo-serpillo": {
     "nome": "Timo serpillo",
@@ -1156,7 +1172,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "orchidea": {
     "nome": "Orchidea",
@@ -1220,7 +1237,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "basilico": {
     "nome": "Basilico",
@@ -1294,7 +1312,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "ceropegia": {
     "nome": "Ceropegia",
@@ -1364,7 +1383,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "erba-cipollina": {
     "nome": "Erba cipollina",
@@ -1438,7 +1458,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "fragola-rifiorente": {
     "nome": "Fragola rifiorente",
@@ -1514,7 +1535,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "prezzemolo": {
     "nome": "Prezzemolo",
@@ -1586,7 +1608,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "salvia": {
     "nome": "Salvia",
@@ -1660,7 +1683,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "sedum-makinoi": {
     "nome": "Sedum makinoi",
@@ -1727,7 +1751,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "tradescantia": {
     "nome": "Tradescantia",
@@ -1792,7 +1817,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "calathea": {
     "nome": "Calathea",
@@ -1865,7 +1891,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.9
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "anthurium": {
     "nome": "Anthurium",
@@ -1932,7 +1959,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "calancola": {
     "nome": "Calancola",
@@ -1998,7 +2026,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "ficus-ginseng": {
     "nome": "Ficus ginseng",
@@ -2064,7 +2093,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria": {
     "nome": "Mammillaria",
@@ -2128,7 +2158,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-piumosa": {
     "nome": "Mammillaria piumosa",
@@ -2193,7 +2224,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pothos": {
     "nome": "Pothos",
@@ -2257,7 +2289,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "cactus-ago-di-eva-monstroso": {
     "nome": "Cactus Ago di Eva (mostruoso)",
@@ -2324,7 +2357,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "echeveria": {
     "nome": "Echeveria",
@@ -2389,7 +2423,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "ipoeste": {
     "nome": "Ipoeste",
@@ -2457,7 +2492,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-allungata": {
     "nome": "Mammillaria allungata",
@@ -2521,7 +2557,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pianta-panda": {
     "nome": "Pianta panda",
@@ -2586,7 +2623,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "carex": {
     "nome": "Carex",
@@ -2654,7 +2692,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.9
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "glechoma-hederacea": {
     "nome": "Glechoma hederacea",
@@ -2721,7 +2760,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "iris-spontaneo": {
     "nome": "Sisyrinchium",
@@ -2787,7 +2827,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "marsilea-quadrifolia": {
     "nome": "Marsilea quadrifolia",
@@ -2851,7 +2892,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 1.5
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pennisetum-cinese": {
     "nome": "Pennisetum cinese",
@@ -2917,7 +2959,8 @@
       "dimensione_minima_litri": 10,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "salcerella": {
     "nome": "Salcerella",
@@ -2983,7 +3026,8 @@
       "dimensione_minima_litri": 8,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 1.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "clematis-montana": {
     "nome": "Clematis montana",
@@ -3049,7 +3093,8 @@
       "dimensione_minima_litri": 15,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mesembriantemo": {
     "nome": "Mesembriantemo",
@@ -3115,7 +3160,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.4
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "stipa-tenuissima": {
     "nome": "Stipa tenuissima",
@@ -3179,7 +3225,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "allium-sphaerocephalon": {
     "nome": "Allium sphaerocephalon",
@@ -3245,7 +3292,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "echinacea": {
     "nome": "Echinacea",
@@ -3310,7 +3358,8 @@
       "dimensione_minima_litri": 8,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "heuchera": {
     "nome": "Heuchera",
@@ -3377,7 +3426,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "margherita-delle-canarie": {
     "nome": "Margherita delle Canarie",
@@ -3444,7 +3494,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "osteospermum": {
     "nome": "Osteospermum",
@@ -3512,7 +3563,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "verbena": {
     "nome": "Verbena",
@@ -3579,7 +3631,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "aquilegia": {
     "nome": "Aquilegia",
@@ -3647,7 +3700,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.9
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "centaurea-ragusina": {
     "nome": "Centaurea ragusina",
@@ -3721,7 +3775,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "garofano": {
     "nome": "Garofano",
@@ -3789,7 +3844,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "lavanda": {
     "nome": "Lavanda",
@@ -3862,7 +3918,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "sedum-spurium": {
     "nome": "Sedum spurium",
@@ -3928,7 +3985,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "violaciocca": {
     "nome": "Violaciocca",
@@ -3995,7 +4053,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "alisso": {
     "nome": "Alisso",
@@ -4062,7 +4121,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "fico-di-mare": {
     "nome": "Fico di mare",
@@ -4127,7 +4187,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "cuphea": {
     "nome": "Cuphea",
@@ -4192,7 +4253,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "erica-del-messico": {
     "nome": "Erica del Messico",
@@ -4259,7 +4321,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "lewisia": {
     "nome": "Lewisia",
@@ -4326,7 +4389,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "saponaria": {
     "nome": "Saponaria",
@@ -4393,7 +4457,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "sassifraga": {
     "nome": "Sassifraga",
@@ -4460,7 +4525,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pothos-talea": {
     "nome": "pothos-talea",
@@ -4527,7 +4593,8 @@
       "dimensione_minima_litri": null,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": null
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pianta-delle-monete": {
     "nome": "Pianta delle Monete",
@@ -4594,7 +4661,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pianta-della-fortuna": {
     "nome": "Pianta della Fortuna",
@@ -4659,7 +4727,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "peperoncino": {
     "nome": "Peperoncino",
@@ -4739,7 +4808,8 @@
       "dimensione_minima_litri": 10,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "origano": {
     "nome": "Origano",
@@ -4804,7 +4874,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "ulivo": {
     "nome": "Ulivo",
@@ -4871,7 +4942,8 @@
       "dimensione_minima_litri": 30,
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.5
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "gaura": {
     "nome": "Gaura",
@@ -4937,7 +5009,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.5
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "lucky-bamboo": {
     "nome": "Lucky Bamboo",
@@ -4999,7 +5072,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": null
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "agave": {
     "nome": "Agave",
@@ -5062,7 +5136,8 @@
       "dimensione_minima_litri": 10,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "ferocactus": {
     "nome": "Ferocactus",
@@ -5126,7 +5201,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "sedum-morganianum": {
     "nome": "Sedum morganianum",
@@ -5191,7 +5267,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "gasteria": {
     "nome": "Gasteria",
@@ -5255,7 +5332,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "passiflora-caerulea": {
     "nome": "Passiflora caerulea",
@@ -5322,7 +5400,8 @@
       "dimensione_minima_litri": 15,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "senecio": {
     "nome": "Senecio",
@@ -5386,7 +5465,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "delosperma": {
     "nome": "Delosperma",
@@ -5453,7 +5533,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "geranio-zonale": {
     "nome": "Geranio zonale",
@@ -5521,7 +5602,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "geranio-parigino": {
     "nome": "Geranio parigino",
@@ -5590,7 +5672,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "avocado": {
     "nome": "Avocado",
@@ -5658,7 +5741,8 @@
       "dimensione_minima_litri": 15,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "agapanto": {
     "nome": "Agapanto",
@@ -5726,7 +5810,8 @@
       "dimensione_minima_litri": 10,
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "cosmos-atrosanguineus": {
     "nome": "Cosmo cioccolato",
@@ -5791,7 +5876,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "pomodoro": {
     "nome": "Pomodoro",
@@ -5875,7 +5961,8 @@
       "dimensione_minima_litri": 20,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "cetriolo": {
     "nome": "Cetriolo",
@@ -5955,7 +6042,8 @@
       "dimensione_minima_litri": 15,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "zucchina": {
     "nome": "Zucchina",
@@ -6035,7 +6123,8 @@
       "dimensione_minima_litri": 30,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "melanzana": {
     "nome": "Melanzana",
@@ -6115,7 +6204,8 @@
       "dimensione_minima_litri": 20,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "scalogno": {
     "nome": "Scalogno",
@@ -6187,7 +6277,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "calendula": {
     "nome": "Calendula",
@@ -6258,7 +6349,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "zucca": {
     "nome": "Zucca",
@@ -6335,7 +6427,8 @@
       "dimensione_minima_litri": 40,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mandarino-cinese": {
     "nome": "Mandarino cinese (Kumquat)",
@@ -6402,7 +6495,8 @@
       "dimensione_minima_litri": 20,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "plumbago": {
     "nome": "Plumbago",
@@ -6468,7 +6562,8 @@
       "dimensione_minima_litri": 10,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "aeonium": {
     "nome": "Aeonium",
@@ -6532,7 +6627,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "falso-gelsomino": {
     "nome": "Falso gelsomino",
@@ -6598,7 +6694,8 @@
       "dimensione_minima_litri": 15,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "camelia": {
     "nome": "Camelia",
@@ -6667,7 +6764,8 @@
       "dimensione_minima_litri": 20,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "calibrachoa": {
     "nome": "Calibrachoa",
@@ -6743,7 +6841,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "coreopsis": {
     "nome": "Coreopsis",
@@ -6810,7 +6909,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "zinnia-angustifolia": {
     "nome": "Zinnia a foglia stretta",
@@ -6875,7 +6975,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "gerbera": {
     "nome": "Gerbera",
@@ -6943,7 +7044,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.7
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "fittonia": {
     "nome": "Fittonia",
@@ -7010,7 +7112,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 1.0
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "zz-plant": {
     "nome": "ZZ Plant",
@@ -7079,7 +7182,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-magnimamma": {
     "nome": "Mammillaria magnimamma",
@@ -7146,7 +7250,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-bocasana": {
     "nome": "Mammillaria bocasana",
@@ -7211,7 +7316,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-surculosa": {
     "nome": "Mammillaria surculosa",
@@ -7277,7 +7383,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-baumii": {
     "nome": "Mammillaria baumii",
@@ -7342,7 +7449,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-bombycina": {
     "nome": "Mammillaria bombycina",
@@ -7406,7 +7514,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-carmenae": {
     "nome": "Mammillaria carmenae",
@@ -7470,7 +7579,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-compressa": {
     "nome": "Mammillaria compressa",
@@ -7535,7 +7645,8 @@
       "dimensione_minima_litri": 3,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-geminispina": {
     "nome": "Mammillaria geminispina",
@@ -7600,7 +7711,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-hahniana": {
     "nome": "Mammillaria hahniana",
@@ -7665,7 +7777,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-lauii": {
     "nome": "Mammillaria lauii",
@@ -7729,7 +7842,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-parkinsonii": {
     "nome": "Mammillaria parkinsonii",
@@ -7793,7 +7907,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-petterssonii": {
     "nome": "Mammillaria petterssonii",
@@ -7858,7 +7973,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-pringlei": {
     "nome": "Mammillaria pringlei",
@@ -7923,7 +8039,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-prolifera": {
     "nome": "Mammillaria prolifera",
@@ -7987,7 +8104,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-senilis": {
     "nome": "Mammillaria senilis",
@@ -8052,7 +8170,8 @@
       "dimensione_minima_litri": 2,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-sphaerica": {
     "nome": "Mammillaria sphaerica",
@@ -8116,7 +8235,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-spinosissima": {
     "nome": "Mammillaria spinosissima",
@@ -8181,7 +8301,8 @@
       "dimensione_minima_litri": 5,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-zeilmanniana": {
     "nome": "Mammillaria zeilmanniana",
@@ -8245,7 +8366,8 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   },
   "mammillaria-vetula-gracilis": {
     "nome": "Mammillaria vetula subsp. gracilis",
@@ -8307,6 +8429,7 @@
       "dimensione_minima_litri": 1,
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
-    }
+    },
+    "stato_verifica": "verificato"
   }
 }

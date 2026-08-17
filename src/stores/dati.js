@@ -38,7 +38,7 @@ async function caricaSpecie() {
     const supabase = useSupabase()
     const { data, error } = await supabase
       .from('specie')
-      .select('slug, nome, nome_scientifico, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale')
+      .select('slug, nome, nome_scientifico, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica')
     if (error) throw error
     return Object.fromEntries(data.map(riga => [riga.slug, {
       nome: riga.nome,
@@ -49,6 +49,7 @@ async function caricaSpecie() {
       manutenzione: riga.manutenzione,
       coltivazione: riga.ciclo_colturale,
       ciclo_vitale: riga.ciclo_vitale,
+      stato_verifica: riga.stato_verifica,
     }]))
   } catch {
     return caricaStatico('specie.json')
