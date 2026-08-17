@@ -4,9 +4,9 @@
     "specie": "Iberis sempervirens",
     "descrizione": "Perenne sempreverde a cuscino, fioritura bianca abbondante in primavera.",
     "esigenze": {
-      "luce": "Pieno sole o mezz'ombra",
+      "luce": "Pieno sole",
       "acqua": "Moderata",
-      "terreno": "Ben drenato"
+      "terreno": "Ben drenato, anche povero"
     },
     "alert": [
       "Teme ristagni",
@@ -14,7 +14,9 @@
       "crescita lenta ma molto densa",
       "teme ristagni idrici più del caldo",
       "fioritura scarsa - poca luce o terreno impoverito",
-      "perfetta per muretti, bordure e aiuole rocciose"
+      "perfetta per muretti, bordure e aiuole rocciose",
+      "RHS segnala che può diventare invasiva se non contenuta",
+      "può essere soggetta a lumache, limacce e bruchi"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -199,18 +201,16 @@
     "specie": "Erica carnea",
     "descrizione": "Arbusto sempreverde con fioritura invernale.",
     "esigenze": {
-      "luce": "Sole",
+      "luce": "Sole o mezz'ombra",
       "acqua": "Moderata",
-      "terreno": "Acido"
+      "terreno": "Acido o alcalino (tollera il calcare, a differenza della maggior parte delle eriche)"
     },
     "alert": [
-      "Non tollera calcare",
-      "richiede terreno drenante e leggermente acido",
-      "evitare ristagni idrici (rischio marciumi)",
+      "richiede terreno drenante",
+      "evitare ristagni idrici (rischio marciumi, soprattutto Phytophthora)",
       "non potare sul legno vecchio (non ributta)",
-      "se ingiallisce → acqua dura o terreno troppo calcareo",
       "fioritura molto lunga se ben esposta",
-      "evitare gusci d'uovo o altri ammendanti calcitanti (alzano ulteriormente il pH)"
+      "a differenza della maggior parte delle eriche, questa specie tollera bene il calcare"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -251,7 +251,7 @@
         "autunno"
       ],
       "resistenza_gelo": "alta",
-      "spaziatura_cm": 40,
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -269,7 +269,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Scarsa",
-      "terreno": "Sabbioso"
+      "terreno": "Sabbioso, ben drenato, moderatamente fertile"
     },
     "alert": [
       "Chiude i fiori in ombra",
@@ -277,7 +277,8 @@
       "evitare ristagni idrici (ama terreni sabbiosi e drenanti)",
       "fiori che non si aprono → poca luce",
       "foglie molli → troppa acqua",
-      "ottima resistenza alla siccità"
+      "ottima resistenza alla siccità",
+      "se svernata in casa può essere soggetta ad afidi e muffa grigia"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1213,14 +1214,16 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "Soffre freddo e vento",
       "rischio filatura se luce insufficiente",
       "evitare ristagni idrici nel sottovaso",
       "controllare secchezza del substrato nei giorni caldi",
-      "pianta annuale: tende a indebolirsi a fine stagione"
+      "pianta annuale: tende a indebolirsi a fine stagione",
+      "può essere soggetto ad afidi, lumache, limacce e cicalina della salvia",
+      "può essere colpito da oidio"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1285,7 +1288,7 @@
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato (terriccio per cactacee)"
     },
     "alert": [
       "Sensibile a eccesso d'acqua",
@@ -1293,7 +1296,9 @@
       "luce intensa ma indiretta per mantenere la variegatura",
       "se le foglie diventano pallide → luce insufficiente",
       "se le foglie si raggrinziscono → sete",
-      "se i tralci diventano troppo sottili → troppa ombra"
+      "se i tralci diventano troppo sottili → troppa ombra",
+      "può essere soggetta a cocciniglia, afidi e cocciniglie a scudo",
+      "rischio di marciume basale se troppo bagnata in inverno"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1327,12 +1332,15 @@
       "giorni_germinazione": null,
       "giorni_trapianto": null,
       "giorni_raccolta": null,
-      "finestra_semina": [],
-      "finestra_trapianto": [
+      "finestra_semina": [
         "primavera"
       ],
+      "finestra_trapianto": [
+        "primavera",
+        "estate"
+      ],
       "resistenza_gelo": "nessuna",
-      "spaziatura_cm": null,
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -1902,9 +1910,9 @@
     "specie": "Kalanchoe blossfeldiana",
     "descrizione": "Succulenta da interno con fioritura prolungata e colori vivaci.",
     "esigenze": {
-      "luce": "Luce intensa",
+      "luce": "Luce intensa, ma non sole diretto (mezz'ombra luminosa)",
       "acqua": "Scarsa",
-      "terreno": "Drenato"
+      "terreno": "Drenato, con aggiunta di sabbia grossa o ghiaia"
     },
     "alert": [
       "Evitare ristagni",
@@ -1912,7 +1920,8 @@
       "richiede molta luce per mantenere la fioritura",
       "foglie molli → troppa acqua",
       "foglie opache o allungate → poca luce",
-      "pianta succulenta: meglio poca acqua che troppa"
+      "pianta succulenta: meglio poca acqua che troppa",
+      "può essere soggetta a cocciniglia farinosa e oziorrinco"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -1969,7 +1978,7 @@
     "esigenze": {
       "luce": "Luce diffusa",
       "acqua": "Moderata",
-      "terreno": "Ricco"
+      "terreno": "Ricco, ben drenato"
     },
     "alert": [
       "Sensibile a sbalzi di temperatura",
@@ -1977,7 +1986,8 @@
       "evitare correnti d’aria e sbalzi termici",
       "richiede luce intensa ma indiretta",
       "foglie gialle → troppa acqua o poca luce",
-      "se perde foglie → stress da spostamento o aria secca"
+      "se perde foglie → stress da spostamento o aria secca",
+      "può essere soggetto a ragnetto rosso, tripidi, cocciniglie farinose e cocciniglie a scudo in ambiente chiuso"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -2364,7 +2374,8 @@
       "se si allunga troppo → luce insufficiente",
       "foglie afflosciate → poca acqua",
       "bordi secchi → aria troppo secca",
-      "evitare ristagni idrici"
+      "evitare ristagni idrici",
+      "può essere soggetta a oidio"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -2402,7 +2413,8 @@
         "primavera"
       ],
       "finestra_trapianto": [
-        "primavera"
+        "primavera",
+        "estate"
       ],
       "resistenza_gelo": "nessuna",
       "spaziatura_cm": 20,
@@ -2814,7 +2826,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Drenato, moderatamente fertile"
     },
     "alert": [
       "cultivar compatta (60–80 cm) → ideale per bordure e aiuole strette",
@@ -2953,7 +2965,9 @@
       "piede ombreggiato, parte alta al sole",
       "evitare ristagni idrici",
       "crescita molto vigorosa",
-      "fiorisce su rami dell’anno precedente"
+      "fiorisce su rami dell’anno precedente",
+      "può essere colpita da afidi, lumache, bruchi e forbicine (che rodono i petali)",
+      "attenzione all'avvizzimento del clematide (clematis wilt), malattia specifica potenzialmente grave"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -2992,7 +3006,7 @@
         "autunno"
       ],
       "resistenza_gelo": "alta",
-      "spaziatura_cm": 100,
+      "spaziatura_cm": 150,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -3465,14 +3479,15 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "Sensibile a oidio",
       "ama sole pieno",
       "teme ristagni",
       "fioritura continua",
-      "crescita rapida"
+      "crescita rapida",
+      "può essere soggetta anche a lumache, oltre all'oidio già segnalato"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3512,7 +3527,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "bassa",
+      "resistenza_gelo": "media",
       "spaziatura_cm": 25,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -3738,7 +3753,10 @@
       "richiede terreno drenante",
       "ama sole pieno",
       "teme ristagni",
-      "molto rustica"
+      "molto rustica",
+      "SEGNALAZIONE IMPORTANTE: RHS classifica la specie come \"High Risk Host\" per Xylella fastidiosa, il patogeno da quarantena che ha colpito gravemente gli uliveti in Puglia — attenzione a sintomi di disseccamento anomalo e segnalare eventuali sospetti alle autorità fitosanitarie",
+      "può essere soggetta al coleottero del rosmarino e alla sputacchina (cimice schiumaiola)",
+      "può essere colpita da muffa grigia e raramente dal marciume del piede (armillaria)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -3780,7 +3798,7 @@
         "autunno"
       ],
       "resistenza_gelo": "alta",
-      "spaziatura_cm": 40,
+      "spaziatura_cm": 100,
       "consociazioni_favorevoli": [
         "rosmarino",
         "cavolo"
@@ -4196,11 +4214,12 @@
       "terreno": "Drenato"
     },
     "alert": [
-      "Teme ristagni",
       "richiede drenaggio perfetto",
-      "teme ristagni più di qualsiasi altra pianta della zona",
-      "ama sole o mezz’ombra luminosa",
-      "fioritura spettacolare in primavera-estate"
+      "teme i ristagni idrici più di molte altre piante della zona",
+      "proteggere dall'umidità invernale eccessiva (RHS: \"protect from winter wet\")",
+      "fioritura spettacolare in primavera-estate",
+      "può essere soggetta ad afidi, lumache e limacce",
+      "rischio di marciume del colletto in condizioni troppo umide"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4259,13 +4278,14 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Moderata",
-      "terreno": "Drenato"
+      "terreno": "Drenato, moderatamente fertile, preferibilmente alcalino"
     },
     "alert": [
       "ama sole pieno",
       "tappezzante vigorosa",
       "teme ristagni",
-      "fioritura rosa molto abbondante"
+      "fioritura rosa molto abbondante",
+      "può essere soggetta a lumache e limacce"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4526,7 +4546,8 @@
       "foglie che ingialliscono ai bordi → aria troppo secca",
       "foglie pallide → luce insufficiente",
       "secchezza rapida del terriccio → vaso troppo piccolo o ambiente troppo caldo",
-      "non tollera sole diretto nelle ore centrali"
+      "non tollera sole diretto nelle ore centrali",
+      "ha il potenziale di diventare infestante se non contenuta"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -4556,7 +4577,7 @@
     },
     "ciclo_vitale": "perenne",
     "coltivazione": {
-      "famiglia_botanica": "Crassulaceae",
+      "famiglia_botanica": "Urticaceae",
       "giorni_germinazione": null,
       "giorni_trapianto": null,
       "giorni_raccolta": null,
@@ -4564,8 +4585,8 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
-      "spaziatura_cm": 30,
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -4659,9 +4680,9 @@
     "specie": "Origanum vulgare",
     "descrizione": "Pianta aromatica mediterranea perenne, con fusti eretti e foglie piccole e ovali, molto profumate. In estate produce fiori rosa-violacei che attirano impollinatori. È una delle aromatiche più resistenti e facili da coltivare.",
     "esigenze": {
-      "luce": "Pieno sole",
+      "luce": "Pieno sole o mezz'ombra",
       "acqua": "Irrigare quando il terreno è completamente asciutto",
-      "terreno": "Ben drenato"
+      "terreno": "Ben drenato, preferibilmente alcalino"
     },
     "alert": [
       "Non irrigare né concimare troppo, ne risente il profumo"
@@ -4791,7 +4812,7 @@
     "esigenze": {
       "luce": "Pieno sole",
       "acqua": "Poca",
-      "terreno": "Povero e asciutto"
+      "terreno": "Fertile, ben drenato (tollera anche terreni poveri e asciutti)"
     },
     "alert": [
       "Radice a fittone profonda: si adatta male a trapianti ripetuti da adulta",
@@ -4839,7 +4860,7 @@
         "autunno"
       ],
       "resistenza_gelo": "media",
-      "spaziatura_cm": 40,
+      "spaziatura_cm": 70,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -5043,13 +5064,15 @@
     "esigenze": {
       "luce": "Molto luminosa, sole diretto alcune ore",
       "acqua": "Scarsa",
-      "terreno": "Molto drenante"
+      "terreno": "Molto drenante, con aggiunta di perlite"
     },
     "alert": [
       "le foglie si staccano facilmente al tocco: maneggiare con cura",
       "evitare assolutamente ristagni idrici",
       "se etiola (fusti allungati e radi) → luce insufficiente",
-      "foglie rugose e svuotate → sete prolungata"
+      "foglie rugose e svuotate → sete prolungata",
+      "può essere soggetto a larve di oziorrinco, cocciniglie a scudo e cocciniglia farinosa",
+      "può essere colpito da marciume di colletto/radici fungino o batterico"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5304,7 +5327,8 @@
       "richiede pieno sole per fiorire abbondantemente",
       "ottima resistenza alla siccità",
       "perfetta per bordure, muretti e scarpate",
-      "fioritura molto lunga da tarda primavera a fine estate"
+      "fioritura molto lunga da tarda primavera a fine estate",
+      "può essere soggetta ad afidi e cocciniglia in coltivazione protetta"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5345,7 +5369,7 @@
         "primavera"
       ],
       "resistenza_gelo": "media",
-      "spaziatura_cm": 25,
+      "spaziatura_cm": 50,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -5431,14 +5455,16 @@
     "esigenze": {
       "luce": "Sole",
       "acqua": "Regolare",
-      "terreno": "Fertile"
+      "terreno": "Fertile, ben drenato"
     },
     "alert": [
       "Sensibili al gelo",
       "ama sole pieno",
       "teme ristagni idrici",
       "fioritura molto lunga",
-      "ottimi in fioriere e balconiere"
+      "ottimi in fioriere e balconiere",
+      "può essere colpito da tripidi, oziorrinco, cicaline, cocciniglie radicali e mosca bianca",
+      "può essere colpito da ruggine e virus del pelargonio, oltre a galla batterica"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5479,7 +5505,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "nessuna",
+      "resistenza_gelo": "bassa",
       "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
@@ -5863,7 +5889,9 @@
       "Molto sensibile a oidio in estate avanzata",
       "raccogliere i frutti giovani per stimolare nuova produzione",
       "evitare di bagnare le foglie (favorisce le malattie fungine)",
-      "impollinazione manuale utile in assenza di insetti impollinatori"
+      "impollinazione manuale utile in assenza di insetti impollinatori",
+      "attenzione a lumache e limacce sulle piantine giovani",
+      "oltre all'oidio, possibile muffa grigia (botrite)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -5941,7 +5969,9 @@
       "Teme il freddo anche in primavera (crescita rallentata sotto i 15°C)",
       "controllare dorifora e ragnetto rosso",
       "necessita di un tutore per le varietà a frutto grosso",
-      "cimare i primi getti per favorire la ramificazione e la fruttificazione"
+      "cimare i primi getti per favorire la ramificazione e la fruttificazione",
+      "attenzione anche ad afidi e mosca bianca, oltre a dorifora e ragnetto rosso già segnalati",
+      "raramente può essere colpita da armillaria (marciume del piede)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6235,7 +6265,8 @@
       "evitare ristagni idrici",
       "attenzione al vento forte sul crinale dello Scivolo",
       "controllare eventuali cocciniglie in estate",
-      "i frutti si mangiano interi, buccia compresa"
+      "i frutti si mangiano interi, buccia compresa",
+      "può essere colpito anche da ragnetto rosso degli agrumi, cocciniglie e bruchi"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6428,7 +6459,9 @@
       "crescita vigorosa: necessita di un supporto per arrampicarsi",
       "teme le correnti d'aria fredda vicino a finestre in inverno",
       "evitare ristagni idrici",
-      "fioritura profumata in tarda primavera/inizio estate"
+      "fioritura profumata in tarda primavera/inizio estate",
+      "può essere colpito da cocciniglia a cuscinetto, cocciniglie farinose e ragnetto rosso in ambiente protetto",
+      "raramente può essere colpito da armillaria (marciume del piede)"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6468,7 +6501,7 @@
         "autunno"
       ],
       "resistenza_gelo": "media",
-      "spaziatura_cm": 100,
+      "spaziatura_cm": 200,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
     },
@@ -6764,7 +6797,9 @@
       "fiori che si aprono schiacciati con petali mancanti su un lato → sviluppo meccanico impedito, non danno da parassiti",
       "evitare eccesso di azoto: favorisce steli deboli",
       "assicurare buon apporto di potassio per irrobustire i tessuti dello scapo",
-      "teme i ristagni idrici a livello del colletto"
+      "teme i ristagni idrici a livello del colletto",
+      "può essere soggetta a mosca bianca, minatrice fogliare del crisantemo, afidi e acari tarsonemidi",
+      "può essere colpita da muffa grigia, maculatura fogliare e marciume radicale"
     ],
     "manutenzione": {
       "irrigazione": {
@@ -6804,7 +6839,7 @@
       "finestra_trapianto": [
         "primavera"
       ],
-      "resistenza_gelo": "bassa",
+      "resistenza_gelo": "nessuna",
       "spaziatura_cm": 30,
       "consociazioni_favorevoli": [],
       "consociazioni_sfavorevoli": []
