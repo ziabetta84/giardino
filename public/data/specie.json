@@ -10948,5 +10948,458 @@
       "irrigazione_fattore": 0.7
     },
     "stato_verifica": "verificato"
+  },
+  "duchesnea": {
+    "nome": "Duchesnea",
+    "specie": "Duchesnea indica",
+    "descrizione": "Genere indigeno dell'Asia meridionale, affine a Fragaria: produce infatti un falso frutto simile alla fragola, ma insapore e secco. Delle 6 specie coltivate per il valore ornamentale, D. indica è la più nota. Rizoma breve, foglie tripartite dentellate, stoloni con fiori semplici gialli.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare, con nebulizzazioni regolari",
+      "terreno": "Sostanzioso e umido"
+    },
+    "alert": [
+      "il falso frutto, rosso e di 1cm, non ha valore alimentare (insapore e secco)",
+      "pianta sarmentosa: può essere sostenuta da tutori",
+      "in inverno porre in un locale più fresco e, se necessario, rinvasare",
+      "moltiplicazione per stoloni già radicati o per semina (aprile)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare, con nebulizzazioni",
+        "autunno": "ridotta",
+        "inverno": "diradata, locale più fresco"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rosaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "eustoma": {
+    "nome": "Eustoma",
+    "specie": "Eustoma grandiflorum",
+    "descrizione": "Genere proveniente dalle regioni temperate dell'America e delle Indie occidentali; il nome (dal greco eu-bello e stoma-bocca) si riferisce ai fiori, spesso commercializzati come specie di Lisianthus. E. grandiflorum (sin. Lisianthus russelianus) è alta 70-100cm, fiori campanulati larghi 4-6cm, porpora scuro, rosa chiaro o bianchi.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Regolare, con nebulizzazioni occasionali senza bagnare i fiori",
+      "terreno": "Terriccio universale"
+    },
+    "alert": [
+      "dopo la fioritura, di solito, la pianta muore",
+      "recidere i fiori appassiti",
+      "spesso commercializzata come \"Lisianthus\"",
+      "temperatura ideale 18-20°C"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare",
+        "autunno": "regolare",
+        "inverno": "regolare"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "recidere fiori appassiti",
+        "estate": "recidere fiori appassiti",
+        "autunno": "recidere fiori appassiti",
+        "inverno": "recidere fiori appassiti"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Gentianaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "exacum": {
+    "nome": "Exacum",
+    "specie": "Exacum affine",
+    "descrizione": "Genere originario delle regioni tropicali e subtropicali di Asia e Africa; E. affine è la specie principale venduta come pianta da appartamento. Benché botanicamente biennale, solitamente non viene più curata dopo la fioritura. Fusti eretti glabri, fiori profumati a stella blu-lilla con stami gialli, larghi 1cm.",
+    "esigenze": {
+      "luce": "Molto luminosa e arieggiata, ma non esposta a correnti d'aria e ai raggi diretti del sole",
+      "acqua": "Regolare, terreno sempre umido ma non eccessivamente (rischio marciume radicale)",
+      "terreno": "Sostanzioso: dopo l'acquisto è utile rinvasare con terra per vasi mescolata a pacciame e sabbia"
+    },
+    "alert": [
+      "benché biennale, solitamente non viene più curata dopo la fioritura",
+      "recidere i fiori quando iniziano ad appassire",
+      "moltiplicazione per semina (febbraio/marzo)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare",
+        "autunno": "regolare",
+        "inverno": "regolare"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "recidere fiori appassiti",
+        "estate": "recidere fiori appassiti",
+        "autunno": "recidere fiori appassiti",
+        "inverno": "recidere fiori appassiti"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "biennale",
+    "coltivazione": {
+      "famiglia_botanica": "Gentianaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "inverno",
+        "primavera"
+      ],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 25,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "gardenia": {
+    "nome": "Gardenia",
+    "specie": "Gardenia jasminoides",
+    "descrizione": "Genere indigeno delle regioni tropicali e subtropicali dell'Asia e dell'Africa. G. jasminoides, l'unica specie coltivata come pianta da appartamento, è un arbusto perenne alto 100-150cm con foglie coriacee lucide e fiori doppi bianchi o crema, profumati, larghi 6-8cm.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Sempre umida ma non troppo bagnata durante la fioritura; acqua non calcarea e tiepida",
+      "terreno": "Non calcareo, ricco di humus: pacciame, argilla, sabbia e concime organico"
+    },
+    "alert": [
+      "durante il riposo invernale posizionare a 12-15°C: se la temperatura è più alta, i boccioli non si sviluppano",
+      "se le foglie ingialliscono, il terriccio è probabilmente troppo umido e l'acqua troppo fredda",
+      "potatura in aprile sulle piante più vecchie",
+      "rinvasare ogni 2-3 anni senza danneggiare le radici, poi riporre gradualmente in un locale più caldo",
+      "temperatura costante 20-22°C di giorno, 16°C di notte, durante la fioritura",
+      "nebulizzare periodicamente, ma non sui fiori"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, ripresa graduale",
+        "estate": "regolare, terreno sempre umido non troppo bagnato",
+        "autunno": "diradare (avvio riposo invernale)",
+        "inverno": "diradata, riposo a 12-15°C"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "potatura sulle piante più vecchie",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rubiaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 80,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 10,
+      "rinvaso_ogni_mesi": 30,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "gloriosa": {
+    "nome": "Gloriosa",
+    "specie": "Gloriosa superba",
+    "descrizione": "G. superba (sin. G. rothschildiana), probabilmente l'unica specie del genere, è originaria delle regioni tropicali dell'Africa orientale e dell'Asia. Pianta rampicante tuberosa, ramificata, fusti sottili lunghi 1-5m con viticci apicali; fiori simili al giglio, petali increspati rosso-arancione con margine giallo, piegati all'indietro.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare, con acqua tiepida",
+      "terreno": "Sostanzioso e ben drenato: pacciame, argilla, sabbia e concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro)",
+      "richiede molta umidità: nebulizzazioni frequenti, senza bagnare i fiori",
+      "pianta rampicante: necessita di tutori o graticci di sostegno",
+      "in autunno, quando la pianta appassisce, lasciar seccare le radici tuberose e riporre il vaso a 10-12°C",
+      "in primavera rimuovere tutto il terriccio e rinvasare delicatamente i tuberi in poco composto, senza danneggiare i germogli già spuntati",
+      "moltiplicazione per semina (molto lenta) o per divisione dei tuberi, con estrema cautela"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, con acqua tiepida",
+        "estate": "regolare, con nebulizzazioni",
+        "autunno": "sospesa (radici tuberose a riposo)",
+        "inverno": "sospesa, tuberi a riposo a 10-12°C"
+      },
+      "concimazione": {
+        "primavera": "settimanale, mezza dose",
+        "estate": "settimanale, mezza dose",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Colchicaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "gloxinia": {
+    "nome": "Gloxinia",
+    "specie": "Gloxinia sylvatica",
+    "descrizione": "Genere proveniente dall'America tropicale, comprende solo 6 specie: la pianta comunemente venduta come \"gloxinia\" appartiene in realtà oggi al genere Sinningia, non a questo. Questa scheda riguarda G. sylvatica (sin. Seemannia latifolia/sylvatica): rizomi squamosi rosso-bruno, fiori campanulati rosso-arancione con calice giallo, pendenti.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non esposta a correnti d'aria e ai raggi diretti del sole",
+      "acqua": "Abbondante, con acqua tiepida (l'acqua fredda causa macchie sulle foglie)",
+      "terreno": "Leggermente acido, ricco di humus: pacciame, torba, sabbia e concime organico in parti uguali"
+    },
+    "alert": [
+      "attenzione: la pianta comunemente venduta come \"gloxinia\" appartiene oggi al genere Sinningia, non a Gloxinia; questa scheda descrive la specie G. sylvatica",
+      "il libro riporta anche il simbolo \"pieno sole\", ma il testo raccomanda una posizione luminosa non esposta ai raggi diretti: seguito il testo",
+      "per l'umidità, porre il vaso su un piatto capovolto dentro un contenitore pieno d'acqua",
+      "dopo la fioritura (settembre) la pianta appassisce alla base: recidere i fusti e far asciugare il terreno",
+      "in inverno conservare a 15°C",
+      "in gennaio/febbraio sostituire il terreno e rinvasare a 1-2cm di profondità, poi riportare a 18-20°C e concimare dopo 6-8 settimane",
+      "moltiplicazione per divisione dei tuberi, talea o semina"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "riprendere dopo il riposo, acqua tiepida non calcarea",
+        "estate": "abbondante, acqua tiepida",
+        "autunno": "sospesa dopo la fioritura, far asciugare il terreno",
+        "inverno": "sospesa, tubero a riposo a 15°C"
+      },
+      "concimazione": {
+        "primavera": "ripresa 6-8 settimane dopo il rinvaso",
+        "estate": "ogni 2 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "recidere i fusti dopo l'appassimento",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Gesneriaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "inverno"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 25,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "gomphrena": {
+    "nome": "Gomphrena",
+    "specie": "Gomphrena globosa",
+    "descrizione": "Genere diffuso nelle regioni americane tropicali e subtropicali, circa 100 specie; G. globosa è l'unica coltivata per fiori recisi e fiori secchi (mantiene la fioritura 4-12 settimane anche recisa). Fusti sottili molto ramificati, fiori globosi porpora o rosso-porpora con lunghe brattee bicolori.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare",
+      "terreno": "Sostanzioso, piuttosto umido"
+    },
+    "alert": [
+      "dopo la fioritura, di solito, la pianta muore",
+      "adatta anche come fiore secco",
+      "moltiplicazione per semina (marzo/aprile)",
+      "temperatura ideale 18-24°C"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare",
+        "autunno": "regolare",
+        "inverno": "regolare"
+      },
+      "concimazione": {
+        "primavera": "settimanale",
+        "estate": "settimanale",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Amaranthaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "primavera"
+      ],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
   }
 }
