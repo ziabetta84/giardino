@@ -11859,34 +11859,36 @@
     "specie": "Impatiens walleriana",
     "descrizione": "Genere molto diffuso nelle regioni tropicali e subtropicali dell'Asia e dell'Africa, con alcune specie spontanee anche nelle regioni temperate dell'emisfero boreale; comprende piante erbacee annuali o perenni con fusti succulenti, traslucidi, e foglie dentate. I fiori sono a simmetria bilaterale, semplici o doppi, ascellari, solitari o in gruppi; i frutti maturi si aprono al minimo contatto scagliando i semi a distanza. I. walleriana (sin. I. holstii, I. sultanii), la specie più diffusa come pianta d'appartamento, è perenne, con foglie ovato-lanceolate dentellate e fiori del diametro di 2-5cm in numerose tonalità. I. balsamina è una specie biennale a portamento più eretto, con fusti rossastri e fiori doppi o semplici rosso chiaro, rosa, lilla o bianchi. Gli ibridi 'New Guinea' hanno portamento arbustivo, fusti carnosi e fiori grandi e piatti, spesso con foglie colorate o screziate.",
     "esigenze": {
-      "luce": "Molto luminosa, ma protetta dai raggi diretti del sole, soprattutto quando si formano i boccioli",
-      "acqua": "Regolare, terreno sempre umido; gradisce nebulizzazioni non dirette sui fiori",
-      "terreno": "Sostanzioso (terriccio universale per vasi)"
+      "luce": "Molto luminosa, ma protetta dai raggi diretti del sole quando si formano i boccioli",
+      "acqua": "Regolare, terra sempre umida in estate con nebulizzazioni (non sui fiori); diradare leggermente in inverno",
+      "terreno": "Sostanzioso (andrà bene la terra per vasi)"
     },
     "alert": [
       "il nome comune inglese \"Busy Lizzie\" è associato a I. walleriana, venduta in commercio anche sotto i sinonimi I. holstii e I. sultanii",
       "i frutti maturi si aprono al minimo contatto, scagliando i semi a distanza",
       "la fonte non riporta il simbolo di tossicità per questo genere",
-      "la pagina fotografata di questa voce era in parte poco leggibile: i dettagli su concimazione, temperatura e rinvaso non sono stati riportati per evitare imprecisioni non verificabili sulla fonte"
+      "se i boccioli cadono, la luce potrebbe non essere sufficiente: nei giorni con luminosità scarsa, accendere una lampada",
+      "in estate la pianta può essere portata all'aperto",
+      "moltiplicazione per talea in qualsiasi periodo dell'anno, o per semina"
     ],
     "manutenzione": {
       "irrigazione": {
-        "primavera": "regolare, terreno sempre umido",
-        "estate": "regolare, terreno sempre umido, nebulizzare evitando i fiori",
-        "autunno": "moderata",
-        "inverno": "moderata"
+        "primavera": "regolare, terra sempre umida",
+        "estate": "regolare, terra sempre umida, con nebulizzazioni non dirette sui fiori",
+        "autunno": "diradare leggermente le innaffiature",
+        "inverno": "diradare leggermente le innaffiature, locale con temperatura bassa"
       },
       "concimazione": {
-        "primavera": null,
-        "estate": null,
-        "autunno": null,
-        "inverno": null
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
       },
       "potatura": {
-        "primavera": null,
-        "estate": null,
-        "autunno": null,
-        "inverno": null
+        "primavera": "cimare regolarmente i germogli e recidere i fiori appassiti; rinvasare ogni anno",
+        "estate": "cimare regolarmente i germogli e recidere i fiori appassiti",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
       },
       "npk": {
         "primavera": null,
