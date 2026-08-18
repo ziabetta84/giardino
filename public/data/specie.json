@@ -12303,5 +12303,399 @@
       "irrigazione_fattore": 0.85
     },
     "stato_verifica": "verificato"
+  },
+  "mandevilla": {
+    "nome": "Mandevilla",
+    "specie": "Mandevilla splendens",
+    "descrizione": "Ancora oggi, le specie di Mandevilla, diffuse in Messico e in Argentina, sono molto spesso vendute come specie di Dipladenia. Questi arbusti perenni, rampicanti, alti sino a 4m, hanno foglie opposte o verticillate, e fiori campanulati, di colore bianco, rosa o porpora, che si sviluppano in infiorescenze ascellari o terminali; il calice è composto da cinque sepali liberi, elegantemente ondulati. M. boliviensis (sin. Dipladenia boliviensis) ha foglie opposte, a picciolo lungo, ovali e acuminate, e splendidi fiori profumati, del diametro di 5cm, molto fragili, riuniti in infiorescenze ascellari. M. sanderi (sin. Dipladenia sanderi) è una specie rampicante con lunghi sarmenti, larghe foglie a picciolo corto, opposte, ovali, e splendidi fiori rosa con gola gialla, del diametro di 7cm; 'Rosea' ha fiori che da rosa pallido diventano color salmone, con gola gialla. M. splendens (sin. Dipladenia splendens) ha fusti lisci, larghe foglie a picciolo corto, ovali, leggermente pelose, e grandi fiori rosso-rosacei del diametro di 8-10cm riuniti in infiorescenze ascellari. M. x amabilis (sin. Dipladenia amabilis) fiorisce profusamente e ha larghe foglie ovali e acuminate, fiori rosa o rossi del diametro di 8cm; 'Amoena' ha fiori rosa acceso con gola gialla; 'Rubiniana' ha fiori rosa scuro.",
+    "esigenze": {
+      "luce": "Luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Regolare nel periodo vegetativo, con nebulizzazioni; molta umidità",
+      "terreno": "Sostanzioso e ben drenato: miscela di pacciame, argilla, sabbia, torba e concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo \"!\" esplicito nel libro)",
+      "richiede molta umidità ambientale",
+      "moltiplicazione per talea in giugno/luglio, utilizzando ormoni radicanti; le piante nuove vanno coltivate in una serra calda",
+      "rinvasare tutti gli anni a marzo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, con nebulizzazioni con acqua tiepida",
+        "estate": "regolare, con nebulizzazioni con acqua tiepida",
+        "autunno": "diradare le innaffiature; potare prima che le piante riprendano a germogliare",
+        "inverno": "diradare le innaffiature, riposo a 13-15°C"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rinvasare a marzo",
+        "estate": "nessuna",
+        "autunno": "potare prima della ripresa vegetativa",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Apocynaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
+  },
+  "medinilla": {
+    "nome": "Medinilla",
+    "specie": "Medinilla magnifica",
+    "descrizione": "Tra le circa 400 specie epifite del genere Medinilla, originario delle regioni tropicali dell'Africa occidentale e dell'Asia, soltanto la M. magnifica viene coltivata. Questa splendida pianta ha bisogno di molta umidità, perciò vive bene in serra ma non è particolarmente adatta a essere coltivata in appartamento. M. magnifica può raggiungere un'altezza di 2,5m nelle Filippine; le varietà coltivate raggiungono al massimo il metro di altezza. Si tratta di un arbusto espanso, ramificato, con tronco breve, legnoso, e rami grossi, a sezione quadrata. Le foglie, grandi e opposte, sono cuoiose e di colore verde scuro con nervature gialle; i grandi fiori rosacei, in infiorescenze pendule a pannocchia, sono provvisti di brattee anch'esse rosate.",
+    "esigenze": {
+      "luce": "Luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Moderata in estate, con immersioni occasionali del vaso; molta umidità ambientale",
+      "terreno": "Sostanzioso: miscela di argilla sbriciolata, pacciame, sabbia e concime organico"
+    },
+    "alert": [
+      "la fonte segnala esplicitamente che questa pianta non è particolarmente adatta a essere coltivata in appartamento: vive bene in serra grazie all'elevata umidità richiesta",
+      "assicurarsi che il locale sia ben arieggiato",
+      "per l'umidità, porre il vaso su un piattino rovesciato dentro un contenitore d'acqua",
+      "il periodo di riposo inizia a novembre",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "rinvasare in primavera; se necessario potare",
+        "estate": "moderata, con immersioni occasionali del vaso, nebulizzare con acqua non calcarea tiepida",
+        "autunno": "diradare al minimo le innaffiature",
+        "inverno": "diradare al minimo le innaffiature, riposo a 14-16°C"
+      },
+      "concimazione": {
+        "primavera": "tutte le settimane fino alla fine di agosto",
+        "estate": "tutte le settimane fino alla fine di agosto",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "se necessario, potare",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Melastomataceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.75
+    },
+    "stato_verifica": "verificato"
+  },
+  "neoregelia": {
+    "nome": "Neoregelia",
+    "specie": "Neoregelia carolinae",
+    "descrizione": "Il genere Neoregelia è originario del Brasile e comprende circa 40 specie epifite dai fiori lilla, piuttosto semplici e con brattee vivacemente colorate, che crescono in mezzo a una rosetta di foglie. Queste piante, in genere, vengono vendute nel periodo di fioritura, al termine del quale, la rosetta appassisce e la pianta, solitamente, viene abbandonata. Dai germogli si possono ottenere nuovi esemplari che fioriscono dopo 2-3 anni. La rosetta di foglie lucenti, linguiformi o lanceolate, acuminate e dentellate, costituisce una sorta di coppa o vaso centrale che, durante la fioritura, assume un colore rosso, rosso-bruno, porpora o lilla. Le foglie più esterne invece sono sempre verde scuro o screziate. N. carolinae, molto espansa, ha foglie di un verde lucente, lunghe 40cm e larghe 5cm e brattee di un rosso acceso che circondano i fiori viola; 'Flandria' ha foglie verdi a margini incisi bianco-giallastri; 'Meyendorffii' ha foglie verde oliva disposte in una rosetta tubulosa; 'Tricolor Perfecta' ha splendide foglie verde-giallastre, con striature longitudinali. N. concentrica ha larghe foglie spinose, di colore marrone, lunghe 30cm. Le foglie interne sono lilla-porporine e i fiori sono di colore blu chiaro.",
+    "esigenze": {
+      "luce": "Luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Coppa centrale sempre riempita di acqua non calcarea; terreno moderatamente umido",
+      "terreno": "Miscela di foglie macerate, concime organico e sfagno (per esempio: una miscela di terra non calcarea, ricca di humus)"
+    },
+    "alert": [
+      "queste piante vivono bene in una posizione luminosa, ma non esposta ai raggi diretti del sole, e i fiori sono di colore blu chiaro",
+      "la coppa centrale deve essere sempre riempita di acqua (non calcarea) anche quando la pianta è in fiore, e deve essere svuotata e ripulita periodicamente",
+      "aggiungere un po' di fertilizzante liquido nell'acqua della coppa a settimane alterne",
+      "dopo la fioritura la pianta durerà più a lungo in un locale con una temperatura di 12-15°C, la moltiplicazione si effettua per talea o per semina",
+      "i polloni della vecchia rosetta possono essere recisi e coltivati in serra",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "terreno moderatamente umido, coppa centrale riempita d'acqua",
+        "estate": "terreno moderatamente umido, coppa centrale riempita d'acqua",
+        "autunno": "coppa centrale riempita d'acqua",
+        "inverno": "coppa centrale riempita d'acqua, riposo a 12-15°C"
+      },
+      "concimazione": {
+        "primavera": "fertilizzante liquido nell'acqua della coppa a settimane alterne",
+        "estate": "fertilizzante liquido nell'acqua della coppa a settimane alterne",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Bromeliaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 35,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "nertera": {
+    "nome": "Nertera",
+    "specie": "Nertera granadensis",
+    "descrizione": "Nertera, un genere diffuso nelle regioni montane dell'emisfero australe, comprende 12 specie nane, di cui solo la N. granadensis viene coltivata. Il valore ornamentale della specie è dato dal frutto che spesso rimane sulla pianta per lungo tempo. N. granadensis ha fusti striscianti con foglie opposte, ovali e smussate, lunghe 4-8mm, che formano soffici 'cuscini', e fiori verdastri insignificanti. Le bacche d'un arancione acceso hanno un diametro massimo di 8mm.",
+    "esigenze": {
+      "luce": "Poco soleggiata, protetta dai raggi diretti del sole",
+      "acqua": "Regolare, con acqua non calcarea versata nel sottovaso",
+      "terreno": "Sostanzioso, ricco di humus: miscela di pacciame, concime organico e argilla"
+    },
+    "alert": [
+      "il locale deve essere molto arieggiato: evitare che le radici marciscano",
+      "innaffiare regolarmente con acqua versata nel sottovaso, per evitare che le radici marciscano",
+      "la concimazione va effettuata a settimane alterne",
+      "moltiplicazione per divisione dei cespi (agosto) o per semina (febbraio/marzo)",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, acqua versata nel sottovaso",
+        "estate": "regolare, acqua versata nel sottovaso",
+        "autunno": "diradare le innaffiature",
+        "inverno": "diradare le innaffiature"
+      },
+      "concimazione": {
+        "primavera": "a settimane alterne",
+        "estate": "a settimane alterne",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rinvasare in primavera, se necessario",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rubiaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "febbraio",
+        "marzo"
+      ],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.9
+    },
+    "stato_verifica": "verificato"
+  },
+  "pachystachys": {
+    "nome": "Pachystachys",
+    "specie": "Pachystachys lutea",
+    "descrizione": "La Pachystachys lutea, una delle 5 specie del genere Pachystachys, diffuso nelle regioni tropicali dell'America e delle Indie occidentali, viene coltivata fin dal 1900 e, diventata di nuovo molto popolare, dopo un periodo di oblio, è recentemente diffusa nelle Indie occidentali. Si tratta di una pianta arbustiva con fiori rossi o bianchi, di breve durata, riuniti in spighe erette, compatte e brattee verdi o gialle che rimangono sulla pianta per lungo tempo. Questa specie ha un'abbondante fioritura. P. lutea ha foglie verde scuro, lanceolate, acuminate con profonde nervature e fiori bianchi o giallastri in spighe (le varietà coltivate crescono fino a 75cm), ha foglie semi-arbustiva, che può raggiungere un'altezza di 1-2m.",
+    "esigenze": {
+      "luce": "Molto luminosa",
+      "acqua": "Terra moderatamente umida e sostanziosa, nebulizzare regolarmente",
+      "terreno": "Non specificato dalla fonte; terriccio universale ricco"
+    },
+    "alert": [
+      "la pianta richiede una posizione molto luminosa, una temperatura elevata, e una terra sostanziosa",
+      "per ottenere il grado di umidità opportuno, tenere il terriccio moderatamente umido e collocare il vaso su un piattino rovescato",
+      "nel periodo vegetativo, tenere il terriccio moderatamente umido e concimare ogni 2 settimane; per vasi sostanziosa",
+      "la moltiplicazione si effettua per talea, in primavera",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "terra moderatamente umida, nebulizzare regolarmente",
+        "estate": "terra moderatamente umida, nebulizzare regolarmente",
+        "autunno": "diradare le innaffiature, potare e rinvasare",
+        "inverno": "diradare le innaffiature, riposo a 15°C"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "potare e rinvasare a fine periodo di riposo",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Acanthaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 45,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "passiflora": {
+    "nome": "Passiflora",
+    "specie": "Passiflora caerulea",
+    "descrizione": "La Passiflora (Passiflora caerulea), originaria delle regioni tropicali e subtropicali dell'America e dell'Asia, è stata associata alla passione di Gesù: i 10 petali rappresenterebbero i 10 apostoli fedeli (esclusi Giuda, che lo tradì, e Pietro che lo rinnegò); i numerosi filamenti tricolori sarebbero il simbolo della corolla formata dai raggi dell'aureola; i colori porpora, bianco e marrone sarebbero quelli dei vestiti di Cristo; i 5 stami infine rappresenterebbero le 5 ferite. Come pianta da appartamento, la passiflora viene spesso sostenuta da tutori. La passiflora è un rampicante legnoso con cirri all'ascella della foglia che si attorcigliano ai fusti e ai rami di altre piante o alla pianta stessa. I germogli, all'inizio rigidi, diventano poi flessibili. I grandi fiori sbocciano in momenti diversi della giornata e di solito rimangono aperti per un solo giorno. La P. caerulea, alta 6-9m (in Perù), ha grandi foglie cordiformi, profondamente incise, di colore verde chiaro e petali lanceolati. I fiori sono semplici, bianchi, leggermente profumati, del diametro di 7-10cm, con un anello di filamenti blu e stili color porpora. Esistono numerose varietà coltivate, tra le quali 'Victoria' a fiori lilla e bianchi.",
+    "esigenze": {
+      "luce": "Pieno sole, ma in inverno in posizione protetta",
+      "acqua": "Terreno mantenuto sempre umido",
+      "terreno": "Miscelata ad argilla"
+    },
+    "alert": [
+      "questa pianta richiede una normale terra per vasi",
+      "attorcigliare i fusti a un tutore, o all'intelaiatura di una finestra",
+      "la temperatura non deve superare i 15-20°C",
+      "in inverno porre la pianta in un locale con una temperatura di 10-15°C, e diradare le innaffiature",
+      "la moltiplicazione si effettua per rimozione dei polloni dalle radici e per talea",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "terreno mantenuto sempre umido",
+        "estate": "terreno mantenuto sempre umido",
+        "autunno": "diradare le innaffiature; se le foglie cadono, potare",
+        "inverno": "diradare le innaffiature, riposo a 10-15°C"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rinvasare in primavera, se necessario",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "potare, se le foglie cadono"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Passifloraceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 70,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 7,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
   }
 }
