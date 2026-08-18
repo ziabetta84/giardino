@@ -12237,5 +12237,71 @@
       "irrigazione_fattore": 0.8
     },
     "stato_verifica": "verificato"
+  },
+  "ixora": {
+    "nome": "Ixora",
+    "specie": "Ixora coccinea",
+    "descrizione": "Genere diffuso nelle regioni tropicali di tutto il mondo. Nei paesi di origine, molte specie vengono impiegate per scopi medicinali, soprattutto per curare la cefalea. Dall'impollinazione incrociata sono state ottenute varietà molto belle da coltivare in appartamento; nelle zone temperate, invece, le specie originarie possono essere coltivate soltanto in serre riscaldate. Queste piante hanno foglie cuoiose, di un verde lucente, e splendide ombrelle di fiori che hanno 4-5 petali riuniti alla base a formare un lungo tubo. I. coccinea è una pianta cespugliosa, ramificata, con foglie ovali, acuminate, e fiori di colore rosso acceso riuniti in ombrelle compatte. I. chinensis ha ombrelle più piccole di fiori che da gialli o giallo-arancioni diventano rosso-aranciati. Da queste due specie sono stati ottenuti molti ibridi: piante ramificate con splendide foglie lucenti e fiori in tutte le gradazioni del rosso, rosa, arancione, giallo e bianco.",
+    "esigenze": {
+      "luce": "Luminosa, ma lontana dai raggi diretti del sole",
+      "acqua": "Terra sempre umida, con nebulizzazioni e innaffiature con acqua tiepida non calcarea",
+      "terreno": "Sostanzioso, ben drenato, non calcareo: miscela di torba, pacciame e concime organico"
+    },
+    "alert": [
+      "nei paesi di origine molte specie di Ixora vengono impiegate per scopi medicinali, soprattutto per curare la cefalea",
+      "se le foglie ingialliscono significa che vi è carenza di ferro: utilizzare un fertilizzante ricco di ferro",
+      "per l'umidità, porre il vaso su un piattino capovolto dentro un contenitore d'acqua",
+      "le talee per la moltiplicazione vanno conservate in un locale con una temperatura di 25-30°C",
+      "richiede una temperatura elevata tutto l'anno",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "rinvasare se necessario; terra sempre umida, acqua tiepida non calcarea, con nebulizzazioni",
+        "estate": "terra sempre umida, acqua tiepida non calcarea, con nebulizzazioni",
+        "autunno": "diradare le innaffiature; potare al termine della fioritura",
+        "inverno": "diradare le innaffiature"
+      },
+      "concimazione": {
+        "primavera": "ogni due settimane",
+        "estate": "ogni due settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "potare al termine della fioritura",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rubiaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 45,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
   }
 }
