@@ -12963,5 +12963,332 @@
       "irrigazione_fattore": 0.6
     },
     "stato_verifica": "verificato"
+  },
+  "cineraria": {
+    "nome": "Cineraria",
+    "specie": "Senecio cruentus",
+    "descrizione": "Il genere Senecio è diffuso in tutto il mondo e comprende circa 1300 specie tra piante annuali, biennali e perenni, erbacee, arbustive o succulente. Le varietà ottenute per ibridazione dalla S. cruentus con la S. maderensis sono coltivate come piante annuali e hanno fiori molto belli. Le piante sono particolarmente sensibili agli afidi, se esposte alle correnti. S. cruentus (sin. Cineraria cruenta), comunemente nota come cineraria, è una pianta annuale erbacea, con grandi foglie pelose, incise in modo irregolare e leggermente lobate, verdi sulla pagina superiore e verde chiaro o porpora sulla pagina inferiore. I fiori, grandi e compatti capolini terminali del diametro di 8cm, possono essere blu, rosso-porpora, rosa, terracotta e bianchi. Esistono fiori bicolori, a volte maculati, semplici o doppi. Le varietà 'Multiflora' hanno i fiori più belli, anche se più piccoli.",
+    "esigenze": {
+      "luce": "Luminosa, ma protetta dai raggi diretti del sole; temperatura bassa",
+      "acqua": "Moderata, con acqua tiepida",
+      "terreno": "Non specificato dalla fonte; terriccio universale"
+    },
+    "alert": [
+      "pianta velenosa (simbolo \"!\" esplicito nel libro)",
+      "nota tassonomica: comunemente venduta come \"Cineraria\", oggi spesso riclassificata nel genere Pericallis (Pericallis cruenta / Pericallis x hybrida) piuttosto che Senecio",
+      "particolarmente sensibile agli afidi, se esposta alle correnti d'aria",
+      "se la temperatura è troppo elevata, la fioritura sarà di breve durata",
+      "le foglie che ingialliscono per l'eccessiva umidità non potranno più riprendersi; quelle che appassiscono perché la terra è troppo asciutta, si riprenderanno",
+      "dopo la fioritura, che dura 3-4 settimane, la pianta muore",
+      "la moltiplicazione si effettua per semina, ma è alquanto improbabile che in casa abbia successo"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata, acqua tiepida",
+        "estate": "moderata, acqua tiepida",
+        "autunno": "moderata, acqua tiepida",
+        "inverno": "moderata, acqua tiepida"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "una volta alla settimana",
+        "inverno": "una volta alla settimana"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Asteraceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "autunno"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 25,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
+  },
+  "sinningia": {
+    "nome": "Sinningia",
+    "specie": "Sinningia speciosa",
+    "descrizione": "In passato, il genere Sinningia, originario del Brasile, includeva anche numerose specie di Reichsteineria, tra le quali la nota Reichsteineria cardinalis, e di Gloxinia, perciò oggi c'è ancora una certa confusione a proposito dei nomi delle specie. Piante erbacee, molto pelose, le specie di Sinningia hanno tuberi sotterranei, foglie opposte, ovali e dentellate, e fiori peduncolati, tubulari o campanulati, ascellari, che crescono solitari o in gruppi. S. cardinalis (sin. Reichsteineria cardinalis, Gesneria cardinalis) ha fusti molto pelosi, larghe foglie ovali, verde chiaro, rivestite di peli di colore grigio chiaro e fiori tubulari, a forma di labbro, lunghi 5cm, che si sviluppano orizzontalmente in infiorescenze; vi è anche una varietà a fiori bianchi. S. x hybrida, ottenuta per ibridazione da S. speciosa, gloxinia (sin. Gloriosa speciosa), e S. regina, ha grandi foglie sessili vellutate, pelose, ovali, di colore verde scuro, e grandi fiori doppi campanulati, di colore rosso e bianco, bianco, porpora, maculati, solitamente solitari all'apice di un lungo peduncolo.",
+    "esigenze": {
+      "luce": "Penombra, temperatura elevata",
+      "acqua": "Regolare, con acqua non calcarea tiepida",
+      "terreno": "Sostanzioso poco calcareo: miscela di pacciame, torba e concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo \"!\" esplicito nel libro)",
+      "nota tassonomica: alcune specie oggi vendute come Sinningia sono state storicamente classificate anche come Reichsteineria o Gloxinia, da cui persiste una certa confusione nei nomi commerciali",
+      "recidere i fiori alla base una volta appassiti, ma continuare a concimare la pianta anche quando ha finito di fiorire (fino a settembre/ottobre); dopo di che diradare le innaffiature",
+      "far appassire le foglie, poi conservare il tubero in un locale asciutto a 15-18°C, senza lasciare asciugare completamente la terra",
+      "quando compaiono i nuovi germogli (fine febbraio), cambiare completamente il terreno e trapiantare il tubero non troppo in profondità",
+      "moltiplicazione per talea fogliare, per mezzo degli stoloni, o per divisione del tubero"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, acqua non calcarea tiepida",
+        "estate": "regolare, acqua non calcarea tiepida",
+        "autunno": "diradare le innaffiature dopo la fioritura",
+        "inverno": "tubero a riposo, non lasciar asciugare completamente la terra, 15-18°C"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana fino a settembre/ottobre",
+        "estate": "una volta alla settimana fino a settembre/ottobre",
+        "autunno": "sospesa dopo la fine della concimazione autunnale",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "recidere i fiori alla base una volta appassiti",
+        "estate": "recidere i fiori alla base una volta appassiti",
+        "autunno": "far appassire le foglie",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Gesneriaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 25,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "spathiphyllum": {
+    "nome": "Spathiphyllum",
+    "specie": "Spathiphyllum wallisii",
+    "descrizione": "Spathiphyllum è un genere originario delle regioni tropicali dell'America e comprende specie abbastanza simili a quelle di Anthurium, ma, in realtà, con foglie e fiori leggermente diversi. Si tratta di piante erbacee perenni che formano densi ciuffi e hanno lunghe foglie lanceolate, sorrette da un lungo picciolo, di colore verde scuro. I fiori sono raccolti in una infiorescenza eretta a forma di spadice e avvolta da una spata bianca o verdastra. Le varietà attualmente in commercio sono state ottenute per ibridazione della S. cochlearispathum (che ha foglie lanceolate e ondulate, e una spata cava, lanceolata o ovale, lunga 30cm) con la S. wallisii (che ha lunghe foglie lucenti, lanceolate, un fusto a forma di canna e una spata cava, ovale, che diventa verde). Il numero delle varietà è in continuo aumento anche grazie all'impollinazione in vitro. Le piante possono avere una o più infiorescenze, sorrette da lunghi peduncoli, formate da uno spadice avvolto in una spata bianca.",
+    "esigenze": {
+      "luce": "Luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Regolare, terreno sempre umido, con nebulizzazioni frequenti",
+      "terreno": "Ricco di humus e ben drenato: miscela di torba, pacciame, argilla e concime organico"
+    },
+    "alert": [
+      "se compaiono macchie marrone sulle foglie, significa che la pianta è stata concimata troppo o che ha troppi sali e deve essere rinvasata",
+      "richiede un alto grado di umidità: nebulizzare spesso le foglie",
+      "genere simile ad Anthurium ma con foglie e fiori leggermente diversi",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, terreno umido, acqua tiepida",
+        "estate": "regolare, terreno umido, acqua tiepida, nebulizzare spesso",
+        "autunno": "regolare, terreno umido",
+        "inverno": "diradare, riposo a 16-18°C"
+      },
+      "concimazione": {
+        "primavera": "a settimane alterne",
+        "estate": "a settimane alterne",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Araceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 30,
+      "irrigazione_fattore": 0.9
+    },
+    "stato_verifica": "verificato"
+  },
+  "stephanotis": {
+    "nome": "Stephanotis",
+    "specie": "Stephanotis floribunda",
+    "descrizione": "Stephanotis è un genere indigeno del Madagascar che comprende una sola specie coltivata, la S. floribunda. Questa pianta non è di facile coltivazione anche se, con le dovute cure, gli splendidi fiori profumati tornano a sbocciare ogni anno. Con una illuminazione e una temperatura adeguate la pianta, spesso avvolta a tutori, può fiorire per tutto l'anno. S. floribunda, spesso associata ai bouquet che si preparano per i matrimoni, è una pianta perenne, rampicante, con fusti robusti volubili, lunghi molti metri, foglie lucenti, ovali, di colore verde scuro, e fiori bianchi profumati, tubolari, ascellari, che formano infiorescenze a ombrella, con perianzio stellato, a cinque petali.",
+    "esigenze": {
+      "luce": "Luminosa, ma non esposta ai raggi diretti del sole (per esempio una finestra rivolta a oriente)",
+      "acqua": "Regolare nel periodo vegetativo, con acqua non calcarea tiepida, preferibilmente piovana",
+      "terreno": "Sostanzioso, ricco di humus: miscela di pacciame, sabbia, argilla e concime organico"
+    },
+    "alert": [
+      "genere spesso associato ai bouquet nuziali, grazie ai fiori bianchi profumati",
+      "la pianta è sensibile agli sbalzi di temperatura",
+      "dopo l'acquisto, i boccioli potrebbero cadere perché è cambiata la direzione da cui proviene la luce: la pianta deve essere sempre rivolta verso la luce nella stessa direzione (mettere un segno sul vaso)",
+      "sostenere i rami giovani con un tutore in modo che la pianta possa essere facilmente spostata, se occorre",
+      "la fioritura può essere anticipata illuminando la pianta artificialmente",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, acqua non calcarea tiepida, nebulizzare le foglie",
+        "estate": "regolare, acqua non calcarea tiepida, nebulizzare le foglie",
+        "autunno": "diradare, terra sempre leggermente umida",
+        "inverno": "diradare, riposo a 12-14°C, terra leggermente umida"
+      },
+      "concimazione": {
+        "primavera": "a settimane alterne",
+        "estate": "a settimane alterne",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rinvasare in primavera",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Apocynaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 50,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 4,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
+  },
+  "streptocarpus": {
+    "nome": "Streptocarpus",
+    "specie": "Streptocarpus rexii",
+    "descrizione": "Streptocarpus è un genere diffuso nelle foreste pluviali tropicali dell'Africa meridionale e del Madagascar, e comprende più di 100 specie annuali e perenni. Da un processo di selezione e di ibridazione sono state ottenute molte varietà robuste e ornamentali d'appartamento. Si tratta di piante erbacee, talvolta senza fusto, con numerose foglie a rosetta, grandi e fragili, benché a volte vi sia un'unica foglia o fusti con foglie opposte. Gli scapi fiorali sorreggono uno o più fiori di colore blu, rosso-rosaceo, rosso o bianco composti da cinque piccoli sepali e una lunga corolla con cinque petali lobati, arrotondati e irregolari. Gli ibridi di Streptocarpus sono stati ottenuti soprattutto dall'incrocio di S. dunnii, che, di solito, ha una sola grande foglia, dentellata in modo irregolare e scapi fiorali con numerosi fiori campanulati, di colore rosso-porpora o rossi, molti dei quali sbocciano contemporaneamente. S. parviflorus, una specie più piccola, ha foglie arrotondate, dentellate, a forma di nastro, disposte in rosette e molti fiori tubolosi, dalla gola striata che sbocciano tutti insieme. S. polyanthus ha larghe foglie ovali, dentellate, di colore verde chiaro o verde-grigiastro, e fiori bianco-verdognoli o lilla chiaro. S. rexii ha molte foglie piccole, pelose, a nastro, smussate e dentellate, e scapi fiorali che sorreggono 1-6 fiori bianco-lilla, rigati di viola. Oltre alle varietà che presentano fiori grandi, ve ne sono alcune che producono tanti fiori piccoli coloratissimi. S. wendlandii ha una grande foglia fragile e una infiorescenza a pannocchia, lunga anche 7cm, composta da molti piccoli fiori blu.",
+    "esigenze": {
+      "luce": "Luminosa, ma non esposta ai raggi diretti del sole (per esempio una finestra rivolta a oriente o a occidente)",
+      "acqua": "Moderata, con acqua tiepida, evitando di bagnare le foglie",
+      "terreno": "Normale terra per vasi"
+    },
+    "alert": [
+      "recidere le foglie e i fiori appassiti insieme allo scapo",
+      "per ottenere il grado di umidità richiesto, porre il vaso su un piattino capovolto in un contenitore d'acqua",
+      "moltiplicazione facile per talea fogliare, tagliando la foglia lungo la nervatura mediana e affondando la parte recisa in torba umida",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata, acqua tiepida",
+        "estate": "moderata, acqua tiepida",
+        "autunno": "diradare le innaffiature",
+        "inverno": "diradare le innaffiature, riposo a 12-15°C"
+      },
+      "concimazione": {
+        "primavera": "a settimane alterne",
+        "estate": "a settimane alterne",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rinvasare in primavera",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Gesneriaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 20,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
   }
 }
