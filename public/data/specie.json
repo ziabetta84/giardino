@@ -10491,5 +10491,462 @@
       "irrigazione_fattore": 0.7
     },
     "stato_verifica": "verificato"
+  },
+  "citrofortunella": {
+    "nome": "x Citrofortunella",
+    "specie": "x Citrofortunella microcarpa",
+    "descrizione": "Genere originario della Cina, coltivato estensivamente nelle Filippine. Ibrido probabilmente tra Fortunella margarita (kumquat) e Citrus reticulata (clementina), venduto anche come Citrus microcarpa. Arbusto perenne alto fino a 5m, frutti giallo-arancione simili all'arancia (4cm), fiori bianchi profumati più volte l'anno.",
+    "esigenze": {
+      "luce": "Mezz'ombra: posizione luminosa, non troppo esposta al sole",
+      "acqua": "Regolare in estate, con nebulizzazioni frequenti (non sui fiori)",
+      "terreno": "Non troppo acido: pacciame o torba, sabbia, argilla e concime organico"
+    },
+    "alert": [
+      "il frutto è utilizzabile solo per la preparazione di marmellate",
+      "per ottenere un gran numero di frutti, impollinare i fiori con un pennello",
+      "in estate il vaso può essere spostato all'aperto, in posizione riparata",
+      "se le foglie ingialliscono è probabile un eccesso di calcio nell'acqua o nel terreno",
+      "temperatura ideale 15-18°C (8-10°C in inverno), non deve mai superare i 25°C",
+      "rinvasare solo se necessario: le radici sono molto delicate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare, con nebulizzazioni",
+        "autunno": "diradare gradualmente",
+        "inverno": "diradata"
+      },
+      "concimazione": {
+        "primavera": "settimanale",
+        "estate": "settimanale",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "potatura di formazione se necessario",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rutaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "estate"
+      ],
+      "finestra_trapianto": [
+        "estate"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 70,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 15,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "clerodendrum": {
+    "nome": "Clerodendrum",
+    "specie": "Clerodendrum",
+    "descrizione": "Il nome deriva dal greco \"kleros\" (sorte) e \"dendron\" (albero), riferito alle proprietà tossiche e medicinali di alcune delle circa 400 specie del genere, diffuse nelle regioni tropicali e subtropicali. Piante sarmentose o arbustive, fiori pentagonali bianco-porporino con calice e stami allungati, in pannocchie terminali erette.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma lontana dai raggi diretti del sole",
+      "acqua": "Abbondante durante la vegetazione, con nebulizzazioni; ridotta in inverno",
+      "terreno": "Ricco di humus: pacciame, argilla e concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro)",
+      "il libro riporta anche il simbolo \"pieno sole\", ma il testo raccomanda una posizione luminosa non esposta ai raggi diretti: seguito il testo",
+      "richiede un sostegno per il portamento sarmentoso",
+      "temperatura vegetativa 16-30°C; riposo invernale a 10-12°C con annaffiature diradate",
+      "rinvasare dopo la fioritura, pressando bene il terreno",
+      "moltiplicazione per talea (febbraio/marzo) o per seme",
+      "nota tassonomica: famiglia classificata oggi come Lamiaceae (APG); tradizionalmente inclusa in Verbenaceae"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "abbondante",
+        "estate": "abbondante, con nebulizzazioni",
+        "autunno": "ridotta",
+        "inverno": "diradata, riposo a 10-12°C"
+      },
+      "concimazione": {
+        "primavera": "settimanale",
+        "estate": "settimanale",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "potare dopo la fioritura",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Lamiaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 60,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "clivia": {
+    "nome": "Clivia",
+    "specie": "Clivia miniata",
+    "descrizione": "Genere indigeno dell'Africa australe, coltivato dal 1862 in Gran Bretagna. Grosse radici carnose da cui si sviluppano coppie di lunghe foglie lucide verde scuro; lo scapo fiorale sostiene un'ombrella di fiori imbutiformi giallo-rossastri.",
+    "esigenze": {
+      "luce": "Ombra: posizione in penombra",
+      "acqua": "Regolare, senza far ristagnare l'acqua sotto il vaso",
+      "terreno": "Poroso, ricco di humus: pacciame, argilla e concime organico in parti uguali"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro)",
+      "non spostare la pianta durante il periodo di fioritura, altrimenti i fiori possono non aprirsi",
+      "periodo di riposo di almeno due mesi (da ottobre) a 6-10°C, con annaffiature diradate e concimazioni sospese",
+      "quando lo scapo fiorale raggiunge 15-18cm, spostare in un locale più caldo (18-22°C) e riprendere le annaffiature regolari",
+      "se le foglie ingialliscono, probabile eccesso di luce o acqua troppo fredda",
+      "rinvasare ogni 3 anni, con un vaso solo leggermente più grande di quello attuale (fiorisce meglio se il vaso è un po' stretto), facendo attenzione a non danneggiare le grosse radici carnose",
+      "moltiplicazione per divisione dei cespi poco dopo la fioritura (richiede molto tempo per attecchire) o per seme"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare",
+        "autunno": "diradata (riposo da ottobre)",
+        "inverno": "diradata, riposo a 6-10°C"
+      },
+      "concimazione": {
+        "primavera": "ogni 2 settimane",
+        "estate": "ogni 2 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Amaryllidaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 45,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 36,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "columnea": {
+    "nome": "Columnea",
+    "specie": "Columnea",
+    "descrizione": "Genere epifita originario delle foreste pluviali tropicali dell'America centrale e comprende circa 160 specie, spesso coltivate come piante pensili. Fusti sarmentosi e foglie verticillate a piccolo cono, lisce o pelose; fiori imbutiformi arancioni o gialli solitari o in gruppi all'ascella della foglia.",
+    "esigenze": {
+      "luce": "Mezz'ombra: posizione luminosa ma non esposta ai raggi diretti",
+      "acqua": "Regolare, senza far seccare il terreno; nebulizzare regolarmente",
+      "terreno": "Leggero: miscela di pacciame, argilla e concime organico"
+    },
+    "alert": [
+      "se lo scapo fiorale riceve troppo caldo appassisce prematuramente: spostare la pianta in un locale meno caldo",
+      "rinvasare usando un vaso solo leggermente più grande di quello in cui si trovava: uno troppo grande danneggia le radici",
+      "moltiplicazione per seme o per talea"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare, con nebulizzazioni",
+        "autunno": "ridotta",
+        "inverno": "diradata"
+      },
+      "concimazione": {
+        "primavera": "settimanale",
+        "estate": "settimanale",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Gesneriaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.9
+    },
+    "stato_verifica": "verificato"
+  },
+  "cyclamen": {
+    "nome": "Cyclamen",
+    "specie": "Cyclamen persicum",
+    "descrizione": "Genere molto diffuso nelle regioni mediterranee, comprende 17 specie assai simili tra loro. Verificato su C. persicum (ciclamino), alto 25cm, con tubero da cui nascono lunghi fusti fiorali eretti e cavi e foglie ovali o cordiformi verde scuro con margini argentati; fiori a cinque petali rivolti all'indietro, bianchi, rosa o rosso acceso.",
+    "esigenze": {
+      "luce": "Mezz'ombra: locale fresco, non esposto ai raggi diretti del sole",
+      "acqua": "Regolare, mai bagnando direttamente il tubero: immergere il vaso nell'acqua tiepida non calcarea",
+      "terreno": "Sostanzioso: parti uguali di pacciame, sabbia, argilla e concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro): il tubero è tossico",
+      "recidere i fiori appassiti e le foglie ingiallite insieme al picciolo, senza tirare, per non far marcire il tubero",
+      "non far mai ristagnare acqua nella rosetta centrale: innaffiare immergendo il vaso",
+      "al termine della fioritura il tubero va lasciato a riposo in un locale fresco (10°C), diradando le annaffiature e sospendendo le concimazioni",
+      "rinvasare in primavera a 15-18°C, riprendendo gradualmente annaffiature e concimazioni"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "diradare gradualmente a fine fioritura",
+        "estate": "sospesa, tubero a riposo in locale fresco",
+        "autunno": "riprendere gradualmente",
+        "inverno": "regolare, immergendo il vaso, mai il tubero direttamente"
+      },
+      "concimazione": {
+        "primavera": "sospesa",
+        "estate": "sospesa",
+        "autunno": "settimanale",
+        "inverno": "settimanale"
+      },
+      "potatura": {
+        "primavera": "recidere fiori appassiti e foglie ingiallite (staccare il picciolo)",
+        "estate": "nessuna",
+        "autunno": "recidere fiori appassiti e foglie ingiallite (staccare il picciolo)",
+        "inverno": "recidere fiori appassiti e foglie ingiallite (staccare il picciolo)"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Primulaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 20,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "cymbidium": {
+    "nome": "Cymbidium",
+    "specie": "Cymbidium",
+    "descrizione": "Genere di orchidee indigeno dell'Asia e dell'Australia, circa 40 specie epifite e numerosi ibridi coltivati per fiori recisi. Rizoma prostrato, pseudobulbi, guaine fogliari lunghe e strette, fusti floreali arcuati o penduli con numerosi fiori cerosi di tre petali e un labello, di dimensioni e colori vari.",
+    "esigenze": {
+      "luce": "Mezz'ombra: posizione ariosa e luminosa, non esposta al sole diretto",
+      "acqua": "Regolare, gradualmente ridotta durante il riposo invernale dopo la fioritura",
+      "terreno": "Miscela di argilla e sfagno, o terriccio acido"
+    },
+    "alert": [
+      "fiorisce in inverno: temperatura diurna 20°C, notturna 16°C durante il periodo vegetativo",
+      "periodo di riposo da febbraio (dopo la fioritura): temperatura diurna 10-15°C, notturna 5-10°C, annaffiature diradate",
+      "rinvasare ogni 2 anni dopo la fioritura, a temperatura costante di 20°C di giorno e 16°C di notte",
+      "le radici sono delicate: maneggiare con cura durante il rinvaso",
+      "moltiplicazione per divisione degli pseudobulbi"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "diradare gradualmente (riposo dopo la fioritura)",
+        "estate": "regolare",
+        "autunno": "regolare",
+        "inverno": "regolare, abbondante durante la fioritura"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": "ogni 2 settimane",
+        "autunno": "ogni 2 settimane",
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Orchidaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 50,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "dendranthema": {
+    "nome": "Dendranthema",
+    "specie": "Dendranthema indicum",
+    "descrizione": "Genere meglio conosciuto come Chrysanthemum, spontaneo nell'Europa occidentale/sudorientale e nell'Asia centrale/orientale. D. indicum, il tipico crisantemo da vaso, è originario di Cina e Giappone: specie arbustiva ramificata, foglie incise o lobate verde-grigiastro leggermente pelose, capolini bianchi, gialli, arancioni, rosa, rossi o porpora.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Moderata, senza lasciare asciugare il terreno",
+      "terreno": "Sostanzioso"
+    },
+    "alert": [
+      "la pianta fiorita è disponibile tutto l'anno in commercio grazie a tecniche di forzatura in serra (riduzione delle ore di luce e regolatori di crescita chimici)",
+      "dopo la fioritura, di solito la pianta muore",
+      "recidere i fiori appassiti",
+      "richiede una temperatura piuttosto bassa"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata",
+        "estate": "moderata",
+        "autunno": "moderata",
+        "inverno": "moderata"
+      },
+      "concimazione": {
+        "primavera": "settimanale",
+        "estate": "settimanale",
+        "autunno": "settimanale",
+        "inverno": "settimanale"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "recidere i fiori appassiti",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "annuale",
+    "coltivazione": {
+      "famiglia_botanica": "Asteraceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
   }
 }
