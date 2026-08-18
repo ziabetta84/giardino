@@ -12697,5 +12697,271 @@
       "irrigazione_fattore": 0.85
     },
     "stato_verifica": "verificato"
+  },
+  "geranio-odoroso": {
+    "nome": "Geranio odoroso",
+    "specie": "Pelargonium graveolens",
+    "descrizione": "Pelargonium è un genere originario dell'Africa meridionale. Il nome deriva dal greco 'pelargos' (cicogna) e si riferisce alla forma del frutto che ricorda il lungo becco della cicogna; il genere non va confuso con Geranium, cui è spesso associato nel linguaggio comune. Comprende circa 250 specie di gerani coltivati e migliaia di ibridi, il cui numero è in continuo aumento. Molte specie, con i loro ibridi, sono coltivate a scopo ornamentale per l'abbondante fioritura, tra le più note P. zonale, P. peltatum e P. grandiflorum. Si tratta di piante annuali o perenni, erbacee, spesso legnose, con foglie sparse sul fusto (le varietà coltivate crescono fino a 1-2m). Tra le specie profumate ci sono P. crispum (sin. P. citrosum), con fusti ramificati, foglie dal profumo di limone a picciolo corto, cordiformi, frastagliate e lobate; P. graveolens con foglie profondamente incise, palmato-lobate, di colore verde-bluastro che profumano di rosa e fiori bianchi o lilla con macchie rosso borgogna; P. radens con foglie palmate, profumate, foglioline strette, pennate e tomentose, di colore verde scuro, dal profumo di limone; P. tomentosum con foglie vellutate dal profumo di menta, fiori rosa con striature scure, che rimangono aperti per un solo giorno.",
+    "esigenze": {
+      "luce": "Pieno sole, o comunque una posizione molto luminosa",
+      "acqua": "Regolare in primavera/estate, terreno ben drenato mantenuto tra un'annaffiatura e l'altra",
+      "terreno": "Normale terra per vasi con terra ben drenata (andrà bene una miscela di sabbia e argilla)"
+    },
+    "alert": [
+      "il nome comune \"Geranio\" è tecnicamente riferito al genere Geranium, spesso confuso con Pelargonium",
+      "le specie a foglia profumata (limone, rosa, menta) sono coltivate soprattutto per il profumo delle foglie strofinate, più che per la fioritura",
+      "i gerani del genere Pelargonium vivono bene in pieno sole e in vasi con terra ben drenata (andrà bene una normale terra per vasi mescolata a sabbia e argilla)",
+      "nel periodo della fioritura innaffiare alternativamente l'acqua nel vaso e nel sottovaso, versando l'acqua nel terriccio e concimare una volta alla settimana; nebulizzare la sera",
+      "la temperatura deve essere di 15-30°C; nel periodo di riposo la pianta va riposta in un locale con una temperatura di 8-10°C e la terra deve essere mantenuta asciutta ma non troppo secca",
+      "per conservare una bella forma girare la pianta regolarmente; togliere solo i fiori appassiti, senza lo scapo, che si staccherà da solo",
+      "rinvasare ogni anno in primavera; tutte le specie si moltiplicano piuttosto facilmente per talea"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, terreno ben drenato",
+        "estate": "regolare, terreno ben drenato",
+        "autunno": "diradare le innaffiature",
+        "inverno": "asciutta ma non troppo secca, riposo a 8-10°C"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "rinvasare in primavera",
+        "estate": "togliere solo i fiori appassiti",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Geraniaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "rhododendron": {
+    "nome": "Rhododendron",
+    "specie": "Rhododendron simsii",
+    "descrizione": "Rhododendron è un genere diffuso in tutto il mondo, ma non indigeno dell'Africa e dell'America meridionale. Le piante da appartamento e da giardino, un tempo classificate sotto il genere Azalea, attualmente sono state ascritte al genere Rhododendron. Alcune tra le specie più note, coltivate in appartamento, sono R. simsii e R. obtusum, originarie della Cina e del Giappone. Si tratta di arbusti perenni o decidui con foglie sparse, dai margini lisci, spesso verticillate e fiori in genere solitari e terminali o, talvolta, ascellari. La corolla, composta da 5-10 petali irregolari, può essere campanulata, tubolosa, imbutiforme o piatta, in tutte le gradazioni di colori. R. obtusum, che resiste al freddo ma perde parzialmente le foglie, è un arbusto ramificato, con foglie lucenti, ovali, smussate, verde scuro e fiori semplici o doppi, rosa, arancioni o rossi, del diametro di 2-3cm, riuniti in gruppi di 2-5. Le varietà 'amoena' ottenute per ibridazione dalle specie R. kaempferi e R. klusianum hanno diverse sfumature di colori e possono essere coltivate anche in giardino. R. simsii (sin. Azalea indica) non è una pianta resistente al freddo. Ha foglie verde-scure, con peli irsuti sulla pagina inferiore e fiori semplici o doppi del diametro di 5cm, in tutte le gradazioni del bianco, del rosa, del viola, del rosso e dell'arancione. Le varietà ottenute da ibridazioni possono essere forzate facilmente per avere una fioritura precoce al termine della quale però è facile che muoiano.",
+    "esigenze": {
+      "luce": "Luminosa, ma protetta dai raggi diretti del sole; temperatura bassa",
+      "acqua": "Regolare, con acqua non calcarea preferibilmente piovana; immersione settimanale del vaso",
+      "terreno": "Ben drenato e non calcareo: terra di bosco di conifere, torba e concime organico"
+    },
+    "alert": [
+      "il nome comune \"Azalea\" (con cui è ancora molto diffusa in commercio) corrisponde oggi alle specie R. simsii e R. obtusum, riclassificate nel genere Rhododendron",
+      "il genere Rhododendron (azalea compresa) è ben noto per la tossicità di tutte le parti della pianta (grazie ai grayanotossine): fatto botanico ampiamente documentato, non specificamente segnalato con il simbolo \"!\" in questa pagina del libro",
+      "pianta molto sensibile al sole diretto",
+      "nebulizzare soltanto le foglie: i fiori soffrono se bagnati",
+      "non concimare durante la fioritura",
+      "dopo la fioritura, R. obtusum può essere interrata in giardino, in posizione luminosa e riparata",
+      "le varietà che fioriscono in febbraio/marzo hanno maggiori possibilità di sopravvivere rispetto a quelle forzate per una fioritura precoce (da ottobre)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "rinvasare qualche settimana dopo la fioritura; terriccio fresco",
+        "estate": "regolare, acqua non calcarea, immersione settimanale del vaso",
+        "autunno": "regolare, acqua non calcarea, immersione settimanale del vaso",
+        "inverno": "regolare fino a luglio/agosto, poi diradare; riposo a 6-10°C"
+      },
+      "concimazione": {
+        "primavera": "di tanto in tanto, quando i boccioli iniziano a svilupparsi",
+        "estate": "sospesa",
+        "autunno": "sospesa",
+        "inverno": "non concimare"
+      },
+      "potatura": {
+        "primavera": "recidere i fiori appassiti insieme ai fusti a fine fioritura; recidere i primi germogli",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Ericaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "febbraio",
+        "marzo"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.9
+    },
+    "stato_verifica": "verificato"
+  },
+  "rosa-miniatura": {
+    "nome": "Rosa miniatura",
+    "specie": "Rosa chinensis 'Minima'",
+    "descrizione": "Il genere Rosa è originario delle regioni temperate dell'emisfero boreale e comprende sicuramente le specie da giardino più note. Molte varietà nane, ottenute per ibridazione da specie quali la R. chinensis 'Minima', crescono poco senza diventare ingombranti e fioriscono più volte, se poste in una posizione soleggiata. Si tratta di piante arbustive, legnose, alte 15-30cm, con fusti a volte spinosi, foglie doppie, composte da 3-5 foglioline e piccoli fiori nelle tonalità del rosso, del rosa, del giallo, dell'arancione, del viola e del bianco. Le piante sono in commercio con i nomi propri delle singole varietà. Le rose si moltiplicano per talea e sono disponibili tutto l'anno perché vengono coltivate con illuminazione artificiale. Le rose della varietà 'Rosamini' vivono bene anche all'aperto (tra queste 'Amanda' a fiori rosso scuri, 'Amorette' a fiori bianchi, 'Bluenette' a fiori rosa-violacei, 'Finstar' a fiori rosa-arancioni, 'Guletta' a fiori gialli, 'Red Minimo' a fiori rosso scuro). Le rose della varietà 'Meillandina' non sono resistenti al freddo (tra queste 'Apricot' a fiori color albicocca, 'Duke' a fiori rosa, 'Golden' a fiori gialli, 'Lady' a fiori rosa, 'Sunny' a fiori gialli).",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare",
+      "terreno": "Terreno speciale per vasi"
+    },
+    "alert": [
+      "le varietà 'Rosamini' vivono bene anche all'aperto; le varietà 'Meillandina' non sono resistenti al freddo",
+      "sono disponibili tutto l'anno perché coltivate con illuminazione artificiale",
+      "all'aperto, le rose richiedono le stesse cure prestate alle piante coltivate in appartamento",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare",
+        "autunno": "regolare",
+        "inverno": "regolare"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "una volta alla settimana",
+        "inverno": "una volta alla settimana"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "potare a metà circa dell'altezza totale dopo la fioritura, per ottenere una seconda fioritura dopo circa 6 mesi",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Rosaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "bassa",
+      "spaziatura_cm": 20,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
+  },
+  "saintpaulia": {
+    "nome": "Saintpaulia",
+    "specie": "Saintpaulia ionantha",
+    "descrizione": "Saintpaulia è un genere indigeno delle foreste pluviali tropicali dell'Africa Orientale e comprende circa 20 specie note come violette africane. Le piante coltivate in appartamento sono varietà ottenute per ibridazione da S. ionantha e S. confusa. Queste specie vivono a lungo e, con l'ausilio di una lampada, possono fiorire per quasi tutto l'anno. In passato erano assai diffuse le varietà americane, tuttavia, oggigiorno, sono più comuni quelle tedesche e quelle francesi. È una pianta piuttosto piatta, pelosa, praticamente acaule, in cui, di solito, le foglie, carnose e a picciolo lungo, sono disposte in rosette. I fiori peduncolati, disposti in gruppi di 2-8, di colore blu-violetto, hanno 5 petali e antere gialle. Le varietà ottenute per ibridazione dalla specie S. ionantha sono adatte per la coltura in vaso e fioriscono abbondantemente per tutto l'anno; vi sono varietà a fiori semplici e doppi, blu, rosa, salmone, lilla, porpora e bianco, bicolori, con petali dai margini lisci o frastagliati. Le varietà 'Mini' stanno diventando sempre più popolari.",
+    "esigenze": {
+      "luce": "Luminosa, ma non troppo soleggiata (per esempio una finestra rivolta a oriente)",
+      "acqua": "Moderata, con acqua non calcarea e tiepida, evitando di bagnare le foglie",
+      "terreno": "Sostanzioso, poco calcareo, con l'aggiunta di torba"
+    },
+    "alert": [
+      "comunemente nota come violetta africana",
+      "l'acqua fredda provoca la formazione di macchie gialle sulle foglie: usare sempre acqua tiepida",
+      "la pianta non deve essere esposta alle correnti calde dovute al riscaldamento",
+      "se l'umidità è scarsa, mettere il vaso su un piattino rovesciato in un contenitore d'acqua",
+      "si consiglia di far riposare la pianta una volta l'anno, riponendola in un locale con una temperatura di 16°C e diradando le innaffiature",
+      "moltiplicazione facile per talea fogliare (agosto/settembre)",
+      "la fonte non riporta il simbolo di tossicità per questo genere"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata, acqua non calcarea e tiepida",
+        "estate": "moderata, acqua non calcarea e tiepida",
+        "autunno": "diradare le innaffiature",
+        "inverno": "diradare le innaffiature, riposo a 16°C"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Gesneriaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.6
+    },
+    "stato_verifica": "verificato"
   }
 }
