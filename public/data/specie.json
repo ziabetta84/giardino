@@ -11401,5 +11401,457 @@
       "irrigazione_fattore": 0.7
     },
     "stato_verifica": "verificato"
+  },
+  "guzmania": {
+    "nome": "Guzmania",
+    "specie": "Guzmania",
+    "descrizione": "Genere proveniente dalle foreste pluviali tropicali dell'America meridionale e di Costa Rica, circa 125 specie e numerosi ibridi epifiti o di terraferma. Foglie a margini lisci disposte in rosette a cilindro; infiorescenza al centro della rosetta con brattee dai colori vivaci di lunga durata, fiori tubulari gialli o bianchi, meno vistosi delle brattee.",
+    "esigenze": {
+      "luce": "Mezz'ombra: posizione luminosa ma non esposta ai raggi diretti",
+      "acqua": "Moderata, non calcarea e tiepida, versata nel cilindro centrale della rosetta; sostituire completamente ogni 2-3 settimane",
+      "terreno": "Leggero, acido, ricco di humus: radici di felce, sabbia e torba (o terra speciale per orchidee)"
+    },
+    "alert": [
+      "dopo la fioritura la rosetta appassisce gradualmente, ma una nuova pianta si può facilmente ottenere dalle rosette figlie della pianta madre",
+      "le piante forzate in serra possono fiorire tutto l'anno",
+      "per l'umidità, porre il vaso su un piattino capovolto dentro un contenitore pieno d'acqua",
+      "specie di riferimento G. lingulata, capostipite di molti ibridi ornamentali"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata, nel cilindro centrale, acqua tiepida non calcarea",
+        "estate": "moderata, sostituire l'acqua nella rosetta ogni 2-3 settimane",
+        "autunno": "moderata",
+        "inverno": "moderata, posizione luminosa in penombra"
+      },
+      "concimazione": {
+        "primavera": "ogni 15 giorni, mezza dose",
+        "estate": "ogni 15 giorni, mezza dose",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Bromeliaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "helleborus": {
+    "nome": "Helleborus",
+    "specie": "Helleborus niger",
+    "descrizione": "Genere originario dell'Europa centrale e meridionale e dell'Asia Minore. H. niger (rosa di Natale) è molto apprezzata come pianta da fiore e per fiori recisi, che si conservano a lungo senza foglie: queste vengono infatti solitamente recise per favorire la fioritura, e le nuove foglie si formano in un secondo tempo.",
+    "esigenze": {
+      "luce": "Mezz'ombra: posizione in penombra",
+      "acqua": "Regolare, terreno sempre umido",
+      "terreno": "Non specificato dalla fonte; terriccio universale"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro)",
+      "non richiede nebulizzazioni",
+      "se la temperatura supera i 10°C il periodo di fioritura si riduce",
+      "i fiori, larghi 8-9cm, da rosa diventano verdi e sono rivolti di lato",
+      "la pianta può vivere a lungo se non tenuta a una temperatura troppo elevata",
+      "difficile da conservare in vaso dopo la fioritura: spesso viene piantata in giardino o lasciata senza cure"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, terreno sempre umido",
+        "estate": "regolare",
+        "autunno": "regolare",
+        "inverno": "regolare, posizione in penombra a 5-10°C"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "recidere le foglie vecchie per favorire la fioritura",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Ranunculaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "hibiscus": {
+    "nome": "Hibiscus",
+    "specie": "Hibiscus rosa-sinensis",
+    "descrizione": "Genere molto diversificato, diffuso nelle regioni tropicali e subtropicali di tutto il mondo, comprende circa 300 specie arboree e arbustive, annuali e perenni. H. rosa-sinensis, ibisco rosa della Cina, è un grosso arbusto che raggiunge i 2-3m di altezza, foglie verticillate, ovali, di colore verde scuro, fiori campanulati semplici o doppi, di colore rosso-rosato, giallo-gialastro, salmone, bianco o bicolore.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non esposta alle correnti d'aria e ai raggi diretti del sole",
+      "acqua": "Regolare, immergere il vaso una volta alla settimana; nebulizzare regolarmente le foglie",
+      "terreno": "Ben drenato e ricco di humus: pacciame, argilla, sabbia e concime organico"
+    },
+    "alert": [
+      "i boccioli non vanno disturbati: spostare la pianta quando sono già spuntati può causarne la caduta",
+      "richiede un periodo di riposo invernale a 10-15°C",
+      "molte varietà colorate: \"Koenig\" (giallo-acceso), \"Rio\" (rosso-scuro), \"Helene\" (albicocca e centro rosso), \"Bangkok\" (rosso colorate), \"Rosalie\" (colore salmone)",
+      "rinvasare tutti gli anni in primavera",
+      "moltiplicazione per talea, da aprile ad agosto"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, immergere il vaso una volta a settimana",
+        "estate": "regolare, con nebulizzazioni",
+        "autunno": "ridotta, potatura a un terzo dell'altezza",
+        "inverno": "diradata, riposo a 10-15°C"
+      },
+      "concimazione": {
+        "primavera": "regolare",
+        "estate": "regolare",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "potatura a un terzo dell'altezza per favorire la fioritura",
+        "autunno": "potatura a un terzo dell'altezza",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Malvaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 90,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 15,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "hippeastrum": {
+    "nome": "Hippeastrum",
+    "specie": "Hippeastrum",
+    "descrizione": "Genere indigeno delle regioni tropicali e subtropicali dell'America centrale e meridionale e dei Caraibi, comprende specie che vengono talvolta confuse con Amaryllis belladonna, benché quest'ultima non sia adatta alla coltivazione in appartamento. Dal processo di selezione degli ibridi, ottenuti soprattutto in Gran Bretagna e in Olanda, sono nate numerose varietà (\"Apple Blossom\", \"Red Lion\", \"Picotee\", \"Minerva\") che differiscono tra loro per colore e dimensione dei fiori.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare, terreno sempre umido",
+      "terreno": "Terriccio universale"
+    },
+    "alert": [
+      "a seconda della dimensione del bulbo si sviluppano uno o più scapi con 2-5 grandi fiori",
+      "dopo la fioritura, recidere lo scapo appassito e continuare a innaffiare e concimare per rinforzare il bulbo",
+      "in settembre il bulbo va posto a riposo: sospendere le innaffiature e conservarlo in un locale fresco (16°C) e asciutto",
+      "cambiare la terra e rinvasare ogni 2 anni",
+      "moltiplicazione per semina: interrare il bulbo per 4-5 settimane a 23°C, poi riporre in locale fresco a 16°C"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, ripresa dopo il riposo",
+        "estate": "regolare, terreno sempre umido",
+        "autunno": "sospesa (bulbo a riposo)",
+        "inverno": "sospesa, bulbo a riposo a 16°C, asciutto"
+      },
+      "concimazione": {
+        "primavera": "regolare",
+        "estate": "regolare, per rinforzare il bulbo dopo la fioritura",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "recidere lo scapo fiorale appassito",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Amaryllidaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "inverno"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "hoya": {
+    "nome": "Hoya",
+    "specie": "Hoya carnosa",
+    "descrizione": "Genere spontaneo nella Cina meridionale, nell'arcipelago indonesiano e in Australia, circa 200 specie, delle quali solo alcune sono coltivate in vaso, spesso sostenute con tutori o lasciate crescere su graticci. H. carnosa ha foglie coriacee ovato-lanceolate, verde scuro, screziate di bianco crema; H. bella ha foglie piccole a picciolo corto, portamento ricadente, ombrelle pendule di fiori bianchi profumati con centro rosso scuro.",
+    "esigenze": {
+      "luce": "Mezz'ombra: posizione luminosa ma non esposta ai raggi diretti",
+      "acqua": "Regolare, senza eccessi; nebulizzazioni frequenti",
+      "terreno": "Leggero, ben drenato"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro)",
+      "le radici sono sensibili: il terreno deve essere ben drenato e ricco di humus",
+      "pianta rampicante o ricadente: sostenuta con tutori o lasciata crescere su graticci, oppure lasciata ricadere dal vaso",
+      "temperatura vegetativa 20-30°C; riposo invernale a circa 18°C con umidità ridotta"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare",
+        "estate": "regolare, con nebulizzazioni frequenti",
+        "autunno": "ridotta",
+        "inverno": "ridotta, riposo a 18°C"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Apocynaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 24,
+      "irrigazione_fattore": 0.7
+    },
+    "stato_verifica": "verificato"
+  },
+  "hyacinthus": {
+    "nome": "Hyacinthus",
+    "specie": "Hyacinthus orientalis",
+    "descrizione": "Genere originario della Siria e dell'Iraq, tra le bulbose più apprezzate per la coltivazione in giardino e in appartamento. H. orientalis (giacinto) ha bulbo arrotondato, 4-7 foglie lineari canalicolate e carnose, e fiori campanulati profumati riuniti in un racemo, bianchi, rosa o blu; molte cultivar (\"Amsterdam\", \"Blue Jacket\", \"Carnegie\", \"Jan Bos\", \"Ostara\").",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Regolare, terreno sempre umido durante la forzatura",
+      "terreno": "Terriccio o ghiaia (nella fase iniziale di radicazione al buio)"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro): il bulbo è tossico se ingerito",
+      "le varietà più apprezzate per la coltivazione in appartamento vengono sottoposte a particolari trattamenti in serra prima di essere vendute",
+      "i bulbi vanno posti in terriccio o ghiaia e collocati in un locale fresco e buio perché radichino",
+      "quando spuntano le prime gemme, spostare il vaso in un locale luminoso a 18-20°C, poi, quando le gemme si sviluppano, riporre in posizione molto luminosa a 20-23°C",
+      "in genere, al termine della fioritura, i giacinti vengono piantati in giardino e lasciati senza cure: non si conservano bene per una seconda forzatura in vaso"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, terreno sempre umido",
+        "estate": "regolare",
+        "autunno": "nessuna (bulbo al buio, in radicazione)",
+        "inverno": "regolare, dalla comparsa delle gemme"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Asparagaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "autunno"
+      ],
+      "resistenza_gelo": "alta",
+      "spaziatura_cm": 15,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": null,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
+  },
+  "hydrangea": {
+    "nome": "Hydrangea",
+    "specie": "Hydrangea macrophylla",
+    "descrizione": "Genere che comprende circa 80 specie, originario della Cina e del Giappone. H. macrophylla, ortensia, è una pianta semiarbustiva coltivata comunemente come pianta ornamentale da giardino e da appartamento, con foglie ovali dentate e grandi inflorescenze globose corimbiformi; numerosissime varietà (\"Bodensee\", \"Madame Emile Mouillere\", \"Masja\", \"Renate Steiniger\", \"Soeur Theres\", \"Teller\").",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non troppo esposta ai raggi diretti del sole",
+      "acqua": "Regolare, con acqua tiepida non calcarea",
+      "terreno": "Terra da vasi acida, arricchita con concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo esplicito nel libro)",
+      "il colore dei fiori dipende dal terreno: più calcio tende al rosa, più ferro tende al blu (per accentuare il blu si possono interrare alcuni chiodi arrugginiti)",
+      "rinvasare subito dopo la fioritura",
+      "temperatura piuttosto bassa preferibile alla posizione calda",
+      "moltiplicazione per talea, in estate"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, ripresa dopo il riposo",
+        "estate": "regolare, con acqua tiepida non calcarea",
+        "autunno": "diradare (avvio riposo)",
+        "inverno": "diradata, riposo a temperatura bassa"
+      },
+      "concimazione": {
+        "primavera": "ogni 6-8 settimane",
+        "estate": "ogni 6-8 settimane",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "nessuna",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Hydrangeaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "media",
+      "spaziatura_cm": 70,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 10,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.9
+    },
+    "stato_verifica": "verificato"
   }
 }
