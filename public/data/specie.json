@@ -11853,5 +11853,387 @@
       "irrigazione_fattore": 0.9
     },
     "stato_verifica": "verificato"
+  },
+  "impatiens": {
+    "nome": "Impatiens",
+    "specie": "Impatiens walleriana",
+    "descrizione": "Genere molto diffuso nelle regioni tropicali e subtropicali dell'Asia e dell'Africa, con alcune specie spontanee anche nelle regioni temperate dell'emisfero boreale; comprende piante erbacee annuali o perenni con fusti succulenti, traslucidi, e foglie dentate. I fiori sono a simmetria bilaterale, semplici o doppi, ascellari, solitari o in gruppi; i frutti maturi si aprono al minimo contatto scagliando i semi a distanza. I. walleriana (sin. I. holstii, I. sultanii), la specie più diffusa come pianta d'appartamento, è perenne, con foglie ovato-lanceolate dentellate e fiori del diametro di 2-5cm in numerose tonalità. I. balsamina è una specie biennale a portamento più eretto, con fusti rossastri e fiori doppi o semplici rosso chiaro, rosa, lilla o bianchi. Gli ibridi 'New Guinea' hanno portamento arbustivo, fusti carnosi e fiori grandi e piatti, spesso con foglie colorate o screziate.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma protetta dai raggi diretti del sole, soprattutto quando si formano i boccioli",
+      "acqua": "Regolare, terreno sempre umido; gradisce nebulizzazioni non dirette sui fiori",
+      "terreno": "Sostanzioso (terriccio universale per vasi)"
+    },
+    "alert": [
+      "il nome comune inglese \"Busy Lizzie\" è associato a I. walleriana, venduta in commercio anche sotto i sinonimi I. holstii e I. sultanii",
+      "i frutti maturi si aprono al minimo contatto, scagliando i semi a distanza",
+      "la fonte non riporta il simbolo di tossicità per questo genere",
+      "la pagina fotografata di questa voce era in parte poco leggibile: i dettagli su concimazione, temperatura e rinvaso non sono stati riportati per evitare imprecisioni non verificabili sulla fonte"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, terreno sempre umido",
+        "estate": "regolare, terreno sempre umido, nebulizzare evitando i fiori",
+        "autunno": "moderata",
+        "inverno": "moderata"
+      },
+      "concimazione": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Balsaminaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 25,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.9
+    },
+    "stato_verifica": "verificato"
+  },
+  "jasminum": {
+    "nome": "Jasminum",
+    "specie": "Jasminum officinale",
+    "descrizione": "Genere originario delle regioni tropicali dell'Asia, dell'Africa e dell'Australia, con circa 200 specie dai fiori profumatissimi, molto diffuse come piante d'appartamento e da giardino. Piante arbustive dal fusto rampicante, spesso sostenute con tutori o lasciate crescere su graticci, con getti volubili o ramoscelli esili, foglie semplici o composte e fiori bianchi, rosso-rosacei o gialli, profumatissimi, riuniti in mazzetti, con petali uniti a formare un lungo e stretto tubo. J. meysnii (sin. J. primulinum) è perenne, con fusti verdi a sezione quadrata, leggermente volubili, foglie composte da fogliline lanceolate e fiori gialli non profumati del diametro di 3-5cm, isolati; può raggiungere i 2m se sostenuta da tutori. J. officinale, il gelsomino comune, è una pianta rampicante decidua alta fino a 4m, con foglie molto divise e fiori bianchi profumati in grappoli, del diametro di 2,5cm; la cultivar 'Aureovariegatum' ha foglie gialle screziate. J. grandiflorum (sin. J. officinale grandiflorum) ha fiori bianchi più grandi; J. officinale affine ha fiori rosa-biancastri.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma non esposta ai raggi diretti del sole",
+      "acqua": "Regolare nel periodo vegetativo, terreno mantenuto umido; diradare in autunno/inverno",
+      "terreno": "Sostanzioso: miscela di pacciame, argilla e concime organico"
+    },
+    "alert": [
+      "pianta velenosa (simbolo \"!\" esplicito nel libro)",
+      "il vaso non deve essere troppo piccolo e i fusti rampicanti vanno attorcigliati a una griglia",
+      "se le gemme cadono, significa che la luce non è sufficiente"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, terreno mantenuto umido",
+        "estate": "regolare, terreno mantenuto umido, nebulizzare con acqua non calcarea",
+        "autunno": "diradare le innaffiature",
+        "inverno": "diradare le innaffiature, terreno quasi asciutto"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "cimare regolarmente i germogli delle piante giovani",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Oleaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 50,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 5,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
+  },
+  "jatropha": {
+    "nome": "Jatropha",
+    "specie": "Jatropha podagrica",
+    "descrizione": "Genere nativo delle regioni tropicali dell'Asia e dell'Africa, oggi spontaneo nelle regioni tropicali e subtropicali di tutto il mondo, comprende circa 170 specie di cui numerose succulente. J. podagrica, la specie più comune come pianta da appartamento, ha un fusto succulento, ramificato, a forma di bottiglia, che serve da riserva d'acqua; il 'collo' della bottiglia è ramificato alla sommità e sostiene grandi foglie picciolate, a forma di scudo, lobate in modo irregolare, leggermente incise ai margini. I fiori sono riuniti in infiorescenze di colore arancione o rosso acceso poste su lunghi peduncoli.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Moderata nel periodo vegetativo, terra quasi asciutta a riposo",
+      "terreno": "Sostanzioso e poroso: miscela di pacciame e argilla"
+    },
+    "alert": [
+      "il libro riporta il nome del genere come \"Jathropha\": la grafia botanicamente corretta e oggi accettata è Jatropha",
+      "il fusto succulento a forma di bottiglia funge da riserva d'acqua: un'eccessiva concimazione o irrigazione può far perdere alla pianta la sua forma caratteristica",
+      "il genere Jatropha è noto per la linfa irritante/tossica di molte specie (fatto botanico generale, non specificamente segnalato dal libro con il simbolo \"!\")",
+      "la moltiplicazione si effettua per semina, dopo impollinazione artificiale, raccogliendo i semi dispersi"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata",
+        "estate": "moderata, senza eccedere",
+        "autunno": "diradata (le foglie iniziano a cadere)",
+        "inverno": "terra quasi asciutta, riposo a circa 16°C"
+      },
+      "concimazione": {
+        "primavera": "una volta al mese, senza eccedere",
+        "estate": "una volta al mese, senza eccedere",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Euphorbiaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 40,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.5
+    },
+    "stato_verifica": "verificato"
+  },
+  "justicia": {
+    "nome": "Justicia",
+    "specie": "Justicia carnea",
+    "descrizione": "Le specie di Justicia crescono nelle regioni temperate e subtropicali di tutto il mondo; il genere comprende oggi anche specie precedentemente classificate nel genere Jacobinia. J. carnea (sin. Jacobinia carnea, Jacobinia magnifica), la specie più comunemente coltivata come pianta da appartamento, è originaria del Brasile, dove può raggiungere i 150-200cm di altezza (in appartamento raggiunge il metro), con sviluppo rapido. È una pianta erbacea o semi-cespugliosa con fusti eretti, coppie di foglie intere, grandi, picciolate, ovali e acuminate con profonde nervature, e spighe di fiori tubolari con due petali a linguetta; i fiori, con brattee verdi o porpora, sono di colore salmone o rosso-porpora e formano spighe piumose lunghe 10cm.",
+    "esigenze": {
+      "luce": "Molto luminosa, ma protetta dai raggi diretti del sole",
+      "acqua": "Regolare, con nebulizzazioni (non sui fiori), acqua tiepida",
+      "terreno": "Per vasi, mischiato con argilla"
+    },
+    "alert": [
+      "pianta velenosa (simbolo \"!\" esplicito nel libro)",
+      "nota tassonomica: la specie è oggi classificata come Justicia carnea; il nome storico Jacobinia carnea (o Jacobinia magnifica) è ancora ampiamente usato in commercio",
+      "il vaso può essere posto su un piattino capovolto dentro un contenitore d'acqua per aumentare l'umidità ambientale",
+      "è normale che le foglie cadano durante il periodo di riposo autunno/inverno"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "regolare, nebulizzare con acqua tiepida",
+        "estate": "regolare, nebulizzare con acqua tiepida",
+        "autunno": "diradata, è normale che le foglie cadano",
+        "inverno": "diradata, riposo a 13-16°C"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "potare bene: i fiori sbocciano sui nuovi germogli",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Acanthaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 45,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 3,
+      "rinvaso_ogni_mesi": 18,
+      "irrigazione_fattore": 0.85
+    },
+    "stato_verifica": "verificato"
+  },
+  "kalanchoe": {
+    "nome": "Kalanchoe",
+    "specie": "Kalanchoe blossfeldiana",
+    "descrizione": "Genere indigeno dell'Africa, dell'Asia e del Madagascar, comprende più di 200 specie erbacee e arbustive, le prime alte 10cm, le seconde fino a 10m; sono piante succulente con foglie opposte o disposte a rosette, carnose, intere, dai margini solitamente dentellati, e infiorescenze a ombrella, erette o pendule, con fiori a 4 petali. K. blossfeldiana ('Flaming Katy') ha foglie lucide, ovali, verdi, con margine dentellato rossastro, e infiorescenze di piccoli fiori peduncolati a 4 petali di colore rosso chiaro; da questa specie sono stati ottenuti molti ibridi, tra cui 'Bali' (fiori rosso-aranciati), 'Beta' (gialli), 'Bingo' (porpora), 'Burrasca' (bianchi), 'Forty-niner' (gialli), 'Hurricane' (rossi), 'Mistral' (lilla) e 'Tarantella' (arancioni). 'Tessa' produce molti fiori arancioni penduli, stretti, a forma di lanterna, e può vivere anche all'aperto in posizione luminosa e riparata; 'Wendy' ha fusti grossi, eretti, e fiori piuttosto grandi, penduli, globosi, di colore rosso-rosaceo. Prolungando artificialmente le ore di luce, le varietà coltivate come piante d'appartamento sono rese disponibili tutto l'anno; dopo la fioritura, solitamente, la pianta muore.",
+    "esigenze": {
+      "luce": "Pieno sole",
+      "acqua": "Terra abbastanza umida",
+      "terreno": "Non specificato dalla fonte; terriccio universale ben drenato"
+    },
+    "alert": [
+      "dopo la fioritura la pianta solitamente muore",
+      "il genere Kalanchoe è comunemente noto per la tossicità (glicosidi cardiaci) per cani e gatti se ingerito (fatto ampiamente documentato, non specificamente segnalato dal libro con il simbolo \"!\")",
+      "recidere i fiori dopo la fioritura"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "terra abbastanza umida",
+        "estate": "terra abbastanza umida",
+        "autunno": "terra abbastanza umida",
+        "inverno": "terra abbastanza umida"
+      },
+      "concimazione": {
+        "primavera": "una volta alla settimana",
+        "estate": "una volta alla settimana",
+        "autunno": null,
+        "inverno": null
+      },
+      "potatura": {
+        "primavera": "recidere i fiori dopo la fioritura",
+        "estate": "recidere i fiori dopo la fioritura",
+        "autunno": null,
+        "inverno": null
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Crassulaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [],
+      "finestra_trapianto": [
+        "primavera"
+      ],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 20,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 1,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.5
+    },
+    "stato_verifica": "verificato"
+  },
+  "kohleria": {
+    "nome": "Kohleria",
+    "specie": "Kohleria",
+    "descrizione": "Genere originario del Messico e dell'America settentrionale e meridionale; le piante coltivate in appartamento sono varietà ottenute per ibridazione dalle specie K. amabilis, K. bogotensis e K. eriantha. Sono piante erbacee con rizomi squamosi sotterranei, fusti pelosi leggermente legnosi, foglie opposte, tomentose, e fiori solitari o in gruppi, ascellari o terminali; i cinque petali, molto pelosi, formano un tubo piuttosto arrotondato che termina con cinque lobi liberi, di colore bianco, giallo, arancione, rosa, rosso o viola, spesso con splendide striature. K. amabilis ha fusti piuttosto lassi, lunghi anche 60cm, foglie ovali verde scuro con venature bruno-porporine e fiori rosa acceso con macchie rosso-porpora, solitari o in coppie; gli ibridi sono più piccoli e hanno foglie lisce. K. bogotensis ha fusti più grossi, foglie ovali verdi o verde-bruno con venature verde chiaro e fiori penduli con corolla tubiforme, petali bianchi o giallo chiaro macchiati di rosso. K. eriantha, alta anche 120cm (gli ibridi 20-45cm), ha fusti lunghi e pelosi, bianchi o rossi, grandi foglie spesse, ovali, pelose e rosse ai margini, e fiori peduncolati rosso-arancione con macchie gialle, in gruppi di 3-4.",
+    "esigenze": {
+      "luce": "Luminosa, ma protetta dai raggi diretti del sole",
+      "acqua": "Moderata nel periodo vegetativo, con acqua non calcarea e tiepida",
+      "terreno": "Molto acido, ben drenato, soffice: pacciame, torba e perlite"
+    },
+    "alert": [
+      "richiede un terreno molto acido, ben drenato e soffice (per esempio: pacciame, torba e perlite)",
+      "per l'umidità, porre il vaso su un piattino capovolto dentro un contenitore d'acqua",
+      "i fusti ricadenti vanno sostenuti",
+      "moltiplicazione per divisione del rizoma o per talea in autunno (fioritura precoce), oppure per semina in gennaio (fioritura tardiva)"
+    ],
+    "manutenzione": {
+      "irrigazione": {
+        "primavera": "moderata, acqua non calcarea e tiepida",
+        "estate": "moderata, acqua non calcarea e tiepida",
+        "autunno": "diradata dopo la fioritura",
+        "inverno": "diradata, riposo a 12-15°C"
+      },
+      "concimazione": {
+        "primavera": "ogni 2-3 settimane, mezza dose",
+        "estate": "ogni 2-3 settimane, mezza dose",
+        "autunno": "sospesa",
+        "inverno": "sospesa"
+      },
+      "potatura": {
+        "primavera": "potare tutti gli anni",
+        "estate": "nessuna",
+        "autunno": "nessuna",
+        "inverno": "nessuna"
+      },
+      "npk": {
+        "primavera": null,
+        "estate": null,
+        "autunno": null,
+        "inverno": null
+      }
+    },
+    "ciclo_vitale": "perenne",
+    "coltivazione": {
+      "famiglia_botanica": "Gesneriaceae",
+      "giorni_germinazione": null,
+      "giorni_trapianto": null,
+      "giorni_raccolta": null,
+      "finestra_semina": [
+        "gennaio"
+      ],
+      "finestra_trapianto": [],
+      "resistenza_gelo": "nessuna",
+      "spaziatura_cm": 30,
+      "consociazioni_favorevoli": [],
+      "consociazioni_sfavorevoli": []
+    },
+    "vaso": {
+      "adatta": true,
+      "dimensione_minima_litri": 2,
+      "rinvaso_ogni_mesi": 12,
+      "irrigazione_fattore": 0.8
+    },
+    "stato_verifica": "verificato"
   }
 }
