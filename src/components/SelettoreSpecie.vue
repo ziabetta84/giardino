@@ -12,10 +12,14 @@
     >
     <div v-if="dropdownAperto" class="specie-dropdown">
       <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione-riga">
-        <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)">{{ s.nome }}</div>
+        <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)" style="display:flex;align-items:center;gap:6px;">
+          <span>{{ s.nome }}</span>
+          <span v-if="!s.verificata" class="badge" style="font-size:10px;padding:1px 6px;background:var(--gold-pale);color:var(--gold-dark);flex-shrink:0;">bozza</span>
+        </div>
         <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie"><Icon name="matita" style="width:13px;height:13px;" /></button>
       </div>
-      <p v-if="!specieFiltrate.length" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
+      <p v-if="!specieFiltrate.length && specieQuery.trim()" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
+      <p v-if="!specieQuery.trim()" style="font-size:11px;color:var(--ink-faint);padding:6px 10px 2px;">Specie verificate — digita per cercare anche nelle {{ Object.keys(store.specie ?? {}).length }} bozze del catalogo</p>
       <div class="specie-opzione specie-nuova" @mousedown.prevent="apriNuovaSpecie">
         ＋ Aggiungi nuova specie{{ specieQuery.trim() ? ` "${specieQuery.trim()}"` : '' }}
       </div>
@@ -223,13 +227,25 @@ const { saveJSON } = useApi()
 const specieQuery    = ref('')
 const dropdownAperto = ref(false)
 
+// Con il catalogo esteso da PFAF (~8.700 voci, quasi tutte in bozza), il
+// menu non può più mostrare "tutto" a campo vuoto: costerebbe una lista
+// enorme nel DOM per una ricerca non ancora iniziata. Sotto ai 2 caratteri
+// mostriamo solo le specie verificate (poche, curate, sempre utili come
+// suggerimento iniziale); da 2 caratteri in su la ricerca copre tutto il
+// catalogo, bozza incluse, con le verificate sempre in cima a parità di
+// rilevanza.
 const specieFiltrate = computed(() => {
   const tutte = Object.entries(store.specie ?? {})
-    .map(([key, s]) => ({ key, nome: s.nome ?? key }))
-    .sort((a, b) => a.nome.localeCompare(b.nome))
+    .map(([key, s]) => ({ key, nome: s.nome ?? key, verificata: s.stato_verifica === 'verificato' }))
   const q = specieQuery.value.trim().toLowerCase()
-  if (!q) return tutte
-  return tutte.filter(s => s.nome.toLowerCase().includes(q))
+
+  const base = q
+    ? tutte.filter(s => s.nome.toLowerCase().includes(q))
+    : tutte.filter(s => s.verificata)
+
+  return base
+    .sort((a, b) => (b.verificata - a.verificata) || a.nome.localeCompare(b.nome))
+    .slice(0, 50)
 })
 
 // Tiene il testo visualizzato allineato alla specie effettivamente selezionata
