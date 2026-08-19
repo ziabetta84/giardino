@@ -1423,19 +1423,6 @@
     },
     "impianto_circa": ""
   },
-  "cosmos-atrosanguineus-1784629658444": {
-    "specie": "cosmos-atrosanguineus",
-    "zona": "Casa",
-    "sottozona": "Terrazzo soggiorno",
-    "varieta": "",
-    "impianto": "",
-    "note": "",
-    "ultima_cura": {
-      "irrigazione": "2026-08-18",
-      "concimazione": "2026-08-09"
-    },
-    "impianto_circa": ""
-  },
   "pomodoro-1784630168938": {
     "specie": "pomodoro",
     "zona": "Orto",
