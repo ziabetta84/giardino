@@ -45,36 +45,69 @@
 
       <!-- Tappe -->
       <div class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:10px;">Tappe</p>
+        <p class="section-label" style="margin-bottom:14px;">Tappe</p>
 
-        <div v-if="!form.tappe.length" style="font-size:12px;color:var(--ink-faint);margin-bottom:12px;">
-          Nessuna tappa ancora — aggiungine una qui sotto.
-        </div>
-
-        <div v-else style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
-          <div v-for="(t, i) in form.tappe" :key="i"
-            style="padding:10px;border:1px solid var(--cream-dark);border-radius:10px;">
-            <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;">
-              <input type="date" v-model="t.data" class="form-input" style="flex:1;min-width:130px;">
-              <select v-model="t.esito" class="form-input" style="flex:1;min-width:110px;">
-                <option value="atteso">Atteso</option>
-                <option value="riuscito">Riuscito</option>
-                <option value="fallito">Fallito</option>
-                <option value="saltato">Saltato</option>
-              </select>
-              <button type="button" @click="form.tappe.splice(i, 1)" aria-label="Rimuovi tappa"
+        <div class="tl">
+          <!-- inserimento prima della prima tappa -->
+          <div class="tl-insert">
+            <button v-if="inserimentoIndex !== 0" type="button"
+              :class="form.tappe.length ? 'tl-insert-btn' : 'tl-insert-btn tl-insert-btn--empty'"
+              @click="apriInserimento(0)">
+              {{ form.tappe.length ? '+' : '+ Aggiungi tappa' }}
+            </button>
+            <div v-else class="tl-insert-form">
+              <input type="date" v-model="nuovaTappaInserimento.data" class="form-input" style="flex:1;min-width:120px;">
+              <input v-model="nuovaTappaInserimento.descrizione" placeholder="Cosa aspettarti / cosa fare" class="form-input"
+                style="flex:2;min-width:140px;" @keyup.enter="confermaInserimento">
+              <button type="button" class="btn btn-sage" style="flex-shrink:0;padding:8px 14px;font-size:13px;" @click="confermaInserimento">Aggiungi</button>
+              <button type="button" @click="inserimentoIndex = null" aria-label="Annulla"
                 style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;padding:0 4px;flex-shrink:0;">×</button>
             </div>
-            <textarea v-model="t.descrizione" placeholder="Cosa aspettarti / cosa fare" rows="2"
-              class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
           </div>
-        </div>
 
-        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <input type="date" v-model="nuovaTappa.data" class="form-input" style="flex:1;min-width:130px;">
-          <input v-model="nuovaTappa.descrizione" placeholder="Nuova tappa…" class="form-input" style="flex:3;min-width:160px;"
-            @keyup.enter="aggiungiTappa">
-          <button type="button" @click="aggiungiTappa" class="btn btn-ghost" style="flex-shrink:0;">+ Aggiungi</button>
+          <template v-for="(t, i) in form.tappe" :key="i">
+            <div class="tl-item">
+              <span class="tl-dot" :style="{ background: coloreEsito(t.esito), borderColor: coloreEsito(t.esito) }"></span>
+
+              <div v-if="tappaApertaIndex === i" class="tl-edit">
+                <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px;">
+                  <input type="date" v-model="t.data" class="form-input" style="flex:1;min-width:120px;">
+                  <select v-model="t.esito" class="form-input" style="flex:1;min-width:100px;">
+                    <option value="atteso">Atteso</option>
+                    <option value="riuscito">Riuscito</option>
+                    <option value="fallito">Fallito</option>
+                    <option value="saltato">Saltato</option>
+                  </select>
+                </div>
+                <textarea v-model="t.descrizione" placeholder="Cosa aspettarti / cosa fare" rows="2"
+                  class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:8px;"></textarea>
+                <div style="display:flex;gap:10px;align-items:center;">
+                  <button type="button" @click="tappaApertaIndex = null" class="btn btn-sage" style="flex:1;font-size:13px;padding:7px;">Fatto</button>
+                  <button type="button" @click="rimuoviTappa(i)" style="background:none;border:none;color:var(--rose-dark);font-size:12px;cursor:pointer;">Elimina</button>
+                </div>
+              </div>
+
+              <button v-else type="button" class="tl-card" @click="tappaApertaIndex = i">
+                <div class="tl-card-head">
+                  <span class="tl-date">{{ formatData(t.data) }}</span>
+                  <span class="tl-esito" :style="{ color: coloreEsito(t.esito) }">{{ labelEsito(t.esito) }}</span>
+                </div>
+                <p class="tl-desc">{{ t.descrizione }}</p>
+              </button>
+            </div>
+
+            <div class="tl-insert">
+              <button v-if="inserimentoIndex !== i + 1" type="button" class="tl-insert-btn" @click="apriInserimento(i + 1)">+</button>
+              <div v-else class="tl-insert-form">
+                <input type="date" v-model="nuovaTappaInserimento.data" class="form-input" style="flex:1;min-width:120px;">
+                <input v-model="nuovaTappaInserimento.descrizione" placeholder="Cosa aspettarti / cosa fare" class="form-input"
+                  style="flex:2;min-width:140px;" @keyup.enter="confermaInserimento">
+                <button type="button" class="btn btn-sage" style="flex-shrink:0;padding:8px 14px;font-size:13px;" @click="confermaInserimento">Aggiungi</button>
+                <button type="button" @click="inserimentoIndex = null" aria-label="Annulla"
+                  style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;padding:0 4px;flex-shrink:0;">×</button>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
 
@@ -120,7 +153,9 @@ const store  = useDatiStore()
 const { saveJSON } = useApi()
 
 const form = ref(null)
-const nuovaTappa = ref({ data: '', descrizione: '' })
+const tappaApertaIndex = ref(null)
+const inserimentoIndex = ref(null)
+const nuovaTappaInserimento = ref({ data: '', descrizione: '' })
 const salvando = ref(false)
 const errore = ref(null)
 const daEliminare = ref(false)
@@ -156,14 +191,40 @@ const scadenza = computed(() => form.value ? scadenzaCalcolata(form.value) : nul
 function caricaForm() {
   const p = store.progetti?.[route.params.id]
   form.value = p ? { ...p, tappe: (p.tappe || []).map(t => ({ ...t })) } : null
+  tappaApertaIndex.value = null
+  inserimentoIndex.value = null
 }
 watch(() => [store.progetti, route.params.id], caricaForm, { immediate: true })
 
-function aggiungiTappa() {
-  if (!nuovaTappa.value.data || !nuovaTappa.value.descrizione.trim()) return
-  form.value.tappe.push({ data: nuovaTappa.value.data, descrizione: nuovaTappa.value.descrizione.trim(), esito: 'atteso' })
+const LABEL_ESITO = { atteso: 'Atteso', riuscito: 'Riuscito', fallito: 'Fallito', saltato: 'Saltato' }
+const COLORE_ESITO = {
+  atteso: 'var(--gold-dark)', riuscito: 'var(--sage-dark)',
+  fallito: 'var(--rose-dark)', saltato: 'var(--ink-faint)',
+}
+function labelEsito(esito) { return LABEL_ESITO[esito] ?? LABEL_ESITO.atteso }
+function coloreEsito(esito) { return COLORE_ESITO[esito] ?? COLORE_ESITO.atteso }
+
+// L'indice serve solo per sapere quale "+" ha aperto il mini-form: la
+// posizione finale della tappa è sempre determinata dalla data (le tappe
+// restano ordinate cronologicamente), non dalla posizione cliccata — così
+// funziona identicamente per un inserimento in fondo o in mezzo alla lista.
+function apriInserimento(indice) {
+  inserimentoIndex.value = indice
+  nuovaTappaInserimento.value = { data: '', descrizione: '' }
+}
+function confermaInserimento() {
+  if (!nuovaTappaInserimento.value.data || !nuovaTappaInserimento.value.descrizione.trim()) return
+  form.value.tappe.push({
+    data: nuovaTappaInserimento.value.data,
+    descrizione: nuovaTappaInserimento.value.descrizione.trim(),
+    esito: 'atteso',
+  })
   form.value.tappe.sort((a, b) => (a.data || '').localeCompare(b.data || ''))
-  nuovaTappa.value = { data: '', descrizione: '' }
+  inserimentoIndex.value = null
+}
+function rimuoviTappa(i) {
+  form.value.tappe.splice(i, 1)
+  tappaApertaIndex.value = null
 }
 
 async function salva() {
@@ -209,3 +270,108 @@ async function eliminaProgetto() {
   }
 }
 </script>
+
+<style scoped>
+.tl { position: relative; }
+
+.tl-item { position: relative; padding-left: 26px; margin-bottom: 2px; }
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 14px; bottom: 0;
+  width: 2px;
+  background: var(--cream-dark);
+}
+
+.tl-dot {
+  position: absolute;
+  left: 0; top: 14px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  background: var(--white);
+  box-sizing: border-box;
+}
+
+.tl-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.tl-card:hover { border-color: var(--gold-light); }
+
+.tl-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+
+.tl-date { font-size: 12px; font-weight: 600; color: var(--ink-mid); }
+.tl-esito { font-size: 11px; font-weight: 600; letter-spacing: 0.01em; }
+.tl-desc { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+
+.tl-edit {
+  padding: 10px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+}
+
+.tl-insert {
+  position: relative;
+  padding-left: 26px;
+  min-height: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* prosegue la linea della timeline attraverso ogni riga di inserimento,
+   tranne l'ultima (dopo l'ultima tappa, non c'è altro da collegare) */
+.tl-insert:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 5px; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--cream-dark);
+}
+
+.tl-insert-btn {
+  background: none;
+  border: none;
+  color: var(--ink-faint);
+  font-size: 13px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.tl-insert-btn:hover { color: var(--sage-dark); background: var(--sage-pale); }
+
+.tl-insert-btn--empty {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  padding: 8px 10px;
+  border: 1px dashed var(--cream-dark);
+  border-radius: 8px;
+}
+
+.tl-insert-form {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 6px 0;
+}
+</style>
