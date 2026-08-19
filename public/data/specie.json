@@ -68,7 +68,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Trauttmansdorff_gardens_-_Iberis_sempervirens_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Syrio",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Trauttmansdorff_gardens_-_Iberis_sempervirens_01.jpg",
+      "verificata": false
+    }
   },
   "sansevieria": {
     "nome": "Sansevieria",
@@ -131,7 +140,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Sansevieria_trifasciata_Colombia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "JOAN",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sansevieria_trifasciata_Colombia.jpg",
+      "verificata": false
+    }
   },
   "bellis-perennis": {
     "nome": "Bellis perennis",
@@ -200,7 +218,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/89/20200325_Bellis_perennis_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Flocci Nivis",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:20200325_Bellis_perennis_01.jpg",
+      "verificata": false
+    }
   },
   "erica": {
     "nome": "Erica",
@@ -267,7 +294,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Erica_carnea_%27Isabell%27_Wrzosiec_krwisty_2017-04-09_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Erica_carnea_'Isabell'_Wrzosiec_krwisty_2017-04-09_01.jpg",
+      "verificata": false
+    }
   },
   "gazania": {
     "nome": "Gazania",
@@ -336,7 +372,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Gazania_rigens_cultivar_in_Conques.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gazania_rigens_cultivar_in_Conques.jpg",
+      "verificata": false
+    }
   },
   "narciso": {
     "nome": "Narciso",
@@ -404,7 +449,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Snowdrops_under_Beech_trees_-_geograph.org.uk_-_1722347.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "attribuzione": "Jonathan Kington",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Snowdrops_under_Beech_trees_-_geograph.org.uk_-_1722347.jpg",
+      "verificata": false
+    }
   },
   "primula": {
     "nome": "Primula",
@@ -474,7 +528,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Primula_Francesca_A.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Wouter Hagens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Primula_Francesca_A.jpg",
+      "verificata": false
+    }
   },
   "spiraea-arguta": {
     "nome": "Spiraea arguta",
@@ -541,7 +604,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Sambucus_nigra_und_Spiraea_arguta.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Burkhard Mücke",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sambucus_nigra_und_Spiraea_arguta.jpg",
+      "verificata": false
+    }
   },
   "uva-di-gatto": {
     "nome": "Uva di gatto",
@@ -607,7 +679,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Muscari_armeniacum%2C_1803041716%2C_ako.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ansgar Koreng",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Muscari_armeniacum,_1803041716,_ako.jpg",
+      "verificata": false
+    }
   },
   "zinnia": {
     "nome": "Zinnia",
@@ -680,7 +761,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ermell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zinnienblüte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg",
+      "verificata": false
+    }
   },
   "alloro": {
     "nome": "Alloro",
@@ -749,7 +839,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Laurus_nobilis_MHNT_Fleurs.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Laurus_nobilis_MHNT_Fleurs.jpg",
+      "verificata": false
+    }
   },
   "arancio-navel": {
     "nome": "Arancio Navel",
@@ -824,7 +923,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Citrus_sinensis_Lucca_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Syrio",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Citrus_sinensis_Lucca_03.jpg",
+      "verificata": false
+    }
   },
   "prunus-taoflora": {
     "nome": "Prunus taoflora",
@@ -892,7 +1000,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Prunus_domestica_Linnaeus_1753.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Elena Regina",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Prunus_domestica_Linnaeus_1753.jpg",
+      "verificata": false
+    }
   },
   "rosmarino": {
     "nome": "Rosmarino",
@@ -967,7 +1084,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Rosmarinus_officinalis_in_Vieussan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Christian Ferrer",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Rosmarinus_officinalis_in_Vieussan.jpg",
+      "verificata": false
+    }
   },
   "scilla-marittima": {
     "nome": "Scilla marittima",
@@ -1033,7 +1159,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Drimia_maritima_-_Sea_onion%2C_Adana_2016-12-04_01-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Zeynel Cebeci",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Drimia_maritima_-_Sea_onion,_Adana_2016-12-04_01-1.jpg",
+      "verificata": false
+    }
   },
   "sedum-acre": {
     "nome": "Sedum acre",
@@ -1101,7 +1236,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Sedum_acre_single_-_Niitv%C3%A4lja.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sedum_acre_single_-_Niitvälja.jpg",
+      "verificata": false
+    }
   },
   "timo-serpillo": {
     "nome": "Timo serpillo",
@@ -1173,7 +1317,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Thymus_serpyllum_in_Cardaillac_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Thymus_serpyllum_in_Cardaillac_(2).jpg",
+      "verificata": false
+    }
   },
   "orchidea": {
     "nome": "Orchidea",
@@ -1238,7 +1391,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Phalaenopsis_Cultivar_Yellow_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Uoaei1",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Phalaenopsis_Cultivar_Yellow_01.jpg",
+      "verificata": false
+    }
   },
   "basilico": {
     "nome": "Basilico",
@@ -1313,7 +1475,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Ocimum_Basilicum_leaf_lighted_by_the_left.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "BernaBotto",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ocimum_Basilicum_leaf_lighted_by_the_left.jpg",
+      "verificata": false
+    }
   },
   "ceropegia": {
     "nome": "Ceropegia",
@@ -1384,7 +1555,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Ceropegia_woodii_Ceropegia_Wooda_2024-04-26_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ceropegia_woodii_Ceropegia_Wooda_2024-04-26_01.jpg",
+      "verificata": false
+    }
   },
   "erba-cipollina": {
     "nome": "Erba cipollina",
@@ -1459,7 +1639,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Allium_schoenoprasum_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_schoenoprasum_kz01.jpg",
+      "verificata": false
+    }
   },
   "fragola-rifiorente": {
     "nome": "Fragola rifiorente",
@@ -1536,7 +1725,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ef/Garden_strawberry_%28Fragaria_%C3%97_ananassa%29_halved.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Garden_strawberry_(Fragaria_×_ananassa)_halved.jpg",
+      "verificata": false
+    }
   },
   "prezzemolo": {
     "nome": "Prezzemolo",
@@ -1609,7 +1807,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Petroselinum_crispum_var._tuberosum_-_Sclerotinia-1-Schlaghecken.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Schlaghecken Josef",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Petroselinum_crispum_var._tuberosum_-_Sclerotinia-1-Schlaghecken.jpg",
+      "verificata": false
+    }
   },
   "salvia": {
     "nome": "Salvia",
@@ -1684,7 +1891,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Salvia_officinalis_in_Cardaillac_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Salvia_officinalis_in_Cardaillac_(1).jpg",
+      "verificata": false
+    }
   },
   "sedum-makinoi": {
     "nome": "Sedum makinoi",
@@ -1752,7 +1968,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Sedum_makinoi_Variegatum_0zz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Photo by David J. Stang",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sedum_makinoi_Variegatum_0zz.jpg",
+      "verificata": false
+    }
   },
   "tradescantia": {
     "nome": "Tradescantia",
@@ -1818,7 +2043,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Paname%C3%B1a_%28Tradescantia_zebrina%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Panameña_(Tradescantia_zebrina).jpg",
+      "verificata": false
+    }
   },
   "calathea": {
     "nome": "Calathea",
@@ -1892,7 +2126,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Calathea_warscewiczii_-_Wilhelma.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "H. Zell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Calathea_warscewiczii_-_Wilhelma.jpg",
+      "verificata": false
+    }
   },
   "anthurium": {
     "nome": "Anthurium",
@@ -1960,7 +2203,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Anthurium_%28Flamingoplant%29_12-08-2019_%28actm%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnes Monkelbaan",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Anthurium_(Flamingoplant)_12-08-2019_(actm)_01.jpg",
+      "verificata": false
+    }
   },
   "calancola": {
     "nome": "Calancola",
@@ -2027,7 +2279,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/2025_Kalanchoe_blossfeldiana_Poelin._Santiago_de_Compostela._Galiza-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Luis Miguel Bugallo Sánchez",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2025_Kalanchoe_blossfeldiana_Poelin._Santiago_de_Compostela._Galiza-2.jpg",
+      "verificata": false
+    }
   },
   "ficus-ginseng": {
     "nome": "Ficus ginseng",
@@ -2094,7 +2355,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/68/%28MHNT%29_Ficus_microcarpa_%27Ginseng%27.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Ficus_microcarpa_'Ginseng'.jpg",
+      "verificata": false
+    }
   },
   "mammillaria": {
     "nome": "Mammillaria",
@@ -2159,7 +2429,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Mammillaria_vetula_%28fruto%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_vetula_(fruto).jpg",
+      "verificata": false
+    }
   },
   "mammillaria-piumosa": {
     "nome": "Mammillaria piumosa",
@@ -2225,7 +2504,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Mammillaria_plumosa_12.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Petar43",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_plumosa_12.JPG",
+      "verificata": false
+    }
   },
   "pothos": {
     "nome": "Pothos",
@@ -2290,7 +2578,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Epipremnum_aureum_kz02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Epipremnum_aureum_kz02.jpg",
+      "verificata": false
+    }
   },
   "cactus-ago-di-eva-monstroso": {
     "nome": "Cactus Ago di Eva (mostruoso)",
@@ -2358,7 +2655,16 @@
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Euphorbia_trigona_-_leaves.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Euphorbia_trigona_-_leaves.jpg",
+      "verificata": false
+    }
   },
   "echeveria": {
     "nome": "Echeveria",
@@ -2424,7 +2730,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/190615_177_Corona_del_Mar%2C_Sherman_Gardens_-_Succulent_Garden%2C_Tillandsia_spp%2C_Neoregelia_spp%2C_Tradescantia_sillamontana%2C_Echeveria_%27Lola%27%2C_Rhamnus_frangula_Fine_Line%C2%AE%2C_Ophiopogon_planiscapus_%27Nigrescens%27.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/2.0",
+      "attribuzione": "cultivar413",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:190615_177_Corona_del_Mar,_Sherman_Gardens_-_Succulent_Garden,_Tillandsia_spp,_Neoregelia_spp,_Tradescantia_sillamontana,_Echeveria_'Lola',_Rhamnus_frangula_Fine_Line®,_Ophiopogon_planiscapus_'Nigrescens'.jpg",
+      "verificata": false
+    }
   },
   "ipoeste": {
     "nome": "Ipoeste",
@@ -2493,7 +2808,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/%28MHNT%29_Hypoestes_phyllostachya_-_leaves.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Hypoestes_phyllostachya_-_leaves.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-allungata": {
     "nome": "Mammillaria allungata",
@@ -2558,7 +2882,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Mammillaria_elongata_Mamilaria_wyd%C5%82u%C5%BCona_2019-07-12_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_elongata_Mamilaria_wydłużona_2019-07-12_01.jpg",
+      "verificata": false
+    }
   },
   "pianta-panda": {
     "nome": "Pianta panda",
@@ -2624,7 +2957,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/78/%28MHNT%29_Kalanchoe_tomentosa_-_Leaves.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Kalanchoe_tomentosa_-_Leaves.jpg",
+      "verificata": false
+    }
   },
   "carex": {
     "nome": "Carex",
@@ -2693,7 +3035,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Carex_oshimensis_%27Evergold%27_-_Hillier_Gardens_-_Romsey%2C_Hampshire%2C_England_-_DSC04341.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC0",
+      "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribuzione": "Daderot",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Carex_oshimensis_'Evergold'_-_Hillier_Gardens_-_Romsey,_Hampshire,_England_-_DSC04341.jpg",
+      "verificata": false
+    }
   },
   "glechoma-hederacea": {
     "nome": "Glechoma hederacea",
@@ -2761,7 +3112,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/2026-04-02_Z5-3124_Achim-Lammerts_Glechoma-hederacea.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Achim Lammerts (Syntaxys)",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2026-04-02_Z5-3124_Achim-Lammerts_Glechoma-hederacea.jpg",
+      "verificata": false
+    }
   },
   "iris-spontaneo": {
     "nome": "Sisyrinchium",
@@ -2893,7 +3253,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 1.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Marsilea_quadrifolia_kz06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Marsilea_quadrifolia_kz06.jpg",
+      "verificata": false
+    }
   },
   "pennisetum-cinese": {
     "nome": "Pennisetum cinese",
@@ -2960,7 +3329,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Pennisetum_alopecuroides_in_China.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Dinkun Chen",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pennisetum_alopecuroides_in_China.jpg",
+      "verificata": false
+    }
   },
   "salcerella": {
     "nome": "Salcerella",
@@ -3027,7 +3405,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 1.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Lythrum_salicaria_-_harilik_kukesaba.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Lythrum_salicaria_-_harilik_kukesaba.jpg",
+      "verificata": false
+    }
   },
   "clematis-montana": {
     "nome": "Clematis montana",
@@ -3094,7 +3481,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Ranunculaceae_Clematis_montana_1.2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "NasserHalaweh",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ranunculaceae_Clematis_montana_1.2.jpg",
+      "verificata": false
+    }
   },
   "mesembriantemo": {
     "nome": "Mesembriantemo",
@@ -3226,7 +3622,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Nassella_tenuissima_Los_Angeles.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Downtowngal",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Nassella_tenuissima_Los_Angeles.jpg",
+      "verificata": false
+    }
   },
   "allium-sphaerocephalon": {
     "nome": "Allium sphaerocephalon",
@@ -3293,7 +3698,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Allium_sphaerocephalon%2C_Beechview%2C_2022-07-03%2C_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC0",
+      "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribuzione": "Cbaile19",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_sphaerocephalon,_Beechview,_2022-07-03,_03.jpg",
+      "verificata": false
+    }
   },
   "echinacea": {
     "nome": "Echinacea",
@@ -3359,7 +3773,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Echinacea_purpurea_in_Jardin_botanique_de_la_Charme_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Echinacea_purpurea_in_Jardin_botanique_de_la_Charme_01.jpg",
+      "verificata": false
+    }
   },
   "heuchera": {
     "nome": "Heuchera",
@@ -3427,7 +3850,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Plant_on_andesite_rock_with_moss._%284a6fa5940e3e4af2ab768c4e19de6e39%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "Public domain",
+      "licenza_url": "",
+      "attribuzione": "Steve Redman (MORA)",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Plant_on_andesite_rock_with_moss._(4a6fa5940e3e4af2ab768c4e19de6e39).JPG",
+      "verificata": false
+    }
   },
   "margherita-delle-canarie": {
     "nome": "Margherita delle Canarie",
@@ -3495,7 +3927,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Argyranthemum_frutescens_subsp._canariae_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Argyranthemum_frutescens_subsp._canariae_kz01.jpg",
+      "verificata": false
+    }
   },
   "osteospermum": {
     "nome": "Osteospermum",
@@ -3564,7 +4005,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Osteospermum_ecklonis_July_2026-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Alvesgaspar",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Osteospermum_ecklonis_July_2026-2.jpg",
+      "verificata": false
+    }
   },
   "verbena": {
     "nome": "Verbena",
@@ -3632,7 +4082,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Verbena_hybrida%E2%80%93IMG_6604_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Kızıl",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Verbena_hybrida–IMG_6604_01.jpg",
+      "verificata": false
+    }
   },
   "aquilegia": {
     "nome": "Aquilegia",
@@ -3701,7 +4160,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Aquilegia_vulgaris_%27Alba%27_with_dry_pods_-_2018-07-22_focus_stack.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Franz van Duns",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Aquilegia_vulgaris_'Alba'_with_dry_pods_-_2018-07-22_focus_stack.jpg",
+      "verificata": false
+    }
   },
   "centaurea-ragusina": {
     "nome": "Centaurea ragusina",
@@ -3776,7 +4244,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Centaurea_ragusina_Risan_Bay_of_Kotor_yard_of_the_St._Michael.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Orjen",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Centaurea_ragusina_Risan_Bay_of_Kotor_yard_of_the_St._Michael.JPG",
+      "verificata": false
+    }
   },
   "garofano": {
     "nome": "Garofano",
@@ -3845,7 +4322,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Lippincott_seeds_%2816371664641%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "Public domain",
+      "licenza_url": "",
+      "attribuzione": "Henry G. Gilbert Nursery and Seed Trade Catalog Collection.; Miss C.H. Lippincott (Firm)",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Lippincott_seeds_(16371664641).jpg",
+      "verificata": false
+    }
   },
   "lavanda": {
     "nome": "Lavanda",
@@ -3919,7 +4405,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/%28MHNT%29_Bombus_pascuorum_on_Lavandula_angustifolia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Bombus_pascuorum_on_Lavandula_angustifolia.jpg",
+      "verificata": false
+    }
   },
   "sedum-spurium": {
     "nome": "Sedum spurium",
@@ -3986,7 +4481,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Sedum_spurium.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "attribuzione": "Bouba at French Wikipedia",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sedum_spurium.jpg",
+      "verificata": false
+    }
   },
   "violaciocca": {
     "nome": "Violaciocca",
@@ -4054,7 +4558,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Matthiola_incana_kz08.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Matthiola_incana_kz08.jpg",
+      "verificata": false
+    }
   },
   "alisso": {
     "nome": "Alisso",
@@ -4122,7 +4635,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Lobularia_maritima%2C_S%C3%A8te_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Christian Ferrer",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Lobularia_maritima,_Sète_01.jpg",
+      "verificata": false
+    }
   },
   "fico-di-mare": {
     "nome": "Fico di mare",
@@ -4188,7 +4710,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Carpobrotus_edulis_in_New_Brighton%2C_Christchurch%2C_New_Zealand_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Michal Klajban",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Carpobrotus_edulis_in_New_Brighton,_Christchurch,_New_Zealand_03.jpg",
+      "verificata": false
+    }
   },
   "cuphea": {
     "nome": "Cuphea",
@@ -4254,7 +4785,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Cuphea_hyssopifolia_kz04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cuphea_hyssopifolia_kz04.jpg",
+      "verificata": false
+    }
   },
   "erica-del-messico": {
     "nome": "Erica del Messico",
@@ -4322,7 +4862,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Cuphea_hyssopifolia_kz04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cuphea_hyssopifolia_kz04.jpg",
+      "verificata": false
+    }
   },
   "lewisia": {
     "nome": "Lewisia",
@@ -4390,7 +4939,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/%28MHNT%29_Lewisia_cotyledon.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Lewisia_cotyledon.jpg",
+      "verificata": false
+    }
   },
   "saponaria": {
     "nome": "Saponaria",
@@ -4458,7 +5016,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Saponaria_ocymoides_in_Aveyron_%2819%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Saponaria_ocymoides_in_Aveyron_(19).jpg",
+      "verificata": false
+    }
   },
   "sassifraga": {
     "nome": "Sassifraga",
@@ -4526,7 +5093,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/2018-05-13_%28113%29_Saxifraga_x_arendsii_%28mossy_saxifrage%29_at_Bichlh%C3%A4usl_in_Frankenfels%2C_Austria.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "GT1976",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2018-05-13_(113)_Saxifraga_x_arendsii_(mossy_saxifrage)_at_Bichlhäusl_in_Frankenfels,_Austria.jpg",
+      "verificata": false
+    }
   },
   "pothos-talea": {
     "nome": "pothos-talea",
@@ -4662,7 +5238,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/%28MHNT%29_Pilea_peperomioides_Foliage.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Pilea_peperomioides_Foliage.jpg",
+      "verificata": false
+    }
   },
   "pianta-della-fortuna": {
     "nome": "Pianta della Fortuna",
@@ -4728,7 +5313,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/White_leaf_amidst_baby%27s_tears_%28Soleirolia_soleirolii%29_and_fern_%28Pteridophyta%29%2C_Bonsais_de_Campolide%2C_Lisbon%2C_Portugal_julesvernex2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Jules Verne Times Two",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:White_leaf_amidst_baby's_tears_(Soleirolia_soleirolii)_and_fern_(Pteridophyta),_Bonsais_de_Campolide,_Lisbon,_Portugal_julesvernex2.jpg",
+      "verificata": false
+    }
   },
   "peperoncino": {
     "nome": "Peperoncino",
@@ -4809,7 +5403,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Capsicum_annuum_MHNT.BOT.2007.40.74.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Roger Culos",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Capsicum_annuum_MHNT.BOT.2007.40.74.jpg",
+      "verificata": false
+    }
   },
   "origano": {
     "nome": "Origano",
@@ -4875,7 +5478,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Origanum_vulgare_inflorescence_-_Keila.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Origanum_vulgare_inflorescence_-_Keila.jpg",
+      "verificata": false
+    }
   },
   "ulivo": {
     "nome": "Ulivo",
@@ -4943,7 +5555,16 @@
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/%28MHNT%29_Olea_europaea_-_Inflorescence_and_leaves.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Olea_europaea_-_Inflorescence_and_leaves.jpg",
+      "verificata": false
+    }
   },
   "gaura": {
     "nome": "Gaura",
@@ -5010,7 +5631,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Gaura_lindheimeri%2C_prachtkaars._%28actm%29_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnes Monkelbaan",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gaura_lindheimeri,_prachtkaars._(actm)_02.jpg",
+      "verificata": false
+    }
   },
   "lucky-bamboo": {
     "nome": "Lucky Bamboo",
@@ -5073,7 +5703,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": null
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Dracaena_sanderiana_in_China.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Dinkun Chen",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Dracaena_sanderiana_in_China.jpg",
+      "verificata": false
+    }
   },
   "agave": {
     "nome": "Agave",
@@ -5137,7 +5776,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Escapo_de_Agave_sp.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Escapo_de_Agave_sp.jpg",
+      "verificata": false
+    }
   },
   "ferocactus": {
     "nome": "Ferocactus",
@@ -5202,7 +5850,16 @@
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Caryophyllales_-_Ferocactus_sp._-_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Emőke Dénes",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Caryophyllales_-_Ferocactus_sp._-_1.jpg",
+      "verificata": false
+    }
   },
   "sedum-morganianum": {
     "nome": "Sedum morganianum",
@@ -5268,7 +5925,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Burrito_%28Sedum_morganianum%29%2C_jard%C3%ADn_bot%C3%A1nico_de_Tallinn%2C_Estonia%2C_2012-08-13%2C_DD_02.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Diego Delso",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Burrito_(Sedum_morganianum),_jardín_botánico_de_Tallinn,_Estonia,_2012-08-13,_DD_02.JPG",
+      "verificata": false
+    }
   },
   "gasteria": {
     "nome": "Gasteria",
@@ -5401,7 +6067,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Passiflora_caerulea_STEREO_%28R-L%29_side_view_2019-06-29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Franz van Duns",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Passiflora_caerulea_STEREO_(R-L)_side_view_2019-06-29.jpg",
+      "verificata": false
+    }
   },
   "senecio": {
     "nome": "Senecio",
@@ -5466,7 +6141,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/Senecio_leucanthemifolius_on_the_beach_close_to_%C3%93rzola_on_Lanzarote%2C_June_2013_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Chmee2",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Senecio_leucanthemifolius_on_the_beach_close_to_Órzola_on_Lanzarote,_June_2013_(4).jpg",
+      "verificata": false
+    }
   },
   "delosperma": {
     "nome": "Delosperma",
@@ -5534,7 +6218,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/%28MHNT%29_Delosperma_cooperi_-_Flower_and_leaves.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Delosperma_cooperi_-_Flower_and_leaves.jpg",
+      "verificata": false
+    }
   },
   "geranio-zonale": {
     "nome": "Geranio zonale",
@@ -5603,7 +6296,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/01_Pelargonium_flower_close-up.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Mister rf",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:01_Pelargonium_flower_close-up.jpg",
+      "verificata": false
+    }
   },
   "geranio-parigino": {
     "nome": "Geranio parigino",
@@ -5673,7 +6375,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Pelargonium_peltatum_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pelargonium_peltatum_kz01.jpg",
+      "verificata": false
+    }
   },
   "avocado": {
     "nome": "Avocado",
@@ -5742,7 +6453,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Persea_americana_from_Canadian_supermarket.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC0",
+      "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribuzione": "Wilfredor",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Persea_americana_from_Canadian_supermarket.jpg",
+      "verificata": false
+    }
   },
   "agapanto": {
     "nome": "Agapanto",
@@ -5811,7 +6531,16 @@
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Agapanthus_--_2021_--_3928.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Dietmar Rabich",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Agapanthus_--_2021_--_3928.jpg",
+      "verificata": false
+    }
   },
   "cosmos-atrosanguineus": {
     "nome": "Cosmo cioccolato",
@@ -5877,7 +6606,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Cosmos_atrosanguineus_flower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "attribuzione": "John R.",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cosmos_atrosanguineus_flower.jpg",
+      "verificata": false
+    }
   },
   "pomodoro": {
     "nome": "Pomodoro",
@@ -5962,7 +6700,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Yellow_cherry_tomatoes.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Yellow_cherry_tomatoes.jpg",
+      "verificata": false
+    }
   },
   "cetriolo": {
     "nome": "Cetriolo",
@@ -6043,7 +6790,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Cucumis_sativus_-_mit_Wanze-Josef_Schlaghecken.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Schlaghecken Josef",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cucumis_sativus_-_mit_Wanze-Josef_Schlaghecken.jpg",
+      "verificata": false
+    }
   },
   "zucchina": {
     "nome": "Zucchina",
@@ -6124,7 +6880,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Cucurbita_pepo_2016_G1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "Public domain",
+      "licenza_url": "",
+      "attribuzione": "George Chernilevsky",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cucurbita_pepo_2016_G1.jpg",
+      "verificata": false
+    }
   },
   "melanzana": {
     "nome": "Melanzana",
@@ -6205,7 +6970,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Solanum_melongena_03458.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Vengolis",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Solanum_melongena_03458.JPG",
+      "verificata": false
+    }
   },
   "scalogno": {
     "nome": "Scalogno",
@@ -6278,7 +7052,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Allium_hierochuntinum_kz02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_hierochuntinum_kz02.jpg",
+      "verificata": false
+    }
   },
   "calendula": {
     "nome": "Calendula",
@@ -6350,7 +7133,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Ringelblume_%28Calendula_officinalis%29_Bl%C3%BCte_focus_stack-20220619-RM-165610.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ermell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ringelblume_(Calendula_officinalis)_Blüte_focus_stack-20220619-RM-165610.jpg",
+      "verificata": false
+    }
   },
   "zucca": {
     "nome": "Zucca",
@@ -6428,7 +7220,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/Cucurbita_2018_G1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "Public domain",
+      "licenza_url": "",
+      "attribuzione": "George Chernilevsky",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cucurbita_2018_G1.jpg",
+      "verificata": false
+    }
   },
   "mandarino-cinese": {
     "nome": "Mandarino cinese (Kumquat)",
@@ -6496,7 +7297,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Citrus_japonica.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/2.0",
+      "attribuzione": "Phuong  Tran",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Citrus_japonica.jpg",
+      "verificata": false
+    }
   },
   "plumbago": {
     "nome": "Plumbago",
@@ -6563,7 +7373,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Zaaddozen_van_Plumbago_auriculata._07-02-2026._%28actm.%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnes Monkelbaan",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zaaddozen_van_Plumbago_auriculata._07-02-2026._(actm.)_01.jpg",
+      "verificata": false
+    }
   },
   "aeonium": {
     "nome": "Aeonium",
@@ -6628,7 +7447,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Aeonium_arboreum_-_Jard%C3%ADn_Bot%C3%A1nico_Canario_Viera_y_Clavijo_-_Gran_Canaria_-_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "H. Zell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Aeonium_arboreum_-_Jardín_Botánico_Canario_Viera_y_Clavijo_-_Gran_Canaria_-_01.jpg",
+      "verificata": false
+    }
   },
   "falso-gelsomino": {
     "nome": "Falso gelsomino",
@@ -6695,7 +7523,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Trachelospermum_jasminoides_Reunion.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC0",
+      "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "attribuzione": "Parchaco",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Trachelospermum_jasminoides_Reunion.jpg",
+      "verificata": false
+    }
   },
   "camelia": {
     "nome": "Camelia",
@@ -6765,7 +7602,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Camellia_japonica_NBG.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "PumpkinSky",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Camellia_japonica_NBG.jpg",
+      "verificata": false
+    }
   },
   "calibrachoa": {
     "nome": "Calibrachoa",
@@ -6910,7 +7756,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Coreopsis_grandiflora_come_into_bloom.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "ThomasLendt",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Coreopsis_grandiflora_come_into_bloom.jpg",
+      "verificata": false
+    }
   },
   "zinnia-angustifolia": {
     "nome": "Zinnia a foglia stretta",
@@ -6976,7 +7831,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Multicolor_zinnia_angustifolia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Balise42",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Multicolor_zinnia_angustifolia.jpg",
+      "verificata": false
+    }
   },
   "gerbera": {
     "nome": "Gerbera",
@@ -7045,7 +7909,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Gerbera_jamesonii.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Adeep309",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gerbera_jamesonii.jpg",
+      "verificata": false
+    }
   },
   "fittonia": {
     "nome": "Fittonia",
@@ -7113,7 +7986,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 1.0
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Fittonia_verschaffeltii%2C_Jard%C3%ADn_Bot%C3%A1nico_de_M%C3%BAnich%2C_Alemania%2C_2013-01-27%2C_DD_01.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Diego Delso",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Fittonia_verschaffeltii,_Jardín_Botánico_de_Múnich,_Alemania,_2013-01-27,_DD_01.JPG",
+      "verificata": false
+    }
   },
   "zz-plant": {
     "nome": "ZZ Plant",
@@ -7183,7 +8065,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Zamioculcas_zamiifolia_in_China_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Dinkun Chen",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zamioculcas_zamiifolia_in_China_(4).jpg",
+      "verificata": false
+    }
   },
   "mammillaria-magnimamma": {
     "nome": "Mammillaria magnimamma",
@@ -7251,7 +8142,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Mammillaria_magnimamma_%28invierno%2C_Guanajuato%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_magnimamma_(invierno,_Guanajuato).jpg",
+      "verificata": false
+    }
   },
   "mammillaria-bocasana": {
     "nome": "Mammillaria bocasana",
@@ -7317,7 +8217,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Mammillaria_bocasana_2019-04-14_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_bocasana_2019-04-14_03.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-surculosa": {
     "nome": "Mammillaria surculosa",
@@ -7384,7 +8293,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Mammillaria_surculosa_in_Tropengew%C3%A4chsh%C3%A4user_des_Botanischen_Gartens.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_surculosa_in_Tropengewächshäuser_des_Botanischen_Gartens.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-baumii": {
     "nome": "Mammillaria baumii",
@@ -7450,7 +8368,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Mammillaria_baumii_Succu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Succu",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_baumii_Succu.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-bombycina": {
     "nome": "Mammillaria bombycina",
@@ -7515,7 +8442,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Mammillaria_bombycina_%2870456%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Rhododendrites",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_bombycina_(70456).jpg",
+      "verificata": false
+    }
   },
   "mammillaria-carmenae": {
     "nome": "Mammillaria carmenae",
@@ -7580,7 +8516,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Mammillaria_carmenae_Mamilaria_2019-06-09_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_carmenae_Mamilaria_2019-06-09_01.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-compressa": {
     "nome": "Mammillaria compressa",
@@ -7646,7 +8591,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Mammillaria_compressa_Mamilaria_2019-10-26_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_compressa_Mamilaria_2019-10-26_01.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-geminispina": {
     "nome": "Mammillaria geminispina",
@@ -7712,7 +8666,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Mammillaria_geminispina_var._nobilis_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_geminispina_var._nobilis_kz01.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-hahniana": {
     "nome": "Mammillaria hahniana",
@@ -7778,7 +8741,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/43/%28MHNT%29_Mammillaria_hahniana_-_Jardin_Botanique_Henri_GAUSSEN.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Mammillaria_hahniana_-_Jardin_Botanique_Henri_GAUSSEN.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-lauii": {
     "nome": "Mammillaria lauii",
@@ -7843,7 +8815,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Mammillaria_laui_01.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Petar43",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_laui_01.JPG",
+      "verificata": false
+    }
   },
   "mammillaria-parkinsonii": {
     "nome": "Mammillaria parkinsonii",
@@ -7908,7 +8889,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Mammillaria_parkinsonii_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "H. Zell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_parkinsonii_01.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-petterssonii": {
     "nome": "Mammillaria petterssonii",
@@ -7974,7 +8964,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Mammillaria_petterssonii_%285709928985%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/2.0",
+      "attribuzione": "Amante Darmanin from Malta",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_petterssonii_(5709928985).jpg",
+      "verificata": false
+    }
   },
   "mammillaria-pringlei": {
     "nome": "Mammillaria pringlei",
@@ -8040,7 +9039,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Mammillaria_rhodantha_pringlei_f._cristata_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "H. Zell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_rhodantha_pringlei_f._cristata_01.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-prolifera": {
     "nome": "Mammillaria prolifera",
@@ -8105,7 +9113,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Mammillaria_prolifera_kz04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_prolifera_kz04.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-senilis": {
     "nome": "Mammillaria senilis",
@@ -8171,7 +9188,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Mammillaria_senilis.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Michael Wolf",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_senilis.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-sphaerica": {
     "nome": "Mammillaria sphaerica",
@@ -8236,7 +9262,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Mammillaria_sphaerica_0zz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Photo by David J. Stang",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_sphaerica_0zz.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-spinosissima": {
     "nome": "Mammillaria spinosissima",
@@ -8302,7 +9337,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/63/Mammillaria_spinosissima_by_RO.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Rationalobserver",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_spinosissima_by_RO.jpg",
+      "verificata": false
+    }
   },
   "mammillaria-zeilmanniana": {
     "nome": "Mammillaria zeilmanniana",
@@ -8367,7 +9411,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Mammillaria_zeilmanniana_2.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Petar43",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_zeilmanniana_2.JPG",
+      "verificata": false
+    }
   },
   "mammillaria-vetula-gracilis": {
     "nome": "Mammillaria vetula subsp. gracilis",
@@ -8430,7 +9483,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.2
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Mammillaria_vetula_ssp._gracilis_%28Family_Cactaceae%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_vetula_ssp._gracilis_(Family_Cactaceae).jpg",
+      "verificata": false
+    }
   },
   "aglio": {
     "nome": "Aglio",
@@ -8502,7 +9564,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Knoblauch_%28Allium_sativum%29-20200621-RM-085344.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ermell",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Knoblauch_(Allium_sativum)-20200621-RM-085344.jpg",
+      "verificata": false
+    }
   },
   "cipolla": {
     "nome": "Cipolla",
@@ -8572,7 +9643,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Allium_cepa%2C_Amol.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Mehdi",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_cepa,_Amol.jpg",
+      "verificata": false
+    }
   },
   "carota": {
     "nome": "Carota",
@@ -8642,7 +9722,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.4
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Four-spotted_orb_weaver_%28Araneus_quadratus%29_female_on_wild_carrot_%28Daucus_carota%29_seed_head_Uckermark.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Charles J. Sharp",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Four-spotted_orb_weaver_(Araneus_quadratus)_female_on_wild_carrot_(Daucus_carota)_seed_head_Uckermark.jpg",
+      "verificata": false
+    }
   },
   "cavolo": {
     "nome": "Cavolo",
@@ -8719,7 +9808,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Romanesco_broccoli_%28Brassica_oleracea%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Romanesco_broccoli_(Brassica_oleracea).jpg",
+      "verificata": false
+    }
   },
   "finocchio": {
     "nome": "Finocchio",
@@ -8789,7 +9887,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Knollenfenchel_%28Foeniculum_vulgare_var._azoricum%29_Pflanzen%2C_Josef_Schlaghecken.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Schlaghecken Josef",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Knollenfenchel_(Foeniculum_vulgare_var._azoricum)_Pflanzen,_Josef_Schlaghecken.jpg",
+      "verificata": false
+    }
   },
   "girasole": {
     "nome": "Girasole",
@@ -8857,7 +9964,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Sonnenblume_Helianthus_1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 2.5",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/2.5",
+      "attribuzione": "böhringer friedrich",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sonnenblume_Helianthus_1.JPG",
+      "verificata": false
+    }
   },
   "lattuga": {
     "nome": "Lattuga",
@@ -8929,7 +10045,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/2018-06-01_%28129%29_Lactuca_sativa_%28garden_lettuce%29_Nature_at_Bichlh%C3%A4usl_in_Frankenfels%2C_Austria.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "GT1976",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2018-06-01_(129)_Lactuca_sativa_(garden_lettuce)_Nature_at_Bichlhäusl_in_Frankenfels,_Austria.jpg",
+      "verificata": false
+    }
   },
   "mais": {
     "nome": "Mais",
@@ -9001,7 +10126,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/29/Dent_Corn_%27Oaxacan_Green%27_%28Zea_mays%29_MHNT_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Dent_Corn_'Oaxacan_Green'_(Zea_mays)_MHNT_2.jpg",
+      "verificata": false
+    }
   },
   "patata": {
     "nome": "Patata",
@@ -9071,7 +10205,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Solanum_tuberosum_Red_Scarlett20170523_7825.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Bff",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Solanum_tuberosum_Red_Scarlett20170523_7825.jpg",
+      "verificata": false
+    }
   },
   "peperone": {
     "nome": "Peperone",
@@ -9142,7 +10285,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Capsicum_annuum_MHNT.BOT.2007.40.74.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Roger Culos",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Capsicum_annuum_MHNT.BOT.2007.40.74.jpg",
+      "verificata": false
+    }
   },
   "pisello": {
     "nome": "Pisello",
@@ -9214,7 +10366,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Pisum_sativum_MHNT.BOT.2010.12.9.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Roger Culos",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pisum_sativum_MHNT.BOT.2010.12.9.jpg",
+      "verificata": false
+    }
   },
   "ruta": {
     "nome": "Ruta",
@@ -9281,7 +10442,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.3
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Ruta_graveolens_MHNT.BOT.2005.0.973.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Didier Descouens",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ruta_graveolens_MHNT.BOT.2005.0.973.jpg",
+      "verificata": false
+    }
   },
   "sedano": {
     "nome": "Sedano",
@@ -9350,7 +10520,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Apium_graveolens_var._dulce_%28Staudensellerie%29_2023-11-01_%2802%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Simon Mannweiler",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Apium_graveolens_var._dulce_(Staudensellerie)_2023-11-01_(02).jpg",
+      "verificata": false
+    }
   },
   "spinacio": {
     "nome": "Spinacio",
@@ -9417,7 +10596,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Spinacia_oleracea_bd-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Kayser Ahmad",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Spinacia_oleracea_bd-1.jpg",
+      "verificata": false
+    }
   },
   "fagiolo": {
     "nome": "Fagiolo",
@@ -9496,7 +10684,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Flor_de_frijol_%28Phaseolus_vulgaris%29_I.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Flor_de_frijol_(Phaseolus_vulgaris)_I.jpg",
+      "verificata": false
+    }
   },
   "asparago": {
     "nome": "Asparago",
@@ -9565,7 +10762,16 @@
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Asparagus_officinalis_143236495.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Елена Патерикина",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Asparagus_officinalis_143236495.jpg",
+      "verificata": false
+    }
   },
   "acalypha": {
     "nome": "Acalypha",
@@ -9629,7 +10835,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Acalypha_spp_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Douglas Goldman",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Acalypha_spp_01.jpg",
+      "verificata": false
+    }
   },
   "achimenes": {
     "nome": "Achimenes",
@@ -9694,7 +10909,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Achimenes_cv._Charm_in_Hyogo_Prefectural_Flower_Center.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "M108t",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Achimenes_cv._Charm_in_Hyogo_Prefectural_Flower_Center.jpg",
+      "verificata": false
+    }
   },
   "anigozanthos": {
     "nome": "Anigozanthos",
@@ -9758,7 +10982,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Anigozanthos_hybrid_in_Kings_Park%2C_Perth%2C_October_2023_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Calistemon",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Anigozanthos_hybrid_in_Kings_Park,_Perth,_October_2023_02.jpg",
+      "verificata": false
+    }
   },
   "aphelandra": {
     "nome": "Aphelandra",
@@ -9823,7 +11056,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Aphelandra_flava.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Wandereree",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Aphelandra_flava.jpg",
+      "verificata": false
+    }
   },
   "ardisia": {
     "nome": "Ardisia",
@@ -9889,7 +11131,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Ardisia_sp.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Nativeplants garden",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ardisia_sp.jpg",
+      "verificata": false
+    }
   },
   "begonia": {
     "nome": "Begonia",
@@ -9955,7 +11206,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/30/Begonia_15.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Nativeplants garden",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Begonia_15.jpg",
+      "verificata": false
+    }
   },
   "beloperone": {
     "nome": "Beloperone",
@@ -10024,7 +11284,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Justicia_brandegeeana_%28at_Mito_Botanical_Garden%2C_Ibaraki%2C_Japan%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "小石川人晃",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Justicia_brandegeeana_(at_Mito_Botanical_Garden,_Ibaraki,_Japan).jpg",
+      "verificata": false
+    }
   },
   "billbergia": {
     "nome": "Billbergia",
@@ -10090,7 +11359,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Billbergia_nutans_kz02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Billbergia_nutans_kz02.jpg",
+      "verificata": false
+    }
   },
   "bougainvillea": {
     "nome": "Bougainvillea",
@@ -10157,7 +11435,16 @@
       "rinvaso_ogni_mesi": 30,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Bougainvillea_20.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "পাপৰি বৰা",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Bougainvillea_20.jpg",
+      "verificata": false
+    }
   },
   "browallia": {
     "nome": "Browallia",
@@ -10226,7 +11513,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/86/Browallia_speciosa_5Dsr_5865.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "SAplants",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Browallia_speciosa_5Dsr_5865.jpg",
+      "verificata": false
+    }
   },
   "brunfelsia": {
     "nome": "Brunfelsia",
@@ -10291,7 +11587,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Brunfelsia_x_Isola_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "KATHERINE WAGNER-REISS",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Brunfelsia_x_Isola_02.jpg",
+      "verificata": false
+    }
   },
   "calceolaria": {
     "nome": "Calceolaria",
@@ -10357,7 +11662,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Calceolaria_sp.1_en_el_distrito_de_Cajacay.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Lidsay Brito",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Calceolaria_sp.1_en_el_distrito_de_Cajacay.jpg",
+      "verificata": false
+    }
   },
   "campanula": {
     "nome": "Campanula",
@@ -10422,7 +11736,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/2013-07_Verezzi_Campanula-isophylla_001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Commander-pirx",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2013-07_Verezzi_Campanula-isophylla_001.jpg",
+      "verificata": false
+    }
   },
   "celosia": {
     "nome": "Celosia",
@@ -10490,7 +11813,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Celosia_argentea_in_Philippines.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "TheNuggeteer",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Celosia_argentea_in_Philippines.jpg",
+      "verificata": false
+    }
   },
   "citrofortunella": {
     "nome": "x Citrofortunella",
@@ -10558,7 +11890,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/2f/Citrus_x_microcarpa_Kalamondin_2018-09-02_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Citrus_x_microcarpa_Kalamondin_2018-09-02_01.jpg",
+      "verificata": false
+    }
   },
   "clerodendrum": {
     "nome": "Clerodendrum",
@@ -10625,7 +11966,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Clerodendrum_infortunatum_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Nativeplants garden",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Clerodendrum_infortunatum_3.jpg",
+      "verificata": false
+    }
   },
   "clivia": {
     "nome": "Clivia",
@@ -10692,7 +12042,16 @@
       "rinvaso_ogni_mesi": 36,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Natal_lilies_%28Clivia_miniata%29%2C_Jardim_da_Funda%C3%A7%C3%A3o_Calouste_Gulbenkian%2C_Lisbon%2C_Portugal_julesvernex2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Jules Verne Times Two",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Natal_lilies_(Clivia_miniata),_Jardim_da_Fundação_Calouste_Gulbenkian,_Lisbon,_Portugal_julesvernex2.jpg",
+      "verificata": false
+    }
   },
   "columnea": {
     "nome": "Columnea",
@@ -10755,7 +12114,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Columnea_consanguinea_%28foliage%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Hans Hillewaert",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Columnea_consanguinea_(foliage).jpg",
+      "verificata": false
+    }
   },
   "cyclamen": {
     "nome": "Cyclamen",
@@ -10820,7 +12188,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Cyclamen_persicum_kz06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cyclamen_persicum_kz06.jpg",
+      "verificata": false
+    }
   },
   "cymbidium": {
     "nome": "Cymbidium",
@@ -10885,7 +12262,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Cymbidium_cultivars.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Dinkun Chen",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cymbidium_cultivars.jpg",
+      "verificata": false
+    }
   },
   "dendranthema": {
     "nome": "Dendranthema",
@@ -10947,7 +12333,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/%E9%87%8E%E8%8F%8A_Dendranthema_indicum_-%E9%A6%99%E6%B8%AF%E5%98%89%E9%81%93%E7%90%86%E8%BE%B2%E5%A0%B4_Kadoorie_Farm%2C_Hong_Kong-_%289213337037%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "attribuzione": "阿橋 HQ",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:野菊_Dendranthema_indicum_-香港嘉道理農場_Kadoorie_Farm,_Hong_Kong-_(9213337037).jpg",
+      "verificata": false
+    }
   },
   "duchesnea": {
     "nome": "Duchesnea",
@@ -11011,7 +12406,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Duchesnea_indica_%28Flower_and_Fruit%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "attribuzione": "Ixitixel",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Duchesnea_indica_(Flower_and_Fruit).jpg",
+      "verificata": false
+    }
   },
   "eustoma": {
     "nome": "Eustoma",
@@ -11073,7 +12477,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Eustoma_russellianum_cultivar_1DS-II_3-7672.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "SAplants",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Eustoma_russellianum_cultivar_1DS-II_3-7672.jpg",
+      "verificata": false
+    }
   },
   "exacum": {
     "nome": "Exacum",
@@ -11137,7 +12550,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f7/Persian_violet_%28Exacum_affine%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Mokkie",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Persian_violet_(Exacum_affine).jpg",
+      "verificata": false
+    }
   },
   "gardenia": {
     "nome": "Gardenia",
@@ -11203,7 +12625,16 @@
       "rinvaso_ogni_mesi": 30,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/55/Gardenia_jasminoides_Flower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "PapiPijuan",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gardenia_jasminoides_Flower.jpg",
+      "verificata": false
+    }
   },
   "gloriosa": {
     "nome": "Gloriosa",
@@ -11269,7 +12700,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Gloriosa_superba-Silent_Valley-2016-08-14-001.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Jeevan Jose, Kerala, India",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gloriosa_superba-Silent_Valley-2016-08-14-001.jpg",
+      "verificata": false
+    }
   },
   "gloxinia": {
     "nome": "Gloxinia",
@@ -11336,7 +12776,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Gloxinia_sylvatica_Bolivian_Sunset_0zz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Photo by David J. Stang",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gloxinia_sylvatica_Bolivian_Sunset_0zz.jpg",
+      "verificata": false
+    }
   },
   "gomphrena": {
     "nome": "Gomphrena",
@@ -11400,7 +12849,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Gomphrena_globosa_%28_Vadamalli-ml%29_DSC_2639.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ranjithsiji",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gomphrena_globosa_(_Vadamalli-ml)_DSC_2639.jpg",
+      "verificata": false
+    }
   },
   "guzmania": {
     "nome": "Guzmania",
@@ -11462,7 +12920,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Guzmania_%27Remembrance%27_2019-05-03_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnieszka Kwiecień, Nova",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Guzmania_'Remembrance'_2019-05-03_02.jpg",
+      "verificata": false
+    }
   },
   "helleborus": {
     "nome": "Helleborus",
@@ -11528,7 +12995,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Schneerose_Helleborus_niger_Spital_a_Pyhrn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Isiwal",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Schneerose_Helleborus_niger_Spital_a_Pyhrn.jpg",
+      "verificata": false
+    }
   },
   "hibiscus": {
     "nome": "Hibiscus",
@@ -11593,7 +13069,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Chinese_hibiscus_%28Hibiscus_%C3%97_rosa-sinensis%29_flower%2C_Estufa_Fria%2C_Lisbon%2C_Portugal_julesvernex2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Jules Verne Times Two",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Chinese_hibiscus_(Hibiscus_×_rosa-sinensis)_flower,_Estufa_Fria,_Lisbon,_Portugal_julesvernex2.jpg",
+      "verificata": false
+    }
   },
   "hippeastrum": {
     "nome": "Hippeastrum",
@@ -11658,7 +13143,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Amaryllis_%28Hippeastrum%29_18-01-2025._%28actm.%29_06.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Agnes Monkelbaan",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Amaryllis_(Hippeastrum)_18-01-2025._(actm.)_06.jpg",
+      "verificata": false
+    }
   },
   "hoya": {
     "nome": "Hoya",
@@ -11722,7 +13216,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Hoya_carnosa_-_umbel_with_nectar_droplets.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Franz van Duns",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Hoya_carnosa_-_umbel_with_nectar_droplets.jpg",
+      "verificata": false
+    }
   },
   "hyacinthus": {
     "nome": "Hyacinthus",
@@ -11787,7 +13290,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Hyacinthus_orientalis_Bl%C3%BCte_01.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "Uoaei1",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Hyacinthus_orientalis_Blüte_01.JPG",
+      "verificata": false
+    }
   },
   "hydrangea": {
     "nome": "Hydrangea",
@@ -11852,7 +13364,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Hydrangea_macrophylla_in_front_of_Seongsan_Ilchulbong_volcano_at_blue_hour_in_Jeju_Island_South_Korea.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Basile Morin",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Hydrangea_macrophylla_in_front_of_Seongsan_Ilchulbong_volcano_at_blue_hour_in_Jeju_Island_South_Korea.jpg",
+      "verificata": false
+    }
   },
   "impatiens": {
     "nome": "Impatiens",
@@ -11918,7 +13439,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Pink_Impatiens_walleriana_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Sabina Bajracharya",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pink_Impatiens_walleriana_(1).jpg",
+      "verificata": false
+    }
   },
   "jasminum": {
     "nome": "Jasminum",
@@ -11981,7 +13511,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Jasminum_officinale-IMG_3470.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "attribuzione": "C T Johansson",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Jasminum_officinale-IMG_3470.jpg",
+      "verificata": false
+    }
   },
   "jatropha": {
     "nome": "Jatropha",
@@ -12045,7 +13584,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Jatropha_podagrica_plant.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Kiruthikapalani",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Jatropha_podagrica_plant.jpg",
+      "verificata": false
+    }
   },
   "justicia": {
     "nome": "Justicia",
@@ -12109,7 +13657,16 @@
       "rinvaso_ogni_mesi": 18,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Justicia_carnea_Lindla_-_2_-_par_Mickael_Schauli.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Mickaël Schauli",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Justicia_carnea_Lindla_-_2_-_par_Mickael_Schauli.jpg",
+      "verificata": false
+    }
   },
   "kalanchoe": {
     "nome": "Kalanchoe",
@@ -12172,7 +13729,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.5
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/2025_Kalanchoe_blossfeldiana_Poelin._Santiago_de_Compostela._Galiza-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Luis Miguel Bugallo Sánchez",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2025_Kalanchoe_blossfeldiana_Poelin._Santiago_de_Compostela._Galiza-2.jpg",
+      "verificata": false
+    }
   },
   "kohleria": {
     "nome": "Kohleria",
@@ -12236,7 +13802,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/57/Kohleria_Warsewiczii_%28University_of_Basel%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Paradise Chronicle",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Kohleria_Warsewiczii_(University_of_Basel).jpg",
+      "verificata": false
+    }
   },
   "ixora": {
     "nome": "Ixora",
@@ -12302,7 +13877,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Ixora_coccinea_03549.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Vengolis",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ixora_coccinea_03549.JPG",
+      "verificata": false
+    }
   },
   "mandevilla": {
     "nome": "Mandevilla",
@@ -12366,7 +13950,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Shining_Mandevilla_%28Mandevilla_Splendens%29_in_Athens_on_May_23%2C_2023.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 2.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/2.0",
+      "attribuzione": "George E. Koronaios",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Shining_Mandevilla_(Mandevilla_Splendens)_in_Athens_on_May_23,_2023.jpg",
+      "verificata": false
+    }
   },
   "medinilla": {
     "nome": "Medinilla",
@@ -12431,7 +14024,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.75
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/35/20260317_Medinilla_magnifica_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Flocci Nivis",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:20260317_Medinilla_magnifica_02.jpg",
+      "verificata": false
+    }
   },
   "neoregelia": {
     "nome": "Neoregelia",
@@ -12497,7 +14099,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Neoregelia_carolinae_kz10.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Neoregelia_carolinae_kz10.jpg",
+      "verificata": false
+    }
   },
   "nertera": {
     "nome": "Nertera",
@@ -12565,7 +14176,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Nertera_granadensis_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Nertera_granadensis_kz01.jpg",
+      "verificata": false
+    }
   },
   "pachystachys": {
     "nome": "Pachystachys",
@@ -12630,7 +14250,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/3c/Pachystachys_lutea_8069.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Vengolis",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pachystachys_lutea_8069.jpg",
+      "verificata": false
+    }
   },
   "passiflora": {
     "nome": "Passiflora",
@@ -12696,7 +14325,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Passiflora_caerulea_STEREO_%28R-L%29_side_view_2019-06-29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Franz van Duns",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Passiflora_caerulea_STEREO_(R-L)_side_view_2019-06-29.jpg",
+      "verificata": false
+    }
   },
   "geranio-odoroso": {
     "nome": "Geranio odoroso",
@@ -12763,7 +14401,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Pelargonium_graveolens_Geraniologia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "Public domain",
+      "licenza_url": "",
+      "attribuzione": "Redouté (illustration) dans Geraniologia de l'Héritier de Brutelle, 1787-1788",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pelargonium_graveolens_Geraniologia.jpg",
+      "verificata": false
+    }
   },
   "rhododendron": {
     "nome": "Rhododendron",
@@ -12831,7 +14478,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/ee/Rhododendron_simsii_%27Pink_Dream%27_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Rhododendron_simsii_'Pink_Dream'_kz01.jpg",
+      "verificata": false
+    }
   },
   "rosa-miniatura": {
     "nome": "Rosa miniatura",
@@ -12895,7 +14551,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Rosa_%27Minima%27_JRVdH_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Cephas",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Rosa_'Minima'_JRVdH_01.jpg",
+      "verificata": false
+    }
   },
   "saintpaulia": {
     "nome": "Saintpaulia",
@@ -12962,7 +14627,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.6
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Saintpaulia_ionantha_kz01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Saintpaulia_ionantha_kz01.jpg",
+      "verificata": false
+    }
   },
   "cineraria": {
     "nome": "Cineraria",
@@ -13029,7 +14703,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Purple_flowers_of_Senecio_Cruentus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Commonists",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Purple_flowers_of_Senecio_Cruentus.jpg",
+      "verificata": false
+    }
   },
   "sinningia": {
     "nome": "Sinningia",
@@ -13095,7 +14778,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Gloxinia_-_%28Sinningia_speciosa%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Mister rf",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gloxinia_-_(Sinningia_speciosa).jpg",
+      "verificata": false
+    }
   },
   "spathiphyllum": {
     "nome": "Spathiphyllum",
@@ -13159,7 +14851,16 @@
       "rinvaso_ogni_mesi": 30,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Spathiphyllum_wallisii_%28Family_Araceae%29_-_spadix_and_spathe_I.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Juan Carlos Fonseca Mata",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Spathiphyllum_wallisii_(Family_Araceae)_-_spadix_and_spathe_I.jpg",
+      "verificata": false
+    }
   },
   "stephanotis": {
     "nome": "Stephanotis",
@@ -13225,7 +14926,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Stephanotis_floribunda_15zz.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Photo by David J. Stang",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Stephanotis_floribunda_15zz.jpg",
+      "verificata": false
+    }
   },
   "streptocarpus": {
     "nome": "Streptocarpus",
@@ -13289,7 +14999,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.7
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Streptocarpus_rexii_kz3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Streptocarpus_rexii_kz3.jpg",
+      "verificata": false
+    }
   },
   "thunbergia": {
     "nome": "Thunbergia",
@@ -13354,7 +15073,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Thunbergia_alata_3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Nativeplants garden",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Thunbergia_alata_3.jpg",
+      "verificata": false
+    }
   },
   "triplochlamys": {
     "nome": "Triplochlamys",
@@ -13418,7 +15146,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Pavonia_multiflora_Greenhouse_N20_of_Saint_Petersburg_Botanical_Garden.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Afanasovich",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pavonia_multiflora_Greenhouse_N20_of_Saint_Petersburg_Botanical_Garden.jpg",
+      "verificata": false
+    }
   },
   "vriesea": {
     "nome": "Vriesea",
@@ -13482,7 +15219,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d6/Vriesea_splendens_flower.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "attribuzione": "Tequila 03:23, 30 June 2007 (UTC)",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Vriesea_splendens_flower.jpg",
+      "verificata": false
+    }
   },
   "zantedeschia": {
     "nome": "Zantedeschia",
@@ -13548,7 +15294,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.9
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/8d/Calla_lily_%28Zantedeschia_aethiopica%29%2C_Parque_do_Monteiro-Mor%2C_Lisbon%2C_Portugal_julesvernex2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Jules Verne Times Two",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Calla_lily_(Zantedeschia_aethiopica),_Parque_do_Monteiro-Mor,_Lisbon,_Portugal_julesvernex2.jpg",
+      "verificata": false
+    }
   },
   "abutilon": {
     "nome": "Abutilon",
@@ -13613,7 +15368,16 @@
       "rinvaso_ogni_mesi": 12,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Abutilon_x_hybridum_%27Moonchimes%27_Flowers_3264px.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 3.0",
+      "licenza_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "attribuzione": "Photo by and (c)2006 Derek Ramsey (Ram-Man).  Co-attribution must be given to the Chanticleer Garden.",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Abutilon_x_hybridum_'Moonchimes'_Flowers_3264px.jpg",
+      "verificata": false
+    }
   },
   "acacia": {
     "nome": "Acacia",
@@ -13677,7 +15441,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Acacia_dealbata_kz11.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Acacia_dealbata_kz11.jpg",
+      "verificata": false
+    }
   },
   "agapanthus": {
     "nome": "Agapanthus",
@@ -13742,7 +15515,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/Agapanthus_africanus_in_Jardin_botanique_de_la_Charme_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Krzysztof Golik",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Agapanthus_africanus_in_Jardin_botanique_de_la_Charme_01.jpg",
+      "verificata": false
+    }
   },
   "arbutus": {
     "nome": "Arbutus",
@@ -13807,7 +15589,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/75/Strawberry_tree_%28Arbutus_unedo%29_fruit_and_leaves_on_a_rainy_day%2C_Parque_Florestal_de_Monsanto%2C_Lisbon%2C_Portugal_julesvernex2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Jules Verne Times Two",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Strawberry_tree_(Arbutus_unedo)_fruit_and_leaves_on_a_rainy_day,_Parque_Florestal_de_Monsanto,_Lisbon,_Portugal_julesvernex2.jpg",
+      "verificata": false
+    }
   },
   "cavolo-ornamentale": {
     "nome": "Cavolo ornamentale",
@@ -13875,7 +15666,16 @@
       "rinvaso_ogni_mesi": null,
       "irrigazione_fattore": 0.8
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Romanesco_broccoli_%28Brassica_oleracea%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "Ivar Leidus",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Romanesco_broccoli_(Brassica_oleracea).jpg",
+      "verificata": false
+    }
   },
   "brugmansia": {
     "nome": "Brugmansia",
@@ -13939,7 +15739,16 @@
       "rinvaso_ogni_mesi": 24,
       "irrigazione_fattore": 0.85
     },
-    "stato_verifica": "verificato"
+    "stato_verifica": "verificato",
+    "immagine": {
+      "url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Brugmansia_suaveolens_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "licenza": "CC BY-SA 4.0",
+      "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+      "attribuzione": "পাপৰি বৰা",
+      "fonte": "Wikimedia Commons",
+      "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Brugmansia_suaveolens_2.jpg",
+      "verificata": false
+    }
   },
   "abelia-triflora": {
     "nome": "Abelia triflora",

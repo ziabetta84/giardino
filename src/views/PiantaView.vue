@@ -39,6 +39,10 @@
             <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe" style="margin-left:6px;vertical-align:middle;">{{ badgeVerifica.testo }}</span>
           </p>
         </div>
+        <a v-if="fotoHero.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener"
+          class="plant-hero-credit" @click.stop>
+          Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
+        </a>
       </div>
 
       <!-- Header testuale: quando non c'è ancora una foto -->
@@ -288,8 +292,15 @@ const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
 
 // La prima foto in galleria diventa l'header della scheda, al posto del
-// testo semplice — se la pianta non ha ancora foto resta l'header testuale.
-const fotoHero = computed(() => fotoPianta.value[0] ?? null)
+// testo semplice. Senza foto personali, si usa come ripiego l'immagine
+// della specie (Wikimedia Commons, licenze CC0/CC BY/CC BY-SA — mai
+// selezionata visivamente una per una, va citata l'attribuzione richiesta
+// dalla licenza). Solo testo semplice se manca anche quella.
+const fotoHero = computed(() => {
+  if (fotoPianta.value[0]) return fotoPianta.value[0]
+  const img = specie.value?.immagine
+  return img ? { url: img.url, fallback: true, attribuzione: img.attribuzione, fonte_pagina: img.fonte_pagina } : null
+})
 
 const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'provetta' }
 const TINTE_CURA = { irrigazione: 'acqua', concimazione: 'olive', potatura: 'rose', calcio: 'sage' }
@@ -474,6 +485,12 @@ async function eliminaPianta() {
   text-shadow: 0 2px 12px rgba(0,0,0,0.28);
 }
 .plant-hero-lat { font-family: var(--font-serif); font-style: italic; font-size: 12.5px; color: rgba(253,248,238,0.88); margin: 3px 0 0; }
+.plant-hero-credit {
+  position: absolute; right: 14px; bottom: 12px; z-index: 2;
+  font-size: 9.5px; color: rgba(253,248,238,0.75); text-decoration: none;
+  background: rgba(0,0,0,0.28); padding: 2px 8px; border-radius: 999px;
+}
+.plant-hero-credit:hover { color: #fdf8ee; }
 .zone-chip {
   display: inline-block; margin-bottom: 6px; font-size: 9.5px; font-weight: 700;
   letter-spacing: .04em; text-transform: uppercase; background: rgba(253,248,238,0.22);
