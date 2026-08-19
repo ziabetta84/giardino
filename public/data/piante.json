@@ -1634,5 +1634,14 @@
     "ultima_cura": {
       "irrigazione": "2026-08-10"
     }
+  },
+  "zucca-1787136238609": {
+    "specie": "zucca",
+    "zona": "Crinale",
+    "sottozona": null,
+    "varieta": "Butternut",
+    "impianto": "2026-08-10",
+    "note": "4 delle piantine nate dai semi messi a germogliare dall'ultima zucca acquistata circa a marzo 2026",
+    "ultima_cura": {}
   }
 }
