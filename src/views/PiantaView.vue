@@ -214,6 +214,9 @@
       <div v-if="pianta.impianto" class="card" style="padding:14px 16px;margin-bottom:12px;">
         <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ formattaData(pianta.impianto) }}</strong></p>
       </div>
+      <div v-else-if="pianta.impianto_circa" class="card" style="padding:14px 16px;margin-bottom:12px;">
+        <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ pianta.impianto_circa }}</strong> <span style="color:var(--ink-faint);">(data non certa)</span></p>
+      </div>
 
       <!-- Elimina -->
       <div style="margin-top:24px;text-align:center;">

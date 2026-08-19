@@ -9,7 +9,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sansevieria-1777363126334": {
     "specie": "sansevieria",
@@ -21,7 +22,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "bellis-perennis-1777363227803": {
     "specie": "bellis-perennis",
@@ -33,7 +35,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "narciso-1777363322805": {
     "specie": "narciso",
@@ -45,7 +48,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "narciso-1777363329872": {
     "specie": "narciso",
@@ -57,7 +61,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "primula-1777363417524": {
     "specie": "primula",
@@ -69,7 +74,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "spiraea-arguta-1777367805928": {
     "specie": "spiraea-arguta",
@@ -87,7 +93,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "uva-di-gatto-1777367850796": {
     "specie": "uva-di-gatto",
@@ -99,7 +106,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "zinnia-1777367970649": {
     "specie": "zinnia",
@@ -117,7 +125,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "zinnia-1777367970650": {
     "specie": "zinnia",
@@ -135,7 +144,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "arancio-navel-1777368187352": {
     "specie": "arancio-navel",
@@ -153,7 +163,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-26"
-    }
+    },
+    "impianto_circa": ""
   },
   "prunus-taoflora-1777368271371": {
     "specie": "prunus-taoflora",
@@ -171,7 +182,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "scilla-marittima-1777368528461": {
     "specie": "scilla-marittima",
@@ -183,7 +195,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": "circa 10 anni fa"
   },
   "scilla-marittima-1777368917100": {
     "specie": "scilla-marittima",
@@ -195,7 +208,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": "circa 10 anni fa"
   },
   "timo-serpillo-1777369172155": {
     "specie": "timo-serpillo",
@@ -213,7 +227,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "orchidea-1777369350942": {
     "specie": "orchidea",
@@ -225,7 +240,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-26"
-    }
+    },
+    "impianto_circa": ""
   },
   "ceropegia-1777369539079": {
     "specie": "ceropegia",
@@ -237,7 +253,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": "estate/autunno 2025"
   },
   "fragola-rifiorente-1777369695599": {
     "specie": "fragola-rifiorente",
@@ -250,7 +267,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25",
       "potatura": "2026-07-16"
-    }
+    },
+    "impianto_circa": ""
   },
   "salvia-1777369833635": {
     "specie": "salvia",
@@ -262,7 +280,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "anthurium-1777370314662": {
     "specie": "anthurium",
@@ -274,7 +293,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "ficus-ginseng-1777370883256": {
     "specie": "ficus-ginseng",
@@ -286,7 +306,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-24"
-    }
+    },
+    "impianto_circa": "primavera 2025"
   },
   "mammillaria-piumosa-1777370930591": {
     "specie": "mammillaria-piumosa",
@@ -298,7 +319,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "pothos-1777371125844": {
     "specie": "pothos",
@@ -310,7 +332,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "pothos-1777371141028": {
     "specie": "pothos",
@@ -322,7 +345,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "cactus-ago-di-eva-monstroso-1777371216196": {
     "specie": "cactus-ago-di-eva-monstroso",
@@ -334,7 +358,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "mammillaria-allungata-1777371474735": {
     "specie": "mammillaria-allungata",
@@ -346,7 +371,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "carex-1777371678589": {
     "specie": "carex",
@@ -358,7 +384,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "glechoma-hederacea-1777371821092": {
     "specie": "glechoma-hederacea",
@@ -370,7 +397,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "glechoma-hederacea-1777371826508": {
     "specie": "glechoma-hederacea",
@@ -382,7 +410,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "iris-spontaneo-1777372009645": {
     "specie": "iris-spontaneo",
@@ -394,7 +423,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "iris-spontaneo-1777372021612": {
     "specie": "iris-spontaneo",
@@ -406,7 +436,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "iris-spontaneo-1777372029779": {
     "specie": "iris-spontaneo",
@@ -418,7 +449,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "marsilea-quadrifolia-1777372125348": {
     "specie": "marsilea-quadrifolia",
@@ -430,7 +462,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "marsilea-quadrifolia-1777372130014": {
     "specie": "marsilea-quadrifolia",
@@ -442,7 +475,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "marsilea-quadrifolia-1777372140848": {
     "specie": "marsilea-quadrifolia",
@@ -454,7 +488,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "pennisetum-cinese-1777374111987": {
     "specie": "pennisetum-cinese",
@@ -466,7 +501,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "salcerella-1777374227256": {
     "specie": "salcerella",
@@ -478,7 +514,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "mesembriantemo-1777374488562": {
     "specie": "mesembriantemo",
@@ -490,7 +527,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": "circa dal 2016"
   },
   "mesembriantemo-1777374488563": {
     "specie": "mesembriantemo",
@@ -502,7 +540,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": "circa dal 2016"
   },
   "allium-sphaerocephalon-1777374758167": {
     "specie": "allium-sphaerocephalon",
@@ -514,7 +553,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "erica-1777374845935": {
     "specie": "erica",
@@ -532,7 +572,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "heuchera-1777374979071": {
     "specie": "heuchera",
@@ -544,7 +585,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "heuchera-1777374996905": {
     "specie": "heuchera",
@@ -556,7 +598,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "osteospermum-1777375208726": {
     "specie": "osteospermum",
@@ -568,7 +611,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "margherita-delle-canarie-1777375185959": {
     "specie": "margherita-delle-canarie",
@@ -580,7 +624,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": "da diversi anni"
   },
   "centaurea-ragusina-1777375525082": {
     "specie": "centaurea-ragusina",
@@ -592,7 +637,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "garofano-1777375626451": {
     "specie": "garofano",
@@ -604,7 +650,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "garofano-1777375655252": {
     "specie": "garofano",
@@ -616,7 +663,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-16",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1777375809738": {
     "specie": "sedum-acre",
@@ -634,7 +682,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1777375809739": {
     "specie": "sedum-acre",
@@ -652,7 +701,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1777375809740": {
     "specie": "sedum-acre",
@@ -670,7 +720,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1777375809741": {
     "specie": "sedum-acre",
@@ -688,7 +739,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1777375809742": {
     "specie": "sedum-acre",
@@ -706,7 +758,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1777375809743": {
     "specie": "sedum-acre",
@@ -724,7 +777,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "violaciocca-1777375944007": {
     "specie": "violaciocca",
@@ -736,7 +790,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "alisso-1777383914130": {
     "specie": "alisso",
@@ -748,7 +803,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-19",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "alisso-1777384242450": {
     "specie": "alisso",
@@ -760,7 +816,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-19",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "alisso-1777384355125": {
     "specie": "alisso",
@@ -772,7 +829,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-19",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "fico-di-mare-1777384451612": {
     "specie": "fico-di-mare",
@@ -790,7 +848,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-19",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "gerani-1777384587172": {
     "specie": "geranio-zonale",
@@ -802,7 +861,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-16",
       "concimazione": "2026-08-09"
-    }
+    },
+    "impianto_circa": ""
   },
   "cuphea-1777384757383": {
     "specie": "cuphea",
@@ -814,7 +874,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-19",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "gerani-1777467070630": {
     "specie": "geranio-zonale",
@@ -826,7 +887,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-16",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": "gruppo misto: alcuni da circa 2 anni, altri di recente"
   },
   "pianta-delle-monete-1777976593937": {
     "specie": "pianta-delle-monete",
@@ -838,7 +900,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "peperoncino-1777978449541": {
     "specie": "peperoncino",
@@ -851,7 +914,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-08-09",
       "calcio": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "basilico-1777978871099": {
     "specie": "basilico",
@@ -864,7 +928,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25",
       "potatura": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "erba-cipollina-1778052974074": {
     "specie": "erba-cipollina",
@@ -876,7 +941,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": "autunno/inverno 2025 (ricevuta in regalo)"
   },
   "prezzemolo-1778053056632": {
     "specie": "prezzemolo",
@@ -888,7 +954,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": "autunno/inverno 2025 (ricevuta in regalo)"
   },
   "aquilegia-1778053172271": {
     "specie": "aquilegia",
@@ -900,7 +967,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "aquilegia-1778053352918": {
     "specie": "aquilegia",
@@ -912,7 +980,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "aquilegia-1778053389888": {
     "specie": "aquilegia",
@@ -924,7 +993,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1778053639949": {
     "specie": "sedum-spurium",
@@ -936,7 +1006,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1778053693627": {
     "specie": "sedum-spurium",
@@ -948,7 +1019,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-spurium-1778053720562": {
     "specie": "sedum-spurium",
@@ -960,7 +1032,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "verbena-1778054686199": {
     "specie": "verbena",
@@ -972,7 +1045,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "echinacea-1778054793534": {
     "specie": "echinacea",
@@ -984,7 +1058,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "orchidea-1778055260710": {
     "specie": "orchidea",
@@ -996,7 +1071,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-24"
-    }
+    },
+    "impianto_circa": ""
   },
   "ulivo-1778057620941": {
     "specie": "ulivo",
@@ -1008,7 +1084,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "gaura-1779190970541": {
     "specie": "gaura",
@@ -1020,7 +1097,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "alloro-1779862848569": {
     "specie": "alloro",
@@ -1038,7 +1116,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "lucky-bamboo-1780521613886": {
     "specie": "lucky-bamboo",
@@ -1056,7 +1135,8 @@
     "ultima_cura": {
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
-    }
+    },
+    "impianto_circa": ""
   },
   "agave-1784499314091": {
     "specie": "agave",
@@ -1068,7 +1148,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "mammillaria-1784540000001": {
     "specie": "mammillaria",
@@ -1080,7 +1161,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "mammillaria-1784540000002": {
     "specie": "mammillaria",
@@ -1092,7 +1174,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "ferocactus-1784540000003": {
     "specie": "ferocactus",
@@ -1104,7 +1187,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "echeveria-1784540000004": {
     "specie": "echeveria",
@@ -1116,7 +1200,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "echeveria-1784550000101": {
     "specie": "echeveria",
@@ -1128,7 +1213,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "sedum-morganianum-1784550000102": {
     "specie": "sedum-morganianum",
@@ -1140,7 +1226,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "echeveria-1784550000103": {
     "specie": "echeveria",
@@ -1152,7 +1239,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "mammillaria-1784550000104": {
     "specie": "mammillaria",
@@ -1164,7 +1252,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "gasteria-1784541281856": {
     "specie": "gasteria",
@@ -1176,7 +1265,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-20"
-    }
+    },
+    "impianto_circa": ""
   },
   "passiflora-caerulea-1784552103561": {
     "specie": "passiflora-caerulea",
@@ -1188,7 +1278,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-24"
-    }
+    },
+    "impianto_circa": ""
   },
   "senecio-1784561662759": {
     "specie": "senecio",
@@ -1200,7 +1291,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-24"
-    }
+    },
+    "impianto_circa": ""
   },
   "delosperma-1784625705060": {
     "specie": "delosperma",
@@ -1211,7 +1303,8 @@
     "note": "",
     "ultima_cura": {
       "irrigazione": "2026-08-18"
-    }
+    },
+    "impianto_circa": ""
   },
   "gerani-1784625705061": {
     "specie": "geranio-zonale",
@@ -1223,7 +1316,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-08-06"
-    }
+    },
+    "impianto_circa": ""
   },
   "geranio-parigino-1784626280045": {
     "specie": "geranio-parigino",
@@ -1235,7 +1329,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-08-06"
-    }
+    },
+    "impianto_circa": ""
   },
   "avocado-1784627721107": {
     "specie": "avocado",
@@ -1247,7 +1342,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "avocado-1784627743257": {
     "specie": "avocado",
@@ -1259,7 +1355,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "avocado-1784627766474": {
     "specie": "avocado",
@@ -1271,7 +1368,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "avocado-1784628103064": {
     "specie": "avocado",
@@ -1283,7 +1381,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-22"
-    }
+    },
+    "impianto_circa": ""
   },
   "agapanto-1784628390653": {
     "specie": "agapanto",
@@ -1295,7 +1394,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-08-09"
-    }
+    },
+    "impianto_circa": ""
   },
   "echinacea-1784628634058": {
     "specie": "echinacea",
@@ -1307,7 +1407,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "calathea-1784629447642": {
     "specie": "calathea",
@@ -1319,7 +1420,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "cosmos-atrosanguineus-1784629658444": {
     "specie": "cosmos-atrosanguineus",
@@ -1331,7 +1433,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-08-09"
-    }
+    },
+    "impianto_circa": ""
   },
   "pomodoro-1784630168938": {
     "specie": "pomodoro",
@@ -1344,7 +1447,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25",
       "calcio": "2026-07-28"
-    }
+    },
+    "impianto_circa": ""
   },
   "cetriolo-1784630168939": {
     "specie": "cetriolo",
@@ -1357,7 +1461,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-26",
       "calcio": "2026-07-28"
-    }
+    },
+    "impianto_circa": ""
   },
   "zucchina-1784630168940": {
     "specie": "zucchina",
@@ -1370,7 +1475,8 @@
       "irrigazione": "2026-08-18",
       "calcio": "2026-07-26",
       "concimazione": "2026-07-26"
-    }
+    },
+    "impianto_circa": ""
   },
   "melanzana-1784630168941": {
     "specie": "melanzana",
@@ -1383,7 +1489,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-26",
       "calcio": "2026-07-28"
-    }
+    },
+    "impianto_circa": ""
   },
   "scalogno-1784630168942": {
     "specie": "scalogno",
@@ -1394,7 +1501,8 @@
     "note": "6 piante, impiantate il 18/5/26",
     "ultima_cura": {
       "irrigazione": "2026-08-14"
-    }
+    },
+    "impianto_circa": ""
   },
   "basilico-1784630168943": {
     "specie": "basilico",
@@ -1406,7 +1514,8 @@
     "ultima_cura": {
       "concimazione": "2026-07-26",
       "irrigazione": "2026-08-18"
-    }
+    },
+    "impianto_circa": ""
   },
   "calendula-1784630168944": {
     "specie": "calendula",
@@ -1418,7 +1527,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-14",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "zucca-1784630168945": {
     "specie": "zucca",
@@ -1431,7 +1541,8 @@
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-26",
       "calcio": "2026-07-28"
-    }
+    },
+    "impianto_circa": ""
   },
   "tradescantia-1784633400156": {
     "specie": "tradescantia",
@@ -1442,7 +1553,8 @@
     "note": "Da una piccola talea ricevuta, cresciuta spontaneamente all'aperto come infestante. Fusti fucsia, foglie a punta striate, piccoli fiori bianchi/rosa molto chiaro.",
     "ultima_cura": {
       "irrigazione": "2026-08-18"
-    }
+    },
+    "impianto_circa": ""
   },
   "clematis-montana-1784633400157": {
     "specie": "clematis-montana",
@@ -1454,7 +1566,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-29"
-    }
+    },
+    "impianto_circa": ""
   },
   "stipa-tenuissima-1784633400158": {
     "specie": "stipa-tenuissima",
@@ -1465,7 +1578,8 @@
     "note": "",
     "ultima_cura": {
       "irrigazione": "2026-08-18"
-    }
+    },
+    "impianto_circa": ""
   },
   "mandarino-cinese-1784639951287": {
     "specie": "mandarino-cinese",
@@ -1477,7 +1591,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-16",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "plumbago-1784639951288": {
     "specie": "plumbago",
@@ -1489,7 +1604,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "aeonium-1784793743683": {
     "specie": "aeonium",
@@ -1501,7 +1617,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-09",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "falso-gelsomino-1784799343775": {
     "specie": "falso-gelsomino",
@@ -1513,7 +1630,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "camelia-1784803547526": {
     "specie": "camelia",
@@ -1525,7 +1643,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-16",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "calibrachoa-1784818548637": {
     "specie": "calibrachoa",
@@ -1537,7 +1656,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-19",
       "concimazione": "2026-07-25"
-    }
+    },
+    "impianto_circa": ""
   },
   "coreopsis-1784841747263": {
     "specie": "coreopsis",
@@ -1549,7 +1669,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "zinnia-1784842112009": {
     "specie": "zinnia",
@@ -1561,7 +1682,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "zinnia-1784857457465": {
     "specie": "zinnia-angustifolia",
@@ -1573,7 +1695,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-23"
-    }
+    },
+    "impianto_circa": ""
   },
   "zinnia-1784858101918": {
     "specie": "zinnia",
@@ -1585,7 +1708,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-24"
-    }
+    },
+    "impianto_circa": ""
   },
   "gerbera-1784859493907": {
     "specie": "gerbera",
@@ -1597,7 +1721,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-08-09"
-    }
+    },
+    "impianto_circa": ""
   },
   "fittonia-1784868306171": {
     "specie": "fittonia",
@@ -1609,7 +1734,8 @@
     "ultima_cura": {
       "irrigazione": "2026-08-18",
       "concimazione": "2026-07-24"
-    }
+    },
+    "impianto_circa": ""
   },
   "zucca-1784983622446": {
     "specie": "zucca",
@@ -1622,7 +1748,8 @@
       "calcio": "2026-07-25",
       "concimazione": "2026-08-06",
       "irrigazione": "2026-08-18"
-    }
+    },
+    "impianto_circa": ""
   },
   "zz-plant-1785499396214": {
     "specie": "zz-plant",
@@ -1633,7 +1760,8 @@
     "note": "",
     "ultima_cura": {
       "irrigazione": "2026-08-10"
-    }
+    },
+    "impianto_circa": ""
   },
   "zucca-1787136238609": {
     "specie": "zucca",
@@ -1642,6 +1770,7 @@
     "varieta": "Butternut",
     "impianto": "2026-08-10",
     "note": "4 delle piantine nate dai semi messi a germogliare dall'ultima zucca acquistata circa a marzo 2026",
-    "ultima_cura": {}
+    "ultima_cura": {},
+    "impianto_circa": ""
   }
 }

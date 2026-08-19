@@ -34,7 +34,10 @@
         <input v-model="form.varieta" placeholder="Es. Bianca, Rossa…" class="form-input" style="margin-bottom:10px;">
 
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Data impianto</label>
-        <input v-model="form.impianto" type="date" class="form-input">
+        <input v-model="form.impianto" type="date" class="form-input" style="margin-bottom:10px;">
+
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Periodo di impianto, se non conosci la data esatta</label>
+        <input v-model="form.impianto_circa" placeholder="Es. &quot;circa dal 2016&quot;, &quot;primavera 2025&quot;" class="form-input">
       </div>
 
       <!-- Note -->
@@ -70,7 +73,7 @@ const isNuova = computed(() => !route.params.id)
 const salvando = ref(false)
 
 const form = ref({
-  specie: '', zona: '', sottozona: '', varieta: '', impianto: '', note: ''
+  specie: '', zona: '', sottozona: '', varieta: '', impianto: '', impianto_circa: '', note: ''
 })
 
 const sottozoneZona = computed(() => {
@@ -92,6 +95,7 @@ onMounted(async () => {
       sottozona: p.sottozona ?? '',
       varieta:   p.varieta   ?? '',
       impianto:  p.impianto  ?? '',
+      impianto_circa: p.impianto_circa ?? '',
       note:      p.note      ?? '',
     }
   }
@@ -112,6 +116,7 @@ async function salva() {
         sottozona: form.value.sottozona || null,
         varieta:   form.value.varieta  || '',
         impianto:  form.value.impianto || '',
+        impianto_circa: form.value.impianto_circa || '',
         note:      form.value.note     || '',
         ultima_cura: piantaEsistente.ultima_cura || {},
       }
