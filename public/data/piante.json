@@ -1731,7 +1731,9 @@
     "varieta": "Butternut",
     "impianto": "2026-08-10",
     "note": "4 delle piantine nate dai semi messi a germogliare dall'ultima zucca acquistata circa a marzo 2026",
-    "ultima_cura": {},
+    "ultima_cura": {
+      "irrigazione": "2026-08-19"
+    },
     "impianto_circa": ""
   }
 }
