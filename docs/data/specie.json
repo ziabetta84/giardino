@@ -468,44 +468,6 @@
       }
     }
   },
-  "prunus-taoflora": {
-    "nome": "Prunus taoflora",
-    "specie": "Prunus spp.",
-    "descrizione": "<p>Albero ornamentale a fioritura primaverile.</p>",
-    "esigenze": {
-      "luce": "Sole",
-      "acqua": "Moderata",
-      "terreno": "Fertile"
-    },
-    "alert": [
-      "Sensibile a monilia",
-      "richiede pieno sole per una fioritura abbondante",
-      "evitare ristagni idrici (preferisce terreno drenante)",
-      "molto resistente al vento: ideale per il crinale",
-      "possibile attacco di afidi in primavera",
-      "potare solo dopo la fioritura per non perdere i fiori dell’anno successivo"
-    ],
-    "manutenzione": {
-      "irrigazione": {
-        "primavera": "solo se non piove per 10-14 giorni",
-        "estate": "ogni 10-15 giorni nei periodi molto secchi",
-        "autunno": "nessuna, salvo siccità prolungata",
-        "inverno": "nessuna"
-      },
-      "concimazione": {
-        "primavera": "una volta con concime organico o pellet di stallatico",
-        "estate": "nessuna",
-        "autunno": "nessuna",
-        "inverno": "nessuna"
-      },
-      "potatura": {
-        "primavera": "taglio leggero",
-        "estate": "taglio leggero",
-        "autunno": "nessuna",
-        "inverno": "nessuna"
-      }
-    }
-  },
   "rosmarino": {
     "nome": "Rosmarino",
     "specie": "Rosmarinus officinalis",
