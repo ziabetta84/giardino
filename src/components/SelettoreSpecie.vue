@@ -236,11 +236,11 @@ const dropdownAperto = ref(false)
 // rilevanza.
 const specieFiltrate = computed(() => {
   const tutte = Object.entries(store.specie ?? {})
-    .map(([key, s]) => ({ key, nome: s.nome ?? key, verificata: s.stato_verifica === 'verificato' }))
+    .map(([key, s]) => ({ key, nome: s.nome ?? key, nomeScientifico: s.specie ?? '', verificata: s.stato_verifica === 'verificato' }))
   const q = specieQuery.value.trim().toLowerCase()
 
   const base = q
-    ? tutte.filter(s => s.nome.toLowerCase().includes(q))
+    ? tutte.filter(s => s.nome.toLowerCase().includes(q) || s.nomeScientifico.toLowerCase().includes(q))
     : tutte.filter(s => s.verificata)
 
   return base
