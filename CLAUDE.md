@@ -27,7 +27,8 @@ src/
 ├── composables/
 │   ├── useApi.js            ← GitHub API: saveJSON(), uploadFile(), token management
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
-│   └── useCure.js           ← logica urgenze cure (irrigazione, concimazione, potatura)
+│   ├── useCure.js           ← logica urgenze cure (irrigazione, concimazione, potatura)
+│   └── useSupabase.js       ← client Supabase (solo lettura specie, vedi sotto)
 ├── components/
 │   ├── PiantaRiga.vue       ← riga pianta riutilizzabile (usata in PianteView)
 │   └── ModalConferma.vue    ← dialog eliminazione generico
@@ -35,6 +36,7 @@ src/
 public/data/                 ← JSON letti a runtime dal frontend
 docs/                        ← vecchio sito Jekyll (non più attivo)
 docs/gallery/piante/         ← foto piante organizzate per {id-pianta}/
+supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardino di Zorba"
 ```
 
 ## Dati e persistenza
@@ -44,11 +46,20 @@ Tutti i dati vivono in `public/data/` come JSON. Le scritture avvengono tramite 
 | File | Contenuto |
 |------|-----------|
 | `piante.json` | Piante con zona, sottozona, ultima_cura per tipo |
-| `specie.json` | Profili di cura per specie (~100+ specie) con manutenzione stagionale |
+| `specie.json` | Profili di cura per specie (~8700 specie) con manutenzione stagionale — fallback offline, vedi sotto |
 | `zone.json` | Metadati delle 6 zone (nome, tipo, esposizione, microclima) |
 | `sottozone.json` | Sottozone indicizzate per chiave zona |
 | `richieste-agente.json` | Coda richieste AI (stato: in_attesa → completata/errore) |
 | `settings.json` | Coordinate GPS per Open-Meteo |
+
+### Migrazione specie → Supabase (Fase 2, pilota)
+
+Le **specie** sono in migrazione da `specie.json` a **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`, "Il Giardino di Zorba", tabella `specie`, ~8700 righe, RLS attive). Stato attuale (`stores/dati.js → caricaSpecie()`):
+
+- **Lettura**: `useDatiStore` legge le specie da Supabase via `useSupabase.js` (client con URL + chiave anon in `.env`, sicuri da versionare perché protetti dalle policy RLS). L'oggetto risultante mantiene la stessa forma di `specie.json` (stessa chiave `slug`, stessi campi `specie`, `coltivazione`, ecc. — mappati da `nome_scientifico`/`ciclo_colturale`) così il resto dell'app non deve saperlo.
+- **Fallback**: se Supabase non risponde, si ripiega su `specie.json` statico (fetch, non GitHub API).
+- **Scrittura**: ancora **non migrata** — creare/modificare una specie da `SelettoreSpecie` scrive solo su `specie.json` via GitHub Contents API. Quando si corregge una specie occorre quindi aggiornare **entrambe le fonti** (`specie.json` **e** la riga corrispondente nella tabella `specie` su Supabase, es. con `execute_sql`/`apply_migration` via MCP) finché la Fase 2 non completa anche le scritture.
+- Le migration schema vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`).
 
 ## Coda richieste agente AI
 
