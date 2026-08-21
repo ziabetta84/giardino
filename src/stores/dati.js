@@ -41,6 +41,8 @@ async function caricaSpecie() {
       .select('id, slug, nome, nome_scientifico, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica')
     if (error) throw error
     return Object.fromEntries(data.map(riga => [riga.slug, {
+      id: riga.id,
+      slug: riga.slug,
       nome: riga.nome,
       specie: riga.nome_scientifico,
       descrizione: riga.descrizione,
