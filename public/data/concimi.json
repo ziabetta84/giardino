@@ -82,5 +82,14 @@
       "p": 0,
       "k": 6.5
     }
+  },
+  "concime-1787300701882": {
+    "nome": "COMPO NPK BLU Concime Universale",
+    "npk": {
+      "n": 12,
+      "p": 12,
+      "k": 17
+    },
+    "descrizione": ""
   }
 }
