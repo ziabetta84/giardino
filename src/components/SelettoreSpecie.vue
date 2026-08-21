@@ -235,7 +235,6 @@ const dropdownAperto = ref(false)
 // catalogo, bozza incluse, con le verificate sempre in cima a parità di
 // rilevanza.
 const specieFiltrate = computed(() => {
-  console.log('Specie caricate:', store.specie);
   const tutte = Object.entries(store.specie ?? {})
 
     .map(([key, s]) => ({ key, nome: s.nome ?? key, nomeScientifico: s.specie ?? '', verificata: s.stato_verifica === 'verificato' }))
