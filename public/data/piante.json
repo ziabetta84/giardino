@@ -1405,7 +1405,7 @@
     "impianto": "2026-05-18",
     "note": "4 piante, impiantate il 18/5/26",
     "ultima_cura": {
-      "irrigazione": "2026-08-20",
+      "irrigazione": "2026-08-21",
       "concimazione": "2026-08-20",
       "calcio": "2026-08-20"
     },
@@ -1433,7 +1433,7 @@
     "impianto": "2026-05-18",
     "note": "4 piante, impiantate il 18/5/26",
     "ultima_cura": {
-      "irrigazione": "2026-08-20",
+      "irrigazione": "2026-08-21",
       "calcio": "2026-08-20",
       "concimazione": "2026-08-20"
     },
@@ -1486,7 +1486,7 @@
     "impianto": "2026-05-18",
     "note": "6 piante, impiantate il 18/5/26",
     "ultima_cura": {
-      "irrigazione": "2026-08-19",
+      "irrigazione": "2026-08-21",
       "concimazione": "2026-08-20"
     },
     "impianto_circa": ""
@@ -1499,7 +1499,7 @@
     "impianto": "",
     "note": "Una decina di piantine in vasetto, germogliate da seme di zucca butternut, non ancora messe a dimora",
     "ultima_cura": {
-      "irrigazione": "2026-08-20",
+      "irrigazione": "2026-08-21",
       "concimazione": "2026-08-20",
       "calcio": "2026-08-20"
     },
