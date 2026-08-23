@@ -28,6 +28,10 @@ src/
 │   ├── useApi.js            ← GitHub API: saveJSON(), uploadFile(), token management
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
 │   ├── useCure.js           ← logica urgenze cure (irrigazione, concimazione, potatura)
+│   ├── useConcimi.js        ← abbinamento concime↔pianta per distanza NPK normalizzata (vedi sotto)
+│   ├── useProgetti.js       ← logica progetti/tappe (scadenzaCalcolata da ultima tappa, ecc.)
+│   ├── useGalleria.js       ← listing/upload foto via Contents API (usato da GalleryView)
+│   ├── useRepoStatus.js / useAppUpdate.js ← confronto build corrente vs ultimo commit main + banner update PWA (StatusBar.vue)
 │   └── useSupabase.js       ← client Supabase (solo lettura specie, vedi sotto)
 ├── components/
 │   ├── PiantaRiga.vue       ← riga pianta riutilizzabile (usata in PianteView)
@@ -49,6 +53,8 @@ Tutti i dati vivono in `public/data/` come JSON. Le scritture avvengono tramite 
 | `specie.json` | Profili di cura per specie (~8700 specie) con manutenzione stagionale — fallback offline, vedi sotto |
 | `zone.json` | Metadati delle 6 zone (nome, tipo, esposizione, microclima) |
 | `sottozone.json` | Sottozone indicizzate per chiave zona |
+| `concimi.json` | Dispensa concimi posseduti, con NPK `{n, p, k}` — usata da `useConcimi.js` per il match con le esigenze della specie |
+| `progetti.json` | Progetti del giardino con `tappe[]` (data, descrizione, esito) — schema in `useProgetti.js` |
 | `richieste-agente.json` | Coda richieste AI (stato: in_attesa → completata/errore) |
 | `settings.json` | Coordinate GPS per Open-Meteo |
 
@@ -63,12 +69,17 @@ Le **specie** sono in migrazione da `specie.json` a **Supabase** (progetto `ncuh
 
 ## Coda richieste agente AI
 
-Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.json` con stato `in_attesa`. Claude Code legge la coda, elabora le richieste (può includere foto in base64), aggiorna il JSON con `stato: completata` e `risposta.messaggio`, poi fa commit.
+Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.json` con stato `in_attesa`. Il comando `/elabora` (`.claude/commands/elabora.md`) contiene la procedura completa, tipo per tipo — è la fonte di verità, da consultare invece di indovinare il formato risposta; in sintesi: legge la coda, elabora ogni richiesta (può includere foto in base64), aggiorna il JSON con `stato: completata` e `risposta.messaggio`, azzera `foto` (per non far crescere il file oltre la soglia di ~1MB della Contents API), e fa commit.
+
+Alcuni tipi scrivono anche altrove, non solo la risposta testuale:
+- `revisione_specie` → aggiorna anche `specie.json`
+- `pianifica_progetto` → crea/aggiorna anche `progetti.json` (schema tappe in `useProgetti.js`)
+- `consiglio_concimazione` → usa lo stesso criterio di match NPK di `useConcimi.js` (distanza euclidea su rapporti normalizzati, soglia 0.15), per coerenza con quanto l'utente vede già in app
 
 Schema richiesta:
 ```json
 {
-  "tipo": "identifica_specie | consiglio_cura | diagnosi | altro",
+  "tipo": "identifica_specie | revisione_specie | consiglio_cura | consiglio_concimazione | diagnosi | pianifica_progetto | altro",
   "messaggio": "...",
   "foto": "<base64 opzionale>",
   "stato": "in_attesa",
