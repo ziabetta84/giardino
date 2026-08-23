@@ -898,7 +898,7 @@
     "impianto": "",
     "note": "",
     "ultima_cura": {
-      "irrigazione": "2026-08-21",
+      "irrigazione": "2026-08-23",
       "concimazione": "2026-07-25",
       "potatura": "2026-07-15"
     },
@@ -1681,7 +1681,7 @@
     "ultima_cura": {
       "calcio": "2026-07-25",
       "concimazione": "2026-08-06",
-      "irrigazione": "2026-08-21"
+      "irrigazione": "2026-08-23"
     },
     "impianto_circa": ""
   },
