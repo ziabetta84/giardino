@@ -64,19 +64,6 @@
     },
     "impianto_circa": ""
   },
-  "primula-1777363417524": {
-    "specie": "primula",
-    "zona": "Est",
-    "sottozona": null,
-    "varieta": "",
-    "impianto": "2026-03-02",
-    "note": "",
-    "ultima_cura": {
-      "irrigazione": "2026-08-21",
-      "concimazione": "2026-07-15"
-    },
-    "impianto_circa": ""
-  },
   "spiraea-arguta-1777367805928": {
     "specie": "spiraea-arguta",
     "zona": "Est",
