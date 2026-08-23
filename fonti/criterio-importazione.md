@@ -1,0 +1,54 @@
+# Criterio di importazione delle fonti su Supabase
+
+Questo documento fissa il criterio con cui le fonti in `fonti/` vengono lette e trasferite nella tabella `specie` su Supabase (progetto `ncuhhsvtjwcolhpdxbkt`, "Il Giardino di Zorba"). Serve a mantenere l'importazione **affidabile** (niente sovrascritture cieche, niente duplicati) e a **contenere il consumo di token** quando è Claude Code a farla, dato che le fonti aggiunte sono voluminose (es. `rhs/` da solo supera 3700 file contando asset).
+
+## Stato di partenza (verificato il 2026-08-23)
+
+- **PFAF** (`fonti/PFAF`) → già importato per tutte le 8699 specie in tabella (`stato_verifica: 'bozza'`, `fonti: ["Plants For A Future (pfaf.org) — importazione bozza automatica, dati non verificati manualmente"]`). Fonte "di base", copre tutto ma senza verifica.
+- **RHS** (`fonti/rhs`) → le 127 pagine salvate corrispondono quasi 1:1 alle **87 specie realmente possedute** (`public/data/piante.json`), non a un campione casuale. 86 di queste 87 sono già `stato_verifica: 'verificato'` con `fonti` che cita RHS. Resta da fare solo **`prunus-persica`** (pagina presente: `Prunus persica _ peach.html`, ancora a `bozza`/PFAF).
+- Tutte le altre fonti in `fonti/` (libri Edicart, Il maxi libro del giardino, CREA, guida orchidee, Le Georgiche, Actaplantarum) sono **nuove, non ancora importate**.
+
+## Obiettivo: catalogo il più ampio possibile, affidabilità come vincolo primario
+
+L'obiettivo **non** è limitarsi alle 87 specie possedute: è far crescere il catalogo `specie` il più possibile (oltre le 8699 righe attuali, inserendo anche specie che non ci sono ancora), usando le fonti nuove sia per **aggiungere** righe sia per **arricchire/verificare** quelle esistenti. Il vincolo è che ogni aggiunta resti affidabile — niente righe generate a caso per massimizzare il conteggio: ogni specie importata porta con sé la sua fonte tracciata in `fonti`, e uno `stato_verifica` onesto rispetto alla qualità reale del dato (vedi "Regole di scrittura" sotto). L'ampiezza è quindi un sotto-prodotto di un'importazione sistematica di *tutte* le fonti disponibili, non di un'unica infornata frettolosa.
+
+## Criterio di priorità: fasi per costo/beneficio in token, non per "è mio/non è mio"
+
+Dato che si punta alla copertura totale, l'ordine con cui si processano le fonti è dettato da quanto costa (in token) estrarne il contenuto e quanta reale ampiezza/affidabilità restituisce, non da chi possiede già la pianta:
+
+**Fase 1 — le 87 specie possedute:** priorità assoluta perché impattano subito le cure suggerite in app. Quasi conclusa (vedi sotto).
+
+**Fase 2 — fonti strutturate, basso costo per specie (CSV `maxi-libro-del-giardino`, PDF `CREA`):** formato regolare → uno script fa match/estrazione deterministica per centinaia di specie, Claude interviene solo per validare i casi ambigui e scrivere il batch finale. Il miglior rapporto specie-aggiunte/token: è la fase che fa crescere di più il catalogo a parità di sforzo.
+
+**Fase 3 — fonti narrative (`guida-completa-giardino`, `enciclopedia-*`, `guida-orchidee`):** testo libero, serve Claude per interpretarlo e strutturarlo campo per campo. Più costoso per specie, ma i file sono già trascritti in `.txt` dall'utente (mai rifare l'OCR leggendo il jpg se il `.txt` esiste già) — si processa a batch multi-specie via via che nuove trascrizioni arrivano.
+
+**Fase 4 — fonti web senza contenuto locale (`actaplantarum`, `legeorgiche`):** restano in attesa: niente scraping proattivo pagina per pagina con WebFetch (costoso e fuori dal controllo di versione). Quando l'utente scarica/trascrive contenuto locale, rientrano in Fase 2 o 3 a seconda del formato.
+
+## Pipeline per tipo di fonte
+
+| Fonte | Formato | Come processarla |
+|---|---|---|
+| `maxi-libro-del-giardino` | CSV tabellare, ~7 file, centinaia di righe (categoria, esposizione, nome comune/scientifico, famiglia, dimensioni, colore fiori, fioritura) | Script di parsing: per ogni riga, normalizza `nome_scientifico` e cerca match in `specie.slug`/`nome_scientifico`. Se trovata → integra i campi vuoti (`esigenze.luce` da esposizione, `descrizione` se assente) e aggiunge la fonte. **Se non trovata → INSERT di una nuova riga** (`stato_verifica: 'bozza'`, dati minimi ma con fonte tracciata): è così che il catalogo cresce oltre le 8699 specie attuali. |
+| `CREA` | PDF — **non sono schede colturali** come inizialmente ipotizzato: sono tabelle di descrittori morfologici UPOV/CPVO/IBPGR per il riconoscimento varietale (dimensione albero, portamento, epoca di fioritura, colore frutto per stadio, ecc.), pensate per la registrazione di cultivar, non per la coltivazione. ~41 file, ~15KB di testo l'uno una volta estratti (`2014_03_11_Melo.pdf` e `2016_29_01_villosum.pdf` sono lo stesso file duplicato, md5 identico — va scelto un solo nome; `Non confermato 99056.crdownload.pdf` è in realtà un PDF leggibile nonostante il nome) | Il dato agronomico utile per lo schema `specie` è scarso e va isolato per singolo campo (es. "Fabbisogno in freddo" = ore di freddo, utile per `esigenze`/note) — **non conviene leggere il dump integrale di ognuno dei 41 file**, va estratto solo il paragrafo/tabella rilevante per specie (con grep mirato sul testo estratto via `pdftotext`, non con il tool Read che rasterizza il PDF in immagini — pesa per un modello vision). `pdftotext` è stato installato (`brew install poppler`) proprio per questo: testo pulito, a basso costo, invece di leggere pagine come immagini. |
+| `guida-completa-giardino`, `enciclopedia-*`, `guida-orchidee` | Foto di pagine di libro (jpg) + trascrizioni manuali già fatte dall'utente in `.txt` | Un `.txt` può contenere più specie (blocco NOME SCIENTIFICO / nome comune / FAMIGLIA / prosa) — Claude legge il file e lo spezza. Ogni specie trovata: match contro il catalogo esistente (aggiorna) o nuova riga (inserisce). Nessun filtro "solo se posseduta": tutte le specie del libro contribuiscono all'ampiezza. |
+| `rhs` | HTML salvato con asset (css/js/immagini) | **Non leggere mai l'HTML grezzo** (può superare 300-400 KB per pagina per script/tracking inline) — isolare prima il testo delle sezioni utili (Cultivation, Propagation, Pruning, Pests/diseases, Position, Soil). Le 127 pagine coincidono già con le specie possedute (Fase 1); non ci sono altre pagine RHS da cui espandere il catalogo per ora. |
+| `legeorgiche`, `actaplantarum` | Solo URL nell'elenco fonti, nessun contenuto locale ancora | In attesa (Fase 4): nessuna azione finché non c'è contenuto scaricato/trascritto localmente. |
+
+## Regole di scrittura
+
+1. **Mai sovrascrivere un campo già plausibile** solo per allinearlo a una fonte diversa — solo se c'è un'inconsistenza chiara o la fonte nuova è più autorevole (es. CREA su un dato agronomico specifico).
+2. **Deduplicare prima di inserire**: quando una specie non ha match diretto per `slug`, controllare anche `nome_scientifico` normalizzato (case, sinonimi/varietà minori) prima di creare una riga nuova — l'obiettivo è ampiezza reale, non righe duplicate della stessa specie con nomi leggermente diversi.
+3. **`stato_verifica` onesto rispetto alla fonte**: `'verificato'` solo per fonti primarie univoche e specifiche (RHS, CREA, libro cartaceo con contenuto puntuale sulla specie). Un inserimento nuovo da una fonte generalista (Edicart, maxi-libro) resta `'bozza'` — più ampiezza ma etichettata per quello che è, così l'affidabilità del catalogo resta leggibile e non finta.
+4. **Tracciare sempre la provenienza in `fonti`** (colonna `text[]` già esistente in `specie`, usata da RHS/PFAF): stringa nel formato `"<Fonte leggibile> (<riferimento>) — <dettaglio>"`, es. `"CREA — scheda tecnica ufficiale (planta-res.politicheagricole.it) — Pesco"` o `"Il maxi libro del giardino (F. Mainardi Fazio, De Vecchi/Giunti, 2012)"`. Prima di rileggere una fonte per una specie già presente, controllare se è già citata in `fonti`: se sì, saltare (evita ri-elaborazioni inutili sia per update che per insert).
+5. **Batch, non riga per riga**: quando si scrive su Supabase, raggruppare più specie in un'unica `apply_migration`/`execute_sql` (come già fatto per i batch `pfaf_bozza_batch01..22`), non una chiamata per specie — riduce l'overhead di tool-call e il numero di migration sparse anche quando il volume di specie aggiunte è alto.
+
+## Stato di avanzamento
+
+**Fatto (2026-08-23):**
+- Fase 2, `maxi-libro-del-giardino`: 20 CSV analizzati, 66 specie con nome scientifico binomiale affidabile estratte (scartate ~230 righe con solo nome comune/genere o campi ambigui — vedi criterio di esclusione nello script). Applicata migration `20260823000000_maxi_libro_giardino_batch01.sql`: 23 specie esistenti arricchite (esigenze/descrizione/fonti), 43 nuove specie inserite (perlopiù cultivar di conifere nane). Catalogo passato da 8701 a 8744 righe.
+- `pdftotext` installato (`brew install poppler`) per leggere i PDF a testo invece che come immagini.
+
+**Ancora da fare:**
+1. Chiudere il residuo Fase 1: `prunus-persica` da RHS (`Prunus persica _ peach.html`) — unica delle 87 possedute ancora a bozza/PFAF.
+2. CREA: rivalutare l'approccio alla luce della scoperta sul formato (vedi tabella sopra) — estrazione mirata per specie invece di lettura integrale, a partire da `Pesco.pdf` (→ prunus-persica) e `PASSIFLORA.pdf` (→ passiflora-caerulea).
+3. Fase 3, incrementale: ogni volta che l'utente trascrive nuove pagine dei libri in `.txt`, leggerle e strutturarle a batch (nessun filtro sulle 87 possedute — tutte le specie contano per l'ampiezza).

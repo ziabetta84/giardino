@@ -1,6 +1,8 @@
 # Elenco delle fonti
 Raccolta delle fonti presenti nella cartella `fonti/`.
 
+Per il criterio con cui queste fonti vengono importate/aggiornate su Supabase, vedi [`criterio-importazione.md`](./criterio-importazione.md).
+
 ## Indice
 - [Fonte 01 — Sito Actaplantarum](#actaplantarum)
 - [Fonte 02 — Sito: CREA](#CREA)
