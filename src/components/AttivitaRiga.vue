@@ -20,21 +20,53 @@
     </div>
     <div class="attivita-riga-dettagli-wrap" :class="{ aperta: espansa }">
       <div class="attivita-riga-dettagli">
-        <div v-if="pianta" style="display:flex;flex-direction:column;gap:8px;padding-top:12px;margin-top:12px;border-top:1px solid var(--cream-dark);">
-          <div style="display:flex;gap:6px;flex-wrap:wrap;">
-            <span class="badge badge-gold">{{ pianta.zona }}</span>
-            <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
-          </div>
-          <p v-if="specie?.specie || pianta.varieta" class="title-serif" style="font-size:12px;color:var(--ink-soft);font-style:italic;margin:0;">
-            {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
-          </p>
-          <div v-if="specie?.esigenze" style="display:flex;flex-direction:column;gap:4px;">
-            <div v-for="(val, chiave) in specie.esigenze" :key="chiave" style="display:flex;gap:8px;font-size:12px;">
-              <span style="color:var(--ink-faint);text-transform:capitalize;min-width:70px;flex-shrink:0;">{{ chiave }}</span>
-              <span class="text-light" style="color:var(--ink-mid);">{{ val }}</span>
+        <div v-if="pianta" style="display:flex;flex-direction:column;gap:14px;padding-top:12px;margin-top:12px;border-top:1px solid var(--cream-dark);">
+          <div>
+            <p class="section-label" style="margin-bottom:8px;">Stato cure</p>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div v-for="tipo in tipiCura" :key="tipo" style="display:flex;align-items:center;gap:10px;">
+                <div :style="`width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--${TINTE_CURA[tipo] ?? 'sage'}-tile);`">
+                  <Icon :name="ICONE_CURA[tipo] ?? 'foglia'" style="width:14px;height:14px;" />
+                </div>
+                <div style="flex:1;min-width:0;">
+                  <div style="font-size:12px;font-weight:500;text-transform:capitalize;">{{ tipo }}</div>
+                  <div style="font-size:11px;color:var(--ink-soft);margin-top:1px;">{{ valutaCura(pianta, specie, tipo, contestoCura).label ?? 'Non configurata' }}</div>
+                </div>
+                <button @click.stop="registraCuraTipo(tipo)" :disabled="salvandoTipo === tipo" class="btn btn-sage"
+                  style="font-size:10px;padding:4px 9px;min-height:26px;flex-shrink:0;">
+                  <Spinner v-if="salvandoTipo === tipo" /><span v-else>✓ Fatto</span>
+                </button>
+              </div>
             </div>
           </div>
-          <p v-if="pianta.note" class="text-light" style="font-size:12px;color:var(--ink-mid);line-height:1.5;margin:0;">{{ pianta.note }}</p>
+
+          <div v-if="fabbisognoNpk && classificaConcimiPianta.length">
+            <p class="section-label" style="margin-bottom:2px;">Concimi consigliati</p>
+            <p style="font-size:10.5px;color:var(--ink-faint);margin:0 0 8px;">Fabbisogno attuale: {{ fabbisognoNpk }}</p>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div v-for="(c, i) in classificaConcimiPianta" :key="c.id"
+                :style="`display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;${i === 0 ? 'background:var(--sage-pale);' : ''}`">
+                <span :style="`width:18px;height:18px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;${i === 0 ? 'background:var(--sage);color:white;' : 'background:var(--cream-dark);color:var(--ink-soft);'}`">
+                  {{ i + 1 }}
+                </span>
+                <span style="flex:1;min-width:0;font-size:12px;font-weight:500;line-height:1.4;">{{ c.nome }}</span>
+                <span class="badge" style="background:var(--white);color:var(--ink-soft);border:1px solid var(--cream-dark);flex-shrink:0;font-size:10px;">
+                  {{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="specie?.esigenze">
+            <p class="section-label" style="margin-bottom:6px;">Esigenze</p>
+            <div style="display:flex;flex-direction:column;gap:4px;">
+              <div v-for="(val, chiave) in specie.esigenze" :key="chiave" style="display:flex;gap:8px;font-size:12px;">
+                <span style="color:var(--ink-faint);text-transform:capitalize;min-width:70px;flex-shrink:0;">{{ chiave }}</span>
+                <span class="text-light" style="color:var(--ink-mid);">{{ val }}</span>
+              </div>
+            </div>
+          </div>
+
           <RouterLink :to="`/piante/${item.piantaId}`" style="font-size:12px;font-weight:600;color:var(--sage-dark);text-decoration:none;">
             Vedi scheda completa →
           </RouterLink>
@@ -47,6 +79,9 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
+import { useApi } from '@/composables/useApi'
+import { valutaCura, stagione } from '@/composables/useCure'
+import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -59,6 +94,7 @@ defineEmits(['registra'])
 
 const espansa = ref(false)
 const store = useDatiStore()
+const { saveJSON } = useApi()
 const pianta = computed(() => store.piante?.[props.item.piantaId] ?? null)
 const specie = computed(() => pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null)
 
@@ -66,6 +102,46 @@ const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatu
 const TINTE_CURA = { irrigazione: 'acqua', concimazione: 'olive', potatura: 'rose', calcio: 'sage' }
 function icona(tipo) {
   return ICONE_CURA[tipo] ?? 'foglia'
+}
+
+// "calcio" riguarda solo le poche specie con un beneficio documentato (vedi
+// PiantaView): mostrarlo per tutte le altre come "Non configurata" sarebbe
+// rumore, a differenza di irrigazione/concimazione/potatura sempre pertinenti.
+const tipiCura = computed(() => {
+  const base = ['irrigazione', 'concimazione', 'potatura']
+  if (specie.value?.manutenzione?.calcio) base.push('calcio')
+  return base
+})
+
+const contestoCura = computed(() => ({
+  esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
+  meteo: store.meteo,
+}))
+
+const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
+const classificaConcimiPianta = computed(() =>
+  fabbisognoNpk.value ? classificaConcimiPerFabbisogno(fabbisognoNpk.value, store.concimi).slice(0, 3) : []
+)
+
+const salvandoTipo = ref(null)
+async function registraCuraTipo(tipo) {
+  if (!pianta.value || salvandoTipo.value) return
+  salvandoTipo.value = tipo
+  const id = props.item.piantaId
+  try {
+    const nuove = await saveJSON('piante.json', (correnti) => {
+      const base = { ...(correnti ?? store.piante) }
+      const piantaEsistente = base[id] || {}
+      base[id] = {
+        ...piantaEsistente,
+        ultima_cura: { ...(piantaEsistente.ultima_cura || {}), [tipo]: new Date().toISOString().split('T')[0] },
+      }
+      return base
+    })
+    store.piante = nuove
+  } finally {
+    salvandoTipo.value = null
+  }
 }
 
 const cardStyle = computed(() => {
