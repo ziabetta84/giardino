@@ -82,5 +82,14 @@
       "p": 0,
       "k": 6.5
     }
+  },
+  "concime-1787551973649": {
+    "nome": "Eurogarden concime universale",
+    "npk": {
+      "n": 5,
+      "p": 5,
+      "k": 5
+    },
+    "descrizione": ""
   }
 }
