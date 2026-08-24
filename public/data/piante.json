@@ -1413,18 +1413,6 @@
     },
     "impianto_circa": ""
   },
-  "scalogno-1784630168942": {
-    "specie": "scalogno",
-    "zona": "Orto",
-    "sottozona": null,
-    "varieta": "",
-    "impianto": "2026-05-18",
-    "note": "6 piante, impiantate il 18/5/26",
-    "ultima_cura": {
-      "irrigazione": "2026-08-21"
-    },
-    "impianto_circa": ""
-  },
   "basilico-1784630168943": {
     "specie": "basilico",
     "zona": "Orto",
