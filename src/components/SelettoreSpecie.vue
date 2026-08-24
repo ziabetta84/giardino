@@ -18,8 +18,10 @@
         </div>
         <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie"><Icon name="matita" style="width:13px;height:13px;" /></button>
       </div>
-      <p v-if="!specieFiltrate.length && specieQuery.trim()" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
-      <p v-if="!specieQuery.trim()" style="font-size:11px;color:var(--ink-faint);padding:6px 10px 2px;">Specie verificate — digita per cercare anche nelle {{ Object.keys(store.specie ?? {}).length }} bozze del catalogo</p>
+      <p v-if="ricercaInCorso" style="font-size:11px;color:var(--ink-faint);padding:6px 10px;display:flex;align-items:center;gap:6px;"><Spinner style="width:12px;height:12px;" />Ricerca nel catalogo…</p>
+      <p v-if="ricercaOffline" style="font-size:11px;color:var(--rose-dark);padding:6px 10px;">Ricerca nel catalogo non disponibile offline — solo le specie già caricate.</p>
+      <p v-if="!specieFiltrate.length && specieQuery.trim() && !ricercaInCorso" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
+      <p v-if="!specieQuery.trim()" style="font-size:11px;color:var(--ink-faint);padding:6px 10px 2px;">Specie verificate — digita per cercare anche nel resto del catalogo</p>
       <div class="specie-opzione specie-nuova" @mousedown.prevent="apriNuovaSpecie">
         ＋ Aggiungi nuova specie{{ specieQuery.trim() ? ` "${specieQuery.trim()}"` : '' }}
       </div>
@@ -209,9 +211,11 @@
 // per una <select> nativa comoda su mobile) più un'opzione per creare o
 // modificare una specie al volo. Estratto da EditPiantaView.vue perché
 // riusato identico in "Zorba dice" (richiesta "revisione specie").
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { useSupabase } from '@/composables/useSupabase'
+import { mappaSpecie, COLONNE_SPECIE } from '@/stores/dati'
 import { parseGiorni } from '@/composables/useCure'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -223,17 +227,18 @@ const emit = defineEmits(['update:modelValue'])
 
 const store = useDatiStore()
 const { saveJSON } = useApi()
+const supabase = useSupabase()
 
 const specieQuery    = ref('')
 const dropdownAperto = ref(false)
 
-// Con il catalogo esteso da PFAF (~8.700 voci, quasi tutte in bozza), il
-// menu non può più mostrare "tutto" a campo vuoto: costerebbe una lista
-// enorme nel DOM per una ricerca non ancora iniziata. Sotto ai 2 caratteri
-// mostriamo solo le specie verificate (poche, curate, sempre utili come
-// suggerimento iniziale); da 2 caratteri in su la ricerca copre tutto il
-// catalogo, bozza incluse, con le verificate sempre in cima a parità di
-// rilevanza.
+// Con il catalogo esteso da PFAF (~8.700 voci e in crescita), non ha più
+// senso caricarlo tutto in anticipo (issue #142): lo store all'avvio
+// contiene solo le specie delle piante possedute e quelle verificate
+// (i suggerimenti a campo vuoto, sotto). Da 2 caratteri in su la ricerca
+// unisce il filtro immediato su ciò che è già in store a una ricerca live
+// su Supabase (debounced, vedi avviaRicercaRemota), i cui risultati vengono
+// fusi nello store così restano disponibili senza rifetch.
 const specieFiltrate = computed(() => {
   const tutte = Object.entries(store.specie ?? {})
 
@@ -248,6 +253,58 @@ const specieFiltrate = computed(() => {
     .sort((a, b) => (b.verificata - a.verificata) || a.nome.localeCompare(b.nome))
     .slice(0, 50)
 })
+
+// Ricerca live: parte da 2 caratteri (stessa soglia del filtro locale sopra),
+// con un debounce per non fare una query ad ogni tasto. Un token incrementale
+// scarta le risposte arrivate fuori ordine (query più vecchia risolta dopo
+// una più recente).
+const ricercaInCorso = ref(false)
+const ricercaOffline = ref(false)
+let timerRicerca = null
+let tokenRicerca = 0
+
+function escapeIlike(testo) {
+  return testo.replace(/[\\%_]/g, m => '\\' + m)
+}
+
+async function eseguiRicercaRemota(q) {
+  const mioToken = ++tokenRicerca
+  const pattern = `%${escapeIlike(q)}%`
+  try {
+    const [porNome, porScientifico] = await Promise.all([
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).limit(50),
+    ])
+    if (porNome.error) throw porNome.error
+    if (porScientifico.error) throw porScientifico.error
+    if (mioToken !== tokenRicerca) return  // superata da una ricerca più recente
+
+    store.specie = { ...(store.specie ?? {}), ...mappaSpecie([...(porNome.data ?? []), ...(porScientifico.data ?? [])]) }
+    ricercaOffline.value = false
+  } catch (e) {
+    if (mioToken !== tokenRicerca) return
+    console.error('Ricerca specie non disponibile', e)
+    ricercaOffline.value = true
+  } finally {
+    if (mioToken === tokenRicerca) ricercaInCorso.value = false
+  }
+}
+
+watch(specieQuery, (val) => {
+  clearTimeout(timerRicerca)
+  const q = val.trim()
+  if (q.length < 2) {
+    tokenRicerca++  // scarta un'eventuale ricerca ancora in volo
+    ricercaInCorso.value = false
+    ricercaOffline.value = false
+    return
+  }
+  ricercaInCorso.value = true
+  ricercaOffline.value = false
+  timerRicerca = setTimeout(() => eseguiRicercaRemota(q), 300)
+})
+
+onUnmounted(() => clearTimeout(timerRicerca))
 
 // Tiene il testo visualizzato allineato alla specie effettivamente selezionata
 // (v-model esterno), sia al primo render sia quando cambia da fuori (es. il
