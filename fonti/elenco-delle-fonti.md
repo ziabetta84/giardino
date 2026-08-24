@@ -9,6 +9,7 @@ Per il criterio con cui queste fonti vengono importate/aggiornate su Supabase, v
 - [Fonte 03 — Libro: Un giardino di felci](#enciclopedia-felci)
 - [Fonte 03 — Libro: Un giardino di arbusti](#enciclopedia-piante-da-arbusti)
 - [Fonte 03 — Libro: Fiori e piante da appartamento. Ediz. illustrata](#enciclopedia-piante-da-interno)
+- [Fonte 04 — Libro: Tutto per il giardino. Guida completa alla cura delle piante in casa e in giardino](#guida-completa-giardino)
 - [Fonte 04 — Libro: Orchidee phalaenopsis - la bellezza ci salverà. Guida pratica alla coltivazione](#guida-orchidee)
 - [Fonte 05 - Sito: Le Georgiche](#legeorgiche)
 - [Fonte 06 - Libro: Il maxi libro del giardino](#maxi-libro-del-giardino)
@@ -59,6 +60,15 @@ Per il criterio con cui queste fonti vengono importate/aggiornate su Supabase, v
 **Lingua** Italiano
 **Lunghezza stampa** 80 pagine
 **EAN** 2560008225938 
+
+## guida-completa-giardino
+**Cartella:** `fonti/guida-completa-giardino`
+**Titolo** Tutto per il giardino. Guida completa alla cura delle piante in casa e in giardino
+**Editore** Demetra
+**Data di pubblicazione** 15 febbraio 2006
+**Lingua** Italiano
+**Lunghezza stampa** 640 pagine
+**ISBN-10** 8844031140
 
 ## guida-orchidee
 **Cartella:** `fonti/guida-orchidee`
