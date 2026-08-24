@@ -1,8 +1,8 @@
-Categoria,Esposizione,Nome,Dimensioni (m),Colore del fogliame (sempre),Colore del fogliame (in autunno),Terreno
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Quercia (v. Cerro, Farnia),"—","—","—","medio impasto"
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Robinia (Robinia pseudoacacia) (leguminosa),"altezza 20, diametro 6","—","giallo, oro","medio impasto"
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Salice piangente (Salix babylonica) (salicacea),"altezza 12, diametro 12","—","giallo chiaro","medio impasto, umido"
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Sofora giapponese (Sophora variegata) (papilionacea),"altezza 12, diametro 8","variegato di bianco","giallo oro","soffice, permeabile"
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Sommacco (Rhus) (anacardiacea),"altezza 4, diametro 3","verde, bronzo, verde, azzurro","rosso, arancio, oro","soffice, permeabile"
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Sorbo (Sorbus) (rosacea),"altezza 15, diametro 8","—","giallo, bronzo","medio impasto, calcareo"
-Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Tiglio (Tilia) (tiliacea),"altezza 25, diametro 12","—","giallo oro","soffice, fresco, calcareo"
+Categoria,Esposizione,Nome comune,Nome scientifico,Famiglia botanica,Dimensioni (m),Colore del fogliame (sempre),Colore del fogliame (in autunno),Terreno
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Quercia,Quercus (Cerro, Farnia),fagacea,"—","—","—","medio impasto"
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Robinia,Robinia pseudoacacia,leguminosa,"altezza 20, diametro 6","—","giallo, oro","medio impasto"
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Salice piangente,Salix babylonica,salicacea,"altezza 12, diametro 12","—","giallo chiaro","medio impasto, umido"
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Sofora giapponese,Sophora variegata,papilionacea,"altezza 12, diametro 8","variegato di bianco","giallo oro","soffice, permeabile"
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Sommacco,Rhus,anacardiacea,"altezza 4, diametro 3","verde, bronzo, verde, azzurro","rosso, arancio, oro","soffice, permeabile"
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Sorbo,Sorbus,rosacea,"altezza 15, diametro 8","—","giallo, bronzo","medio impasto, calcareo"
+Alberi e arbusti spoglianti a fogliame decorativo – latifoglie,mezz’ombra,Tiglio,Tilia,tiliacea,"altezza 25, diametro 12","—","giallo oro","soffice, fresco, calcareo"

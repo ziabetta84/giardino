@@ -1,30 +1,30 @@
-Categoria,Esposizione,Clima,Nome,Località preferita
-Specie adatte per siepi ornamentali,ombra,indifferente,Bosso (Buxus) – sempreverde,
-Specie adatte per siepi ornamentali,ombra,indifferente,Buddleia (Buddleia) – sempreverde,
-Specie adatte per siepi ornamentali,soleggiata,mite,Cestro (Cestrum) – sempreverde,in clima mite
-Specie adatte per siepi ornamentali,soleggiata,fresco,Corniolo (Cornus),
-Specie adatte per siepi ornamentali,soleggiata,fresco,Cotognastro (Cotoneaster) – sempreverde,zone lacustri
-Specie adatte per siepi ornamentali,ombra,indifferente,Deuzia (Deutzia),
-Specie adatte per siepi ornamentali,ombra,indifferente,Diervilla (Diervilla),
-Specie adatte per siepi ornamentali,ombra,indifferente,Evonimo (Euonymus) – sempreverde (alcune specie),
-Specie adatte per siepi ornamentali,ombra,indifferente,Fior d’angelo (Philadelphus),
-Specie adatte per siepi ornamentali,ombra,indifferente,Forsizia (Forsythia),
-Specie adatte per siepi ornamentali,ombra,indifferente,Ibisco (Hibiscus) – sempreverde in clima mite,
-Specie adatte per siepi ornamentali,ombra,indifferente,Lauroceraso (Prunus laurocerasus) – sempreverde,
-Specie adatte per siepi ornamentali,ombra,indifferente,Ligustro (Ligustrum) – semisempreverde,
-Specie adatte per siepi ornamentali,soleggiata,mite o caldo,Mirto (Myrtus) – sempreverde,zone marine
-Specie adatte per siepi ornamentali,soleggiata,mite o caldo,Oleandro (Nerium oleander) – sempreverde,zone marine e lacustri
-Specie adatte per siepi ornamentali,soleggiata,mite,Pittosporo (Pittosporum) – sempreverde,zone marine
-Specie adatte per siepi ornamentali,ombra,indifferente,Rosa (Rosa),
-Specie adatte per siepi ornamentali,ombra,indifferente,Serenella (Syringa),
-Specie adatte per siepi ornamentali,ombra,indifferente,Spirea (Spiraea),
-Specie adatte per siepi ornamentali,ombra,indifferente,Viburno (Viburnum) – sempreverde,
-Specie con spine adatte per siepi da difesa,soleggiata,caldo,Acacia armata (A. horrida),zone marine
-Specie con spine adatte per siepi da difesa,soleggiata,caldo,Agave (Agave) – sempreverde,zone marine
-Specie con spine adatte per siepi da difesa,mezz’ombra,fresco o mite,Agrifoglio (Ilex aquifolium) – sempreverde,zone collinari e montane
-Specie con spine adatte per siepi da difesa,soleggiata,fresco,Azzeruolo (Crataegus monogyna),zone collinari e montane
-Specie con spine adatte per siepi da difesa,ombra,indifferente,Biancospino (Crataegus oxyacantha),
-Specie con spine adatte per siepi da difesa,soleggiata,mite,Collezia (Colletia cruciata),
-Specie con spine adatte per siepi da difesa,ombra,indifferente,Cotogno del Giappone (Chaenomeles superba, speciosa, cruciata),
-Specie con spine adatte per siepi da difesa,ombra,indifferente,Crespino (Berberis vulgaris, buxifolia) – sempreverde,
-Specie con spine adatte per siepi da difesa,ombra,indifferente,Eleagno (Eleagnus pungens) – sempreverde,
+Categoria,Esposizione,Clima,Nome comune,Nome scientifico,Località preferita
+Specie adatte per siepi ornamentali,ombra,indifferente,Bosso,Buxus,
+Specie adatte per siepi ornamentali,ombra,indifferente,Buddleia,Buddleia,
+Specie adatte per siepi ornamentali,soleggiata,mite,Cestro,Cestrum,in clima mite
+Specie adatte per siepi ornamentali,soleggiata,fresco,Corniolo,Cornus,
+Specie adatte per siepi ornamentali,soleggiata,fresco,Cotognastro,Cotoneaster,zone lacustri
+Specie adatte per siepi ornamentali,ombra,indifferente,Deuzia,Deutzia,
+Specie adatte per siepi ornamentali,ombra,indifferente,Diervilla,Diervilla,
+Specie adatte per siepi ornamentali,ombra,indifferente,Evonimo,Euonymus,
+Specie adatte per siepi ornamentali,ombra,indifferente,Fior d’angelo,Philadelphus,
+Specie adatte per siepi ornamentali,ombra,indifferente,Forsizia,Forsythia,
+Specie adatte per siepi ornamentali,ombra,indifferente,Ibisco,Hibiscus,
+Specie adatte per siepi ornamentali,ombra,indifferente,Lauroceraso,Prunus laurocerasus,
+Specie adatte per siepi ornamentali,ombra,indifferente,Ligustro,Ligustrum,
+Specie adatte per siepi ornamentali,soleggiata,mite o caldo,Mirto,Myrtus,zone marine
+Specie adatte per siepi ornamentali,soleggiata,mite o caldo,Oleandro,Nerium oleander,zone marine e lacustri
+Specie adatte per siepi ornamentali,soleggiata,mite,Pittosporo,Pittosporum,zone marine
+Specie adatte per siepi ornamentali,ombra,indifferente,Rosa,Rosa,
+Specie adatte per siepi ornamentali,ombra,indifferente,Serenella,Syringa,
+Specie adatte per siepi ornamentali,ombra,indifferente,Spirea,Spiraea,
+Specie adatte per siepi ornamentali,ombra,indifferente,Viburno,Viburnum,
+Specie con spine adatte per siepi da difesa,soleggiata,caldo,Acacia armata,A. horrida,zone marine
+Specie con spine adatte per siepi da difesa,soleggiata,caldo,Agave,Agave,zone marine
+Specie con spine adatte per siepi da difesa,mezz’ombra,fresco o mite,Agrifoglio,Ilex aquifolium,zone collinari e montane
+Specie con spine adatte per siepi da difesa,soleggiata,fresco,Azzeruolo,Crataegus monogyna,zone collinari e montane
+Specie con spine adatte per siepi da difesa,ombra,indifferente,Biancospino,Crataegus oxyacantha,
+Specie con spine adatte per siepi da difesa,soleggiata,mite,Collezia,Colletia cruciata,
+Specie con spine adatte per siepi da difesa,ombra,indifferente,Cotogno del Giappone,Chaenomeles superba / speciosa / cruciata,
+Specie con spine adatte per siepi da difesa,ombra,indifferente,Crespino,Berberis vulgaris / buxifolia,
+Specie con spine adatte per siepi da difesa,ombra,indifferente,Eleagno,Elaeagnus pungens,
