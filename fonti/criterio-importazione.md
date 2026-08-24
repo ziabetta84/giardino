@@ -5,7 +5,7 @@ Questo documento fissa il criterio con cui le fonti in `fonti/` vengono lette e 
 ## Stato di partenza (verificato il 2026-08-23)
 
 - **PFAF** (`fonti/PFAF`) → già importato per tutte le 8699 specie in tabella (`stato_verifica: 'bozza'`, `fonti: ["Plants For A Future (pfaf.org) — importazione bozza automatica, dati non verificati manualmente"]`). Fonte "di base", copre tutto ma senza verifica.
-- **RHS** (`fonti/rhs`) → le 127 pagine salvate corrispondono quasi 1:1 alle **87 specie realmente possedute** (`public/data/piante.json`), non a un campione casuale. 86 di queste 87 sono già `stato_verifica: 'verificato'` con `fonti` che cita RHS. Resta da fare solo **`prunus-persica`** (pagina presente: `Prunus persica _ peach.html`, ancora a `bozza`/PFAF).
+- **RHS** (`fonti/rhs`) → le 127 pagine salvate corrispondono quasi 1:1 alle **87 specie realmente possedute** (`public/data/piante.json`), non a un campione casuale. Tutte le 87 sono ora `stato_verifica: 'verificato'` con `fonti` che cita RHS (`prunus-persica` chiuso il 2026-08-24: HTML letto localmente da Claude, non relayato dall'utente — vedi migration `20260824000000_verifica_prunus_persica.sql` per il dettaglio fatti-RHS vs giudizio agronomico). **Fase 1 completata.**
 - Tutte le altre fonti in `fonti/` (libri Edicart, Il maxi libro del giardino, CREA, guida orchidee, Le Georgiche, Actaplantarum) sono **nuove, non ancora importate**.
 
 ## Obiettivo: catalogo il più ampio possibile, affidabilità come vincolo primario
@@ -48,7 +48,7 @@ Dato che si punta alla copertura totale, l'ordine con cui si processano le fonti
 - Fase 2, `maxi-libro-del-giardino`: 20 CSV analizzati, 66 specie con nome scientifico binomiale affidabile estratte (scartate ~230 righe con solo nome comune/genere o campi ambigui — vedi criterio di esclusione nello script). Applicata migration `20260823000000_maxi_libro_giardino_batch01.sql`: 23 specie esistenti arricchite (esigenze/descrizione/fonti), 43 nuove specie inserite (perlopiù cultivar di conifere nane). Catalogo passato da 8701 a 8744 righe.
 - `pdftotext` installato (`brew install poppler`) per leggere i PDF a testo invece che come immagini.
 - Fase 2, `CREA`: contenuto dei 41 PDF controllato per intero — **fonte chiusa senza scritture**, non contiene dati di coltivazione (vedi tabella sopra). Nessun'altra azione prevista qui.
+- **Fase 1 completata (2026-08-24)**: `prunus-persica` verificato leggendo `fonti/rhs/Prunus persica _ peach.html` localmente (HTML estratto a testo con un parser Python stdlib, non con WebFetch/lettura grezza) — tutte le 87 specie possedute sono ora `verificato`.
 
 **Ancora da fare:**
-1. Chiudere il residuo Fase 1: `prunus-persica` da RHS (`Prunus persica _ peach.html`) — unica delle 87 possedute ancora a bozza/PFAF.
-2. Fase 3, incrementale: ogni volta che l'utente trascrive nuove pagine dei libri in `.txt`, leggerle e strutturarle a batch (nessun filtro sulle 87 possedute — tutte le specie contano per l'ampiezza).
+1. Fase 3, incrementale: ogni volta che l'utente trascrive nuove pagine dei libri in `.txt`, leggerle e strutturarle a batch (nessun filtro sulle 87 possedute — tutte le specie contano per l'ampiezza). 5 `.txt` già pronti in `guida-completa-giardino` (~150 voci specie) in attesa di essere processati.
