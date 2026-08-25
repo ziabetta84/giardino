@@ -102,5 +102,15 @@
     },
     "descrizione": "",
     "disponibile": true
+  },
+    "concime-1787571667529": {
+    "nome": "Fiorand concime piante grasse",
+    "npk": {
+      "n": 3,
+      "p": 6,
+      "k": 8
+    },
+    "descrizione": "Concime npk MgO 3-6-8 con Ferro in soluzione.\n\nIl tappo del flacone serve da misurino. \n1 tappo in 2 litri di acqua.\nAgitare il flacone prima dell'uso. Trattate su terreno già umido ogni 10 giorni nel periodo di maggior sviluppo vegetativo, da marzo a settembre.",
+    "disponibile": true
   }
 }
