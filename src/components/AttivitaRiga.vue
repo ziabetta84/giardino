@@ -9,6 +9,7 @@
         <div :style="labelStyle">{{ item.label }}</div>
         <div v-if="item.tipo === 'concimazione' && item.suggerimento" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--sage-dark);margin-top:2px;">
           <Icon name="concimazione" style="width:12px;height:12px;flex-shrink:0;" />Consigliato: {{ item.suggerimento.nome }} ({{ item.suggerimento.npk.n }}-{{ item.suggerimento.npk.p }}-{{ item.suggerimento.npk.k }})
+          <Icon v-if="item.suggerimento.disponibile === false" name="allerta" style="width:11px;height:11px;flex-shrink:0;color:var(--rose);" aria-label="Terminato" />
         </div>
       </div>
       <span class="attivita-riga-chevron" :class="{ aperta: espansa }">›</span>
@@ -50,6 +51,7 @@
                   {{ i + 1 }}
                 </span>
                 <span style="flex:1;min-width:0;font-size:12px;font-weight:500;line-height:1.4;">{{ c.nome }}</span>
+                <Icon v-if="c.disponibile === false" name="allerta" style="width:12px;height:12px;flex-shrink:0;color:var(--rose);" aria-label="Terminato" />
                 <span class="badge" style="background:var(--white);color:var(--ink-soft);border:1px solid var(--cream-dark);flex-shrink:0;font-size:10px;">
                   {{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}
                 </span>

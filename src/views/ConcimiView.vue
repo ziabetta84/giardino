@@ -16,15 +16,27 @@
     <template v-else>
       <div v-if="concimi.length" style="display:flex;flex-direction:column;gap:10px;">
         <div v-for="c in concimi" :key="c.id" class="card hover-card"
-          style="padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;"
+          :style="`padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;${c.disponibile === false ? 'opacity:.65;' : ''}`"
           @click="apriModifica(c)">
           <div style="flex:1;min-width:0;">
             <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ c.nome }}</h3>
-            <span class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
+            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
+              <span class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
+              <span v-if="c.disponibile === false" class="badge badge-warn" style="display:inline-flex;align-items:center;gap:4px;">
+                <Icon name="allerta" style="width:11px;height:11px;" />Terminato
+              </span>
+            </div>
             <p v-if="c.descrizione" class="text-light" style="font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:6px;">{{ descrizioneBreve(c) }}</p>
           </div>
-          <button @click.stop="avviaElimina(c)" aria-label="Elimina concime"
-            style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;padding:4px;">×</button>
+          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+            <button @click.stop="toggleDisponibile(c)" :disabled="salvandoDisponibile === c.id"
+              :aria-label="c.disponibile === false ? 'Segna come disponibile' : 'Segna come terminato'"
+              class="toggle-switch" :class="{ attivo: c.disponibile !== false, salvando: salvandoDisponibile === c.id }">
+              <span class="toggle-switch-knob"><Spinner v-if="salvandoDisponibile === c.id" /></span>
+            </button>
+            <button @click.stop="avviaElimina(c)" aria-label="Elimina concime"
+              style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;padding:4px;">×</button>
+          </div>
         </div>
       </div>
 
@@ -54,6 +66,14 @@
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Descrizione (opzionale)</label>
           <textarea v-model="form.descrizione" placeholder="Preparazione, dosi, tempo di macerazione…"
             rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px;">
+            <span style="font-size:13px;color:var(--ink-mid);">Disponibile in dispensa</span>
+            <button type="button" @click="form.disponibile = !form.disponibile"
+              class="toggle-switch" :class="{ attivo: form.disponibile }"
+              :aria-label="form.disponibile ? 'Segna come terminato' : 'Segna come disponibile'">
+              <span class="toggle-switch-knob"></span>
+            </button>
+          </div>
           <div style="display:flex;gap:10px;justify-content:flex-end;">
             <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
             <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
@@ -90,7 +110,8 @@ const { saveJSON } = useApi()
 const mostraForm = ref(false)
 const modificaId  = ref(null)
 const salvando    = ref(false)
-const form = ref({ nome: '', n: null, p: null, k: null, descrizione: '' })
+const salvandoDisponibile = ref(null)
+const form = ref({ nome: '', n: null, p: null, k: null, descrizione: '', disponibile: true })
 
 const daEliminare = ref(null)
 const eliminando  = ref(false)
@@ -104,13 +125,13 @@ const concimi = computed(() => {
 
 function apriNuovo() {
   modificaId.value = null
-  form.value = { nome: '', n: null, p: null, k: null, descrizione: '' }
+  form.value = { nome: '', n: null, p: null, k: null, descrizione: '', disponibile: true }
   mostraForm.value = true
 }
 
 function apriModifica(c) {
   modificaId.value = c.id
-  form.value = { nome: c.nome, n: c.npk.n, p: c.npk.p, k: c.npk.k, descrizione: c.descrizione ?? '' }
+  form.value = { nome: c.nome, n: c.npk.n, p: c.npk.p, k: c.npk.k, descrizione: c.descrizione ?? '', disponibile: c.disponibile !== false }
   mostraForm.value = true
 }
 
@@ -135,12 +156,28 @@ async function salva() {
         nome,
         npk: { n: form.value.n || 0, p: form.value.p || 0, k: form.value.k || 0 },
         descrizione: form.value.descrizione.trim() || '',
+        disponibile: form.value.disponibile,
       }
     }))
     store.concimi = nuovi
     mostraForm.value = false
   } finally {
     salvando.value = false
+  }
+}
+
+async function toggleDisponibile(c) {
+  if (salvandoDisponibile.value) return
+  salvandoDisponibile.value = c.id
+  try {
+    const nuovi = await saveJSON('concimi.json', (correnti) => {
+      const base = { ...(correnti ?? store.concimi) }
+      base[c.id] = { ...base[c.id], disponibile: c.disponibile === false }
+      return base
+    })
+    store.concimi = nuovi
+  } finally {
+    salvandoDisponibile.value = null
   }
 }
 
@@ -176,5 +213,39 @@ async function eliminaConcime() {
   background: var(--white); border-radius: 20px; padding: 24px;
   width: 100%; max-width: 360px;
   box-shadow: 0 20px 60px rgba(42,34,24,0.2);
+}
+.toggle-switch {
+  position: relative;
+  width: 42px; height: 24px;
+  border-radius: 999px;
+  border: none;
+  background: var(--cream-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 3px;
+  transition: background .2s ease;
+}
+.toggle-switch.attivo {
+  background: var(--sage);
+}
+.toggle-switch.salvando {
+  opacity: .7;
+  cursor: default;
+}
+.toggle-switch-knob {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(42,34,24,0.25);
+  transform: translateX(0);
+  transition: transform .2s ease;
+  font-size: 10px;
+  color: var(--ink-faint);
+}
+.toggle-switch.attivo .toggle-switch-knob {
+  transform: translateX(18px);
 }
 </style>

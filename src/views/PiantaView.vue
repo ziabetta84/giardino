@@ -119,6 +119,7 @@
               {{ i + 1 }}
             </span>
             <span style="flex:1;min-width:0;font-size:13px;font-weight:500;line-height:1.4;">{{ c.nome }}</span>
+            <Icon v-if="c.disponibile === false" name="allerta" style="width:14px;height:14px;flex-shrink:0;color:var(--rose);" aria-label="Terminato" />
             <span class="badge" style="background:var(--white);color:var(--ink-soft);border:1px solid var(--cream-dark);flex-shrink:0;">
               {{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}
             </span>
