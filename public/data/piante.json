@@ -10,7 +10,8 @@
       "irrigazione": "2026-08-25",
       "concimazione": "2026-08-20"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "terra"
   },
   "sansevieria-1777363126334": {
     "specie": "sansevieria",
