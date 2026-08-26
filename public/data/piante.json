@@ -24,7 +24,8 @@
       "irrigazione": "2026-07-15",
       "concimazione": "2026-07-15"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "vaso"
   },
   "bellis-perennis-1777363227803": {
     "specie": "bellis-perennis",
