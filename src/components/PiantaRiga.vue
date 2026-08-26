@@ -3,9 +3,9 @@
     style="display:flex;align-items:center;gap:14px;padding:12px 16px;text-decoration:none;color:inherit;">
     <div style="width:48px;height:48px;border-radius:14px;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;"
       :style="urgente ? 'background:var(--rose-tile)' : 'background:var(--olive-tile)'">
-      <img v-if="thumbUrl" :src="thumbUrl" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+      <img v-if="thumbEffettivo" :src="thumbEffettivo" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
       <Icon v-else :name="urgente ? 'campanella' : 'foglia'" style="width:22px;height:22px;" />
-      <div v-if="thumbUrl && urgente" style="position:absolute;bottom:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:var(--rose-tile);border:2px solid var(--white);display:flex;align-items:center;justify-content:center;">
+      <div v-if="thumbEffettivo && urgente" style="position:absolute;bottom:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:var(--rose-tile);border:2px solid var(--white);display:flex;align-items:center;justify-content:center;">
         <Icon name="campanella" style="width:10px;height:10px;" />
       </div>
     </div>
@@ -47,4 +47,8 @@ const specie = computed(() => store.specie?.[props.pianta.specie] ?? null)
 const cureUrgenti = computed(() =>
   props.urgente ? cureUrgentiPianta(props.pianta, specie.value) : []
 )
+// Senza foto personali, ripiega sull'immagine hero della specie (stesso
+// criterio di PiantaView.vue): l'attribuzione richiesta dalla licenza si
+// vede aprendo la scheda pianta, a cui questa riga fa già da link.
+const thumbEffettivo = computed(() => props.thumbUrl || specie.value?.immagine?.url || null)
 </script>

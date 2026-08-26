@@ -136,10 +136,35 @@
             </div>
           </template>
 
-          <!-- Tab Coltivazione: ha senso solo per specie a ciclo annuale/biennale -->
+          <!-- Tab Coltivazione: la parte "in vaso" vale per ogni ciclo vitale,
+               semina/trapianto/raccolta ha senso solo per annuale/biennale -->
           <template v-if="tabAttiva === 'coltivazione'">
-            <p v-if="nuovaSpecie.cicloVitale !== 'annuale' && nuovaSpecie.cicloVitale !== 'biennale'" style="font-size:12px;color:var(--ink-faint);padding:20px 0;text-align:center;">
-              Imposta il ciclo vitale su "Annuale" o "Biennale" nella tab Generale per compilare questa sezione.
+            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Coltivazione in vaso (opzionale)</label>
+            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Per capire se la specie regge il contenitore e come regolare cure e rinvaso.</p>
+
+            <label class="campo-label">Adatta al vaso?</label>
+            <div style="display:flex;gap:6px;margin-bottom:10px;">
+              <button type="button" class="pill" :class="{ active: nuovaSpecie.vaso.adatta === true }" @click="nuovaSpecie.vaso.adatta = true">Sì</button>
+              <button type="button" class="pill" :class="{ active: nuovaSpecie.vaso.adatta === false }" @click="nuovaSpecie.vaso.adatta = false">No</button>
+              <button type="button" class="pill" :class="{ active: nuovaSpecie.vaso.adatta === null }" @click="nuovaSpecie.vaso.adatta = null">Non impostato</button>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+              <div>
+                <label class="campo-label">Dimensione minima (litri)</label>
+                <input type="number" min="1" v-model.number="nuovaSpecie.vaso.dimensioneMinimaLitri" placeholder="es. 10" class="form-input">
+              </div>
+              <div>
+                <label class="campo-label">Rinvaso ogni (mesi)</label>
+                <input type="number" min="1" v-model.number="nuovaSpecie.vaso.rinvasoOgniMesi" placeholder="es. 12" class="form-input">
+              </div>
+            </div>
+            <label class="campo-label">Fattore irrigazione in vaso</label>
+            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Moltiplicatore rispetto alla cadenza a terra (es. 0.7 = irrigazione più ravvicinata in vaso).</p>
+            <input type="number" min="0" step="0.1" v-model.number="nuovaSpecie.vaso.irrigazioneFattore" placeholder="es. 0.7" class="form-input" style="margin-bottom:16px;">
+
+            <p v-if="nuovaSpecie.cicloVitale !== 'annuale' && nuovaSpecie.cicloVitale !== 'biennale'" style="font-size:12px;color:var(--ink-faint);padding:20px 0;text-align:center;border-top:1px solid var(--cream-dark);">
+              Imposta il ciclo vitale su "Annuale" o "Biennale" nella tab Generale per compilare anche semina/trapianto/raccolta.
             </p>
             <template v-else>
               <p style="font-size:11px;color:var(--ink-faint);margin:0 0 12px;">Dati per generare in futuro un piano di semina/trapianto/raccolta — tutto facoltativo.</p>
@@ -351,6 +376,10 @@ const STAGIONI_PILL = [
   { val: 'inverno',   label: 'Inv' },
 ]
 
+function vasoVuoto() {
+  return { adatta: null, dimensioneMinimaLitri: null, rinvasoOgniMesi: null, irrigazioneFattore: null }
+}
+
 function coltivazioneVuota() {
   return {
     famigliaBotanica: '',
@@ -411,7 +440,7 @@ function estraiGiorniPuliti(testo) {
   return parseGiorni(testo)
 }
 
-const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota() })
+const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota(), vaso: vasoVuoto() })
 
 // Converte i giorni inseriti nella tabella manutenzione nel formato testuale
 // già usato da tutte le specie esistenti e atteso da useCure.js (parseGiorni
@@ -458,7 +487,7 @@ function slug(testo) {
 }
 
 function apriNuovaSpecie() {
-  nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota() }
+  nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota(), vaso: vasoVuoto() }
   tabAttiva.value = 'generale'
   manutenzioneOriginale.value = {
     irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
@@ -506,6 +535,7 @@ function apriModificaSpecie(s) {
   }
 
   const col = record.coltivazione ?? {}
+  const vaso = record.vaso ?? {}
   nuovaSpecie.value = {
     nome: record.nome ?? s.nome,
     nomeScientifico: record.specie ?? '',
@@ -527,6 +557,12 @@ function apriModificaSpecie(s) {
       spaziaturaCm: col.spaziatura_cm ?? null,
       consociazioniFavorevoli: Array.isArray(col.consociazioni_favorevoli) ? col.consociazioni_favorevoli.join('\n') : '',
       consociazioniSfavorevoli: Array.isArray(col.consociazioni_sfavorevoli) ? col.consociazioni_sfavorevoli.join('\n') : '',
+    },
+    vaso: {
+      adatta: typeof vaso.adatta === 'boolean' ? vaso.adatta : null,
+      dimensioneMinimaLitri: vaso.dimensione_minima_litri ?? null,
+      rinvasoOgniMesi: vaso.rinvaso_ogni_mesi ?? null,
+      irrigazioneFattore: vaso.irrigazione_fattore ?? null,
     },
   }
   manutenzioneOriginale.value = originale
@@ -597,6 +633,16 @@ async function salvaNuovaSpecie() {
       manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value, manutenzioneNumeroIniziale.value),
       ciclo_vitale: nuovaSpecie.value.cicloVitale || null,
       ciclo_colturale: null,
+      vaso: null,
+    }
+    const v = nuovaSpecie.value.vaso
+    if (v.adatta !== null || v.dimensioneMinimaLitri || v.rinvasoOgniMesi || v.irrigazioneFattore) {
+      riga.vaso = {
+        adatta: v.adatta,
+        dimensione_minima_litri: v.dimensioneMinimaLitri || null,
+        rinvaso_ogni_mesi: v.rinvasoOgniMesi || null,
+        irrigazione_fattore: v.irrigazioneFattore || null,
+      }
     }
     if (nuovaSpecie.value.cicloVitale === 'annuale' || nuovaSpecie.value.cicloVitale === 'biennale') {
       const col = nuovaSpecie.value.coltivazione

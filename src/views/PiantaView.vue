@@ -37,6 +37,7 @@
           <p class="plant-hero-lat">
             {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
             <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe" style="margin-left:6px;vertical-align:middle;">{{ badgeVerifica.testo }}</span>
+            <span v-if="pianta.coltivato_in" class="badge" style="margin-left:6px;vertical-align:middle;background:var(--gold-pale);color:var(--gold-dark);">{{ pianta.coltivato_in === 'vaso' ? 'In vaso' : 'In terra' }}</span>
           </p>
         </div>
         <a v-if="fotoHero.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener"
@@ -57,6 +58,7 @@
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
             <span class="badge badge-gold">{{ pianta.zona }}</span>
             <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
+            <span v-if="pianta.coltivato_in" class="badge" style="background:var(--gold-pale);color:var(--gold-dark);">{{ pianta.coltivato_in === 'vaso' ? 'In vaso' : 'In terra' }}</span>
             <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe">{{ badgeVerifica.testo }}</span>
           </div>
         </div>

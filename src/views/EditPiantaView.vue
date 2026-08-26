@@ -22,10 +22,17 @@
         </select>
 
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Sottozona</label>
-        <select v-model="form.sottozona" class="form-input">
+        <select v-model="form.sottozona" class="form-input" style="margin-bottom:10px;">
           <option value="">Nessuna</option>
           <option v-for="s in sottozoneZona" :key="s" :value="s">{{ s }}</option>
         </select>
+
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Coltivata in</label>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'vaso' }" @click="form.coltivatoIn = 'vaso'">Vaso</button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'terra' }" @click="form.coltivatoIn = 'terra'">Terra</button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === '' }" @click="form.coltivatoIn = ''">Non specificato</button>
+        </div>
       </div>
 
       <!-- Varietà e impianto -->
@@ -73,7 +80,7 @@ const isNuova = computed(() => !route.params.id)
 const salvando = ref(false)
 
 const form = ref({
-  specie: '', zona: '', sottozona: '', varieta: '', impianto: '', impianto_circa: '', note: ''
+  specie: '', zona: '', sottozona: '', coltivatoIn: '', varieta: '', impianto: '', impianto_circa: '', note: ''
 })
 
 const sottozoneZona = computed(() => {
@@ -93,6 +100,7 @@ onMounted(async () => {
       specie:    p.specie    ?? '',
       zona:      p.zona      ?? '',
       sottozona: p.sottozona ?? '',
+      coltivatoIn: p.coltivato_in ?? '',
       varieta:   p.varieta   ?? '',
       impianto:  p.impianto  ?? '',
       impianto_circa: p.impianto_circa ?? '',
@@ -114,6 +122,7 @@ async function salva() {
         specie:    form.value.specie,
         zona:      form.value.zona,
         sottozona: form.value.sottozona || null,
+        coltivato_in: form.value.coltivatoIn || null,
         varieta:   form.value.varieta  || '',
         impianto:  form.value.impianto || '',
         impianto_circa: form.value.impianto_circa || '',
