@@ -58,21 +58,22 @@ Tutti i dati vivono in `public/data/` come JSON. Le scritture avvengono tramite 
 | `richieste-agente.json` | Coda richieste AI (stato: in_attesa → completata/errore) |
 | `settings.json` | Coordinate GPS per Open-Meteo |
 
-### Migrazione specie → Supabase (Fase 2, pilota)
+### Migrazione specie → Supabase (Fase 2 completata, letture e scritture)
 
-Le **specie** sono in migrazione da `specie.json` a **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`, "Il Giardino di Zorba", tabella `specie`, ~8700 righe, RLS attive). Stato attuale (`stores/dati.js → caricaSpecie()`):
+Le **specie** sono ora gestite su **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`, "Il Giardino di Zorba", tabella `specie`, ~9000 righe, RLS attive) sia in lettura che in scrittura. Stato attuale:
 
-- **Lettura**: `useDatiStore` legge le specie da Supabase via `useSupabase.js` (client con URL + chiave anon in `.env`, sicuri da versionare perché protetti dalle policy RLS). L'oggetto risultante mantiene la stessa forma di `specie.json` (stessa chiave `slug`, stessi campi `specie`, `coltivazione`, ecc. — mappati da `nome_scientifico`/`ciclo_colturale`) così il resto dell'app non deve saperlo.
-- **Fallback**: se Supabase non risponde, si ripiega su `specie.json` statico (fetch, non GitHub API).
-- **Scrittura**: ancora **non migrata** — creare/modificare una specie da `SelettoreSpecie` scrive solo su `specie.json` via GitHub Contents API. Quando si corregge una specie occorre quindi aggiornare **entrambe le fonti** (`specie.json` **e** la riga corrispondente nella tabella `specie` su Supabase, es. con `execute_sql`/`apply_migration` via MCP) finché la Fase 2 non completa anche le scritture.
-- Le migration schema vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`).
+- **Lettura**: `useDatiStore` (`stores/dati.js → caricaSpecie()`) legge le specie da Supabase via `useSupabase.js` (client con URL + chiave anon in `.env`, sicuri da versionare perché protetti dalle policy RLS). L'oggetto risultante mantiene la stessa forma usata da tutta l'app (stessa chiave `slug`, stessi campi `specie`, `coltivazione`, ecc. — mappati da `nome_scientifico`/`ciclo_colturale`, vedi `mappaSpecie()`).
+- **Fallback**: se Supabase non risponde, si ripiega su `specie.json` statico (fetch, non GitHub API) — file mantenuto solo come copia di riserva offline, non più aggiornato ad ogni scrittura: può quindi risultare via via disallineato da Supabase.
+- **Scrittura**: `SelettoreSpecie.vue` scrive **direttamente su Supabase** (`insert`/`update` sulla tabella `specie`, per `id` quando modifica una riga esistente). Le policy RLS di scrittura (`specie: scrittura pubblica temporanea (insert|update)`, solo `INSERT`/`UPDATE`, mai `DELETE`) sono volutamente aperte (`true`) perché l'app non ha ancora un sistema di login: la chiave anon è pubblica nel bundle, quindi chiunque conosca l'URL potrebbe scrivere/corrompere righe (ma non cancellarle). **Da sostituire con policy basate su `auth.uid()` quando verrà implementato un vero login** — decisione presa esplicitamente con l'utente, non un'svista.
+- Il comando `/elabora` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json`.
+- Le migration schema/dati vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`, import da fonti esterne — vedi `fonti/criterio-importazione.md`).
 
 ## Coda richieste agente AI
 
 Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.json` con stato `in_attesa`. Il comando `/elabora` (`.claude/commands/elabora.md`) contiene la procedura completa, tipo per tipo — è la fonte di verità, da consultare invece di indovinare il formato risposta; in sintesi: legge la coda, elabora ogni richiesta (può includere foto in base64), aggiorna il JSON con `stato: completata` e `risposta.messaggio`, azzera `foto` (per non far crescere il file oltre la soglia di ~1MB della Contents API), e fa commit.
 
 Alcuni tipi scrivono anche altrove, non solo la risposta testuale:
-- `revisione_specie` → aggiorna anche `specie.json`
+- `revisione_specie` → aggiorna anche la riga corrispondente nella tabella `specie` su Supabase (via MCP `execute_sql`/`apply_migration`), non `specie.json`
 - `pianifica_progetto` → crea/aggiorna anche `progetti.json` (schema tappe in `useProgetti.js`)
 - `consiglio_concimazione` → usa lo stesso criterio di match NPK di `useConcimi.js` (distanza euclidea su rapporti normalizzati, soglia 0.15), per coerenza con quanto l'utente vede già in app
 

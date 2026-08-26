@@ -561,13 +561,14 @@ async function salvaNuovaSpecie() {
   salvandoSpecie.value = true
   try {
     // Se la specie viene rinominata, aggiorna prima le piante che la
-    // referenziano e solo dopo la specie stessa: se questo primo passaggio
-    // fallisce, specie.json non è ancora stato toccato e l'utente può
-    // semplicemente riprovare. Nell'ordine opposto, un fallimento del
-    // salvataggio delle piante dopo un rename già scritto lascerebbe sia
-    // piante orfane (puntano a una chiave specie non più esistente) sia un
-    // nuovo tentativo bloccato dal controllo duplicati (la chiave nuova
-    // risulterebbe già presente in store.specie).
+    // referenziano (restano su GitHub, non ancora migrate) e solo dopo la
+    // specie stessa su Supabase: se questo primo passaggio fallisce, la riga
+    // specie non è ancora stata toccata e l'utente può semplicemente
+    // riprovare. Nell'ordine opposto, un fallimento del salvataggio delle
+    // piante dopo un rename già scritto lascerebbe sia piante orfane
+    // (puntano a uno slug specie non più esistente) sia un nuovo tentativo
+    // bloccato dal controllo duplicati (lo slug nuovo risulterebbe già
+    // presente in store.specie).
     if (chiaveOriginale && chiaveOriginale !== chiave) {
       const nuovePiante = await saveJSON('piante.json', (correnti) => {
         const base = { ...(correnti ?? store.piante) }
@@ -582,47 +583,62 @@ async function salvaNuovaSpecie() {
       if (props.modelValue === chiaveOriginale) emit('update:modelValue', chiave)
     }
 
-    const nuove = await saveJSON('specie.json', (correnti) => {
-      const base = { ...(correnti ?? store.specie) }
-      if (chiaveOriginale && chiaveOriginale !== chiave) {
-        delete base[chiaveOriginale]
+    const riga = {
+      slug: chiave,
+      nome,
+      nome_scientifico: nuovaSpecie.value.nomeScientifico.trim() || nome,
+      descrizione: nuovaSpecie.value.descrizione.trim() || '',
+      esigenze: {
+        luce:    nuovaSpecie.value.luce.trim()    || '',
+        acqua:   nuovaSpecie.value.acqua.trim()   || '',
+        terreno: nuovaSpecie.value.terreno.trim() || '',
+      },
+      alert: nuovaSpecie.value.alert.split('\n').map(a => a.trim()).filter(Boolean),
+      manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value, manutenzioneNumeroIniziale.value),
+      ciclo_vitale: nuovaSpecie.value.cicloVitale || null,
+      ciclo_colturale: null,
+    }
+    if (nuovaSpecie.value.cicloVitale === 'annuale' || nuovaSpecie.value.cicloVitale === 'biennale') {
+      const col = nuovaSpecie.value.coltivazione
+      riga.ciclo_colturale = {
+        famiglia_botanica: col.famigliaBotanica.trim(),
+        giorni_germinazione: col.giorniGerminazione.trim() || null,
+        giorni_trapianto: col.giorniTrapianto.trim() || null,
+        giorni_raccolta: col.giorniRaccolta.trim() || null,
+        finestra_semina: [...col.finestraSemina],
+        finestra_trapianto: [...col.finestraTrapianto],
+        resistenza_gelo: col.resistenzaGelo || null,
+        spaziatura_cm: col.spaziaturaCm || null,
+        consociazioni_favorevoli: col.consociazioniFavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
+        consociazioni_sfavorevoli: col.consociazioniSfavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
       }
-      base[chiave] = {
-        nome,
-        specie: nuovaSpecie.value.nomeScientifico.trim() || nome,
-        descrizione: nuovaSpecie.value.descrizione.trim() || '',
-        esigenze: {
-          luce:    nuovaSpecie.value.luce.trim()    || '',
-          acqua:   nuovaSpecie.value.acqua.trim()   || '',
-          terreno: nuovaSpecie.value.terreno.trim() || '',
-        },
-        alert: nuovaSpecie.value.alert.split('\n').map(a => a.trim()).filter(Boolean),
-        manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value, manutenzioneNumeroIniziale.value),
-      }
-      // base[chiave] è appena stato ricreato da zero sopra: ciclo_vitale/
-      // coltivazione vengono aggiunti solo se impostati, senza bisogno di
-      // "ripulire" nulla per le combinazioni non applicabili.
-      if (nuovaSpecie.value.cicloVitale) {
-        base[chiave].ciclo_vitale = nuovaSpecie.value.cicloVitale
-      }
-      if (nuovaSpecie.value.cicloVitale === 'annuale' || nuovaSpecie.value.cicloVitale === 'biennale') {
-        const col = nuovaSpecie.value.coltivazione
-        base[chiave].coltivazione = {
-          famiglia_botanica: col.famigliaBotanica.trim(),
-          giorni_germinazione: col.giorniGerminazione.trim() || null,
-          giorni_trapianto: col.giorniTrapianto.trim() || null,
-          giorni_raccolta: col.giorniRaccolta.trim() || null,
-          finestra_semina: [...col.finestraSemina],
-          finestra_trapianto: [...col.finestraTrapianto],
-          resistenza_gelo: col.resistenzaGelo || null,
-          spaziatura_cm: col.spaziaturaCm || null,
-          consociazioni_favorevoli: col.consociazioniFavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
-          consociazioni_sfavorevoli: col.consociazioniSfavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
-        }
-      }
-      return base
-    })
-    store.specie = nuove
+    }
+
+    const idOriginale = chiaveOriginale ? store.specie?.[chiaveOriginale]?.id : null
+    let salvata
+    if (idOriginale != null) {
+      // Modifica di una specie esistente (anche con rename dello slug):
+      // update per id, mai per slug, così il rename non rischia di colpire
+      // zero righe se lo slug fosse già cambiato da un salvataggio precedente.
+      const { data, error } = await supabase.from('specie').update(riga).eq('id', idOriginale).select(COLONNE_SPECIE)
+      if (error) throw error
+      salvata = data?.[0]
+    } else {
+      // Nuova specie, o modifica di una riga arrivata dal fallback statico
+      // (senza id perché letta da specie.json, non da Supabase): in
+      // quest'ultimo caso un insert è l'unica opzione sensata, non avendo una
+      // riga Supabase da aggiornare.
+      riga.stato_verifica = 'bozza'
+      const { data, error } = await supabase.from('specie').insert(riga).select(COLONNE_SPECIE)
+      if (error) throw error
+      salvata = data?.[0]
+    }
+
+    const nuova = mappaSpecie(salvata ? [salvata] : [])
+    const specieAggiornate = { ...(store.specie ?? {}) }
+    if (chiaveOriginale && chiaveOriginale !== chiave) delete specieAggiornate[chiaveOriginale]
+    Object.assign(specieAggiornate, nuova)
+    store.specie = specieAggiornate
 
     selezionaSpecie({ key: chiave, nome })
     mostraNuovaSpecie.value = false
