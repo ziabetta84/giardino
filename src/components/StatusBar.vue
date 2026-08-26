@@ -4,10 +4,16 @@
       <span class="dot-glow"></span>
       <span style="font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ testoStato }}</span>
     </div>
-    <button class="btn btn-ghost" style="padding:5px 14px;font-size:11px;border-radius:8px;min-height:32px;flex-shrink:0;"
-      @click="onClick">
-      {{ pronto ? 'Ricarica' : 'Aggiorna' }}
-    </button>
+    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+      <RouterLink to="/account" :aria-label="utente ? `Account: ${utente.email}` : 'Accedi'"
+        style="display:flex;align-items:center;justify-content:center;width:28px;height:28px;color:var(--ink-soft);flex-shrink:0;">
+        <Icon name="persona" style="width:17px;height:17px;" />
+      </RouterLink>
+      <button class="btn btn-ghost" style="padding:5px 14px;font-size:11px;border-radius:8px;min-height:32px;flex-shrink:0;"
+        @click="onClick">
+        {{ pronto ? 'Ricarica' : 'Aggiorna' }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -16,10 +22,13 @@ import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useRepoStatus } from '@/composables/useRepoStatus'
 import { useAppUpdate } from '@/composables/useAppUpdate'
+import { useAuth } from '@/composables/useAuth'
+import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
 const repo  = useRepoStatus()
 const { needRefresh, applicaAggiornamento, controllaAggiornamento } = useAppUpdate()
+const { utente } = useAuth()
 
 // "Nuova versione disponibile" (da useRepoStatus, confronto commit su
 // GitHub) può comparire prima che QUESTO service worker se ne sia accorto:

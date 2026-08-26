@@ -23,6 +23,7 @@ const nav = [
   { id:'attivita', to:'/attivita',  icona:'campanella',  label:'Attività', badge: null },
   { id:'agente',   to:'/agente',    icona:'gatto',       label:'Zorba dice' },
   { id:'gallery',  to:'/gallery',   icona:'cornice',     label:'Gallery' },
+  { id:'account',  to:'/account',   icona:'persona',     label:'Account' },
 ]
 </script>
 

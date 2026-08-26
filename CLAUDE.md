@@ -32,11 +32,12 @@ src/
 │   ├── useProgetti.js       ← logica progetti/tappe (scadenzaCalcolata da ultima tappa, ecc.)
 │   ├── useGalleria.js       ← listing/upload foto via Contents API (usato da GalleryView)
 │   ├── useRepoStatus.js / useAppUpdate.js ← confronto build corrente vs ultimo commit main + banner update PWA (StatusBar.vue)
-│   └── useSupabase.js       ← client Supabase (solo lettura specie, vedi sotto)
+│   ├── useSupabase.js       ← client Supabase (specie in lettura/scrittura, vedi sotto)
+│   └── useAuth.js           ← sessione Supabase Auth (Fase 4 migrazione, vedi sotto)
 ├── components/
 │   ├── PiantaRiga.vue       ← riga pianta riutilizzabile (usata in PianteView)
 │   └── ModalConferma.vue    ← dialog eliminazione generico
-└── views/                   ← una view per route
+└── views/                   ← una view per route (incl. AccountView.vue, login/registrazione)
 public/data/                 ← JSON letti a runtime dal frontend
 docs/                        ← vecchio sito Jekyll (non più attivo)
 docs/gallery/piante/         ← foto piante organizzate per {id-pianta}/
@@ -67,6 +68,12 @@ Le **specie** sono ora gestite su **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`,
 - **Scrittura**: `SelettoreSpecie.vue` scrive **direttamente su Supabase** (`insert`/`update` sulla tabella `specie`, per `id` quando modifica una riga esistente). Le policy RLS di scrittura (`specie: scrittura pubblica temporanea (insert|update)`, solo `INSERT`/`UPDATE`, mai `DELETE`) sono volutamente aperte (`true`) perché l'app non ha ancora un sistema di login: la chiave anon è pubblica nel bundle, quindi chiunque conosca l'URL potrebbe scrivere/corrompere righe (ma non cancellarle). **Da sostituire con policy basate su `auth.uid()` quando verrà implementato un vero login** — decisione presa esplicitamente con l'utente, non un'svista.
 - Il comando `/elabora` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json`.
 - Le migration schema/dati vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`, import da fonti esterne — vedi `fonti/criterio-importazione.md`).
+
+### Autenticazione utente (Fase 4 migrazione Supabase, avviata)
+
+`useAuth.js` gestisce la sessione via **Supabase Auth**, solo email/password per ora (Google rimandato: richiede creare un OAuth client su Google Cloud Console e configurarlo nel dashboard Supabase, passaggio manuale non ancora fatto). Stato reattivo condiviso a livello di modulo (`utente`, `caricamento`), aggiornato via `onAuthStateChange`. `AccountView.vue` (route `/account`, link in `NavBar`/icona in `StatusBar`) espone login/registrazione/logout. Il progetto Supabase richiede la conferma email di default (`signUp` non ritorna una sessione finché l'utente non clicca il link ricevuto via mail) — gestito in UI con un messaggio esplicito, non è un bug.
+
+**Importante**: per ora l'account **non controlla ancora nessun dato** — coesiste col token GitHub in `localStorage` (che resta l'unico meccanismo che sblocca le scritture) esattamente come da piano (Fase 4 = solo login; l'assegnazione dei dati per utente, RLS su `auth.uid()` per zone/piante/progetti/ecc., arriva con la Fase 5, non ancora iniziata).
 
 ## Coda richieste agente AI
 

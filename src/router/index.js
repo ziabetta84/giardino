@@ -17,6 +17,7 @@ const routes = [
   { path: '/attivita',                  name: 'attivita',       component: () => import('@/views/AttivitaView.vue') },
   { path: '/agente',                    name: 'agente',         component: () => import('@/views/AgenteView.vue') },
   { path: '/gallery',                   name: 'gallery',        component: () => import('@/views/GalleryView.vue') },
+  { path: '/account',                   name: 'account',        component: () => import('@/views/AccountView.vue') },
 ]
 
 export default createRouter({
