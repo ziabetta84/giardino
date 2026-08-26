@@ -1687,6 +1687,7 @@
     "ultima_cura": {
       "irrigazione": "2026-08-25"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "terra"
   }
 }
