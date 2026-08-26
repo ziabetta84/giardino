@@ -890,7 +890,8 @@
       "concimazione": "2026-07-25",
       "potatura": "2026-07-15"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "vaso"
   },
   "erba-cipollina-1778052974074": {
     "specie": "erba-cipollina",
