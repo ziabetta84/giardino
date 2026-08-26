@@ -38,7 +38,8 @@
       "irrigazione": "2026-08-25",
       "concimazione": "2026-08-20"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "terra"
   },
   "narciso-1777363322805": {
     "specie": "narciso",
