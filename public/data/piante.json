@@ -1662,7 +1662,8 @@
       "concimazione": "2026-08-06",
       "irrigazione": "2026-08-25"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "vaso"
   },
   "zz-plant-1785499396214": {
     "specie": "zz-plant",
