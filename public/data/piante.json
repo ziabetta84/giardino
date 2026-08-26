@@ -1427,7 +1427,8 @@
       "concimazione": "2026-07-26",
       "irrigazione": "2026-08-26"
     },
-    "impianto_circa": ""
+    "impianto_circa": "",
+    "coltivato_in": "terra"
   },
   "calendula-1784630168944": {
     "specie": "calendula",
