@@ -29,9 +29,9 @@
 
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Coltivata in</label>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'vaso' }" @click="form.coltivatoIn = 'vaso'">Vaso</button>
-          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'terra' }" @click="form.coltivatoIn = 'terra'">Terra</button>
-          <button type="button" class="pill" :class="{ active: form.coltivatoIn === '' }" @click="form.coltivatoIn = ''">Non specificato</button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'vaso' }" title="Vaso" aria-label="Vaso" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'vaso'"><Icon name="vaso" style="width:16px;height:16px;" /></button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'terra' }" title="Terra" aria-label="Terra" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'terra'"><Icon name="terra" style="width:16px;height:16px;" /></button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'acqua' }" title="Acqua" aria-label="Acqua" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'acqua'"><Icon name="acqua" style="width:16px;height:16px;" /></button>
         </div>
       </div>
 
@@ -70,6 +70,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Spinner from '@/components/Spinner.vue'
+import Icon from '@/components/Icon.vue'
 
 const route  = useRoute()
 const router = useRouter()

@@ -36,8 +36,7 @@
           <h1 class="plant-hero-title title-settle">{{ specie?.nome ?? pianta.specie }}</h1>
           <p class="plant-hero-lat">
             {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
-            <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe" style="margin-left:6px;vertical-align:middle;">{{ badgeVerifica.testo }}</span>
-            <span v-if="pianta.coltivato_in" class="badge" style="margin-left:6px;vertical-align:middle;background:var(--gold-pale);color:var(--gold-dark);">{{ pianta.coltivato_in === 'vaso' ? 'In vaso' : 'In terra' }}</span>
+            <span v-if="pianta.coltivato_in" class="badge" :title="labelColtivatoIn(pianta.coltivato_in)" style="margin-left:6px;vertical-align:middle;display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;background:var(--gold-pale);color:var(--gold-dark);"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" style="width:13px;height:13px;display:block;" /></span>
           </p>
         </div>
         <a v-if="fotoHero.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener"
@@ -58,8 +57,7 @@
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
             <span class="badge badge-gold">{{ pianta.zona }}</span>
             <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
-            <span v-if="pianta.coltivato_in" class="badge" style="background:var(--gold-pale);color:var(--gold-dark);">{{ pianta.coltivato_in === 'vaso' ? 'In vaso' : 'In terra' }}</span>
-            <span v-if="badgeVerifica" class="badge" :class="badgeVerifica.classe">{{ badgeVerifica.testo }}</span>
+            <span v-if="pianta.coltivato_in" class="badge" :title="labelColtivatoIn(pianta.coltivato_in)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;background:var(--gold-pale);color:var(--gold-dark);"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" style="width:13px;height:13px;display:block;" /></span>
           </div>
         </div>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"
@@ -310,6 +308,10 @@ const TINTE_CURA = { irrigazione: 'acqua', concimazione: 'olive', potatura: 'ros
 function iconaCura(tipo) { return ICONE_CURA[tipo] ?? 'foglia' }
 function tintaCura(tipo) { return TINTE_CURA[tipo] ?? 'sage' }
 
+const LABEL_COLTIVATO_IN = { vaso: 'In vaso', terra: 'In terra', acqua: 'In acqua' }
+function labelColtivatoIn(coltivatoIn) { return LABEL_COLTIVATO_IN[coltivatoIn] ?? 'In terra' }
+function iconaColtivatoIn(coltivatoIn) { return coltivatoIn in LABEL_COLTIVATO_IN ? coltivatoIn : 'terra' }
+
 const indiceLuce = computed(() => luce.value ? fotoPianta.value.findIndex(f => f.path === luce.value.path) : -1)
 
 // Solo per la visualizzazione: pianta.impianto resta "yyyy-mm-dd" ovunque
@@ -370,20 +372,6 @@ const pianta = computed(() => {
 const specie = computed(() =>
   pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null
 )
-
-// Badge di provenienza dati (#120): "verificato" = scheda controllata su
-// fonte orticola reale (RHS, Acta Plantarum, vivai); "bozza" = compilata
-// dalla sola conoscenza botanica generale, non ancora verificata su fonte.
-// stato_verifica manca solo quando i dati vengono dal fallback offline più
-// vecchio della migrazione Supabase: in quel caso nessun badge, invece di
-// dichiarare un dato che non abbiamo davvero.
-const badgeVerifica = computed(() => {
-  const stato = specie.value?.stato_verifica
-  if (!stato) return null
-  return stato === 'verificato'
-    ? { testo: 'Verificato', classe: 'badge-ok' }
-    : { testo: 'Bozza', classe: 'badge-gold' }
-})
 
 // Presente solo per le specie annuali/biennali curate dalla tab
 // Coltivazione del form specie (vedi SelettoreSpecie.vue) — assente per le

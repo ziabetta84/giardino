@@ -48,7 +48,7 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   const ultimaStr  = pianta?.ultima_cura?.[tipo]
   if (!intervallo) return { urgente: false, label: manutenzione, giorni: null }
 
-  if (tipo === 'irrigazione' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
+  if (tipo === 'irrigazione' && pianta?.coltivato_in !== 'acqua' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
     return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
   }
 
