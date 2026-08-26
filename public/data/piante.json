@@ -1124,7 +1124,7 @@
   "alloro-1779862848569": {
     "specie": "alloro",
     "zona": "Crinale",
-    "sottozona": "",
+    "sottozona": null,
     "varieta": "",
     "impianto": "2026-04-04",
     "note": "",
@@ -1139,7 +1139,7 @@
       "concimazione": "2026-07-15"
     },
     "impianto_circa": "",
-    "coltivato_in": "terra"
+    "coltivato_in": "vaso"
   },
   "lucky-bamboo-1780521613886": {
     "specie": "lucky-bamboo",
