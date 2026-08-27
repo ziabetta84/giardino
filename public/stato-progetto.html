@@ -607,6 +607,32 @@
     .page { padding: 2.75rem 1.1rem 4rem; }
     .badge-demo { flex-wrap: wrap; }
   }
+
+  /* Assestamento di titoli/sottotitoli all'ingresso in viewport (stesso
+     effetto di .title-settle nell'app), applicato via JS con
+     IntersectionObserver dato che qui non c'è un mount Vue a farlo scattare. */
+  .title-settle {
+    animation: titleSettle 0.22s ease 0.07s both;
+  }
+  @keyframes titleSettle { from { transform: translateY(4px); } to { transform: translateY(0); } }
+
+  .gradient-title.title-settle {
+    -webkit-mask-image: linear-gradient(-75deg, #000 0%, #000 40%, rgba(0,0,0,.55) 46%, #000 50%, rgba(0,0,0,.55) 54%, #000 60%, #000 100%);
+    mask-image: linear-gradient(-75deg, #000 0%, #000 40%, rgba(0,0,0,.55) 46%, #000 50%, rgba(0,0,0,.55) 54%, #000 60%, #000 100%);
+    -webkit-mask-size: 300% 100%;
+    mask-size: 300% 100%;
+    -webkit-mask-position: 0% 0%;
+    mask-position: 0% 0%;
+    animation: titleSettle 0.22s ease 0.07s both, titleShine 0.9s cubic-bezier(.3,0,.2,1) 0.32s 1;
+  }
+  @keyframes titleShine {
+    from { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+    to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .title-settle { animation: none; }
+    .gradient-title.title-settle { animation: none; -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
+  }
 </style>
 </head><body>
 
@@ -1082,6 +1108,33 @@ c-27 -7 -59 -14 -71 -14 -11 0 -42 -14 -68 -30 -37 -24 -47 -35 -44 -53 3 -25
     var tail = svg.querySelector('#tail');
     if (tail) tail.classList.add('wag');
   }, 2000);
+})();
+</script>
+
+<script>
+(function () {
+  var targets = document.querySelectorAll('h1, h2, .lede');
+  if (!targets.length) return;
+
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    targets.forEach(function (el) { el.classList.add('title-settle'); });
+    return;
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('title-settle');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '0px 0px -10% 0px' });
+
+  targets.forEach(function (el) { observer.observe(el); });
 })();
 </script>
 
