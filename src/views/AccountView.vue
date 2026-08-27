@@ -2,7 +2,7 @@
   <!-- Loggato: dentro il layout normale dell'app (vedi App.vue), quindi qui
        si può permettere titolo e card come le altre view. -->
   <div v-if="!caricamento && utente && !recuperoInCorso" style="max-width:420px;margin:0 auto;">
-    <h1 class="title-display gradient-title" style="font-size:1.9rem;font-weight:800;margin-bottom:16px;">Account</h1>
+    <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;margin-bottom:16px;">Account</h1>
     <div class="card" style="padding:18px;">
       <p class="section-label" style="margin-bottom:10px;">Accesso effettuato</p>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
@@ -23,8 +23,8 @@
   <div v-else-if="!caricamento" style="width:100%;max-width:340px;">
     <div style="text-align:center;margin-bottom:20px;">
       <ZorbaLogo style="width:64px;height:64px;margin:0 auto 8px;" />
-      <h1 class="title-display gradient-title" style="font-size:1.6rem;font-weight:800;">
-        {{ recuperoInCorso ? 'Nuova password' : 'Account' }}
+      <h1 class="title-display gradient-title title-settle" style="font-size:1.6rem;font-weight:800;">
+        {{ recuperoInCorso ? 'Nuova password' : 'Entra nel Giardino di Zorba' }}
       </h1>
     </div>
 
@@ -75,10 +75,12 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import { useAuth } from '@/composables/useAuth'
 
+const router = useRouter()
 const { utente, caricamento, recuperoInCorso, accedi, registrati, esci, richiediResetPassword, impostaNuovaPassword } = useAuth()
 
 const modalita  = ref('accedi')
@@ -104,6 +106,7 @@ async function onInvia() {
   try {
     if (modalita.value === 'accedi') {
       await accedi(email.value, password.value)
+      router.push('/')
     } else {
       await registrati(email.value, password.value)
       messaggio.value = 'Account creato. Controlla la mail per confermare, poi accedi.'

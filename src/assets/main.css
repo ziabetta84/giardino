@@ -229,7 +229,7 @@ body::before {
 .zona-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; display: inline-block; }
 
 /* Section label */
-.section-label { font-family: var(--font-serif); font-size: 12px; font-weight: 600; font-style: italic; color: var(--ink-soft); margin-bottom: 8px; }
+.section-label { font-family: var(--font-serif); font-size: 12px; font-weight: 400; font-style: italic; color: var(--ink-soft); margin-bottom: 8px; }
 
 /* Scrollbar hidden */
 .no-scroll::-webkit-scrollbar { display: none; }
