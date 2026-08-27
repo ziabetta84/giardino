@@ -326,6 +326,59 @@
     color: var(--ink-soft);
   }
 
+  /* ---------- Carosello fonti ---------- */
+
+  .source-carousel {
+    display: flex;
+    gap: 0.9rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.3rem 0.15rem 1rem;
+    margin: 1rem 0 0;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .source-card {
+    scroll-snap-align: start;
+    flex: 0 0 240px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.1rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .source-tag {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 0.2em 0.55em;
+    border-radius: 6px;
+    margin-bottom: 0.55rem;
+  }
+  .source-tag.tag-verificata { background: var(--sage-tile); color: var(--sage-dark); }
+  .source-tag.tag-bozza { background: var(--gold-tile); color: var(--gold-ink); }
+
+  .source-card h4 {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+  }
+  .source-card p {
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  @media (max-width: 640px) {
+    .source-card { flex-basis: 208px; }
+  }
+
   /* ---------- Project proof ---------- */
 
   .proof-grid {
@@ -821,6 +874,34 @@ c-27 -7 -59 -14 -71 -14 -11 0 -42 -14 -68 -30 -37 -24 -47 -35 -44 -53 3 -25
       <span class="pill pill-ok">✓ Verificato</span>
       <span class="pill pill-draft">Bozza</span>
       <span class="cap">Ogni specie mostra da dove viene il dato: verificata su fonte reale (RHS, Acta Plantarum, due enciclopedie botaniche cartacee) oppure ancora in bozza. Nessun dato inventato passa per confermato — le 8.496 voci in bozza (dataset Plants For A Future, licenza CC BY) sono etichettate come tali finché non passano lo stesso controllo delle 206 già verificate.</span>
+    </div>
+
+    <div class="source-carousel">
+
+      <div class="source-card">
+        <span class="source-tag tag-verificata">Verificata</span>
+        <h4>RHS</h4>
+        <p>Royal Horticultural Society: l'ente britannico di giardinaggio più autorevole al mondo, fondato nel 1804. Per ogni pianta davvero posseduta leggiamo la sua scheda ufficiale, una per una — non un riassunto automatico.</p>
+      </div>
+
+      <div class="source-card">
+        <span class="source-tag tag-verificata">Verificata</span>
+        <h4>Acta Plantarum</h4>
+        <p>Comunità botanica italiana di appassionati ed esperti. La usiamo per il nome scientifico corretto e la distribuzione geografica, non per i consigli di coltivazione.</p>
+      </div>
+
+      <div class="source-card">
+        <span class="source-tag tag-verificata">Verificata</span>
+        <h4>Due enciclopedie botaniche</h4>
+        <p>Libri cartacei (Edicart), fotografati pagina per pagina e letti a mano — mai un OCR automatico, che perderebbe le informazioni nelle icone e nelle tabelle del libro.</p>
+      </div>
+
+      <div class="source-card">
+        <span class="source-tag tag-bozza">Bozza</span>
+        <h4>Plants For A Future</h4>
+        <p>Database open (licenza CC BY) con quasi 8.500 specie: il punto di partenza per coprire l'intero catalogo. Non ancora controllato pianta per pianta — per questo resta etichettato "bozza" finché non passa la verifica.</p>
+      </div>
+
     </div>
   </section>
 
