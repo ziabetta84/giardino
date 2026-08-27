@@ -5,3 +5,4 @@ generale/*.mp4
 generale/*.mov
 fonti/*/*/
 .env.local
+backups/
