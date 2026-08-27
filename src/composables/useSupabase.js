@@ -6,7 +6,11 @@ import { createClient } from '@supabase/supabase-js'
 const url = import.meta.env.VITE_SUPABASE_URL
 const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-const client = createClient(url, anonKey)
+// flowType 'pkce': il recupero password (vedi useAuth.js) rimanda l'utente
+// con un codice in query string invece che nel fragment dell'URL — con
+// createWebHashHistory (vue-router) anche le route vivono nel fragment, e i
+// due si pesterebbero i piedi se restassimo sul flow 'implicit' di default.
+const client = createClient(url, anonKey, { auth: { flowType: 'pkce' } })
 
 export function useSupabase() {
   return client

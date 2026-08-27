@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { useAuth } from '@/composables/useAuth'
 
 const routes = [
   { path: '/',                          name: 'home',           component: () => import('@/views/HomeView.vue') },
@@ -20,8 +21,21 @@ const routes = [
   { path: '/account',                   name: 'account',        component: () => import('@/views/AccountView.vue') },
 ]
 
-export default createRouter({
+const router = createRouter({
   history: createWebHashHistory('/giardino/'),
   routes,
   scrollBehavior: () => ({ top: 0 })
 })
+
+// Senza login non si naviga nell'app: unica eccezione la rotta /account
+// stessa (altrimenti nessuno potrebbe mai raggiungere il form). Si aspetta
+// `sessionePronta` (risolta solo a controllo sessione completato, incluso lo
+// scambio del codice per un eventuale link di recupero password) per evitare
+// un redirect lampo verso /account prima che la sessione risulti valida.
+router.beforeEach(async (to) => {
+  const { utente, sessionePronta } = useAuth()
+  await sessionePronta
+  if (!utente.value && to.name !== 'account') return { name: 'account' }
+})
+
+export default router

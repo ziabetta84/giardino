@@ -1,28 +1,38 @@
 <template>
   <IconDefs />
-  <BootLogo />
-  <NavBar />
 
-  <!-- Banner token mancante (globale) -->
-  <Transition name="page">
-    <div v-if="!tokenOk && mostraBanner"
-      style="position:sticky;top:0;z-index:100;background:var(--gold-pale);border-bottom:1px solid var(--gold-light);padding:10px 16px;display:flex;align-items:center;gap:10px;">
-      <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;" />
-      <p style="font-size:12px;color:var(--gold-dark);flex:1;">Token GitHub non configurato — le modifiche non verranno salvate.</p>
-      <RouterLink to="/agente" style="font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;">Configura →</RouterLink>
-      <button @click="mostraBanner = false" style="background:none;border:none;color:var(--gold-dark);cursor:pointer;font-size:16px;line-height:1;">×</button>
-    </div>
-  </Transition>
-
-  <main class="app-main" style="max-width:920px;margin:0 auto;padding:28px 16px 80px;position:relative;z-index:1;">
-    <RouterView v-slot="{ Component }">
-      <Transition name="page" mode="out-in">
-        <component :is="Component" />
-      </Transition>
-    </RouterView>
+  <!-- Senza login: solo il form di accesso, senza il resto del vestito
+       dell'app (nav, statusbar, banner) — la guardia del router (vedi
+       router/index.js) tiene comunque bloccata ogni altra rotta. -->
+  <main v-if="!caricamento && !utente" class="app-main-slogata">
+    <RouterView />
   </main>
-  <BottomNav />
-  <StatusBar />
+
+  <template v-else>
+    <BootLogo />
+    <NavBar />
+
+    <!-- Banner token mancante (globale) -->
+    <Transition name="page">
+      <div v-if="!tokenOk && mostraBanner"
+        style="position:sticky;top:0;z-index:100;background:var(--gold-pale);border-bottom:1px solid var(--gold-light);padding:10px 16px;display:flex;align-items:center;gap:10px;">
+        <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;" />
+        <p style="font-size:12px;color:var(--gold-dark);flex:1;">Token GitHub non configurato — le modifiche non verranno salvate.</p>
+        <RouterLink to="/agente" style="font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;">Configura →</RouterLink>
+        <button @click="mostraBanner = false" style="background:none;border:none;color:var(--gold-dark);cursor:pointer;font-size:16px;line-height:1;">×</button>
+      </div>
+    </Transition>
+
+    <main class="app-main" style="max-width:920px;margin:0 auto;padding:28px 16px 80px;position:relative;z-index:1;">
+      <RouterView v-slot="{ Component }">
+        <Transition name="page" mode="out-in">
+          <component :is="Component" />
+        </Transition>
+      </RouterView>
+    </main>
+    <BottomNav />
+    <StatusBar />
+  </template>
 </template>
 
 <script setup>
@@ -35,15 +45,25 @@ import Icon      from '@/components/Icon.vue'
 import { ref, onMounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { useAuth } from '@/composables/useAuth'
 
 const store = useDatiStore()
 const { isAutenticato } = useApi()
+const { utente, caricamento } = useAuth()
 
 const tokenOk     = ref(isAutenticato())
 const mostraBanner = ref(true)
 
 onMounted(() => store.caricaTutto())
 </script>
+
+<style scoped>
+.app-main-slogata {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px 16px;
+}
+</style>
 
 <style scoped>
 /* Su mobile la statusbar si aggiunge sopra la BottomNav (vedi StatusBar.vue):

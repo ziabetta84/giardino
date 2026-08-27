@@ -13,14 +13,21 @@ const supabase = useSupabase()
 // NavBar/StatusBar/AccountView vedono tutte la stessa sessione senza prop drilling.
 const utente = ref(null)
 const caricamento = ref(true)
+// true quando la sessione attuale viene da un link di recupero password
+// (evento PASSWORD_RECOVERY): AccountView mostra il form "imposta nuova
+// password" invece del solito login, anche se `utente` è già valorizzato.
+const recuperoInCorso = ref(false)
 
-supabase.auth.getSession().then(({ data }) => {
+// Promise esposta (vedi sotto) così la guardia di navigazione del router può
+// aspettare la sessione senza reimplementare un polling su `caricamento`.
+const sessionePronta = supabase.auth.getSession().then(({ data }) => {
   utente.value = data.session?.user ?? null
   caricamento.value = false
 })
 
-supabase.auth.onAuthStateChange((_evento, sessione) => {
+supabase.auth.onAuthStateChange((evento, sessione) => {
   utente.value = sessione?.user ?? null
+  if (evento === 'PASSWORD_RECOVERY') recuperoInCorso.value = true
 })
 
 // Supabase Auth risponde in inglese: traduciamo solo i casi che un utente
@@ -57,5 +64,20 @@ export function useAuth() {
     if (error) throw error
   }
 
-  return { utente, caricamento, registrati, accedi, esci }
+  async function richiediResetPassword(email) {
+    const redirectTo = window.location.origin + import.meta.env.BASE_URL
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo })
+    if (error) throw traduci(error)
+  }
+
+  async function impostaNuovaPassword(password) {
+    const { error } = await supabase.auth.updateUser({ password })
+    if (error) throw traduci(error)
+    recuperoInCorso.value = false
+  }
+
+  return {
+    utente, caricamento, recuperoInCorso, sessionePronta,
+    registrati, accedi, esci, richiediResetPassword, impostaNuovaPassword,
+  }
 }
