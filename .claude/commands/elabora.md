@@ -32,6 +32,16 @@ La risposta deve essere:
 
 ## Procedura per `identifica_specie`
 
+Prima di analizzare la foto, usa l'API di identificazione **PlantNet** come riscontro oggettivo (non come sostituto del tuo giudizio): decodifica il campo `foto` (base64) in un file temporaneo, poi:
+
+```bash
+curl -s -X POST "https://my-api.plantnet.org/v2/identify/all?api-key=$PLANTNET_API_KEY&lang=it&type=kt&nb-results=5" \
+  -F "images=@/percorso/foto.jpg" \
+  -F "organs=auto"
+```
+
+La chiave è in `PLANTNET_API_KEY` dentro `.env.local` (non versionato — leggila da lì, non chiederla all'utente). Usa i primi 3-5 candidati (`results[].species.scientificNameWithoutAuthor`, `results[].score`) come riferimento, ma decidi tu il risultato finale guardando comunque la foto: PlantNet è affidabile sulle specie botaniche "wild-type" ma meno su cultivar/varietà ornamentali specifiche, comuni in questo giardino. Se il tuo giudizio visivo diverge dal miglior candidato PlantNet, segnalalo esplicitamente nella risposta (es. "PlantNet suggerisce X con confidenza Y%, ma le caratteristiche nella foto sembrano più coerenti con Z"), invece di sceglierne uno in silenzio. Se la chiamata fallisce o restituisce risultati con score troppo bassi (es. sotto 0.2), procedi comunque con la sola analisi visiva senza bloccarti.
+
 Oltre a nome comune, nome scientifico e caratteristiche distintive dalla foto, includi nella risposta una proposta di **fabbisogno NPK per ciascuna delle quattro stagioni** (primavera, estate, autunno, inverno), nello stesso formato usato nella tabella `specie` su Supabase (`"N-P-K"`, es. `"10-5-5"`, o indicando esplicitamente di lasciare il valore vuoto/null per le stagioni di riposo vegetativo — tipicamente l'inverno nel clima marchigiano — invece di descriverlo con del testo, dato che il form "nuova specie" si aspetta un numero o un campo vuoto, non una frase) — così, se l'utente aggiunge poi la specie tramite il form, ha già i valori pronti da inserire nella tabella invece di dover cercare altrove.
 
 - Prima di proporre un valore, controlla se la specie identificata (o una molto simile) esiste già nella tabella `specie` su Supabase: se sì, usa lo stesso NPK già presente lì invece di inventarne uno diverso, per coerenza tra voci della stessa specie/categoria.

@@ -85,6 +85,7 @@ Alcuni tipi scrivono anche altrove, non solo la risposta testuale:
 - `revisione_specie` → aggiorna anche la riga corrispondente nella tabella `specie` su Supabase (via MCP `execute_sql`/`apply_migration`), non `specie.json`
 - `pianifica_progetto` → crea/aggiorna anche `progetti.json` (schema tappe in `useProgetti.js`)
 - `consiglio_concimazione` → usa lo stesso criterio di match NPK di `useConcimi.js` (distanza euclidea su rapporti normalizzati, soglia 0.15), per coerenza con quanto l'utente vede già in app
+- `identifica_specie` → prima dell'analisi visiva, interroga l'API di identificazione PlantNet (`PLANTNET_API_KEY` in `.env.local`) come riscontro oggettivo; il giudizio finale resta comunque quello visivo di Claude, non un pass-through automatico dei risultati PlantNet
 
 Schema richiesta:
 ```json
