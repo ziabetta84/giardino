@@ -4,5 +4,6 @@ dist/
 generale/*.mp4
 generale/*.mov
 fonti/*/*/
+fonti/rhs_from_sitemaps/
 .env.local
 backups/
