@@ -1,8 +1,15 @@
 // Accesso GitHub API per lettura/scrittura JSON e upload foto
 
+import { ref } from 'vue'
+
 const OWNER = 'ziabetta84'
 const REPO  = 'giardino'
 const BRANCH = 'main'
+
+// Stato a livello di modulo (stesso pattern di useAuth.js): un solo ref
+// condiviso da chiunque importi questo composable, così AccountView e
+// AgenteView vedono lo stesso stato del token senza bisogno di un reload.
+const tokenPresente = ref(!!localStorage.getItem('github_token'))
 
 function getToken() {
   return localStorage.getItem('github_token') || null
@@ -15,6 +22,23 @@ function getHeaders() {
     : { 'Content-Type': 'application/json' }
 }
 
+// GitHub risponde 401 con {"message":"Bad credentials"} quando il token è
+// scaduto, revocato o malformato (non un problema di permessi, quello sarebbe
+// un 403). In quel caso il token salvato non è più utilizzabile: lo svuotiamo
+// così l'app torna a chiedere di inserirne uno nuovo invece di ripetere
+// all'infinito la stessa chiamata destinata a fallire.
+function gestisciEventualeTokenInvalido(res) {
+  if (res.status === 401) {
+    rimuoviToken()
+    throw new Error('Token GitHub non valido o scaduto: vai su Account per inserirne uno nuovo.')
+  }
+}
+
+function rimuoviToken() {
+  localStorage.removeItem('github_token')
+  tokenPresente.value = false
+}
+
 // Legge un file dal repo tramite l'API Contents, con cache:'no-store' (vedi
 // nota in saveJSON: l'API risponde con Cache-Control: public, max-age=60,
 // che senza questo darebbe letture stale dopo una scrittura recente).
@@ -23,6 +47,7 @@ async function leggiFileGitHub(path) {
   const url = `https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`
   const info = await fetch(url, { headers: getHeaders(), cache: 'no-store' })
   if (info.status === 404) return { sha: undefined, data: null }
+  gestisciEventualeTokenInvalido(info)
   if (!info.ok) throw new Error(`Errore lettura file: ${info.status}`)
   const json = await info.json()
   if (json.content) {
@@ -38,6 +63,7 @@ async function leggiFileGitHub(path) {
     headers: { ...getHeaders(), Accept: 'application/vnd.github.v3.raw' },
     cache: 'no-store',
   })
+  gestisciEventualeTokenInvalido(raw)
   if (!raw.ok) throw new Error(`Errore lettura file raw: ${raw.status}`)
   return { sha: json.sha, data: await raw.json() }
 }
@@ -89,6 +115,7 @@ export function useApi() {
       })
       if (res.ok) return data
 
+      gestisciEventualeTokenInvalido(res)
       const err = await res.json().catch(() => ({}))
       const conflitto = res.status === 409 || /does not match/.test(err.message || '')
       // Riprova solo se abbiamo una funzione di aggiornamento: con un oggetto
@@ -119,6 +146,7 @@ export function useApi() {
       body: JSON.stringify(body)
     })
     if (!res.ok) {
+      gestisciEventualeTokenInvalido(res)
       const err = await res.json()
       throw new Error(err.message || 'Errore upload file')
     }
@@ -133,6 +161,7 @@ export function useApi() {
       body: JSON.stringify({ message, sha, branch: BRANCH }),
     })
     if (!res.ok) {
+      gestisciEventualeTokenInvalido(res)
       const err = await res.json().catch(() => ({}))
       throw new Error(err.message || 'Errore eliminazione file')
     }
@@ -140,12 +169,13 @@ export function useApi() {
   }
 
   function isAutenticato() {
-    return !!getToken()
+    return tokenPresente.value
   }
 
   function salvaToken(token) {
     localStorage.setItem('github_token', token)
+    tokenPresente.value = true
   }
 
-  return { saveJSON, loadJSON, uploadFile, deleteFile, isAutenticato, salvaToken }
+  return { saveJSON, loadJSON, uploadFile, deleteFile, isAutenticato, salvaToken, rimuoviToken, tokenPresente }
 }

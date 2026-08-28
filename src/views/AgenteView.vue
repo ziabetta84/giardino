@@ -45,17 +45,12 @@
     <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">Elaborato da Claude Code · risposte entro pochi minuti</p>
 
     <!-- Token mancante -->
-    <div v-if="!tokenSalvato" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
+    <div v-if="!tokenPresente" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
       <p style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">
         <Icon name="chiave" style="width:14px;height:14px;flex-shrink:0;" />Token GitHub richiesto
       </p>
       <p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">Serve un token con permesso <code>contents:write</code> per inviare richieste.</p>
-      <div style="display:flex;gap:8px;">
-        <input v-model="tokenInput" type="password" placeholder="ghp_…" class="form-input"
-          style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="configuratToken">
-        <button @click="configuratToken" :disabled="!tokenInput.trim()" class="btn btn-sage"
-          style="min-height:36px;padding:6px 14px;font-size:13px;">Salva</button>
-      </div>
+      <RouterLink to="/account" class="btn btn-sage" style="display:inline-block;min-height:36px;padding:6px 14px;font-size:13px;">Vai su Account</RouterLink>
     </div>
 
     <!-- Nuova richiesta -->
@@ -125,7 +120,7 @@
         </p>
       </div>
 
-      <button @click="aggiungiRichiesta" :disabled="!puoInviare || aggiungendo || !tokenSalvato"
+      <button @click="aggiungiRichiesta" :disabled="!puoInviare || aggiungendo || !tokenPresente"
         class="btn btn-sage" style="width:100%;">
         <Spinner v-if="aggiungendo" />{{ aggiungendo ? 'Invio…' : '→ Invia richiesta' }}
       </button>
@@ -184,7 +179,7 @@ import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
-const { saveJSON, isAutenticato, salvaToken } = useApi()
+const { saveJSON, tokenPresente } = useApi()
 const BASE = import.meta.env.BASE_URL
 
 const raw          = ref({})
@@ -198,8 +193,6 @@ const fotoBase64   = ref(null)
 const fotoPreview  = ref(null)
 const nomeFile     = ref('')
 const errore       = ref(null)
-const tokenInput   = ref('')
-const tokenSalvato = ref(isAutenticato())
 const sidebarAperta = ref(false)
 const richiestaSelezionataId = ref(null)
 
@@ -337,14 +330,6 @@ function rimuoviFoto() {
   fotoBase64.value  = null
   fotoPreview.value = null
   nomeFile.value    = ''
-}
-
-function configuratToken() {
-  if (!tokenInput.value.trim()) return
-  salvaToken(tokenInput.value.trim())
-  tokenSalvato.value = true
-  tokenInput.value = ''
-  window.location.reload()
 }
 
 async function aggiungiRichiesta() {

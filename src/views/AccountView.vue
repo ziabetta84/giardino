@@ -14,6 +14,40 @@
       </button>
       <p v-if="errore" style="font-size:12px;color:var(--rose-dark);margin-top:10px;">{{ errore }}</p>
     </div>
+
+    <div class="card" style="padding:18px;margin-top:16px;">
+      <p class="section-label" style="margin-bottom:10px;">Token GitHub</p>
+      <p style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;">Serve per inviare richieste a Zorba e salvare modifiche ai dati del giardino (permesso <code>contents:write</code> sul repo).</p>
+
+      <template v-if="tokenPresente && !modificandoToken">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+          <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;color:var(--sage-dark);" />
+          <p style="font-size:13px;font-weight:600;color:var(--sage-dark);">Token configurato</p>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button type="button" class="btn btn-ghost" style="flex:1;min-height:36px;font-size:13px;" @click="modificandoToken = true">Sostituisci</button>
+          <button type="button" class="btn btn-ghost" style="flex:1;min-height:36px;font-size:13px;color:var(--rose-dark);" @click="confermaRimozione = true">Rimuovi</button>
+        </div>
+      </template>
+
+      <template v-else>
+        <div style="display:flex;gap:8px;">
+          <input v-model="tokenInput" type="password" placeholder="ghp_…" class="form-input"
+            style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="onSalvaToken">
+          <button type="button" @click="onSalvaToken" :disabled="!tokenInput.trim()" class="btn btn-sage"
+            style="min-height:36px;padding:6px 14px;font-size:13px;">Salva</button>
+        </div>
+        <button v-if="tokenPresente" type="button" class="link-reset" style="margin-top:8px;" @click="modificandoToken = false; tokenInput = ''">Annulla</button>
+      </template>
+    </div>
+
+    <ModalConferma
+      :aperto="confermaRimozione"
+      titolo="Rimuovere il token GitHub?"
+      messaggio="Non potrai più inviare richieste a Zorba né salvare modifiche ai dati del giardino finché non ne inserisci uno nuovo."
+      @conferma="onRimuoviToken"
+      @annulla="confermaRimozione = false"
+    />
   </div>
 
   <!-- Non loggato (login/registrazione) o con una sessione di recupero
@@ -78,10 +112,13 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import ModalConferma from '@/components/ModalConferma.vue'
 import { useAuth } from '@/composables/useAuth'
+import { useApi } from '@/composables/useApi'
 
 const router = useRouter()
 const { utente, caricamento, recuperoInCorso, accedi, registrati, esci, richiediResetPassword, impostaNuovaPassword } = useAuth()
+const { salvaToken, rimuoviToken, tokenPresente } = useApi()
 
 const modalita  = ref('accedi')
 const email     = ref('')
@@ -91,6 +128,22 @@ const inviando  = ref(false)
 const uscendo   = ref(false)
 const errore    = ref(null)
 const messaggio = ref(null)
+
+const tokenInput       = ref('')
+const modificandoToken = ref(false)
+const confermaRimozione = ref(false)
+
+function onSalvaToken() {
+  if (!tokenInput.value.trim()) return
+  salvaToken(tokenInput.value.trim())
+  tokenInput.value = ''
+  modificandoToken.value = false
+}
+
+function onRimuoviToken() {
+  rimuoviToken()
+  confermaRimozione.value = false
+}
 
 function cambiaModalita(nuova) {
   modalita.value = nuova
