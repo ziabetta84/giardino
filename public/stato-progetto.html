@@ -379,6 +379,37 @@
     .source-card { flex-basis: 208px; }
   }
 
+  /* ---------- Altri tipi di richiesta ---------- */
+
+  .tipi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.9rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .tipo-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.1rem 1.2rem;
+    box-shadow: var(--shadow);
+  }
+
+  .tipo-card h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 0 0 0.4rem;
+  }
+
+  .tipo-card p {
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    margin: 0;
+  }
+
   /* ---------- Project proof ---------- */
 
   .proof-grid {
@@ -938,9 +969,43 @@ c-27 -7 -59 -14 -71 -14 -11 0 -42 -14 -68 -30 -37 -24 -47 -35 -44 -53 3 -25
 
     </div>
 
-    <p>Lo stesso meccanismo di richiesta copre già oggi anche l'identificazione di una specie da foto, un consiglio di cura mirato, la diagnosi di un problema e il consiglio di concimazione — sette tipi di richiesta in tutto, tutti già modellati nell'app, non solo la pianificazione progetti.</p>
+    <p>"Zorba dice" (<code>/agente</code>) non è solo pianificazione progetti: lo stesso meccanismo di richiesta copre altre sei tipologie, ciascuna con una logica dedicata già modellata nell'app, non un unico prompt generico riadattato.</p>
 
-    <div class="callout">Il divario da colmare non è inventare questa funzione: è togliere il collo di bottiglia umano. Oggi ogni tappa la scrivo io, leggendo la richiesta e ragionando sui dati di coltivazione già in catalogo. La prossima sezione spiega l'architettura che rende <strong>lo stesso ragionamento</strong> automatico e disponibile in tempo reale — nessuno dei prodotti citati più avanti pianifica una stagione intera o segue una germinazione nel tempo: fanno diagnosi punto-a-punto, noi seguiamo il tempo.</div>
+    <div class="tipi-grid">
+
+      <div class="tipo-card">
+        <h4>Identifica specie da foto</h4>
+        <p>Ragionamento multimodale general-purpose (non un modello di visione dedicato) ancorato al catalogo verificato come ground truth. Oltre a nome comune/scientifico e tratti distintivi, propone un fabbisogno NPK per le quattro stagioni, già nel formato del form specie — pronto da incollare se poi la si aggiunge davvero al catalogo.</p>
+      </div>
+
+      <div class="tipo-card">
+        <h4>Revisiona/completa specie</h4>
+        <p>Si indica una specie già presente (bozza o verificata) tramite lo stesso <code>SelettoreSpecie</code> usato altrove nell'app. Zorba legge la riga su Supabase, completa solo i campi vuoti e corregge quelli esistenti solo in caso di inconsistenza chiara — mai una riscrittura cosmetica — poi scrive di nuovo su Supabase citando la fonte in modo append-only.</p>
+      </div>
+
+      <div class="tipo-card">
+        <h4>Consiglio per cura</h4>
+        <p>Azione concreta con tempistiche calibrate sul clima collinare mediterraneo di Centinarola, letta dalla scheda di manutenzione della specie — non un consiglio generico da manuale.</p>
+      </div>
+
+      <div class="tipo-card">
+        <h4>Consiglio concimazione</h4>
+        <p>Stesso identico criterio di <code>useConcimi.js</code>: confronto per rapporto NPK normalizzato tra il fabbisogno stagionale della specie e i concimi davvero in dispensa (<code>concimi.json</code>), distanza euclidea, soglia 0.15. Se nessun concime posseduto è abbastanza vicino, lo dice invece di consigliare comunque il meno peggio.</p>
+      </div>
+
+      <div class="tipo-card">
+        <h4>Diagnosi problema</h4>
+        <p>Causa probabile e rimedio immediato, eventualmente a partire da una foto del sintomo — punto-a-punto, non un piano nel tempo come "pianifica progetto".</p>
+      </div>
+
+      <div class="tipo-card">
+        <h4>Altro</h4>
+        <p>Risposta libera ma pertinente al contesto reale del giardino, per le richieste che non rientrano nelle sei categorie sopra.</p>
+      </div>
+
+    </div>
+
+    <div class="callout">Il divario da colmare non è inventare questa funzione: è togliere il collo di bottiglia umano. Oggi ogni richiesta la elaboro io, leggendo la coda e ragionando sui dati già in catalogo. La prossima sezione spiega l'architettura che rende <strong>lo stesso ragionamento</strong> automatico e disponibile in tempo reale — nessuno dei prodotti citati più avanti pianifica una stagione intera o segue una germinazione nel tempo: fanno diagnosi punto-a-punto, noi seguiamo il tempo.</div>
   </section>
 
   <section>
