@@ -5,5 +5,6 @@ generale/*.mp4
 generale/*.mov
 fonti/*/*/
 fonti/rhs_from_sitemaps/
+fonti/rhs-varietà/
 .env.local
 backups/

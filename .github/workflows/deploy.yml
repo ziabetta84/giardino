@@ -19,6 +19,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # fonti/ (~2,6GB) e docs/ (~184MB) non servono alla build:
+          # la prima è materiale sorgente, la seconda è servita a runtime
+          # via URL raw GitHub, non letta da Vite. Escluderle dal checkout
+          # velocizza il deploy senza toccare git/storico/branch.
+          sparse-checkout: |
+            /*
+            !/fonti
+            !/docs
+          sparse-checkout-cone-mode: false
 
       - uses: actions/setup-node@v4
         with:
