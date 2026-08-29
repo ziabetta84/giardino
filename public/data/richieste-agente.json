@@ -999,20 +999,6 @@
       "elaborata": "2026-08-14T07:21:24.000Z"
     }
   },
-  "r-1787914139212-jqvs": {
-    "tipo": "identifica_specie",
-    "messaggio": "che pianta è?",
-    "specie": null,
-    "progetto": null,
-    "titolo_progetto": null,
-    "foto": null,
-    "stato": "completata",
-    "creata": "2026-08-28T10:48:59.795Z",
-    "risposta": {
-      "messaggio": "Identificata con alta confidenza: **Ipoeste** (Hypoestes phyllostachya, fam. Acanthaceae) — pianta da interno nota per le foglie ovali picchiettate di bianco/rosa su fondo verde scuro. PlantNet conferma con un punteggio del 91%, in linea con il giudizio visivo.\n\nÈ già presente in catalogo (scheda \"Ipoeste\") con fabbisogno NPK primavera/estate/autunno 20-10-10 e inverno a riposo (nessun apporto) — nessuna proposta nuova da fare, il dato esistente è già coerente con questa pianta.\n\nNota pratica: alcune foglie nella foto appaiono appassite e arricciate ai bordi, segno tipico di scarsa umidità ambientale o irrigazione irregolare. L'Ipoeste vuole terreno sempre leggermente umido (mai fradicio) e ama un'aria non troppo secca: se è in un ambiente riscaldato, valuta un vaporizzatore d'acqua o un sottovaso con ghiaia bagnata.",
-      "elaborata": "2026-08-28T11:05:54.000Z"
-    }
-  },
   "r-1787920044024-xi4o": {
     "tipo": "identifica_specie",
     "messaggio": "riconosci questa pianta?",
