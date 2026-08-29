@@ -26,7 +26,7 @@ La risposta deve essere:
   - `revisione_specie`: vedi procedura dedicata sotto
   - `consiglio_cura`: azione concreta con tempistiche per il clima marchigiano
   - `consiglio_concimazione`: vedi procedura dedicata sotto
-  - `diagnosi`: causa probabile + rimedio immediato
+  - `diagnosi`: vedi procedura dedicata sotto
   - `pianifica_progetto`: vedi procedura dedicata sotto
   - `altro`: risposta libera pertinente al contesto del giardino
 
@@ -54,6 +54,24 @@ Oltre a nome comune, nome scientifico e caratteristiche distintive dalla foto, i
   - da frutto → potassio prevalente (es. "5-10-15")
   - specie note per sensibilità a un nutriente specifico (es. l'avocado teme l'eccesso di fosforo) → tienine conto esplicitamente, preferendo un profilo azotato basso in fosforo invece del generico bilanciato
 - Se non hai elementi sufficienti per una stima ragionevole (specie molto incerta o poco nota), ometti la proposta NPK invece di inventarne una a caso, e dillo nella risposta.
+
+## Procedura per `diagnosi`
+
+Se la richiesta contiene una foto, usa prima l'endpoint di identificazione malattie di **PlantNet** come riscontro oggettivo (non come sostituto del tuo giudizio, stesso criterio di `identifica_specie`): decodifica il campo `foto` (base64) in un file temporaneo, poi:
+
+```bash
+curl -s -X POST "https://my-api.plantnet.org/v2/diseases/identify?api-key=$PLANTNET_API_KEY&lang=it" \
+  -F "image=@/percorso/foto.jpg" \
+  -F "organs=auto"
+```
+
+La chiave è in `PLANTNET_API_KEY` dentro `.env.local` (non versionato — leggila da lì, non chiederla all'utente). Nota: a differenza dell'endpoint di identificazione specie, qui il campo form-data è `image` (singolare) e `organs` accetta solo `leaf`, `flower`, `fruit`, `bark` o `auto`.
+
+Usa i primi risultati (`results[].name` — codice EPPO, `results[].score`) come riferimento, ma la diagnosi finale resta la tua, basata sulla foto e sul contesto del messaggio. Se il tuo giudizio diverge dal miglior candidato PlantNet, segnalalo esplicitamente nella risposta invece di sceglierne uno in silenzio. Questo endpoint copre solo un elenco limitato di specie e patologie: se la chiamata fallisce, non trova corrispondenze o i punteggi sono troppo bassi (es. sotto 0.2), procedi comunque con la sola diagnosi visiva/testuale senza bloccarti e senza segnalarlo come anomalia.
+
+Se la richiesta non ha foto (solo testo), procedi direttamente con la diagnosi testuale basata sul messaggio e il contesto del giardino, senza chiamare PlantNet.
+
+La risposta indica causa probabile + rimedio immediato, pratico per il clima marchigiano.
 
 ## Procedura per `revisione_specie`
 

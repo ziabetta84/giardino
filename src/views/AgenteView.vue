@@ -14,23 +14,38 @@
       </button>
 
       <div class="agente-sidebar-list">
-        <button v-for="r in richieste" :key="r.id" type="button" class="agente-storico-riga"
-          :class="{ active: r.id === richiestaSelezionataId }" @click="selezionaRichiesta(r.id)">
-          <span class="agente-storico-icona">
-            <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
-          </span>
-          <span class="agente-storico-testo">
-            <span class="agente-storico-titolo">{{ titoloRichiesta(r) }}</span>
-            <span class="agente-storico-data">{{ formatData(r.creata) }}</span>
-          </span>
-          <span v-if="r.stato === 'in_attesa'" class="pulse-dot" style="flex-shrink:0;"></span>
-        </button>
+        <div v-for="r in richieste" :key="r.id" class="agente-storico-riga-wrap">
+          <div class="agente-storico-riga" :class="{ active: r.id === richiestaSelezionataId }"
+            role="button" tabindex="0" @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)">
+            <span class="agente-storico-icona">
+              <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
+            </span>
+            <span class="agente-storico-testo">
+              <span class="agente-storico-titolo">{{ titoloRichiesta(r) }}</span>
+              <span class="agente-storico-data">{{ formatData(r.creata) }}</span>
+            </span>
+            <span v-if="r.stato === 'in_attesa'" class="pulse-dot" style="flex-shrink:0;"></span>
+          </div>
+          <button type="button" class="icon-btn agente-storico-kebab" aria-label="Altre azioni"
+            @click.stop="toggleMenu(r.id, $event)">⋮</button>
+        </div>
         <p v-if="!richieste.length" class="text-light" style="font-size:12px;color:var(--ink-faint);text-align:center;padding:20px 8px;">
           Nessuna richiesta ancora
         </p>
       </div>
     </aside>
     <div v-if="sidebarAperta" class="agente-backdrop" @click="sidebarAperta = false"></div>
+
+    <!-- Teleportato su body: la sidebar ha overflow-y auto per lo scroll
+         dello storico, quindi un menu posizionato dentro verrebbe tagliato
+         quando la riga è vicina al bordo scrollabile. -->
+    <Teleport to="body">
+      <div v-if="menuApertoId" class="agente-storico-menu" :style="{ top: menuPos.top + 'px', left: menuPos.left + 'px' }" @click.stop>
+        <button type="button" class="agente-storico-menu-item" @click="apriEliminazione(menuApertoId)">
+          <Icon name="cestino" style="width:14px;height:14px;" />Elimina
+        </button>
+      </div>
+    </Teleport>
 
     <!-- Contenuto principale -->
     <div class="agente-main">
@@ -108,7 +123,9 @@
             <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" style="display:none;">
           </label>
         </div>
-        <p v-if="!fotoPreview" style="font-size:11px;color:var(--ink-soft);margin-top:6px;text-align:center;">JPG, PNG — max 5 MB</p>
+        <p v-if="!fotoPreview" style="font-size:11px;color:var(--ink-soft);margin-top:6px;text-align:center;">
+          JPG, PNG — max 5 MB<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
+        </p>
       </div>
 
       <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio"
@@ -166,6 +183,15 @@
       </div>
     </div>
     </div>
+
+    <ModalConferma
+      :aperto="daEliminare !== null"
+      titolo="Eliminare questa richiesta?"
+      messaggio="Questa azione non può essere annullata."
+      :caricamento="eliminando"
+      @conferma="confermaEliminazione"
+      @annulla="daEliminare = null"
+    />
   </div>
 </template>
 
@@ -177,6 +203,7 @@ import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
+import ModalConferma from '@/components/ModalConferma.vue'
 
 const store = useDatiStore()
 const { saveJSON, tokenPresente } = useApi()
@@ -195,6 +222,10 @@ const nomeFile     = ref('')
 const errore       = ref(null)
 const sidebarAperta = ref(false)
 const richiestaSelezionataId = ref(null)
+const menuApertoId = ref(null)
+const menuPos = ref({ top: 0, left: 0 })
+const daEliminare = ref(null)
+const eliminando = ref(false)
 
 const TIPI_RICHIESTA = [
   { value: 'identifica_specie',      label: 'Identifica specie da foto',  icon: 'foglia' },
@@ -224,6 +255,10 @@ const puoInviare = computed(() => {
   if (nuovoTipo.value === 'pianifica_progetto') {
     return !!nuovoMessaggio.value.trim() && (!!progettoSelezionato.value || !!nuovoProgettoTitolo.value.trim())
   }
+  // Con una foto allegata, la descrizione testuale è facoltativa: identifica_specie
+  // richiede comunque sempre la foto, diagnosi accetta foto oppure testo.
+  if (nuovoTipo.value === 'identifica_specie') return !!fotoBase64.value
+  if (nuovoTipo.value === 'diagnosi') return !!fotoBase64.value || !!nuovoMessaggio.value.trim()
   return !!nuovoMessaggio.value.trim()
 })
 
@@ -237,6 +272,8 @@ const progettiEsistenti = computed(() => {
 const PLACEHOLDER_MESSAGGIO = {
   revisione_specie: 'Note aggiuntive (opzionale)…',
   pianifica_progetto: 'Descrivi il progetto: cosa vuoi fare, dove, entro quando…',
+  identifica_specie: 'Note aggiuntive (opzionale)…',
+  diagnosi: 'Descrivi il problema (opzionale se alleghi una foto)…',
 }
 const placeholderMessaggio = computed(() => PLACEHOLDER_MESSAGGIO[nuovoTipo.value] ?? 'Descrivi la richiesta…')
 
@@ -264,6 +301,46 @@ function nuovaRichiesta() {
   sidebarAperta.value = false
 }
 
+function toggleMenu(id, event) {
+  if (menuApertoId.value === id) {
+    menuApertoId.value = null
+    return
+  }
+  const rect = event.currentTarget.getBoundingClientRect()
+  const LARGHEZZA_MENU = 130
+  menuPos.value = { top: rect.bottom + 4, left: Math.max(8, rect.right - LARGHEZZA_MENU) }
+  menuApertoId.value = id
+}
+
+function chiudiMenu() {
+  menuApertoId.value = null
+}
+
+function apriEliminazione(id) {
+  daEliminare.value = id
+  menuApertoId.value = null
+}
+
+async function confermaEliminazione() {
+  if (!daEliminare.value) return
+  eliminando.value = true
+  try {
+    const id = daEliminare.value
+    const nuove = await saveJSON('richieste-agente.json', (correnti) => {
+      const copia = { ...(correnti ?? raw.value) }
+      delete copia[id]
+      return copia
+    })
+    raw.value = nuove
+    if (richiestaSelezionataId.value === id) richiestaSelezionataId.value = null
+    daEliminare.value = null
+  } catch (e) {
+    errore.value = e.message || 'Errore durante l\'eliminazione'
+  } finally {
+    eliminando.value = false
+  }
+}
+
 async function caricaRichieste() {
   try {
     const res = await fetch(`${BASE}data/richieste-agente.json?t=${Date.now()}`)
@@ -282,10 +359,12 @@ onMounted(async () => {
   await store.caricaTutto()
   await caricaRichieste()
   avviaPolling()
+  window.addEventListener('click', chiudiMenu)
 })
 
 onUnmounted(() => {
   if (pollTimer) clearInterval(pollTimer)
+  window.removeEventListener('click', chiudiMenu)
 })
 
 function labelStato(stato) {
@@ -410,23 +489,64 @@ async function aggiungiRichiesta() {
   gap: 2px;
   max-height: 60vh;
   overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.agente-sidebar-list::-webkit-scrollbar {
+  display: none;
+}
+.agente-storico-riga-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 .agente-storico-riga {
   display: flex;
   align-items: center;
   gap: 10px;
-  width: 100%;
+  flex: 1;
+  min-width: 0;
   text-align: left;
   padding: 8px;
   border-radius: 12px;
-  border: none;
-  background: none;
   cursor: pointer;
   font-family: var(--font-sans);
   transition: background 0.15s;
 }
 .agente-storico-riga:hover { background: var(--cream); }
 .agente-storico-riga.active { background: var(--sage-pale); }
+.agente-storico-kebab {
+  flex-shrink: 0;
+  font-size: 16px;
+  padding: 6px;
+}
+.agente-storico-menu {
+  position: fixed;
+  z-index: 300;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(42,34,24,0.18);
+  padding: 4px;
+  min-width: 130px;
+}
+.agente-storico-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--rose-dark);
+  cursor: pointer;
+  text-align: left;
+}
+.agente-storico-menu-item:hover { background: var(--rose-pale); }
 .agente-storico-icona {
   width: 30px; height: 30px; border-radius: 50%;
   background: var(--sage-tile);
