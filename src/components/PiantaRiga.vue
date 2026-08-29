@@ -33,6 +33,7 @@
 import { computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { cureUrgentiPianta } from '@/composables/useCure'
+import { urlMiniatura } from '@/composables/useWikimedia'
 import Icon from '@/components/Icon.vue'
 
 const props = defineProps({
@@ -50,5 +51,5 @@ const cureUrgenti = computed(() =>
 // Senza foto personali, ripiega sull'immagine hero della specie (stesso
 // criterio di PiantaView.vue): l'attribuzione richiesta dalla licenza si
 // vede aprendo la scheda pianta, a cui questa riga fa già da link.
-const thumbEffettivo = computed(() => props.thumbUrl || specie.value?.immagine?.url || null)
+const thumbEffettivo = computed(() => props.thumbUrl || (specie.value?.immagine?.url ? urlMiniatura(specie.value.immagine.url, 160) : null))
 </script>

@@ -26,7 +26,7 @@
       <!-- Header con foto: solo quando la pianta ha almeno una foto in
            galleria. Senza foto resta l'header testuale, invece di uno
            spazio vuoto o un placeholder. -->
-      <div v-if="fotoHero" class="plant-hero" :style="`background-image:url(${fotoHero.url});`">
+      <div v-if="fotoHero" class="plant-hero" :style="`background-image:url(${fotoHero.thumbUrl});`">
         <RouterLink to="/piante" class="plant-back"><Icon name="back" style="width:16px;height:16px;" /></RouterLink>
         <RouterLink :to="`/piante/${route.params.id}/modifica`" class="plant-edit">
           <Icon name="matita" style="width:12px;height:12px;" />Modifica
@@ -210,7 +210,7 @@
           <div v-for="f in fotoPianta" :key="f.path"
             @click="luce = f"
             style="width:72px;height:72px;border-radius:12px;overflow:hidden;cursor:pointer;background:var(--cream-dark);flex-shrink:0;">
-            <img :src="f.url" :alt="f.nome" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+            <img :src="f.thumbUrl" :alt="f.nome" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
           </div>
         </div>
       </div>
@@ -269,6 +269,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { useGalleria } from '@/composables/useGalleria'
+import { urlMiniatura } from '@/composables/useWikimedia'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import ModalConferma from '@/components/ModalConferma.vue'
@@ -300,7 +301,7 @@ const eliminandoFoto  = ref(false)
 const fotoHero = computed(() => {
   if (fotoPianta.value[0]) return fotoPianta.value[0]
   const img = specie.value?.immagine
-  return img ? { url: img.url, fallback: true, attribuzione: img.attribuzione, fonte_pagina: img.fonte_pagina } : null
+  return img ? { url: img.url, thumbUrl: urlMiniatura(img.url, 800), fallback: true, attribuzione: img.attribuzione, fonte_pagina: img.fonte_pagina } : null
 })
 
 const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'provetta' }

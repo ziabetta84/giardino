@@ -35,8 +35,10 @@ function formatEstesa(d) {
   return d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-const RE_THUMB = /_thumb\.(jpe?g|png|webp)$/i
-const RE_IMG   = /\.(jpe?g|png|gif|webp)$/i
+const RE_THUMB    = /_thumb\.(jpe?g|png|webp)$/i
+const RE_MEDIUM   = /_medium\.(jpe?g|png|webp)$/i
+const RE_DERIVATA = /_(thumb|medium)\.(jpe?g|png|webp)$/i
+const RE_IMG      = /\.(jpe?g|png|gif|webp)$/i
 
 async function listDir(path) {
   const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, { headers: apiHeaders() })
@@ -48,20 +50,30 @@ async function listDir(path) {
 export function useGalleria() {
   const { uploadFile, deleteFile } = useApi()
 
-  // Foto di una singola cartella pianta (esclude le thumbnail: sono un
-  // dettaglio interno per l'elenco piante, non fanno parte della galleria).
+  // Foto di una singola cartella pianta (esclude le derivate thumb/medium:
+  // sono un dettaglio interno, non fanno parte della galleria). thumbUrl
+  // punta alla versione media (640px) abbinata per prefisso timestamp,
+  // usata ovunque si mostri la foto in piccolo (hero, striscia, griglia);
+  // ricade sull'originale se la media non è ancora stata generata (foto
+  // caricate prima di questa funzionalità, in attesa del backfill).
   async function listaFoto(cartella) {
     const files = await listDir(`${FOLDER}/${cartella}`)
+    const medie = new Map(
+      files.filter(f => f.type === 'file' && RE_MEDIUM.test(f.name))
+        .map(f => [f.name.split('_')[0], f])
+    )
     return files
-      .filter(f => f.type === 'file' && RE_IMG.test(f.name) && !RE_THUMB.test(f.name))
+      .filter(f => f.type === 'file' && RE_IMG.test(f.name) && !RE_DERIVATA.test(f.name))
       .map(f => {
         const d = parseData(f.name)
+        const media = medie.get(f.name.split('_')[0])
         return {
           path: f.path,
           nome: f.name,
           sha:  f.sha,
           cartella,
           url:        rawUrl(f.path),
+          thumbUrl:   media ? rawUrl(media.path) : rawUrl(f.path),
           dataBreve:  formatBreve(d),
           dataEstesa: formatEstesa(d),
         }
@@ -76,20 +88,22 @@ export function useGalleria() {
     return risultati.flat()
   }
 
-  // Elimina la foto e, se presente, anche la sua thumbnail gemella (stesso
-  // prefisso timestamp, esclusa da listaFoto perché è un dettaglio interno):
-  // senza questo passaggio la thumbnail resterebbe orfana nel repository.
+  // Elimina la foto e, se presenti, le sue derivate gemelle (stesso
+  // prefisso timestamp, escluse da listaFoto perché sono un dettaglio
+  // interno): senza questo passaggio resterebbero orfane nel repository.
   // Il fallimento di questa pulizia non blocca l'eliminazione della foto,
   // che è l'azione principale richiesta dall'utente.
   async function elimina(foto) {
     const risultato = await deleteFile(foto.path, foto.sha, `Elimina foto ${foto.nome}`)
-    if (foto.cartella && foto.cartella !== 'generale') {
+    if (foto.cartella) {
       try {
         const ts = parseInt(foto.nome.split('_')[0])
-        const thumbNome = `${ts}_thumb.jpg`
         const files = await listDir(`${FOLDER}/${foto.cartella}`)
-        const thumb = files.find(f => f.name === thumbNome)
-        if (thumb) await deleteFile(thumb.path, thumb.sha, `Elimina thumbnail ${thumbNome}`)
+        for (const suffisso of ['thumb', 'medium']) {
+          const nome = `${ts}_${suffisso}.jpg`
+          const derivata = files.find(f => f.name === nome)
+          if (derivata) await deleteFile(derivata.path, derivata.sha, `Elimina ${nome}`)
+        }
       } catch {
         // Vedi commento sopra.
       }
@@ -118,14 +132,16 @@ export function useGalleria() {
   }
 
   // Ridimensiona un'immagine via canvas (lato client, nessun servizio
-  // esterno): usata per generare una thumbnail leggera da mostrare
-  // nell'elenco piante invece del file originale a piena risoluzione.
+  // esterno): usata da carica() per generare le tre varianti di ogni foto
+  // (thumb 120px per l'avatar di elenco, medium 640px per hero/griglia,
+  // originale limitato a 2000px per la lightbox) invece di conservare il
+  // file a piena risoluzione della fotocamera ovunque venga mostrato.
   // Usa createImageBitmap con resize nativo del browser invece di un
   // singolo drawImage in downscale: su alcuni motori di rendering un
-  // ridimensionamento manuale molto spinto (es. 4000px+ → 400px in un
+  // ridimensionamento manuale molto spinto (es. 4000px+ → 120px in un
   // solo passaggio) produce un'immagine corrotta (artefatti a strisce),
   // mentre il resize nativo in fase di decodifica è affidabile.
-  async function ridimensiona(file, maxDim = 400, qualita = 0.8) {
+  async function ridimensiona(file, maxDim, qualita) {
     const originale = await createImageBitmap(file)
     let { width, height } = originale
     if (width > height && width > maxDim) {
@@ -162,34 +178,45 @@ export function useGalleria() {
     }
   }
 
-  // Carica la foto originale e, se associata a una pianta, anche una
-  // thumbnail ridotta accanto ad essa (stesso prefisso timestamp, suffisso
-  // "_thumb"): mappaThumbnail() la userà per l'elenco piante. Il fallimento
-  // della sola generazione/upload della thumbnail non blocca il
-  // caricamento della foto originale, che resta l'obiettivo primario.
+  // Carica la foto (ridotta lato client a un massimo di 2000px, invece del
+  // file diretto dalla fotocamera che può arrivare a 4000px+/7MB) insieme
+  // alle sue due derivate più leggere: "_thumb" (120px, per l'avatar
+  // nell'elenco piante via mappaThumbnail()) e "_medium" (640px, per
+  // hero/striscia/griglia via il campo thumbUrl di listaFoto()). Il
+  // fallimento della sola generazione/upload delle derivate non blocca il
+  // caricamento della foto principale, che resta l'obiettivo primario.
   // dataScatto (opzionale): se nota (letta da leggiDataScatto), sostituisce
   // il momento del caricamento come timestamp del file, così l'ordinamento
   // e la data mostrata riflettono quando la foto è stata scattata.
   // file: il File/Blob originale, usato da createImageBitmap per generare
-  // la thumbnail (vedi commento su ridimensiona).
-  async function carica(cartella, file, base64, dataScatto = null) {
+  // tutte le varianti (vedi commento su ridimensiona).
+  async function carica(cartella, file, dataScatto = null) {
     const ts   = dataScatto instanceof Date ? dataScatto.getTime() : Date.now()
     const nome = `${ts}_upload.jpg`
     const path = `${FOLDER}/${cartella}/${nome}`
+
+    const base64 = await ridimensiona(file, 2000, 0.85)
     await uploadFile(path, base64, `Aggiunge foto ${nome}`)
 
-    if (cartella && cartella !== 'generale') {
-      try {
-        const thumbBase64 = await ridimensiona(file)
-        const thumbNome = `${ts}_thumb.jpg`
-        await uploadFile(`${FOLDER}/${cartella}/${thumbNome}`, thumbBase64, `Aggiunge thumbnail ${thumbNome}`)
-      } catch {
-        // Vedi commento sopra: la foto originale è già stata caricata con successo.
-      }
+    let thumbUrl = rawUrl(path)
+    try {
+      const [thumbBase64, mediumBase64] = await Promise.all([
+        ridimensiona(file, 120, 0.70),
+        ridimensiona(file, 640, 0.75),
+      ])
+      const thumbPath  = `${FOLDER}/${cartella}/${ts}_thumb.jpg`
+      const mediumPath = `${FOLDER}/${cartella}/${ts}_medium.jpg`
+      await Promise.all([
+        uploadFile(thumbPath,  thumbBase64,  `Aggiunge thumbnail ${ts}_thumb.jpg`),
+        uploadFile(mediumPath, mediumBase64, `Aggiunge versione media ${ts}_medium.jpg`),
+      ])
+      thumbUrl = rawUrl(mediumPath)
+    } catch {
+      // Vedi commento sopra: la foto principale è già stata caricata con successo.
     }
 
     const d = new Date(ts)
-    return { path, nome, cartella, url: rawUrl(path), dataBreve: formatBreve(d), dataEstesa: formatEstesa(d) }
+    return { path, nome, cartella, url: rawUrl(path), thumbUrl, dataBreve: formatBreve(d), dataEstesa: formatEstesa(d) }
   }
 
   // Una chiamata sola alla Git Trees API (ricorsiva) invece di una richiesta

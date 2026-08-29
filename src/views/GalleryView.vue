@@ -47,7 +47,7 @@
             <div v-for="f in g.foto" :key="f.path"
               @click="apriLightbox(f, g)"
               style="aspect-ratio:1;border-radius:8px;overflow:hidden;cursor:pointer;background:var(--cream-dark);position:relative;">
-              <img :src="f.url" :alt="f.nome"
+              <img :src="f.thumbUrl" :alt="f.nome"
                 style="width:100%;height:100%;object-fit:cover;transition:transform 0.2s;"
                 loading="lazy"
                 @mouseenter="e => e.target.style.transform='scale(1.04)'"
@@ -134,7 +134,7 @@
 
           <div style="display:flex;gap:10px;margin-top:16px;">
             <button @click="mostraFormUpload = false" class="btn btn-ghost" style="flex:1;min-height:44px;">Annulla</button>
-            <button @click="caricaFoto" :disabled="!uploadFile64 || caricandoUpload" class="btn btn-rose" style="flex:2;min-height:44px;">
+            <button @click="caricaFoto" :disabled="!uploadFileObj || caricandoUpload" class="btn btn-rose" style="flex:2;min-height:44px;">
               <Spinner v-if="caricandoUpload" />{{ caricandoUpload ? 'Caricamento…' : 'Carica foto' }}
             </button>
           </div>
@@ -166,8 +166,6 @@ const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
 const mostraFormUpload = ref(false)
 const uploadPiantaId  = ref('')
-const uploadFile64    = ref(null)
-const uploadDataUrl   = ref(null)
 const uploadFileObj   = ref(null)
 const uploadPreview   = ref(null)
 const uploadNomeFile  = ref('')
@@ -267,15 +265,11 @@ function selezionaUpload(e) {
   const reader = new FileReader()
   reader.onload = () => {
     uploadPreview.value = reader.result
-    uploadDataUrl.value = reader.result
-    uploadFile64.value  = reader.result.split(',')[1]
   }
   reader.readAsDataURL(file)
 }
 
 function rimuoviUpload() {
-  uploadFile64.value  = null
-  uploadDataUrl.value = null
   uploadFileObj.value  = null
   uploadPreview.value = null
   uploadNomeFile.value = ''
@@ -283,12 +277,12 @@ function rimuoviUpload() {
 }
 
 async function caricaFoto() {
-  if (!uploadFile64.value || caricandoUpload.value) return
+  if (!uploadFileObj.value || caricandoUpload.value) return
   caricandoUpload.value = true
   erroreUpload.value = null
   try {
     const cartella = uploadPiantaId.value || 'generale'
-    const nuovaFoto = await galleria.carica(cartella, uploadFileObj.value, uploadFile64.value, dataScattoRilevata.value)
+    const nuovaFoto = await galleria.carica(cartella, uploadFileObj.value, dataScattoRilevata.value)
     foto.value.unshift(nuovaFoto)
     mostraFormUpload.value = false
     rimuoviUpload()
