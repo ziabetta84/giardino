@@ -731,18 +731,6 @@
       "elaborata": "2026-07-24T01:55:22.000Z"
     }
   },
-  "r-1784858570078-zvam": {
-    "tipo": "identifica_specie",
-    "messaggio": "Che pianta è? Ogni volta fiorisce con uno stelo cortissimo e ripiegato e con una parte di petali mancante",
-    "specie": null,
-    "foto": null,
-    "stato": "completata",
-    "creata": "2026-07-24T02:02:50.894Z",
-    "risposta": {
-      "messaggio": "Grazie per la precisazione, correggo: non è un danno da parassiti (tripidi), ma un problema di sviluppo meccanico legato allo stelo corto e debole.\n\nCausa probabile: lo scapo fiorale della gerbera cresce corto e debole per luce insufficiente — probabilmente la rosetta di foglie è troppo fitta o la pianta non riceve abbastanza sole diretto perché lo stelo cresca eretto e robusto. Uno scapo debole tende a piegarsi su se stesso cercando la luce, e il bocciolo si apre schiacciato contro le foglie o contro lo stelo stesso ripiegato: sul lato compresso i petali non riescono a distendersi e restano non sviluppati — non mancano perché mangiati, semplicemente non si formano correttamente.\n\nRimedio: dai alla pianta pieno sole diretto e spazio libero perché lo scapo cresca dritto senza essere schiacciato dalle foglie circostanti (dirada eventuali foglie troppo fitte intorno). Evita eccesso di azoto (favorisce steli deboli ed eccessivamente vegetativi) e assicurati un buon apporto di potassio, che irrobustisce i tessuti. Con più luce, le prossime fioriture dovrebbero aprirsi dritte e complete; i fiori già aperti così non recuperano.",
-      "elaborata": "2026-07-24T02:09:38.000Z"
-    }
-  },
   "r-1784860142088-lwvo": {
     "tipo": "consiglio_cura",
     "messaggio": "Valuta lo stato di salute",
