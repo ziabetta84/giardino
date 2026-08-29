@@ -557,38 +557,6 @@
       }
     }
   },
-  "richiesta-1784205824815-o0skv": {
-    "tipo": "chat",
-    "messaggio": "Agave o aloe?",
-    "contesto": {
-      "numeroPiante": 83,
-      "zone": [
-        "Casa",
-        "Crinale",
-        "Est",
-        "Orto",
-        "Scivolo",
-        "Vialetto"
-      ],
-      "progettiAttivi": [],
-      "meteo": {
-        "pioggia48h": 1.3,
-        "pioggia24h": 1.3,
-        "probPioggiaOggi": 0,
-        "tempMinOggi": 22.8,
-        "tempMaxOggi": 28.6,
-        "ventoMaxOggi": 17.3
-      }
-    },
-    "speciesName": null,
-    "foto": null,
-    "stato": "completata",
-    "creata": "2026-07-16T12:43:44.844Z",
-    "elaborata": "2026-07-16T13:42:29.000Z",
-    "risposta": {
-      "testo": "Senza una foto allegata non posso confermare a quale pianta ti riferisci, ma questi sono i tratti che le distinguono: l'Agave ha foglie rigide, spesso grigio-azzurre (glauche), con margini dentati e una spina apicale dura e pungente; l'Aloe ha foglie più carnose e morbide, verdi (a volte maculate), con dentini flessibili non pungenti sui bordi e, se spezzate, rilasciano il tipico gel trasparente (assente nell'agave). Con le condizioni attuali (max 28,6°C, pioggia praticamente assente) entrambe reggono bene annaffiature scarse su terreno ben drenato; la differenza pratica è che l'agave tollera meglio sole pieno e siccità prolungata, mentre l'aloe preferisce riparo dalle ore più calde in piena estate e teme il gelo più dell'agave adulta. Se carichi una foto della pianta in questione posso darti un'identificazione più precisa."
-    }
-  },
   "r-1784538941550-4cn7": {
     "tipo": "identifica_specie",
     "messaggio": "Identifica queste piante in zona Casa soggiorno",
