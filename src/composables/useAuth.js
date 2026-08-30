@@ -28,6 +28,14 @@ const sessionePronta = supabase.auth.getSession().then(({ data }) => {
 supabase.auth.onAuthStateChange((evento, sessione) => {
   utente.value = sessione?.user ?? null
   if (evento === 'PASSWORD_RECOVERY') recuperoInCorso.value = true
+  // La cache del service worker per le risposte Supabase (vite.config.js) è
+  // per-URL, non per-utente: su un device condiviso, senza questa pulizia,
+  // un secondo utente offline potrebbe vedere temporaneamente i dati
+  // dell'utente precedente. `caches` non esiste in ambienti senza service
+  // worker (es. alcuni contesti di test): controllo difensivo.
+  if (evento === 'SIGNED_OUT' && typeof caches !== 'undefined') {
+    caches.delete('giardino-dati-supabase')
+  }
 })
 
 // Supabase Auth risponde in inglese: traduciamo solo i casi che un utente

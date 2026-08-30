@@ -59,6 +59,21 @@ export default defineConfig({
             },
           },
           {
+            // Zone/sottozone/piante (Fase 5) sono solo su Supabase, senza più
+            // un fallback JSON statico: questa regola sostituisce quel
+            // fallback per restare consultabili offline. La cache è per-URL,
+            // non per-utente (il JWT viaggia nell'header, non nell'URL) —
+            // svuotata al logout in useAuth.js per non mostrare offline i
+            // dati dell'utente precedente su un device condiviso.
+            urlPattern: /^https:\/\/ncuhhsvtjwcolhpdxbkt\.supabase\.co\/rest\/v1\/.*/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'giardino-dati-supabase',
+              networkTimeoutSeconds: 3,
+              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 30 },
+            },
+          },
+          {
             urlPattern: /^https:\/\/api\.open-meteo\.com\/.*/,
             handler: 'NetworkFirst',
             options: {
