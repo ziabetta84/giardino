@@ -78,14 +78,14 @@
 import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useSupabase } from '@/composables/useSupabase'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const route = useRoute()
 const store = useDatiStore()
-const { saveJSON } = useApi()
+const supabase = useSupabase()
 
 const mostraForm = ref(false)
 const salvando   = ref(false)
@@ -146,50 +146,41 @@ async function salva() {
 
   salvando.value = true
   try {
-    const nuove = await saveJSON('sottozone.json', (correnti) => {
-      const base = { ...(correnti ?? store.sottozone) }
-      const sottozoneZona = { ...(base[route.params.zona] ?? {}) }
-
-      // In modifica, riparte dal record esistente (per non perdere
-      // esposizione/microclima/criticita/manutenzione, non gestiti da questo
-      // form) e lo rimuove dalla vecchia chiave se il nome è cambiato.
-      const esistente = nomeOriginale ? (sottozoneZona[nomeOriginale] ?? {}) : {}
-      if (nomeOriginale && nomeOriginale !== nomeNuovo) {
-        delete sottozoneZona[nomeOriginale]
-      }
-
-      sottozoneZona[nomeNuovo] = {
-        ...esistente,
-        nome:        nomeNuovo,
-        descrizione: form.value.descrizione.trim() || '',
-        tipo:        form.value.tipo,
-        esposizione: form.value.esposizione,
-        microclima:  esistente.microclima  ?? '',
-        criticita:   esistente.criticita   ?? '',
-        manutenzione:esistente.manutenzione ?? '',
-      }
-
-      base[route.params.zona] = sottozoneZona
-      return base
-    })
-    store.sottozone = nuove
-
-    // Se il nome è cambiato, aggiorna anche le piante che referenziano la
-    // vecchia sottozona: altrimenti resterebbero "orfane" (sottozona
-    // inesistente) invece di seguire la rinomina.
-    if (nomeOriginale && nomeOriginale !== nomeNuovo) {
-      const nuovePiante = await saveJSON('piante.json', (correnti) => {
-        const base = { ...(correnti ?? store.piante) }
-        for (const id of Object.keys(base)) {
-          if (base[id].zona === route.params.zona && base[id].sottozona === nomeOriginale) {
-            base[id] = { ...base[id], sottozona: nomeNuovo }
-          }
-        }
-        return base
-      })
-      store.piante = nuovePiante
+    const esistente = nomeOriginale ? (sottozoneDellaZona[nomeOriginale] ?? {}) : {}
+    const riga = {
+      nome:        nomeNuovo,
+      descrizione: form.value.descrizione.trim() || '',
+      tipo:        form.value.tipo,
+      esposizione: form.value.esposizione,
     }
 
+    let salvata
+    if (esistente.id) {
+      const { data, error } = await supabase.from('sottozone').update(riga).eq('id', esistente.id).select().single()
+      if (error) throw error
+      salvata = data
+    } else {
+      const zonaId = store.zone?.[route.params.zona]?.id
+      const { data, error } = await supabase.from('sottozone').insert({ ...riga, zona_id: zonaId }).select().single()
+      if (error) throw error
+      salvata = data
+    }
+
+    const nuove = { ...store.sottozone }
+    const sottozoneZona = { ...(nuove[route.params.zona] ?? {}) }
+    if (nomeOriginale && nomeOriginale !== nomeNuovo) delete sottozoneZona[nomeOriginale]
+    sottozoneZona[salvata.nome] = {
+      id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
+      esposizione: salvata.esposizione, microclima: salvata.microclima,
+      criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
+    }
+    nuove[route.params.zona] = sottozoneZona
+    store.sottozone = nuove
+
+    // A differenza di prima (sottozona referenziata per nome nelle piante,
+    // rinominare qui richiedeva riscrivere anche piante.json), le piante
+    // referenziano sottozona_id (FK): rinominare una sottozona non tocca
+    // nessuna pianta, il database resta coerente da solo.
     chiudiForm()
   } finally {
     salvando.value = false
