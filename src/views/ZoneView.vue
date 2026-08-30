@@ -49,6 +49,9 @@
           <RouterLink :to="`/zone/${z.key}/modifica`" class="btn btn-ghost" style="padding:8px 10px;font-size:13px;border-radius:10px;text-decoration:none;min-height:38px;display:flex;align-items:center;justify-content:center;">
             <Icon name="matita" style="width:14px;height:14px;" />
           </RouterLink>
+          <button type="button" @click="daEliminare = z.key" class="btn btn-ghost"
+            style="padding:8px 10px;font-size:16px;line-height:1;border-radius:10px;min-height:38px;display:flex;align-items:center;justify-content:center;color:var(--rose-dark);"
+            title="Elimina zona" aria-label="Elimina zona">×</button>
         </div>
       </div>
     </div>

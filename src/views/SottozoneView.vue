@@ -14,6 +14,10 @@
       <button @click="apriNuovo" class="btn btn-rose" style="padding:8px 14px;">＋ Aggiungi</button>
     </div>
 
+    <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-dark);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
+      {{ erroreEliminazione }}
+    </p>
+
     <div v-if="!sottozone.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
       <div style="width:56px;height:56px;border-radius:50%;background:var(--acqua-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
         <Icon name="pin" style="width:24px;height:24px;" />
@@ -30,6 +34,7 @@
               {{ sz.tipo }}
             </span>
             <button type="button" class="icon-btn" @click="apriModifica(sz)" title="Modifica sottozona"><Icon name="matita" style="width:13px;height:13px;" /></button>
+            <button type="button" class="icon-btn" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona" style="color:var(--rose-dark);font-size:16px;line-height:1;">×</button>
           </div>
         </div>
         <div v-if="sz.esposizione?.length" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);margin-bottom:6px;">
@@ -71,6 +76,15 @@
         </div>
       </div>
     </Teleport>
+
+    <ModalConferma
+      :aperto="!!daEliminare"
+      titolo="Eliminare questa sottozona?"
+      messaggio="Le piante che la referenziano resteranno, senza più sottozona assegnata."
+      :caricamento="eliminando"
+      @conferma="eliminaSottozona"
+      @annulla="daEliminare = null"
+    />
   </div>
 </template>
 
@@ -80,6 +94,7 @@ import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
 import MiniEditor from '@/components/MiniEditor.vue'
+import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -91,6 +106,9 @@ const mostraForm = ref(false)
 const salvando   = ref(false)
 const errore     = ref(null)
 const form = ref({ nome: '', descrizione: '', tipo: 'esterno', esposizione: [] })
+const daEliminare  = ref(null)
+const eliminando   = ref(false)
+const erroreEliminazione = ref(null)
 // Nome originale della sottozona in modifica (null quando si sta creando una
 // nuova sottozona): serve per sapere quale chiave aggiornare/rinominare in
 // store.sottozone, dato che è indicizzato per nome.
@@ -190,6 +208,40 @@ async function salva() {
     errore.value = e.message || 'Errore durante il salvataggio della sottozona.'
   } finally {
     salvando.value = false
+  }
+}
+
+function avviaElimina(sz) {
+  daEliminare.value = sz
+}
+
+async function eliminaSottozona() {
+  if (!daEliminare.value) return
+  eliminando.value = true
+  const sz = daEliminare.value
+  erroreEliminazione.value = null
+  try {
+    const { error } = await supabase.from('sottozone').delete().eq('id', sz.id)
+    if (error) throw error
+
+    const nuove = { ...store.sottozone }
+    const sottozoneZona = { ...(nuove[route.params.zona] ?? {}) }
+    delete sottozoneZona[sz.nome]
+    nuove[route.params.zona] = sottozoneZona
+    store.sottozone = nuove
+
+    // Le piante in questa sottozona hanno sottozona_id impostato a null dal
+    // database (on delete set null): ricarichiamo per riflettere subito il
+    // cambiamento anche nel campo denormalizzato store.piante[*].sottozona,
+    // stesso motivo del rename più sopra.
+    await store.aggiorna()
+
+    daEliminare.value = null
+  } catch (e) {
+    erroreEliminazione.value = e.message || 'Errore durante l\'eliminazione della sottozona.'
+    daEliminare.value = null
+  } finally {
+    eliminando.value = false
   }
 }
 </script>
