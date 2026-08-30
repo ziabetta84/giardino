@@ -67,7 +67,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { usePianteApi } from '@/composables/usePianteApi'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Spinner from '@/components/Spinner.vue'
 import Icon from '@/components/Icon.vue'
@@ -75,7 +75,7 @@ import Icon from '@/components/Icon.vue'
 const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
-const { saveJSON } = useApi()
+const pianteApi = usePianteApi()
 
 const isNuova = computed(() => !route.params.id)
 const salvando = ref(false)
@@ -115,24 +115,18 @@ async function salva() {
   salvando.value = true
   const id = isNuova.value ? `${form.value.specie}-${Date.now()}` : route.params.id
   try {
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      const piantaEsistente = isNuova.value ? {} : (base[id] || {})
-      base[id] = {
-        ...piantaEsistente,
-        specie:    form.value.specie,
-        zona:      form.value.zona,
-        sottozona: form.value.sottozona || null,
-        coltivato_in: form.value.coltivatoIn || null,
-        varieta:   form.value.varieta  || '',
-        impianto:  form.value.impianto || '',
-        impianto_circa: form.value.impianto_circa || '',
-        note:      form.value.note     || '',
-        ultima_cura: piantaEsistente.ultima_cura || {},
-      }
-      return base
+    await pianteApi.salvaPianta({
+      id,
+      isNuova: isNuova.value,
+      specie: form.value.specie,
+      zona: form.value.zona,
+      sottozona: form.value.sottozona || null,
+      coltivato_in: form.value.coltivatoIn || null,
+      varieta: form.value.varieta || '',
+      impianto: form.value.impianto || '',
+      impianto_circa: form.value.impianto_circa || '',
+      note: form.value.note || '',
     })
-    store.piante = nuove
     router.push(isNuova.value ? '/piante' : `/piante/${id}`)
   } finally {
     salvando.value = false

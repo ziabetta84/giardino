@@ -97,7 +97,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { cureUrgentiPianta } from '@/composables/useCure'
 import ModalConferma from '@/components/ModalConferma.vue'
@@ -106,7 +106,7 @@ import Icon from '@/components/Icon.vue'
 
 const store      = useDatiStore()
 const route      = useRoute()
-const { saveJSON } = useApi()
+const pianteApi  = usePianteApi()
 const galleria   = useGalleria()
 
 // Una sola chiamata per tutte le piante (vedi useGalleria.mappaThumbnail):
@@ -203,12 +203,7 @@ async function eliminaPianta() {
   const id = daEliminare.value.id
   try {
     await galleria.eliminaCartella(id)
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      delete base[id]
-      return base
-    })
-    store.piante = nuove
+    await pianteApi.eliminaPianta(id)
     daEliminare.value = null
   } finally {
     eliminando.value = false

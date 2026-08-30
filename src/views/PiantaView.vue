@@ -268,6 +268,7 @@ import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
@@ -281,6 +282,7 @@ const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
 const { saveJSON } = useApi()
+const pianteApi = usePianteApi()
 const galleria = useGalleria()
 
 const salvando   = ref(null)
@@ -435,12 +437,7 @@ async function eliminaPianta() {
   const id = pianta.value.id
   try {
     await galleria.eliminaCartella(id)
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      delete base[id]
-      return base
-    })
-    store.piante = nuove
+    await pianteApi.eliminaPianta(id)
     router.push('/piante')
   } finally {
     eliminando.value = false
