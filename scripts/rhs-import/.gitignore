@@ -2,3 +2,9 @@ rhs_varieta_parsed.json
 rhs_varieta_aggregato.json
 rhs_sitemaps_parsed.jsonl
 rhs_sitemaps_errors.log
+rhs_sitemaps_aggregato.json
+rhs_sitemaps_full_aggregato.json
+specie_esistenti.tsv
+specie_nomi_esistenti.tsv
+sql_gen_errors.log
+sql_sitemaps/
