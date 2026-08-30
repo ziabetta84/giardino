@@ -23,7 +23,7 @@ src/
 ├── main.js                  ← bootstrap Vue + Pinia + Router
 ├── App.vue                  ← layout globale (NavBar, BottomNav, StatusBar, banner token)
 ├── router/index.js          ← route con createWebHashHistory (necessario per gh-pages)
-├── stores/dati.js           ← Pinia store: carica tutti i JSON una volta sola
+├── stores/dati.js           ← Pinia store: carica specie/zone/sottozone/piante da Supabase e i JSON residui una volta sola
 ├── composables/
 │   ├── useApi.js            ← GitHub API: saveJSON(), uploadFile(), token management
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
@@ -32,7 +32,8 @@ src/
 │   ├── useProgetti.js       ← logica progetti/tappe (scadenzaCalcolata da ultima tappa, ecc.)
 │   ├── useGalleria.js       ← listing/upload foto via Contents API (usato da GalleryView)
 │   ├── useRepoStatus.js / useAppUpdate.js ← confronto build corrente vs ultimo commit main + banner update PWA (StatusBar.vue)
-│   ├── useSupabase.js       ← client Supabase (specie in lettura/scrittura, vedi sotto)
+│   ├── useSupabase.js       ← client Supabase (specie, zone/sottozone/piante, in lettura/scrittura, vedi sotto)
+│   ├── usePianteApi.js      ← CRUD piante su Supabase (creazione/modifica/eliminazione, cure, rinomina specie a cascata; Fase 5)
 │   └── useAuth.js           ← sessione Supabase Auth (Fase 4 migrazione, vedi sotto)
 ├── components/
 │   ├── PiantaRiga.vue       ← riga pianta riutilizzabile (usata in PianteView)
@@ -46,9 +47,9 @@ supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardin
 
 ## Dati e persistenza
 
-Tutti i dati vivono in `public/data/` come JSON. Le scritture avvengono tramite la **GitHub Contents API** (`useApi.js → saveJSON`), che richiede un Personal Access Token con scope `contents:write` salvato in `localStorage.github_token`.
+I dati residui (progetti, concimi, richieste-agente, settings) vivono in `public/data/` come JSON. Le scritture avvengono tramite la **GitHub Contents API** (`useApi.js → saveJSON`), che richiede un Personal Access Token con scope `contents:write` salvato in `localStorage.github_token`.
 
-Piante, zone e sottozone sono invece tabelle Supabase (`piante`/`zone`/`sottozone`), con RLS per utente — vedi "Migrazione zone/sottozone/piante → Supabase" più sotto.
+Specie, piante, zone e sottozone sono invece tabelle Supabase (`specie`/`piante`/`zone`/`sottozone`), con RLS per utente su piante/zone/sottozone — vedi "Migrazione specie → Supabase" e "Migrazione zone/sottozone/piante → Supabase" più sotto.
 
 | File | Contenuto |
 |------|-----------|
