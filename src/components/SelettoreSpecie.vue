@@ -27,6 +27,18 @@
       </div>
     </div>
 
+    <!-- Cultivar: comparsa solo se la specie scelta ne ha di note (da RHS) —
+         facoltativa apposta, non deve intralciare chi non sa/non gli importa
+         quale cultivar possiede (vedi discussione issue #153, 2026-08-30) -->
+    <div v-if="cultivarOpzioni.length" style="margin-top:10px;">
+      <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Cultivar (facoltativo)</label>
+      <select v-model="cultivarSelezionato" @change="cambiaCultivar" class="form-input">
+        <option value="">Generico (nessun cultivar specifico)</option>
+        <option v-for="c in cultivarOpzioni" :key="c.slug" :value="c.slug">{{ c.nome }}</option>
+      </select>
+      <p v-if="cultivarCaricamento" style="font-size:11px;color:var(--ink-faint);margin-top:6px;display:flex;align-items:center;gap:6px;"><Spinner style="width:12px;height:12px;" />Caricamento cultivar…</p>
+    </div>
+
     <!-- Modale nuova/modifica specie -->
     <Teleport to="body">
       <div v-if="mostraNuovaSpecie" class="overlay" @click.self="chiudiNuovaSpecie">
@@ -240,7 +252,7 @@ import { ref, computed, watch, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { useSupabase } from '@/composables/useSupabase'
-import { mappaSpecie, COLONNE_SPECIE } from '@/stores/dati'
+import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
 import { parseGiorni } from '@/composables/useCure'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -266,7 +278,9 @@ const dropdownAperto = ref(false)
 // fusi nello store così restano disponibili senza rifetch.
 const specieFiltrate = computed(() => {
   const tutte = Object.entries(store.specie ?? {})
-
+    // i cultivar (specie_padre_id valorizzato) si scelgono solo dalla select
+    // dedicata dopo aver scelto la specie madre, mai dalla ricerca principale
+    .filter(([, s]) => !s.specie_padre_id)
     .map(([key, s]) => ({ key, nome: s.nome ?? key, nomeScientifico: s.specie ?? '', verificata: s.stato_verifica === 'verificato' }))
   const q = specieQuery.value.trim().toLowerCase()
 
@@ -297,8 +311,8 @@ async function eseguiRicercaRemota(q) {
   const pattern = `%${escapeIlike(q)}%`
   try {
     const [porNome, porScientifico] = await Promise.all([
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).limit(50),
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).is('specie_padre_id', null).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).is('specie_padre_id', null).limit(50),
     ])
     if (porNome.error) throw porNome.error
     if (porScientifico.error) throw porScientifico.error
@@ -331,11 +345,89 @@ watch(specieQuery, (val) => {
 
 onUnmounted(() => clearTimeout(timerRicerca))
 
+// Cultivar della specie corrente: select facoltativa che compare solo se ce
+// ne sono (la stragrande maggioranza delle specie non ne ha nessuno
+// registrato) — mai nel bootstrap dello store, caricati on-demand solo
+// quando si sceglie/apre una specie che potrebbe averne (vedi issue #153).
+const cultivarOpzioni = ref([])
+const cultivarSelezionato = ref('')
+const cultivarCaricamento = ref(false)
+let tokenCultivar = 0
+
+async function caricaCultivar(specieId) {
+  if (!specieId) { cultivarOpzioni.value = []; return }
+  const mioToken = ++tokenCultivar
+  cultivarCaricamento.value = true
+  try {
+    const { data, error } = await supabase.from('specie').select(COLONNE_SPECIE)
+      .eq('specie_padre_id', specieId).order('nome')
+    if (error) throw error
+    if (mioToken !== tokenCultivar) return
+    const madre = Object.values(store.specie ?? {}).find(s => s.id === specieId) ?? null
+    const mappati = mappaSpecie(data ?? [])
+    for (const slug of Object.keys(mappati)) mappati[slug] = fondiEredita(mappati[slug], madre)
+    store.specie = { ...(store.specie ?? {}), ...mappati }
+    cultivarOpzioni.value = (data ?? []).map(r => ({ slug: r.slug, nome: r.nome }))
+  } catch (e) {
+    console.error('Caricamento cultivar non riuscito', e)
+    if (mioToken === tokenCultivar) cultivarOpzioni.value = []
+  } finally {
+    if (mioToken === tokenCultivar) cultivarCaricamento.value = false
+  }
+}
+
+function cambiaCultivar() {
+  emit('update:modelValue', cultivarSelezionato.value || specieMadreAttuale.value)
+}
+
+// Chiave della specie madre corrente: se il valore selezionato è già un
+// cultivar, è il suo specie_padre_id (via store); altrimenti è il valore
+// stesso. Serve per tornare al "generico" quando si deseleziona il cultivar.
+const specieMadreAttuale = ref('')
+
 // Tiene il testo visualizzato allineato alla specie effettivamente selezionata
 // (v-model esterno), sia al primo render sia quando cambia da fuori (es. il
 // form padre la popola dopo un caricamento asincrono).
-watch(() => props.modelValue, (val) => {
+watch(() => props.modelValue, async (val) => {
   if (!dropdownAperto.value) specieQuery.value = store.specie?.[val]?.nome ?? ''
+
+  let record = store.specie?.[val]
+  // Se il valore arriva da fuori (es. modifica di una pianta esistente) e
+  // non è ancora nello store (non era né tra le verificate né tra le
+  // referenziate al bootstrap), va recuperato per sapere se è un cultivar.
+  if (val && !record) {
+    const { data } = await supabase.from('specie').select(COLONNE_SPECIE).eq('slug', val).maybeSingle()
+    if (data) {
+      store.specie = { ...(store.specie ?? {}), ...mappaSpecie([data]) }
+      record = store.specie[val]
+    }
+  }
+
+  if (!record) { cultivarOpzioni.value = []; cultivarSelezionato.value = ''; specieMadreAttuale.value = ''; return }
+
+  if (record.specie_padre_id) {
+    cultivarSelezionato.value = val
+    specieMadreAttuale.value = ''
+    // serve il record della specie madre per popolare i fratelli e lo slug
+    // "generico" a cui tornare deselezionando il cultivar
+    let madre = Object.values(store.specie ?? {}).find(s => s.id === record.specie_padre_id)
+    if (!madre) {
+      const { data } = await supabase.from('specie').select(COLONNE_SPECIE).eq('id', record.specie_padre_id).maybeSingle()
+      if (data) {
+        store.specie = { ...(store.specie ?? {}), ...mappaSpecie([data]) }
+        madre = store.specie[data.slug]
+      }
+    }
+    if (madre) {
+      specieMadreAttuale.value = madre.slug
+      store.specie = { ...store.specie, [val]: fondiEredita(record, madre) }
+    }
+    await caricaCultivar(record.specie_padre_id)
+  } else {
+    cultivarSelezionato.value = ''
+    specieMadreAttuale.value = val
+    await caricaCultivar(record.id)
+  }
 }, { immediate: true })
 
 function selezionaSpecie(s) {

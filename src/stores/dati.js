@@ -34,7 +34,7 @@ async function caricaJSON(file) {
 // Se Supabase non risponde, ripiega sul JSON statico come le altre risorse.
 
 export const COLONNE_SPECIE =
-  'id, slug, nome, nome_scientifico, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica, vaso, immagine'
+  'id, slug, nome, nome_scientifico, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica, vaso, immagine, specie_padre_id'
 
 // Riusata anche da SelettoreSpecie.vue per mappare i risultati della ricerca
 // live su Supabase, così le due fonti (caricamento iniziale e ricerca)
@@ -57,9 +57,38 @@ export function mappaSpecie(righe) {
         stato_verifica: riga.stato_verifica,
         vaso: riga.vaso,
         immagine: riga.immagine,
+        specie_padre_id: riga.specie_padre_id,
       }
     ])
   )
+}
+
+// Campi di "cura/conoscenza" che un cultivar eredita dalla specie madre
+// quando non ha un proprio dato (la stragrande maggioranza: i ~196k
+// cultivar importati da RHS hanno solo il nome, vedi issue #153) — non i
+// campi identitari (nome, slug, nome_scientifico, famiglia), quelli restano
+// sempre del cultivar stesso anche quando eredita tutto il resto.
+const CAMPI_EREDITABILI = ['descrizione', 'esigenze', 'alert', 'manutenzione', 'coltivazione', 'vaso', 'ciclo_vitale']
+
+function campoVuoto(v) {
+  if (v == null) return true
+  if (Array.isArray(v)) return v.length === 0
+  if (typeof v === 'object') return Object.keys(v).length === 0
+  return false
+}
+
+// Risolve i campi mancanti di un cultivar con quelli della specie madre.
+// Va richiamata ovunque un cultivar venga aggiunto allo store (qui e in
+// SelettoreSpecie.vue) così i ~9 punti dell'app che leggono store.specie[…]
+// (PiantaRiga, PiantaView, AttivitaView, GalleryView, ecc.) vedono già il
+// dato "effettivo" senza doverlo risolvere ciascuno per conto proprio.
+export function fondiEredita(record, madre) {
+  if (!record.specie_padre_id || !madre) return record
+  const risultato = { ...record }
+  for (const campo of CAMPI_EREDITABILI) {
+    if (campoVuoto(record[campo])) risultato[campo] = madre[campo]
+  }
+  return risultato
 }
 
 // Il catalogo specie cresce continuamente (import da PFAF, ~8700 righe e
@@ -75,7 +104,10 @@ async function caricaSpecie(slugReferenziati = []) {
     const supabase = useSupabase()
 
     const query = [
-      supabase.from('specie').select(COLONNE_SPECIE).eq('stato_verifica', 'verificato'),
+      // i cultivar (specie_padre_id valorizzato) non vanno mai nel bootstrap:
+      // sono ~196k righe quasi tutte 'bozza' (nessun dato di cura proprio),
+      // vanno cercati solo sotto la specie madre già scelta, mai in anticipo
+      supabase.from('specie').select(COLONNE_SPECIE).eq('stato_verifica', 'verificato').is('specie_padre_id', null),
     ]
     if (slugReferenziati.length) {
       query.push(supabase.from('specie').select(COLONNE_SPECIE).in('slug', slugReferenziati))
@@ -88,7 +120,26 @@ async function caricaSpecie(slugReferenziati = []) {
       if (data) tutte.push(...data)
     }
 
-    return mappaSpecie(tutte)
+    // Se tra le referenziate c'è un cultivar, la specie madre serve per
+    // l'eredità dei campi di cura (fondiEredita sotto) ma potrebbe non
+    // essere già tra le righe prese (non è detto sia lei stessa referenziata
+    // o verificata) — va recuperata a parte in quel caso.
+    const idPresenti = new Set(tutte.map(r => r.id))
+    const idMadriMancanti = [...new Set(
+      tutte.filter(r => r.specie_padre_id && !idPresenti.has(r.specie_padre_id)).map(r => r.specie_padre_id)
+    )]
+    if (idMadriMancanti.length) {
+      const { data: madri, error } = await supabase.from('specie').select(COLONNE_SPECIE).in('id', idMadriMancanti)
+      if (error) throw error
+      if (madri) tutte.push(...madri)
+    }
+
+    const mappate = mappaSpecie(tutte)
+    const perId = Object.fromEntries(Object.values(mappate).map(s => [s.id, s]))
+    for (const slug of Object.keys(mappate)) {
+      if (mappate[slug].specie_padre_id) mappate[slug] = fondiEredita(mappate[slug], perId[mappate[slug].specie_padre_id])
+    }
+    return mappate
 
   } catch (e) {
     console.error('Supabase non risponde, uso il fallback specie.json', e)
