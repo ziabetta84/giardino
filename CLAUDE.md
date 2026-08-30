@@ -79,6 +79,8 @@ Offline: la cache del service worker (Workbox, `vite.config.js`) copre anche il 
 
 Fuori scope di questa fase (restano su GitHub/JSON, senza scoping per utente): `progetti.json`, `concimi.json`, `settings.json`, `richieste-agente.json`.
 
+Verificata a mano nel browser dopo l'implementazione (creazione/modifica/eliminazione di zone/sottozone/piante, rinomina specie a cascata, registrazione cure singola e bulk, blocco eliminazione zona con piante). La verifica ha trovato e corretto due problemi non emersi dalla sola lettura del codice: `ZoneView.vue`/`SottozoneView.vue` non avevano un pulsante per eliminare (la logica c'era già per le zone, mancava del tutto per le sottozone); e `App.vue` ricaricava lo store due volte a ogni apertura dell'app già autenticata (il watch sul cambio utente si registrava prima che la sessione fosse risolta, vedendo la sua prima risoluzione come un cambio utente).
+
 ### Autenticazione utente (Fase 4 migrazione Supabase, avviata)
 
 `useAuth.js` gestisce la sessione via **Supabase Auth**, solo email/password per ora (Google rimandato: richiede creare un OAuth client su Google Cloud Console e configurarlo nel dashboard Supabase, passaggio manuale non ancora fatto). Stato reattivo condiviso a livello di modulo (`utente`, `caricamento`, `recuperoInCorso`), aggiornato via `onAuthStateChange`. `AccountView.vue` (route `/account`, link in `NavBar`/icona in `StatusBar`) espone login/registrazione/logout/recupero password. Il progetto Supabase richiede la conferma email di default (`signUp` non ritorna una sessione finché l'utente non clicca il link ricevuto via mail) — gestito in UI con un messaggio esplicito, non è un bug.
