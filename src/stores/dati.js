@@ -148,6 +148,59 @@ async function caricaSpecie(slugReferenziati = []) {
 }
 
 
+// Zone/sottozone/piante (Fase 5): tabelle Supabase con FK a UUID, ma lo
+// store espone la stessa forma keyed-by-nome di sempre (store.zone["Est"],
+// pianta.zona === "Est") — le ~15 view che leggono zona/sottozona come
+// stringa non cambiano. Ogni voce zona/sottozona porta con sé anche `id`
+// (non presente prima): serve solo al livello di scrittura (usePianteApi.js
+// e le view di zone/sottozone), nessuna view esistente lo usa nel template.
+export function mappaZone(righeZone) {
+  return Object.fromEntries(righeZone.map(z => [z.nome, {
+    id: z.id,
+    nome: z.nome,
+    descrizione: z.descrizione,
+    esposizione: z.esposizione,
+    microclima: z.microclima,
+    criticita: z.criticita,
+    manutenzione: z.manutenzione,
+    tipo: z.tipo,
+  }]))
+}
+
+export function mappaSottozone(righeSottozone, zonaNomePerId) {
+  const risultato = {}
+  for (const sz of righeSottozone) {
+    const nomeZona = zonaNomePerId[sz.zona_id]
+    if (!nomeZona) continue  // zona_id orfano: non dovrebbe succedere (FK), ignorata per sicurezza
+    if (!risultato[nomeZona]) risultato[nomeZona] = {}
+    risultato[nomeZona][sz.nome] = {
+      id: sz.id,
+      nome: sz.nome,
+      descrizione: sz.descrizione,
+      esposizione: sz.esposizione,
+      microclima: sz.microclima,
+      criticita: sz.criticita,
+      manutenzione: sz.manutenzione,
+      tipo: sz.tipo,
+    }
+  }
+  return risultato
+}
+
+export function mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId) {
+  return Object.fromEntries(righePiante.map(p => [p.id, {
+    specie: p.specie,
+    zona: zonaNomePerId[p.zona_id] ?? null,
+    sottozona: p.sottozona_id ? (sottozonaNomePerId[p.sottozona_id] ?? null) : null,
+    varieta: p.varieta,
+    impianto: p.impianto,
+    impianto_circa: p.impianto_circa,
+    note: p.note,
+    coltivato_in: p.coltivato_in,
+    ultima_cura: p.ultima_cura ?? {},
+  }]))
+}
+
 export const useDatiStore = defineStore('dati', () => {
   const piante    = ref(null)
   const specie    = ref(null)
@@ -165,20 +218,29 @@ export const useDatiStore = defineStore('dati', () => {
     loading.value = true
     errore.value = null
     try {
-      const [pianteData, richiesteData, zoneData, sottozoneData, progettiData, settingsData, concimiData] =
+      const supabase = useSupabase()
+      async function query(builder) {
+        const { data, error } = await builder
+        if (error) throw error
+        return data ?? []
+      }
+
+      const [righeZone, righeSottozone, righePiante, richiesteData, progettiData, settingsData, concimiData] =
         await Promise.all([
-          caricaJSON('piante.json'),
+          query(supabase.from('zone').select('*')),
+          query(supabase.from('sottozone').select('*')),
+          query(supabase.from('piante').select('*')),
           caricaJSON('richieste-agente.json'),
-          caricaJSON('zone.json'),
-          caricaJSON('sottozone.json'),
           caricaJSON('progetti.json'),
           caricaJSON('settings.json'),
           caricaJSON('concimi.json'),
         ])
 
-      piante.value    = pianteData
-      zone.value      = zoneData
-      sottozone.value = sottozoneData
+      const zonaNomePerId = Object.fromEntries(righeZone.map(z => [z.id, z.nome]))
+      const sottozonaNomePerId = Object.fromEntries(righeSottozone.map(s => [s.id, s.nome]))
+      zone.value      = mappaZone(righeZone)
+      sottozone.value = mappaSottozone(righeSottozone, zonaNomePerId)
+      piante.value    = mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId)
       progetti.value  = progettiData
       settings.value  = settingsData
       concimi.value   = concimiData
@@ -186,7 +248,7 @@ export const useDatiStore = defineStore('dati', () => {
       // Slug delle specie da caricare subito: quelle delle piante possedute
       // più quelle citate da richieste di revisione ancora in coda (mostrate
       // per nome nello storico di AgenteView).
-      const slugPiante = Object.values(pianteData ?? {}).map(p => p.specie).filter(Boolean)
+      const slugPiante = Object.values(piante.value ?? {}).map(p => p.specie).filter(Boolean)
       const slugRichieste = Object.values(richiesteData ?? {})
         .filter(r => r.tipo === 'revisione_specie' && r.specie)
         .map(r => r.specie)
