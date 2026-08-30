@@ -54,5 +54,31 @@ export function usePianteApi() {
     store.piante = nuove
   }
 
-  return { salvaPianta, eliminaPianta }
+  async function registraCura(id, tipo, data = oggi()) {
+    const piantaEsistente = store.piante?.[id] ?? {}
+    const ultima_cura = { ...(piantaEsistente.ultima_cura || {}), [tipo]: data }
+    const { error } = await supabase.from('piante').update({ ultima_cura }).eq('id', id)
+    if (error) throw error
+    store.piante = { ...store.piante, [id]: { ...piantaEsistente, ultima_cura } }
+  }
+
+  // Raggruppa per pianta prima di scrivere: un gruppo può contenere più voci
+  // per la stessa pianta (es. irrigazione E concimazione insieme), e ognuna
+  // deve arrivare a un'unica riga jsonb finale — chiamare registraCura in
+  // parallelo per la stessa pianta perderebbe una delle due (entrambe
+  // leggerebbero lo stesso ultima_cura di partenza prima di scrivere).
+  async function registraCuraMultipla(voci, data = oggi()) {
+    const perPianta = new Map()
+    for (const { piantaId, tipo } of voci) {
+      if (!perPianta.has(piantaId)) perPianta.set(piantaId, { ...(store.piante?.[piantaId]?.ultima_cura ?? {}) })
+      perPianta.get(piantaId)[tipo] = data
+    }
+    await Promise.all([...perPianta.entries()].map(async ([id, ultima_cura]) => {
+      const { error } = await supabase.from('piante').update({ ultima_cura }).eq('id', id)
+      if (error) throw error
+      store.piante = { ...store.piante, [id]: { ...store.piante[id], ultima_cura } }
+    }))
+  }
+
+  return { salvaPianta, eliminaPianta, registraCura, registraCuraMultipla }
 }

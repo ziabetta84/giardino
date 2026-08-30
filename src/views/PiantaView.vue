@@ -267,7 +267,6 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
@@ -281,7 +280,6 @@ import Spinner from '@/components/Spinner.vue'
 const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
-const { saveJSON } = useApi()
 const pianteApi = usePianteApi()
 const galleria = useGalleria()
 
@@ -413,19 +411,7 @@ async function registraCura(tipo) {
   salvando.value = tipo
   const id = pianta.value.id
   try {
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      const piantaEsistente = base[id] || {}
-      base[id] = {
-        ...piantaEsistente,
-        ultima_cura: {
-          ...(piantaEsistente.ultima_cura || {}),
-          [tipo]: new Date().toISOString().split('T')[0],
-        }
-      }
-      return base
-    })
-    store.piante = nuove
+    await pianteApi.registraCura(id, tipo)
   } finally {
     salvando.value = null
   }

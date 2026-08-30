@@ -81,7 +81,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { usePianteApi } from '@/composables/usePianteApi'
 import { valutaCura, stagione } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import Icon from '@/components/Icon.vue'
@@ -96,7 +96,7 @@ defineEmits(['registra'])
 
 const espansa = ref(false)
 const store = useDatiStore()
-const { saveJSON } = useApi()
+const pianteApi = usePianteApi()
 const pianta = computed(() => store.piante?.[props.item.piantaId] ?? null)
 const specie = computed(() => pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null)
 
@@ -131,16 +131,7 @@ async function registraCuraTipo(tipo) {
   salvandoTipo.value = tipo
   const id = props.item.piantaId
   try {
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      const piantaEsistente = base[id] || {}
-      base[id] = {
-        ...piantaEsistente,
-        ultima_cura: { ...(piantaEsistente.ultima_cura || {}), [tipo]: new Date().toISOString().split('T')[0] },
-      }
-      return base
-    })
-    store.piante = nuove
+    await pianteApi.registraCura(id, tipo)
   } finally {
     salvandoTipo.value = null
   }

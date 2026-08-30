@@ -119,6 +119,7 @@
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
+import { usePianteApi } from '@/composables/usePianteApi'
 import { valutaCura, stagione } from '@/composables/useCure'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
@@ -129,6 +130,7 @@ import Spinner from '@/components/Spinner.vue'
 
 const store    = useDatiStore()
 const { saveJSON } = useApi()
+const pianteApi = usePianteApi()
 const salvando = ref(null)
 const salvandoGruppo = ref(null)
 const salvandoTappa = ref(null)
@@ -196,19 +198,7 @@ async function registra(item) {
   if (salvando.value || salvandoGruppo.value) return
   salvando.value = item.key
   try {
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      const piantaEsistente = base[item.piantaId] || {}
-      base[item.piantaId] = {
-        ...piantaEsistente,
-        ultima_cura: {
-          ...(piantaEsistente.ultima_cura || {}),
-          [item.tipo]: new Date().toISOString().split('T')[0],
-        }
-      }
-      return base
-    })
-    store.piante = nuove
+    await pianteApi.registraCura(item.piantaId, item.tipo)
   } finally {
     salvando.value = null
   }
@@ -218,19 +208,7 @@ async function registraGruppo(gruppo) {
   if (salvandoGruppo.value || salvando.value) return
   salvandoGruppo.value = gruppo.chiave
   try {
-    const oggi = new Date().toISOString().split('T')[0]
-    const nuove = await saveJSON('piante.json', (correnti) => {
-      const base = { ...(correnti ?? store.piante) }
-      for (const item of gruppo.items) {
-        const piantaEsistente = base[item.piantaId] || {}
-        base[item.piantaId] = {
-          ...piantaEsistente,
-          ultima_cura: { ...(piantaEsistente.ultima_cura || {}), [item.tipo]: oggi },
-        }
-      }
-      return base
-    })
-    store.piante = nuove
+    await pianteApi.registraCuraMultipla(gruppo.items)
   } finally {
     salvandoGruppo.value = null
   }
