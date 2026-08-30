@@ -12,7 +12,7 @@
     >
     <div v-if="dropdownAperto" class="specie-dropdown">
       <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione-riga">
-        <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)" style="display:flex;align-items:center;gap:6px;">
+        <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)" style="display:flex;flex-wrap:wrap;align-items:center;gap:3px 6px;">
           <span>{{ s.nome }}</span>
           <span v-if="s.cultivarDi" class="badge" style="font-size:10px;padding:1px 6px;background:var(--sage-pale);color:var(--sage-dark);flex-shrink:0;">cultivar</span>
           <span v-else-if="!s.verificata" class="badge" style="font-size:10px;padding:1px 6px;background:var(--gold-pale);color:var(--gold-dark);flex-shrink:0;">bozza</span>
@@ -784,7 +784,7 @@ async function salvaNuovaSpecie() {
 }
 .specie-opzione-riga {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 4px;
   padding-right: 6px;
 }
@@ -794,14 +794,17 @@ async function salvaNuovaSpecie() {
 .specie-opzione-riga .specie-opzione {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  /* niente più ellissi forzata: i nomi con cultivar tra apici possono
+     essere lunghi ("Teucrium scorodonia 'Crispum Aureomarginatum'") e il
+     badge affianco andava a tagliarsi per mancanza di spazio — l'opzione
+     ora va a capo su due righe quando serve invece di troncare */
+  word-break: break-word;
 }
 .specie-opzione-riga .icon-btn {
   background: none; border: none; cursor: pointer;
   padding: 4px 6px; border-radius: 8px; font-size: 13px; line-height: 1;
   color: var(--ink-soft); flex-shrink: 0;
+  margin-top: 2px;
 }
 .campo-label {
   display: block;
