@@ -14,29 +14,18 @@
       <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione-riga">
         <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)" style="display:flex;align-items:center;gap:6px;">
           <span>{{ s.nome }}</span>
-          <span v-if="!s.verificata" class="badge" style="font-size:10px;padding:1px 6px;background:var(--gold-pale);color:var(--gold-dark);flex-shrink:0;">bozza</span>
+          <span v-if="s.cultivarDi" class="badge" style="font-size:10px;padding:1px 6px;background:var(--sage-pale);color:var(--sage-dark);flex-shrink:0;">cultivar</span>
+          <span v-else-if="!s.verificata" class="badge" style="font-size:10px;padding:1px 6px;background:var(--gold-pale);color:var(--gold-dark);flex-shrink:0;">bozza</span>
         </div>
         <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie"><Icon name="matita" style="width:13px;height:13px;" /></button>
       </div>
       <p v-if="ricercaInCorso" style="font-size:11px;color:var(--ink-faint);padding:6px 10px;display:flex;align-items:center;gap:6px;"><Spinner style="width:12px;height:12px;" />Ricerca nel catalogo…</p>
       <p v-if="ricercaOffline" style="font-size:11px;color:var(--rose-dark);padding:6px 10px;">Ricerca nel catalogo non disponibile offline — solo le specie già caricate.</p>
       <p v-if="!specieFiltrate.length && specieQuery.trim() && !ricercaInCorso" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
-      <p v-if="!specieQuery.trim()" style="font-size:11px;color:var(--ink-faint);padding:6px 10px 2px;">Specie verificate — digita per cercare anche nel resto del catalogo</p>
+      <p v-if="!specieQuery.trim()" style="font-size:11px;color:var(--ink-faint);padding:6px 10px 2px;">Specie verificate — digita per cercare anche nel resto del catalogo, cultivar inclusi</p>
       <div class="specie-opzione specie-nuova" @mousedown.prevent="apriNuovaSpecie">
         ＋ Aggiungi nuova specie{{ specieQuery.trim() ? ` "${specieQuery.trim()}"` : '' }}
       </div>
-    </div>
-
-    <!-- Cultivar: comparsa solo se la specie scelta ne ha di note (da RHS) —
-         facoltativa apposta, non deve intralciare chi non sa/non gli importa
-         quale cultivar possiede (vedi discussione issue #153, 2026-08-30) -->
-    <div v-if="cultivarOpzioni.length" style="margin-top:10px;">
-      <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Cultivar (facoltativo)</label>
-      <select v-model="cultivarSelezionato" @change="cambiaCultivar" class="form-input">
-        <option value="">Generico (nessun cultivar specifico)</option>
-        <option v-for="c in cultivarOpzioni" :key="c.slug" :value="c.slug">{{ c.nome }}</option>
-      </select>
-      <p v-if="cultivarCaricamento" style="font-size:11px;color:var(--ink-faint);margin-top:6px;display:flex;align-items:center;gap:6px;"><Spinner style="width:12px;height:12px;" />Caricamento cultivar…</p>
     </div>
 
     <!-- Modale nuova/modifica specie -->
@@ -277,19 +266,30 @@ const dropdownAperto = ref(false)
 // su Supabase (debounced, vedi avviaRicercaRemota), i cui risultati vengono
 // fusi nello store così restano disponibili senza rifetch.
 const specieFiltrate = computed(() => {
+  const tuttiValori = Object.values(store.specie ?? {})
+  const nomePerId = Object.fromEntries(tuttiValori.filter(s => s.id).map(s => [s.id, s.nome]))
+
   const tutte = Object.entries(store.specie ?? {})
-    // i cultivar (specie_padre_id valorizzato) si scelgono solo dalla select
-    // dedicata dopo aver scelto la specie madre, mai dalla ricerca principale
-    .filter(([, s]) => !s.specie_padre_id)
-    .map(([key, s]) => ({ key, nome: s.nome ?? key, nomeScientifico: s.specie ?? '', verificata: s.stato_verifica === 'verificato' }))
+    .map(([key, s]) => ({
+      key,
+      nome: s.nome ?? key,
+      nomeScientifico: s.specie ?? '',
+      verificata: s.stato_verifica === 'verificato',
+      // un cultivar è una ricerca esplicita (digitando il nome del cultivar
+      // stesso), mai un suggerimento a campo vuoto — vedi filtro sotto
+      cultivarDi: s.specie_padre_id ? (nomePerId[s.specie_padre_id] ?? '') : null,
+    }))
   const q = specieQuery.value.trim().toLowerCase()
 
   const base = q
     ? tutte.filter(s => s.nome.toLowerCase().includes(q) || s.nomeScientifico.toLowerCase().includes(q))
-    : tutte.filter(s => s.verificata)
+    : tutte.filter(s => s.verificata && !s.cultivarDi)
 
   return base
-    .sort((a, b) => (b.verificata - a.verificata) || a.nome.localeCompare(b.nome))
+    // specie "vere" prima dei cultivar (es. "Rosa" ha 9.500+ cultivar: non
+    // devono seppellire la specie stessa in una ricerca larga), poi
+    // verificate, poi alfabetico
+    .sort((a, b) => (!!a.cultivarDi - !!b.cultivarDi) || (b.verificata - a.verificata) || a.nome.localeCompare(b.nome))
     .slice(0, 50)
 })
 
@@ -310,15 +310,19 @@ async function eseguiRicercaRemota(q) {
   const mioToken = ++tokenRicerca
   const pattern = `%${escapeIlike(q)}%`
   try {
+    // Niente filtro su specie_padre_id: la ricerca copre anche i cultivar
+    // (un collezionista può cercare direttamente "Aureomarginatum" senza
+    // passare dalla specie madre, vedi discussione issue #153, 2026-08-30).
     const [porNome, porScientifico] = await Promise.all([
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).is('specie_padre_id', null).limit(50),
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).is('specie_padre_id', null).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).limit(50),
     ])
     if (porNome.error) throw porNome.error
     if (porScientifico.error) throw porScientifico.error
     if (mioToken !== tokenRicerca) return  // superata da una ricerca più recente
 
-    store.specie = { ...(store.specie ?? {}), ...mappaSpecie([...(porNome.data ?? []), ...(porScientifico.data ?? [])]) }
+    const righe = [...(porNome.data ?? []), ...(porScientifico.data ?? [])]
+    await risolviEMergeCultivar(righe)
     ricercaOffline.value = false
   } catch (e) {
     if (mioToken !== tokenRicerca) return
@@ -345,89 +349,53 @@ watch(specieQuery, (val) => {
 
 onUnmounted(() => clearTimeout(timerRicerca))
 
-// Cultivar della specie corrente: select facoltativa che compare solo se ce
-// ne sono (la stragrande maggioranza delle specie non ne ha nessuno
-// registrato) — mai nel bootstrap dello store, caricati on-demand solo
-// quando si sceglie/apre una specie che potrebbe averne (vedi issue #153).
-const cultivarOpzioni = ref([])
-const cultivarSelezionato = ref('')
-const cultivarCaricamento = ref(false)
-let tokenCultivar = 0
-
-async function caricaCultivar(specieId) {
-  if (!specieId) { cultivarOpzioni.value = []; return }
-  const mioToken = ++tokenCultivar
-  cultivarCaricamento.value = true
-  try {
-    const { data, error } = await supabase.from('specie').select(COLONNE_SPECIE)
-      .eq('specie_padre_id', specieId).order('nome')
-    if (error) throw error
-    if (mioToken !== tokenCultivar) return
-    const madre = Object.values(store.specie ?? {}).find(s => s.id === specieId) ?? null
-    const mappati = mappaSpecie(data ?? [])
-    for (const slug of Object.keys(mappati)) mappati[slug] = fondiEredita(mappati[slug], madre)
-    store.specie = { ...(store.specie ?? {}), ...mappati }
-    cultivarOpzioni.value = (data ?? []).map(r => ({ slug: r.slug, nome: r.nome }))
-  } catch (e) {
-    console.error('Caricamento cultivar non riuscito', e)
-    if (mioToken === tokenCultivar) cultivarOpzioni.value = []
-  } finally {
-    if (mioToken === tokenCultivar) cultivarCaricamento.value = false
+// Risolve l'eredità dei cultivar presenti tra le righe appena arrivate da
+// Supabase (ricerca o lookup diretto) prima di fonderle nello store: un
+// cultivar senza dato proprio (quasi tutti, vedi issue #153) deve mostrare
+// i campi di cura della specie madre a tutti i ~9 punti dell'app che
+// leggono store.specie[…], non solo a questo componente. La madre di un
+// cultivar già scelto altrove potrebbe non essere ancora tra le righe
+// caricate: in quel caso va recuperata a parte (una query in più, rara:
+// capita solo aprendo una pianta la cui specie è già un cultivar).
+async function risolviEMergeCultivar(righe) {
+  const mappate = mappaSpecie(righe)
+  const perIdBatch = Object.fromEntries(Object.values(mappate).filter(s => s.id).map(s => [s.id, s]))
+  const idMadriMancanti = [...new Set(
+    Object.values(mappate)
+      .filter(s => s.specie_padre_id && !perIdBatch[s.specie_padre_id] && !Object.values(store.specie ?? {}).some(m => m.id === s.specie_padre_id))
+      .map(s => s.specie_padre_id)
+  )]
+  let perIdStore = {}
+  if (idMadriMancanti.length) {
+    const { data } = await supabase.from('specie').select(COLONNE_SPECIE).in('id', idMadriMancanti)
+    if (data) {
+      const madriMappate = mappaSpecie(data)
+      store.specie = { ...(store.specie ?? {}), ...madriMappate }
+      perIdStore = Object.fromEntries(Object.values(madriMappate).map(s => [s.id, s]))
+    }
   }
+  for (const slug of Object.keys(mappate)) {
+    const s = mappate[slug]
+    if (!s.specie_padre_id) continue
+    const madre = perIdBatch[s.specie_padre_id] ?? perIdStore[s.specie_padre_id]
+      ?? Object.values(store.specie ?? {}).find(m => m.id === s.specie_padre_id)
+    mappate[slug] = fondiEredita(s, madre)
+  }
+  store.specie = { ...(store.specie ?? {}), ...mappate }
 }
-
-function cambiaCultivar() {
-  emit('update:modelValue', cultivarSelezionato.value || specieMadreAttuale.value)
-}
-
-// Chiave della specie madre corrente: se il valore selezionato è già un
-// cultivar, è il suo specie_padre_id (via store); altrimenti è il valore
-// stesso. Serve per tornare al "generico" quando si deseleziona il cultivar.
-const specieMadreAttuale = ref('')
 
 // Tiene il testo visualizzato allineato alla specie effettivamente selezionata
 // (v-model esterno), sia al primo render sia quando cambia da fuori (es. il
-// form padre la popola dopo un caricamento asincrono).
+// form padre la popola dopo un caricamento asincrono). Se il valore arriva
+// da fuori e non è ancora nello store (non era né tra le verificate né tra
+// le referenziate al bootstrap — capita editando una pianta la cui specie è
+// un cultivar), va recuperato per risolvere l'eredità prima di mostrarlo.
 watch(() => props.modelValue, async (val) => {
-  if (!dropdownAperto.value) specieQuery.value = store.specie?.[val]?.nome ?? ''
-
-  let record = store.specie?.[val]
-  // Se il valore arriva da fuori (es. modifica di una pianta esistente) e
-  // non è ancora nello store (non era né tra le verificate né tra le
-  // referenziate al bootstrap), va recuperato per sapere se è un cultivar.
-  if (val && !record) {
+  if (val && !store.specie?.[val]) {
     const { data } = await supabase.from('specie').select(COLONNE_SPECIE).eq('slug', val).maybeSingle()
-    if (data) {
-      store.specie = { ...(store.specie ?? {}), ...mappaSpecie([data]) }
-      record = store.specie[val]
-    }
+    if (data) await risolviEMergeCultivar([data])
   }
-
-  if (!record) { cultivarOpzioni.value = []; cultivarSelezionato.value = ''; specieMadreAttuale.value = ''; return }
-
-  if (record.specie_padre_id) {
-    cultivarSelezionato.value = val
-    specieMadreAttuale.value = ''
-    // serve il record della specie madre per popolare i fratelli e lo slug
-    // "generico" a cui tornare deselezionando il cultivar
-    let madre = Object.values(store.specie ?? {}).find(s => s.id === record.specie_padre_id)
-    if (!madre) {
-      const { data } = await supabase.from('specie').select(COLONNE_SPECIE).eq('id', record.specie_padre_id).maybeSingle()
-      if (data) {
-        store.specie = { ...(store.specie ?? {}), ...mappaSpecie([data]) }
-        madre = store.specie[data.slug]
-      }
-    }
-    if (madre) {
-      specieMadreAttuale.value = madre.slug
-      store.specie = { ...store.specie, [val]: fondiEredita(record, madre) }
-    }
-    await caricaCultivar(record.specie_padre_id)
-  } else {
-    cultivarSelezionato.value = ''
-    specieMadreAttuale.value = val
-    await caricaCultivar(record.id)
-  }
+  if (!dropdownAperto.value) specieQuery.value = store.specie?.[val]?.nome ?? ''
 }, { immediate: true })
 
 function selezionaSpecie(s) {
