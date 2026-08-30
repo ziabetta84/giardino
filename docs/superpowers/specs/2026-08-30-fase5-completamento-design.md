@@ -22,6 +22,16 @@ Fase 5.
   eseguito manualmente solo dal proprietario del progetto — non ha un
   percorso multi-utente ovvio, va ridiscusso da capo in un round futuro
   (edge function? cron?), non con lo stesso pattern delle altre tabelle.
+  **Nota:** una voce storica (`r-1785214938392-aywg`, tipo
+  `pianifica_progetto`) contiene `progetto: "progetto-1785205019885"`,
+  l'id stringa del vecchio `progetti.json`. `AgenteView.vue:247` lo usa per
+  mostrare il titolo del progetto nello storico richieste
+  (`store.progetti?.[r.progetto]?.titolo`); dopo la migrazione a id uuid
+  quel lookup non troverà più nulla e ricadrà silenziosamente sull'etichetta
+  generica del tipo richiesta (`infoTipo(r.tipo).label`) — nessun errore,
+  solo un titolo specifico perso su una singola voce di archivio storico.
+  Accettato come degrado cosmetico: non vale la pena estendere lo scope di
+  questa migrazione per riscrivere `richieste-agente.json`.
 
 ## Architettura
 
