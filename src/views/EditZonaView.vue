@@ -51,14 +51,14 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useSupabase } from '@/composables/useSupabase'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
-const { saveJSON } = useApi()
+const supabase = useSupabase()
 
 const isNuova  = computed(() => !route.params.zona)
 const salvando = ref(false)
@@ -84,21 +84,34 @@ onMounted(async () => {
 async function salva() {
   if (!form.value.nome.trim() || salvando.value) return
   salvando.value = true
-  const key = isNuova.value ? form.value.nome.trim() : route.params.zona
+  const idOriginale = isNuova.value ? null : store.zone?.[route.params.zona]?.id
+  const riga = {
+    nome:        form.value.nome.trim(),
+    tipo:        form.value.tipo,
+    descrizione: form.value.descrizione.trim() || '',
+    microclima:  form.value.microclima.trim()  || '',
+    esposizione: form.value.esposizione,
+  }
   try {
-    const nuove = await saveJSON('zone.json', (correnti) => {
-      const base = { ...(correnti ?? store.zone) }
-      base[key] = {
-        ...(isNuova.value ? {} : base[key]),
-        nome:        form.value.nome.trim(),
-        tipo:        form.value.tipo,
-        descrizione: form.value.descrizione.trim() || '',
-        microclima:  form.value.microclima.trim()  || '',
-        esposizione: form.value.esposizione,
-      }
-      return base
-    })
-    store.zone = nuove
+    let salvata
+    if (idOriginale) {
+      const { data, error } = await supabase.from('zone').update(riga).eq('id', idOriginale).select().single()
+      if (error) throw error
+      salvata = data
+    } else {
+      const { data, error } = await supabase.from('zone').insert(riga).select().single()
+      if (error) throw error
+      salvata = data
+    }
+
+    const nuoveZone = { ...store.zone }
+    if (!isNuova.value && route.params.zona !== salvata.nome) delete nuoveZone[route.params.zona]
+    nuoveZone[salvata.nome] = {
+      id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
+      esposizione: salvata.esposizione, microclima: salvata.microclima,
+      criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
+    }
+    store.zone = nuoveZone
     router.push('/zone')
   } finally {
     salvando.value = false

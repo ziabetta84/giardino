@@ -5,6 +5,10 @@
       <RouterLink to="/zone/nuova" class="btn btn-rose" style="text-decoration:none;">＋ Aggiungi</RouterLink>
     </div>
 
+    <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-dark);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
+      {{ erroreEliminazione }}
+    </p>
+
     <!-- Skeleton -->
     <div v-if="store.loading" class="zone-grid">
       <div v-for="i in 6" :key="i" class="card" style="padding:18px;min-width:0;">
@@ -86,14 +90,15 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useSupabase } from '@/composables/useSupabase'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
 
 const store      = useDatiStore()
-const { saveJSON } = useApi()
+const supabase   = useSupabase()
 const daEliminare  = ref(null)
 const eliminando   = ref(false)
+const erroreEliminazione = ref(null)
 
 const zoneList = computed(() => {
   if (!store.zone) return []
@@ -118,21 +123,32 @@ async function eliminaZona() {
   if (!daEliminare.value) return
   eliminando.value = true
   const zonaKey = daEliminare.value
+  const idZona = store.zone?.[zonaKey]?.id
+  erroreEliminazione.value = null
   try {
-    const nuoveZone = await saveJSON('zone.json', (correnti) => {
-      const base = { ...(correnti ?? store.zone) }
-      delete base[zonaKey]
-      return base
-    })
+    const { error } = await supabase.from('zone').delete().eq('id', idZona)
+    if (error) {
+      // Violazione della FK piante.zona_id (on delete restrict): la zona
+      // contiene ancora piante. A differenza del vecchio comportamento su
+      // JSON (cancellava comunque, lasciando le piante orfane), il database
+      // ora blocca l'operazione esplicitamente.
+      if (error.code === '23503') {
+        erroreEliminazione.value = 'Non puoi eliminare una zona che contiene ancora piante: spostale o eliminale prima.'
+        daEliminare.value = null
+        return
+      }
+      throw error
+    }
+
+    const nuoveZone = { ...store.zone }
+    delete nuoveZone[zonaKey]
     store.zone = nuoveZone
 
-    // Elimina sottozone collegate
+    // Le sottozone collegate sono cancellate dal database stesso
+    // (sottozone.zona_id on delete cascade): qui aggiorniamo solo lo store.
     if (store.sottozone?.[zonaKey]) {
-      const nuoveSottozone = await saveJSON('sottozone.json', (correnti) => {
-        const base = { ...(correnti ?? store.sottozone) }
-        delete base[zonaKey]
-        return base
-      })
+      const nuoveSottozone = { ...store.sottozone }
+      delete nuoveSottozone[zonaKey]
       store.sottozone = nuoveSottozone
     }
     daEliminare.value = null
