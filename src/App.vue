@@ -42,7 +42,7 @@ import NavBar    from '@/components/NavBar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
 import Icon      from '@/components/Icon.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { useAuth } from '@/composables/useAuth'
@@ -54,7 +54,30 @@ const { utente, caricamento } = useAuth()
 const tokenOk     = ref(isAutenticato())
 const mostraBanner = ref(true)
 
+// Zone/sottozone/piante (Fase 5) vivono nello store Pinia, che App.vue carica
+// una sola volta con caricaTutto() — ma App.vue non fa remount quando un
+// utente si scollega e un altro accede nella stessa tab (SPA): senza questo
+// watch, i dati del primo utente resterebbero visibili (e scrivibili, es.
+// zona_id di una zona del primo utente) al secondo. Catturato in modo
+// sincrono, allo stesso momento della registrazione del watch qui sotto (né
+// un await né un evento possono cambiare utente.value nel frattempo): così
+// il primo giro del watch — quando la sessione iniziale viene risolta da
+// useAuth — vede id uguale a idUtenteCaricato e non rifà un caricamento
+// già gestito da onMounted.
+let idUtenteCaricato = utente.value?.id ?? null
+
 onMounted(() => store.caricaTutto())
+
+// Confrontiamo solo l'id (stringa primitiva), non l'intero oggetto utente:
+// onAuthStateChange riemette un nuovo oggetto anche per eventi che non
+// cambiano l'identità (es. TOKEN_REFRESHED) — guardare l'id evita di
+// ricaricare lo store per un utente che in realtà non è cambiato.
+watch(() => utente.value?.id, (nuovoId) => {
+  const id = nuovoId ?? null
+  if (id === idUtenteCaricato) return
+  idUtenteCaricato = id
+  store.aggiorna()
+})
 </script>
 
 <style scoped>
