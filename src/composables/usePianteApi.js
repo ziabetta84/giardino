@@ -80,5 +80,15 @@ export function usePianteApi() {
     }))
   }
 
-  return { salvaPianta, eliminaPianta, registraCura, registraCuraMultipla }
+  async function rinominaSpecieInPiante(vecchioSlug, nuovoSlug) {
+    const { error } = await supabase.from('piante').update({ specie: nuovoSlug }).eq('specie', vecchioSlug)
+    if (error) throw error
+    const nuove = { ...store.piante }
+    for (const id of Object.keys(nuove)) {
+      if (nuove[id].specie === vecchioSlug) nuove[id] = { ...nuove[id], specie: nuovoSlug }
+    }
+    store.piante = nuove
+  }
+
+  return { salvaPianta, eliminaPianta, registraCura, registraCuraMultipla, rinominaSpecieInPiante }
 }

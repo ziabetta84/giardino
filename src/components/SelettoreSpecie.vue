@@ -239,7 +239,7 @@
 // riusato identico in "Zorba dice" (richiesta "revisione specie").
 import { ref, computed, watch, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { usePianteApi } from '@/composables/usePianteApi'
 import { useSupabase } from '@/composables/useSupabase'
 import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
 import { parseGiorni } from '@/composables/useCure'
@@ -252,7 +252,7 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const store = useDatiStore()
-const { saveJSON } = useApi()
+const pianteApi = usePianteApi()
 const supabase = useSupabase()
 
 const specieQuery    = ref('')
@@ -666,16 +666,7 @@ async function salvaNuovaSpecie() {
     // bloccato dal controllo duplicati (lo slug nuovo risulterebbe già
     // presente in store.specie).
     if (chiaveOriginale && chiaveOriginale !== chiave) {
-      const nuovePiante = await saveJSON('piante.json', (correnti) => {
-        const base = { ...(correnti ?? store.piante) }
-        for (const id of Object.keys(base)) {
-          if (base[id].specie === chiaveOriginale) {
-            base[id] = { ...base[id], specie: chiave }
-          }
-        }
-        return base
-      })
-      store.piante = nuovePiante
+      await pianteApi.rinominaSpecieInPiante(chiaveOriginale, chiave)
       if (props.modelValue === chiaveOriginale) emit('update:modelValue', chiave)
     }
 
