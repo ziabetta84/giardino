@@ -133,7 +133,7 @@ const filtriZona = computed(() => {
 })
 
 // Sottozone effettivamente presenti tra le piante della zona selezionata
-// (non tutte quelle configurate in sottozone.json: solo quelle in uso, per
+// (non tutte quelle configurate in store.sottozone: solo quelle in uso, per
 // non mostrare filtri vuoti). Vuoto se la zona è "tutte" o non ha sottozone.
 const filtriSottozona = computed(() => {
   if (filtroZona.value === 'tutte' || !store.piante) return []

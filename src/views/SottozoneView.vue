@@ -93,7 +93,7 @@ const errore     = ref(null)
 const form = ref({ nome: '', descrizione: '', tipo: 'esterno', esposizione: [] })
 // Nome originale della sottozona in modifica (null quando si sta creando una
 // nuova sottozona): serve per sapere quale chiave aggiornare/rinominare in
-// sottozone.json, dato che è indicizzato per nome.
+// store.sottozone, dato che è indicizzato per nome.
 const modificaOriginale = ref(null)
 
 const zona = computed(() => store.zone?.[route.params.zona] ?? null)

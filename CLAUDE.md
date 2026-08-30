@@ -48,12 +48,11 @@ supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardin
 
 Tutti i dati vivono in `public/data/` come JSON. Le scritture avvengono tramite la **GitHub Contents API** (`useApi.js → saveJSON`), che richiede un Personal Access Token con scope `contents:write` salvato in `localStorage.github_token`.
 
+Piante, zone e sottozone sono invece tabelle Supabase (`piante`/`zone`/`sottozone`), con RLS per utente — vedi "Migrazione zone/sottozone/piante → Supabase" più sotto.
+
 | File | Contenuto |
 |------|-----------|
-| `piante.json` | Piante con zona, sottozona, ultima_cura per tipo |
 | `specie.json` | Profili di cura per specie (~8700 specie) con manutenzione stagionale — fallback offline, vedi sotto |
-| `zone.json` | Metadati delle 6 zone (nome, tipo, esposizione, microclima) |
-| `sottozone.json` | Sottozone indicizzate per chiave zona |
 | `concimi.json` | Dispensa concimi posseduti, con NPK `{n, p, k}` — usata da `useConcimi.js` per il match con le esigenze della specie |
 | `progetti.json` | Progetti del giardino con `tappe[]` (data, descrizione, esito) — schema in `useProgetti.js` |
 | `richieste-agente.json` | Coda richieste AI (stato: in_attesa → completata/errore) |
@@ -69,13 +68,23 @@ Le **specie** sono ora gestite su **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`,
 - Il comando `/elabora` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json`.
 - Le migration schema/dati vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`, import da fonti esterne — vedi `fonti/criterio-importazione.md`).
 
+### Migrazione zone/sottozone/piante → Supabase (Fase 5, completata)
+
+Zone, sottozone e piante sono su Supabase (tabelle `zone`, `sottozone`, `piante`), con RLS reale per utente (`owner_id = auth.uid()`, colonna con default `auth.uid()` sulle nuove righe create dall'app) — a differenza di `specie`, qui le policy non sono aperte: ogni utente vede e scrive solo i propri dati. `piante.zona_id`/`sottozona_id` sono foreign key verso `zone`/`sottozone` (non più stringhe libere come nei vecchi JSON): rinominare una zona o sottozona non richiede più aggiornare le piante che la referenziano (prima gestito a mano in `SottozoneView.vue`). `piante.id` resta testo nello stesso formato di sempre (`slug-timestamp`) per compatibilità con la struttura cartelle della gallery foto (`docs/gallery/piante/{id-pianta}/`).
+
+Lo store (`stores/dati.js → caricaTutto()`) ricostruisce comunque la stessa forma a oggetti keyed-by-nome usata da sempre da tutta l'app (`store.zone["Est"]`, `pianta.zona === "Est"`), risolvendo gli id via join lato client (`mappaZone`/`mappaSottozone`/`mappaPiante`) — le view non trattano mai zona/sottozona come id. Le scritture passano da `usePianteApi.js` (creazione/modifica/eliminazione pianta, registrazione cura, rinomina specie a cascata) o da chiamate dirette a Supabase nelle view di zone/sottozone (stesso pattern di `SelettoreSpecie.vue` per le specie): niente più riscrittura dell'intero file JSON con retry su conflitto SHA, ogni riga è indipendente.
+
+Offline: la cache del service worker (Workbox, `vite.config.js`) copre anche il dominio REST di Supabase (`NetworkFirst`), sostituendo il vecchio fallback su file statici per queste tre entità. La cache viene svuotata al logout (`useAuth.js`) per evitare che un device condiviso mostri offline i dati dell'utente precedente.
+
+Fuori scope di questa fase (restano su GitHub/JSON, senza scoping per utente): `progetti.json`, `concimi.json`, `settings.json`, `richieste-agente.json`.
+
 ### Autenticazione utente (Fase 4 migrazione Supabase, avviata)
 
 `useAuth.js` gestisce la sessione via **Supabase Auth**, solo email/password per ora (Google rimandato: richiede creare un OAuth client su Google Cloud Console e configurarlo nel dashboard Supabase, passaggio manuale non ancora fatto). Stato reattivo condiviso a livello di modulo (`utente`, `caricamento`, `recuperoInCorso`), aggiornato via `onAuthStateChange`. `AccountView.vue` (route `/account`, link in `NavBar`/icona in `StatusBar`) espone login/registrazione/logout/recupero password. Il progetto Supabase richiede la conferma email di default (`signUp` non ritorna una sessione finché l'utente non clicca il link ricevuto via mail) — gestito in UI con un messaggio esplicito, non è un bug.
 
 Il router (`router/index.js`) ha una guardia globale: senza sessione attiva, ogni rotta diversa da `/account` reindirizza lì (`App.vue` nasconde anche NavBar/BottomNav/StatusBar in quello stato, mostrando solo il form centrato). Il client Supabase usa `flowType: 'pkce'` (`useSupabase.js`) invece del default `implicit`: coi token nel fragment dell'URL, `createWebHashHistory` (che vive anch'esso nel fragment) romperebbe il parsing del link di recupero password — con PKCE il codice arriva in query string, prima del `#`, senza conflitti. **Il redirect URL di reset (origine + `/giardino/`) va aggiunto tra le "Redirect URLs" del progetto Supabase (dashboard → Authentication → URL Configuration), altrimenti Supabase lo rifiuta.**
 
-**Importante**: per ora l'account **non controlla ancora nessun dato** — coesiste col token GitHub in `localStorage` (che resta l'unico meccanismo che sblocca le scritture) esattamente come da piano (Fase 4 = login obbligatorio per usare l'app, ma senza scoping dei dati; l'assegnazione dei dati per utente, RLS su `auth.uid()` per zone/piante/progetti/ecc., arriva con la Fase 5, non ancora iniziata).
+**Importante**: l'account ora controlla zone/sottozone/piante (Fase 5, completata — vedi sopra), ma non ancora progetti/concimi/settings/richieste-agente, rimasti su GitHub/JSON senza scoping per utente (round successivo). Il token GitHub in `localStorage` resta necessario per queste scritture non ancora migrate.
 
 ## Coda richieste agente AI
 
