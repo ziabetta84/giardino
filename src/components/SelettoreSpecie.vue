@@ -784,7 +784,7 @@ async function salvaNuovaSpecie() {
 }
 .specie-opzione-riga {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 4px;
   padding-right: 6px;
 }
@@ -804,7 +804,7 @@ async function salvaNuovaSpecie() {
   background: none; border: none; cursor: pointer;
   padding: 4px 6px; border-radius: 8px; font-size: 13px; line-height: 1;
   color: var(--ink-soft); flex-shrink: 0;
-  margin-top: 2px;
+  align-self: center;
 }
 .campo-label {
   display: block;
