@@ -8,6 +8,10 @@
       {{ isNuova ? 'Nuova zona' : 'Modifica zona' }}
     </h1>
 
+    <p v-if="errore" style="font-size:12px;color:var(--rose-dark);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
+      {{ errore }}
+    </p>
+
     <div style="display:flex;flex-direction:column;gap:10px;">
       <div class="card" style="padding:16px;">
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Nome *</label>
@@ -62,6 +66,7 @@ const supabase = useSupabase()
 
 const isNuova  = computed(() => !route.params.zona)
 const salvando = ref(false)
+const errore   = ref(null)
 
 const form = ref({
   nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: []
@@ -84,6 +89,7 @@ onMounted(async () => {
 async function salva() {
   if (!form.value.nome.trim() || salvando.value) return
   salvando.value = true
+  errore.value = null
   const idOriginale = isNuova.value ? null : store.zone?.[route.params.zona]?.id
   const riga = {
     nome:        form.value.nome.trim(),
@@ -104,15 +110,25 @@ async function salva() {
       salvata = data
     }
 
+    const rinominata = !isNuova.value && route.params.zona !== salvata.nome
     const nuoveZone = { ...store.zone }
-    if (!isNuova.value && route.params.zona !== salvata.nome) delete nuoveZone[route.params.zona]
+    if (rinominata) delete nuoveZone[route.params.zona]
     nuoveZone[salvata.nome] = {
       id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
       esposizione: salvata.esposizione, microclima: salvata.microclima,
       criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
     }
     store.zone = nuoveZone
+
+    // Un rename lascia store.sottozone (anch'esso indicizzato per nome zona)
+    // e store.piante[*].zona ancora sotto il vecchio nome: più semplice e
+    // sicuro ricaricare tutto da Supabase che rincollare a mano ogni chiave
+    // derivata, con il rischio di dimenticarne una.
+    if (rinominata) await store.aggiorna()
+
     router.push('/zone')
+  } catch (e) {
+    errore.value = e.message || 'Errore durante il salvataggio della zona.'
   } finally {
     salvando.value = false
   }

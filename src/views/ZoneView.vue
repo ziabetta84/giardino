@@ -152,6 +152,9 @@ async function eliminaZona() {
       store.sottozone = nuoveSottozone
     }
     daEliminare.value = null
+  } catch (e) {
+    erroreEliminazione.value = e.message || 'Errore durante l\'eliminazione della zona.'
+    daEliminare.value = null
   } finally {
     eliminando.value = false
   }

@@ -166,9 +166,10 @@ async function salva() {
       salvata = data
     }
 
+    const rinominata = nomeOriginale && nomeOriginale !== nomeNuovo
     const nuove = { ...store.sottozone }
     const sottozoneZona = { ...(nuove[route.params.zona] ?? {}) }
-    if (nomeOriginale && nomeOriginale !== nomeNuovo) delete sottozoneZona[nomeOriginale]
+    if (rinominata) delete sottozoneZona[nomeOriginale]
     sottozoneZona[salvata.nome] = {
       id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
       esposizione: salvata.esposizione, microclima: salvata.microclima,
@@ -177,11 +178,16 @@ async function salva() {
     nuove[route.params.zona] = sottozoneZona
     store.sottozone = nuove
 
-    // A differenza di prima (sottozona referenziata per nome nelle piante,
-    // rinominare qui richiedeva riscrivere anche piante.json), le piante
-    // referenziano sottozona_id (FK): rinominare una sottozona non tocca
-    // nessuna pianta, il database resta coerente da solo.
+    // Le piante referenziano sottozona_id (FK): rinominare una sottozona non
+    // tocca nessuna pianta lato database. Ma store.piante[*].sottozona è un
+    // nome denormalizzato al caricamento (mappaPiante in stores/dati.js) e
+    // resterebbe sotto il vecchio nome finché non si ricarica: risolto
+    // ricaricando tutto da Supabase, come per il rename di una zona.
+    if (rinominata) await store.aggiorna()
+
     chiudiForm()
+  } catch (e) {
+    errore.value = e.message || 'Errore durante il salvataggio della sottozona.'
   } finally {
     salvando.value = false
   }
