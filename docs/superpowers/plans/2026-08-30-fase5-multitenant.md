@@ -137,7 +137,7 @@ git commit -m "Crea schema Supabase per zone/sottozone/piante multi-tenant (Fase
 ### Task 2: Migrazione dati esistenti (backfill)
 
 **Files:**
-- Create: script Node temporaneo in `/private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/genera-backfill-fase5.mjs` (non committato, cancellato a fine task)
+- Create: script Node temporaneo in `genera-backfill-fase5.mjs` (non committato, cancellato a fine task)
 - Create: `supabase/migrations/20260830020000_fase5_backfill_zone_sottozone_piante.sql` (output dello script, questo sì committato)
 - Test: `mcp__claude_ai_Supabase__execute_sql` (conteggio righe)
 
@@ -145,9 +145,11 @@ git commit -m "Crea schema Supabase per zone/sottozone/piante multi-tenant (Fase
 - Consumes: tabelle create in Task 1; `public/data/zone.json`, `public/data/sottozone.json`, `public/data/piante.json` (letti solo qui, poi cancellati in Task 10).
 - Produces: righe `zone`/`sottozone`/`piante` popolate con `owner_id = 'fc227422-ece8-4dca-b706-956ec7ca9e6e'`, pronte per Task 3+.
 
+Tutti i comandi e i percorsi di questo task sono relativi alla radice del repository: esegui `node`/`rm` da lì (lo script legge/scrive con percorsi relativi, apposta per non dipendere dal percorso assoluto di questo worktree).
+
 - [ ] **Step 1: Verifica preliminare — ogni `pianta.specie` esiste nel catalogo**
 
-Run: `node -e "const p = require('./public/data/piante.json'); console.log([...new Set(Object.values(p).map(x => x.specie))].join('\n'))" > /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/slug-piante.txt`
+Run: `node -e "const p = require('./public/data/piante.json'); console.log([...new Set(Object.values(p).map(x => x.specie))].join('\n'))" > slug-piante.txt`
 
 Poi, per ciascuno slug distinto nel file, verifica che esista in Supabase con `execute_sql`:
 
@@ -159,7 +161,7 @@ Expected: lo stesso numero di righe restituite quante sono le slug distinte nel 
 
 - [ ] **Step 2: Scrivi lo script di generazione**
 
-Crea `/private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/genera-backfill-fase5.mjs`:
+Crea `genera-backfill-fase5.mjs`:
 
 ```js
 // Genera la migration SQL di backfill per Fase 5 (zone/sottozone/piante).
@@ -168,9 +170,10 @@ Crea `/private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-
 import { randomUUID } from 'node:crypto'
 import { readFileSync, writeFileSync } from 'node:fs'
 
+// Percorsi relativi alla cwd: esegui questo script dalla radice del
+// repository (del worktree), non da dove vive lo script stesso.
 const OWNER_ID = 'fc227422-ece8-4dca-b706-956ec7ca9e6e'
-const RADICE = '/Users/rob/Sites/localhost/giardino'
-const OUT = `${RADICE}/supabase/migrations/20260830020000_fase5_backfill_zone_sottozone_piante.sql`
+const OUT = 'supabase/migrations/20260830020000_fase5_backfill_zone_sottozone_piante.sql'
 
 function sqlString(v) {
   if (v === null || v === undefined || v === '') return 'null'
@@ -184,9 +187,9 @@ function sqlJsonb(obj) {
   return `'${JSON.stringify(obj ?? {}).replace(/'/g, "''")}'::jsonb`
 }
 
-const zone = JSON.parse(readFileSync(`${RADICE}/public/data/zone.json`, 'utf8'))
-const sottozoneGrezze = JSON.parse(readFileSync(`${RADICE}/public/data/sottozone.json`, 'utf8'))
-const pianteGrezze = JSON.parse(readFileSync(`${RADICE}/public/data/piante.json`, 'utf8'))
+const zone = JSON.parse(readFileSync('public/data/zone.json', 'utf8'))
+const sottozoneGrezze = JSON.parse(readFileSync('public/data/sottozone.json', 'utf8'))
+const pianteGrezze = JSON.parse(readFileSync('public/data/piante.json', 'utf8'))
 
 const zonaIdPerNome = {}
 for (const nome of Object.keys(zone)) zonaIdPerNome[nome] = randomUUID()
@@ -239,7 +242,7 @@ console.log(`zone: ${Object.keys(zone).length}, sottozone: ${vociSottozone.lengt
 
 - [ ] **Step 3: Esegui lo script**
 
-Run: `node /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/genera-backfill-fase5.mjs`
+Run: `node genera-backfill-fase5.mjs`
 
 Expected: stampa il percorso del file generato e i tre conteggi. Annota i tre numeri: serviranno allo Step 5.
 
@@ -265,7 +268,7 @@ Expected: gli stessi tre numeri stampati allo Step 3.
 - [ ] **Step 6: Elimina lo script temporaneo e committa la migration generata**
 
 ```bash
-rm /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/genera-backfill-fase5.mjs /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/slug-piante.txt
+rm genera-backfill-fase5.mjs slug-piante.txt
 git add supabase/migrations/20260830020000_fase5_backfill_zone_sottozone_piante.sql
 git commit -m "Backfill zone/sottozone/piante esistenti su Supabase (Fase 5)"
 ```
@@ -282,13 +285,15 @@ git commit -m "Backfill zone/sottozone/piante esistenti su Supabase (Fase 5)"
 - Consumes: tabelle `zone`/`sottozone`/`piante` (Task 1-2), `useSupabase()` (già importato in `dati.js`).
 - Produces: `mappaZone(righeZone) => Record<string, {id, nome, descrizione, esposizione, microclima, criticita, manutenzione, tipo}>`, `mappaSottozone(righeSottozone, zonaNomePerId) => Record<string, Record<string, {id, nome, ...}>>`, `mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId) => Record<string, {specie, zona, sottozona, varieta, impianto, impianto_circa, note, coltivato_in, ultima_cura}>`, esportate da `src/stores/dati.js` (stesso file di `mappaSpecie`). `store.zone`/`store.sottozone`/`store.piante` restano nella stessa forma keyed-by-nome di sempre (con l'aggiunta non invasiva di `id` su ogni voce zona/sottozona). Usate da Task 4-8 per risolvere nome→id nelle scritture.
 
+Crea ed esegui lo script di questo task dalla radice del repository (percorsi relativi, non dipendono dal percorso assoluto di questo worktree).
+
 - [ ] **Step 1: Scrivi lo script di verifica delle funzioni pure**
 
-Crea `/private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/verifica-mapping-fase5.mjs`:
+Crea `verifica-mapping-fase5.mjs`:
 
 ```js
 import assert from 'node:assert/strict'
-import { mappaZone, mappaSottozone, mappaPiante } from '/Users/rob/Sites/localhost/giardino/src/stores/dati.js'
+import { mappaZone, mappaSottozone, mappaPiante } from './src/stores/dati.js'
 
 const righeZone = [
   { id: 'z-est', nome: 'Est', descrizione: 'Lato est', esposizione: ['est'], microclima: 'm', criticita: 'c', manutenzione: 'man', tipo: 'esterno' },
@@ -331,7 +336,7 @@ console.log('OK: tutte le assert passate')
 
 - [ ] **Step 2: Esegui lo script e verifica che fallisca**
 
-Run: `node /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/verifica-mapping-fase5.mjs`
+Run: `node verifica-mapping-fase5.mjs`
 Expected: errore — `mappaZone` non è esportata da `dati.js` (non esiste ancora).
 
 - [ ] **Step 3: Aggiungi le funzioni di mapping a `dati.js`**
@@ -395,12 +400,12 @@ export function mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId) {
 
 - [ ] **Step 4: Esegui lo script e verifica che passi**
 
-Run: `node /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/verifica-mapping-fase5.mjs`
+Run: `node verifica-mapping-fase5.mjs`
 Expected: `OK: tutte le assert passate`
 
 - [ ] **Step 5: Elimina lo script temporaneo**
 
-Run: `rm /private/tmp/claude-501/-Users-rob-Sites-localhost-giardino/e6150380-3ba4-464f-a874-ae075a0e17c7/scratchpad/verifica-mapping-fase5.mjs`
+Run: `rm verifica-mapping-fase5.mjs`
 
 - [ ] **Step 6: Aggiorna `caricaTutto()` per usare Supabase**
 
@@ -912,7 +917,7 @@ git commit -m "Sposta creazione/modifica sottozone su Supabase, rinomina senza p
 
 **Interfaces:**
 - Consumes: `store.zone[nome].id`, `store.sottozone[nomeZona][nomeSottozona].id` (Task 3-5), `useSupabase()`, `useDatiStore()`.
-- Produces: `usePianteApi()` → `{ salvaPianta, eliminaPianta, registraCura, registraCuraMultipla, rinominaSpecieInPiante }` (gli ultimi tre implementati in Task 7-8, qui solo dichiarati/esportati vuoti nel file ma non ancora usati altrove). Usata da Task 7 (`registraCura`/`registraCuraMultipla`) e Task 8 (`rinominaSpecieInPiante`), che estendono questo stesso file.
+- Produces: in questo task, `usePianteApi()` → `{ salvaPianta, eliminaPianta }` soltanto — `registraCura`/`registraCuraMultipla` (Task 7) e `rinominaSpecieInPiante` (Task 8) vengono aggiunte allo stesso file nei task successivi, che ne estendono anche la riga `return`.
 
 - [ ] **Step 1: Crea `usePianteApi.js` con `salvaPianta` ed `eliminaPianta`**
 
@@ -1140,6 +1145,8 @@ async function eliminaPianta() {
 
 - [ ] **Step 4: Usa `usePianteApi` per l'eliminazione in `PiantaView.vue`**
 
+`registraCura`, più sotto in questo stesso file, usa ancora `saveJSON`/`useApi` fino al Task 7: qui l'import `useApi` va **affiancato**, non sostituito — altrimenti `registraCura` smetterebbe di compilare prima che il Task 7 la aggiorni.
+
 In `src/views/PiantaView.vue`, sostituisci:
 
 ```js
@@ -1150,6 +1157,7 @@ import { useGalleria } from '@/composables/useGalleria'
 con:
 
 ```js
+import { useApi } from '@/composables/useApi'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 ```
@@ -1170,6 +1178,7 @@ con:
 const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
+const { saveJSON } = useApi()
 const pianteApi = usePianteApi()
 const galleria = useGalleria()
 ```
@@ -1213,7 +1222,7 @@ async function eliminaPianta() {
 }
 ```
 
-(La funzione `registraCura` in questo stesso file, che usa ancora `saveJSON`, viene sostituita nel Task 7 — lascia `useApi`/`saveJSON` importato per ora, sarà rimosso quando anche quella funzione passa a `usePianteApi`.)
+(La funzione `registraCura`, subito sotto in questo stesso file, continua a usare `saveJSON`/`useApi` fino al Task 7, che la sostituisce e rimuove infine l'import `useApi` ormai inutilizzato.)
 
 - [ ] **Step 5: Verifica manuale**
 
@@ -1506,7 +1515,7 @@ async function registraCura(tipo) {
 }
 ```
 
-Rimuovi ora l'import ormai inutilizzato: sostituisci
+Rimuovi ora l'import e l'istanza ormai inutilizzati: sostituisci
 
 ```js
 import { useApi } from '@/composables/useApi'
@@ -1517,6 +1526,27 @@ con:
 
 ```js
 import { usePianteApi } from '@/composables/usePianteApi'
+```
+
+e sostituisci:
+
+```js
+const route  = useRoute()
+const router = useRouter()
+const store  = useDatiStore()
+const { saveJSON } = useApi()
+const pianteApi = usePianteApi()
+const galleria = useGalleria()
+```
+
+con:
+
+```js
+const route  = useRoute()
+const router = useRouter()
+const store  = useDatiStore()
+const pianteApi = usePianteApi()
+const galleria = useGalleria()
 ```
 
 - [ ] **Step 5: Verifica manuale**
