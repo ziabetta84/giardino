@@ -8,3 +8,5 @@ specie_esistenti.tsv
 specie_nomi_esistenti.tsv
 sql_gen_errors.log
 sql_sitemaps/
+sql_recupero/
+rhs_recupero_aggregato.json
