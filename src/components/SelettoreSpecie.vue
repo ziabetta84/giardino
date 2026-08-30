@@ -656,20 +656,6 @@ async function salvaNuovaSpecie() {
 
   salvandoSpecie.value = true
   try {
-    // Se la specie viene rinominata, aggiorna prima le piante che la
-    // referenziano (restano su GitHub, non ancora migrate) e solo dopo la
-    // specie stessa su Supabase: se questo primo passaggio fallisce, la riga
-    // specie non è ancora stata toccata e l'utente può semplicemente
-    // riprovare. Nell'ordine opposto, un fallimento del salvataggio delle
-    // piante dopo un rename già scritto lascerebbe sia piante orfane
-    // (puntano a uno slug specie non più esistente) sia un nuovo tentativo
-    // bloccato dal controllo duplicati (lo slug nuovo risulterebbe già
-    // presente in store.specie).
-    if (chiaveOriginale && chiaveOriginale !== chiave) {
-      await pianteApi.rinominaSpecieInPiante(chiaveOriginale, chiave)
-      if (props.modelValue === chiaveOriginale) emit('update:modelValue', chiave)
-    }
-
     const riga = {
       slug: chiave,
       nome,
@@ -736,6 +722,16 @@ async function salvaNuovaSpecie() {
     if (chiaveOriginale && chiaveOriginale !== chiave) delete specieAggiornate[chiaveOriginale]
     Object.assign(specieAggiornate, nuova)
     store.specie = specieAggiornate
+
+    // Se la specie è stata rinominata, la FK piante.specie ("on update
+    // cascade", vedi supabase/migrations/20260830030000_fase5_specie_fk_on_update_cascade.sql)
+    // ha già propagato il nuovo slug a tutte le piante lato database, nello
+    // stesso update appena eseguito sopra — qui aggiorniamo solo lo store
+    // locale perché il cascade non arriva a questo client via realtime.
+    if (chiaveOriginale && chiaveOriginale !== chiave) {
+      pianteApi.rinominaSpecieInPiante(chiaveOriginale, chiave)
+      if (props.modelValue === chiaveOriginale) emit('update:modelValue', chiave)
+    }
 
     selezionaSpecie({ key: chiave, nome })
     mostraNuovaSpecie.value = false

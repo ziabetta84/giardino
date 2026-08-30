@@ -80,9 +80,14 @@ export function usePianteApi() {
     }))
   }
 
-  async function rinominaSpecieInPiante(vecchioSlug, nuovoSlug) {
-    const { error } = await supabase.from('piante').update({ specie: nuovoSlug }).eq('specie', vecchioSlug)
-    if (error) throw error
+  // Non scrive più su piante: la FK piante.specie ha "on update cascade"
+  // (vedi supabase/migrations/20260830030000_fase5_specie_fk_on_update_cascade.sql),
+  // quindi è il database stesso a propagare il rename quando SelettoreSpecie.vue
+  // aggiorna specie.slug. Qui resta solo l'aggiornamento locale dello store:
+  // il cascade lato DB non arriva a questo client via realtime, quindi senza
+  // questo fix-up la UI mostrerebbe ancora lo slug vecchio finché non si
+  // ricarica la pagina.
+  function rinominaSpecieInPiante(vecchioSlug, nuovoSlug) {
     const nuove = { ...store.piante }
     for (const id of Object.keys(nuove)) {
       if (nuove[id].specie === vecchioSlug) nuove[id] = { ...nuove[id], specie: nuovoSlug }
