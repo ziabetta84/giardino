@@ -58,25 +58,34 @@ const mostraBanner = ref(true)
 // una sola volta con caricaTutto() — ma App.vue non fa remount quando un
 // utente si scollega e un altro accede nella stessa tab (SPA): senza questo
 // watch, i dati del primo utente resterebbero visibili (e scrivibili, es.
-// zona_id di una zona del primo utente) al secondo. Catturato in modo
-// sincrono, allo stesso momento della registrazione del watch qui sotto (né
-// un await né un evento possono cambiare utente.value nel frattempo): così
-// il primo giro del watch — quando la sessione iniziale viene risolta da
-// useAuth — vede id uguale a idUtenteCaricato e non rifà un caricamento
-// già gestito da onMounted.
-let idUtenteCaricato = utente.value?.id ?? null
+// zona_id di una zona del primo utente) al secondo.
+//
+// idUtenteCaricato va catturato SOLO dopo che il caricamento iniziale è
+// completato, non subito in setup(): a quel punto utente.value è sempre
+// null (la sessione arriva da un await su localStorage, ancora in corso),
+// non un valore "reale" che poi non cambia. Catturarlo comunque e registrare
+// il watch subito produceva un doppio caricamento a ogni apertura dell'app
+// già autenticata: quando la sessione si risolveva (pochi millisecondi
+// dopo), il watch la vedeva come un cambio null→id e rilanciava
+// store.aggiorna() in parallelo al caricaTutto() dell'onMounted già in
+// corso. Registrando il watch qui sotto, dopo l'await, i due non corrono
+// mai insieme.
+let idUtenteCaricato = null
 
-onMounted(() => store.caricaTutto())
+onMounted(async () => {
+  await store.caricaTutto()
+  idUtenteCaricato = utente.value?.id ?? null
 
-// Confrontiamo solo l'id (stringa primitiva), non l'intero oggetto utente:
-// onAuthStateChange riemette un nuovo oggetto anche per eventi che non
-// cambiano l'identità (es. TOKEN_REFRESHED) — guardare l'id evita di
-// ricaricare lo store per un utente che in realtà non è cambiato.
-watch(() => utente.value?.id, (nuovoId) => {
-  const id = nuovoId ?? null
-  if (id === idUtenteCaricato) return
-  idUtenteCaricato = id
-  store.aggiorna()
+  // Confrontiamo solo l'id (stringa primitiva), non l'intero oggetto utente:
+  // onAuthStateChange riemette un nuovo oggetto anche per eventi che non
+  // cambiano l'identità (es. TOKEN_REFRESHED) — guardare l'id evita di
+  // ricaricare lo store per un utente che in realtà non è cambiato.
+  watch(() => utente.value?.id, (nuovoId) => {
+    const id = nuovoId ?? null
+    if (id === idUtenteCaricato) return
+    idUtenteCaricato = id
+    store.aggiorna()
+  })
 })
 </script>
 
