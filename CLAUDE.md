@@ -47,17 +47,14 @@ supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardin
 
 ## Dati e persistenza
 
-I dati residui (progetti, concimi, richieste-agente, settings) vivono in `public/data/` come JSON. Le scritture avvengono tramite la **GitHub Contents API** (`useApi.js → saveJSON`), che richiede un Personal Access Token con scope `contents:write` salvato in `localStorage.github_token`.
+I dati residui (richieste-agente) vivono in `public/data/` come JSON. Le scritture avvengono tramite la **GitHub Contents API** (`useApi.js → saveJSON`), che richiede un Personal Access Token con scope `contents:write` salvato in `localStorage.github_token`.
 
-Specie, piante, zone e sottozone sono invece tabelle Supabase (`specie`/`piante`/`zone`/`sottozone`), con RLS per utente su piante/zone/sottozone — vedi "Migrazione specie → Supabase" e "Migrazione zone/sottozone/piante → Supabase" più sotto.
+Specie, piante, zone, sottozone, progetti, tappe, concimi e settings sono tabelle Supabase (`specie`/`piante`/`zone`/`sottozone`/`progetti`/`tappe`/`concimi`/`settings`), con RLS per utente su piante/zone/sottozone/progetti/tappe/concimi/settings — vedi "Migrazione specie → Supabase", "Migrazione zone/sottozone/piante → Supabase" e "Completamento Fase 5" più sotto.
 
 | File | Contenuto |
 |------|-----------|
 | `specie.json` | Profili di cura per specie (~8700 specie) con manutenzione stagionale — fallback offline, vedi sotto |
-| `concimi.json` | Dispensa concimi posseduti, con NPK `{n, p, k}` — usata da `useConcimi.js` per il match con le esigenze della specie |
-| `progetti.json` | Progetti del giardino con `tappe[]` (data, descrizione, esito) — schema in `useProgetti.js` |
 | `richieste-agente.json` | Coda richieste AI (stato: in_attesa → completata/errore) |
-| `settings.json` | Coordinate GPS per Open-Meteo |
 
 ### Migrazione specie → Supabase (Fase 2 completata, letture e scritture)
 
@@ -77,7 +74,15 @@ Lo store (`stores/dati.js → caricaTutto()`) ricostruisce comunque la stessa fo
 
 Offline: la cache del service worker (Workbox, `vite.config.js`) copre anche il dominio REST di Supabase (`NetworkFirst`), sostituendo il vecchio fallback su file statici per queste tre entità. La cache viene svuotata al logout (`useAuth.js`) per evitare che un device condiviso mostri offline i dati dell'utente precedente.
 
-Fuori scope di questa fase (restano su GitHub/JSON, senza scoping per utente): `progetti.json`, `concimi.json`, `settings.json`, `richieste-agente.json`.
+### Completamento Fase 5: progetti/tappe, settings, concimi → Supabase
+
+Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con RLS reale per utente (`owner_id = auth.uid()`), stesso pattern di zone/sottozone/piante. `tappe` è una tabella a sé (non un campo jsonb dentro `progetti`): `ProgettoView.vue` riconcilia l'intero form (insert/update/delete mirati per tappa, via `useProgettiApi.js`), mentre `AttivitaView.vue` aggiorna una singola tappa per id (`registraTappa`) — un campo jsonb condiviso tra questi due percorsi di scrittura avrebbe perso silenziosamente le modifiche concorrenti, una tabella con una riga per tappa lo evita per costruzione.
+
+`settings` è una riga singola per utente (`owner_id` è la chiave primaria). `zona_climatica_id` viene calcolato una sola volta, al primo salvataggio con il campo ancora vuoto, da `useZonaClimatica.js` (euristica su lat/lon/altitudine, mai più ricalcolato dopo per non sovrascrivere una scelta manuale) — modificabile a mano dalla nuova pagina `/impostazioni` (linkata da `/account`).
+
+`cure_log` come tabella a parte e uno script di importazione per `coltivazione` erano nello scope originale della issue #122 ma sono stati chiusi come già soddisfatti: `piante.ultima_cura` (jsonb, solo l'ultima cura per tipo) copre l'unico uso reale oggi (calcolo urgenze), e `piante.coltivato_in` (vaso/terra/acqua) è lo stesso campo già descritto con un altro nome.
+
+`richieste-agente.json` resta l'unico dato ancora su GitHub/JSON senza scoping per utente — legato al comando `/elabora`, eseguito manualmente, va ridiscusso a parte in un round futuro.
 
 Verificata a mano nel browser dopo l'implementazione (creazione/modifica/eliminazione di zone/sottozone/piante, rinomina specie a cascata, registrazione cure singola e bulk, blocco eliminazione zona con piante). La verifica ha trovato e corretto due problemi non emersi dalla sola lettura del codice: `ZoneView.vue`/`SottozoneView.vue` non avevano un pulsante per eliminare (la logica c'era già per le zone, mancava del tutto per le sottozone); e `App.vue` ricaricava lo store due volte a ogni apertura dell'app già autenticata (il watch sul cambio utente si registrava prima che la sessione fosse risolta, vedendo la sua prima risoluzione come un cambio utente).
 
@@ -87,7 +92,7 @@ Verificata a mano nel browser dopo l'implementazione (creazione/modifica/elimina
 
 Il router (`router/index.js`) ha una guardia globale: senza sessione attiva, ogni rotta diversa da `/account` reindirizza lì (`App.vue` nasconde anche NavBar/BottomNav/StatusBar in quello stato, mostrando solo il form centrato). Il client Supabase usa `flowType: 'pkce'` (`useSupabase.js`) invece del default `implicit`: coi token nel fragment dell'URL, `createWebHashHistory` (che vive anch'esso nel fragment) romperebbe il parsing del link di recupero password — con PKCE il codice arriva in query string, prima del `#`, senza conflitti. **Il redirect URL di reset (origine + `/giardino/`) va aggiunto tra le "Redirect URLs" del progetto Supabase (dashboard → Authentication → URL Configuration), altrimenti Supabase lo rifiuta.**
 
-**Importante**: l'account ora controlla zone/sottozone/piante (Fase 5, completata — vedi sopra), ma non ancora progetti/concimi/settings/richieste-agente, rimasti su GitHub/JSON senza scoping per utente (round successivo). Il token GitHub in `localStorage` resta necessario per queste scritture non ancora migrate.
+**Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` resta necessario per richieste-agente (unico dato su GitHub/JSON rimasto).
 
 ## Coda richieste agente AI
 
@@ -95,7 +100,7 @@ Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.jso
 
 Alcuni tipi scrivono anche altrove, non solo la risposta testuale:
 - `revisione_specie` → aggiorna anche la riga corrispondente nella tabella `specie` su Supabase (via MCP `execute_sql`/`apply_migration`), non `specie.json`
-- `pianifica_progetto` → crea/aggiorna anche `progetti.json` (schema tappe in `useProgetti.js`)
+- `pianifica_progetto` → crea/aggiorna anche le righe corrispondenti nelle tabelle `progetti`/`tappe` su Supabase (via MCP `execute_sql`/`apply_migration`)
 - `consiglio_concimazione` → usa lo stesso criterio di match NPK di `useConcimi.js` (distanza euclidea su rapporti normalizzati, soglia 0.15), per coerenza con quanto l'utente vede già in app
 - `identifica_specie` → prima dell'analisi visiva, interroga l'API di identificazione PlantNet (`PLANTNET_API_KEY` in `.env.local`) come riscontro oggettivo; il giudizio finale resta comunque quello visivo di Claude, non un pass-through automatico dei risultati PlantNet
 

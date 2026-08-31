@@ -5,15 +5,15 @@ Elabora le richieste pendenti dell'assistente AI dalla coda `public/data/richies
 1. Leggi `public/data/richieste-agente.json` e identifica tutte le richieste con `stato: "in_attesa"`
 2. Se non ce ne sono, rispondi "Nessuna richiesta in attesa" e fermati
 3. Per ogni richiesta in attesa:
-   - Interroga le tabelle `piante`, `zone` e `sottozone` su Supabase (MCP `execute_sql`, progetto `ncuhhsvtjwcolhpdxbkt`) per il contesto del giardino; per le specie, interroga allo stesso modo la tabella `specie` per slug o nome — **non `public/data/{piante,zone,sottozone,specie}.json`**, rimasti solo come copie storiche non più aggiornate (le scritture vanno tutte su Supabase: specie dalla Fase 2, zone/sottozone/piante dalla Fase 5). Essendo oggi l'unico utente, puoi interrogare senza filtro su `owner_id`; se in futuro ci fossero più utenti, filtra per l'account di chi ha creato la richiesta (`richieste-agente.json` non ha ancora un campo utente — vedi nota in `CLAUDE.md`)
-   - Per `consiglio_concimazione`, leggi anche `public/data/concimi.json` (la dispensa dei concimi posseduti)
+   - Interroga le tabelle `piante`, `zone`, `sottozone`, `progetti`, `tappe`, `concimi` e `settings` su Supabase (MCP `execute_sql`, progetto `ncuhhsvtjwcolhpdxbkt`) per il contesto del giardino; per le specie, interroga allo stesso modo la tabella `specie` per slug o nome — **non `public/data/{piante,zone,sottozone,specie,progetti,concimi,settings}.json`**, rimasti solo come copie storiche non più aggiornate (le scritture vanno tutte su Supabase: specie dalla Fase 2, zone/sottozone/piante/progetti/tappe/concimi/settings dalla Fase 5). Essendo oggi l'unico utente, puoi interrogare senza filtro su `owner_id`; se in futuro ci fossero più utenti, filtra per l'account di chi ha creato la richiesta (`richieste-agente.json` non ha ancora un campo utente — vedi nota in `CLAUDE.md`)
+   - Per `consiglio_concimazione`, leggi i concimi dalla tabella `concimi` su Supabase (la dispensa dei concimi posseduti dell'utente)
    - Per `revisione_specie`, vedi procedura dedicata sotto: **aggiorna anche la riga corrispondente nella tabella `specie` su Supabase**, non solo la risposta testuale
-   - Per `pianifica_progetto`, vedi procedura dedicata sotto: **aggiorna anche `public/data/progetti.json`**, non solo la risposta testuale
+   - Per `pianifica_progetto`, vedi procedura dedicata sotto: **aggiorna anche le righe corrispondenti nelle tabelle `progetti` e `tappe` su Supabase**, non solo la risposta testuale
    - Se la richiesta contiene una foto in base64, analizzala
    - Genera una risposta dettagliata e pratica, in italiano, specifica per il giardino di Centinarola (Fano, clima mediterraneo collinare)
    - Aggiorna la richiesta nel JSON: `stato: "completata"`, `risposta: { messaggio: "...", elaborata: "<ISO date>" }`
    - **Imposta `foto: null`**: una volta elaborata la richiesta la foto non serve più. Il campo `foto` in base64 può pesare centinaia di KB per immagine; lasciarlo fa crescere `richieste-agente.json` oltre 1MB, soglia oltre la quale l'API Contents di GitHub non restituisce più il contenuto inline e l'app smette di riuscire a leggerlo (errore "Unexpected end of JSON input" in saveJSON).
-4. Salva `richieste-agente.json` aggiornato con `saveJSON` (via GitHub Contents API) oppure direttamente su disco se sei in locale — per `revisione_specie` applica nello stesso passaggio anche la modifica alla tabella `specie` su Supabase (MCP `apply_migration`), per `pianifica_progetto` salva anche `progetti.json`
+4. Salva `richieste-agente.json` aggiornato con `saveJSON` (via GitHub Contents API) oppure direttamente su disco se sei in locale — per `revisione_specie` e `pianifica_progetto` applica nello stesso passaggio anche le modifiche alle tabelle `specie`/`progetti`/`tappe` su Supabase (MCP `apply_migration`)
 5. Fai commit e push con messaggio "Elabora richieste agente pendenti"
 
 ## Formato risposta
@@ -91,7 +91,7 @@ L'utente chiede quale concime usare per una pianta (es. "che concime uso per la 
 1. Identifica la pianta/specie di cui parla il messaggio (per nome comune, nome scientifico, zona/sottozona menzionata) nelle tabelle `piante`/`zone`/`sottozone` e nella tabella `specie` su Supabase. Se il messaggio è ambiguo (più piante corrispondono, o nessuna), chiedi di specificare nella risposta invece di indovinare.
 2. Determina la stagione corrente dalla data di elaborazione (primavera: mar-mag, estate: giu-ago, autunno: set-nov, inverno: dic-feb) e leggi `specie.manutenzione.npk[stagione]`. Se `manutenzione` o `npk` sono assenti/`null`, oppure il valore per la stagione non è nel formato `"N-P-K"` (es. `"5-10-10"`), tratta il fabbisogno come non presente.
 3. Se non c'è un fabbisogno NPK per la stagione corrente: rispondi che al momento questa pianta non ha necessità di concimazione specifiche (o segnalalo se manca del tutto il dato NPK per quella specie, invitando eventualmente ad aggiungerlo tramite il form specie).
-4. Altrimenti, confronta il rapporto richiesto con ciascun concime in `concimi.json` che ha un campo `npk: {n, p, k}` valido (salta le voci che ne sono prive):
+4. Altrimenti, confronta il rapporto richiesto con ciascun concime nella tabella `concimi` su Supabase che ha un campo `npk: {n, p, k}` valido (salta le voci che ne sono prive):
    - Normalizza entrambi i rapporti (dividi ciascun valore per la somma n+p+k, così un concime "5-10-5" e uno "10-20-10" risultano equivalenti — è la concentrazione assoluta a incidere sul dosaggio, non sull'idoneità). Se la somma è 0 (es. concime "0-0-0", dato improbabile ma possibile in caso di errore di inserimento), imposta il rapporto normalizzato a 0 per tutti i componenti ({n: 0, p: 0, k: 0}) per evitare la divisione per zero, in coerenza con l'implementazione reale — non saltare la voce.
    - Calcola la distanza euclidea tra i due rapporti normalizzati
    - Individua il concime con distanza minore
@@ -101,34 +101,24 @@ L'utente chiede quale concime usare per una pianta (es. "che concime uso per la 
 ## Procedura per `pianifica_progetto`
 
 L'utente descrive un progetto (campo `messaggio`) e chiede di generarne le tappe. La richiesta indica in quale progetto scrivere tramite due campi alternativi:
-- `progetto`: chiave esistente in `progetti.json` (l'utente ha scelto un progetto già creato da completare)
+- `progetto`: id esistente nella tabella `progetti` su Supabase (l'utente ha scelto un progetto già creato da completare)
 - `titolo_progetto`: solo se `progetto` è `null` — titolo per un progetto nuovo da creare da zero
 
-Schema di riferimento per `progetti.json` (vedi anche `src/composables/useProgetti.js` e `src/views/ProgettoView.vue`):
-```json
-{
-  "titolo": "string",
-  "descrizione": "HTML semplice: solo <p>, <b>/<strong>, <i>/<em> — niente altri tag o attributi",
-  "zona": "string libera, opzionale",
-  "stato": "aperto | in_corso | completato | fallito | cancellato",
-  "creato": "YYYY-MM-DD",
-  "tappe": [
-    { "data": "YYYY-MM-DD", "descrizione": "string", "esito": "atteso | riuscito | fallito | saltato" }
-  ]
-}
-```
-Non esiste un campo `scadenza` a parte: è sempre la data dell'ultima tappa, calcolata dall'app (`scadenzaCalcolata()` in `useProgetti.js`) — non c'è nulla da impostare qui.
+Schema di riferimento per la tabella `progetti` su Supabase (vedi anche `src/composables/useProgetti.js` e `src/views/ProgettoView.vue`):
+- Colonne: `id` (UUID), `owner_id` (user id), `titolo` (string), `descrizione` (string, HTML semplice: solo `<p>`, `<b>`/`<strong>`, `<i>`/`<em>` — niente altri tag o attributi), `zona` (string libera, opzionale), `stato` (enum: "aperto" | "in_corso" | "completato" | "fallito" | "cancellato"), `creato` (YYYY-MM-DD)
+- Le tappe sono una tabella a parte (`tappe`), con foreign key `progetto_id` verso `progetti.id`, colonne: `id` (UUID), `progetto_id` (FK), `data` (YYYY-MM-DD), `descrizione` (string), `esito` (enum: "atteso" | "riuscito" | "fallito" | "saltato")
+- Non esiste un campo `scadenza` a parte nella tabella `progetti`: è sempre la data dell'ultima tappa, calcolata dall'app (`scadenzaCalcolata()` in `useProgetti.js`) — non c'è nulla da impostare qui.
 
 `descrizione` è mostrata in pagina come HTML (editata tramite `MiniEditor.vue`, lo stesso usato per zone/sottozone): usa un paragrafo `<p>...</p>` per blocco logico (contesto, piano per zona, motivazioni, lista acquisti, ecc.) invece di un unico blocco di testo con `\n\n` — non è testo semplice.
 
-1. **Se `progetto` è valorizzato**: leggi il record in `progetti.json`. Se la chiave non esiste più (rinominato o eliminato nel frattempo), dillo nella risposta e fermati per questa richiesta senza modificare nulla.
-2. **Se `progetto` è `null`**: crea una nuova chiave `progetto-<timestamp in ms>` con `titolo: r.titolo_progetto`, `stato: "aperto"`, `creato` impostato alla data di elaborazione (YYYY-MM-DD), `tappe: []` — poi procedi come al punto successivo.
+1. **Se `progetto` è valorizzato**: leggi il record con `execute_sql` (`select * from progetti where id = '<r.progetto>'`, progetto `ncuhhsvtjwcolhpdxbkt`). Se l'id non esiste più (rinominato o eliminato nel frattempo), dillo nella risposta e fermati per questa richiesta senza modificare nulla.
+2. **Se `progetto` è `null`**: crea un nuovo record nelle tabelle con `apply_migration` (`insert into progetti (owner_id, titolo, stato, creato) values (auth.uid(), '<r.titolo_progetto>', 'aperto', '<data elaborazione>')` — oppure recupera l'id dal risultato per usarlo nei passi successivi) — poi procedi come al punto successivo.
 3. Genera le tappe dal `messaggio`, usando la stessa logica botanica/agricola già in uso per il resto dell'app (categorizzazione per tipo di pianta/coltura, stagionalità del clima marchigiano):
    - Ogni tappa ha una data stimata **a partire dalla data della richiesta** (campo `creata` della richiesta, non da quando la stai elaborando tu), una descrizione concreta e azionabile (cosa aspettarsi o cosa controllare/fare), ed `esito: "atteso"`.
    - Genera un numero di tappe proporzionato alla complessità descritta: indicativamente 2-4 per un intervento semplice su una singola pianta (es. una talea: ripresa attesa, prime foglie nuove), fino a una decina per un progetto stagionale con più colture/fasi (semine, trapianti, raccolte).
    - Se il messaggio riporta anche qualcosa già fatto (es. "ho tagliato due talee ieri"), aggiungi anche quella come tappa con `esito: "riuscito"` e la data corretta (non "atteso"), invece di ometterla.
-4. **Se stai aggiungendo tappe a un progetto esistente**: non toccare le tappe già presenti (a meno che il messaggio non riporti esplicitamente un aggiornamento su una di esse, es. "la talea del progetto fittonia è marcita" — in quel caso aggiornane l'`esito` invece di aggiungerne una nuova identica). Aggiungi le nuove tappe generate e riordina l'intero array `tappe` per `data` crescente.
-5. Aggiorna `descrizione` solo se il progetto è nuovo (usa una sintesi ordinata del `messaggio`, non necessariamente verbatim) o se `descrizione` era vuota; se il progetto esisteva già con una descrizione, non sovrascriverla.
-6. `zona`: deducila dal messaggio se è chiaramente indicata (nome zona/sottozona coerente con le tabelle `zone`/`sottozone` su Supabase, o un riferimento generico tipo "orto", "soggiorno"); altrimenti lascia quella già presente (o `null` per un progetto nuovo senza indicazioni).
-7. Salva `progetti.json` nello stesso passaggio di `richieste-agente.json`.
+4. **Se stai aggiungendo tappe a un progetto esistente**: leggi le tappe già presenti con `execute_sql` (`select * from tappe where progetto_id = '<progetto_id>' order by data asc`). Non toccare le tappe già presenti (a meno che il messaggio non riporti esplicitamente un aggiornamento su una di esse, es. "la talea del progetto fittonia è marcita" — in quel caso aggiorna l'`esito` con `apply_migration` (`update tappe set esito = '...' where id = '...'`) invece di aggiungerne una nuova identica). Aggiungi le nuove tappe generate con `insert into tappe (progetto_id, data, descrizione, esito) values ...` e le tappe esistenti verranno già ordinate per `data` dalla query.
+5. Aggiorna `descrizione` solo se il progetto è nuovo (usa una sintesi ordinata del `messaggio`, non necessariamente verbatim) o se `descrizione` era vuota; se il progetto esisteva già con una descrizione, non sovrascriverla — applica le modifiche con `apply_migration` (`update progetti set descrizione = '...' where id = '<progetto_id>'`).
+6. `zona`: deducila dal messaggio se è chiaramente indicata (nome zona/sottozona coerente con le tabelle `zone`/`sottozone` su Supabase, o un riferimento generico tipo "orto", "soggiorno"); altrimenti lascia quella già presente (o `null` per un progetto nuovo senza indicazioni) — applica le modifiche con `apply_migration` (`update progetti set zona = '...' where id = '<progetto_id>'`).
+7. Applica tutte le modifiche alle tabelle `progetti` e `tappe` su Supabase nello stesso passaggio di `richieste-agente.json` (MCP `apply_migration`), raggruppandole in un'unica migration quando possibile per atomicità.
 8. Nella risposta, elenca in italiano le tappe generate (data + descrizione), e se hai creato un nuovo progetto dillo esplicitamente con un link concettuale a dove trovarlo ("nuovo progetto creato: <titolo>").
