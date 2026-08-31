@@ -99,13 +99,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useSupabase } from '@/composables/useSupabase'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
-const { saveJSON } = useApi()
+const supabase = useSupabase()
 
 const mostraForm = ref(false)
 const modificaId  = ref(null)
@@ -148,18 +148,23 @@ async function salva() {
   const nome = form.value.nome.trim()
   if (!nome || salvando.value) return
   salvando.value = true
-  const id = modificaId.value ?? `concime-${Date.now()}`
+  const riga = {
+    nome,
+    npk: { n: form.value.n || 0, p: form.value.p || 0, k: form.value.k || 0 },
+    descrizione: form.value.descrizione.trim() || null,
+    disponibile: form.value.disponibile,
+  }
   try {
-    const nuovi = await saveJSON('concimi.json', (correnti) => ({
-      ...(correnti ?? store.concimi),
-      [id]: {
-        nome,
-        npk: { n: form.value.n || 0, p: form.value.p || 0, k: form.value.k || 0 },
-        descrizione: form.value.descrizione.trim() || '',
-        disponibile: form.value.disponibile,
-      }
-    }))
-    store.concimi = nuovi
+    let id = modificaId.value
+    if (id) {
+      const { error } = await supabase.from('concimi').update(riga).eq('id', id)
+      if (error) throw error
+    } else {
+      const { data, error } = await supabase.from('concimi').insert(riga).select().single()
+      if (error) throw error
+      id = data.id
+    }
+    store.concimi = { ...store.concimi, [id]: riga }
     mostraForm.value = false
   } finally {
     salvando.value = false
@@ -169,13 +174,11 @@ async function salva() {
 async function toggleDisponibile(c) {
   if (salvandoDisponibile.value) return
   salvandoDisponibile.value = c.id
+  const disponibile = c.disponibile === false
   try {
-    const nuovi = await saveJSON('concimi.json', (correnti) => {
-      const base = { ...(correnti ?? store.concimi) }
-      base[c.id] = { ...base[c.id], disponibile: c.disponibile === false }
-      return base
-    })
-    store.concimi = nuovi
+    const { error } = await supabase.from('concimi').update({ disponibile }).eq('id', c.id)
+    if (error) throw error
+    store.concimi = { ...store.concimi, [c.id]: { ...store.concimi[c.id], disponibile } }
   } finally {
     salvandoDisponibile.value = null
   }
@@ -190,11 +193,10 @@ async function eliminaConcime() {
   eliminando.value = true
   const id = daEliminare.value
   try {
-    const nuovi = await saveJSON('concimi.json', (correnti) => {
-      const base = { ...(correnti ?? store.concimi) }
-      delete base[id]
-      return base
-    })
+    const { error } = await supabase.from('concimi').delete().eq('id', id)
+    if (error) throw error
+    const nuovi = { ...store.concimi }
+    delete nuovi[id]
     store.concimi = nuovi
     daEliminare.value = null
   } finally {
