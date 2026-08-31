@@ -19,6 +19,7 @@ const routes = [
   { path: '/agente',                    name: 'agente',         component: () => import('@/views/AgenteView.vue') },
   { path: '/gallery',                   name: 'gallery',        component: () => import('@/views/GalleryView.vue') },
   { path: '/account',                   name: 'account',        component: () => import('@/views/AccountView.vue') },
+  { path: '/impostazioni',              name: 'impostazioni',   component: () => import('@/views/SettingsView.vue') },
 ]
 
 const router = createRouter({
