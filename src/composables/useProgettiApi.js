@@ -12,9 +12,27 @@ export function useProgettiApi() {
   const supabase = useSupabase()
 
   // dati.tappe: array locale (form) con { id?, data, descrizione, esito }.
-  // Tappe senza id sono nuove (insert); quelle con id il cui contenuto è
-  // cambiato rispetto allo snapshot originale vengono aggiornate; quelle
-  // presenti nello snapshot ma assenti dall'array locale vengono eliminate.
+  // dati.tappeOriginali: snapshot delle tappe congelato nel momento in cui
+  // il chiamante ha caricato il form (NON lo stato corrente dello store —
+  // vedi sotto perché la differenza conta). Tappe senza id sono nuove
+  // (insert); quelle con id il cui contenuto è cambiato rispetto allo
+  // snapshot originale vengono aggiornate SOLO nei campi cambiati (patch
+  // parziale, non l'intera riga); quelle presenti nello snapshot ma assenti
+  // dall'array locale vengono eliminate.
+  //
+  // Perché il confronto usa dati.tappeOriginali (passato dal chiamante) e
+  // non store.progetti[id].tappe (letto qui al momento della chiamata): se
+  // lo store viene aggiornato tra l'apertura del form e il salvataggio (es.
+  // "Aggiorna" manuale nella StatusBar, o un refresh in un'altra scheda),
+  // confrontare con lo store corrente userebbe come "originale" un valore
+  // diverso da quello con cui il form è stato davvero popolato — un campo
+  // MAI toccato dall'utente risulterebbe "cambiato" solo perché il dato
+  // fresco differisce dal valore ancora visualizzato nel form, e la patch
+  // lo sovrascriverebbe con il valore stantio del form, cancellando in
+  // silenzio la scrittura concorrente. Confrontare con lo snapshot
+  // congelato al caricamento elimina il problema alla radice: un campo non
+  // toccato dall'utente non entra mai nella patch, qualunque cosa succeda
+  // nel frattempo allo store.
   async function salvaProgetto(id, dati, isNuova = false) {
     try {
       const riga = {
@@ -32,7 +50,7 @@ export function useProgettiApi() {
         if (error) throw error
       }
 
-      const originali = new Map((store.progetti?.[id]?.tappe ?? []).map(t => [t.id, t]))
+      const originali = new Map((dati.tappeOriginali ?? []).map(t => [t.id, t]))
       const localiConId = new Set((dati.tappe ?? []).filter(t => t.id).map(t => t.id))
 
       for (const [tappaId] of originali) {
