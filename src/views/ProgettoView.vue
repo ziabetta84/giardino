@@ -140,7 +140,7 @@
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useProgettiApi } from '@/composables/useProgettiApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
 import ModalConferma from '@/components/ModalConferma.vue'
 import MiniEditor from '@/components/MiniEditor.vue'
@@ -150,11 +150,12 @@ import Spinner from '@/components/Spinner.vue'
 const route  = useRoute()
 const router = useRouter()
 const store  = useDatiStore()
-const { saveJSON } = useApi()
+const progettiApi = useProgettiApi()
 
 const form = ref(null)
 const tappaApertaIndex = ref(null)
 const inserimentoIndex = ref(null)
+const tappeOriginali = ref([])
 const nuovaTappaInserimento = ref({ data: '', descrizione: '' })
 const salvando = ref(false)
 const errore = ref(null)
@@ -191,6 +192,7 @@ const scadenza = computed(() => form.value ? scadenzaCalcolata(form.value) : nul
 function caricaForm() {
   const p = store.progetti?.[route.params.id]
   form.value = p ? { ...p, tappe: (p.tappe || []).map(t => ({ ...t })) } : null
+  tappeOriginali.value = p ? (p.tappe || []).map(t => ({ ...t })) : []
   tappaApertaIndex.value = null
   inserimentoIndex.value = null
 }
@@ -233,20 +235,15 @@ async function salva() {
   errore.value = null
   const id = route.params.id
   try {
-    const nuovi = await saveJSON('progetti.json', (correnti) => ({
-      ...(correnti ?? store.progetti),
-      [id]: {
-        titolo: form.value.titolo.trim(),
-        descrizione: form.value.descrizione.trim() || null,
-        zona: form.value.zona.trim() || null,
-        stato: form.value.stato,
-        creato: form.value.creato,
-        tappe: form.value.tappe
-          .filter(t => t.data && t.descrizione.trim())
-          .map(t => ({ data: t.data, descrizione: t.descrizione.trim(), esito: t.esito || 'atteso' })),
-      }
-    }))
-    store.progetti = nuovi
+    await progettiApi.salvaProgetto(id, {
+      titolo: form.value.titolo.trim(),
+      descrizione: form.value.descrizione.trim() || null,
+      zona: form.value.zona.trim() || null,
+      stato: form.value.stato,
+      creato: form.value.creato,
+      tappe: form.value.tappe.filter(t => t.data && t.descrizione.trim()),
+      tappeOriginali: tappeOriginali.value,
+    }, false)
   } catch (e) {
     errore.value = e.message
   } finally {
@@ -258,12 +255,7 @@ async function eliminaProgetto() {
   eliminando.value = true
   const id = route.params.id
   try {
-    const nuovi = await saveJSON('progetti.json', (correnti) => {
-      const base = { ...(correnti ?? store.progetti) }
-      delete base[id]
-      return base
-    })
-    store.progetti = nuovi
+    await progettiApi.eliminaProgetto(id)
     router.push('/progetti')
   } finally {
     eliminando.value = false

@@ -118,8 +118,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
 import { usePianteApi } from '@/composables/usePianteApi'
+import { useProgettiApi } from '@/composables/useProgettiApi'
 import { valutaCura, stagione } from '@/composables/useCure'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
@@ -129,8 +129,8 @@ import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store    = useDatiStore()
-const { saveJSON } = useApi()
 const pianteApi = usePianteApi()
+const progettiApi = useProgettiApi()
 const salvando = ref(null)
 const salvandoGruppo = ref(null)
 const salvandoTappa = ref(null)
@@ -219,16 +219,7 @@ async function registraTappa(t) {
   if (salvandoTappa.value) return
   salvandoTappa.value = chiave
   try {
-    const nuovi = await saveJSON('progetti.json', (correnti) => {
-      const base = { ...(correnti ?? store.progetti) }
-      const progetto = base[t.progettoId]
-      if (!progetto?.tappe?.[t.indice]) return base
-      const tappe = [...progetto.tappe]
-      tappe[t.indice] = { ...tappe[t.indice], esito: 'riuscito' }
-      base[t.progettoId] = { ...progetto, tappe }
-      return base
-    })
-    store.progetti = nuovi
+    await progettiApi.registraTappa(t.tappa.id, 'riuscito')
   } finally {
     salvandoTappa.value = null
   }

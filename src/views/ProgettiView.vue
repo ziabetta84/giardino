@@ -69,14 +69,14 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
+import { useProgettiApi } from '@/composables/useProgettiApi'
 import { scadenzaCalcolata } from '@/composables/useProgetti'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
-const { saveJSON } = useApi()
+const progettiApi = useProgettiApi()
 
 const mostraForm = ref(false)
 const salvando   = ref(false)
@@ -122,20 +122,15 @@ function descrizioneBreve(p) {
 async function salvaProgetto() {
   if (!form.value.titolo.trim() || salvando.value) return
   salvando.value = true
-  const id = `progetto-${Date.now()}`
   try {
-    const nuovi = await saveJSON('progetti.json', (correnti) => ({
-      ...(correnti ?? store.progetti),
-      [id]: {
-        titolo: form.value.titolo.trim(),
-        descrizione: form.value.descrizione.trim() || null,
-        zona: form.value.zona.trim() || null,
-        stato: 'aperto',
-        creato: new Date().toISOString().split('T')[0],
-        tappe: [],
-      }
-    }))
-    store.progetti = nuovi
+    await progettiApi.salvaProgetto(null, {
+      titolo: form.value.titolo.trim(),
+      descrizione: form.value.descrizione.trim() || null,
+      zona: form.value.zona.trim() || null,
+      stato: 'aperto',
+      creato: new Date().toISOString().split('T')[0],
+      tappe: [],
+    }, true)
     mostraForm.value = false
     form.value = { titolo: '', descrizione: '', zona: '' }
   } finally {
