@@ -16,57 +16,69 @@ export function useProgettiApi() {
   // cambiato rispetto allo snapshot originale vengono aggiornate; quelle
   // presenti nello snapshot ma assenti dall'array locale vengono eliminate.
   async function salvaProgetto(id, dati, isNuova = false) {
-    const riga = {
-      titolo: dati.titolo, descrizione: dati.descrizione || null,
-      zona: dati.zona || null, stato: dati.stato, creato: dati.creato,
-    }
+    try {
+      const riga = {
+        titolo: dati.titolo, descrizione: dati.descrizione || null,
+        zona: dati.zona || null, stato: dati.stato, creato: dati.creato,
+      }
 
-    let progettoId = id
-    if (isNuova) {
-      const { data, error } = await supabase.from('progetti').insert(riga).select().single()
-      if (error) throw error
-      progettoId = data.id
-    } else {
-      const { error } = await supabase.from('progetti').update(riga).eq('id', id)
-      if (error) throw error
-    }
-
-    const originali = new Map((store.progetti?.[id]?.tappe ?? []).map(t => [t.id, t]))
-    const localiConId = new Set((dati.tappe ?? []).filter(t => t.id).map(t => t.id))
-
-    for (const [tappaId] of originali) {
-      if (!localiConId.has(tappaId)) {
-        const { error } = await supabase.from('tappe').delete().eq('id', tappaId)
+      let progettoId = id
+      if (isNuova) {
+        const { data, error } = await supabase.from('progetti').insert(riga).select().single()
+        if (error) throw error
+        progettoId = data.id
+      } else {
+        const { error } = await supabase.from('progetti').update(riga).eq('id', id)
         if (error) throw error
       }
-    }
 
-    const tappeFinali = []
-    for (const t of (dati.tappe ?? [])) {
-      const rigaTappa = { data: t.data, descrizione: t.descrizione.trim(), esito: t.esito || 'atteso' }
-      if (t.id) {
-        const originale = originali.get(t.id)
-        const cambiata = !originale || originale.data !== rigaTappa.data
-          || originale.descrizione !== rigaTappa.descrizione || originale.esito !== rigaTappa.esito
-        if (cambiata) {
-          const { error } = await supabase.from('tappe').update(rigaTappa).eq('id', t.id)
+      const originali = new Map((store.progetti?.[id]?.tappe ?? []).map(t => [t.id, t]))
+      const localiConId = new Set((dati.tappe ?? []).filter(t => t.id).map(t => t.id))
+
+      for (const [tappaId] of originali) {
+        if (!localiConId.has(tappaId)) {
+          const { error } = await supabase.from('tappe').delete().eq('id', tappaId)
           if (error) throw error
         }
-        tappeFinali.push({ id: t.id, ...rigaTappa })
-      } else {
-        const { data, error } = await supabase.from('tappe')
-          .insert({ ...rigaTappa, progetto_id: progettoId }).select().single()
-        if (error) throw error
-        tappeFinali.push({ id: data.id, ...rigaTappa })
       }
-    }
-    tappeFinali.sort((a, b) => (a.data || '').localeCompare(b.data || ''))
 
-    store.progetti = {
-      ...store.progetti,
-      [progettoId]: { ...riga, tappe: tappeFinali },
+      const tappeFinali = []
+      for (const t of (dati.tappe ?? [])) {
+        const rigaTappa = { data: t.data, descrizione: t.descrizione.trim(), esito: t.esito || 'atteso' }
+        if (t.id) {
+          const originale = originali.get(t.id)
+          const patch = {}
+          if (!originale || originale.data !== rigaTappa.data) patch.data = rigaTappa.data
+          if (!originale || originale.descrizione !== rigaTappa.descrizione) patch.descrizione = rigaTappa.descrizione
+          if (!originale || originale.esito !== rigaTappa.esito) patch.esito = rigaTappa.esito
+          if (Object.keys(patch).length) {
+            const { error } = await supabase.from('tappe').update(patch).eq('id', t.id)
+            if (error) throw error
+          }
+          tappeFinali.push({
+            id: t.id,
+            data: 'data' in patch ? patch.data : originale.data,
+            descrizione: 'descrizione' in patch ? patch.descrizione : originale.descrizione,
+            esito: 'esito' in patch ? patch.esito : originale.esito,
+          })
+        } else {
+          const { data, error } = await supabase.from('tappe')
+            .insert({ ...rigaTappa, progetto_id: progettoId }).select().single()
+          if (error) throw error
+          tappeFinali.push({ id: data.id, ...rigaTappa })
+        }
+      }
+      tappeFinali.sort((a, b) => (a.data || '').localeCompare(b.data || ''))
+
+      store.progetti = {
+        ...store.progetti,
+        [progettoId]: { ...riga, tappe: tappeFinali },
+      }
+      return progettoId
+    } catch (e) {
+      await store.aggiorna()
+      throw e
     }
-    return progettoId
   }
 
   async function eliminaProgetto(id) {
