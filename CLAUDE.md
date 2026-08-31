@@ -23,7 +23,7 @@ src/
 ├── main.js                  ← bootstrap Vue + Pinia + Router
 ├── App.vue                  ← layout globale (NavBar, BottomNav, StatusBar, banner token)
 ├── router/index.js          ← route con createWebHashHistory (necessario per gh-pages)
-├── stores/dati.js           ← Pinia store: carica specie/zone/sottozone/piante da Supabase e i JSON residui una volta sola
+├── stores/dati.js           ← Pinia store: carica specie/zone/sottozone/piante/progetti/tappe/concimi/settings da Supabase e richieste-agente.json (unico residuo JSON) una volta sola
 ├── composables/
 │   ├── useApi.js            ← GitHub API: saveJSON(), uploadFile(), token management
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
@@ -34,11 +34,14 @@ src/
 │   ├── useRepoStatus.js / useAppUpdate.js ← confronto build corrente vs ultimo commit main + banner update PWA (StatusBar.vue)
 │   ├── useSupabase.js       ← client Supabase (specie, zone/sottozone/piante, in lettura/scrittura, vedi sotto)
 │   ├── usePianteApi.js      ← CRUD piante su Supabase (creazione/modifica/eliminazione, cure, rinomina specie a cascata; Fase 5)
+│   ├── useProgettiApi.js    ← CRUD progetti/tappe su Supabase (salvaProgetto riconcilia l'intero form, registraTappa aggiorna una singola tappa; completamento Fase 5)
+│   ├── useSettingsApi.js    ← lettura/scrittura riga settings singola per utente su Supabase (completamento Fase 5)
+│   ├── useZonaClimatica.js  ← euristica lat/lon/altitudine → codice zona climatica, usata da useSettingsApi al primo salvataggio
 │   └── useAuth.js           ← sessione Supabase Auth (Fase 4 migrazione, vedi sotto)
 ├── components/
 │   ├── PiantaRiga.vue       ← riga pianta riutilizzabile (usata in PianteView)
 │   └── ModalConferma.vue    ← dialog eliminazione generico
-└── views/                   ← una view per route (incl. AccountView.vue, login/registrazione)
+└── views/                   ← una view per route (incl. AccountView.vue, login/registrazione; SettingsView.vue per `/impostazioni`)
 public/data/                 ← JSON letti a runtime dal frontend
 docs/                        ← vecchio sito Jekyll (non più attivo)
 docs/gallery/piante/         ← foto piante organizzate per {id-pianta}/
@@ -74,6 +77,8 @@ Lo store (`stores/dati.js → caricaTutto()`) ricostruisce comunque la stessa fo
 
 Offline: la cache del service worker (Workbox, `vite.config.js`) copre anche il dominio REST di Supabase (`NetworkFirst`), sostituendo il vecchio fallback su file statici per queste tre entità. La cache viene svuotata al logout (`useAuth.js`) per evitare che un device condiviso mostri offline i dati dell'utente precedente.
 
+Verificata a mano nel browser dopo l'implementazione (creazione/modifica/eliminazione di zone/sottozone/piante, rinomina specie a cascata, registrazione cure singola e bulk, blocco eliminazione zona con piante). La verifica ha trovato e corretto due problemi non emersi dalla sola lettura del codice: `ZoneView.vue`/`SottozoneView.vue` non avevano un pulsante per eliminare (la logica c'era già per le zone, mancava del tutto per le sottozone); e `App.vue` ricaricava lo store due volte a ogni apertura dell'app già autenticata (il watch sul cambio utente si registrava prima che la sessione fosse risolta, vedendo la sua prima risoluzione come un cambio utente).
+
 ### Completamento Fase 5: progetti/tappe, settings, concimi → Supabase
 
 Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con RLS reale per utente (`owner_id = auth.uid()`), stesso pattern di zone/sottozone/piante. `tappe` è una tabella a sé (non un campo jsonb dentro `progetti`): `ProgettoView.vue` riconcilia l'intero form (insert/update/delete mirati per tappa, via `useProgettiApi.js`), mentre `AttivitaView.vue` aggiorna una singola tappa per id (`registraTappa`) — un campo jsonb condiviso tra questi due percorsi di scrittura avrebbe perso silenziosamente le modifiche concorrenti, una tabella con una riga per tappa lo evita per costruzione.
@@ -83,8 +88,6 @@ Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con 
 `cure_log` come tabella a parte e uno script di importazione per `coltivazione` erano nello scope originale della issue #122 ma sono stati chiusi come già soddisfatti: `piante.ultima_cura` (jsonb, solo l'ultima cura per tipo) copre l'unico uso reale oggi (calcolo urgenze), e `piante.coltivato_in` (vaso/terra/acqua) è lo stesso campo già descritto con un altro nome.
 
 `richieste-agente.json` resta l'unico dato ancora su GitHub/JSON senza scoping per utente — legato al comando `/elabora`, eseguito manualmente, va ridiscusso a parte in un round futuro.
-
-Verificata a mano nel browser dopo l'implementazione (creazione/modifica/eliminazione di zone/sottozone/piante, rinomina specie a cascata, registrazione cure singola e bulk, blocco eliminazione zona con piante). La verifica ha trovato e corretto due problemi non emersi dalla sola lettura del codice: `ZoneView.vue`/`SottozoneView.vue` non avevano un pulsante per eliminare (la logica c'era già per le zone, mancava del tutto per le sottozone); e `App.vue` ricaricava lo store due volte a ogni apertura dell'app già autenticata (il watch sul cambio utente si registrava prima che la sessione fosse risolta, vedendo la sua prima risoluzione come un cambio utente).
 
 ### Autenticazione utente (Fase 4 migrazione Supabase, avviata)
 

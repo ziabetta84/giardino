@@ -172,7 +172,7 @@ const homeCards = computed(() => [
 onMounted(async () => {
   await store.caricaTutto()
   const s = store.settings
-  caricaMeteo(s?.lat ?? 43.8309, s?.lon ?? 12.9860)
+  caricaMeteo(s?.location?.lat ?? 43.8309, s?.location?.lon ?? 12.9860)
 })
 </script>
 
