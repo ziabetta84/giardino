@@ -63,12 +63,13 @@ export function mappaSpecie(righe) {
   )
 }
 
-// Campi di "cura/conoscenza" che un cultivar eredita dalla specie madre
-// quando non ha un proprio dato (la stragrande maggioranza: i ~196k
-// cultivar importati da RHS hanno solo il nome, vedi issue #153) — non i
-// campi identitari (nome, slug, nome_scientifico, famiglia), quelli restano
-// sempre del cultivar stesso anche quando eredita tutto il resto.
-const CAMPI_EREDITABILI = ['descrizione', 'esigenze', 'alert', 'manutenzione', 'coltivazione', 'vaso', 'ciclo_vitale']
+// Campi di "cura/conoscenza" (+ immagine hero) che un cultivar eredita
+// dalla specie madre quando non ha un proprio dato (la stragrande
+// maggioranza: i ~196k cultivar importati da RHS hanno solo il nome,
+// vedi issue #153) — non i campi identitari (nome, slug, nome_scientifico,
+// famiglia), quelli restano sempre del cultivar stesso anche quando
+// eredita tutto il resto.
+const CAMPI_EREDITABILI = ['descrizione', 'esigenze', 'alert', 'manutenzione', 'coltivazione', 'vaso', 'ciclo_vitale', 'immagine']
 
 function campoVuoto(v) {
   if (v == null) return true
