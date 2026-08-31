@@ -441,61 +441,99 @@ export function useProgettiApi() {
   const supabase = useSupabase()
 
   // dati.tappe: array locale (form) con { id?, data, descrizione, esito }.
-  // Tappe senza id sono nuove (insert); quelle con id il cui contenuto è
-  // cambiato rispetto allo snapshot originale vengono aggiornate; quelle
-  // presenti nello snapshot ma assenti dall'array locale vengono eliminate.
+  // dati.tappeOriginali: snapshot delle tappe congelato nel momento in cui
+  // il chiamante ha caricato il form (NON lo stato corrente dello store —
+  // vedi sotto perché la differenza conta). Tappe senza id sono nuove
+  // (insert); quelle con id il cui contenuto è cambiato rispetto allo
+  // snapshot originale vengono aggiornate SOLO nei campi cambiati (patch
+  // parziale, non l'intera riga); quelle presenti nello snapshot ma assenti
+  // dall'array locale vengono eliminate.
+  //
+  // Perché il confronto usa dati.tappeOriginali (passato dal chiamante) e
+  // non store.progetti[id].tappe (letto qui al momento della chiamata): se
+  // lo store viene aggiornato tra l'apertura del form e il salvataggio (es.
+  // "Aggiorna" manuale nella StatusBar, o un refresh in un'altra scheda),
+  // confrontare con lo store corrente userebbe come "originale" un valore
+  // diverso da quello con cui il form è stato davvero popolato — un campo
+  // MAI toccato dall'utente risulterebbe "cambiato" solo perché il dato
+  // fresco differisce dal valore ancora visualizzato nel form, e la patch
+  // lo sovrascriverebbe con il valore stantio del form, cancellando in
+  // silenzio la scrittura concorrente. Confrontare con lo snapshot
+  // congelato al caricamento elimina il problema alla radice: un campo non
+  // toccato dall'utente non entra mai nella patch, qualunque cosa succeda
+  // nel frattempo allo store.
   async function salvaProgetto(id, dati, isNuova = false) {
-    const riga = {
-      titolo: dati.titolo, descrizione: dati.descrizione || null,
-      zona: dati.zona || null, stato: dati.stato, creato: dati.creato,
-    }
+    try {
+      const riga = {
+        titolo: dati.titolo, descrizione: dati.descrizione || null,
+        zona: dati.zona || null, stato: dati.stato, creato: dati.creato,
+      }
 
-    let progettoId = id
-    if (isNuova) {
-      const { data, error } = await supabase.from('progetti').insert(riga).select().single()
-      if (error) throw error
-      progettoId = data.id
-    } else {
-      const { error } = await supabase.from('progetti').update(riga).eq('id', id)
-      if (error) throw error
-    }
-
-    const originali = new Map((store.progetti?.[id]?.tappe ?? []).map(t => [t.id, t]))
-    const localiConId = new Set((dati.tappe ?? []).filter(t => t.id).map(t => t.id))
-
-    for (const [tappaId] of originali) {
-      if (!localiConId.has(tappaId)) {
-        const { error } = await supabase.from('tappe').delete().eq('id', tappaId)
+      let progettoId = id
+      if (isNuova) {
+        const { data, error } = await supabase.from('progetti').insert(riga).select().single()
+        if (error) throw error
+        progettoId = data.id
+      } else {
+        const { error } = await supabase.from('progetti').update(riga).eq('id', id)
         if (error) throw error
       }
-    }
 
-    const tappeFinali = []
-    for (const t of (dati.tappe ?? [])) {
-      const rigaTappa = { data: t.data, descrizione: t.descrizione.trim(), esito: t.esito || 'atteso' }
-      if (t.id) {
-        const originale = originali.get(t.id)
-        const cambiata = !originale || originale.data !== rigaTappa.data
-          || originale.descrizione !== rigaTappa.descrizione || originale.esito !== rigaTappa.esito
-        if (cambiata) {
-          const { error } = await supabase.from('tappe').update(rigaTappa).eq('id', t.id)
+      const originali = new Map((dati.tappeOriginali ?? []).map(t => [t.id, t]))
+      const localiConId = new Set((dati.tappe ?? []).filter(t => t.id).map(t => t.id))
+
+      for (const [tappaId] of originali) {
+        if (!localiConId.has(tappaId)) {
+          const { error } = await supabase.from('tappe').delete().eq('id', tappaId)
           if (error) throw error
         }
-        tappeFinali.push({ id: t.id, ...rigaTappa })
-      } else {
-        const { data, error } = await supabase.from('tappe')
-          .insert({ ...rigaTappa, progetto_id: progettoId }).select().single()
-        if (error) throw error
-        tappeFinali.push({ id: data.id, ...rigaTappa })
       }
-    }
-    tappeFinali.sort((a, b) => (a.data || '').localeCompare(b.data || ''))
 
-    store.progetti = {
-      ...store.progetti,
-      [progettoId]: { ...riga, tappe: tappeFinali },
+      const tappeFinali = []
+      for (const t of (dati.tappe ?? [])) {
+        const rigaTappa = { data: t.data, descrizione: t.descrizione.trim(), esito: t.esito || 'atteso' }
+        if (t.id) {
+          const originale = originali.get(t.id)
+          const patch = {}
+          if (!originale || originale.data !== rigaTappa.data) patch.data = rigaTappa.data
+          if (!originale || originale.descrizione !== rigaTappa.descrizione) patch.descrizione = rigaTappa.descrizione
+          if (!originale || originale.esito !== rigaTappa.esito) patch.esito = rigaTappa.esito
+          if (Object.keys(patch).length) {
+            const { error } = await supabase.from('tappe').update(patch).eq('id', t.id)
+            if (error) throw error
+          }
+          // Il valore finale usa la patch dove presente, altrimenti il
+          // valore originale (mai il valore stantio del form): se il campo
+          // non è stato toccato, lo store deve riflettere ciò che è
+          // davvero nel DB, non ciò che il form mostrava.
+          tappeFinali.push({
+            id: t.id,
+            data: 'data' in patch ? patch.data : originale.data,
+            descrizione: 'descrizione' in patch ? patch.descrizione : originale.descrizione,
+            esito: 'esito' in patch ? patch.esito : originale.esito,
+          })
+        } else {
+          const { data, error } = await supabase.from('tappe')
+            .insert({ ...rigaTappa, progetto_id: progettoId }).select().single()
+          if (error) throw error
+          tappeFinali.push({ id: data.id, ...rigaTappa })
+        }
+      }
+      tappeFinali.sort((a, b) => (a.data || '').localeCompare(b.data || ''))
+
+      store.progetti = {
+        ...store.progetti,
+        [progettoId]: { ...riga, tappe: tappeFinali },
+      }
+      return progettoId
+    } catch (e) {
+      // Un errore a metà riconciliazione può lasciare il DB parzialmente
+      // aggiornato mentre lo store resta fermo allo stato pre-salvataggio:
+      // risincronizza dal DB invece di lasciare uno stato incoerente, poi
+      // rilancia l'errore originale perché il chiamante lo mostri comunque.
+      await store.aggiorna()
+      throw e
     }
-    return progettoId
   }
 
   async function eliminaProgetto(id) {
@@ -618,6 +656,26 @@ const progettiApi = useProgettiApi()
 
 al posto di `const { saveJSON } = useApi()`.
 
+Aggiungi un nuovo `ref` accanto agli altri (`form`, `tappaApertaIndex`, ecc.):
+
+```js
+const tappeOriginali = ref([])
+```
+
+Poi, in `caricaForm()`, aggiungi la valorizzazione di `tappeOriginali` **subito dopo** la riga che imposta `form.value` (stessa funzione, non una nuova — deve restare sincronizzata con `form.value` a ogni sua esecuzione, incluse le riesecuzioni innescate dal `watch` su `store.progetti`):
+
+```js
+function caricaForm() {
+  const p = store.progetti?.[route.params.id]
+  form.value = p ? { ...p, tappe: (p.tappe || []).map(t => ({ ...t })) } : null
+  tappeOriginali.value = p ? (p.tappe || []).map(t => ({ ...t })) : []
+  tappaApertaIndex.value = null
+  inserimentoIndex.value = null
+}
+```
+
+**Perché:** `useProgettiApi.salvaProgetto` confronta `dati.tappe` (il form) con `dati.tappeOriginali` per capire quali campi sono stati davvero toccati dall'utente, e scrive solo quelli. Se `tappeOriginali` venisse letto da `store.progetti` al momento del salvataggio invece che dallo snapshot con cui il form è stato popolato, un aggiornamento allo store avvenuto nel frattempo (es. "Aggiorna" nella StatusBar, sempre cliccabile anche con il form aperto) farebbe risultare "cambiato" un campo mai toccato dall'utente, sovrascrivendolo col valore ormai stantio del form — vedi il commento sopra `salvaProgetto` in `useProgettiApi.js` per il dettaglio. Tenendo `tappeOriginali` sincronizzato con `form.value` nello stesso punto (`caricaForm`), i due restano sempre coerenti tra loro qualunque cosa succeda allo store nel frattempo.
+
 Sostituisci `salva()`:
 
 ```js
@@ -634,6 +692,7 @@ async function salva() {
       stato: form.value.stato,
       creato: form.value.creato,
       tappe: form.value.tappe.filter(t => t.data && t.descrizione.trim()),
+      tappeOriginali: tappeOriginali.value,
     }, false)
   } catch (e) {
     errore.value = e.message
