@@ -5,8 +5,8 @@
     <div class="card" style="padding:18px;margin-bottom:12px;">
       <p class="section-label" style="margin-bottom:10px;">Posizione</p>
       <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <input v-model.number="form.lat" type="number" step="0.0001" placeholder="Latitudine" class="form-input">
-        <input v-model.number="form.lon" type="number" step="0.0001" placeholder="Longitudine" class="form-input">
+        <input v-model.number="form.lat" type="number" placeholder="Latitudine" class="form-input">
+        <input v-model.number="form.lon" type="number" placeholder="Longitudine" class="form-input">
       </div>
       <input v-model.number="form.altitude" type="number" placeholder="Altitudine (m)" class="form-input">
     </div>
