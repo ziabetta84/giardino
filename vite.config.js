@@ -99,5 +99,18 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  // Senza questo, all'avvio il dev server cerca gli entry con il glob di
+  // default `**/*.html` su tutta la cartella: `fonti/rhs_from_sitemaps/`
+  // contiene ~304k pagine HTML scaricate (import sitemap RHS), esbuild le
+  // scandaglia tutte e il processo va in OOM ("scanning dependencies...").
+  // L'unico vero entry dell'app è index.html.
+  optimizeDeps: {
+    entries: ['index.html'],
+  },
+  server: {
+    watch: {
+      ignored: ['**/fonti/**', '**/backups/**', '**/scripts/**', '**/dist/**', '**/docs/**'],
+    },
+  },
 })
