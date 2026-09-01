@@ -32,7 +32,7 @@
           <Icon name="matita" style="width:12px;height:12px;" />Modifica
         </RouterLink>
         <div class="plant-hero-text">
-          <span class="zone-chip">{{ pianta.sottozona ? `${pianta.zona} · ${pianta.sottozona}` : pianta.zona }}</span>
+          <span class="zone-chip" style="display:inline-flex;align-items:center;gap:5px;"><Icon :name="store.iconaZona(pianta.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ pianta.sottozona ? `${pianta.zona} · ${pianta.sottozona}` : pianta.zona }}</span>
           <h1 class="plant-hero-title title-settle">{{ specie?.nome ?? pianta.specie }}</h1>
           <p class="plant-hero-lat">
             {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
@@ -55,8 +55,8 @@
             {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
           </p>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
-            <span class="badge badge-gold">{{ pianta.zona }}</span>
-            <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ pianta.sottozona }}</span>
+            <span class="badge badge-gold" style="display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaZona(pianta.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ pianta.zona }}</span>
+            <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaSottozona(pianta.zona, pianta.sottozona)" style="width:12px;height:12px;flex-shrink:0;" />{{ pianta.sottozona }}</span>
             <span v-if="pianta.coltivato_in" class="badge" :title="labelColtivatoIn(pianta.coltivato_in)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;background:var(--gold-pale);color:var(--gold-dark);"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" style="width:13px;height:13px;display:block;" /></span>
           </div>
         </div>

@@ -1,8 +1,8 @@
 <template>
   <div style="margin-bottom:16px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;padding:0 2px;">
-      <span style="font-size:12px;font-weight:600;color:var(--ink-soft);">
-        {{ etichettaZona }} ({{ gruppo.items.length }})
+      <span style="font-size:12px;font-weight:600;color:var(--ink-soft);display:inline-flex;align-items:center;gap:5px;">
+        <Icon :name="store.iconaZona(gruppo.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ etichettaZona }} ({{ gruppo.items.length }})
       </span>
       <button @click="$emit('registraGruppo', gruppo)" :disabled="salvandoGruppo === gruppo.chiave"
         :class="['btn', variante === 'urgente' ? 'btn-rose' : 'btn-ghost']"
@@ -26,8 +26,10 @@
 
 <script setup>
 import { computed } from 'vue'
+import { useDatiStore } from '@/stores/dati'
 import AttivitaRiga from './AttivitaRiga.vue'
 import Spinner from './Spinner.vue'
+import Icon from './Icon.vue'
 
 const props = defineProps({
   gruppo: { type: Object, required: true },
@@ -36,6 +38,8 @@ const props = defineProps({
   salvandoGruppo: { type: String, default: null },
 })
 defineEmits(['registra', 'registraGruppo'])
+
+const store = useDatiStore()
 
 const etichettaZona = computed(() =>
   props.gruppo.sottozona ? `${props.gruppo.zona} – ${props.gruppo.sottozona}` : props.gruppo.zona

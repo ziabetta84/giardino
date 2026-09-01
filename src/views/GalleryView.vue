@@ -37,7 +37,7 @@
                 style="font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                 {{ g.nomeSpecie }}
               </RouterLink>
-              <span v-if="g.zona" class="badge badge-gold" style="flex-shrink:0;">{{ g.zona }}</span>
+              <span v-if="g.zona" class="badge badge-gold" style="flex-shrink:0;display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaZona(g.zona)" style="width:11px;height:11px;flex-shrink:0;" />{{ g.zona }}</span>
             </div>
             <span style="font-size:11px;color:var(--ink-faint);flex-shrink:0;margin-left:8px;">{{ g.foto.length }} foto</span>
           </div>

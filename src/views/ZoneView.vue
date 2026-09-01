@@ -32,7 +32,10 @@
 
     <div v-else class="zone-grid">
       <div v-for="z in zoneList" :key="z.key" class="card hover-card" style="padding:18px;min-width:0;">
-        <div style="display:flex;align-items:center;justify-content:flex-end;margin-bottom:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--acqua-tile);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <Icon :name="z.icona ? `zona-${z.icona}` : 'pin'" style="width:18px;height:18px;" />
+          </div>
           <span class="badge badge-gold">{{ contaPiante(z.key) }} piante</span>
         </div>
         <h3 class="title-display" style="font-size:16px;font-weight:600;text-transform:capitalize;margin-bottom:4px;">

@@ -27,7 +27,7 @@
           </div>
           <div v-if="p.zona || scadenzaCalcolata(p)" style="display:flex;gap:10px;margin-top:10px;">
             <span v-if="p.zona" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);">
-              <Icon name="pin" style="width:11px;height:11px;flex-shrink:0;" />{{ p.zona }}
+              <Icon :name="store.iconaZona(p.zona)" style="width:11px;height:11px;flex-shrink:0;" />{{ p.zona }}
             </span>
             <span v-if="scadenzaCalcolata(p)" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);">
               <Icon name="bandiera" style="width:11px;height:11px;flex-shrink:0;" />{{ formatData(scadenzaCalcolata(p)) }}

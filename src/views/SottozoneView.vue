@@ -28,7 +28,9 @@
     <div v-else style="display:flex;flex-direction:column;gap:10px;">
       <div v-for="sz in sottozone" :key="sz.nome" class="card" style="padding:16px;">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;">
-          <h3 class="title-serif" style="font-size:15px;font-weight:600;">{{ sz.nome }}</h3>
+          <h3 class="title-serif" style="font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;">
+            <Icon :name="sz.icona ? `zona-${sz.icona}` : 'pin'" style="width:16px;height:16px;flex-shrink:0;" />{{ sz.nome }}
+          </h3>
           <div style="display:flex;gap:8px;align-items:center;">
             <span v-if="sz.tipo" class="badge" :style="sz.tipo === 'interno' ? 'background:var(--sage-pale);color:var(--sage-dark);' : 'background:var(--gold-pale);color:var(--gold-dark);'">
               {{ sz.tipo }}
@@ -58,6 +60,14 @@
             <option value="esterno">Esterno</option>
             <option value="interno">Interno</option>
           </select>
+          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Icona</label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;margin-bottom:16px;">
+            <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
+              :class="{ active: form.icona === nome }"
+              @click="form.icona = form.icona === nome ? null : nome">
+              <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
+            </button>
+          </div>
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esposizione</label>
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
             <label v-for="dir in ['nord','sud','est','ovest']" :key="dir"
@@ -93,6 +103,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
+import { ICONE_ZONA } from '@/composables/useIconeZona'
 import MiniEditor from '@/components/MiniEditor.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
@@ -105,7 +116,7 @@ const supabase = useSupabase()
 const mostraForm = ref(false)
 const salvando   = ref(false)
 const errore     = ref(null)
-const form = ref({ nome: '', descrizione: '', tipo: 'esterno', esposizione: [] })
+const form = ref({ nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null })
 const daEliminare  = ref(null)
 const eliminando   = ref(false)
 const erroreEliminazione = ref(null)
@@ -128,14 +139,14 @@ function descrizioneBreve(sz) {
 
 function apriNuovo() {
   modificaOriginale.value = null
-  form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [] }
+  form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null }
   errore.value = null
   mostraForm.value = true
 }
 
 function apriModifica(sz) {
   modificaOriginale.value = sz.nome
-  form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', esposizione: sz.esposizione ? [...sz.esposizione] : [] }
+  form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', esposizione: sz.esposizione ? [...sz.esposizione] : [], icona: sz.icona ?? null }
   errore.value = null
   mostraForm.value = true
 }
@@ -143,7 +154,7 @@ function apriModifica(sz) {
 function chiudiForm() {
   mostraForm.value = false
   modificaOriginale.value = null
-  form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [] }
+  form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null }
   errore.value = null
 }
 
@@ -170,6 +181,7 @@ async function salva() {
       descrizione: form.value.descrizione.trim() || '',
       tipo:        form.value.tipo,
       esposizione: form.value.esposizione,
+      icona:       form.value.icona,
     }
 
     let salvata
@@ -192,6 +204,7 @@ async function salva() {
       id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
       esposizione: salvata.esposizione, microclima: salvata.microclima,
       criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
+      icona: salvata.icona,
     }
     nuove[route.params.zona] = sottozoneZona
     store.sottozone = nuove

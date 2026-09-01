@@ -16,8 +16,8 @@
       <div v-if="pianta.varieta" class="title-serif" style="font-size:11px;color:var(--ink-faint);font-style:italic;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
         {{ pianta.varieta }}
       </div>
-      <div class="text-light" style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
-        {{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}
+      <div class="text-light" style="font-size:11px;color:var(--ink-soft);margin-top:2px;display:flex;align-items:center;gap:4px;">
+        <Icon :name="store.iconaZona(pianta.zona)" style="width:11px;height:11px;flex-shrink:0;" /><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
       </div>
       <div v-if="urgente && cureUrgenti.length" style="font-size:11px;color:var(--rose-dark);margin-top:3px;font-weight:500;">
         {{ cureUrgenti.map(c => c.label).join(' · ') }}

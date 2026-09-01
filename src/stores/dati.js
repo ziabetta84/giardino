@@ -165,6 +165,7 @@ export function mappaZone(righeZone) {
     criticita: z.criticita,
     manutenzione: z.manutenzione,
     tipo: z.tipo,
+    icona: z.icona,
   }]))
 }
 
@@ -183,6 +184,7 @@ export function mappaSottozone(righeSottozone, zonaNomePerId) {
       criticita: sz.criticita,
       manutenzione: sz.manutenzione,
       tipo: sz.tipo,
+      icona: sz.icona,
     }
   }
   return risultato
@@ -316,5 +318,19 @@ export const useDatiStore = defineStore('dati', () => {
     await caricaTutto()
   }
 
-  return { piante, specie, zone, sottozone, progetti, settings, concimi, meteo, loading, errore, caricaTutto, aggiorna }
+  // Nome <Icon> dell'icona associata a una zona / sottozona (per nome).
+  // Ritorna già il nome pronto per <Icon> con prefisso "zona-", oppure "pin"
+  // come fallback (stesso comportamento delle card di ZoneView/SottozoneView),
+  // così le view che mostrano il nome di una zona possono anteporvi l'icona
+  // senza ripetere la logica.
+  function iconaZona(nome) {
+    const slug = zone.value?.[nome]?.icona
+    return slug ? `zona-${slug}` : 'pin'
+  }
+  function iconaSottozona(zonaNome, szNome) {
+    const slug = (sottozone.value?.[zonaNome] ?? []).find(s => s.nome === szNome)?.icona
+    return slug ? `zona-${slug}` : 'pin'
+  }
+
+  return { piante, specie, zone, sottozone, progetti, settings, concimi, meteo, loading, errore, caricaTutto, aggiorna, iconaZona, iconaSottozona }
 })

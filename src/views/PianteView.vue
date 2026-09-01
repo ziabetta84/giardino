@@ -15,8 +15,9 @@
     <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:12px;margin-bottom:8px;" class="no-scroll">
       <button v-for="z in filtriZona" :key="z.key"
         class="pill" :class="{ active: filtroZona === z.key }"
-        @click="selezionaZona(z.key)">
-        {{ z.label }}
+        @click="selezionaZona(z.key)"
+        :style="z.key !== 'tutte' ? 'display:inline-flex;align-items:center;gap:5px;' : ''">
+        <Icon v-if="z.key !== 'tutte'" :name="store.iconaZona(z.key)" style="width:13px;height:13px;flex-shrink:0;" />{{ z.label }}
       </button>
     </div>
 
@@ -25,8 +26,8 @@
       <button v-for="s in filtriSottozona" :key="s"
         class="pill" :class="{ active: filtroSottozona === s }"
         @click="filtroSottozona = s"
-        style="font-size:12px;">
-        {{ s === 'tutte' ? 'Tutte' : s }}
+        :style="s !== 'tutte' ? 'font-size:12px;display:inline-flex;align-items:center;gap:5px;' : 'font-size:12px;'">
+        <Icon v-if="s !== 'tutte'" :name="store.iconaSottozona(filtroZona, s)" style="width:12px;height:12px;flex-shrink:0;" />{{ s === 'tutte' ? 'Tutte' : s }}
       </button>
     </div>
 

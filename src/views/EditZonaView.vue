@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="zona-edit-wide">
     <RouterLink to="/zone" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
       ← Zone
     </RouterLink>
@@ -22,6 +22,15 @@
           <option value="esterno">Esterno</option>
           <option value="interno">Interno</option>
         </select>
+
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 6px;">Icona</label>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;">
+          <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
+            :class="{ active: form.icona === nome }"
+            @click="form.icona = form.icona === nome ? null : nome">
+            <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
+          </button>
+        </div>
       </div>
 
       <div class="card" style="padding:16px;">
@@ -56,8 +65,10 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
+import { ICONE_ZONA } from '@/composables/useIconeZona'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Spinner from '@/components/Spinner.vue'
+import Icon from '@/components/Icon.vue'
 
 const route  = useRoute()
 const router = useRouter()
@@ -69,7 +80,7 @@ const salvando = ref(false)
 const errore   = ref(null)
 
 const form = ref({
-  nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: []
+  nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: [], icona: null
 })
 
 onMounted(async () => {
@@ -82,6 +93,7 @@ onMounted(async () => {
       descrizione: z.descrizione ?? '',
       microclima:  z.microclima  ?? '',
       esposizione: z.esposizione ?? [],
+      icona:       z.icona       ?? null,
     }
   }
 })
@@ -97,6 +109,7 @@ async function salva() {
     descrizione: form.value.descrizione.trim() || '',
     microclima:  form.value.microclima.trim()  || '',
     esposizione: form.value.esposizione,
+    icona:       form.value.icona,
   }
   try {
     let salvata
@@ -117,6 +130,7 @@ async function salva() {
       id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
       esposizione: salvata.esposizione, microclima: salvata.microclima,
       criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
+      icona: salvata.icona,
     }
     store.zone = nuoveZone
 
