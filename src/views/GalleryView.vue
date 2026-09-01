@@ -6,12 +6,10 @@
     </div>
 
     <!-- Skeleton -->
-    <div v-if="caricandoLista" style="display:flex;flex-direction:column;gap:20px;">
-      <div v-for="i in 3" :key="i">
-        <div class="skeleton" style="height:13px;width:40%;margin-bottom:10px;border-radius:6px;"></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;">
-          <div v-for="j in 3" :key="j" class="skeleton" style="aspect-ratio:1;border-radius:8px;"></div>
-        </div>
+    <div v-if="caricandoLista" style="display:flex;flex-direction:column;gap:28px;">
+      <div v-for="i in 2" :key="i">
+        <div class="skeleton" style="height:13px;width:45%;margin-bottom:10px;border-radius:6px;"></div>
+        <div class="skeleton" style="aspect-ratio:4/5;border-radius:14px;"></div>
       </div>
     </div>
 
@@ -26,54 +24,54 @@
         <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin-top:10px;">{{ errore }}</p>
       </div>
 
-      <!-- Gruppi per pianta -->
-      <div v-else style="display:flex;flex-direction:column;gap:24px;">
-        <div v-for="g in gruppi" :key="g.piantaId">
-          <!-- Header gruppo -->
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
-            <div style="display:flex;align-items:center;gap:8px;min-width:0;">
+      <!-- Feed: un post per pianta -->
+      <div v-else style="display:flex;flex-direction:column;gap:28px;">
+        <article v-for="g in gruppi" :key="g.piantaId" class="post">
+          <!-- Header post -->
+          <header style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span v-if="g.isGenerale" class="title-serif" style="font-size:14px;font-weight:600;color:var(--ink);">Foto generiche</span>
+            <template v-else>
               <RouterLink :to="`/piante/${g.piantaId}`"
                 class="title-serif"
                 style="font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                 {{ g.nomeSpecie }}
               </RouterLink>
               <span v-if="g.zona" class="badge badge-gold" style="flex-shrink:0;display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaZona(g.zona)" style="width:11px;height:11px;flex-shrink:0;" />{{ g.zona }}</span>
-            </div>
-            <span style="font-size:11px;color:var(--ink-faint);flex-shrink:0;margin-left:8px;">{{ g.foto.length }} foto</span>
-          </div>
+            </template>
+            <span style="font-size:11px;color:var(--ink-faint);flex-shrink:0;margin-left:auto;">{{ g.foto.length }} foto</span>
+          </header>
 
-          <!-- Griglia foto del gruppo -->
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;">
-            <div v-for="f in g.foto" :key="f.path"
-              @click="apriLightbox(f, g)"
-              style="aspect-ratio:1;border-radius:8px;overflow:hidden;cursor:pointer;background:var(--cream-dark);position:relative;">
-              <img :src="f.thumbUrl" :alt="f.nome"
-                style="width:100%;height:100%;object-fit:cover;transition:transform 0.2s;"
-                loading="lazy"
-                @mouseenter="e => e.target.style.transform='scale(1.04)'"
-                @mouseleave="e => e.target.style.transform='scale(1)'">
-              <!-- Data in overlay -->
-              <div style="position:absolute;bottom:0;left:0;right:0;padding:4px 6px;background:linear-gradient(transparent,rgba(0,0,0,0.45));pointer-events:none;">
-                <span style="font-size:9px;color:rgba(255,255,255,0.85);">{{ f.dataBreve }}</span>
+          <!-- Carosello foto -->
+          <div class="carosello" @scroll="e => onScrollCarosello(e, g.piantaId)">
+            <div v-for="f in g.foto" :key="f.path" class="slide"
+              @contextmenu.prevent="daEliminareFoto = f"
+              @touchstart.passive="iniziaPressione(f)"
+              @touchend="annullaPressione"
+              @touchmove.passive="annullaPressione"
+              @touchcancel="annullaPressione">
+              <img :src="f.thumbUrl" :alt="f.nome" loading="lazy"
+                style="width:100%;height:100%;object-fit:cover;display:block;">
+              <!-- Overlay: data, zona/sottozona, coltivato_in -->
+              <div class="overlay">
+                <span style="font-size:11px;font-weight:600;color:#fff;">{{ f.dataBreve }}</span>
+                <span v-if="!g.isGenerale && g.zona" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.92);">
+                  <Icon :name="g.sottozona ? store.iconaSottozona(g.zona, g.sottozona) : store.iconaZona(g.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ g.sottozona ? `${g.zona} · ${g.sottozona}` : g.zona }}
+                </span>
+                <span v-if="!g.isGenerale && g.coltivatoIn" :title="labelColtivatoIn(g.coltivatoIn)" style="display:inline-flex;align-items:center;color:rgba(255,255,255,0.92);">
+                  <Icon :name="iconaColtivatoIn(g.coltivatoIn)" style="width:12px;height:12px;flex-shrink:0;" />
+                </span>
               </div>
             </div>
           </div>
-        </div>
+
+          <!-- Puntini indicatori -->
+          <div v-if="g.foto.length > 1" style="display:flex;justify-content:center;gap:5px;margin-top:8px;">
+            <span v-for="(f, i) in g.foto" :key="f.path"
+              :style="{ width:'6px', height:'6px', borderRadius:'50%', transition:'background 0.2s', background: (slideAttiva[g.piantaId] || 0) === i ? 'var(--rose)' : 'var(--cream-dark)' }"></span>
+          </div>
+        </article>
       </div>
     </template>
-
-    <!-- Lightbox -->
-    <LightboxFoto
-      :foto="luce?.foto ?? null"
-      :titolo="luce?.gruppo?.nomeSpecie ?? ''"
-      :ha-precedente="indiceLuce > 0"
-      :ha-successivo="indiceLuce < tutteLeImmagini.length - 1"
-      :indice="indiceLuce"
-      :totale="tutteLeImmagini.length"
-      @chiudi="luce = null"
-      @naviga="navigaLuce"
-      @elimina="daEliminareFoto = luce.foto"
-    />
 
     <ModalConferma
       :aperto="!!daEliminareFoto"
@@ -145,10 +143,9 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useGalleria } from '@/composables/useGalleria'
-import LightboxFoto from '@/components/LightboxFoto.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -161,7 +158,6 @@ const caricandoLista  = ref(false)
 const caricandoUpload = ref(false)
 const errore          = ref(null)
 const erroreUpload    = ref(null)
-const luce            = ref(null)   // { foto, gruppo }
 const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
 const mostraFormUpload = ref(false)
@@ -170,6 +166,14 @@ const uploadFileObj   = ref(null)
 const uploadPreview   = ref(null)
 const uploadNomeFile  = ref('')
 const dataScattoRilevata = ref(null)
+
+// Indice della slide visibile per ogni carosello (chiave = piantaId),
+// aggiornato mentre si scorre orizzontalmente — alimenta i puntini.
+const slideAttiva = ref({})
+
+const LABEL_COLTIVATO_IN = { vaso: 'In vaso', terra: 'In terra', acqua: 'In acqua' }
+function labelColtivatoIn(v) { return LABEL_COLTIVATO_IN[v] ?? 'In terra' }
+function iconaColtivatoIn(v) { return v in LABEL_COLTIVATO_IN ? v : 'terra' }
 
 // Piante raggruppate per zona (per il select dell'upload)
 const piantaPerZona = computed(() => {
@@ -185,7 +189,10 @@ const piantaPerZona = computed(() => {
   return gruppi
 })
 
-// Raggruppa le foto per pianta, arricchite con dati store
+// Raggruppa le foto per pianta, arricchite con dati store. L'ordine dei post
+// segue la foto più recente di ciascun gruppo (feed cronologico): il nome
+// file ha come prefisso il timestamp epoch, quindi il confronto di stringa
+// sulla prima foto (già ordinata dal più recente) equivale all'ordine per data.
 const gruppi = computed(() => {
   if (!foto.value.length) return []
   const byFolder = {}
@@ -198,26 +205,32 @@ const gruppi = computed(() => {
     const specie  = pianta ? (store.specie?.[pianta.specie] ?? null) : null
     return {
       piantaId,
-      nomeSpecie: specie?.nome ?? pianta?.specie ?? piantaId,
-      zona:       pianta?.zona ?? null,
-      foto:       fotoList.sort((a, b) => b.nome.localeCompare(a.nome)),
+      isGenerale:  piantaId === 'generale',
+      nomeSpecie:  specie?.nome ?? pianta?.specie ?? piantaId,
+      zona:        pianta?.zona ?? null,
+      sottozona:   pianta?.sottozona ?? null,
+      coltivatoIn: pianta?.coltivato_in ?? null,
+      foto:        fotoList.sort((a, b) => b.nome.localeCompare(a.nome)),
     }
-  }).sort((a, b) => a.nomeSpecie.localeCompare(b.nomeSpecie))
+  }).sort((a, b) => (b.foto[0]?.nome ?? '').localeCompare(a.foto[0]?.nome ?? ''))
 })
 
-// Lista piatta per navigazione lightbox
-const tutteLeImmagini = computed(() => gruppi.value.flatMap(g => g.foto.map(f => ({ foto: f, gruppo: g }))))
-const indiceLuce = computed(() => {
-  if (!luce.value) return -1
-  return tutteLeImmagini.value.findIndex(i => i.foto.path === luce.value.foto.path)
-})
+function onScrollCarosello(e, piantaId) {
+  const el = e.target
+  const idx = Math.round(el.scrollLeft / el.clientWidth)
+  if (slideAttiva.value[piantaId] !== idx) slideAttiva.value[piantaId] = idx
+}
 
-function apriLightbox(f, g) { luce.value = { foto: f, gruppo: g } }
-function navigaLuce(dir) {
-  const idx = indiceLuce.value + dir
-  if (idx >= 0 && idx < tutteLeImmagini.value.length) {
-    luce.value = tutteLeImmagini.value[idx]
-  }
+// Pressione lunga su una slide → conferma eliminazione (sostituisce il punto
+// di cancellazione che prima viveva nella lightbox). Il timer viene annullato
+// allo scroll orizzontale (touchmove) per non scattare mentre si sfoglia.
+let timerPressione = null
+function iniziaPressione(f) {
+  annullaPressione()
+  timerPressione = setTimeout(() => { daEliminareFoto.value = f }, 550)
+}
+function annullaPressione() {
+  if (timerPressione) { clearTimeout(timerPressione); timerPressione = null }
 }
 
 async function confermaEliminaFoto() {
@@ -226,23 +239,13 @@ async function confermaEliminaFoto() {
   try {
     await galleria.elimina(daEliminareFoto.value)
     foto.value = foto.value.filter(f => f.path !== daEliminareFoto.value.path)
-    if (luce.value?.foto.path === daEliminareFoto.value.path) luce.value = null
     daEliminareFoto.value = null
   } finally {
     eliminandoFoto.value = false
   }
 }
 
-// Tastiera per lightbox
-function onKey(e) {
-  if (!luce.value) return
-  if (e.key === 'ArrowLeft')  navigaLuce(-1)
-  if (e.key === 'ArrowRight') navigaLuce(1)
-  if (e.key === 'Escape')     luce.value = null
-}
-
 onMounted(async () => {
-  window.addEventListener('keydown', onKey)
   await store.caricaTutto()
   caricandoLista.value = true
   errore.value = null
@@ -254,6 +257,8 @@ onMounted(async () => {
     caricandoLista.value = false
   }
 })
+
+onBeforeUnmount(annullaPressione)
 
 function selezionaUpload(e) {
   const file = e.target.files?.[0]
@@ -294,3 +299,49 @@ async function caricaFoto() {
   }
 }
 </script>
+
+<style scoped>
+/* Colonna feed stile Instagram: a tutta larghezza su mobile, ma limitata
+   e centrata su desktop (senza il cap le foto 4:5 diventano enormi dentro
+   il max-width di 920px di .app-main). */
+.post {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.carosello {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 14px;
+  background: var(--cream-dark);
+  scrollbar-width: none;
+}
+.carosello::-webkit-scrollbar { display: none; }
+
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  aspect-ratio: 4 / 5;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 12px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+  pointer-events: none;
+}
+</style>

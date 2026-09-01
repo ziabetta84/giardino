@@ -328,7 +328,7 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
   function iconaSottozona(zonaNome, szNome) {
-    const slug = (sottozone.value?.[zonaNome] ?? []).find(s => s.nome === szNome)?.icona
+    const slug = sottozone.value?.[zonaNome]?.[szNome]?.icona
     return slug ? `zona-${slug}` : 'pin'
   }
 
