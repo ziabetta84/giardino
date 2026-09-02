@@ -99,17 +99,21 @@
             <p v-else class="step__desc" style="cursor:pointer;" @click="tappaApertaIndex = i">{{ t.descrizione }}</p>
           </div>
 
-          <div v-if="inserimentoIndex === i + 1" class="tappa-insert">
-            <input type="date" v-model="nuovaTappaInserimento.data" class="form-input" style="flex:1;min-width:120px;">
-            <input v-model="nuovaTappaInserimento.descrizione" placeholder="Cosa aspettarti / cosa fare" class="form-input"
-              style="flex:2;min-width:140px;" @keyup.enter="confermaInserimento">
-            <button type="button" class="btn btn-sage" style="flex-shrink:0;padding:8px 14px;font-size:13px;" @click="confermaInserimento">Aggiungi</button>
-            <button type="button" @click="inserimentoIndex = null" aria-label="Annulla"
-              style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;padding:0 4px;flex-shrink:0;">×</button>
-          </div>
-          <div v-else class="path__add">
-            <button type="button" @click="apriInserimento(i + 1)">＋</button>
-          </div>
+          <!-- "+" solo TRA le tappe: l'append in fondo è coperto dal pulsante in cima
+               (le tappe si riordinano comunque per data) -->
+          <template v-if="i !== form.tappe.length - 1">
+            <div v-if="inserimentoIndex === i + 1" class="tappa-insert">
+              <input type="date" v-model="nuovaTappaInserimento.data" class="form-input" style="flex:1;min-width:120px;">
+              <input v-model="nuovaTappaInserimento.descrizione" placeholder="Cosa aspettarti / cosa fare" class="form-input"
+                style="flex:2;min-width:140px;" @keyup.enter="confermaInserimento">
+              <button type="button" class="btn btn-sage" style="flex-shrink:0;padding:8px 14px;font-size:13px;" @click="confermaInserimento">Aggiungi</button>
+              <button type="button" @click="inserimentoIndex = null" aria-label="Annulla"
+                style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;padding:0 4px;flex-shrink:0;">×</button>
+            </div>
+            <div v-else class="path__add">
+              <button type="button" @click="apriInserimento(i + 1)">＋</button>
+            </div>
+          </template>
         </template>
 
         <div class="pgoal">
