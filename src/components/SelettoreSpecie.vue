@@ -28,6 +28,47 @@
       </div>
     </div>
 
+    <!-- Scheda in sola lettura della specie selezionata: la si legge in fase
+         di scelta, non solo dopo aver creato la pianta (issue #153). -->
+    <div v-if="specieSelezionata && !dropdownAperto" class="scheda-specie">
+      <div v-if="hero" class="scheda-hero">
+        <img :src="hero.thumbUrl" :alt="`Foto di ${specieSelezionata.nome}`" loading="lazy">
+        <a v-if="hero.attribuzione" :href="hero.fontePagina" target="_blank" rel="noopener"
+          class="scheda-hero-credit" @click.stop>
+          Foto: {{ hero.attribuzione }} / Wikimedia Commons
+        </a>
+      </div>
+
+      <div class="scheda-testa">
+        <span class="scheda-nome">{{ specieSelezionata.nome }}</span>
+        <span v-if="specieSelezionata.specie" class="scheda-sci">{{ specieSelezionata.specie }}</span>
+        <span v-if="specieSelezionata.specie_padre_id" class="badge scheda-badge" style="background:var(--sage-pale);color:var(--sage-dark);">cultivar</span>
+        <span v-else-if="specieSelezionata.stato_verifica !== 'verificato'" class="badge scheda-badge" style="background:var(--gold-pale);color:var(--gold-dark);">bozza</span>
+        <button type="button" class="scheda-modifica" @click="apriModificaSpecie({ key: props.modelValue, nome: specieSelezionata.nome })">
+          <Icon name="matita" style="width:12px;height:12px;" />Modifica
+        </button>
+      </div>
+
+      <p v-if="specieSelezionata.descrizione" class="scheda-descrizione">{{ specieSelezionata.descrizione }}</p>
+      <p v-else class="scheda-vuota">Nessuna descrizione per questa specie.</p>
+
+      <div v-if="esigenzeVoci.length" class="scheda-esigenze">
+        <span v-for="e in esigenzeVoci" :key="e.chiave" class="scheda-esigenza">
+          <Icon :name="e.icona" style="width:13px;height:13px;flex-shrink:0;" />
+          <span>{{ e.valore }}</span>
+        </span>
+      </div>
+
+      <template v-if="alertList.length">
+        <ul class="scheda-alert">
+          <li v-for="a in alertVisibili" :key="a">{{ a }}</li>
+        </ul>
+        <button v-if="alertExtra > 0" type="button" class="scheda-alert-toggle" @click="alertTuttiAperti = !alertTuttiAperti">
+          {{ alertTuttiAperti ? 'Mostra meno' : `+ ${alertExtra} altre` }}
+        </button>
+      </template>
+    </div>
+
     <!-- Modale nuova/modifica specie -->
     <Teleport to="body">
       <div v-if="mostraNuovaSpecie" class="overlay" @click.self="chiudiNuovaSpecie">
@@ -243,6 +284,7 @@ import { usePianteApi } from '@/composables/usePianteApi'
 import { useSupabase } from '@/composables/useSupabase'
 import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
 import { parseGiorni } from '@/composables/useCure'
+import { urlMiniatura } from '@/composables/useWikimedia'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -415,6 +457,47 @@ function chiudiDropdown() {
     specieQuery.value = store.specie?.[props.modelValue]?.nome ?? ''
   }, 150)
 }
+
+// --- Scheda in sola lettura della specie selezionata ---
+// Il record nello store ha già descrizione/esigenze/alert: sia la ricerca live
+// sia il watch su modelValue caricano con COLONNE_SPECIE.
+const ICONA_ESIGENZA = { luce: 'sole', acqua: 'goccia', terreno: 'terra' }
+const ALERT_PREVIEW = 3
+const alertTuttiAperti = ref(false)
+
+const specieSelezionata = computed(() =>
+  props.modelValue ? (store.specie?.[props.modelValue] ?? null) : null
+)
+
+// Immagine hero della specie (Wikimedia): propria o, per i cultivar, ereditata
+// dalla madre via fondiEredita nello store. urlMiniatura ridimensiona alla
+// larghezza della scheda.
+const hero = computed(() => {
+  const img = specieSelezionata.value?.immagine
+  return img?.url
+    ? { thumbUrl: urlMiniatura(img.url, 480), attribuzione: img.attribuzione, fontePagina: img.fonte_pagina }
+    : null
+})
+
+const esigenzeVoci = computed(() => {
+  const e = specieSelezionata.value?.esigenze
+  if (!e || typeof e !== 'object') return []
+  return Object.entries(e)
+    .filter(([, v]) => v != null && String(v).trim())
+    .map(([chiave, valore]) => ({ chiave, valore, icona: ICONA_ESIGENZA[chiave] ?? 'foglia' }))
+})
+
+const alertList = computed(() => {
+  const a = specieSelezionata.value?.alert
+  return Array.isArray(a) ? a.filter(x => x && String(x).trim()) : []
+})
+const alertVisibili = computed(() =>
+  alertTuttiAperti.value ? alertList.value : alertList.value.slice(0, ALERT_PREVIEW)
+)
+const alertExtra = computed(() => Math.max(0, alertList.value.length - ALERT_PREVIEW))
+
+// Ripiega l'elenco avvertenze quando si cambia specie.
+watch(() => props.modelValue, () => { alertTuttiAperti.value = false })
 
 const mostraNuovaSpecie = ref(false)
 const salvandoSpecie    = ref(false)
@@ -836,5 +919,115 @@ async function salvaNuovaSpecie() {
   width: 100%; max-width: 360px;
   max-height: 90vh; overflow-y: auto;
   box-shadow: 0 20px 60px rgba(42,34,24,0.2);
+}
+
+/* Scheda in sola lettura della specie selezionata */
+.scheda-specie {
+  margin-top: 12px;
+  padding: 14px;
+  background: var(--cream);
+  border: 1px solid var(--cream-dark);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.scheda-hero {
+  position: relative;
+  margin: -14px -14px 10px;
+}
+.scheda-hero img {
+  display: block;
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+}
+.scheda-hero-credit {
+  position: absolute; right: 8px; bottom: 8px;
+  font-size: 9.5px; color: rgba(253,248,238,0.75); text-decoration: none;
+  background: rgba(0,0,0,0.28); padding: 2px 8px; border-radius: 999px;
+}
+.scheda-hero-credit:hover { color: #fdf8ee; }
+.scheda-testa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin-bottom: 8px;
+}
+.scheda-nome {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.scheda-sci {
+  font-style: italic;
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+.scheda-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+}
+.scheda-modifica {
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--sage-dark);
+  padding: 2px 4px;
+}
+.scheda-descrizione {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink-mid);
+  margin: 0;
+  white-space: pre-line;
+}
+.scheda-vuota {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--ink-faint);
+  margin: 0;
+}
+.scheda-esigenze {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 10px;
+}
+.scheda-esigenza {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--ink-mid);
+}
+.scheda-esigenza :deep(svg) { color: var(--sage-dark); }
+.scheda-alert {
+  margin: 10px 0 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.scheda-alert li {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--ink-mid);
+}
+.scheda-alert-toggle {
+  margin-top: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--sage-dark);
+  padding: 2px 0;
 }
 </style>
