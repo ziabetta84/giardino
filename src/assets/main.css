@@ -18,6 +18,15 @@
   --olive-light: #d8e4b0;
   --acqua:       #6f9fc0;
   --acqua-dark:  #4c7793;
+
+  /* Fondo-tinta (bande/chip) e testo-su-tinta (AA) per dominio — restyle "Taccuino" */
+  --acqua-bg:  #e2edf3;  --acqua-ink: #2b566e;
+  --olive-bg:  #ececd8;  --olive-ink: #545e2a;
+  --rose-bg:   #f6e3e1;  --rose-ink:  #8a3f3a;
+  --sage-bg:   #e4ede4;  --sage-ink:  #37543f;
+  --gold-bg:   #f7ecd0;  --gold-ink:  #7a5a15;
+  --carta-2:   #f4eede;
+
   --gold-ink:    #8a6820;
   --rose-tile:   #f6e3e1;
   --gold-tile:   #f7ecd0;
