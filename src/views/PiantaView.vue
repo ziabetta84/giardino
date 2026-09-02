@@ -36,9 +36,12 @@
           <span v-for="(f, i) in fotoPianta" :key="i" :class="{ on: i === indiceFotoCorrente }"></span>
         </div>
         <div class="phead-cap">
-          <span class="chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+          <span class="phead-cap__chips">
+            <span class="chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+            <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
+          </span>
           <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
-          <p class="pbino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="tag-inline" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span></p>
+          <p class="pbino">{{ specie?.specie }}</p>
         </div>
         <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
           Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
@@ -50,9 +53,12 @@
         <RouterLink to="/piante" class="phead-text__back"><Icon name="back" /> Piante</RouterLink>
         <div class="phead-text__body">
           <div class="phead-text__id">
-            <span class="phead-text__chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+            <span class="phead-text__chips">
+              <span class="phead-text__chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+              <span v-if="pianta.coltivato_in" class="phead-text__chip phead-text__chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
+            </span>
             <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
-            <p class="phead-text__bino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="phead-text__tag" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span></p>
+            <p class="phead-text__bino">{{ specie?.specie }}</p>
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
@@ -434,13 +440,8 @@ async function eliminaPianta() {
   font: 400 12.5px/1.4 var(--font-display); font-style: italic;
   color: var(--ink-soft); margin: 0;
 }
-.phead-text__tag {
-  display: inline-flex; align-items: center;
-  font: 600 10px/1 var(--font-sans); font-style: normal;
-  background: var(--cream-dark); color: var(--ink-mid);
-  padding: 3px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle;
-}
-.phead-text__tag svg { width: 13px; height: 13px; display: block; }
+.phead-text__chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.phead-text__chip--ic { padding: 4px 7px; }
 .phead-text__edit {
   flex: none; display: inline-flex; align-items: center; gap: 6px;
   font: 600 11px/1 var(--font-sans); color: var(--ink-mid);
