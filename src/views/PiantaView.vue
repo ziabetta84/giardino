@@ -446,16 +446,19 @@ async function eliminaPianta() {
 }
 .phead-text__edit svg { width: 12px; height: 12px; }
 
-/* Alert cura: unico blocco sollevato, tinta olive, sola icona a sinistra. */
+/* Alert cura: unico blocco sollevato, tinta olive, sola icona a sinistra.
+   Sobrio come nel mockup: niente ombra, bordo tenue, icona tinta (non bianca). */
 .alert-cura {
   display: flex; gap: 12px; align-items: flex-start;
   padding: 14px 15px; margin: 16px 0 0;
-  background: var(--olive-bg); border-color: var(--olive-bg);
+  background: var(--olive-bg);
+  border: 1px solid color-mix(in srgb, var(--olive) 28%, transparent);
+  border-radius: 16px; box-shadow: none;
 }
 .alert-cura__ic {
-  flex: none; width: 38px; height: 38px; border-radius: 12px;
+  flex: none; width: 36px; height: 36px; border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
-  background: var(--white); color: var(--olive-ink);
+  background: color-mix(in srgb, var(--olive) 16%, var(--cream)); color: var(--olive-ink);
 }
 .alert-cura__ic svg { width: 20px; height: 20px; }
 .alert-cura__main { flex: 1; min-width: 0; }
