@@ -576,6 +576,14 @@ body::before {
 .gpost__name { font:600 14px/1.2 var(--font-display); color:var(--ink); text-decoration:none;
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .gpost__n { margin-left:auto; font:400 11px/1 var(--font-sans); color:var(--ink-soft); flex:none; }
+/* overlay sulla foto nel carosello del feed: data + zona/sottozona + coltivato_in.
+   pointer-events:none perche' il long-press / tasto destro per eliminare vive
+   sullo .slide sottostante e non deve essere intercettato dall'overlay. */
+.gov { position:absolute; left:0; right:0; bottom:0; padding:22px 12px 10px; display:flex;
+  flex-wrap:wrap; align-items:center; gap:4px 8px; color:#fdf8ee; font:600 11px/1 var(--font-sans);
+  background:linear-gradient(0deg, rgba(20,15,8,.55), transparent); pointer-events:none; }
+.gov span { display:inline-flex; align-items:center; gap:4px; }
+.gov svg { width:12px; height:12px; flex:none; }
 
 /* --- form richiesta agente --- */
 .reqchips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
