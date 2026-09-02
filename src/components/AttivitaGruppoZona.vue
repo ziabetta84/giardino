@@ -1,7 +1,7 @@
 <template>
   <div style="margin-bottom:16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;padding:0 2px;">
-      <span style="font-size:12px;font-weight:600;color:var(--ink-soft);display:inline-flex;align-items:center;gap:5px;">
+    <div class="attgz-hd">
+      <span class="slabel">
         <Icon :name="store.iconaZona(gruppo.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ etichettaZona }} ({{ gruppo.items.length }})
       </span>
       <button @click="$emit('registraGruppo', gruppo)" :disabled="salvandoGruppo === gruppo.chiave"
@@ -45,3 +45,8 @@ const etichettaZona = computed(() =>
   props.gruppo.sottozona ? `${props.gruppo.zona} – ${props.gruppo.sottozona}` : props.gruppo.zona
 )
 </script>
+
+<style scoped>
+.attgz-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; padding: 0 2px; }
+.attgz-hd .slabel { flex: 1; margin: 0; }
+</style>

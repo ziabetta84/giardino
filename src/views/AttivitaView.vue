@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;margin-bottom:6px;">Attività</h1>
-    <p class="title-serif" style="font-size:14px;color:var(--ink-soft);font-style:italic;margin-bottom:20px;">{{ dataOggi }}</p>
+    <h1 class="page-title">Attività</h1>
+    <p class="attivita-data">{{ dataOggi }}</p>
 
     <!-- Skeleton -->
     <div v-if="store.loading" style="display:flex;flex-direction:column;gap:8px;">
@@ -41,7 +41,7 @@
       <template v-if="tabAttiva !== 'progetti'">
         <!-- Da fare -->
         <template v-if="daFareTab.length">
-          <p class="section-label" style="display:flex;align-items:center;gap:6px;">
+          <p class="slabel" style="display:flex;align-items:center;gap:6px;">
             <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da fare
           </p>
           <div style="margin-bottom:24px;">
@@ -60,7 +60,7 @@
 
         <!-- In scadenza -->
         <template v-if="inScadenzaTab.length">
-          <p class="section-label" style="display:flex;align-items:center;gap:5px;">
+          <p class="slabel" style="display:flex;align-items:center;gap:5px;">
             <Icon name="orologio" style="width:13px;height:13px;flex-shrink:0;" />In scadenza (entro 3 giorni)
           </p>
           <div style="margin-bottom:24px;">
@@ -85,8 +85,8 @@
             :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
             <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${t.urgente ? 'var(--rose-tile)' : 'var(--gold-tile)'};`"><Icon name="lampadina" style="width:18px;height:18px;" /></div>
             <div style="flex:1;min-width:0;">
-              <RouterLink :to="`/progetti/${t.progettoId}`" class="title-serif"
-                style="font-size:13px;font-weight:600;text-decoration:none;color:inherit;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+              <RouterLink :to="`/progetti/${t.progettoId}`"
+                style="font-family:var(--font-display);font-size:13px;font-weight:600;text-decoration:none;color:inherit;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
                 {{ t.progettoTitolo }}
               </RouterLink>
               <div :style="`font-size:11px;margin-top:2px;color:${t.urgente ? 'var(--rose-dark)' : 'var(--ink-soft)'};`">
@@ -102,12 +102,9 @@
       </template>
 
       <!-- Tutto ok (per la tab attiva) -->
-      <div v-if="vuotaTab" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <Icon name="foglia" style="width:24px;height:24px;" />
-        </div>
-        <p class="title-serif" style="font-size:16px;color:var(--sage-dark);font-weight:600;">Tutto in ordine!</p>
-        <p class="text-light" style="font-size:13px;margin-top:4px;">Nessuna cura urgente qui</p>
+      <div v-if="vuotaTab" class="empty">
+        <Icon name="foglia" />
+        <p><b>Tutto in ordine!</b>Nessuna cura urgente qui</p>
       </div>
       </div>
       </Transition>
@@ -233,6 +230,7 @@ async function registraTappa(t) {
 </script>
 
 <style scoped>
+.attivita-data { font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--ink-soft); margin: 4px 2px 20px; }
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 </style>
