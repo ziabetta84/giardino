@@ -116,8 +116,8 @@
         </div>
       </div>
 
-      <p v-if="!fotoPreview && (nuovoTipo === 'identifica_specie' || nuovoTipo === 'diagnosi')" class="agente-hint">
-        Allega una foto: JPG o PNG, max 5 MB<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
+      <p v-if="!fotoPreview && nuovoTipo !== 'revisione_specie' && nuovoTipo !== 'pianifica_progetto'" class="agente-hint">
+        JPG, PNG — max 5 MB<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
       </p>
 
       <div v-if="errore" class="agente-errore">
