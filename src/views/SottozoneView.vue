@@ -1,48 +1,33 @@
 <template>
   <div>
-    <RouterLink :to="`/zone`" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
+    <RouterLink :to="`/zone`" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:16px;">
       ← Zone
     </RouterLink>
 
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <div>
-        <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;">
-          {{ zona?.nome ?? route.params.zona }}
-        </h1>
-        <p style="font-size:13px;color:var(--ink-soft);margin-top:2px;">Sottozone</p>
-      </div>
-      <button @click="apriNuovo" class="btn btn-rose" style="padding:8px 14px;">＋ Aggiungi</button>
+    <div class="page-title__row">
+      <h1 class="page-title">{{ zona?.nome ?? route.params.zona }} · Sottozone</h1>
+      <button type="button" @click="apriNuovo" class="pill">＋ Aggiungi</button>
     </div>
 
     <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-dark);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
       {{ erroreEliminazione }}
     </p>
 
-    <div v-if="!sottozone.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-      <div style="width:56px;height:56px;border-radius:50%;background:var(--acqua-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-        <Icon name="pin" style="width:24px;height:24px;" />
-      </div>
-      <p style="color:var(--ink-soft);font-size:13px;">Nessuna sottozona configurata</p>
+    <div v-if="!sottozone.length" class="empty">
+      <Icon name="pin" />
+      <p><b>Nessuna sottozona</b>Questa zona non ha ancora sottozone configurate.</p>
     </div>
 
-    <div v-else style="display:flex;flex-direction:column;gap:10px;">
-      <div v-for="sz in sottozone" :key="sz.nome" class="card" style="padding:16px;">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px;">
-          <h3 class="title-serif" style="font-size:15px;font-weight:600;display:flex;align-items:center;gap:8px;">
-            <Icon :name="sz.icona ? `zona-${sz.icona}` : 'pin'" style="width:16px;height:16px;flex-shrink:0;" />{{ sz.nome }}
-          </h3>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <span v-if="sz.tipo" class="badge" :style="sz.tipo === 'interno' ? 'background:var(--sage-pale);color:var(--sage-dark);' : 'background:var(--gold-pale);color:var(--gold-dark);'">
-              {{ sz.tipo }}
-            </span>
-            <button type="button" class="icon-btn" @click="apriModifica(sz)" title="Modifica sottozona"><Icon name="matita" style="width:13px;height:13px;" /></button>
-            <button type="button" class="icon-btn" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona" style="color:var(--rose-dark);font-size:16px;line-height:1;">×</button>
-          </div>
-        </div>
-        <div v-if="sz.esposizione?.length" style="display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink-faint);margin-bottom:6px;">
-          <Icon name="sole" style="width:12px;height:12px;flex-shrink:0;" />{{ sz.esposizione.join(', ') }}
-        </div>
-        <p v-if="sz.descrizione" style="font-size:12px;color:var(--ink-soft);line-height:1.5;">{{ descrizioneBreve(sz) }}</p>
+    <div v-else class="destlist">
+      <div v-for="sz in sottozone" :key="sz.nome" class="dest">
+        <Icon :name="store.iconaSottozona(route.params.zona, sz.nome)" class="dest__ic" />
+        <span class="dest__n">{{ sz.nome }}</span>
+        <span v-if="sz.tipo" class="dest__c szt">{{ sz.tipo }}</span>
+        <span class="dest__c">{{ contaPiante(sz) }} piante</span>
+        <button type="button" class="pill-mini" @click="apriModifica(sz)" title="Modifica sottozona" aria-label="Modifica sottozona">
+          <Icon name="matita" />
+        </button>
+        <button type="button" class="pill-mini pill-mini--del" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona">×</button>
       </div>
     </div>
 
@@ -132,9 +117,10 @@ const sottozone = computed(() => {
   return Object.values(sz)
 })
 
-function descrizioneBreve(sz) {
-  const pulito = (sz.descrizione || '').replace(/<[^>]+>/g, '')
-  return pulito.length > 150 ? pulito.slice(0, 150) + '…' : pulito
+function contaPiante(sz) {
+  if (!store.piante) return 0
+  return Object.values(store.piante)
+    .filter(p => p.zona === route.params.zona && p.sottozona === sz.nome).length
 }
 
 function apriNuovo() {
@@ -260,18 +246,14 @@ async function eliminaSottozona() {
 </script>
 
 <style scoped>
-/* Pulsante icona "trasparente": accanto al badge tipo (interno/esterno) uno
-   stile .btn-ghost pieno (sfondo tan) creava due "pillole" scure ravvicinate
-   che si affollavano visivamente; qui lo sfondo compare solo in hover. */
-.icon-btn {
-  background: none; border: none; cursor: pointer;
-  padding: 4px 6px; border-radius: 8px; font-size: 14px; line-height: 1;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--ink-soft);
-}
-.icon-btn:hover {
-  background: var(--cream-dark);
-}
+a.pill { display:inline-flex; align-items:center; text-decoration:none; }
+.dest .pill-mini { cursor:pointer; display:inline-flex; align-items:center; gap:4px; }
+.dest .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
+.dest .pill-mini svg { width:12px; height:12px; }
+.dest .pill-mini--del { color:var(--rose-dark); }
+.dest .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-dark); }
+.szt { text-transform:capitalize; }
+
 .overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(42,34,24,0.4);
