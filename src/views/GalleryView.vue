@@ -302,9 +302,17 @@ async function caricaFoto() {
   margin: 0 auto;
 }
 
+/* Il nome deve poter rimpicciolirsi (ellissi) invece di sfondare la riga
+   o comprimere il chip: come flex-child serve `min-width:0`. */
+.gpost__name {
+  min-width: 0;
+}
+
 /* Chip zona nell'intestazione: la `.chip` globale è tarata sulle foto
-   (testo e icona chiari su scrim scuro). Qui vive su fondo chiaro. */
+   (testo e icona chiari su scrim scuro). Qui vive su fondo chiaro e non
+   deve comprimersi quando il nome zona è lungo (`flex:none`). */
 .gpost__hd .chip {
+  flex: none;
   background: var(--cream-dark);
   color: var(--ink-mid);
   --acqua: currentColor;
