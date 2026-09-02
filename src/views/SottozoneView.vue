@@ -19,15 +19,17 @@
     </div>
 
     <div v-else class="destlist">
-      <div v-for="sz in sottozone" :key="sz.nome" class="dest">
+      <div v-for="sz in sottozone" :key="sz.nome" class="dest szrow">
         <Icon :name="store.iconaSottozona(route.params.zona, sz.nome)" class="dest__ic" />
         <span class="dest__n">{{ sz.nome }}</span>
         <span v-if="sz.tipo" class="dest__c szt">{{ sz.tipo }}</span>
         <span class="dest__c">{{ contaPiante(sz) }} piante</span>
-        <button type="button" class="pill-mini" @click="apriModifica(sz)" title="Modifica sottozona" aria-label="Modifica sottozona">
-          <Icon name="matita" />
-        </button>
-        <button type="button" class="pill-mini pill-mini--del" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona">×</button>
+        <div class="szrow__act">
+          <button type="button" class="pill-mini" @click="apriModifica(sz)" title="Modifica sottozona" aria-label="Modifica sottozona">
+            <Icon name="matita" />
+          </button>
+          <button type="button" class="pill-mini pill-mini--del" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona">×</button>
+        </div>
       </div>
     </div>
 
@@ -247,6 +249,8 @@ async function eliminaSottozona() {
 
 <style scoped>
 a.pill { display:inline-flex; align-items:center; text-decoration:none; }
+.szrow { flex-wrap:wrap; }
+.szrow__act { display:flex; gap:6px; flex-wrap:wrap; }
 .dest .pill-mini { cursor:pointer; display:inline-flex; align-items:center; gap:4px; }
 .dest .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .dest .pill-mini svg { width:12px; height:12px; }
