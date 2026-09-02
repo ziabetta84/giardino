@@ -290,3 +290,73 @@ body::before {
     }
     .sidebar__spacer { flex: 1; }
   }
+
+/* ===== restyle: liste con filetti ===== */
+.slabel { display:flex; align-items:center; gap:7px; font:700 11px/1 var(--font-sans);
+  letter-spacing:.13em; text-transform:uppercase; color:var(--ink-soft); margin:22px 2px 12px; }
+.slabel::after { content:""; flex:1; height:1px; background:var(--cream-dark); }
+
+.wxrow { display:flex; align-items:center; gap:11px; padding:12px 2px; text-decoration:none;
+  border-top:1px solid var(--cream-dark); border-bottom:1px solid var(--cream-dark); }
+.wxrow__ic { width:30px; height:30px; flex:none; }
+.wxrow__ic svg { width:100%; height:100%; }
+.wxrow__m { flex:1; min-width:0; }
+.wxrow__t { font:600 13.5px/1.25 var(--font-sans); color:var(--ink); display:block; }
+.wxrow__s { font:400 11.5px/1.35 var(--font-sans); color:var(--ink-mid); margin-top:2px; display:block; }
+.wxrow__chev { width:14px; height:14px; flex:none; color:var(--ink-soft); }
+
+.zdice { display:flex; align-items:center; gap:11px; padding:12px 2px; text-decoration:none;
+  border-bottom:1px solid var(--cream-dark); }
+.zdice__ic { width:28px; height:28px; flex:none; }
+.zdice__ic svg { width:100%; height:100%; }
+.zdice__m { flex:1; min-width:0; }
+.zdice__t { font:600 13px/1.25 var(--font-sans); color:var(--ink); }
+.zdice__s { font:400 11.5px/1.35 var(--font-sans); color:var(--ink-mid); margin-top:2px; }
+.zdice__chev { width:14px; height:14px; flex:none; color:var(--ink-soft); }
+
+.tasklist { display:flex; flex-direction:column; }
+.task { display:flex; align-items:center; gap:11px; padding:11px 2px; }
+.task + .task { border-top:1px solid var(--cream-dark); }
+.task__ic { width:30px; height:30px; flex:none; }
+.task__ic svg { width:100%; height:100%; }
+.task__m { flex:1; min-width:0; }
+.task__n { font:600 14.5px/1.25 var(--font-display); color:var(--ink); }
+.task__n i { font-weight:400; }
+.task__d { font:400 12px/1.4 var(--font-sans); color:var(--ink-mid); margin-top:2px; }
+
+.seeall { display:block; padding:11px 2px 2px; font:600 12px/1 var(--font-sans);
+  color:var(--sage-dark); text-decoration:none; border-top:1px solid var(--cream-dark); }
+
+.destlist { display:flex; flex-direction:column; }
+.dest { display:flex; align-items:center; gap:11px; padding:11px 2px; text-decoration:none; }
+.dest + .dest { border-top:1px solid var(--cream-dark); }
+.dest__ic { width:26px; height:26px; flex:none; }
+.dest__ic svg { width:100%; height:100%; }
+.dest__n { flex:1; font:600 13.5px/1.2 var(--font-sans); color:var(--ink); }
+.dest__c { font:400 12px/1 var(--font-sans); color:var(--ink-mid); }
+.dest__c.urg { color:var(--rose-ink); font-weight:600; }
+.dest__chev { width:13px; height:13px; flex:none; color:var(--ink-soft); }
+
+.feedlist { display:flex; flex-direction:column; }
+.feed { display:flex; align-items:center; gap:11px; padding:10px 2px; }
+.feed + .feed { border-top:1px solid var(--cream-dark); }
+.feed__rank { flex:none; width:15px; text-align:center; font:700 13px/1 var(--font-sans);
+  color:var(--sage-dark); font-variant-numeric:tabular-nums; }
+.feed__rank--dim { color:var(--ink-soft); font-weight:600; }
+.feed__m { flex:1; min-width:0; }
+.feed__n { font:600 13px/1.3 var(--font-sans); color:var(--ink); }
+.feed__d { font:400 11px/1.35 var(--font-sans); color:var(--ink-mid); margin-top:1px; }
+.feed__tag { font:600 9.5px/1 var(--font-sans); text-transform:uppercase;
+  letter-spacing:.05em; color:var(--rose-ink); margin-left:6px; }
+.feed__npk { flex:none; font:600 10.5px/1 var(--font-sans); letter-spacing:.03em;
+  color:var(--ink-mid); font-variant-numeric:tabular-nums; }
+
+.kv { display:flex; flex-direction:column; gap:9px; }
+.kv > div { display:flex; gap:12px; font:400 13px/1.4 var(--font-sans); }
+.kv .k { color:var(--ink-soft); min-width:82px; flex:none; display:inline-flex; align-items:center; gap:7px; }
+.kv .k svg { width:16px; height:16px; }
+
+.prose { font:400 13px/1.62 var(--font-sans); color:var(--ink-mid); margin:0 0 12px; }
+
+.pill-mini { flex:none; font:600 10.5px/1 var(--font-sans); padding:6px 12px;
+  border-radius:999px; border:1px solid var(--cream-dark); background:transparent; color:var(--ink-mid); cursor:default; }
