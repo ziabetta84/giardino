@@ -1,10 +1,5 @@
 <template>
   <div>
-    <!-- Back (assente quando c'è la foto hero: il back vive nell'overlay) -->
-    <RouterLink v-if="!fotoHero" to="/piante" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
-      ← Piante
-    </RouterLink>
-
     <!-- Skeleton -->
     <template v-if="store.loading">
       <div class="skeleton" style="height:28px;width:60%;margin-bottom:8px;"></div>
@@ -14,6 +9,7 @@
     </template>
 
     <template v-else-if="!pianta">
+      <RouterLink to="/piante" class="phead-text__back"><Icon name="back" /> Piante</RouterLink>
       <div style="text-align:center;padding:60px 0;color:var(--ink-faint);">
         <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
           <Icon name="foglia" style="width:24px;height:24px;" />
@@ -23,212 +19,141 @@
     </template>
 
     <template v-else>
-      <!-- Header con foto: solo quando la pianta ha almeno una foto in
-           galleria. Senza foto resta l'header testuale, invece di uno
-           spazio vuoto o un placeholder. -->
-      <div v-if="fotoHero" class="plant-hero" :style="`background-image:url(${fotoHero.thumbUrl});`">
-        <RouterLink to="/piante" class="plant-back"><Icon name="back" style="width:16px;height:16px;" /></RouterLink>
-        <RouterLink :to="`/piante/${route.params.id}/modifica`" class="plant-edit">
-          <Icon name="matita" style="width:12px;height:12px;" />Modifica
-        </RouterLink>
-        <div class="plant-hero-text">
-          <span class="zone-chip" style="display:inline-flex;align-items:center;gap:5px;"><Icon :name="store.iconaZona(pianta.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ pianta.sottozona ? `${pianta.zona} · ${pianta.sottozona}` : pianta.zona }}</span>
-          <h1 class="plant-hero-title title-settle">{{ specie?.nome ?? pianta.specie }}</h1>
-          <p class="plant-hero-lat">
-            {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
-            <span v-if="pianta.coltivato_in" class="badge" :title="labelColtivatoIn(pianta.coltivato_in)" style="margin-left:6px;vertical-align:middle;display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;background:var(--gold-pale);color:var(--gold-dark);"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" style="width:13px;height:13px;display:block;" /></span>
-          </p>
+      <!-- Header con foto + galleria. Con foto personali si scorre la
+           galleria; senza, si usa l'immagine della specie (Wikimedia) come
+           unica slide; senza nemmeno quella, header testuale ridotto. -->
+      <div v-if="hasPhotos || fotoHero" class="phead-photo">
+        <div class="gtrack" @scroll.passive="onGtrackScroll">
+          <figure v-for="f in slides" :key="f.path ?? 'hero'" class="gslide" @click="apriLuce(f)">
+            <img class="gimg" :src="f.thumbUrl" :alt="specie?.nome ?? pianta.specie" loading="lazy">
+          </figure>
         </div>
-        <a v-if="fotoHero.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener"
-          class="plant-hero-credit" @click.stop>
+        <div class="phead-scrim"></div>
+        <span v-if="fotoPianta.length > 1" class="gnote">{{ fotoPianta.length }} foto</span>
+        <RouterLink class="pbtn pbtn--back" to="/piante" aria-label="Torna a Piante"><Icon name="back" /></RouterLink>
+        <RouterLink class="pbtn pbtn--edit" :to="`/piante/${route.params.id}/modifica`"><Icon name="matita" /> Modifica</RouterLink>
+        <div v-if="fotoPianta.length > 1" class="gdots">
+          <span v-for="(f, i) in fotoPianta" :key="i" :class="{ on: i === indiceFotoCorrente }"></span>
+        </div>
+        <div class="phead-cap">
+          <span class="chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+          <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
+          <p class="pbino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="tag-inline">{{ labelColtivatoIn(pianta.coltivato_in) }}</span></p>
+        </div>
+        <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
           Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
         </a>
       </div>
 
-      <!-- Header testuale: quando non c'è ancora una foto -->
-      <div v-else style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;gap:12px;">
-        <div>
-          <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;line-height:1.2;">
-            {{ specie?.nome ?? pianta.specie }}
-          </h1>
-          <p class="title-serif" style="font-size:13px;color:var(--ink-soft);margin-top:4px;font-style:italic;">
-            {{ specie?.specie }}<span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
-          </p>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;">
-            <span class="badge badge-gold" style="display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaZona(pianta.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ pianta.zona }}</span>
-            <span v-if="pianta.sottozona" class="badge" style="background:var(--sage-pale);color:var(--sage-dark);display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaSottozona(pianta.zona, pianta.sottozona)" style="width:12px;height:12px;flex-shrink:0;" />{{ pianta.sottozona }}</span>
-            <span v-if="pianta.coltivato_in" class="badge" :title="labelColtivatoIn(pianta.coltivato_in)" style="display:inline-flex;align-items:center;justify-content:center;padding:4px 8px;background:var(--gold-pale);color:var(--gold-dark);"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" style="width:13px;height:13px;display:block;" /></span>
+      <!-- Header testuale ridotto: nessuna foto disponibile -->
+      <div v-else class="phead-text">
+        <RouterLink to="/piante" class="phead-text__back"><Icon name="back" /> Piante</RouterLink>
+        <div class="phead-text__body">
+          <div class="phead-text__id">
+            <span class="phead-text__chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+            <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
+            <p class="phead-text__bino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="phead-text__tag">{{ labelColtivatoIn(pianta.coltivato_in) }}</span></p>
           </div>
-        </div>
-        <RouterLink :to="`/piante/${route.params.id}/modifica`" class="btn btn-ghost"
-          style="flex-shrink:0;padding:8px 14px;font-size:13px;display:flex;align-items:center;gap:6px;">
-          <Icon name="matita" style="width:13px;height:13px;flex-shrink:0;" />Modifica
-        </RouterLink>
-      </div>
-
-      <!-- Urgenze -->
-      <div v-if="cureUrgenti.length" class="card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:12px;">
-        <p style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">
-          <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />Da curare subito
-        </p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div v-for="c in cureUrgenti" :key="c.tipo" style="display:flex;align-items:center;justify-content:space-between;">
-            <span style="font-size:13px;color:var(--rose-dark);">{{ c.label }}</span>
-            <button @click="registraCura(c.tipo)" :disabled="salvando === c.tipo" class="btn btn-rose"
-              style="font-size:11px;padding:4px 10px;min-height:28px;">
-              <Spinner v-if="salvando === c.tipo" /><span v-else>Registra</span>
-            </button>
-          </div>
+          <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
       </div>
 
-      <!-- Cure -->
-      <div class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:10px;">Stato cure</p>
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div v-for="tipo in tipiCura" :key="tipo"
-            style="display:flex;align-items:center;gap:12px;">
-            <div class="cura-ic" :style="`background:var(--${tintaCura(tipo)}-tile);`"><Icon :name="iconaCura(tipo)" style="width:17px;height:17px;" /></div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:13px;font-weight:500;text-transform:capitalize;">{{ tipo }}</div>
-              <div style="font-size:11px;color:var(--ink-soft);margin-top:2px;">
-                {{ valutaCura(pianta, specie, tipo, contestoCura).label ?? 'Non configurata' }}
-              </div>
-              <div v-if="tipo === 'concimazione' && fabbisognoNpk && !classificaConcimiPianta.length" style="font-size:11px;color:var(--ink-faint);margin-top:2px;">
-                Nessun concime in dispensa (fabbisogno {{ fabbisognoNpk }})
-              </div>
+      <!-- Alert cura: unico blocco sollevato, tinta olive, solo icona a sinistra -->
+      <div v-if="cureUrgenti.length" class="card alert-cura">
+        <span class="alert-cura__ic"><Icon name="campanella" /></span>
+        <div class="alert-cura__main">
+          <div class="alert-cura__title">Da curare subito</div>
+          <div class="alert-cura__rows">
+            <div v-for="c in cureUrgenti" :key="c.tipo" class="alert-cura__row">
+              <span>{{ c.label }}</span>
+              <button class="care-act care-act--rose" type="button" @click="registraCura(c.tipo)" :disabled="salvando === c.tipo">
+                <Spinner v-if="salvando === c.tipo" /><span v-else>Registra</span>
+              </button>
             </div>
-            <button @click="registraCura(tipo)" :disabled="salvando === tipo" class="btn btn-sage"
-              style="font-size:11px;padding:4px 10px;min-height:28px;flex-shrink:0;white-space:nowrap;">
-              <Spinner v-if="salvando === tipo" /><span v-else>✓ Fatto</span>
-            </button>
           </div>
+        </div>
+      </div>
+
+      <!-- Stato cure -->
+      <div class="slabel">Stato cure</div>
+      <div class="care">
+        <div v-for="tipo in tipiCura" :key="tipo" class="care__row">
+          <span class="care__ic" :class="`care__ic--${tipo}`"><Icon :name="iconaCura(tipo)" /></span>
+          <span class="care__m">
+            <span class="care__n">{{ LABEL_CURA[tipo] ?? tipo }}</span>
+            <span class="care__d">{{ statoCura(tipo) }}</span>
+          </span>
+          <button class="care-act" type="button" @click="registraCura(tipo)" :disabled="salvando === tipo">
+            <Spinner v-if="salvando === tipo" /><span v-else>Fatto</span>
+          </button>
         </div>
       </div>
 
       <!-- Concimi consigliati per il fabbisogno attuale -->
-      <div v-if="fabbisognoNpk && classificaConcimiPianta.length" class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
-          <Icon name="concimazione" style="width:13px;height:13px;flex-shrink:0;" />Concimi consigliati
-        </p>
-        <p style="font-size:11px;color:var(--ink-faint);margin:0 0 10px;">Per il fabbisogno di concimazione attuale: {{ fabbisognoNpk }}</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div v-for="(c, i) in classificaConcimiPianta" :key="c.id"
-            :style="`display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;${i === 0 ? 'background:var(--sage-pale);' : ''}`">
-            <span :style="`width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;${i === 0 ? 'background:var(--sage);color:white;' : 'background:var(--cream-dark);color:var(--ink-soft);'}`">
-              {{ i + 1 }}
-            </span>
-            <span style="flex:1;min-width:0;font-size:13px;font-weight:500;line-height:1.4;">{{ c.nome }}</span>
-            <Icon v-if="c.disponibile === false" name="allerta" style="width:14px;height:14px;flex-shrink:0;color:var(--rose);" aria-label="Terminato" />
-            <span class="badge" style="background:var(--white);color:var(--ink-soft);border:1px solid var(--cream-dark);flex-shrink:0;">
-              {{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}
-            </span>
+      <template v-if="fabbisognoNpk">
+        <div class="slabel">Concimi consigliati</div>
+        <p class="prose feed-nb">Per il fabbisogno attuale: {{ fabbisognoNpk }}</p>
+        <div v-if="classificaConcimiPianta.length" class="feedlist">
+          <div v-for="(c, i) in classificaConcimiPianta" :key="c.id" class="feed">
+            <span class="feed__rank" :class="{ 'feed__rank--dim': i > 0 }">{{ i + 1 }}</span>
+            <div class="feed__m">
+              <div class="feed__n">{{ c.nome }}<span v-if="c.disponibile === false" class="feed__tag">terminato</span></div>
+            </div>
+            <span class="feed__npk">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
           </div>
+        </div>
+        <p v-else class="prose">Nessun concime in dispensa per questo fabbisogno.</p>
+      </template>
+
+      <!-- La specie -->
+      <div v-if="specie && (specie.descrizione || coltivazione)" class="specie">
+        <svg class="specie-ghost" viewBox="0 0 512 512" aria-hidden="true"><g transform="translate(0 512) scale(0.1 -0.1)"><path class="sg" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34 -95 -78 -115 -32 -15 -72 -17 -282 -16 -135 0 -297 6 -360 12 -213 22 -501 26 -660 8 -148 -16 -171 -21 -345 -74 -119 -36 -187 -64 -405 -169 -160 -77 -376 -157 -452 -168 l-38 -6 0 -196 0 -196 68 6 c38 4 114 16 171 28 56 11 104 19 106 17 3 -2 9 -84 15 -182 6 -99 13 -183 16 -187 2 -5 5 -41 6 -82 0 -63 -4 -81 -31 -135 -17 -34 -35 -62 -39 -62 -9 0 -131 -99 -177 -143 -20 -19 -40 -50 -45 -68 -5 -18 -14 -114 -20 -213 -6 -100 -18 -241 -27 -314 -18 -150 -12 -190 34 -237 51 -51 79 -59 211 -63 129 -4 167 3 210 41 16 15 22 31 22 64 0 54 -29 87 -91 103 -24 6 -50 13 -56 15 -21 7 -15 65 17 155 16 47 30 94 30 105 1 11 9 35 18 54 14 29 26 37 67 48 65 16 330 60 419 68 38 4 75 9 83 12 22 8 15 -14 -22 -72 -20 -30 -38 -68 -41 -84 -14 -70 74 -165 281 -302 182 -120 202 -132 275 -162 90 -37 140 -46 251 -47 82 0 102 3 145 25 80 40 95 96 41 150 -36 36 -89 55 -151 55 -38 0 -126 34 -126 49 0 4 -40 42 -90 84 -49 43 -90 83 -90 90 0 18 204 143 315 193 142 64 572 204 649 211 76 7 72 11 122 -142 18 -55 56 -163 84 -240 29 -77 65 -178 81 -225 39 -112 77 -180 116 -206 52 -35 137 -47 300 -42 201 6 263 33 263 115 0 16 -7 39 -16 52 -20 28 -88 60 -126 61 -26 0 -28 3 -28 38 0 21 4 73 9 117 6 44 13 116 16 160 3 44 10 100 15 125 6 25 21 117 35 205 28 171 62 307 126 500 112 334 130 413 155 668 17 183 12 251 -38 502 -91 465 -355 899 -680 1117 -53 36 -104 45 -137 26 -23 -13 -26 -20 -24 -61 2 -26 -1 -47 -6 -47 -5 0 -28 21 -51 47 -64 73 -139 133 -166 133 -13 0 -33 -9 -45 -21z m661 -3244 c0 -17 9 -29 31 -41 31 -16 32 -17 26 -74 -9 -84 -37 -154 -64 -158 -17 -3 -24 3 -29 24 -8 30 2 231 12 257 9 25 24 20 24 -8z"/><path class="sg" d="M124 3636 c-52 -23 -68 -73 -60 -187 26 -406 211 -760 516 -990 108 -82 230 -139 390 -184 66 -19 315 -31 424 -20 l77 7 -3 198 c-2 109 -6 201 -9 204 -3 4 -17 2 -31 -3 -14 -5 -77 -15 -140 -22 -99 -11 -132 -10 -224 2 -60 9 -127 24 -149 34 -161 74 -273 169 -363 308 -86 132 -116 202 -162 377 -48 180 -68 227 -112 260 -38 28 -110 36 -154 16z"/></g></svg>
+        <div class="slabel">La specie</div>
+        <p v-if="specie.descrizione" class="prose">{{ specie.descrizione }}</p>
+        <div v-if="coltivazione" class="kv">
+          <div v-if="coltivazione.famiglia_botanica"><span class="k">Famiglia</span><span class="v">{{ coltivazione.famiglia_botanica }}</span></div>
+          <div v-if="coltivazione.giorni_germinazione"><span class="k">Germinazione</span><span class="v">{{ coltivazione.giorni_germinazione }} gg</span></div>
+          <div v-if="coltivazione.giorni_trapianto"><span class="k">Al trapianto</span><span class="v">{{ coltivazione.giorni_trapianto }} gg dalla semina</span></div>
+          <div v-if="coltivazione.giorni_raccolta"><span class="k">Prima raccolta</span><span class="v">{{ coltivazione.giorni_raccolta }} gg dal trapianto</span></div>
+          <div v-if="coltivazione.finestra_semina?.length"><span class="k">Finestra semina</span><span class="v">{{ coltivazione.finestra_semina.join(', ') }}</span></div>
+          <div v-if="coltivazione.finestra_trapianto?.length"><span class="k">Finestra trapianto</span><span class="v">{{ coltivazione.finestra_trapianto.join(', ') }}</span></div>
+          <div v-if="coltivazione.resistenza_gelo"><span class="k">Resistenza al gelo</span><span class="v">{{ coltivazione.resistenza_gelo }}</span></div>
+          <div v-if="coltivazione.spaziatura_cm"><span class="k">Spaziatura</span><span class="v">{{ coltivazione.spaziatura_cm }} cm</span></div>
+          <div v-if="coltivazione.consociazioni_favorevoli?.length"><span class="k">Si abbina a</span><span class="v">{{ coltivazione.consociazioni_favorevoli.join(', ') }}</span></div>
+          <div v-if="coltivazione.consociazioni_sfavorevoli?.length"><span class="k">Evitare vicino a</span><span class="v">{{ coltivazione.consociazioni_sfavorevoli.join(', ') }}</span></div>
         </div>
       </div>
 
-      <!-- Esigenze specie -->
-      <div v-if="specie?.esigenze" class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:10px;">Esigenze</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div v-for="(val, chiave) in specie.esigenze" :key="chiave"
-            style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);text-transform:capitalize;min-width:70px;">{{ chiave }}</span>
-            <span class="text-light" style="color:var(--ink-mid);">{{ val }}</span>
+      <!-- Esigenze -->
+      <template v-if="specie?.esigenze && Object.keys(specie.esigenze).length">
+        <div class="slabel">Esigenze</div>
+        <div class="kv">
+          <div v-for="(val, chiave) in specie.esigenze" :key="chiave">
+            <span class="k"><Icon :name="iconaEsigenza(chiave)" />{{ capitalizza(chiave) }}</span>
+            <span class="v">{{ val }}</span>
           </div>
         </div>
-      </div>
+      </template>
 
-      <!-- Coltivazione specie (solo annuali/biennali, vedi tab Coltivazione del form specie) -->
-      <div v-if="coltivazione" class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:10px;">Coltivazione</p>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div v-if="coltivazione.famiglia_botanica" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Famiglia</span>
-            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.famiglia_botanica }}</span>
-          </div>
-          <div v-if="coltivazione.giorni_germinazione" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Germinazione</span>
-            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.giorni_germinazione }} gg</span>
-          </div>
-          <div v-if="coltivazione.giorni_trapianto" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Giorni al trapianto</span>
-            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.giorni_trapianto }} gg dalla semina</span>
-          </div>
-          <div v-if="coltivazione.giorni_raccolta" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Prima raccolta</span>
-            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.giorni_raccolta }} gg dal trapianto</span>
-          </div>
-          <div v-if="coltivazione.finestra_semina?.length" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Finestra semina</span>
-            <span class="text-light" style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.finestra_semina.join(', ') }}</span>
-          </div>
-          <div v-if="coltivazione.finestra_trapianto?.length" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Finestra trapianto</span>
-            <span class="text-light" style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.finestra_trapianto.join(', ') }}</span>
-          </div>
-          <div v-if="coltivazione.resistenza_gelo" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Resistenza al gelo</span>
-            <span class="text-light" style="color:var(--ink-mid);text-transform:capitalize;">{{ coltivazione.resistenza_gelo }}</span>
-          </div>
-          <div v-if="coltivazione.spaziatura_cm" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Spaziatura</span>
-            <span class="text-light" style="color:var(--ink-mid);">{{ coltivazione.spaziatura_cm }} cm</span>
-          </div>
-          <div v-if="coltivazione.consociazioni_favorevoli?.length" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Si abbina bene con</span>
-            <span class="text-light" style="color:var(--sage-dark);">{{ coltivazione.consociazioni_favorevoli.join(', ') }}</span>
-          </div>
-          <div v-if="coltivazione.consociazioni_sfavorevoli?.length" style="display:flex;gap:8px;font-size:13px;">
-            <span style="color:var(--ink-faint);min-width:120px;">Evitare vicino a</span>
-            <span class="text-light" style="color:var(--rose-dark);">{{ coltivazione.consociazioni_sfavorevoli.join(', ') }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Alert specie -->
-      <div v-if="specie?.alert?.length" class="card" style="padding:16px;margin-bottom:12px;border-color:var(--gold-light);background:var(--gold-pale);">
-        <p class="section-label" style="margin-bottom:10px;color:var(--gold-dark);">Note tecniche</p>
-        <ul style="padding-left:16px;margin:0;display:flex;flex-direction:column;gap:4px;">
-          <li v-for="a in specie.alert" :key="a" class="text-light" style="font-size:12px;color:var(--ink-mid);">{{ a }}</li>
+      <!-- Note tecniche della specie -->
+      <template v-if="specie?.alert?.length">
+        <div class="slabel">Note tecniche</div>
+        <ul class="notelist">
+          <li v-for="a in specie.alert" :key="a">{{ a }}</li>
         </ul>
-      </div>
+      </template>
 
       <!-- Note personali -->
-      <div v-if="pianta.note" class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:6px;">Note</p>
-        <p class="text-light" style="font-size:13px;color:var(--ink-mid);line-height:1.6;">{{ pianta.note }}</p>
-      </div>
-
-      <!-- Foto -->
-      <div v-if="caricandoFoto || fotoPianta.length" class="card" style="padding:16px;margin-bottom:12px;">
-        <p class="section-label" style="margin-bottom:10px;">Foto</p>
-        <div v-if="caricandoFoto" style="display:flex;gap:8px;">
-          <div v-for="i in 3" :key="i" class="skeleton" style="width:72px;height:72px;border-radius:12px;flex-shrink:0;"></div>
-        </div>
-        <div v-else style="display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;">
-          <div v-for="f in fotoPianta" :key="f.path"
-            @click="luce = f"
-            style="width:72px;height:72px;border-radius:12px;overflow:hidden;cursor:pointer;background:var(--cream-dark);flex-shrink:0;">
-            <img :src="f.thumbUrl" :alt="f.nome" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
-          </div>
-        </div>
-      </div>
+      <template v-if="pianta.note">
+        <div class="slabel">Note</div>
+        <p class="prose">{{ pianta.note }}</p>
+      </template>
 
       <!-- Info impianto -->
-      <div v-if="pianta.impianto" class="card" style="padding:14px 16px;margin-bottom:12px;">
-        <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ formattaData(pianta.impianto) }}</strong></p>
-      </div>
-      <div v-else-if="pianta.impianto_circa" class="card" style="padding:14px 16px;margin-bottom:12px;">
-        <p style="font-size:12px;color:var(--ink-soft);">Messa a dimora: <strong>{{ pianta.impianto_circa }}</strong> <span style="color:var(--ink-faint);">(data non certa)</span></p>
-      </div>
+      <p v-if="pianta.impianto" class="prose feed-nb">Messa a dimora: <strong>{{ formattaData(pianta.impianto) }}</strong></p>
+      <p v-else-if="pianta.impianto_circa" class="prose feed-nb">Messa a dimora: <strong>{{ pianta.impianto_circa }}</strong> (data non certa)</p>
 
-      <!-- Elimina -->
-      <div style="margin-top:24px;text-align:center;">
-        <button @click="daEliminare = true" class="btn" style="font-size:13px;color:var(--rose-dark);background:transparent;border-color:var(--rose-light);">
-          Elimina pianta
-        </button>
-      </div>
+      <button class="delete" type="button" @click="daEliminare = true">Elimina pianta</button>
     </template>
 
     <ModalConferma
@@ -292,26 +217,53 @@ const caricandoFoto = ref(false)
 const luce          = ref(null)
 const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
+const indiceFotoCorrente = ref(0)
 
-// La prima foto in galleria diventa l'header della scheda, al posto del
-// testo semplice. Senza foto personali, si usa come ripiego l'immagine
-// della specie (Wikimedia Commons, licenze CC0/CC BY/CC BY-SA — mai
-// selezionata visivamente una per una, va citata l'attribuzione richiesta
-// dalla licenza). Solo testo semplice se manca anche quella.
+// La galleria in cima alla scheda: le foto personali se ci sono, altrimenti
+// come ripiego l'immagine della specie (Wikimedia Commons, licenze
+// CC0/CC BY/CC BY-SA — mai selezionata visivamente una per una, va citata
+// l'attribuzione richiesta dalla licenza). Solo header testuale se manca
+// anche quella.
 const fotoHero = computed(() => {
-  if (fotoPianta.value[0]) return fotoPianta.value[0]
   const img = specie.value?.immagine
   return img ? { url: img.url, thumbUrl: urlMiniatura(img.url, 800), fallback: true, attribuzione: img.attribuzione, fonte_pagina: img.fonte_pagina } : null
 })
+const hasPhotos = computed(() => fotoPianta.value.length > 0)
+const soloHero  = computed(() => !hasPhotos.value && !!fotoHero.value)
+const slides    = computed(() => (hasPhotos.value ? fotoPianta.value : (fotoHero.value ? [fotoHero.value] : [])))
+
+// Pallini della galleria in sincrono con lo scorrimento (porta della logica
+// del mockup, adattata a un ref Vue).
+function onGtrackScroll(e) {
+  const el = e.target
+  const n = slides.value.length
+  if (!n) return
+  const i = Math.round(el.scrollLeft / (el.scrollWidth / n))
+  indiceFotoCorrente.value = Math.min(i, n - 1)
+}
+
+// Solo una foto vera (path presente) apre il lightbox; l'immagine di ripiego
+// della specie non è una foto della galleria.
+function apriLuce(f) {
+  if (f?.path) luce.value = f
+}
 
 const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'provetta' }
-const TINTE_CURA = { irrigazione: 'acqua', concimazione: 'olive', potatura: 'rose', calcio: 'sage' }
+const LABEL_CURA = { irrigazione: 'Irrigazione', concimazione: 'Concimazione', potatura: 'Potatura', calcio: 'Calcio' }
 function iconaCura(tipo) { return ICONE_CURA[tipo] ?? 'foglia' }
-function tintaCura(tipo) { return TINTE_CURA[tipo] ?? 'sage' }
 
-const LABEL_COLTIVATO_IN = { vaso: 'In vaso', terra: 'In terra', acqua: 'In acqua' }
-function labelColtivatoIn(coltivatoIn) { return LABEL_COLTIVATO_IN[coltivatoIn] ?? 'In terra' }
-function iconaColtivatoIn(coltivatoIn) { return coltivatoIn in LABEL_COLTIVATO_IN ? coltivatoIn : 'terra' }
+const ICONE_ESIGENZA = {
+  sole: 'sole', luce: 'sole', esposizione: 'sole',
+  terreno: 'foglia', suolo: 'foglia', substrato: 'foglia', ph: 'foglia',
+  acqua: 'goccia', irrigazione: 'goccia', umidita: 'goccia', umidità: 'goccia',
+  temperatura: 'caldo', clima: 'caldo', gelo: 'gelo',
+  spazio: 'pin', distanza: 'pin', potatura: 'potatura', concimazione: 'concimazione',
+}
+function iconaEsigenza(chiave) { return ICONE_ESIGENZA[String(chiave).toLowerCase()] ?? 'foglia' }
+function capitalizza(s) { s = String(s); return s.charAt(0).toUpperCase() + s.slice(1) }
+
+const LABEL_COLTIVATO_IN = { vaso: 'in vaso', terra: 'in terra', acqua: 'in acqua' }
+function labelColtivatoIn(coltivatoIn) { return LABEL_COLTIVATO_IN[coltivatoIn] ?? 'in terra' }
 
 const indiceLuce = computed(() => luce.value ? fotoPianta.value.findIndex(f => f.path === luce.value.path) : -1)
 
@@ -345,6 +297,7 @@ async function caricaFotoPianta(id) {
     fotoPianta.value = []
   } finally {
     caricandoFoto.value = false
+    indiceFotoCorrente.value = 0
   }
 }
 
@@ -384,15 +337,31 @@ const contestoCura = computed(() => ({
   meteo: store.meteo,
 }))
 
-// "calcio" riguarda solo le poche specie con un beneficio documentato (vedi
-// specie.json): mostrarlo comunque per tutte le altre come "Non configurata"
-// sarebbe rumore, a differenza di irrigazione/concimazione/potatura che sono
-// pertinenti ovunque.
+// I tipi di cura con cadenza/urgenza sono irrigazione, concimazione e —
+// solo per le poche specie con beneficio documentato — calcio. La potatura
+// non è mai valutata per urgenza: resta però in coda come riga registrabile
+// ("ultima: N giorni fa", bottone "Fatto").
 const tipiCura = computed(() => {
-  const base = ['irrigazione', 'concimazione', 'potatura']
+  const base = ['irrigazione', 'concimazione']
   if (specie.value?.manutenzione?.calcio) base.push('calcio')
+  base.push('potatura')
   return base
 })
+
+const giorniDaPotatura = computed(() => {
+  const s = pianta.value?.ultima_cura?.potatura
+  if (!s) return null
+  return Math.floor((Date.now() - new Date(s).getTime()) / 86400000)
+})
+
+function statoCura(tipo) {
+  if (tipo === 'potatura') {
+    return giorniDaPotatura.value == null
+      ? 'mai registrata'
+      : `ultima: ${giorniDaPotatura.value} giorni fa`
+  }
+  return valutaCura(pianta.value, specie.value, tipo, contestoCura.value).label ?? 'non configurata'
+}
 
 const cureUrgenti = computed(() =>
   pianta.value ? cureUrgentiPianta(pianta.value, specie.value, contestoCura.value) : []
@@ -400,8 +369,8 @@ const cureUrgenti = computed(() =>
 
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
 // Solo i primi 3: la dispensa può avere una decina di concimi, l'intera
-// classifica affollerebbe la riga della cura senza aggiungere utilità
-// oltre i migliori candidati.
+// classifica affollerebbe la sezione senza aggiungere utilità oltre i
+// migliori candidati.
 const classificaConcimiPianta = computed(() =>
   fabbisognoNpk.value ? classificaConcimiPerFabbisogno(fabbisognoNpk.value, store.concimi).slice(0, 3) : []
 )
@@ -432,44 +401,104 @@ async function eliminaPianta() {
 </script>
 
 <style scoped>
-.plant-hero {
-  position: relative; height: 200px; margin: 0 -16px 20px; border-radius: 0;
-  background-size: cover; background-position: 50% 35%;
+/* Header foto a tutta larghezza, a filo del bordo superiore del contenuto. */
+.phead-photo { margin: -28px -16px 0; }
+.phead-credit {
+  position: absolute; right: 12px; bottom: 8px; z-index: 2;
+  font: 400 9px/1.3 var(--font-sans); color: rgba(253, 248, 238, 0.72);
+  text-decoration: none; background: rgba(22, 16, 8, 0.32);
+  padding: 2px 7px; border-radius: 999px;
 }
-.plant-hero::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(20,14,8,0.02) 0%, rgba(20,14,8,0.08) 55%, rgba(20,14,8,0.62) 100%);
+.phead-credit:hover { color: #fdf8ee; }
+
+/* Header testuale ridotto (nessuna foto disponibile). */
+.phead-text { margin: -8px 0 4px; }
+.phead-text__back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font: 400 13px/1 var(--font-sans); color: var(--ink-soft);
+  text-decoration: none; margin-bottom: 16px;
 }
-.plant-back, .plant-edit {
-  position: absolute; top: 14px; z-index: 2;
-  background: rgba(20,14,8,0.32); backdrop-filter: blur(3px);
-  color: #fdf8ee; text-decoration: none;
+.phead-text__back svg { width: 15px; height: 15px; }
+.phead-text__body { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.phead-text__chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  font: 700 9.5px/1 var(--font-sans); letter-spacing: .05em; text-transform: uppercase;
+  color: var(--ink-mid); background: var(--cream-dark);
+  padding: 4px 9px; border-radius: 999px;
 }
-.plant-back {
-  left: 16px; width: 32px; height: 32px; border-radius: 50%;
+.phead-text__chip svg { width: 11px; height: 11px; }
+.phead-text__name {
+  font: 700 24px/1.12 var(--font-display); color: var(--ink);
+  letter-spacing: -0.01em; margin: 8px 0 2px; text-wrap: balance;
+}
+.phead-text__name i { font-weight: 400; }
+.phead-text__bino {
+  font: 400 12.5px/1.4 var(--font-display); font-style: italic;
+  color: var(--ink-soft); margin: 0;
+}
+.phead-text__tag {
+  font: 600 10px/1 var(--font-sans); font-style: normal;
+  background: var(--cream-dark); color: var(--ink-mid);
+  padding: 3px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle;
+}
+.phead-text__edit {
+  flex: none; display: inline-flex; align-items: center; gap: 6px;
+  font: 600 11px/1 var(--font-sans); color: var(--ink-mid);
+  background: var(--cream-dark); border-radius: 999px; padding: 8px 12px;
+  text-decoration: none;
+}
+.phead-text__edit svg { width: 12px; height: 12px; }
+
+/* Alert cura: unico blocco sollevato, tinta olive, sola icona a sinistra. */
+.alert-cura {
+  display: flex; gap: 12px; align-items: flex-start;
+  padding: 14px 15px; margin: 16px 0 0;
+  background: var(--olive-bg); border-color: var(--olive-bg);
+}
+.alert-cura__ic {
+  flex: none; width: 38px; height: 38px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
+  background: var(--white); color: var(--olive-ink);
 }
-.plant-edit {
-  right: 16px; display: flex; align-items: center; gap: 5px;
-  font-size: 11px; font-weight: 700; padding: 7px 12px 7px 10px; border-radius: 999px;
+.alert-cura__ic svg { width: 20px; height: 20px; }
+.alert-cura__main { flex: 1; min-width: 0; }
+.alert-cura__title { font: 600 14px/1.25 var(--font-display); color: var(--olive-ink); }
+.alert-cura__rows { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.alert-cura__row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  font: 400 12.5px/1.4 var(--font-sans); color: var(--olive-ink);
 }
-.plant-hero-text { position: absolute; left: 18px; right: 18px; bottom: 14px; z-index: 2; color: #fdf8ee; }
-.plant-hero-title {
-  font-family: var(--font-display); font-weight: 800; font-size: 1.8rem; line-height: 1.1;
-  letter-spacing: -0.02em; margin: 0;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.28);
+
+/* Stato cure: righe con filetto, icona categoria a sinistra. */
+.care { display: flex; flex-direction: column; }
+.care__row { display: flex; align-items: center; gap: 12px; padding: 10px 2px; }
+.care__row + .care__row { border-top: 1px solid var(--cream-dark); }
+.care__ic {
+  flex: none; width: 34px; height: 34px; border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--olive-tile); color: var(--ink-mid);
 }
-.plant-hero-lat { font-family: var(--font-serif); font-style: italic; font-size: 12.5px; color: rgba(253,248,238,0.88); margin: 3px 0 0; }
-.plant-hero-credit {
-  position: absolute; right: 14px; bottom: 12px; z-index: 2;
-  font-size: 9.5px; color: rgba(253,248,238,0.75); text-decoration: none;
-  background: rgba(0,0,0,0.28); padding: 2px 8px; border-radius: 999px;
+.care__ic svg { width: 18px; height: 18px; }
+.care__ic--irrigazione { background: var(--acqua-bg); color: var(--acqua-ink); }
+.care__ic--concimazione { background: var(--olive-bg); color: var(--olive-ink); }
+.care__ic--calcio { background: var(--sage-bg); color: var(--sage-ink); }
+.care__ic--potatura { background: var(--rose-bg); color: var(--rose-ink); }
+.care__m { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.care__n { font: 600 13px/1.25 var(--font-sans); color: var(--ink); }
+.care__d { font: 400 11.5px/1.35 var(--font-sans); color: var(--ink-mid); }
+
+.care-act {
+  flex: none; font: 600 10.5px/1 var(--font-sans); padding: 7px 12px;
+  border-radius: 999px; border: 1px solid var(--cream-dark);
+  background: var(--white); color: var(--ink-mid); cursor: pointer;
+  white-space: nowrap;
 }
-.plant-hero-credit:hover { color: #fdf8ee; }
-.zone-chip {
-  display: inline-block; margin-bottom: 6px; font-size: 9.5px; font-weight: 700;
-  letter-spacing: .04em; text-transform: uppercase; background: rgba(253,248,238,0.22);
-  color: #fdf8ee; padding: 3px 9px; border-radius: 999px;
-}
-.cura-ic { width: 38px; height: 38px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.care-act:disabled { opacity: .55; cursor: default; }
+.care-act--rose { border-color: var(--rose-light); color: var(--rose-dark); }
+
+/* Riga nota sotto un'etichetta (fabbisogno, messa a dimora). */
+.feed-nb { margin: -4px 0 10px; font-size: 11.5px; color: var(--ink-soft); }
+
+.notelist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.notelist li { font: 400 12.5px/1.55 var(--font-sans); color: var(--ink-mid); }
 </style>
