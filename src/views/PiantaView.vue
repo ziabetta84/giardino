@@ -38,7 +38,7 @@
         <div class="phead-cap">
           <span class="chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
           <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
-          <p class="pbino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="tag-inline">{{ labelColtivatoIn(pianta.coltivato_in) }}</span></p>
+          <p class="pbino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="tag-inline" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span></p>
         </div>
         <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
           Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
@@ -52,7 +52,7 @@
           <div class="phead-text__id">
             <span class="phead-text__chip"><Icon :name="store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
             <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
-            <p class="phead-text__bino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="phead-text__tag">{{ labelColtivatoIn(pianta.coltivato_in) }}</span></p>
+            <p class="phead-text__bino">{{ specie?.specie }}<span v-if="pianta.coltivato_in" class="phead-text__tag" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span></p>
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
@@ -263,6 +263,7 @@ function capitalizza(s) { s = String(s); return s.charAt(0).toUpperCase() + s.sl
 
 const LABEL_COLTIVATO_IN = { vaso: 'in vaso', terra: 'in terra', acqua: 'in acqua' }
 function labelColtivatoIn(coltivatoIn) { return LABEL_COLTIVATO_IN[coltivatoIn] ?? 'in terra' }
+function iconaColtivatoIn(coltivatoIn) { return coltivatoIn in LABEL_COLTIVATO_IN ? coltivatoIn : 'terra' }
 
 const indiceLuce = computed(() => luce.value ? fotoPianta.value.findIndex(f => f.path === luce.value.path) : -1)
 
@@ -434,10 +435,12 @@ async function eliminaPianta() {
   color: var(--ink-soft); margin: 0;
 }
 .phead-text__tag {
+  display: inline-flex; align-items: center;
   font: 600 10px/1 var(--font-sans); font-style: normal;
   background: var(--cream-dark); color: var(--ink-mid);
   padding: 3px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle;
 }
+.phead-text__tag svg { width: 13px; height: 13px; display: block; }
 .phead-text__edit {
   flex: none; display: inline-flex; align-items: center; gap: 6px;
   font: 600 11px/1 var(--font-sans); color: var(--ink-mid);

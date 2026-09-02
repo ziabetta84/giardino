@@ -396,9 +396,10 @@ body::before {
 .pname i { font-weight:400; }
 .pbino { font:400 12.5px/1.4 var(--font-display); font-style:italic;
   color:rgba(253,248,238,.9); margin:0; }
-.tag-inline { font:600 10px/1 var(--font-sans); font-style:normal;
+.tag-inline { display:inline-flex; align-items:center; font:600 10px/1 var(--font-sans); font-style:normal;
   background:rgba(253,248,238,.2); padding:3px 7px; border-radius:999px; margin-left:6px;
   vertical-align:middle; }
+.tag-inline svg { width:13px; height:13px; display:block; }
 .gdots { position:absolute; left:0; right:0; bottom:8px; z-index:2;
   display:flex; gap:5px; justify-content:center; }
 .gdots span { width:5px; height:5px; border-radius:50%; background:rgba(253,248,238,.45); }
