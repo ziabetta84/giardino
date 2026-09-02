@@ -1,44 +1,37 @@
 <template>
-  <div class="agente-layout">
-    <!-- Sidebar: storico conversazioni -->
-    <aside class="agente-sidebar" :class="{ aperta: sidebarAperta }">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-        <p class="section-label" style="margin:0;">Storico</p>
-        <button type="button" class="icon-btn agente-sidebar-close" aria-label="Chiudi storico" @click="sidebarAperta = false">
-          <Icon name="back" style="width:16px;height:16px;" />
-        </button>
+  <div class="agente-page">
+    <!-- Storico conversazioni: drawer a scomparsa da sinistra -->
+    <div class="hback" :class="{ open: sidebarAperta }" @click="sidebarAperta = false"></div>
+    <aside id="hstore" class="hstore" :class="{ open: sidebarAperta }">
+      <div class="hstore__hd">
+        <b>Storico</b>
+        <button type="button" class="hstore__new" @click="nuovaRichiesta">＋ Nuova</button>
       </div>
 
-      <button type="button" class="btn btn-sage" style="width:100%;margin-bottom:14px;" @click="nuovaRichiesta">
-        ＋ Nuova richiesta
-      </button>
-
-      <div class="agente-sidebar-list">
-        <div v-for="r in richieste" :key="r.id" class="agente-storico-riga-wrap">
-          <div class="agente-storico-riga" :class="{ active: r.id === richiestaSelezionataId }"
-            role="button" tabindex="0" @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)">
-            <span class="agente-storico-icona">
+      <div class="hstore__list">
+        <div v-for="r in richieste" :key="r.id" class="hitem-wrap">
+          <a class="hitem" :class="{ on: r.id === richiestaSelezionataId }"
+            role="button" tabindex="0"
+            @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)">
+            <span class="hitem__ic">
               <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
             </span>
-            <span class="agente-storico-testo">
-              <span class="agente-storico-titolo">{{ titoloRichiesta(r) }}</span>
-              <span class="agente-storico-data">{{ formatData(r.creata) }}</span>
+            <span class="hitem__m">
+              <span class="hitem__t">{{ titoloRichiesta(r) }}</span>
+              <span class="hitem__d">{{ formatData(r.creata) }}</span>
             </span>
-            <span v-if="r.stato === 'in_attesa'" class="pulse-dot" style="flex-shrink:0;"></span>
-          </div>
-          <button type="button" class="icon-btn agente-storico-kebab" aria-label="Altre azioni"
+            <span v-if="r.stato === 'in_attesa'" class="adot"></span>
+          </a>
+          <button type="button" class="hitem-kebab" aria-label="Altre azioni"
             @click.stop="toggleMenu(r.id, $event)">⋮</button>
         </div>
-        <p v-if="!richieste.length" class="text-light" style="font-size:12px;color:var(--ink-faint);text-align:center;padding:20px 8px;">
-          Nessuna richiesta ancora
-        </p>
+        <p v-if="!richieste.length" class="hstore__empty">Nessuna richiesta ancora</p>
       </div>
     </aside>
-    <div v-if="sidebarAperta" class="agente-backdrop" @click="sidebarAperta = false"></div>
 
-    <!-- Teleportato su body: la sidebar ha overflow-y auto per lo scroll
-         dello storico, quindi un menu posizionato dentro verrebbe tagliato
-         quando la riga è vicina al bordo scrollabile. -->
+    <!-- Teleportato su body: la lista dello storico ha overflow-y auto, quindi
+         un menu posizionato al suo interno verrebbe tagliato quando la riga è
+         vicina al bordo scrollabile. -->
     <Teleport to="body">
       <div v-if="menuApertoId" class="agente-storico-menu" :style="{ top: menuPos.top + 'px', left: menuPos.left + 'px' }" @click.stop>
         <button type="button" class="agente-storico-menu-item" @click="apriEliminazione(menuApertoId)">
@@ -47,141 +40,131 @@
       </div>
     </Teleport>
 
-    <!-- Contenuto principale -->
-    <div class="agente-main">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-      <button type="button" class="icon-btn agente-storico-toggle" aria-label="Apri storico" @click="sidebarAperta = true">
-        <Icon name="lista" style="width:18px;height:18px;" />
-      </button>
-      <h1 class="title-display gradient-title title-settle" style="display:flex;align-items:center;gap:9px;font-size:1.9rem;font-weight:800;margin:0;min-width:0;">
-        <ZorbaLogo style="width:38px;height:38px;flex-shrink:0;" />Zorba dice
-      </h1>
-    </div>
-    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">Elaborato da Claude Code · risposte entro pochi minuti</p>
+    <button type="button" class="htoggle" @click="sidebarAperta = true">
+      <Icon name="lista" /> Storico
+    </button>
+
+    <h1 class="agente-h1">
+      <ZorbaLogo style="width:30px;height:30px;flex-shrink:0;" />Zorba dice
+    </h1>
+    <p class="agente-sub">Elaborato da Claude Code · risposta entro pochi minuti</p>
 
     <!-- Token mancante -->
-    <div v-if="!tokenPresente" class="card" style="padding:16px;margin-bottom:16px;border-color:var(--gold-light);background:var(--gold-pale);">
-      <p style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--gold-dark);margin-bottom:4px;">
-        <Icon name="chiave" style="width:14px;height:14px;flex-shrink:0;" />Token GitHub richiesto
-      </p>
-      <p style="font-size:12px;color:var(--ink-soft);margin-bottom:10px;">Serve un token con permesso <code>contents:write</code> per inviare richieste.</p>
+    <div v-if="!tokenPresente" class="agente-tokenbox">
+      <p class="slabel">Token GitHub richiesto</p>
+      <p class="prose">Serve un token con permesso <code>contents:write</code> per inviare richieste.</p>
       <RouterLink to="/account" class="btn btn-sage" style="display:inline-block;min-height:36px;padding:6px 14px;font-size:13px;">Vai su Account</RouterLink>
     </div>
 
     <!-- Nuova richiesta -->
-    <div v-if="!richiestaSelezionata" class="card" style="padding:16px;margin-bottom:20px;border-color:var(--sage-light);">
-      <p class="section-label" style="margin-bottom:10px;">Nuova richiesta</p>
+    <div v-if="!richiestaSelezionata" class="agente-nuova">
+      <p class="slabel">Nuova richiesta</p>
 
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
-        <button v-for="t in TIPI_RICHIESTA" :key="t.value" type="button" class="pill tab-icona"
-          :class="{ active: nuovoTipo === t.value }" @click="nuovoTipo = t.value">
-          <Icon v-if="t.icon" :name="t.icon" />{{ t.label }}
-        </button>
+      <div class="reqchips">
+        <button v-for="t in TIPI_RICHIESTA" :key="t.value" type="button" class="reqchip"
+          :class="{ on: nuovoTipo === t.value }" @click="nuovoTipo = t.value">{{ t.label }}</button>
       </div>
 
       <!-- Revisione specie: indica quale specie, non serve una foto -->
-      <div v-if="nuovoTipo === 'revisione_specie'" style="margin-bottom:10px;">
+      <div v-if="nuovoTipo === 'revisione_specie'" class="agente-extra">
         <SelettoreSpecie v-model="specieSelezionata" />
-        <p style="font-size:11px;color:var(--ink-soft);margin-top:6px;">Zorba controlla i campi mancanti o incompleti della scheda e li completa.</p>
+        <p class="agente-hint">Zorba controlla i campi mancanti o incompleti della scheda e li completa.</p>
       </div>
 
       <!-- Pianifica progetto: un progetto esistente da completare, oppure uno
            nuovo (basta il titolo, il resto lo ricava dalla descrizione) —
            anche qui non serve una foto. -->
-      <div v-else-if="nuovoTipo === 'pianifica_progetto'" style="margin-bottom:10px;">
+      <div v-else-if="nuovoTipo === 'pianifica_progetto'" class="agente-extra">
         <select v-model="progettoSelezionato" class="form-input" style="margin-bottom:8px;">
           <option value="">➕ Nuovo progetto</option>
           <option v-for="p in progettiEsistenti" :key="p.id" :value="p.id">{{ p.titolo }}</option>
         </select>
         <input v-if="!progettoSelezionato" v-model="nuovoProgettoTitolo" placeholder="Titolo del nuovo progetto" class="form-input">
-        <p style="font-size:11px;color:var(--ink-soft);margin-top:6px;">Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.</p>
+        <p class="agente-hint">Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.</p>
       </div>
 
-      <!-- Upload foto -->
-      <div v-else style="margin-bottom:10px;">
-        <div v-if="fotoPreview" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--sage-light);border-radius:12px;background:var(--sage-pale);margin-bottom:8px;">
-          <img :src="fotoPreview" alt="Anteprima della foto selezionata" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-          <div style="flex:1;font-size:13px;font-weight:600;color:var(--sage-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ nomeFile }}</div>
-          <button type="button" @click="rimuoviFoto" aria-label="Rimuovi foto" style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">×</button>
+      <div class="reqbox">
+        <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio" rows="3"></textarea>
+
+        <!-- Anteprima della foto selezionata -->
+        <div v-if="fotoPreview && nuovoTipo !== 'revisione_specie' && nuovoTipo !== 'pianifica_progetto'" class="agente-foto-preview">
+          <img :src="fotoPreview" alt="Anteprima della foto selezionata">
+          <span class="agente-foto-nome">{{ nomeFile }}</span>
+          <button type="button" @click="rimuoviFoto" aria-label="Rimuovi foto">×</button>
         </div>
 
-        <!-- Due bottoni separati invece di un unico input generico: su alcuni
-             browser/telefoni Android un input "accept=image/*" senza capture
-             viene comunque risolto dal sistema verso la fotocamera, saltando
-             la scelta della libreria. Un bottone dedicato alla libreria (senza
-             alcun attributo capture) e uno dedicato alla fotocamera evitano
-             del tutto questa ambiguità. Nascosti quando una foto è già
-             selezionata (rimuovila con la "×" per sceglierne un'altra), per
-             non occupare spazio prezioso su schermo mobile. -->
-        <div v-else style="display:flex;gap:8px;">
-          <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-            <Icon name="cornice" style="width:16px;height:16px;flex-shrink:0;" />Libreria
-            <input type="file" accept="image/*" @change="selezionaFoto" style="display:none;">
-          </label>
-          <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;border:1.5px dashed var(--sage-light);border-radius:12px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-            <Icon name="fotocamera" style="width:16px;height:16px;flex-shrink:0;" />Fotocamera
-            <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" style="display:none;">
-          </label>
+        <div class="reqbar">
+          <!-- Due input separati (libreria / fotocamera): su alcuni telefoni
+               Android un input "accept=image/*" senza capture viene comunque
+               risolto verso la fotocamera, saltando la scelta della libreria.
+               Un input dedicato a ciascuna sorgente evita l'ambiguità. -->
+          <span v-if="!fotoPreview && nuovoTipo !== 'revisione_specie' && nuovoTipo !== 'pianifica_progetto'" class="ph">
+            <Icon name="fotocamera" />
+            <label class="agente-foto-btn">Libreria
+              <input type="file" accept="image/*" @change="selezionaFoto" hidden>
+            </label>
+            <label class="agente-foto-btn">Fotocamera
+              <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" hidden>
+            </label>
+          </span>
+          <span v-else></span>
+
+          <button type="button" class="reqsend" @click="aggiungiRichiesta"
+            :disabled="!puoInviare || aggiungendo || !tokenPresente">
+            <Spinner v-if="aggiungendo" />{{ aggiungendo ? 'Invio…' : 'Invia' }}
+          </button>
         </div>
-        <p v-if="!fotoPreview" style="font-size:11px;color:var(--ink-soft);margin-top:6px;text-align:center;">
-          JPG, PNG — max 5 MB<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
-        </p>
       </div>
 
-      <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio"
-        rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
+      <p v-if="!fotoPreview && (nuovoTipo === 'identifica_specie' || nuovoTipo === 'diagnosi')" class="agente-hint">
+        Allega una foto: JPG o PNG, max 5 MB<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
+      </p>
 
-      <div v-if="errore" style="margin-bottom:10px;padding:8px 12px;background:var(--rose-pale);border-radius:10px;border:1px solid var(--rose-light);">
-        <p style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);">
-          <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />{{ errore }}
-        </p>
+      <div v-if="errore" class="agente-errore">
+        <Icon name="campanella" />{{ errore }}
       </div>
-
-      <button @click="aggiungiRichiesta" :disabled="!puoInviare || aggiungendo || !tokenPresente"
-        class="btn btn-sage" style="width:100%;">
-        <Spinner v-if="aggiungendo" />{{ aggiungendo ? 'Invio…' : '→ Invia richiesta' }}
-      </button>
     </div>
 
     <!-- Dettaglio della richiesta selezionata nello storico -->
-    <div v-else class="card" style="padding:20px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-        <span class="badge" :style="stileBadge(richiestaSelezionata.stato)">{{ labelStato(richiestaSelezionata.stato) }}</span>
-        <span style="font-size:11px;color:var(--ink-faint);">{{ formatData(richiestaSelezionata.creata) }}</span>
-      </div>
-
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
-        <span style="width:34px;height:34px;border-radius:50%;background:var(--sage-tile);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-          <Icon v-if="infoTipo(richiestaSelezionata.tipo).icon" :name="infoTipo(richiestaSelezionata.tipo).icon" style="width:16px;height:16px;" />
+    <div v-else class="agente-dettaglio">
+      <div class="agente-dettaglio-hd">
+        <span class="hitem__ic">
+          <Icon v-if="infoTipo(richiestaSelezionata.tipo).icon" :name="infoTipo(richiestaSelezionata.tipo).icon" />
         </span>
-        <p style="font-size:14px;font-weight:600;color:var(--ink-soft);">{{ infoTipo(richiestaSelezionata.tipo).label }}</p>
+        <p class="agente-dettaglio-tipo">{{ infoTipo(richiestaSelezionata.tipo).label }}</p>
+        <span class="badge" :style="stileBadge(richiestaSelezionata.stato)">{{ labelStato(richiestaSelezionata.stato) }}</span>
       </div>
+      <p class="agente-dettaglio-data">{{ formatData(richiestaSelezionata.creata) }}</p>
 
       <!-- Specie coinvolta (solo revisione_specie) -->
-      <p v-if="richiestaSelezionata.specie" style="font-size:13px;font-weight:600;color:var(--sage-dark);margin-bottom:8px;">
+      <p v-if="richiestaSelezionata.specie" class="agente-dettaglio-specie">
         {{ store.specie?.[richiestaSelezionata.specie]?.nome ?? richiestaSelezionata.specie }}
       </p>
 
       <!-- Messaggio utente -->
-      <p v-if="richiestaSelezionata.messaggio" style="font-size:13px;color:var(--ink-mid);line-height:1.6;white-space:pre-wrap;margin-bottom:8px;">{{ richiestaSelezionata.messaggio }}</p>
+      <p v-if="richiestaSelezionata.messaggio" class="agente-dettaglio-msg">{{ richiestaSelezionata.messaggio }}</p>
 
       <!-- Foto allegata -->
-      <div v-if="richiestaSelezionata.foto" style="margin-bottom:8px;">
-        <img :src="`data:image/jpeg;base64,${richiestaSelezionata.foto}`" style="max-width:200px;border-radius:12px;border:1px solid var(--cream-dark);">
+      <div v-if="richiestaSelezionata.foto" class="agente-dettaglio-foto">
+        <img :src="`data:image/jpeg;base64,${richiestaSelezionata.foto}`" alt="Foto allegata alla richiesta">
       </div>
 
       <!-- Risposta -->
-      <div v-if="richiestaSelezionata.risposta?.messaggio" style="margin-top:12px;padding:14px;background:var(--sage-pale);border-radius:12px;border-left:3px solid var(--sage);">
-        <p style="font-size:11px;font-weight:600;color:var(--sage-dark);margin-bottom:4px;">Risposta</p>
-        <p style="font-size:13px;color:var(--ink-mid);line-height:1.6;white-space:pre-wrap;">{{ richiestaSelezionata.risposta.messaggio }}</p>
+      <div v-if="richiestaSelezionata.risposta?.messaggio" class="answer">
+        <div class="answer__hd">
+          <Icon name="lampadina" />
+          Risposta · {{ infoTipo(richiestaSelezionata.tipo).label }} · {{ formatData(richiestaSelezionata.risposta?.completata ?? richiestaSelezionata.creata) }}
+        </div>
+        <div class="answer__body">
+          <p class="answer__pre">{{ richiestaSelezionata.risposta.messaggio }}</p>
+        </div>
       </div>
 
       <!-- In attesa -->
-      <div v-else-if="richiestaSelezionata.stato === 'in_attesa'" style="margin-top:12px;padding:12px 14px;background:var(--gold-pale);border-radius:12px;border-left:3px solid var(--gold);display:flex;align-items:center;gap:8px;">
-        <span class="pulse-dot"></span>
-        <p style="font-size:12px;color:var(--gold-dark);">In attesa di elaborazione da Claude Code…</p>
+      <div v-else-if="richiestaSelezionata.stato === 'in_attesa'" class="agente-attesa">
+        <span class="adot"></span>
+        <p>In attesa di elaborazione da Claude Code…</p>
       </div>
-    </div>
     </div>
 
     <ModalConferma
@@ -449,78 +432,111 @@ async function aggiungiRichiesta() {
 </script>
 
 <style scoped>
-.pulse-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--gold);
-  display: inline-block;
-  animation: pulse-dot 1.4s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { opacity: .4; transform: scale(.8); }
-  50%       { opacity: 1;  transform: scale(1.2); }
-}
-.tab-icona { display: inline-flex; align-items: center; gap: 5px; }
-.tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
+.agente-page { position: relative; }
 
-/* Layout a due colonne, come le altre app di AI: storico a sinistra,
-   conversazione/composer a destra. Sotto i 640px (soglia mobile già
-   usata nel resto dell'app) lo storico diventa un cassetto a
-   scomparsa, aperto dal bottone "lista" accanto al titolo. */
-.agente-layout {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
+/* --- intestazione locale --- */
+.htoggle { margin-bottom: 14px; }
+.agente-h1 {
+  display: flex; align-items: center; gap: 9px;
+  font: 600 23px/1.1 var(--font-display);
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 4px;
 }
-.agente-sidebar {
-  width: 260px;
+.agente-sub {
+  font: 400 13px/1.5 var(--font-sans);
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+}
+
+/* --- banner token mancante: card leggera, niente decorazione pesante --- */
+.agente-tokenbox {
+  border: 1px solid var(--gold-light);
+  background: var(--gold-pale);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 18px;
+}
+.agente-tokenbox .slabel { margin-bottom: 8px; }
+.agente-tokenbox .prose { margin: 0 0 10px; }
+
+/* --- blocco nuova richiesta --- */
+.agente-nuova { margin-bottom: 22px; }
+.agente-nuova .slabel { margin-bottom: 12px; }
+.agente-extra { margin-bottom: 12px; }
+.agente-hint {
+  font: 400 11.5px/1.5 var(--font-sans);
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+}
+.reqchip { appearance: none; font-family: var(--font-sans); }
+.reqbox textarea { font-family: var(--font-sans); }
+
+.agente-foto-preview {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 10px;
+}
+.agente-foto-preview img {
+  width: 40px; height: 40px; object-fit: cover;
+  border-radius: 8px; flex-shrink: 0;
+}
+.agente-foto-nome {
+  flex: 1; min-width: 0;
+  font: 600 12px/1.3 var(--font-sans);
+  color: var(--ink-mid);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.agente-foto-preview button {
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-soft); font-size: 20px; line-height: 1;
   flex-shrink: 0;
 }
-.agente-main {
-  flex: 1;
-  min-width: 0;
+.reqbar .ph { flex-wrap: wrap; }
+.agente-foto-btn {
+  cursor: pointer;
+  font: 600 11px/1 var(--font-sans);
+  color: var(--sage-ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
-.agente-sidebar-close,
-.agente-storico-toggle {
-  display: none;
+.reqsend { display: inline-flex; align-items: center; gap: 6px; }
+.reqsend:disabled { opacity: .5; cursor: not-allowed; }
+
+.agente-errore {
+  display: flex; align-items: center; gap: 6px;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--rose-pale);
+  border: 1px solid var(--rose-light);
+  border-radius: 10px;
+  font: 400 12px/1.4 var(--font-sans);
+  color: var(--rose-dark);
 }
-.agente-sidebar-list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  max-height: 60vh;
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.agente-sidebar-list::-webkit-scrollbar {
-  display: none;
-}
-.agente-storico-riga-wrap {
+.agente-errore svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+/* --- storico: righe + kebab (drawer .hstore/.hitem sono globali, Fase 2) --- */
+.hitem-wrap {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 2px;
 }
-.agente-storico-riga {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-  min-width: 0;
-  text-align: left;
-  padding: 8px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-family: var(--font-sans);
-  transition: background 0.15s;
-}
-.agente-storico-riga:hover { background: var(--cream); }
-.agente-storico-riga.active { background: var(--sage-pale); }
-.agente-storico-kebab {
+.hitem-wrap + .hitem-wrap { border-top: 1px solid var(--cream-dark); }
+.hitem-wrap .hitem { flex: 1; min-width: 0; cursor: pointer; }
+.hitem-kebab {
   flex-shrink: 0;
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-soft);
   font-size: 16px;
-  padding: 6px;
+  padding: 6px 10px;
 }
+.hstore__empty {
+  font: 400 12px/1.5 var(--font-sans);
+  color: var(--ink-soft);
+  text-align: center;
+  padding: 20px 8px;
+}
+
+/* --- menu kebab, teleportato su body --- */
 .agente-storico-menu {
   position: fixed;
   z-index: 300;
@@ -547,62 +563,53 @@ async function aggiungiRichiesta() {
   text-align: left;
 }
 .agente-storico-menu-item:hover { background: var(--rose-pale); }
-.agente-storico-icona {
-  width: 30px; height: 30px; border-radius: 50%;
-  background: var(--sage-tile);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.agente-storico-icona :deep(svg) { width: 15px; height: 15px; }
-.agente-storico-testo {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-.agente-storico-titolo {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--ink-mid);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.agente-storico-data {
-  font-size: 10.5px;
-  color: var(--ink-faint);
-}
-.icon-btn {
-  background: none; border: none; cursor: pointer; color: var(--ink-mid);
-  padding: 8px; border-radius: 10px;
-  display: inline-flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.icon-btn:hover { background: var(--cream); }
-.agente-backdrop { display: none; }
 
-@media (max-width: 640px) {
-  .agente-sidebar {
-    position: fixed; top: 0; bottom: 0; left: 0;
-    width: 82vw; max-width: 320px;
-    background: var(--cream);
-    padding: 20px 16px;
-    box-shadow: 8px 0 24px rgba(42,34,24,0.15);
-    transform: translateX(-100%);
-    transition: transform 0.25s ease;
-    overflow-y: auto;
-    z-index: 150;
-  }
-  .agente-sidebar.aperta { transform: translateX(0); }
-  .agente-sidebar-list { max-height: none; }
-  .agente-sidebar-close,
-  .agente-storico-toggle { display: inline-flex; }
-  .agente-backdrop {
-    display: block;
-    position: fixed; inset: 0;
-    background: rgba(42,34,24,0.4);
-    z-index: 140;
-  }
+/* --- dettaglio richiesta selezionata --- */
+.agente-dettaglio { margin-top: 4px; }
+.agente-dettaglio-hd {
+  display: flex; align-items: center; gap: 10px;
+}
+.agente-dettaglio-hd .hitem__ic { width: 22px; height: 22px; flex: none; }
+.agente-dettaglio-hd .hitem__ic svg { width: 100%; height: 100%; }
+.agente-dettaglio-tipo {
+  flex: 1; min-width: 0;
+  font: 600 14px/1.3 var(--font-display);
+  color: var(--ink);
+}
+.agente-dettaglio-data {
+  font: 400 11px/1.3 var(--font-sans);
+  color: var(--ink-soft);
+  margin: 6px 0 0;
+}
+.agente-dettaglio-specie {
+  font: 600 13px/1.4 var(--font-sans);
+  color: var(--sage-dark);
+  margin: 12px 0 0;
+}
+.agente-dettaglio-msg {
+  font: 400 13px/1.6 var(--font-sans);
+  color: var(--ink-mid);
+  white-space: pre-wrap;
+  margin: 12px 0 0;
+}
+.agente-dettaglio-foto { margin-top: 12px; }
+.agente-dettaglio-foto img {
+  max-width: 200px;
+  border-radius: 12px;
+  border: 1px solid var(--cream-dark);
+}
+.answer__body .answer__pre { white-space: pre-wrap; }
+
+.agente-attesa {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--gold-pale);
+  border-radius: 12px;
+  border-left: 3px solid var(--gold);
+}
+.agente-attesa p {
+  font: 400 12px/1.4 var(--font-sans);
+  color: var(--gold-dark);
 }
 </style>
