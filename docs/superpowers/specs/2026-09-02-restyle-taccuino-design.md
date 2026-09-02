@@ -22,18 +22,21 @@ granulare dei task è demandato a writing-plans.
   `EditPiantaView`, `EditZonaView`, `SelettoreSpecie`. Qui la spec dà solo
   principi e note; il target visivo preciso si definisce in Fase 2, con un
   mockup veloce per quelle non ovvie (Progetti, Gallery, nav desktop).
-- **NavBar desktop**: il mockup ha solo la bottom nav mobile. La scelta tra
-  "restyle della NavBar orizzontale" e "sidebar sinistra su schermi larghi"
-  resta aperta (vedi §6).
-- **Dark mode**: workstream a sé (oggi non esiste). L'impianto a token va
-  predisposto in Fase 1, ma l'audit colore-per-colore e il QA sono Fase 3+.
+- **NavBar desktop → sidebar sinistra** (deciso, §6). Il target visivo
+  preciso della sidebar si verifica in browser durante la Fase 1 (unico
+  pezzo di layout desktop non visualizzato nel mockup).
+- **Dark mode**: workstream a sé (oggi non esiste), con **interruttore
+  esplicito** in Impostazioni (§3). L'impianto a token va predisposto in
+  Fase 1; valori scuri, toggle e QA sono Fase 3.
 - **Stagionalità dell'hero**: l'acquerello che cambia con la stagione
   (3–4 immagini o filtro CSS per mese) è un raffinamento successivo. Fase 1
   usa l'immagine "inizio autunno" scelta, fissa.
 - **Boot splash / StatusBar / banner token**: restano funzionalmente com'è;
   si allineano a token e tipografia in Fase 2, senza redesign.
 - Nessun cambio di **dati, store, routing, API**. È un intervento di sola
-  presentazione: template + CSS.
+  presentazione: template + CSS. **Unica eccezione logica** (decisa in
+  review, §9.1): la **potatura** esce dai feed "attività" e resta solo
+  un'azione registrabile nella scheda pianta; il **calcio** entra nei feed.
 
 ## 1. La direzione "Taccuino"
 
@@ -82,12 +85,14 @@ Neutri "carta" (leggermente caldi, già presenti come `--cream/--cream-dark/
 --ink*`): confermati. Aggiungere `--carta-2` (off-white per bande di tono, se
 servirà — nel mockup finale non è più usato ma resta utile).
 
-**Dark mode**: ogni token va ridefinito sotto
-`@media (prefers-color-scheme: dark)` e sotto `:root[data-theme="dark"]`
-(per un eventuale toggle). Valori dark di riferimento nel mockup
-(`--carta #1b1712`, `--inchiostro #ece2d2`, tinte schiarite, `-bg` scuri).
-Regola: nessun colore definito solo dentro un blocco dark; ogni componente
-legge i token, mai letterali.
+**Dark mode**: **interruttore esplicito** nelle Impostazioni (deciso in
+review — Rob non è amante del dark mode). Default **chiaro**; l'app **non**
+segue automaticamente `prefers-color-scheme`. Il tema si applica via
+`:root[data-theme="dark"]` (scelta salvata in `settings` o `localStorage`);
+il blocco `@media (prefers-color-scheme: dark)` **non** si usa. In Fase 1 si
+predispone solo la struttura a token (tutti i valori chiari definiti su
+`:root`, i componenti leggono i token, mai letterali); i valori scuri e il
+toggle sono Fase 3.
 
 ## 3. Tipografia
 
@@ -168,15 +173,17 @@ Concimi / Attività / Zorba dice. Icona della voce **attiva** nel suo
 di "Zorba dice" resta **nero** in entrambi gli stati. Ricalca `BottomNav.vue`
 attuale, restilizzata.
 
-**Desktop (≥640px)** — DECISIONE APERTA:
-- Opzione A: restyle di `NavBar.vue` (barra orizzontale, 10 voci) con token e
-  tipografia nuovi, `.appbar` come oggi sopra di essa.
-- Opzione B: **sidebar sinistra** fissa (~200px) con le voci in colonna,
-  contenuto a colonna singola ~720px; `.appbar` diventa una striscia sottile
-  solo per marchio + Account.
-- Raccomandazione: prototipare B in un mockup veloce in Fase 2 e decidere.
-  Fino ad allora l'implementazione Fase 1 tocca solo il mobile e lascia
-  `NavBar.vue` desktop funzionante (allineandone solo i colori).
+**Desktop (≥640px)** — DECISO: **sidebar sinistra**.
+`NavBar.vue` (barra orizzontale a scorrimento, 10 voci) è sostituita da una
+**sidebar sinistra** fissa (~200px): mini-Zorba + marchio in alto, le voci
+in colonna (Home / Meteo / Zone / Piante / Progetti / Concimi / Attività /
+Zorba dice / Gallery), Impostazioni + Account in fondo; voce attiva
+evidenziata (fondo tinta tenue del dominio + testo `--inchiostro`).
+Il contenuto passa a colonna singola centrata (~720px). Su mobile (<640px)
+niente sidebar: `.appbar` in alto + `.bottomnav` in basso come sopra.
+`.appbar` su desktop può ridursi o sparire (marchio e Account sono nella
+sidebar) — da rifinire in implementazione. Da verificare in browser durante
+la Fase 1 (unico pezzo di layout desktop non ancora visualizzato in mockup).
 
 ## 7. Hero Home
 
@@ -245,13 +252,27 @@ riferimento: il mockup. Nome → scopo:
 
 Dal mockup. Ordine: `appbar` · **hero** (scena acquerello + Zorba + foglie +
 testo) · **meteo** (`.wxrow`) · **"Zorba dice"** (`.zdice`) · `slabel "Da
-fare oggi"` + `.tasklist` (max 5 voci — solo irrigazione e concimazione:
-**la potatura non è un'attività tracciata** e va tolta dal calcolo di
-`daFareOggi`; oggi `HomeView.vue:149` la include) + `.seeall` verso
-`/attivita` · `slabel "Il giardino"` + `.destlist` (Zone/Piante/Progetti/
+fare oggi"` + `.tasklist` (max 5 voci) + `.seeall` verso `/attivita` ·
+`slabel "Il giardino"` + `.destlist` (Zone/Piante/Progetti/
 Concimi/Attività/Gallery con conteggi) · `bottomnav`.
 Rimosse: `ZorbaLogo` grande centrato nell'hero (Zorba si sposta nell'angolo),
 i 4 puntini colorati, la griglia di 6 quadrati, il titolo in gradiente+shine.
+
+**Modello attività (deciso in review).** Le "attività" con cadenza temporale
+che compaiono nei feed ("Da fare oggi" in Home, `AttivitaView`) sono
+**irrigazione, concimazione, calcio**. La **potatura** non ha cadenza: è
+un'etichetta testuale, resta un'azione **registrabile** ("Fatto") nella
+sezione "Stato cure" della scheda pianta (con la data dell'ultima), ma **non
+entra mai** nel calcolo delle urgenze né nei feed. In pratica:
+- `useCure.js`: la lista canonica dei tipi con urgenza diventa
+  `['irrigazione','concimazione','calcio']`; `cureUrgentiPianta` /
+  `valutaCura` non valutano più `potatura`.
+- `HomeView.daFareOggi` e `AttivitaView`: iterano la nuova lista (oggi
+  `HomeView.vue:149` fa `['irrigazione','concimazione','potatura']`).
+- `PiantaView` "Stato cure": mostra irrigazione/concimazione + calcio se
+  `specie.manutenzione.calcio`, **più** una riga "Potatura" sempre
+  registrabile ma senza stato di urgenza (solo "ultima: N giorni fa").
+- `PiantaRiga` (badge urgenza): usa la nuova lista.
 
 ### 9.2 PiantaView.vue (definita)
 
@@ -316,22 +337,27 @@ Applicare §4 con queste note:
 3. Componenti globali di §8 in `main.css`.
 4. `ZorbaLogo.vue`: variante `mini` (o `ZorbaMini.vue`); animazione idle
    lenta; regola `.is-zorba` (nero + alone dark).
-5. Asset hero in `src/assets/`; `HomeView.vue` riscritta al target 9.1
-   (incl. rimozione potatura da `daFareOggi`).
-6. `PiantaView.vue` riscritta al target 9.2; rinomina sezione "Coltivazione"
-   → "La specie" con `specie.descrizione` integrata.
-7. `NavBar.vue` / `BottomNav.vue` / `StatusBar.vue`: bottom nav mobile +
-   appbar al nuovo stile; desktop solo riallineo colori.
-8. Verifica in browser (mobile + desktop, light).
+5. Modello attività: `useCure.js` + `AttivitaView` + `AttivitaRiga` +
+   `PiantaRiga` alla lista `['irrigazione','concimazione','calcio']` (§9.1).
+6. Asset hero in `src/assets/`; `HomeView.vue` riscritta al target 9.1.
+7. `PiantaView.vue` riscritta al target 9.2; rinomina "Coltivazione" → "La
+   specie" con `specie.descrizione` integrata; riga potatura registrabile
+   senza urgenza.
+8. Cornice: `App.vue` + `BottomNav.vue` (mobile) + nuova **sidebar** desktop
+   (sostituisce `NavBar.vue`) + `.appbar` + assorbimento accesso Account da
+   `StatusBar.vue`.
+9. `PiantaRiga.vue`: allineo token.
+10. Verifica in browser: mobile (appbar + bottomnav) e desktop (sidebar),
+    tema chiaro.
 
 **Fase 2 — Viste rimanenti**
-- Mockup veloci per: nav desktop (A vs B), Progetti/Progetto, Gallery,
-  eventualmente Agente.
+- Mockup veloci per: Progetti/Progetto, Gallery, eventualmente Agente.
 - Restyle vista per vista in piccoli lotti seguendo §9.3.
 
 **Fase 3 — Dark mode**
-- Audit di ogni colore letterale rimasto inline; toggle in Impostazioni
-  (o via `prefers-color-scheme` puro); QA su ogni vista in scuro.
+- Valori scuri sui token; **interruttore esplicito** in `SettingsView`
+  (scelta salvata, default chiaro, niente auto da sistema); audit di ogni
+  colore letterale rimasto inline; QA su ogni vista in scuro.
 
 **Fase 4 — Raffinamenti**
 - Stagionalità hero; boot/StatusBar; micro-interazioni.
@@ -352,18 +378,21 @@ decide Rob a fase pronta.
 - `src/App.vue` — la cornice (NavBar/BottomNav/StatusBar) è renderizzata qui
   attorno a `<RouterView>`: va adattata alla nuova `.appbar` + `.bottomnav`
   (nel mockup stanno dentro la schermata, nell'app restano in App.vue)
-- `src/composables/useCure.js` **no** — la potatura resta nel modello cure;
-  è solo `HomeView` a non elencarla in "Da fare oggi". Da confermare con
-  Rob: escludere la potatura *solo dalla Home* o *ovunque come "attività"*.
+- `src/composables/useCure.js` — lista tipi con urgenza →
+  `['irrigazione','concimazione','calcio']` (fuori `potatura`); vedi §9.1.
+- `src/views/AttivitaView.vue`, `src/components/AttivitaRiga.vue` — nuova
+  lista tipi; `PiantaRiga.vue` idem per il badge urgenza.
 
-## 12. Decisioni aperte
+## 12. Decisioni prese (review 02/09/2026)
 
-1. **Potatura in "Da fare oggi"**: solo Home o concetto più ampio? (§11)
-2. **Nav desktop**: restyle orizzontale (A) o sidebar (B)? (§6)
-3. **Toggle dark mode** esplicito in Impostazioni, o solo `prefers-color-
-   scheme`? (Fase 3)
-4. **Licenza immagine hero**: confermato pubblico dominio; se in futuro si
-   vuole un'illustrazione propria/stagionale, si sostituisce l'asset.
+1. **Potatura**: fuori dai feed attività ovunque; resta azione registrabile
+   nella scheda pianta senza urgenza. Nei feed: irrigazione, concimazione,
+   **calcio**. (§9.1)
+2. **Nav desktop**: **sidebar sinistra**. (§6)
+3. **Dark mode**: **interruttore esplicito** in Impostazioni, default chiaro,
+   nessun auto da `prefers-color-scheme`. (§3, Fase 3)
+4. **Licenza immagine hero**: pubblico dominio; sostituibile in futuro con
+   un'illustrazione propria/stagionale.
 
 ## 13. Verifica
 
@@ -371,5 +400,8 @@ decide Rob a fase pronta.
 - `prefers-reduced-motion`: nessuna animazione essenziale persa.
 - Contrasto AA su testo/`-ink` sopra i `-bg`.
 - Zorba nero ovunque (tranne la filigrana); leggibile in dark con alone.
-- Nessuna regressione funzionale: i dati, i link, i form si comportano come
-  prima (è un intervento di sola presentazione).
+- Nessuna regressione funzionale: dati, link, form si comportano come prima.
+  Unica modifica di comportamento attesa: la potatura non compare più nei
+  feed attività / urgenze (resta registrabile nella scheda pianta); il
+  calcio compare nei feed. Verificare Home, `AttivitaView`, badge
+  `PiantaRiga`, "Stato cure" della scheda pianta.
