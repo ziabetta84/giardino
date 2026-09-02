@@ -146,7 +146,13 @@ const attivita = computed(() => {
     const sp = store.specie?.[p.specie] ?? null
     const nomeSpecie = sp?.nome ?? p.specie
     const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno' }
-    for (const tipo of ['irrigazione', 'concimazione', 'potatura', 'calcio']) {
+    // La potatura non ha cadenza temporale: è un'etichetta testuale,
+    // registrabile per pianta ma mai valutata per urgenza né mostrata nei
+    // feed "attività". I tipi con cadenza sono irrigazione, concimazione e
+    // (per le specie con beneficio documentato) calcio.
+    const tipiCura = ['irrigazione', 'concimazione']
+    if (sp?.manutenzione?.calcio) tipiCura.push('calcio')
+    for (const tipo of tipiCura) {
       const c = valutaCura(p, sp, tipo, contesto)
       if (c.giorni !== null) {
         const suggerimento = tipo === 'concimazione'

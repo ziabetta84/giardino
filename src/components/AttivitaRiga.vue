@@ -108,9 +108,13 @@ function icona(tipo) {
 
 // "calcio" riguarda solo le poche specie con un beneficio documentato (vedi
 // PiantaView): mostrarlo per tutte le altre come "Non configurata" sarebbe
-// rumore, a differenza di irrigazione/concimazione/potatura sempre pertinenti.
+// rumore, a differenza di irrigazione/concimazione sempre pertinenti.
+// La potatura non ha cadenza temporale: è un'etichetta testuale,
+// registrabile per pianta ma mai valutata per urgenza né mostrata nei
+// feed "attività". I tipi con cadenza sono irrigazione, concimazione e
+// (per le specie con beneficio documentato) calcio.
 const tipiCura = computed(() => {
-  const base = ['irrigazione', 'concimazione', 'potatura']
+  const base = ['irrigazione', 'concimazione']
   if (specie.value?.manutenzione?.calcio) base.push('calcio')
   return base
 })

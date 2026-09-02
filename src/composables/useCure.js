@@ -1,4 +1,4 @@
-// Logica valutazione cure (irrigazione, concimazione, potatura)
+// Logica valutazione cure (irrigazione, concimazione, calcio; potatura solo come etichetta)
 
 const STAGIONE_MESI = {
   primavera: [3,4,5],
@@ -53,14 +53,16 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   }
 
   if (!ultimaStr) {
-    return { urgente: true, label: `${tipo} — mai registrata`, giorni: Infinity }
+    // La potatura resta chiamabile (la scheda pianta mostra "ultima: N gg fa")
+    // ma non è mai urgente: nessuna cadenza temporale da rispettare.
+    return { urgente: tipo !== 'potatura', label: `${tipo} — mai registrata`, giorni: Infinity }
   }
 
   const ultima     = new Date(ultimaStr)
   const oggi       = new Date()
   const trascorsi  = Math.floor((oggi - ultima) / 86400000)
   const rimanenti  = intervallo - trascorsi
-  const urgente    = rimanenti <= 0
+  const urgente    = tipo !== 'potatura' && rimanenti <= 0
 
   return {
     urgente,
@@ -74,7 +76,13 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
 }
 
 export function cureUrgentiPianta(pianta, specie, contesto) {
-  return ['irrigazione','concimazione','potatura','calcio']
+  // La potatura non ha cadenza temporale: è un'etichetta testuale,
+  // registrabile per pianta ma mai valutata per urgenza né mostrata nei
+  // feed "attività". I tipi con cadenza sono irrigazione, concimazione e
+  // (per le specie con beneficio documentato) calcio.
+  const tipi = ['irrigazione', 'concimazione']
+  if (specie?.manutenzione?.calcio) tipi.push('calcio')
+  return tipi
     .map(tipo => ({ tipo, ...valutaCura(pianta, specie, tipo, contesto) }))
     .filter(c => c.urgente)
 }
