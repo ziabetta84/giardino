@@ -420,3 +420,36 @@ body::before {
 @keyframes z-tail  { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(5deg)} }
 @keyframes z-blink { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(.08)} }
 @keyframes z-breath{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.014)} }
+
+/* ===== restyle: hero ===== */
+.hero { position:relative; overflow:hidden; padding:15px 17px 16px; min-height:176px;
+  background:var(--sage-bg); }
+.hero__scene { position:absolute; inset:0; background-position:center 30%;
+  background-size:cover; background-repeat:no-repeat; }
+.hero__scene::after { content:""; position:absolute; inset:0; background:
+  linear-gradient(95deg, var(--cream) 6%, color-mix(in srgb, var(--cream) 52%, transparent) 40%, transparent 68%),
+  linear-gradient(0deg, color-mix(in srgb, var(--cream) 42%, transparent), transparent 44%); }
+.hero__grid { position:relative; z-index:1; }
+.hero__txt { max-width:70%; }
+.hero__z { position:absolute; right:8px; bottom:0; z-index:2; width:106px; height:106px; }
+.date { font-family:var(--font-hand); font-size:19px; color:var(--sage-ink); line-height:1.1; }
+.greet { font:600 24px/1.1 var(--font-display); letter-spacing:-0.01em;
+  margin:3px 0 9px; color:var(--ink); text-wrap:balance; }
+.stat { display:flex; gap:7px; flex-wrap:wrap; }
+.stat span { font:600 11px/1 var(--font-sans); padding:5px 9px; border-radius:999px;
+  background:var(--cream); border:1px solid var(--cream-dark); color:var(--ink-mid); }
+.stat b { color:var(--rose-ink); }
+
+.leaf { position:absolute; top:-16px; width:17px; height:17px; opacity:0; pointer-events:none;
+  animation:leaf-fall linear infinite; }
+.leaf svg { width:100%; height:100%; }
+.leaf--1 { left:16%; animation-duration:11s; animation-delay:0s; }
+.leaf--2 { left:49%; animation-duration:14s; animation-delay:3.4s; }
+.leaf--3 { left:73%; animation-duration:9.5s; animation-delay:6.6s; }
+@keyframes leaf-fall {
+  0%   { transform:translateY(-16px) translateX(0) rotate(0); opacity:0; }
+  14%  { opacity:.62; }
+  82%  { opacity:.62; }
+  100% { transform:translateY(150px) translateX(26px) rotate(230deg); opacity:0; }
+}
+@media (prefers-reduced-motion: reduce) { .leaf { display:none; } }
