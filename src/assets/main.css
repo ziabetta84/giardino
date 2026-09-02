@@ -41,9 +41,9 @@
   --cream-dark:  #f0ebe2;
   --white:       #ffffff;
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-serif:   'Lora', Georgia, serif;
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
   --font-sans:    'DM Sans', system-ui, sans-serif;
+  --font-hand:    'Caveat', 'Segoe Script', cursive;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -73,43 +73,6 @@ body::before {
 @keyframes pageIn  { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 @keyframes pageOut { from { opacity:1; } to { opacity:0; } }
 
-/* Il titolo si assesta un filo dopo il resto della pagina (che ha già
-   la sua dissolvenza in pageIn): solo un piccolissimo spostamento,
-   nessuna dissolvenza propria — altrimenti le due opacità si
-   sommerebbero e il titolo apparirebbe più sbiadito del dovuto. */
-.title-settle {
-  animation: titleSettle 0.22s ease 0.07s both;
-}
-@keyframes titleSettle { from { transform: translateY(4px); } to { transform: translateY(0); } }
-
-/* Sui titoli in gradiente, un raggio di luce attraversa il testo una
-   sola volta dopo l'assestamento: una maschera con una banda più
-   opaca al centro (il "raggio") e più trasparente ai lati scorre
-   sopra il testo, alternando le lettere tra piena luminosità e un
-   lieve affievolimento — lo stesso principio dell'effetto shine
-   (mask-image + mask-position animato), qui eseguito una sola volta
-   invece che in loop per restare discreto. La banda è stretta e i
-   margini della maschera restano completamente opachi: a riposo
-   (prima e dopo il passaggio) il titolo è sempre a piena luminosità,
-   l'attenuazione si vede solo per l'istante in cui la banda transita. */
-.gradient-title.title-settle {
-  -webkit-mask-image: linear-gradient(-75deg, #000 0%, #000 40%, rgba(0,0,0,.55) 46%, #000 50%, rgba(0,0,0,.55) 54%, #000 60%, #000 100%);
-  mask-image: linear-gradient(-75deg, #000 0%, #000 40%, rgba(0,0,0,.55) 46%, #000 50%, rgba(0,0,0,.55) 54%, #000 60%, #000 100%);
-  -webkit-mask-size: 300% 100%;
-  mask-size: 300% 100%;
-  -webkit-mask-position: 0% 0%;
-  mask-position: 0% 0%;
-  animation: titleSettle 0.22s ease 0.07s both, titleShine 0.9s cubic-bezier(.3,0,.2,1) 0.32s 1;
-}
-@keyframes titleShine {
-  from { -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
-  to   { -webkit-mask-position: 100% 0%; mask-position: 100% 0%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .title-settle { animation: none; }
-  .gradient-title.title-settle { animation: none; -webkit-mask-position: 0% 0%; mask-position: 0% 0%; }
-}
-
 /* Liste che entrano/escono con un lieve stagger (Home, Piante, Attività):
    il ritardo per elemento è impostato inline via transitionDelay, non qui
    — questo blocco copre solo la transizione condivisa. */
@@ -138,21 +101,6 @@ body::before {
   background-size: 600px 100%;
   animation: shimmer 1.4s infinite linear;
   border-radius: 8px;
-}
-
-/* Tipografia */
-.title-display { font-family: var(--font-display); letter-spacing: -0.01em; }
-.title-serif   { font-family: var(--font-serif); }
-/* Testo body alleggerito, per allargare il distacco dai titoli in
-   grassetto (800) — pensato per valori/paragrafi discorsivi, non per
-   etichette, bottoni o testo UI che deve restare ben leggibile a colpo
-   d'occhio. */
-.text-light { font-weight: 300; }
-.gradient-title {
-  background: linear-gradient(135deg, var(--rose) 0%, var(--gold) 55%, var(--olive) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 }
 
 /* Card */
@@ -256,7 +204,7 @@ body::before {
 .zona-tag { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 6px; display: inline-block; }
 
 /* Section label */
-.section-label { font-family: var(--font-serif); font-size: 12px; font-weight: 400; font-style: italic; color: var(--ink-soft); margin-bottom: 8px; }
+.section-label { font-family: var(--font-display); font-size: 12px; font-weight: 400; font-style: italic; color: var(--ink-soft); margin-bottom: 8px; }
 
 /* Scrollbar hidden */
 .no-scroll::-webkit-scrollbar { display: none; }
