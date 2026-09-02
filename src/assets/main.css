@@ -458,3 +458,6 @@ body::before {
   100% { transform:translateY(150px) translateX(26px) rotate(230deg); opacity:0; }
 }
 @media (prefers-reduced-motion: reduce) { .leaf { display:none; } }
+
+/* restyle: cornice — appbar solo mobile (la sidebar copre >= 640px) */
+@media (min-width: 640px) { .appbar { display: none; } }

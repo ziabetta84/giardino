@@ -10,7 +10,8 @@
 
   <template v-else>
     <BootLogo />
-    <NavBar />
+    <SideNav />
+    <AppBar />
 
     <!-- Banner token mancante (globale) -->
     <Transition name="page">
@@ -23,7 +24,7 @@
       </div>
     </Transition>
 
-    <main class="app-main" style="max-width:920px;margin:0 auto;padding:28px 16px 80px;position:relative;z-index:1;">
+    <main class="app-main">
       <RouterView v-slot="{ Component }">
         <Transition name="page" mode="out-in">
           <component :is="Component" />
@@ -38,7 +39,8 @@
 <script setup>
 import IconDefs  from '@/components/IconDefs.vue'
 import BootLogo  from '@/components/BootLogo.vue'
-import NavBar    from '@/components/NavBar.vue'
+import SideNav   from '@/components/SideNav.vue'
+import AppBar    from '@/components/AppBar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
 import Icon      from '@/components/Icon.vue'
@@ -98,10 +100,28 @@ onMounted(async () => {
 </style>
 
 <style scoped>
+.app-main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 28px 16px 80px;
+  position: relative;
+  z-index: 1;
+}
+
 /* Su mobile la statusbar si aggiunge sopra la BottomNav (vedi StatusBar.vue):
    serve più spazio in fondo alla pagina perché il contenuto non finisca dietro
    a entrambe. */
 @media (max-width: 640px) {
   .app-main { padding-bottom: 128px; }
+}
+
+/* Da 640px in su la sidebar è fissa a sinistra (200px): il contenuto le sta
+   accanto e resta centrato nello spazio rimanente. */
+@media (min-width: 640px) {
+  .app-main {
+    margin-left: 200px;
+    margin-right: auto;
+    padding-top: 20px;
+  }
 }
 </style>

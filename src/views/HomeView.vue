@@ -155,3 +155,8 @@ onMounted(async () => {
   caricaMeteo(s?.location?.lat ?? 43.8309, s?.location?.lon ?? 12.9860)
 })
 </script>
+
+<style scoped>
+/* L'hero arriva a filo dei bordi di .app-main (padding 28px 16px). */
+.hero { margin: -28px -16px 0; }
+</style>
