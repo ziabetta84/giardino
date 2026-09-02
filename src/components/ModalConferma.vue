@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div v-if="aperto" class="overlay" @click.self="$emit('annulla')">
       <div class="modal-box">
-        <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:8px;">{{ titolo }}</h3>
+        <h3 style="font-family:var(--font-serif, var(--font-display));font-size:16px;font-weight:600;margin-bottom:8px;">{{ titolo }}</h3>
         <p style="font-size:13px;color:var(--ink-soft);line-height:1.5;">{{ messaggio }}</p>
         <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
           <button class="btn btn-ghost" style="min-height:40px;padding:8px 18px;" @click="$emit('annulla')">Annulla</button>

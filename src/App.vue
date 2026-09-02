@@ -115,8 +115,9 @@ onMounted(async () => {
   .app-main { padding-bottom: 128px; }
 }
 
-/* Da 640px in su la sidebar è fissa a sinistra (200px): il contenuto le sta
-   accanto e resta centrato nello spazio rimanente. */
+/* Da 640px in su la sidebar è fissa a sinistra (200px): il contenuto scorre
+   a destra della sidebar, allineato a sinistra; il centraggio vero è un
+   raffinamento di Fase 2. */
 @media (min-width: 640px) {
   .app-main {
     margin-left: 200px;

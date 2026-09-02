@@ -213,7 +213,6 @@ const daEliminare = ref(false)
 const eliminando  = ref(false)
 
 const fotoPianta    = ref([])
-const caricandoFoto = ref(false)
 const luce          = ref(null)
 const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
@@ -290,13 +289,11 @@ const messaggioEliminaPianta = computed(() => {
 
 async function caricaFotoPianta(id) {
   if (!id) { fotoPianta.value = []; return }
-  caricandoFoto.value = true
   try {
     fotoPianta.value = await galleria.listaFoto(id)
   } catch {
     fotoPianta.value = []
   } finally {
-    caricandoFoto.value = false
     indiceFotoCorrente.value = 0
   }
 }

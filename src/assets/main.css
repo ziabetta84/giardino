@@ -372,7 +372,7 @@ body::before {
   scroll-snap-type:x mandatory; scrollbar-width:none; }
 .gtrack::-webkit-scrollbar { height:0; }
 .gslide { flex:0 0 100%; scroll-snap-align:center; margin:0; }
-.gimg { width:100%; height:100%; }
+.gimg { width:100%; height:100%; object-fit:cover; display:block; }
 .phead-scrim { position:absolute; inset:0; pointer-events:none; z-index:1;
   background:linear-gradient(180deg, rgba(22,16,8,.30) 0%, rgba(22,16,8,0) 30%,
     rgba(22,16,8,0) 44%, rgba(22,16,8,.68) 100%); }
@@ -424,7 +424,6 @@ body::before {
 
 @keyframes z-tail  { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(5deg)} }
 @keyframes z-blink { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(.08)} }
-@keyframes z-breath{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.014)} }
 
 /* ===== restyle: hero ===== */
 .hero { position:relative; overflow:hidden; padding:15px 17px 16px; min-height:176px;
