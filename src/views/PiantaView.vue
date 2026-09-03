@@ -203,6 +203,7 @@ import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
+import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'
 import Icon from '@/components/Icon.vue'
@@ -252,20 +253,6 @@ function onGtrackScroll(e) {
 function apriLuce(f) {
   if (f?.path) luce.value = f
 }
-
-const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'uovo' }
-const LABEL_CURA = { irrigazione: 'Irrigazione', concimazione: 'Concimazione', potatura: 'Potatura', calcio: 'Calcio' }
-function iconaCura(tipo) { return ICONE_CURA[tipo] ?? 'foglia' }
-
-const ICONE_ESIGENZA = {
-  sole: 'sole', luce: 'sole', esposizione: 'sole',
-  terreno: 'foglia', suolo: 'foglia', substrato: 'foglia', ph: 'foglia',
-  acqua: 'goccia', irrigazione: 'goccia', umidita: 'goccia', umidità: 'goccia',
-  temperatura: 'caldo', clima: 'caldo', gelo: 'gelo',
-  spazio: 'pin', distanza: 'pin', potatura: 'potatura', concimazione: 'concimazione',
-}
-function iconaEsigenza(chiave) { return ICONE_ESIGENZA[String(chiave).toLowerCase()] ?? 'foglia' }
-function capitalizza(s) { s = String(s); return s.charAt(0).toUpperCase() + s.slice(1) }
 
 const LABEL_COLTIVATO_IN = { vaso: 'in vaso', terra: 'in terra', acqua: 'in acqua' }
 function labelColtivatoIn(coltivatoIn) { return LABEL_COLTIVATO_IN[coltivatoIn] ?? 'in terra' }
@@ -473,19 +460,5 @@ async function eliminaPianta() {
   font: 400 12.5px/1.4 var(--font-sans); color: var(--olive-ink);
 }
 
-/* Stato cure: .care* ora globali in main.css. Qui resta solo il bottone azione. */
-.care-act {
-  flex: none; font: 600 10.5px/1 var(--font-sans); padding: 7px 12px;
-  border-radius: 999px; border: 1px solid var(--cream-dark);
-  background: var(--white); color: var(--ink-mid); cursor: pointer;
-  white-space: nowrap;
-}
-.care-act:disabled { opacity: .55; cursor: default; }
-.care-act--rose { border-color: var(--rose-light); color: var(--rose-dark); }
-
-/* Riga nota sotto un'etichetta (fabbisogno, messa a dimora). */
-.feed-nb { margin: -4px 0 10px; font-size: 11.5px; color: var(--ink-soft); }
-
-.notelist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
-.notelist li { font: 400 12.5px/1.55 var(--font-sans); color: var(--ink-mid); }
+/* Stato cure: .care* / .care-act* / .feed-nb / .notelist ora globali in main.css. */
 </style>

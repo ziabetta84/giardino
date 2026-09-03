@@ -19,6 +19,7 @@
         :disabled="salvando === item.key || salvandoGruppo === gruppo.chiave"
         :style="`transition-delay:${Math.min(i,6) * 0.06}s;`"
         @registra="$emit('registra', $event)"
+        @apri-dossier="$emit('apri-dossier', $event)"
       />
     </TransitionGroup>
   </div>
@@ -37,7 +38,7 @@ const props = defineProps({
   salvando: { type: String, default: null },
   salvandoGruppo: { type: String, default: null },
 })
-defineEmits(['registra', 'registraGruppo'])
+defineEmits(['registra', 'registraGruppo', 'apri-dossier'])
 
 const store = useDatiStore()
 

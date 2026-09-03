@@ -41,9 +41,7 @@
       <template v-if="tabAttiva !== 'progetti'">
         <!-- Da fare -->
         <template v-if="daFareTab.length">
-          <p class="slabel" style="display:flex;align-items:center;gap:6px;">
-            <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da fare
-          </p>
+          <div class="slabel"><Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da fare</div>
           <div style="margin-bottom:24px;">
             <AttivitaGruppoZona
               v-for="gruppo in gruppiDaFareTab"
@@ -54,15 +52,14 @@
               :salvando-gruppo="salvandoGruppo"
               @registra="registra"
               @registra-gruppo="registraGruppo"
+              @apri-dossier="apriDossier"
             />
           </div>
         </template>
 
         <!-- In scadenza -->
         <template v-if="inScadenzaTab.length">
-          <p class="slabel" style="display:flex;align-items:center;gap:5px;">
-            <Icon name="orologio" style="width:13px;height:13px;flex-shrink:0;" />In scadenza (entro 3 giorni)
-          </p>
+          <div class="slabel"><Icon name="orologio" style="width:13px;height:13px;flex-shrink:0;" />In scadenza (entro 3 giorni)</div>
           <div style="margin-bottom:24px;">
             <AttivitaGruppoZona
               v-for="gruppo in gruppiInScadenzaTab"
@@ -73,6 +70,7 @@
               :salvando-gruppo="salvandoGruppo"
               @registra="registra"
               @registra-gruppo="registraGruppo"
+              @apri-dossier="apriDossier"
             />
           </div>
         </template>
@@ -80,16 +78,13 @@
 
       <!-- Tappe progetto -->
       <template v-else-if="tappeProgetto.length">
-        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:24px;">
-          <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`" class="card"
-            :style="t.urgente ? 'display:flex;align-items:center;gap:12px;padding:12px 16px;border-color:var(--rose-light);background:var(--rose-pale);' : 'display:flex;align-items:center;gap:12px;padding:12px 16px;'">
-            <div :style="`width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:${t.urgente ? 'var(--rose-tile)' : 'var(--gold-tile)'};`"><Icon name="lampadina" style="width:18px;height:18px;" /></div>
-            <div style="flex:1;min-width:0;">
-              <RouterLink :to="`/progetti/${t.progettoId}`"
-                style="font-family:var(--font-display);font-size:13px;font-weight:600;text-decoration:none;color:inherit;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                {{ t.progettoTitolo }}
-              </RouterLink>
-              <div :style="`font-size:11px;margin-top:2px;color:${t.urgente ? 'var(--rose-dark)' : 'var(--ink-soft)'};`">
+        <div class="tappa-lista">
+          <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`"
+            class="tappa-riga" :class="{ 'tappa-riga--urgente': t.urgente }">
+            <span class="tappa-riga__ic" :class="{ 'tappa-riga__ic--urgente': t.urgente }"><Icon name="lampadina" /></span>
+            <div class="tappa-riga__m">
+              <RouterLink :to="`/progetti/${t.progettoId}`" class="tappa-riga__t">{{ t.progettoTitolo }}</RouterLink>
+              <div class="tappa-riga__d" :class="{ 'tappa-riga__d--urgente': t.urgente }">
                 {{ t.tappa.descrizione }} — {{ t.urgente ? `scaduta ${Math.abs(t.giorni)} gg fa` : `tra ${t.giorni} gg` }}
               </div>
             </div>
@@ -109,6 +104,14 @@
       </div>
       </Transition>
     </template>
+
+    <FoglioLaterale
+      :model-value="!!dossierItem"
+      @update:model-value="v => { if (!v) dossierItem = null }"
+      :titolo="dossierItem?.nomeSpecie ?? ''"
+    >
+      <DossierPianta v-if="dossierItem" :pianta-id="dossierItem.piantaId" />
+    </FoglioLaterale>
   </div>
 </template>
 
@@ -121,6 +124,8 @@ import { valutaCura, stagione } from '@/composables/useCure'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
+import DossierPianta from '@/components/DossierPianta.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -131,6 +136,9 @@ const progettiApi = useProgettiApi()
 const salvando = ref(null)
 const salvandoGruppo = ref(null)
 const salvandoTappa = ref(null)
+const dossierItem = ref(null)
+
+function apriDossier(item) { dossierItem.value = item }
 
 const dataOggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
 
@@ -233,4 +241,18 @@ async function registraTappa(t) {
 .attivita-data { font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--ink-soft); margin: 4px 2px 20px; }
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
+
+.tappa-lista { display:flex; flex-direction:column; margin-bottom:24px; }
+.tappa-riga { display:flex; align-items:center; gap:12px; padding:12px 2px; }
+.tappa-riga + .tappa-riga { border-top:1px solid var(--cream-dark); }
+.tappa-riga--urgente { padding:12px; background:var(--rose-pale); border-radius:10px; }
+.tappa-riga__ic { flex:none; width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+  background:var(--gold-bg); color:var(--gold-ink); }
+.tappa-riga__ic--urgente { background:var(--rose-bg); color:var(--rose-ink); }
+.tappa-riga__ic svg { width:18px; height:18px; }
+.tappa-riga__m { flex:1; min-width:0; }
+.tappa-riga__t { display:block; font:600 13px/1.25 var(--font-display); color:var(--ink); text-decoration:none;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tappa-riga__d { font:400 11px/1.4 var(--font-sans); color:var(--ink-soft); margin-top:2px; }
+.tappa-riga__d--urgente { color:var(--rose-dark); }
 </style>
