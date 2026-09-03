@@ -167,6 +167,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
 import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
 import { parseGiorni, stagione } from '@/composables/useCure'
+import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -375,17 +376,8 @@ function chiudiDropdown() {
 // Il record nello store ha già descrizione/esigenze/alert/manutenzione/
 // coltivazione/vaso: sia la ricerca live sia il watch su modelValue caricano
 // con COLONNE_SPECIE.
-const ICONA_ESIGENZA = {
-  sole: 'sole', luce: 'sole', esposizione: 'sole',
-  acqua: 'goccia', irrigazione: 'goccia', umidita: 'goccia', 'umidità': 'goccia',
-  terreno: 'foglia', suolo: 'foglia', substrato: 'foglia', ph: 'foglia',
-  temperatura: 'caldo', clima: 'caldo', gelo: 'gelo',
-  spazio: 'pin', distanza: 'pin', potatura: 'potatura', concimazione: 'concimazione',
-}
 const ALERT_PREVIEW = 3
 const alertTuttiAperti = ref(false)
-
-function capitalizza(s) { s = String(s); return s.charAt(0).toUpperCase() + s.slice(1) }
 
 const specieSelezionata = computed(() =>
   props.modelValue ? (store.specie?.[props.modelValue] ?? null) : null
@@ -422,7 +414,7 @@ const esigenzeVoci = computed(() => {
   if (!e || typeof e !== 'object') return []
   return Object.entries(e)
     .filter(([, v]) => v != null && String(v).trim())
-    .map(([chiave, valore]) => ({ chiave, valore, icona: ICONA_ESIGENZA[String(chiave).toLowerCase()] ?? 'foglia' }))
+    .map(([chiave, valore]) => ({ chiave, valore, icona: iconaEsigenza(chiave) }))
 })
 
 // Calendario cure: stesse tessere di "Stato cure" in Scheda Pianta, ma con le
