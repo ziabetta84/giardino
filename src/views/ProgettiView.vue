@@ -104,10 +104,17 @@ function formatData(d){
 }
 
 // Anteprima in elenco: niente tag HTML (la formattazione ha senso solo nella
-// scheda del progetto) e troncata, come già per le zone in ZoneView.vue.
+// scheda del progetto). Si tronca alla prima frase (primo ". ") se c'è entro
+// ~200 caratteri; altrimenti a confine di parola, mai a metà parola.
 function descrizioneBreve(p) {
   const pulito = (p.descrizione || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
-  return pulito.length > 150 ? pulito.slice(0, 150) + '…' : pulito
+  if (!pulito) return ''
+  const punto = pulito.indexOf('. ')
+  if (punto !== -1 && punto < 200) return pulito.slice(0, punto + 1)
+  if (pulito.length <= 150) return pulito
+  const taglio = pulito.slice(0, 150)
+  const ultimoSpazio = taglio.lastIndexOf(' ')
+  return (ultimoSpazio > 0 ? taglio.slice(0, ultimoSpazio) : taglio).replace(/[.,;:]+$/, '') + '…'
 }
 
 async function salvaProgetto() {

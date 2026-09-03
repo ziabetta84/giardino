@@ -30,9 +30,9 @@
           </button>
           <button type="button" class="pill-mini pill-mini--del" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona">×</button>
         </div>
-        <div v-if="sz.esposizione?.length || descrizioneBreve(sz)" class="szrow__desc">
+        <div v-if="sz.esposizione?.length || descrizioneSottozona(sz)" class="szrow__desc">
           <span v-if="sz.esposizione?.length" class="szrow__espo"><Icon name="sole" />{{ sz.esposizione.join(', ') }}</span>
-          <span v-if="descrizioneBreve(sz)">{{ descrizioneBreve(sz) }}</span>
+          <span v-if="descrizioneSottozona(sz)">{{ descrizioneSottozona(sz) }}</span>
         </div>
       </div>
     </div>
@@ -129,9 +129,8 @@ function contaPiante(sz) {
     .filter(p => p.zona === route.params.zona && p.sottozona === sz.nome).length
 }
 
-function descrizioneBreve(sz) {
-  const senzaTag = (sz.descrizione || '').replace(/<[^>]*>/g, '').trim()
-  return senzaTag.length > 90 ? senzaTag.slice(0, 90).trimEnd() + '…' : senzaTag
+function descrizioneSottozona(sz) {
+  return (sz.descrizione || '').replace(/<[^>]*>/g, '').trim()
 }
 
 function apriNuovo() {

@@ -31,7 +31,7 @@
           <span class="dest__c">{{ contaPiante(z.key) }} piante</span>
           <Icon name="back" class="dest__chev" />
         </RouterLink>
-        <p v-if="descrizioneBreve(z)" class="zrow__desc">{{ descrizioneBreve(z) }}</p>
+        <p v-if="descrizioneZona(z)" class="zrow__desc">{{ descrizioneZona(z) }}</p>
         <div class="zrow__act">
           <RouterLink :to="`/zone/${z.key}/sottozone`" class="pill-mini">Sottozone</RouterLink>
           <RouterLink :to="`/zone/${z.key}/modifica`" class="pill-mini" title="Modifica zona" aria-label="Modifica zona">
@@ -88,10 +88,8 @@ const zoneList = computed(() => {
     .sort((a, b) => (a.nome ?? a.key).localeCompare(b.nome ?? b.key))
 })
 
-function descrizioneBreve(z) {
-  const testo = z.descrizione || z.microclima || ''
-  const senzaTag = testo.replace(/<[^>]*>/g, '').trim()
-  return senzaTag.length > 90 ? senzaTag.slice(0, 90).trimEnd() + '…' : senzaTag
+function descrizioneZona(z) {
+  return (z.descrizione || z.microclima || '').replace(/<[^>]*>/g, '').trim()
 }
 
 function contaPiante(zonaKey) {

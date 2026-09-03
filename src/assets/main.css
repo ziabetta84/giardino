@@ -428,7 +428,7 @@ body::before {
 /* ===== restyle: hero ===== */
 .hero { position:relative; overflow:hidden; padding:15px 17px 16px; min-height:176px;
   background:var(--sage-bg); }
-.hero__scene { position:absolute; inset:0; background-position:center 30%;
+.hero__scene { position:absolute; inset:0; background-position:center 75%;
   background-size:cover; background-repeat:no-repeat; }
 .hero__scene::after { content:""; position:absolute; inset:0; background:
   linear-gradient(95deg, var(--cream) 6%, color-mix(in srgb, var(--cream) 52%, transparent) 40%, transparent 68%),
@@ -562,10 +562,10 @@ body::before {
 .hitem.on { background:color-mix(in srgb,var(--sage) 12%,transparent); }
 .hitem__ic { width:22px; height:22px; flex:none; }
 .hitem__ic svg { width:100%; height:100%; }
-.hitem__m { flex:1; min-width:0; }
-.hitem__t { font:600 12px/1.3 var(--font-sans); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.hitem__d { font:400 10px/1.3 var(--font-sans); color:var(--ink-soft); margin-top:1px;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.hitem__m { flex:1; min-width:0; display:flex; flex-direction:column; }
+.hitem__t { font:600 12px/1.35 var(--font-sans); color:var(--ink);
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.hitem__d { font:400 10px/1.3 var(--font-sans); color:var(--ink-soft); margin-top:2px; white-space:nowrap; }
 .adot { width:7px; height:7px; border-radius:50%; background:var(--gold); flex:none; }
 .hback { position:fixed; inset:0; z-index:65; background:rgba(40,28,10,.32); opacity:0; pointer-events:none;
   transition:opacity .25s; }
