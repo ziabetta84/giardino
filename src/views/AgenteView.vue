@@ -534,11 +534,12 @@ async function aggiungiRichiesta() {
   position: relative;
   display: flex;
   align-items: center;
+  min-width: 0;
 }
 .hitem-wrap + .hitem-wrap { border-top: 1px solid var(--cream-dark); }
 .hitem-wrap .hitem { flex: 1; min-width: 0; cursor: pointer; }
 .hitem-kebab {
-  flex-shrink: 0;
+  flex: none;
   background: none; border: none; cursor: pointer;
   color: var(--ink-soft);
   font-size: 16px;

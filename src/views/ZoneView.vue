@@ -31,6 +31,7 @@
           <span class="dest__c">{{ contaPiante(z.key) }} piante</span>
           <Icon name="back" class="dest__chev" />
         </RouterLink>
+        <p v-if="descrizioneBreve(z)" class="zrow__desc">{{ descrizioneBreve(z) }}</p>
         <div class="zrow__act">
           <RouterLink :to="`/zone/${z.key}/sottozone`" class="pill-mini">Sottozone</RouterLink>
           <RouterLink :to="`/zone/${z.key}/modifica`" class="pill-mini" title="Modifica zona" aria-label="Modifica zona">
@@ -64,6 +65,7 @@ a.pill { display:inline-flex; align-items:center; text-decoration:none; }
 .zrow__act .pill-mini svg { width:12px; height:12px; }
 .zrow__act .pill-mini--del { color:var(--rose-dark); }
 .zrow__act .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-dark); }
+.zrow__desc { flex: 1 1 100%; margin: 2px 0 0; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
 </style>
 
 <script setup>
@@ -85,6 +87,12 @@ const zoneList = computed(() => {
     .map(([key, z]) => ({ key, ...z }))
     .sort((a, b) => (a.nome ?? a.key).localeCompare(b.nome ?? b.key))
 })
+
+function descrizioneBreve(z) {
+  const testo = z.descrizione || z.microclima || ''
+  const senzaTag = testo.replace(/<[^>]*>/g, '').trim()
+  return senzaTag.length > 90 ? senzaTag.slice(0, 90).trimEnd() + '…' : senzaTag
+}
 
 function contaPiante(zonaKey) {
   if (!store.piante) return 0

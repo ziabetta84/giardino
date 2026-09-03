@@ -286,7 +286,7 @@ function updateTrail() {
   }
   const pr = el.getBoundingClientRect()
   const vh = window.innerHeight
-  let frac = (vh * 0.82 - pr.top) / (pr.height + vh * 0.5)
+  let frac = (vh * 0.9 - pr.top) / (pr.height || 1)
   frac = Math.max(0, Math.min(1, frac))
   el.style.setProperty('--draw', frac.toFixed(4))
   // Due passate: prima si leggono tutti i rect, poi si applicano tutti i toggle

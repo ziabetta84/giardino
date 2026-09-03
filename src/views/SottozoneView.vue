@@ -30,6 +30,10 @@
           </button>
           <button type="button" class="pill-mini pill-mini--del" @click="avviaElimina(sz)" title="Elimina sottozona" aria-label="Elimina sottozona">×</button>
         </div>
+        <div v-if="sz.esposizione?.length || descrizioneBreve(sz)" class="szrow__desc">
+          <span v-if="sz.esposizione?.length" class="szrow__espo"><Icon name="sole" />{{ sz.esposizione.join(', ') }}</span>
+          <span v-if="descrizioneBreve(sz)">{{ descrizioneBreve(sz) }}</span>
+        </div>
       </div>
     </div>
 
@@ -123,6 +127,11 @@ function contaPiante(sz) {
   if (!store.piante) return 0
   return Object.values(store.piante)
     .filter(p => p.zona === route.params.zona && p.sottozona === sz.nome).length
+}
+
+function descrizioneBreve(sz) {
+  const senzaTag = (sz.descrizione || '').replace(/<[^>]*>/g, '').trim()
+  return senzaTag.length > 90 ? senzaTag.slice(0, 90).trimEnd() + '…' : senzaTag
 }
 
 function apriNuovo() {
@@ -256,6 +265,9 @@ async function eliminaSottozona() {
 .dest .pill-mini--del { color:var(--rose-dark); }
 .dest .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-dark); }
 .szt { text-transform:capitalize; }
+.szrow__desc { flex: 1 1 100%; margin: 2px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
+.szrow__espo { display: inline-flex; align-items: center; gap: 4px; }
+.szrow__espo svg { width: 12px; height: 12px; flex: none; }
 
 .overlay {
   position: fixed; inset: 0; z-index: 200;
