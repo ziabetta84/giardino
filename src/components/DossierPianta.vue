@@ -1,5 +1,6 @@
 <template>
   <div class="dossier-pianta">
+    <template v-if="pianta">
     <p class="dossier-pianta__zona">
       <Icon :name="store.iconaZona(pianta.zona)" /> {{ pianta.zona }}<span v-if="pianta.sottozona"> · {{ pianta.sottozona }}</span>
       <span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
@@ -51,6 +52,7 @@
     </template>
 
     <RouterLink :to="`/piante/${piantaId}`" class="dossier-pianta__link">Apri la scheda completa →</RouterLink>
+    </template>
   </div>
 </template>
 
@@ -70,7 +72,6 @@ const pianteApi = usePianteApi()
 
 const pianta = computed(() => store.piante?.[props.piantaId] ?? null)
 const specie = computed(() => pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null)
-const nomeSpecie = computed(() => specie.value?.nome ?? pianta.value?.specie ?? '')
 
 // "calcio" riguarda solo le poche specie con un beneficio documentato (vedi
 // PiantaView): mostrarlo per tutte le altre come "Non configurata" sarebbe
