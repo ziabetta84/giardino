@@ -12,40 +12,9 @@
       autocomplete="off"
     >
     <div v-if="dropdownAperto" class="specie-dropdown">
-      <template v-if="mostraGruppi">
-        <div class="dd-group"><div class="slabel">Nel tuo giardino</div></div>
-        <div v-for="s in speciePossedute" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
-          <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
-            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
-            <Icon v-if="!s.immagine?.url" name="foglia" />
-          </span>
-          <span class="dd-m">
-            <span class="dd-name">
-              {{ s.nome }}
-              <span v-if="s.cultivarDi" class="badge-mini cv">cultivar</span>
-              <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
-            </span>
-            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
-          </span>
-        </div>
-        <div class="dd-group"><div class="slabel">Nel catalogo</div></div>
-        <div v-for="s in specieCatalogo" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
-          <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
-            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
-            <Icon v-if="!s.immagine?.url" name="foglia" />
-          </span>
-          <span class="dd-m">
-            <span class="dd-name">
-              {{ s.nome }}
-              <span v-if="s.cultivarDi" class="badge-mini cv">cultivar</span>
-              <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
-            </span>
-            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
-          </span>
-        </div>
-      </template>
-      <template v-else>
-        <div v-for="s in specieFiltrate" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
+      <template v-for="g in gruppiDropdown" :key="g.label ?? '_flat'">
+        <div v-if="g.label" class="dd-group"><div class="slabel">{{ g.label }}</div></div>
+        <div v-for="s in g.voci" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
           <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
             :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
             <Icon v-if="!s.immagine?.url" name="foglia" />
@@ -73,7 +42,7 @@
 
     <!-- Card compatta della specie scelta: la scheda completa vive nel foglio. -->
     <div v-if="specieSelezionata && !dropdownAperto" class="scheda-chosen">
-      <span class="sc-th" :style="hero ? { backgroundImage: bgUrl(hero.thumbUrl) } : null"></span>
+      <span class="sc-th" :style="hero ? { backgroundImage: bgUrl(hero.miniUrl) } : null"></span>
       <span class="sc-m">
         <span class="sc-nm">{{ specieSelezionata.nome }}</span>
         <span v-if="specieSelezionata.specie" class="sc-sci">{{ specieSelezionata.specie }}</span>
@@ -242,6 +211,17 @@ const speciePossedute = computed(() => specieFiltrate.value.filter(s => slugPoss
 const specieCatalogo  = computed(() => specieFiltrate.value.filter(s => !slugPossedute.value.has(s.key)))
 const mostraGruppi    = computed(() => speciePossedute.value.length > 0 && specieCatalogo.value.length > 0)
 
+// Righe della tendina, raggruppate o piatte, con un'unica forma per il
+// template (prima il markup di riga era ripetuto 3 volte).
+const gruppiDropdown = computed(() =>
+  mostraGruppi.value
+    ? [
+        { label: 'Nel tuo giardino', voci: speciePossedute.value },
+        { label: 'Nel catalogo',     voci: specieCatalogo.value },
+      ]
+    : [{ label: null, voci: specieFiltrate.value }]
+)
+
 // Ricerca live: parte da 2 caratteri (stessa soglia del filtro locale sopra),
 // con un debounce per non fare una query ad ogni tasto. Un token incrementale
 // scarta le risposte arrivate fuori ordine (query più vecchia risolta dopo
@@ -405,7 +385,7 @@ const statoBadgeClasse = computed(() => {
 const hero = computed(() => {
   const img = specieSelezionata.value?.immagine
   return img?.url
-    ? { thumbUrl: urlMiniatura(img.url, 480), attribuzione: img.attribuzione, fontePagina: img.fonte_pagina }
+    ? { thumbUrl: urlMiniatura(img.url, 480), miniUrl: urlMiniatura(img.url, 96), attribuzione: img.attribuzione, fontePagina: img.fonte_pagina }
     : null
 })
 

@@ -38,23 +38,24 @@
     </template>
 
     <!-- Form nuovo progetto -->
-    <Teleport to="body">
-      <div v-if="mostraForm" class="overlay" @click.self="mostraForm = false">
-        <div class="modal-box">
-          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;">Nuovo progetto</h3>
-          <input v-model="form.titolo" placeholder="Titolo" class="form-input" style="margin-bottom:10px;">
-          <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
-          <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin:10px 0 16px;">
-          <div style="display:flex;gap:10px;justify-content:flex-end;">
-            <button class="btn btn-ghost" @click="mostraForm = false" style="min-height:40px;padding:8px 16px;">Annulla</button>
-            <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"
-              style="min-height:40px;padding:8px 16px;">
-              <Spinner v-if="salvando" /><span v-else>Salva</span>
-            </button>
-          </div>
+    <FoglioLaterale
+      :model-value="mostraForm"
+      @update:model-value="v => { if (!v) chiudiForm() }"
+      titolo="Nuovo progetto"
+    >
+      <div v-if="mostraForm" class="foglio-form">
+        <input v-model="form.titolo" placeholder="Titolo" class="form-input" style="margin-bottom:10px;">
+        <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
+        <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin:10px 0 0;">
+        <div class="foglio-actions">
+          <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
+          <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"
+            style="min-height:40px;padding:8px 16px;">
+            <Spinner v-if="salvando" /><span v-else>Salva</span>
+          </button>
         </div>
       </div>
-    </Teleport>
+    </FoglioLaterale>
   </div>
 </template>
 
@@ -66,6 +67,7 @@ import { scadenzaCalcolata } from '@/composables/useProgetti'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
 
 const store = useDatiStore()
 const progettiApi = useProgettiApi()
@@ -73,6 +75,11 @@ const progettiApi = useProgettiApi()
 const mostraForm = ref(false)
 const salvando   = ref(false)
 const form = ref({ titolo: '', descrizione: '', zona: '' })
+
+function chiudiForm() {
+  mostraForm.value = false
+  form.value = { titolo: '', descrizione: '', zona: '' }
+}
 
 const progetti = computed(() => {
   if (!store.progetti) return []
@@ -136,16 +143,3 @@ async function salvaProgetto() {
   }
 }
 </script>
-
-<style scoped>
-.overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(42,34,24,0.4);
-  display: flex; align-items: center; justify-content: center; padding: 16px;
-}
-.modal-box {
-  background: var(--white); border-radius: 20px; padding: 24px;
-  width: 100%; max-width: 360px;
-  box-shadow: 0 20px 60px rgba(42,34,24,0.2);
-}
-</style>
