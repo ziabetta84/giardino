@@ -1,6 +1,6 @@
 <template>
   <div class="form-card" style="position:relative;">
-    <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Specie *</label>
+    <label class="field-label">Specie *</label>
     <input
       v-model="specieQuery"
       @focus="dropdownAperto = true"
@@ -73,7 +73,7 @@
     <Teleport to="body">
       <div v-if="mostraNuovaSpecie" class="overlay" @click.self="chiudiNuovaSpecie">
         <div class="modal-box">
-          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:12px;">
+          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:12px;">
             {{ specieModificaOriginale ? 'Modifica specie' : 'Nuova specie' }}
           </h3>
 
@@ -96,7 +96,7 @@
             <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione libera (opzionale)"
               rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
 
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esigenze (opzionale)</label>
+            <label class="field-label">Esigenze (opzionale)</label>
             <label class="campo-label">Luce</label>
             <input v-model="nuovaSpecie.luce" placeholder="es. Pieno sole" class="form-input" style="margin-bottom:8px;">
             <label class="campo-label">Acqua</label>
@@ -104,12 +104,12 @@
             <label class="campo-label">Terreno</label>
             <input v-model="nuovaSpecie.terreno" placeholder="es. Ben drenato" class="form-input" style="margin-bottom:16px;">
 
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Avvertenze (opzionale)</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
+            <label class="field-label">Avvertenze (opzionale)</label>
+            <p class="campo-hint" style="margin:0 0 6px">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
             <textarea v-model="nuovaSpecie.alert" placeholder="Una avvertenza per riga…"
               rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
 
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Ciclo vitale (opzionale)</label>
+            <label class="field-label">Ciclo vitale (opzionale)</label>
             <div style="display:flex;gap:6px;flex-wrap:wrap;">
               <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'perenne' }" @click="nuovaSpecie.cicloVitale = 'perenne'">Perenne</button>
               <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'annuale' }" @click="nuovaSpecie.cicloVitale = 'annuale'">Annuale</button>
@@ -119,8 +119,8 @@
 
           <!-- Tab Cure -->
           <template v-if="tabAttiva === 'cure'">
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Manutenzione (opzionale)</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
+            <label class="field-label">Manutenzione (opzionale)</label>
+            <p class="campo-hint">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
             <div class="manutenzione-grid">
               <div></div>
               <div class="stagione-header">Pri</div>
@@ -152,12 +152,12 @@
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.autunno" placeholder="gg">
               <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.inverno" placeholder="gg">
             </div>
-            <p style="font-size:11px;color:var(--ink-faint);margin:6px 0 0;">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
+            <p class="campo-hint" style="margin:6px 0 0">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
 
-            <label style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 2px;">
+            <label class="field-label" style="display:flex;align-items:center;gap:5px;margin-top:12px">
               <Icon name="potatura" style="width:13px;height:13px;flex-shrink:0;" />Potatura (opzionale)
             </label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
+            <p class="campo-hint">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div>
                 <label class="campo-label">Primavera</label>
@@ -181,8 +181,8 @@
           <!-- Tab Coltivazione: la parte "in vaso" vale per ogni ciclo vitale,
                semina/trapianto/raccolta ha senso solo per annuale/biennale -->
           <template v-if="tabAttiva === 'coltivazione'">
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Coltivazione in vaso (opzionale)</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Per capire se la specie regge il contenitore e come regolare cure e rinvaso.</p>
+            <label class="field-label">Coltivazione in vaso (opzionale)</label>
+            <p class="campo-hint">Per capire se la specie regge il contenitore e come regolare cure e rinvaso.</p>
 
             <label class="campo-label">Adatta al vaso?</label>
             <div style="display:flex;gap:6px;margin-bottom:10px;">
@@ -202,14 +202,14 @@
               </div>
             </div>
             <label class="campo-label">Fattore irrigazione in vaso</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Moltiplicatore rispetto alla cadenza a terra (es. 0.7 = irrigazione più ravvicinata in vaso).</p>
+            <p class="campo-hint" style="margin:0 0 6px">Moltiplicatore rispetto alla cadenza a terra (es. 0.7 = irrigazione più ravvicinata in vaso).</p>
             <input type="number" min="0" step="0.1" v-model.number="nuovaSpecie.vaso.irrigazioneFattore" placeholder="es. 0.7" class="form-input" style="margin-bottom:16px;">
 
             <p v-if="nuovaSpecie.cicloVitale !== 'annuale' && nuovaSpecie.cicloVitale !== 'biennale'" style="font-size:12px;color:var(--ink-faint);padding:20px 0;text-align:center;border-top:1px solid var(--cream-dark);">
               Imposta il ciclo vitale su "Annuale" o "Biennale" nella tab Generale per compilare anche semina/trapianto/raccolta.
             </p>
             <template v-else>
-              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 12px;">Dati per generare in futuro un piano di semina/trapianto/raccolta — tutto facoltativo.</p>
+              <p class="campo-hint" style="margin:0 0 12px">Dati per generare in futuro un piano di semina/trapianto/raccolta — tutto facoltativo.</p>
 
               <label class="campo-label">Famiglia botanica</label>
               <input v-model="nuovaSpecie.coltivazione.famigliaBotanica" placeholder="es. Solanaceae" class="form-input" style="margin-bottom:10px;">
@@ -227,19 +227,19 @@
               <label class="campo-label">Gg alla raccolta</label>
               <input v-model="nuovaSpecie.coltivazione.giorniRaccolta" placeholder="es. 60-70" class="form-input" style="margin-bottom:14px;">
 
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di semina</label>
+              <label class="field-label">Finestra di semina</label>
               <div style="display:flex;gap:6px;margin-bottom:12px;">
                 <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.finestraSemina.includes(s.val) }"
                   v-for="s in STAGIONI_PILL" :key="'sem-'+s.val" @click="toggleStagione('finestraSemina', s.val)">{{ s.label }}</button>
               </div>
 
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di trapianto</label>
+              <label class="field-label">Finestra di trapianto</label>
               <div style="display:flex;gap:6px;margin-bottom:14px;">
                 <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.finestraTrapianto.includes(s.val) }"
                   v-for="s in STAGIONI_PILL" :key="'trap-'+s.val" @click="toggleStagione('finestraTrapianto', s.val)">{{ s.label }}</button>
               </div>
 
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Resistenza al gelo</label>
+              <label class="field-label">Resistenza al gelo</label>
               <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
                 <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.resistenzaGelo === r }"
                   v-for="r in ['nessuna','bassa','media','alta']" :key="r" @click="nuovaSpecie.coltivazione.resistenzaGelo = r">{{ r }}</button>
@@ -248,13 +248,13 @@
               <label class="campo-label">Spaziatura (cm)</label>
               <input type="number" min="1" v-model.number="nuovaSpecie.coltivazione.spaziaturaCm" placeholder="es. 50" class="form-input" style="margin-bottom:14px;">
 
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni favorevoli</label>
-              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "basilico", "carota".</p>
+              <label class="field-label">Consociazioni favorevoli</label>
+              <p class="campo-hint" style="margin:0 0 6px">Una per riga, es. "basilico", "carota".</p>
               <textarea v-model="nuovaSpecie.coltivazione.consociazioniFavorevoli" placeholder="Una specie per riga…"
                 rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:12px;"></textarea>
 
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni sfavorevoli</label>
-              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga.</p>
+              <label class="field-label">Consociazioni sfavorevoli</label>
+              <p class="campo-hint" style="margin:0 0 6px">Una per riga.</p>
               <textarea v-model="nuovaSpecie.coltivazione.consociazioniSfavorevoli" placeholder="Una specie per riga…"
                 rows="2" class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
             </template>
@@ -882,6 +882,11 @@ async function salvaNuovaSpecie() {
   color: var(--ink-faint);
   margin-bottom: 3px;
 }
+.campo-hint {
+  margin: 0 0 8px;
+  font: 400 11px/1.5 var(--font-sans);
+  color: var(--ink-faint);
+}
 .manutenzione-grid {
   display: grid;
   grid-template-columns: minmax(0,1fr) 44px 44px 44px 44px;
@@ -954,7 +959,7 @@ async function salvaNuovaSpecie() {
   margin-bottom: 8px;
 }
 .scheda-nome {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 15px;
   font-weight: 600;
   color: var(--ink);
@@ -982,7 +987,7 @@ async function salvaNuovaSpecie() {
   padding: 2px 4px;
 }
 .scheda-descrizione {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 13px;
   line-height: 1.55;
   color: var(--ink-mid);
