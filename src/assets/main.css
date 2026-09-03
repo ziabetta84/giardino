@@ -622,3 +622,17 @@ body::before {
 .answer__body { border-left:2px solid var(--sage); padding:2px 0 2px 13px; }
 .answer__body p { margin:0 0 9px; font:400 13px/1.6 var(--font-sans); color:var(--ink-mid); }
 .answer__body p:last-child { margin-bottom:0; }
+
+/* ===== restyle Fase 2 Batch 3: form e viste di servizio ===== */
+.field-label {
+  display: block; margin-bottom: 6px;
+  font: 600 11px/1.2 var(--font-sans);
+  letter-spacing: .05em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 14px;
+  padding: 16px;
+}
