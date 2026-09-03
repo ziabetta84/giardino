@@ -5,7 +5,7 @@
       ← {{ isNuova ? 'Piante' : 'Dettaglio' }}
     </RouterLink>
 
-    <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;margin-bottom:20px;">
+    <h1 class="page-title">
       {{ isNuova ? 'Nuova pianta' : 'Modifica pianta' }}
     </h1>
 
@@ -14,20 +14,20 @@
       <SelettoreSpecie v-model="form.specie" />
 
       <!-- Zona -->
-      <div class="card" style="padding:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Zona *</label>
+      <div class="form-card">
+        <label class="field-label">Zona *</label>
         <select v-model="form.zona" class="form-input" style="margin-bottom:10px;">
           <option value="">Seleziona zona…</option>
           <option v-for="(z, key) in store.zone ?? {}" :key="key" :value="z.nome ?? key">{{ z.nome ?? key }}</option>
         </select>
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Sottozona</label>
+        <label class="field-label">Sottozona</label>
         <select v-model="form.sottozona" class="form-input" style="margin-bottom:10px;">
           <option value="">Nessuna</option>
           <option v-for="s in sottozoneZona" :key="s" :value="s">{{ s }}</option>
         </select>
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Coltivata in</label>
+        <label class="field-label">Coltivata in</label>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'vaso' }" title="Vaso" aria-label="Vaso" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'vaso'"><Icon name="vaso" style="width:16px;height:16px;" /></button>
           <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'terra' }" title="Terra" aria-label="Terra" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'terra'"><Icon name="terra" style="width:16px;height:16px;" /></button>
@@ -36,20 +36,20 @@
       </div>
 
       <!-- Varietà e impianto -->
-      <div class="card" style="padding:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Varietà</label>
+      <div class="form-card">
+        <label class="field-label">Varietà</label>
         <input v-model="form.varieta" placeholder="Es. Bianca, Rossa…" class="form-input" style="margin-bottom:10px;">
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Data impianto</label>
+        <label class="field-label">Data impianto</label>
         <input v-model="form.impianto" type="date" class="form-input" style="margin-bottom:10px;">
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Periodo di impianto, se non conosci la data esatta</label>
+        <label class="field-label">Periodo di impianto, se non conosci la data esatta</label>
         <input v-model="form.impianto_circa" placeholder="Es. &quot;circa dal 2016&quot;, &quot;primavera 2025&quot;" class="form-input">
       </div>
 
       <!-- Note -->
-      <div class="card" style="padding:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Note</label>
+      <div class="form-card">
+        <label class="field-label">Note</label>
         <textarea v-model="form.note" placeholder="Osservazioni, caratteristiche particolari…"
           rows="3" class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
       </div>

@@ -4,7 +4,7 @@
       ← Zone
     </RouterLink>
 
-    <h1 class="title-display gradient-title title-settle" style="font-size:1.7rem;font-weight:800;margin-bottom:20px;">
+    <h1 class="page-title">
       {{ isNuova ? 'Nuova zona' : 'Modifica zona' }}
     </h1>
 
@@ -13,17 +13,17 @@
     </p>
 
     <div style="display:flex;flex-direction:column;gap:10px;">
-      <div class="card" style="padding:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Nome *</label>
+      <div class="form-card">
+        <label class="field-label">Nome *</label>
         <input v-model="form.nome" placeholder="Es. Giardino Nord, Terrazzo…" class="form-input" style="margin-bottom:12px;">
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Tipo</label>
+        <label class="field-label">Tipo</label>
         <select v-model="form.tipo" class="form-input">
           <option value="esterno">Esterno</option>
           <option value="interno">Interno</option>
         </select>
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 6px;">Icona</label>
+        <label class="field-label" style="margin-top:12px">Icona</label>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;">
           <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
             :class="{ active: form.icona === nome }"
@@ -33,16 +33,16 @@
         </div>
       </div>
 
-      <div class="card" style="padding:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Descrizione</label>
+      <div class="form-card">
+        <label class="field-label">Descrizione</label>
         <MiniEditor v-model="form.descrizione" placeholder="Descrizione breve della zona…" />
 
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin:12px 0 6px;">Microclima</label>
+        <label class="field-label" style="margin-top:12px">Microclima</label>
         <MiniEditor v-model="form.microclima" placeholder="Caratteristiche di luce, temperatura, umidità…" />
       </div>
 
-      <div class="card" style="padding:16px;">
-        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esposizione</label>
+      <div class="form-card">
+        <label class="field-label">Esposizione</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
           <label v-for="dir in ['nord','sud','est','ovest']" :key="dir"
             style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
