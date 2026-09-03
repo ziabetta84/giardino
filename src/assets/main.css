@@ -573,6 +573,9 @@ body::before {
 
 @media (min-width: 640px) {
   .hstore { left: 200px; box-shadow: none; }
+  /* da chiuso va spinto oltre il bordo sinistro TENENDO CONTO dell'offset di
+     200px, altrimenti spunta sopra la sidebar dell'app (z 70 > 50). */
+  .hstore:not(.open) { transform: translateX(calc(-100% - 210px)); }
   .hback  { left: 200px; }
 }
 
