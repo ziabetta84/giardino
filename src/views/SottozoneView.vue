@@ -37,7 +37,7 @@
     <Teleport to="body">
       <div v-if="mostraForm" class="overlay" @click.self="chiudiForm">
         <div class="modal-box">
-          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:16px;">
+          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;">
             {{ modificaOriginale ? 'Modifica sottozona' : 'Nuova sottozona' }}
           </h3>
           <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
@@ -248,7 +248,6 @@ async function eliminaSottozona() {
 </script>
 
 <style scoped>
-a.pill { display:inline-flex; align-items:center; text-decoration:none; }
 .szrow { flex-wrap:wrap; }
 .szrow__act { display:flex; gap:6px; flex-wrap:wrap; }
 .dest .pill-mini { cursor:pointer; display:inline-flex; align-items:center; gap:4px; }

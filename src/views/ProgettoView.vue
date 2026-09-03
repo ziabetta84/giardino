@@ -208,6 +208,9 @@ function caricaForm() {
   tappeOriginali.value = p ? (p.tappe || []).map(t => ({ ...t })) : []
   tappaApertaIndex.value = null
   inserimentoIndex.value = null
+  // Ridisegna la traccia dopo un cambio progetto (rotta /progetti/a → /progetti/b
+  // sullo stesso componente riusato) o quando lo store risolve al primo load.
+  nextTick(updateTrail)
 }
 watch(() => [store.progetti, route.params.id], caricaForm, { immediate: true })
 
@@ -273,6 +276,7 @@ function rimuoviTappa(i) {
 // --- scrub della traccia legato allo scroll di window ---
 const pathEl = ref(null)
 let scrollHandler = null
+let pending = false
 function updateTrail() {
   const el = pathEl.value; if (!el) return
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -285,15 +289,31 @@ function updateTrail() {
   let frac = (vh * 0.82 - pr.top) / (pr.height + vh * 0.5)
   frac = Math.max(0, Math.min(1, frac))
   el.style.setProperty('--draw', frac.toFixed(4))
-  el.querySelectorAll('.step__dot, .pgoal .pnode').forEach(d => {
+  // Due passate: prima si leggono tutti i rect, poi si applicano tutti i toggle
+  // — un frame in cui i dot cambiano stato non forza un reflow per ogni dot.
+  const dots = el.querySelectorAll('.step__dot, .pgoal .pnode')
+  const attivi = []
+  dots.forEach(d => {
     const dr = d.getBoundingClientRect()
     const df = ((dr.top + dr.height / 2) - pr.top) / (pr.height || 1)
-    d.classList.toggle('in', frac >= df - 0.02)
+    attivi.push(frac >= df - 0.02)
   })
+  dots.forEach((d, i) => d.classList.toggle('in', attivi[i]))
 }
+// Rieseguito quando l'elemento .path compare davvero nel DOM: su un cold load
+// (refresh, deep link, avvio PWA) store.loading è ancora true al primo
+// onMounted, quindi pathEl.value è null e updateTrail esce subito senza che
+// nulla la richiami quando lo store risolve e .path monta.
+watch(pathEl, (el) => { if (el) nextTick(updateTrail) })
 onMounted(async () => {
   await nextTick()
-  scrollHandler = () => requestAnimationFrame(updateTrail)
+  // Flag di frame in sospeso: una raffica di resize/scroll non accoda un rAF
+  // per evento.
+  scrollHandler = () => {
+    if (pending) return
+    pending = true
+    requestAnimationFrame(() => { pending = false; updateTrail() })
+  }
   window.addEventListener('scroll', scrollHandler, { passive: true })
   window.addEventListener('resize', scrollHandler)
   updateTrail()

@@ -29,7 +29,7 @@
           <Icon :name="store.iconaZona(z.key)" class="dest__ic" />
           <span class="dest__n zname">{{ z.nome ?? z.key }}</span>
           <span class="dest__c">{{ contaPiante(z.key) }} piante</span>
-          <Icon name="back" class="dest__chev" style="transform:rotate(180deg)" />
+          <Icon name="back" class="dest__chev" />
         </RouterLink>
         <div class="zrow__act">
           <RouterLink :to="`/zone/${z.key}/sottozone`" class="pill-mini">Sottozone</RouterLink>
@@ -56,6 +56,7 @@
 a.pill { display:inline-flex; align-items:center; text-decoration:none; }
 .zrow { flex-wrap:wrap; }
 .zrow__main { display:flex; align-items:center; gap:11px; flex:1 1 100%; min-width:0; text-decoration:none; }
+.zrow__main .dest__chev { transform: rotate(180deg); }
 .zrow__act { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:4px; }
 .zname { text-transform:capitalize; }
 .zrow__act .pill-mini { cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:4px; }

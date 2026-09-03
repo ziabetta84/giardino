@@ -2,10 +2,12 @@
   <div class="agente-page">
     <!-- Storico conversazioni: drawer a scomparsa da sinistra -->
     <div class="hback" :class="{ open: sidebarAperta }" @click="sidebarAperta = false"></div>
-    <aside id="hstore" class="hstore" :class="{ open: sidebarAperta }">
+    <aside id="hstore" class="hstore" :class="{ open: sidebarAperta }"
+      tabindex="-1" @keydown.esc="sidebarAperta = false">
       <div class="hstore__hd">
         <b>Storico</b>
         <button type="button" class="hstore__new" @click="nuovaRichiesta">＋ Nuova</button>
+        <button type="button" class="hstore__close" aria-label="Chiudi storico" @click="sidebarAperta = false">✕</button>
       </div>
 
       <div class="hstore__list">
@@ -515,6 +517,19 @@ async function aggiungiRichiesta() {
 .agente-errore svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 /* --- storico: righe + kebab (drawer .hstore/.hitem sono globali, Fase 2) --- */
+/* Chiusura del drawer raggiungibile da tastiera/screen reader: .hback è un
+   <div> non focalizzabile, questo bottone è l'unico controllo di chiusura
+   etichettato quando il drawer è a scomparsa (sotto i 640px). */
+.hstore__close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-size: 15px;
+  line-height: 1;
+  padding: 4px 6px;
+}
 .hitem-wrap {
   position: relative;
   display: flex;
