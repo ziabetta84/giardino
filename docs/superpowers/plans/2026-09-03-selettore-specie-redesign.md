@@ -78,7 +78,7 @@ Blocco `/* ===== foglio (bottom sheet mobile / side sheet desktop) — riusabile
 
 Apri `src/views/PiantaView.vue`, copia le regole `<style scoped>` per `.care`, `.care__row`, `.care__row + .care__row`, `.care__ic`, `.care__ic svg`, `.care__ic--irrigazione`, `.care__ic--concimazione`, `.care__ic--calcio`, `.care__ic--potatura`, `.care__m`, `.care__n`, `.care__d` e incollale in `main.css` in un blocco `/* ===== "Stato cure" / calendario cure — condiviso (era scoped in PiantaView) ===== */`. Poi:
 - **`.care__ic--calcio`**: cambia da `background: var(--sage-bg); color: var(--sage-ink);` a `background: var(--carta-2); color: var(--ink-mid);` (tinta beige — richiesta di Rob, il calcio riceve anche l'icona uovo in Task 2).
-- **Aggiungi** `.care__ic--npk { background: var(--gold-bg); color: var(--gold-ink); }` (riga "Fabbisogno NPK" nel calendario cure).
+- **Aggiungi** `.care__ic--npk { background: var(--sage-bg); color: var(--sage-ink); }` (riga "Fabbisogno NPK" — tinta salvia, coerente con l'icona `provetta` che è `var(--sage)`).
 - **Aggiungi** `.care__d--none { color: var(--ink-faint); }` (valore assente per la stagione scelta).
 Non spostare `.care-act` / `.care-act--rose` / `.care-act:disabled` (restano scoped in PiantaView — sono il bottone interattivo, non usato nel dossier di sola lettura).
 
