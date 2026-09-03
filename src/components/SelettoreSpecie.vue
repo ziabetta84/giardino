@@ -1,7 +1,8 @@
 <template>
   <div class="form-card" style="position:relative;">
-    <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Specie *</label>
+    <label class="field-label">Specie *</label>
     <input
+      ref="inputRef"
       v-model="specieQuery"
       @focus="dropdownAperto = true"
       @click="dropdownAperto = true"
@@ -11,282 +12,165 @@
       autocomplete="off"
     >
     <div v-if="dropdownAperto" class="specie-dropdown">
-      <div v-for="s in specieFiltrate" :key="s.key" class="specie-opzione-riga">
-        <div class="specie-opzione" @mousedown.prevent="selezionaSpecie(s)" style="display:flex;flex-wrap:wrap;align-items:center;gap:3px 6px;">
-          <span>{{ s.nome }}</span>
-          <span v-if="s.cultivarDi" class="badge" style="font-size:10px;padding:1px 6px;background:var(--sage-pale);color:var(--sage-dark);flex-shrink:0;">cultivar</span>
-          <span v-else-if="!s.verificata" class="badge" style="font-size:10px;padding:1px 6px;background:var(--gold-pale);color:var(--gold-dark);flex-shrink:0;">bozza</span>
+      <template v-if="mostraGruppi">
+        <div class="dd-group"><div class="slabel">Nel tuo giardino</div></div>
+        <div v-for="s in speciePossedute" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
+          <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
+            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
+            <Icon v-if="!s.immagine?.url" name="foglia" />
+          </span>
+          <span class="dd-m">
+            <span class="dd-name">
+              {{ s.nome }}
+              <span v-if="s.cultivarDi" class="badge-mini cv">cultivar</span>
+              <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
+            </span>
+            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
+          </span>
         </div>
-        <button type="button" class="icon-btn" @mousedown.prevent="apriModificaSpecie(s)" title="Modifica specie"><Icon name="matita" style="width:13px;height:13px;" /></button>
-      </div>
-      <p v-if="ricercaInCorso" style="font-size:11px;color:var(--ink-faint);padding:6px 10px;display:flex;align-items:center;gap:6px;"><Spinner style="width:12px;height:12px;" />Ricerca nel catalogo…</p>
-      <p v-if="ricercaOffline" style="font-size:11px;color:var(--rose-dark);padding:6px 10px;">Ricerca nel catalogo non disponibile offline — solo le specie già caricate.</p>
-      <p v-if="!specieFiltrate.length && specieQuery.trim() && !ricercaInCorso" style="font-size:12px;color:var(--ink-faint);padding:8px 10px;">Nessuna specie trovata</p>
-      <p v-if="!specieQuery.trim()" style="font-size:11px;color:var(--ink-faint);padding:6px 10px 2px;">Specie verificate — digita per cercare anche nel resto del catalogo, cultivar inclusi</p>
-      <div class="specie-opzione specie-nuova" @mousedown.prevent="apriNuovaSpecie">
-        ＋ Aggiungi nuova specie{{ specieQuery.trim() ? ` "${specieQuery.trim()}"` : '' }}
-      </div>
-    </div>
-
-    <!-- Scheda in sola lettura della specie selezionata: la si legge in fase
-         di scelta, non solo dopo aver creato la pianta (issue #153). -->
-    <div v-if="specieSelezionata && !dropdownAperto" class="scheda-specie">
-      <div v-if="hero" class="scheda-hero">
-        <img :src="hero.thumbUrl" :alt="`Foto di ${specieSelezionata.nome}`" loading="lazy">
-        <a v-if="hero.attribuzione" :href="hero.fontePagina" target="_blank" rel="noopener"
-          class="scheda-hero-credit" @click.stop>
-          Foto: {{ hero.attribuzione }} / Wikimedia Commons
-        </a>
-      </div>
-
-      <div class="scheda-testa">
-        <span class="scheda-nome">{{ specieSelezionata.nome }}</span>
-        <span v-if="specieSelezionata.specie" class="scheda-sci">{{ specieSelezionata.specie }}</span>
-        <span v-if="specieSelezionata.specie_padre_id" class="badge scheda-badge" style="background:var(--sage-pale);color:var(--sage-dark);">cultivar</span>
-        <span v-else-if="specieSelezionata.stato_verifica !== 'verificato'" class="badge scheda-badge" style="background:var(--gold-pale);color:var(--gold-dark);">bozza</span>
-        <button type="button" class="scheda-modifica" @click="apriModificaSpecie({ key: props.modelValue, nome: specieSelezionata.nome })">
-          <Icon name="matita" style="width:12px;height:12px;" />Modifica
-        </button>
-      </div>
-
-      <p v-if="specieSelezionata.descrizione" class="scheda-descrizione">{{ specieSelezionata.descrizione }}</p>
-      <p v-else class="scheda-vuota">Nessuna descrizione per questa specie.</p>
-
-      <div v-if="esigenzeVoci.length" class="scheda-esigenze">
-        <span v-for="e in esigenzeVoci" :key="e.chiave" class="scheda-esigenza">
-          <Icon :name="e.icona" style="width:13px;height:13px;flex-shrink:0;" />
-          <span>{{ e.valore }}</span>
-        </span>
-      </div>
-
-      <template v-if="alertList.length">
-        <ul class="scheda-alert">
-          <li v-for="a in alertVisibili" :key="a">{{ a }}</li>
-        </ul>
-        <button v-if="alertExtra > 0" type="button" class="scheda-alert-toggle" @click="alertTuttiAperti = !alertTuttiAperti">
-          {{ alertTuttiAperti ? 'Mostra meno' : `+ ${alertExtra} altre` }}
-        </button>
+        <div class="dd-group"><div class="slabel">Nel catalogo</div></div>
+        <div v-for="s in specieCatalogo" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
+          <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
+            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
+            <Icon v-if="!s.immagine?.url" name="foglia" />
+          </span>
+          <span class="dd-m">
+            <span class="dd-name">
+              {{ s.nome }}
+              <span v-if="s.cultivarDi" class="badge-mini cv">cultivar</span>
+              <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
+            </span>
+            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
+          </span>
+        </div>
       </template>
+      <template v-else>
+        <div v-for="s in specieFiltrate" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
+          <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
+            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
+            <Icon v-if="!s.immagine?.url" name="foglia" />
+          </span>
+          <span class="dd-m">
+            <span class="dd-name">
+              {{ s.nome }}
+              <span v-if="s.cultivarDi" class="badge-mini cv">cultivar</span>
+              <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
+            </span>
+            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
+          </span>
+        </div>
+      </template>
+
+      <p v-if="ricercaInCorso" class="dd-nota"><Spinner style="width:12px;height:12px;" />Ricerca nel catalogo…</p>
+      <p v-if="ricercaOffline" class="dd-nota">Ricerca nel catalogo non disponibile offline — solo le specie già caricate.</p>
+      <p v-if="!specieFiltrate.length && specieQuery.trim() && !ricercaInCorso" class="dd-nota">Nessuna specie trovata</p>
+      <p v-if="!specieQuery.trim()" class="dd-nota">Specie verificate — digita per cercare in tutto il catalogo, cultivar inclusi</p>
+
+      <RouterLink to="/agente" class="dd-foot" @mousedown.prevent>
+        <span>Non la trovi?</span><span class="dd-foot-cta">Chiedi a Zorba di aggiungerla →</span>
+      </RouterLink>
     </div>
 
-    <!-- Modale nuova/modifica specie -->
-    <Teleport to="body">
-      <div v-if="mostraNuovaSpecie" class="overlay" @click.self="chiudiNuovaSpecie">
-        <div class="modal-box">
-          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:12px;">
-            {{ specieModificaOriginale ? 'Modifica specie' : 'Nuova specie' }}
-          </h3>
+    <!-- Card compatta della specie scelta: la scheda completa vive nel foglio. -->
+    <div v-if="specieSelezionata && !dropdownAperto" class="scheda-chosen">
+      <span class="sc-th" :style="hero ? { backgroundImage: bgUrl(hero.thumbUrl) } : null"></span>
+      <span class="sc-m">
+        <span class="sc-nm">{{ specieSelezionata.nome }}</span>
+        <span v-if="specieSelezionata.specie" class="sc-sci">{{ specieSelezionata.specie }}</span>
+        <span class="sc-acts">
+          <button type="button" @click="dossierAperto = true">Vedi scheda completa</button>
+          <button type="button" class="alt" @click="apriRicerca">Cambia</button>
+        </span>
+      </span>
+    </div>
 
-          <div style="display:flex;gap:6px;margin-bottom:16px;">
-            <button type="button" class="pill" :class="{ active: tabAttiva === 'generale' }" @click="tabAttiva = 'generale'">Generale</button>
-            <button type="button" class="pill" :class="{ active: tabAttiva === 'cure' }" @click="tabAttiva = 'cure'">Cure</button>
-            <button type="button" class="pill" :class="{ active: tabAttiva === 'coltivazione' }" @click="tabAttiva = 'coltivazione'">Coltivazione</button>
+    <FoglioLaterale v-model="dossierAperto">
+      <template #intestazione><span></span></template>
+      <template v-if="specieSelezionata">
+      <div class="dossier">
+        <div class="specie-ghost" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><g transform="translate(0 512) scale(0.1 -0.1)"><path class="sg" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34 -95 -78 -115 -32 -15 -72 -17 -282 -16 -135 0 -297 6 -360 12 -213 22 -501 26 -660 8 -148 -16 -171 -21 -345 -74 -119 -36 -187 -64 -405 -169 -160 -77 -376 -157 -452 -168 l-38 -6 0 -196 0 -196 68 6 c38 4 114 16 171 28 56 11 104 19 106 17 3 -2 9 -84 15 -182 6 -99 13 -183 16 -187 2 -5 5 -41 6 -82 0 -63 -4 -81 -31 -135 -17 -34 -35 -62 -39 -62 -9 0 -131 -99 -177 -143 -20 -19 -40 -50 -45 -68 -5 -18 -14 -114 -20 -213 -6 -100 -18 -241 -27 -314 -18 -150 -12 -190 34 -237 51 -51 79 -59 211 -63 129 -4 167 3 210 41 16 15 22 31 22 64 0 54 -29 87 -91 103 -24 6 -50 13 -56 15 -21 7 -15 65 17 155 16 47 30 94 30 105 1 11 9 35 18 54 14 29 26 37 67 48 65 16 330 60 419 68 38 4 75 9 83 12 22 8 15 -14 -22 -72 -20 -30 -38 -68 -41 -84 -14 -70 74 -165 281 -302 182 -120 202 -132 275 -162 90 -37 140 -46 251 -47 82 0 102 3 145 25 80 40 95 96 41 150 -36 36 -89 55 -151 55 -38 0 -126 34 -126 49 0 4 -40 42 -90 84 -49 43 -90 83 -90 90 0 18 204 143 315 193 142 64 572 204 649 211 76 7 72 11 122 -142 18 -55 56 -163 84 -240 29 -77 65 -178 81 -225 39 -112 77 -180 116 -206 52 -35 137 -47 300 -42 201 6 263 33 263 115 0 16 -7 39 -16 52 -20 28 -88 60 -126 61 -26 0 -28 3 -28 38 0 21 4 73 9 117 6 44 13 116 16 160 3 44 10 100 15 125 6 25 21 117 35 205 28 171 62 307 126 500 112 334 130 413 155 668 17 183 12 251 -38 502 -91 465 -355 899 -680 1117 -53 36 -104 45 -137 26 -23 -13 -26 -20 -24 -61 2 -26 -1 -47 -6 -47 -5 0 -28 21 -51 47 -64 73 -139 133 -166 133 -13 0 -33 -9 -45 -21z m661 -3244 c0 -17 9 -29 31 -41 31 -16 32 -17 26 -74 -9 -84 -37 -154 -64 -158 -17 -3 -24 3 -29 24 -8 30 2 231 12 257 9 25 24 20 24 -8z"/><path class="sg" d="M124 3636 c-52 -23 -68 -73 -60 -187 26 -406 211 -760 516 -990 108 -82 230 -139 390 -184 66 -19 315 -31 424 -20 l77 7 -3 198 c-2 109 -6 201 -9 204 -3 4 -17 2 -31 -3 -14 -5 -77 -15 -140 -22 -99 -11 -132 -10 -224 2 -60 9 -127 24 -149 34 -161 74 -273 169 -363 308 -86 132 -116 202 -162 377 -48 180 -68 227 -112 260 -38 28 -110 36 -154 16z"/></g></svg></div>
+
+        <div v-if="hero" class="dh" :style="{ backgroundImage: bgUrl(hero.thumbUrl) }">
+          <div class="dh-scrim"></div>
+          <span class="dh-chip">{{ statoBadge }}</span>
+          <div class="dh-cap">
+            <p class="dh-name">{{ specieSelezionata.nome }}</p>
+            <p v-if="specieSelezionata.specie" class="dh-sci">{{ specieSelezionata.specie }}</p>
           </div>
+          <a v-if="hero.attribuzione && hero.fontePagina" :href="hero.fontePagina" target="_blank" rel="noopener"
+            class="dh-credit" @click.stop>Foto: {{ hero.attribuzione }} / Wikimedia Commons</a>
+        </div>
+        <div v-else class="dh-np">
+          <div class="np-name">{{ specieSelezionata.nome }}</div>
+          <div v-if="specieSelezionata.specie" class="np-sci">{{ specieSelezionata.specie }}</div>
+          <span class="np-badge badge-mini" :class="statoBadgeClasse">{{ statoBadge }}</span>
+        </div>
 
-          <p v-if="erroreSpecie" style="font-size:11px;color:var(--rose-dark);margin:0 0 10px;">{{ erroreSpecie }}</p>
+        <div class="dossier-body">
+          <div class="slabel">La specie</div>
+          <p v-if="specieSelezionata.descrizione" class="prose">{{ specieSelezionata.descrizione }}</p>
+          <p v-else class="prose dossier-vuoto">Nessuna descrizione per questa specie.</p>
 
-          <!-- Tab Generale -->
-          <template v-if="tabAttiva === 'generale'">
-            <label class="campo-label">Nome comune *</label>
-            <input v-model="nuovaSpecie.nome" placeholder="es. Basilico" class="form-input" style="margin-bottom:10px;">
-            <label class="campo-label">Nome scientifico</label>
-            <input v-model="nuovaSpecie.nomeScientifico" placeholder="es. Passiflora caerulea" class="form-input" style="margin-bottom:10px;">
-
-            <label class="campo-label">Descrizione</label>
-            <textarea v-model="nuovaSpecie.descrizione" placeholder="Descrizione libera (opzionale)"
-              rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:10px;"></textarea>
-
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esigenze (opzionale)</label>
-            <label class="campo-label">Luce</label>
-            <input v-model="nuovaSpecie.luce" placeholder="es. Pieno sole" class="form-input" style="margin-bottom:8px;">
-            <label class="campo-label">Acqua</label>
-            <input v-model="nuovaSpecie.acqua" placeholder="es. Moderata" class="form-input" style="margin-bottom:8px;">
-            <label class="campo-label">Terreno</label>
-            <input v-model="nuovaSpecie.terreno" placeholder="es. Ben drenato" class="form-input" style="margin-bottom:16px;">
-
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Avvertenze (opzionale)</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "teme ristagni", "non tollera calcare".</p>
-            <textarea v-model="nuovaSpecie.alert" placeholder="Una avvertenza per riga…"
-              rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
-
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Ciclo vitale (opzionale)</label>
-            <div style="display:flex;gap:6px;flex-wrap:wrap;">
-              <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'perenne' }" @click="nuovaSpecie.cicloVitale = 'perenne'">Perenne</button>
-              <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'annuale' }" @click="nuovaSpecie.cicloVitale = 'annuale'">Annuale</button>
-              <button type="button" class="pill" :class="{ active: nuovaSpecie.cicloVitale === 'biennale' }" @click="nuovaSpecie.cicloVitale = 'biennale'">Biennale</button>
-            </div>
-          </template>
-
-          <!-- Tab Cure -->
-          <template v-if="tabAttiva === 'cure'">
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Manutenzione (opzionale)</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Ogni quanti giorni, per stagione — vuoto = non necessario. Usata dalle Attività per segnalare le cure in scadenza.</p>
-            <div class="manutenzione-grid">
-              <div></div>
-              <div class="stagione-header">Pri</div>
-              <div class="stagione-header">Est</div>
-              <div class="stagione-header">Aut</div>
-              <div class="stagione-header">Inv</div>
-
-              <div class="tipo-label"><Icon name="goccia" style="width:13px;height:13px;flex-shrink:0;" />Irrigazione</div>
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.primavera" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.estate" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.autunno" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.irrigazione.inverno" placeholder="gg">
-
-              <div class="tipo-label"><Icon name="concimazione" style="width:13px;height:13px;flex-shrink:0;" />Concimazione</div>
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.primavera" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.estate" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.autunno" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.concimazione.inverno" placeholder="gg">
-
-              <div class="tipo-label"><Icon name="provetta" style="width:13px;height:13px;flex-shrink:0;" />NPK</div>
-              <input v-model="nuovaSpecie.manutenzione.npk.primavera" placeholder="N-P-K">
-              <input v-model="nuovaSpecie.manutenzione.npk.estate" placeholder="N-P-K">
-              <input v-model="nuovaSpecie.manutenzione.npk.autunno" placeholder="N-P-K">
-              <input v-model="nuovaSpecie.manutenzione.npk.inverno" placeholder="N-P-K">
-
-              <div class="tipo-label"><Icon name="provetta" style="width:13px;height:13px;flex-shrink:0;" />Calcio</div>
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.primavera" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.estate" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.autunno" placeholder="gg">
-              <input type="number" min="1" v-model.number="nuovaSpecie.manutenzione.calcio.inverno" placeholder="gg">
-            </div>
-            <p style="font-size:11px;color:var(--ink-faint);margin:6px 0 0;">Calcio: da riempire solo per specie con beneficio documentato (es. marciume apicale su solanacee/cucurbitacee) — lascia vuoto per tutte le altre.</p>
-
-            <label style="display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 2px;">
-              <Icon name="potatura" style="width:13px;height:13px;flex-shrink:0;" />Potatura (opzionale)
-            </label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Non è a cadenza fissa come le altre: testo libero per stagione, es. "taglio leggero", "post-fioritura", "nessuna".</p>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <div>
-                <label class="campo-label">Primavera</label>
-                <input v-model="nuovaSpecie.manutenzione.potatura.primavera" placeholder="es. taglio leggero" class="form-input">
-              </div>
-              <div>
-                <label class="campo-label">Estate</label>
-                <input v-model="nuovaSpecie.manutenzione.potatura.estate" placeholder="es. nessuna" class="form-input">
-              </div>
-              <div>
-                <label class="campo-label">Autunno</label>
-                <input v-model="nuovaSpecie.manutenzione.potatura.autunno" placeholder="es. post-fioritura" class="form-input">
-              </div>
-              <div>
-                <label class="campo-label">Inverno</label>
-                <input v-model="nuovaSpecie.manutenzione.potatura.inverno" placeholder="es. nessuna" class="form-input">
+          <template v-if="esigenzeVoci.length">
+            <div class="slabel">Esigenze</div>
+            <div class="kv">
+              <div v-for="e in esigenzeVoci" :key="e.chiave">
+                <span class="k"><Icon :name="e.icona" />{{ capitalizza(e.chiave) }}</span><span class="v">{{ e.valore }}</span>
               </div>
             </div>
           </template>
 
-          <!-- Tab Coltivazione: la parte "in vaso" vale per ogni ciclo vitale,
-               semina/trapianto/raccolta ha senso solo per annuale/biennale -->
-          <template v-if="tabAttiva === 'coltivazione'">
-            <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Coltivazione in vaso (opzionale)</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 8px;">Per capire se la specie regge il contenitore e come regolare cure e rinvaso.</p>
-
-            <label class="campo-label">Adatta al vaso?</label>
-            <div style="display:flex;gap:6px;margin-bottom:10px;">
-              <button type="button" class="pill" :class="{ active: nuovaSpecie.vaso.adatta === true }" @click="nuovaSpecie.vaso.adatta = true">Sì</button>
-              <button type="button" class="pill" :class="{ active: nuovaSpecie.vaso.adatta === false }" @click="nuovaSpecie.vaso.adatta = false">No</button>
-              <button type="button" class="pill" :class="{ active: nuovaSpecie.vaso.adatta === null }" @click="nuovaSpecie.vaso.adatta = null">Non impostato</button>
+          <template v-if="cureRighe.length">
+            <div class="slabel">Calendario cure</div>
+            <div class="dossier-stagioni">
+              <button v-for="s in STAGIONI_CAL" :key="s.val" type="button" class="pill"
+                :class="{ active: stagioneCal === s.val }" @click="stagioneCal = s.val">{{ s.label }}</button>
             </div>
-
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-              <div>
-                <label class="campo-label">Dimensione minima (litri)</label>
-                <input type="number" min="1" v-model.number="nuovaSpecie.vaso.dimensioneMinimaLitri" placeholder="es. 10" class="form-input">
-              </div>
-              <div>
-                <label class="campo-label">Rinvaso ogni (mesi)</label>
-                <input type="number" min="1" v-model.number="nuovaSpecie.vaso.rinvasoOgniMesi" placeholder="es. 12" class="form-input">
+            <div class="care">
+              <div v-for="r in cureRighe" :key="r.tipo" class="care__row">
+                <span class="care__ic" :class="`care__ic--${r.tipo}`"><Icon :name="r.icona" /></span>
+                <span class="care__m">
+                  <span class="care__n">{{ r.label }}</span>
+                  <span class="care__d" :class="{ 'care__d--none': !r.valore }">{{ r.valore || 'Non prevista in questa stagione' }}</span>
+                </span>
               </div>
             </div>
-            <label class="campo-label">Fattore irrigazione in vaso</label>
-            <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Moltiplicatore rispetto alla cadenza a terra (es. 0.7 = irrigazione più ravvicinata in vaso).</p>
-            <input type="number" min="0" step="0.1" v-model.number="nuovaSpecie.vaso.irrigazioneFattore" placeholder="es. 0.7" class="form-input" style="margin-bottom:16px;">
-
-            <p v-if="nuovaSpecie.cicloVitale !== 'annuale' && nuovaSpecie.cicloVitale !== 'biennale'" style="font-size:12px;color:var(--ink-faint);padding:20px 0;text-align:center;border-top:1px solid var(--cream-dark);">
-              Imposta il ciclo vitale su "Annuale" o "Biennale" nella tab Generale per compilare anche semina/trapianto/raccolta.
-            </p>
-            <template v-else>
-              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 12px;">Dati per generare in futuro un piano di semina/trapianto/raccolta — tutto facoltativo.</p>
-
-              <label class="campo-label">Famiglia botanica</label>
-              <input v-model="nuovaSpecie.coltivazione.famigliaBotanica" placeholder="es. Solanaceae" class="form-input" style="margin-bottom:10px;">
-
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
-                <div>
-                  <label class="campo-label">Gg germinazione</label>
-                  <input v-model="nuovaSpecie.coltivazione.giorniGerminazione" placeholder="es. 7-14" class="form-input">
-                </div>
-                <div>
-                  <label class="campo-label">Gg al trapianto</label>
-                  <input v-model="nuovaSpecie.coltivazione.giorniTrapianto" placeholder="es. 25-30" class="form-input">
-                </div>
-              </div>
-              <label class="campo-label">Gg alla raccolta</label>
-              <input v-model="nuovaSpecie.coltivazione.giorniRaccolta" placeholder="es. 60-70" class="form-input" style="margin-bottom:14px;">
-
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di semina</label>
-              <div style="display:flex;gap:6px;margin-bottom:12px;">
-                <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.finestraSemina.includes(s.val) }"
-                  v-for="s in STAGIONI_PILL" :key="'sem-'+s.val" @click="toggleStagione('finestraSemina', s.val)">{{ s.label }}</button>
-              </div>
-
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Finestra di trapianto</label>
-              <div style="display:flex;gap:6px;margin-bottom:14px;">
-                <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.finestraTrapianto.includes(s.val) }"
-                  v-for="s in STAGIONI_PILL" :key="'trap-'+s.val" @click="toggleStagione('finestraTrapianto', s.val)">{{ s.label }}</button>
-              </div>
-
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Resistenza al gelo</label>
-              <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;">
-                <button type="button" class="pill" :class="{ active: nuovaSpecie.coltivazione.resistenzaGelo === r }"
-                  v-for="r in ['nessuna','bassa','media','alta']" :key="r" @click="nuovaSpecie.coltivazione.resistenzaGelo = r">{{ r }}</button>
-              </div>
-
-              <label class="campo-label">Spaziatura (cm)</label>
-              <input type="number" min="1" v-model.number="nuovaSpecie.coltivazione.spaziaturaCm" placeholder="es. 50" class="form-input" style="margin-bottom:14px;">
-
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni favorevoli</label>
-              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga, es. "basilico", "carota".</p>
-              <textarea v-model="nuovaSpecie.coltivazione.consociazioniFavorevoli" placeholder="Una specie per riga…"
-                rows="2" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:12px;"></textarea>
-
-              <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:2px;">Consociazioni sfavorevoli</label>
-              <p style="font-size:11px;color:var(--ink-faint);margin:0 0 6px;">Una per riga.</p>
-              <textarea v-model="nuovaSpecie.coltivazione.consociazioniSfavorevoli" placeholder="Una specie per riga…"
-                rows="2" class="form-input" style="resize:vertical;font-family:inherit;"></textarea>
-            </template>
           </template>
 
-          <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:16px;">
-            <button class="btn btn-ghost" @click="chiudiNuovaSpecie" style="min-height:40px;padding:8px 16px;">Annulla</button>
-            <button class="btn btn-sage" @click="salvaNuovaSpecie" :disabled="!nuovaSpecie.nome.trim() || salvandoSpecie"
-              style="min-height:40px;padding:8px 16px;">
-              <Spinner v-if="salvandoSpecie" /><span v-else>{{ specieModificaOriginale ? 'Salva' : 'Aggiungi' }}</span>
+          <template v-if="coltivazioneVoci.length">
+            <div class="slabel">Coltivazione</div>
+            <div class="kv"><div v-for="c in coltivazioneVoci" :key="c.k"><span class="k">{{ c.k }}</span><span class="v">{{ c.v }}</span></div></div>
+          </template>
+
+          <template v-if="alertList.length">
+            <div class="slabel">Note tecniche</div>
+            <ul class="notelist"><li v-for="a in alertVisibili" :key="a">{{ a }}</li></ul>
+            <button v-if="alertExtra > 0" type="button" class="dossier-more" @click="alertTuttiAperti = !alertTuttiAperti">
+              {{ alertTuttiAperti ? 'Mostra meno' : `+ ${alertExtra} altre` }}
             </button>
-          </div>
+          </template>
         </div>
       </div>
-    </Teleport>
+      </template>
+    </FoglioLaterale>
   </div>
 </template>
 
 <script setup>
-// Selettore/creatore di specie: combobox con ricerca (~100+ specie, troppe
-// per una <select> nativa comoda su mobile) più un'opzione per creare o
-// modificare una specie al volo. Estratto da EditPiantaView.vue perché
-// riusato identico in "Zorba dice" (richiesta "revisione specie").
-import { ref, computed, watch, onUnmounted } from 'vue'
+// Selettore di specie: combobox con ricerca (catalogo di ~9.000+ voci, troppe
+// per una <select> nativa). Sola lettura — il catalogo `specie` è dato
+// condiviso in multiutenza: nuove specie si chiedono a Zorba (/agente).
+// Estratto da EditPiantaView.vue perché riusato identico in "Zorba dice"
+// (richiesta "revisione specie").
+import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
-import { usePianteApi } from '@/composables/usePianteApi'
 import { useSupabase } from '@/composables/useSupabase'
 import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
-import { parseGiorni } from '@/composables/useCure'
+import { parseGiorni, stagione } from '@/composables/useCure'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
@@ -294,11 +178,19 @@ const props = defineProps({
 const emit = defineEmits(['update:modelValue'])
 
 const store = useDatiStore()
-const pianteApi = usePianteApi()
 const supabase = useSupabase()
 
+// Compone un valore CSS url() con la stringa fra virgolette doppie ed
+// escape di " e \ — gli URL Wikimedia sono esterni e possono contenere
+// caratteri che romperebbero un url() non quotato.
+function bgUrl(u) {
+  return u ? `url("${String(u).replace(/["\\]/g, '\\$&')}")` : null
+}
+
+const inputRef       = ref(null)
 const specieQuery    = ref('')
 const dropdownAperto = ref(false)
+const dossierAperto  = ref(false)
 
 // Con il catalogo esteso da PFAF (~8.700 voci e in crescita), non ha più
 // senso caricarlo tutto in anticipo (issue #142): lo store all'avvio
@@ -317,6 +209,7 @@ const specieFiltrate = computed(() => {
       nome: s.nome ?? key,
       nomeScientifico: s.specie ?? '',
       verificata: s.stato_verifica === 'verificato',
+      immagine: s.immagine ?? null,
       // un cultivar è una ricerca esplicita (digitando il nome del cultivar
       // stesso), mai un suggerimento a campo vuoto — vedi filtro sotto
       cultivarDi: s.specie_padre_id ? (nomePerId[s.specie_padre_id] ?? '') : null,
@@ -334,6 +227,19 @@ const specieFiltrate = computed(() => {
     .sort((a, b) => (!!a.cultivarDi - !!b.cultivarDi) || (b.verificata - a.verificata) || a.nome.localeCompare(b.nome))
     .slice(0, 50)
 })
+
+// Tendina raggruppata: "Nel tuo giardino" (specie di cui l'utente ha almeno
+// una pianta) vs "Nel catalogo" (il resto). Il possesso si legge da
+// store.piante (p.specie è lo slug della specie, cioè s.key), non da
+// s.verificata (che è un flag di curatela sul catalogo condiviso, non
+// possesso). Le due intestazioni compaiono solo quando entrambi i gruppi
+// hanno voci; altrimenti la lista è piatta.
+const slugPossedute = computed(() =>
+  new Set(Object.values(store.piante ?? {}).map(p => p.specie).filter(Boolean))
+)
+const speciePossedute = computed(() => specieFiltrate.value.filter(s => slugPossedute.value.has(s.key)))
+const specieCatalogo  = computed(() => specieFiltrate.value.filter(s => !slugPossedute.value.has(s.key)))
+const mostraGruppi    = computed(() => speciePossedute.value.length > 0 && specieCatalogo.value.length > 0)
 
 // Ricerca live: parte da 2 caratteri (stessa soglia del filtro locale sopra),
 // con un debounce per non fare una query ad ogni tasto. Un token incrementale
@@ -444,6 +350,13 @@ function selezionaSpecie(s) {
   emit('update:modelValue', s.key)
   specieQuery.value = s.nome
   dropdownAperto.value = false
+  // Apertura automatica della scheda alla prima scelta (richiesta di Rob).
+  dossierAperto.value = true
+}
+
+function apriRicerca() {
+  dropdownAperto.value = true
+  nextTick(() => inputRef.value?.focus())
 }
 
 function chiudiDropdown() {
@@ -458,16 +371,41 @@ function chiudiDropdown() {
   }, 150)
 }
 
-// --- Scheda in sola lettura della specie selezionata ---
-// Il record nello store ha già descrizione/esigenze/alert: sia la ricerca live
-// sia il watch su modelValue caricano con COLONNE_SPECIE.
-const ICONA_ESIGENZA = { luce: 'sole', acqua: 'goccia', terreno: 'terra' }
+// --- Dossier in sola lettura della specie selezionata ---
+// Il record nello store ha già descrizione/esigenze/alert/manutenzione/
+// coltivazione/vaso: sia la ricerca live sia il watch su modelValue caricano
+// con COLONNE_SPECIE.
+const ICONA_ESIGENZA = {
+  sole: 'sole', luce: 'sole', esposizione: 'sole',
+  acqua: 'goccia', irrigazione: 'goccia', umidita: 'goccia', 'umidità': 'goccia',
+  terreno: 'foglia', suolo: 'foglia', substrato: 'foglia', ph: 'foglia',
+  temperatura: 'caldo', clima: 'caldo', gelo: 'gelo',
+  spazio: 'pin', distanza: 'pin', potatura: 'potatura', concimazione: 'concimazione',
+}
 const ALERT_PREVIEW = 3
 const alertTuttiAperti = ref(false)
+
+function capitalizza(s) { s = String(s); return s.charAt(0).toUpperCase() + s.slice(1) }
 
 const specieSelezionata = computed(() =>
   props.modelValue ? (store.specie?.[props.modelValue] ?? null) : null
 )
+
+const statoBadge = computed(() => {
+  const s = specieSelezionata.value
+  if (!s) return ''
+  if (s.specie_padre_id) return 'cultivar'
+  return s.stato_verifica === 'verificato' ? 'verificata' : 'bozza'
+})
+
+// Colore del chip nell'header senza foto, coerente con la tendina:
+// 'cv' (sage, cultivar) / 'bz' (gold, bozza) / '' (neutro, verificata).
+const statoBadgeClasse = computed(() => {
+  const s = specieSelezionata.value
+  if (!s) return ''
+  if (s.specie_padre_id) return 'cv'
+  return s.stato_verifica === 'verificato' ? '' : 'bz'
+})
 
 // Immagine hero della specie (Wikimedia): propria o, per i cultivar, ereditata
 // dalla madre via fondiEredita nello store. urlMiniatura ridimensiona alla
@@ -484,7 +422,76 @@ const esigenzeVoci = computed(() => {
   if (!e || typeof e !== 'object') return []
   return Object.entries(e)
     .filter(([, v]) => v != null && String(v).trim())
-    .map(([chiave, valore]) => ({ chiave, valore, icona: ICONA_ESIGENZA[chiave] ?? 'foglia' }))
+    .map(([chiave, valore]) => ({ chiave, valore, icona: ICONA_ESIGENZA[String(chiave).toLowerCase()] ?? 'foglia' }))
+})
+
+// Calendario cure: stesse tessere di "Stato cure" in Scheda Pianta, ma con le
+// pill delle stagioni sopra — il valore mostrato è quello della stagione
+// scelta. Solo i tipi con almeno una stagione compilata compaiono.
+const STAGIONI_CAL = [
+  { val: 'primavera', label: 'Primavera' },
+  { val: 'estate',    label: 'Estate' },
+  { val: 'autunno',   label: 'Autunno' },
+  { val: 'inverno',   label: 'Inverno' },
+]
+const stagioneCal = ref(stagione())
+
+const TIPI_CURA_DOSSIER = [
+  { tipo: 'irrigazione',  label: 'Irrigazione',   icona: 'goccia' },
+  { tipo: 'concimazione', label: 'Concimazione',  icona: 'concimazione' },
+  { tipo: 'calcio',       label: 'Calcio',         icona: 'uovo' },
+  { tipo: 'potatura',     label: 'Potatura',       icona: 'potatura' },
+  { tipo: 'npk',          label: 'Fabbisogno NPK', icona: 'provetta' },
+]
+
+const cureRighe = computed(() => {
+  const m = specieSelezionata.value?.manutenzione
+  if (!m || typeof m !== 'object') return []
+  const haStagioni = (blocco) =>
+    blocco && typeof blocco === 'object' && Object.values(blocco).some(v => v != null && String(v).trim())
+  return TIPI_CURA_DOSSIER
+    .filter(t => haStagioni(m[t.tipo]))
+    .map(t => {
+      const grezzo = m[t.tipo]?.[stagioneCal.value]
+      const testo = grezzo != null ? String(grezzo).trim() : ''
+      let valore = ''
+      if (testo) {
+        if (t.tipo === 'irrigazione' || t.tipo === 'concimazione' || t.tipo === 'calcio') {
+          const n = parseGiorni(testo)
+          valore = typeof n === 'number' && n > 0
+            ? (n === 1 ? 'Ogni giorno' : `Ogni ${n} giorni`)
+            : testo
+        } else {
+          // potatura / npk: testo grezzo (descrittivo o "n-p-k")
+          valore = testo
+        }
+      }
+      return { tipo: t.tipo, label: t.label, icona: t.icona, valore }
+    })
+})
+
+const coltivazioneVoci = computed(() => {
+  const c = specieSelezionata.value?.coltivazione
+  const v = []
+  if (c && typeof c === 'object') {
+    if (c.famiglia_botanica) v.push({ k: 'Famiglia', v: c.famiglia_botanica })
+    if (c.giorni_germinazione) v.push({ k: 'Germinazione', v: `${c.giorni_germinazione} gg` })
+    if (c.giorni_trapianto) v.push({ k: 'Al trapianto', v: `${c.giorni_trapianto} gg dalla semina` })
+    if (c.giorni_raccolta) v.push({ k: 'Prima raccolta', v: `${c.giorni_raccolta} gg dal trapianto` })
+    if (c.finestra_semina?.length) v.push({ k: 'Finestra semina', v: c.finestra_semina.join(', ') })
+    if (c.finestra_trapianto?.length) v.push({ k: 'Finestra trapianto', v: c.finestra_trapianto.join(', ') })
+    if (c.resistenza_gelo) v.push({ k: 'Resistenza al gelo', v: c.resistenza_gelo })
+    if (c.spaziatura_cm) v.push({ k: 'Spaziatura', v: `${c.spaziatura_cm} cm` })
+    if (c.consociazioni_favorevoli?.length) v.push({ k: 'Si abbina a', v: c.consociazioni_favorevoli.join(', ') })
+    if (c.consociazioni_sfavorevoli?.length) v.push({ k: 'Evitare vicino a', v: c.consociazioni_sfavorevoli.join(', ') })
+  }
+  const vs = specieSelezionata.value?.vaso
+  if (vs && typeof vs === 'object') {
+    if (typeof vs.adatta === 'boolean') v.push({ k: 'Adatta al vaso', v: vs.adatta ? 'Sì' : 'No' })
+    if (vs.dimensione_minima_litri) v.push({ k: 'Dim. minima vaso (L)', v: String(vs.dimensione_minima_litri) })
+    if (vs.rinvaso_ogni_mesi) v.push({ k: 'Rinvaso (mesi)', v: String(vs.rinvaso_ogni_mesi) })
+  }
+  return v
 })
 
 const alertList = computed(() => {
@@ -496,334 +503,11 @@ const alertVisibili = computed(() =>
 )
 const alertExtra = computed(() => Math.max(0, alertList.value.length - ALERT_PREVIEW))
 
-// Ripiega l'elenco avvertenze quando si cambia specie.
-watch(() => props.modelValue, () => { alertTuttiAperti.value = false })
-
-const mostraNuovaSpecie = ref(false)
-const salvandoSpecie    = ref(false)
-const erroreSpecie      = ref(null)
-// Chiave della specie in modifica (null quando si sta creando una nuova
-// specie): serve per sapere se salvaNuovaSpecie() deve creare o rinominare/
-// aggiornare una voce esistente in specie.json.
-const specieModificaOriginale = ref(null)
-
-// Tab del modale: 'coltivazione' evita di allungare lo scroll per le ~99
-// specie perenni/da appartamento a cui semina/trapianto non si applicano.
-const tabAttiva = ref('generale')
-
-const STAGIONI = ['primavera', 'estate', 'autunno', 'inverno']
-const STAGIONI_PILL = [
-  { val: 'primavera', label: 'Pri' },
-  { val: 'estate',    label: 'Est' },
-  { val: 'autunno',   label: 'Aut' },
-  { val: 'inverno',   label: 'Inv' },
-]
-
-function vasoVuoto() {
-  return { adatta: null, dimensioneMinimaLitri: null, rinvasoOgniMesi: null, irrigazioneFattore: null }
-}
-
-function coltivazioneVuota() {
-  return {
-    famigliaBotanica: '',
-    giorniGerminazione: '',
-    giorniTrapianto: '',
-    giorniRaccolta: '',
-    finestraSemina: [],
-    finestraTrapianto: [],
-    resistenzaGelo: '',
-    spaziaturaCm: null,
-    consociazioniFavorevoli: '',
-    consociazioniSfavorevoli: '',
-  }
-}
-
-function toggleStagione(campo, stagione) {
-  const arr = nuovaSpecie.value.coltivazione[campo]
-  const i = arr.indexOf(stagione)
-  if (i === -1) arr.push(stagione)
-  else arr.splice(i, 1)
-}
-
-function manutenzioneVuota() {
-  const perStagione = () => ({ primavera: '', estate: '', autunno: '', inverno: '' })
-  return { irrigazione: perStagione(), concimazione: perStagione(), potatura: perStagione(), npk: perStagione(), calcio: perStagione() }
-}
-
-// Per irrigazione/concimazione il campo del form è solo numerico ("ogni N
-// giorni"), ma i dati reali delle specie esistenti spesso non sono in quel
-// formato pulito (es. "ogni 7-10 giorni", "ogni 30 giorni, con concime per
-// cactacee", "minima", "una volta al mese"). Il campo mostra comunque il
-// primo numero trovato nel testo (per non apparire vuoto quando un valore
-// in realtà c'è), ma il testo originale per intero resta la fonte di
-// verità finché l'utente non cambia deliberatamente quel numero: così si
-// vede cosa c'è già configurato, senza perdere un range o una nota
-// (es. "solo se il terreno è asciutto") per il solo fatto di aver aperto e
-// richiuso il form.
-const manutenzioneOriginale = ref({
-  irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
-  concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
-  calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
+// Ripiega l'elenco avvertenze e riallinea la stagione quando si cambia specie.
+watch(() => props.modelValue, () => {
+  alertTuttiAperti.value = false
+  stagioneCal.value = stagione()
 })
-// Numero mostrato nel campo all'apertura del form (estratto dal testo
-// originale): confrontato con il valore corrente al salvataggio per capire
-// se l'utente lo ha davvero modificato (vedi generaManutenzione).
-const manutenzioneNumeroIniziale = ref({
-  irrigazione: { primavera: null, estate: null, autunno: null, inverno: null },
-  concimazione: { primavera: null, estate: null, autunno: null, inverno: null },
-  calcio: { primavera: null, estate: null, autunno: null, inverno: null },
-})
-
-// Riusa la stessa logica di useCure.js (non una regex propria): un tempo
-// questo file ne teneva una copia separata che non riconosceva "settimane"
-// come unità, mostrando "2" invece di "14" per un valore come "ogni 2
-// settimane" — la stessa causa del bug poi trovato nel motore cure.
-function estraiGiorniPuliti(testo) {
-  if (typeof testo === 'number') return testo
-  return parseGiorni(testo)
-}
-
-const nuovaSpecie = ref({ nome: '', nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota(), vaso: vasoVuoto() })
-
-// Converte i giorni inseriti nella tabella manutenzione nel formato testuale
-// già usato da tutte le specie esistenti e atteso da useCure.js (parseGiorni
-// estrae il primo numero da stringhe come "ogni 7 giorni"): così le nuove
-// specie restano compatibili senza dover cambiare la logica di valutazione
-// cure o migrare i dati esistenti. Campo vuoto → stringa vuota, trattata da
-// valutaCura come "non necessario" (nessuna cura mai segnalata come urgente).
-//
-// La potatura fa eccezione: nei dati reali delle ~100 specie esistenti non è
-// quasi mai a cadenza numerica ("ogni N giorni"), ma descrittiva/stagionale
-// ("taglio leggero", "post-fioritura", "nessuna") — per questo resta testo
-// libero invece di essere convertita da un numero di giorni.
-function generaManutenzione(struttura, originale, numeroIniziale) {
-  const risultato = {}
-  for (const tipo of ['irrigazione', 'concimazione', 'calcio']) {
-    risultato[tipo] = {}
-    for (const stagione of STAGIONI) {
-      const giorni = struttura?.[tipo]?.[stagione]
-      const iniziale = numeroIniziale?.[tipo]?.[stagione] ?? null
-      const modificato = typeof giorni === 'number' && giorni > 0 && giorni !== iniziale
-      risultato[tipo][stagione] = modificato
-        ? `ogni ${giorni} giorni`
-        : (originale?.[tipo]?.[stagione] || (typeof giorni === 'number' && giorni > 0 ? `ogni ${giorni} giorni` : ''))
-    }
-  }
-  risultato.potatura = {}
-  for (const stagione of STAGIONI) {
-    risultato.potatura[stagione] = (struttura?.potatura?.[stagione] || '').trim()
-  }
-  risultato.npk = {}
-  for (const stagione of STAGIONI) {
-    const valore = (struttura?.npk?.[stagione] || '').trim()
-    risultato.npk[stagione] = valore || null
-  }
-  return risultato
-}
-
-function slug(testo) {
-  return testo
-    .toLowerCase()
-    .normalize('NFD').replace(/\p{Diacritic}/gu, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
-
-function apriNuovaSpecie() {
-  nuovaSpecie.value = { nome: specieQuery.value.trim(), nomeScientifico: '', descrizione: '', luce: '', acqua: '', terreno: '', alert: '', manutenzione: manutenzioneVuota(), cicloVitale: '', coltivazione: coltivazioneVuota(), vaso: vasoVuoto() }
-  tabAttiva.value = 'generale'
-  manutenzioneOriginale.value = {
-    irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
-    concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
-    calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
-  }
-  manutenzioneNumeroIniziale.value = {
-    irrigazione: { primavera: null, estate: null, autunno: null, inverno: null },
-    concimazione: { primavera: null, estate: null, autunno: null, inverno: null },
-    calcio: { primavera: null, estate: null, autunno: null, inverno: null },
-  }
-  specieModificaOriginale.value = null
-  erroreSpecie.value = null
-  dropdownAperto.value = false
-  mostraNuovaSpecie.value = true
-}
-
-function apriModificaSpecie(s) {
-  const record = store.specie?.[s.key]
-  if (!record) return
-
-  const manutenzione = manutenzioneVuota()
-  const originale = {
-    irrigazione: { primavera: '', estate: '', autunno: '', inverno: '' },
-    concimazione: { primavera: '', estate: '', autunno: '', inverno: '' },
-    calcio: { primavera: '', estate: '', autunno: '', inverno: '' },
-  }
-  const numeroIniziale = {
-    irrigazione: { primavera: null, estate: null, autunno: null, inverno: null },
-    concimazione: { primavera: null, estate: null, autunno: null, inverno: null },
-    calcio: { primavera: null, estate: null, autunno: null, inverno: null },
-  }
-  for (const tipo of ['irrigazione', 'concimazione', 'calcio']) {
-    for (const stagione of STAGIONI) {
-      const testo = record.manutenzione?.[tipo]?.[stagione] || ''
-      const numero = estraiGiorniPuliti(testo)
-      manutenzione[tipo][stagione] = numero ?? ''
-      originale[tipo][stagione] = testo
-      numeroIniziale[tipo][stagione] = numero
-    }
-  }
-  for (const stagione of STAGIONI) {
-    manutenzione.potatura[stagione] = record.manutenzione?.potatura?.[stagione] || ''
-    manutenzione.npk[stagione] = record.manutenzione?.npk?.[stagione] || ''
-  }
-
-  const col = record.coltivazione ?? {}
-  const vaso = record.vaso ?? {}
-  nuovaSpecie.value = {
-    nome: record.nome ?? s.nome,
-    nomeScientifico: record.specie ?? '',
-    descrizione: record.descrizione ?? '',
-    luce: record.esigenze?.luce ?? '',
-    acqua: record.esigenze?.acqua ?? '',
-    terreno: record.esigenze?.terreno ?? '',
-    alert: Array.isArray(record.alert) ? record.alert.join('\n') : (record.alert ?? ''),
-    manutenzione,
-    cicloVitale: record.ciclo_vitale ?? '',
-    coltivazione: {
-      famigliaBotanica: col.famiglia_botanica ?? '',
-      giorniGerminazione: col.giorni_germinazione ?? '',
-      giorniTrapianto: col.giorni_trapianto ?? '',
-      giorniRaccolta: col.giorni_raccolta ?? '',
-      finestraSemina: Array.isArray(col.finestra_semina) ? [...col.finestra_semina] : [],
-      finestraTrapianto: Array.isArray(col.finestra_trapianto) ? [...col.finestra_trapianto] : [],
-      resistenzaGelo: col.resistenza_gelo ?? '',
-      spaziaturaCm: col.spaziatura_cm ?? null,
-      consociazioniFavorevoli: Array.isArray(col.consociazioni_favorevoli) ? col.consociazioni_favorevoli.join('\n') : '',
-      consociazioniSfavorevoli: Array.isArray(col.consociazioni_sfavorevoli) ? col.consociazioni_sfavorevoli.join('\n') : '',
-    },
-    vaso: {
-      adatta: typeof vaso.adatta === 'boolean' ? vaso.adatta : null,
-      dimensioneMinimaLitri: vaso.dimensione_minima_litri ?? null,
-      rinvasoOgniMesi: vaso.rinvaso_ogni_mesi ?? null,
-      irrigazioneFattore: vaso.irrigazione_fattore ?? null,
-    },
-  }
-  manutenzioneOriginale.value = originale
-  manutenzioneNumeroIniziale.value = numeroIniziale
-  specieModificaOriginale.value = s.key
-  erroreSpecie.value = null
-  dropdownAperto.value = false
-  tabAttiva.value = 'generale'
-  mostraNuovaSpecie.value = true
-}
-
-function chiudiNuovaSpecie() {
-  mostraNuovaSpecie.value = false
-  erroreSpecie.value = null
-}
-
-async function salvaNuovaSpecie() {
-  const nome = nuovaSpecie.value.nome.trim()
-  if (!nome || salvandoSpecie.value) return
-  const chiaveOriginale = specieModificaOriginale.value
-  const chiave = slug(nome)
-  if (!chiave) {
-    erroreSpecie.value = 'Il nome della specie deve contenere almeno una lettera o un numero.'
-    return
-  }
-  if (store.specie?.[chiave] && chiave !== chiaveOriginale) {
-    erroreSpecie.value = 'Una specie con questo nome esiste già.'
-    return
-  }
-  erroreSpecie.value = null
-
-  salvandoSpecie.value = true
-  try {
-    const riga = {
-      slug: chiave,
-      nome,
-      nome_scientifico: nuovaSpecie.value.nomeScientifico.trim() || nome,
-      descrizione: nuovaSpecie.value.descrizione.trim() || '',
-      esigenze: {
-        luce:    nuovaSpecie.value.luce.trim()    || '',
-        acqua:   nuovaSpecie.value.acqua.trim()   || '',
-        terreno: nuovaSpecie.value.terreno.trim() || '',
-      },
-      alert: nuovaSpecie.value.alert.split('\n').map(a => a.trim()).filter(Boolean),
-      manutenzione: generaManutenzione(nuovaSpecie.value.manutenzione, manutenzioneOriginale.value, manutenzioneNumeroIniziale.value),
-      ciclo_vitale: nuovaSpecie.value.cicloVitale || null,
-      ciclo_colturale: null,
-      vaso: null,
-    }
-    const v = nuovaSpecie.value.vaso
-    if (v.adatta !== null || v.dimensioneMinimaLitri || v.rinvasoOgniMesi || v.irrigazioneFattore) {
-      riga.vaso = {
-        adatta: v.adatta,
-        dimensione_minima_litri: v.dimensioneMinimaLitri || null,
-        rinvaso_ogni_mesi: v.rinvasoOgniMesi || null,
-        irrigazione_fattore: v.irrigazioneFattore || null,
-      }
-    }
-    if (nuovaSpecie.value.cicloVitale === 'annuale' || nuovaSpecie.value.cicloVitale === 'biennale') {
-      const col = nuovaSpecie.value.coltivazione
-      riga.ciclo_colturale = {
-        famiglia_botanica: col.famigliaBotanica.trim(),
-        giorni_germinazione: col.giorniGerminazione.trim() || null,
-        giorni_trapianto: col.giorniTrapianto.trim() || null,
-        giorni_raccolta: col.giorniRaccolta.trim() || null,
-        finestra_semina: [...col.finestraSemina],
-        finestra_trapianto: [...col.finestraTrapianto],
-        resistenza_gelo: col.resistenzaGelo || null,
-        spaziatura_cm: col.spaziaturaCm || null,
-        consociazioni_favorevoli: col.consociazioniFavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
-        consociazioni_sfavorevoli: col.consociazioniSfavorevoli.split('\n').map(v => v.trim()).filter(Boolean),
-      }
-    }
-
-    const idOriginale = chiaveOriginale ? store.specie?.[chiaveOriginale]?.id : null
-    let salvata
-    if (idOriginale != null) {
-      // Modifica di una specie esistente (anche con rename dello slug):
-      // update per id, mai per slug, così il rename non rischia di colpire
-      // zero righe se lo slug fosse già cambiato da un salvataggio precedente.
-      const { data, error } = await supabase.from('specie').update(riga).eq('id', idOriginale).select(COLONNE_SPECIE)
-      if (error) throw error
-      salvata = data?.[0]
-    } else {
-      // Nuova specie, o modifica di una riga arrivata dal fallback statico
-      // (senza id perché letta da specie.json, non da Supabase): in
-      // quest'ultimo caso un insert è l'unica opzione sensata, non avendo una
-      // riga Supabase da aggiornare.
-      riga.stato_verifica = 'bozza'
-      const { data, error } = await supabase.from('specie').insert(riga).select(COLONNE_SPECIE)
-      if (error) throw error
-      salvata = data?.[0]
-    }
-
-    const nuova = mappaSpecie(salvata ? [salvata] : [])
-    const specieAggiornate = { ...(store.specie ?? {}) }
-    if (chiaveOriginale && chiaveOriginale !== chiave) delete specieAggiornate[chiaveOriginale]
-    Object.assign(specieAggiornate, nuova)
-    store.specie = specieAggiornate
-
-    // Se la specie è stata rinominata, la FK piante.specie ("on update
-    // cascade", vedi supabase/migrations/20260830030000_fase5_specie_fk_on_update_cascade.sql)
-    // ha già propagato il nuovo slug a tutte le piante lato database, nello
-    // stesso update appena eseguito sopra — qui aggiorniamo solo lo store
-    // locale perché il cascade non arriva a questo client via realtime.
-    if (chiaveOriginale && chiaveOriginale !== chiave) {
-      pianteApi.rinominaSpecieInPiante(chiaveOriginale, chiave)
-      if (props.modelValue === chiaveOriginale) emit('update:modelValue', chiave)
-    }
-
-    selezionaSpecie({ key: chiave, nome })
-    mostraNuovaSpecie.value = false
-  } catch (e) {
-    erroreSpecie.value = e.message || 'Errore durante il salvataggio della specie.'
-  } finally {
-    salvandoSpecie.value = false
-  }
-}
 </script>
 
 <style scoped>
@@ -835,199 +519,292 @@ async function salvaNuovaSpecie() {
   border: 1px solid var(--cream-dark);
   border-radius: 12px;
   box-shadow: 0 12px 32px rgba(42,34,24,0.15);
-  max-height: 240px;
+  max-height: 280px;
   overflow-y: auto;
   z-index: 50;
 }
-.specie-opzione {
-  padding: 10px 12px;
-  font-size: 13px;
+.dd-group {
+  padding: 11px 13px 4px;
+}
+.dd-group .slabel {
+  margin: 0;
+}
+.dd-row {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 9px 13px;
   cursor: pointer;
 }
-.specie-opzione:hover {
-  background: var(--cream);
+.dd-row:hover {
+  background: var(--sage-pale);
 }
-.specie-nuova {
-  color: var(--sage-dark);
-  font-weight: 600;
+.dd-row + .dd-row {
   border-top: 1px solid var(--cream-dark);
 }
-.specie-opzione-riga {
+.dd-thumb {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  flex: none;
+  background-size: cover;
+  background-position: center;
+  background-color: var(--sage-bg);
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding-right: 6px;
+  justify-content: center;
 }
-.specie-opzione-riga:hover {
-  background: var(--cream);
+.dd-thumb.leaf {
+  background-color: var(--sage-light);
 }
-.specie-opzione-riga .specie-opzione {
+.dd-thumb :deep(svg) {
+  width: 16px; height: 16px;
+  color: var(--white);
+}
+.dd-m {
   flex: 1;
   min-width: 0;
-  /* niente più ellissi forzata: i nomi con cultivar tra apici possono
-     essere lunghi ("Teucrium scorodonia 'Crispum Aureomarginatum'") e il
-     badge affianco andava a tagliarsi per mancanza di spazio — l'opzione
-     ora va a capo su due righe quando serve invece di troncare */
+}
+.dd-name {
+  font: 600 13.5px/1.25 var(--font-display);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
   word-break: break-word;
 }
-.specie-opzione-riga .icon-btn {
-  background: none; border: none; cursor: pointer;
-  padding: 4px 6px; border-radius: 8px; font-size: 13px; line-height: 1;
-  color: var(--ink-soft); flex-shrink: 0;
-  align-self: center;
-}
-.campo-label {
+.dd-sci {
   display: block;
-  font-size: 10px;
+  font: 400 11.5px/1.3 var(--font-display);
+  font-style: italic;
   color: var(--ink-faint);
-  margin-bottom: 3px;
+  margin-top: 1px;
 }
-.manutenzione-grid {
-  display: grid;
-  grid-template-columns: minmax(0,1fr) 44px 44px 44px 44px;
-  gap: 6px;
-  align-items: center;
+.badge-mini {
+  font: 700 8.5px/1 var(--font-sans);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  /* stato "verificata": chip neutro (cv/bz sotto lo ridefiniscono) */
+  background: var(--cream-dark);
+  color: var(--ink-soft);
 }
-.stagione-header {
-  font-size: 10px;
+.badge-mini.cv { background: var(--sage-pale); color: var(--sage-dark); }
+.badge-mini.bz { background: var(--gold-pale); color: var(--gold-dark); }
+.dd-nota {
+  margin: 0;
+  font: 400 11px/1.5 var(--font-sans);
   color: var(--ink-faint);
-  text-align: center;
-}
-.tipo-label {
+  padding: 6px 13px;
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--ink-mid);
+  gap: 6px;
 }
-.manutenzione-grid input {
-  width: 100%;
-  padding: 6px 4px;
-  font-size: 12px;
-  text-align: center;
-  border: 1px solid var(--cream-dark);
-  border-radius: 8px;
-  font-family: inherit;
+.dd-foot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  font: 500 12px/1.4 var(--font-sans);
+  color: var(--ink-soft);
+  background: var(--cream);
+  border-top: 1px solid var(--cream-dark);
+  text-decoration: none;
 }
-.overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(42,34,24,0.4);
-  display: flex; align-items: center; justify-content: center; padding: 16px;
-}
-.modal-box {
-  background: var(--white); border-radius: 20px; padding: 24px;
-  width: 100%; max-width: 360px;
-  max-height: 90vh; overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(42,34,24,0.2);
+.dd-foot-cta {
+  color: var(--sage-dark);
+  font-weight: 600;
 }
 
-/* Scheda in sola lettura della specie selezionata */
-.scheda-specie {
+/* Card compatta dopo la scelta */
+.scheda-chosen {
   margin-top: 12px;
-  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
   background: var(--cream);
   border: 1px solid var(--cream-dark);
-  border-radius: 12px;
-  overflow: hidden;
+  border-radius: 14px;
 }
-.scheda-hero {
-  position: relative;
-  margin: -14px -14px 10px;
+.sc-th {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  flex: none;
+  background: linear-gradient(140deg, #95b592, #5c7d60);
+  background-size: cover;
+  background-position: center;
 }
-.scheda-hero img {
+.sc-m {
+  flex: 1;
+  min-width: 0;
   display: block;
-  width: 100%;
-  height: 130px;
-  object-fit: cover;
 }
-.scheda-hero-credit {
-  position: absolute; right: 8px; bottom: 8px;
-  font-size: 9.5px; color: rgba(253,248,238,0.75); text-decoration: none;
-  background: rgba(0,0,0,0.28); padding: 2px 8px; border-radius: 999px;
-}
-.scheda-hero-credit:hover { color: #fdf8ee; }
-.scheda-testa {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 8px;
-  margin-bottom: 8px;
-}
-.scheda-nome {
-  font-family: var(--font-serif);
-  font-size: 15px;
-  font-weight: 600;
+.sc-nm {
+  display: block;
+  font: 600 14px/1.2 var(--font-display);
   color: var(--ink);
 }
-.scheda-sci {
+.sc-sci {
+  display: block;
+  font: 400 11.5px/1.3 var(--font-display);
   font-style: italic;
-  font-size: 12px;
   color: var(--ink-faint);
+  margin-top: 1px;
 }
-.scheda-badge {
-  font-size: 10px;
-  padding: 1px 6px;
+.sc-acts {
+  display: flex;
+  gap: 14px;
+  margin-top: 5px;
 }
-.scheda-modifica {
-  margin-left: auto;
-  align-self: center;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+.sc-acts button {
   background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 11px;
+  border: 0;
+  padding: 0;
+  font: 600 11px/1 var(--font-sans);
   color: var(--sage-dark);
-  padding: 2px 4px;
+  cursor: pointer;
 }
-.scheda-descrizione {
-  font-family: var(--font-serif);
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--ink-mid);
+.sc-acts button.alt {
+  color: var(--ink-soft);
+}
+
+/* Dossier nel foglio */
+.dossier {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.dossier :deep(.specie-ghost svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.dh {
+  position: relative;
+  height: 190px;
+  background: var(--sage-bg);
+  background-size: cover;
+  background-position: center;
+}
+.dh-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(22,16,8,.26) 0%, rgba(22,16,8,0) 32%, rgba(22,16,8,0) 44%, rgba(22,16,8,.72) 100%);
+}
+.dh-chip {
+  position: absolute;
+  top: 13px; left: 14px;
+  z-index: 3;
+  font: 700 8.5px/1 var(--font-sans);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: rgba(253,248,238,.24);
+  color: #fdf8ee;
+  padding: 4px 9px;
+  border-radius: 999px;
+}
+.dh-cap {
+  position: absolute;
+  left: 16px; right: 16px; bottom: 16px;
+  z-index: 3;
+  color: #fdf8ee;
+}
+.dh-name {
+  font: 700 22px/1.12 var(--font-display);
   margin: 0;
-  white-space: pre-line;
+  letter-spacing: -.01em;
+  text-shadow: 0 2px 14px rgba(0,0,0,.35);
 }
-.scheda-vuota {
-  font-size: 12px;
+.dh-sci {
+  font: 400 12.5px/1.4 var(--font-display);
+  font-style: italic;
+  color: rgba(253,248,238,.9);
+  margin: 2px 0 0;
+}
+.dh-credit {
+  position: absolute;
+  right: 8px; bottom: 8px;
+  z-index: 3;
+  font-size: 9.5px;
+  color: rgba(253,248,238,.75);
+  text-decoration: none;
+  background: rgba(0,0,0,0.28);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.dh-credit:hover { color: #fdf8ee; }
+.dh-np {
+  padding: 18px 16px 4px;
+}
+.dh-np .np-name {
+  font: 600 19px/1.15 var(--font-display);
+  color: var(--ink);
+}
+.dh-np .np-sci {
+  font: 400 12.5px/1.35 var(--font-display);
   font-style: italic;
   color: var(--ink-faint);
-  margin: 0;
+  margin-top: 2px;
 }
-.scheda-esigenze {
+.dh-np .np-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font: 700 8.5px/1 var(--font-sans);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  /* colore da .badge-mini / .badge-mini.cv|.bz (vedi statoBadgeClasse) */
+}
+.dossier-body {
+  padding: 16px 16px 26px;
+}
+.dossier-vuoto {
+  font-style: italic;
+  color: var(--ink-faint);
+}
+.dossier-stagioni {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 14px;
-  margin-top: 10px;
+  gap: 6px;
+  margin: -2px 0 12px;
 }
-.scheda-esigenza {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 12px;
-  color: var(--ink-mid);
-}
-.scheda-esigenza :deep(svg) { color: var(--sage-dark); }
-.scheda-alert {
-  margin: 10px 0 0;
-  padding-left: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.scheda-alert li {
+.dossier-stagioni .pill {
+  padding: 6px 12px;
   font-size: 11px;
-  line-height: 1.4;
-  color: var(--ink-mid);
 }
-.scheda-alert-toggle {
-  margin-top: 4px;
+.dossier-more {
+  margin-top: 6px;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 11px;
+  font: 400 11px/1.4 var(--font-sans);
   color: var(--sage-dark);
   padding: 2px 0;
+}
+.notelist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.notelist li {
+  display: flex;
+  gap: 8px;
+  font: 400 11.5px/1.45 var(--font-sans);
+  color: var(--ink-mid);
+}
+.notelist li::before {
+  content: "";
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--rose);
+  flex: none;
+  margin-top: 6px;
 }
 </style>

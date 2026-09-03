@@ -1,0 +1,589 @@
+<title>Selettore Specie · Taccuino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=DM+Sans:opsz,wght@9..40,400..700&family=Caveat:wght@500;600&display=swap">
+
+<style>
+:root{
+  --rose:#cc6e6e; --rose-dark:#b85f5f; --rose-light:#f0d0d0; --rose-pale:#fdf4f4; --rose-ink:#8a3f3a; --rose-bg:#f6e3e1;
+  --gold:#e0b84a; --gold-dark:#b8902a; --gold-light:#f5e9bc; --gold-pale:#fdfbf0; --gold-ink:#7a5a15; --gold-bg:#f7ecd0;
+  --sage:#7a9e82; --sage-dark:#5a7e62; --sage-light:#c8d9c8; --sage-pale:#f2f7f2; --sage-ink:#37543f; --sage-bg:#e4ede4;
+  --olive:#9aaa5a; --olive-dark:#6d7a3e; --olive-ink:#545e2a; --olive-bg:#ececd8;
+  --acqua:#6f9fc0; --acqua-dark:#4c7793; --acqua-ink:#2b566e; --acqua-tile:#e2edf3; --acqua-bg:#e2edf3;
+  --uovo:#cbb994; --uovo-dark:#a68f63;
+  --ink:#2a2218; --ink-mid:#5a4e3e; --ink-soft:#9a8e7e; --ink-faint:#c8bfb0;
+  --cream:#faf7f2; --cream-dark:#f0ebe2; --carta-2:#f4eede; --white:#fff;
+  --font-display:'Fraunces',Georgia,serif; --font-sans:'DM Sans',system-ui,sans-serif; --font-hand:'Caveat',cursive;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#e7e1d6;font-family:var(--font-sans);color:var(--ink);
+  background-image:radial-gradient(ellipse 700px 500px at 12% 8%,rgba(122,158,130,.10),transparent 70%),
+    radial-gradient(ellipse 600px 500px at 92% 96%,rgba(224,184,74,.10),transparent 70%);}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 22px 90px}
+.lead{max-width:660px;margin:0 0 24px}
+.lead h1{font:600 27px/1.15 var(--font-display);letter-spacing:-.01em;margin:0 0 8px}
+.lead p{font-size:13.5px;line-height:1.62;color:var(--ink-mid);margin:0 0 8px}
+.lead b{color:var(--ink)}
+.lead code{background:var(--carta-2);padding:1px 5px;border-radius:5px;font-size:12px}
+
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 22px}
+.tabs button{font:600 11.5px/1 var(--font-sans);padding:9px 13px;border-radius:999px;
+  border:1px solid var(--cream-dark);background:var(--white);color:var(--ink-soft);cursor:pointer;transition:.15s}
+.tabs button:hover{border-color:var(--sage-light);color:var(--sage-dark)}
+.tabs button.on{background:var(--ink);border-color:var(--ink);color:var(--cream)}
+
+.stage{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+.screen{display:none}
+.screen.on{display:block}
+
+.device{width:392px;background:var(--cream);border-radius:34px;padding:12px;
+  box-shadow:0 30px 70px -24px rgba(40,30,15,.5),0 0 0 1px rgba(0,0,0,.04);flex:none;position:relative}
+.device .screenin{background:var(--cream);border-radius:24px;overflow:hidden;position:relative;height:800px}
+.device .notch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:118px;height:26px;
+  background:var(--cream);border-radius:0 0 16px 16px;z-index:40}
+.app{position:absolute;inset:0;overflow-y:auto;padding:40px 15px 26px}
+.app::-webkit-scrollbar{width:0}
+
+.deskframe{flex:none;width:760px;background:var(--cream);border-radius:16px;
+  box-shadow:0 30px 70px -24px rgba(40,30,15,.5),0 0 0 1px rgba(0,0,0,.04);overflow:hidden;position:relative;height:660px}
+.deskframe .dnav{position:absolute;left:0;top:0;bottom:0;width:150px;background:var(--cream);
+  border-right:1px solid var(--cream-dark);padding:16px 12px;font-size:11.5px;color:var(--ink-soft)}
+.deskframe .dnav b{display:flex;align-items:center;gap:7px;font:600 12px/1.1 var(--font-display);color:var(--ink);margin-bottom:14px}
+.deskframe .dnav a{display:block;padding:7px 9px;border-radius:8px;color:var(--ink-soft);text-decoration:none;margin-bottom:2px}
+.deskframe .dnav a.on{background:rgba(111,159,192,.14);color:var(--ink);font-weight:600}
+.deskframe .dmain{position:absolute;left:150px;right:0;top:0;bottom:0;padding:24px;overflow-y:auto}
+
+/* ---- shared taccuino ---- */
+.page-title{margin:0 0 18px;font:600 22px/1.05 var(--font-display);letter-spacing:-.01em;color:var(--ink)}
+.combo-lbl{display:block;margin-bottom:6px;font:600 11px/1.2 var(--font-sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+.form-input{width:100%;min-height:42px;padding:9px 14px;border-radius:13px;border:1px solid var(--cream-dark);
+  background:var(--white);font:400 13.5px/1.4 var(--font-sans);color:var(--ink);outline:none}
+.form-input::placeholder{color:var(--ink-faint)}
+.form-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(224,184,74,.15)}
+.slabel{display:flex;align-items:center;gap:8px;font:700 10px/1 var(--font-sans);letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-soft);margin:20px 0 11px}
+.slabel:first-child{margin-top:0}
+.slabel::after{content:"";flex:1;height:1px;background:var(--cream-dark)}
+.pill{font:600 12px/1 var(--font-sans);padding:8px 14px;border-radius:999px;border:1px solid var(--cream-dark);
+  background:var(--white);color:var(--ink-soft);cursor:pointer;white-space:nowrap}
+.pill.active{background:var(--sage);color:#fff;border-color:var(--sage)}
+.btn{font:600 13px/1 var(--font-sans);min-height:42px;padding:11px 18px;border-radius:12px;border:0;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.btn-sage{background:var(--sage);color:#fff}
+.btn-ghost{background:var(--cream-dark);color:var(--ink-mid)}
+.kv{display:grid;grid-template-columns:max-content 1fr;column-gap:14px;row-gap:9px;font:400 13px/1.42 var(--font-sans)}
+.kv>div{display:contents}
+.kv .k{color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px}
+.kv .k svg{width:16px;height:16px;flex:none}
+.kv .v{color:var(--ink-mid)}
+.prose{font:400 13px/1.62 var(--font-sans);color:var(--ink-mid);margin:0 0 4px}
+.ic{width:15px;height:15px;flex:none;display:inline-block;vertical-align:-2px}
+.wic{width:16px;height:16px;flex:none;display:inline-block;vertical-align:-3px}
+.careic .wic{width:19px;height:19px}
+.card-lite{background:var(--white);border:1px solid var(--cream-dark);border-radius:16px;padding:16px}
+
+/* ---- A · combobox ---- */
+.combo-field{position:relative}
+.combo-field .mag{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-faint)}
+.combo-field .form-input{padding-left:38px}
+.dropdown{margin-top:8px;background:var(--white);border:1px solid var(--cream-dark);border-radius:16px;
+  box-shadow:0 18px 40px -20px rgba(40,30,15,.35);overflow:hidden}
+.dd-group{padding:11px 13px 4px}
+.dd-group .slabel{margin:0}
+.dd-row{display:flex;align-items:center;gap:11px;padding:9px 13px;cursor:pointer}
+.dd-row:hover{background:var(--sage-pale)}
+.dd-row+.dd-row{border-top:1px solid var(--cream-dark)}
+.dd-thumb{width:34px;height:34px;border-radius:9px;flex:none;background-size:cover;background-position:center;background-color:var(--sage-bg)}
+.dd-thumb.leaf{background-image:radial-gradient(circle at 35% 30%,#a9c6ac,transparent 55%),linear-gradient(140deg,#8caa8f,#5f7d63)}
+.dd-thumb.leaf2{background-image:radial-gradient(circle at 65% 40%,#cdb98a,transparent 55%),linear-gradient(140deg,#b7a06e,#8a7145)}
+.dd-thumb.na{display:flex;align-items:center;justify-content:center;color:#fff;background:var(--sage-light)}
+.dd-m{flex:1;min-width:0}
+.dd-name{font:600 13.5px/1.25 var(--font-display);color:var(--ink);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dd-sci{font:400 11.5px/1.3 var(--font-display);font-style:italic;color:var(--ink-faint);margin-top:1px}
+.dd-chev{color:var(--ink-faint);flex:none}
+.badge-mini{font:700 8.5px/1 var(--font-sans);letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:999px}
+.badge-mini.cv{background:var(--sage-pale);color:var(--sage-dark)}
+.badge-mini.bz{background:var(--gold-pale);color:var(--gold-dark)}
+.dd-foot{display:flex;align-items:center;gap:8px;padding:12px 14px;font:500 12px/1.4 var(--font-sans);
+  color:var(--ink-soft);background:var(--cream);border-top:1px solid var(--cream-dark)}
+.dd-foot a{color:var(--sage-dark);font-weight:600;text-decoration:none;white-space:nowrap}
+.dd-spin{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:11px;color:var(--ink-faint)}
+.spinner{width:12px;height:12px;border:2px solid var(--cream-dark);border-top-color:var(--sage);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---- dopo la scelta: card compatta ---- */
+.chosen{margin-top:12px;display:flex;align-items:center;gap:12px;padding:12px;background:var(--cream);
+  border:1px solid var(--cream-dark);border-radius:14px}
+.chosen .th{width:44px;height:44px;border-radius:10px;flex:none;background:linear-gradient(140deg,#95b592,#5c7d60)}
+.chosen .m{flex:1;min-width:0}
+.chosen .nm{font:600 14px/1.2 var(--font-display);color:var(--ink)}
+.chosen .sci{font:400 11.5px/1.3 var(--font-display);font-style:italic;color:var(--ink-faint);margin-top:1px}
+.chosen .acts{display:flex;gap:14px;margin-top:5px}
+.chosen .acts button{background:none;border:0;padding:0;font:600 11px/1 var(--font-sans);color:var(--sage-dark);cursor:pointer}
+.chosen .acts button.alt{color:var(--ink-soft)}
+
+/* ---- B · dossier sheet ---- */
+.sheet-dim{position:absolute;inset:0;background:rgba(30,22,10,.34);z-index:20}
+.sheet{position:absolute;left:0;right:0;bottom:0;z-index:21;background:var(--white);border-radius:22px 22px 0 0;
+  height:90%;display:flex;flex-direction:column;box-shadow:0 -18px 50px -20px rgba(30,22,10,.5)}
+.sheet-grab{width:38px;height:4px;border-radius:999px;background:var(--cream-dark);margin:9px auto 2px;flex:none}
+.sheet-x{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:50%;border:0;z-index:5;
+  background:rgba(22,16,8,.42);backdrop-filter:blur(3px);color:#fdf8ee;font-size:16px;line-height:1;cursor:pointer}
+.sheet-body{overflow-y:auto;flex:1;position:relative;isolation:isolate}
+.sheet-body::-webkit-scrollbar{width:0}
+
+.ghost{position:absolute;right:-16px;bottom:-24px;width:150px;height:150px;transform:rotate(-3deg);
+  opacity:.06;z-index:-1;pointer-events:none}
+.ghost svg{width:100%;height:100%}.ghost path{fill:#6e5d44}
+
+.dh{position:relative;height:190px;
+  background-image:radial-gradient(circle at 30% 24%,#b7d0b3,transparent 55%),
+    radial-gradient(circle at 78% 68%,#8fb08c,transparent 50%),linear-gradient(150deg,#95b592 0%,#5c7d60 100%)}
+.dh-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(22,16,8,.26) 0%,rgba(22,16,8,0) 32%,rgba(22,16,8,0) 44%,rgba(22,16,8,.72) 100%)}
+.dh-chip{position:absolute;top:13px;left:14px;z-index:3;font:700 8.5px/1 var(--font-sans);letter-spacing:.06em;
+  text-transform:uppercase;background:rgba(253,248,238,.24);color:#fdf8ee;padding:4px 9px;border-radius:999px}
+.dh-cap{position:absolute;left:16px;right:16px;bottom:16px;z-index:3;color:#fdf8ee}
+.dh-name{font:700 22px/1.12 var(--font-display);margin:0;letter-spacing:-.01em;text-shadow:0 2px 14px rgba(0,0,0,.35)}
+.dh-sci{font:400 12.5px/1.4 var(--font-display);font-style:italic;color:rgba(253,248,238,.9);margin:2px 0 0}
+.dbody{padding:16px 16px 26px}
+
+/* calendario cure: stesso layout di "Stato cure" in Scheda Pianta,
+   con le pill delle stagioni sotto il titolo */
+.seasontabs{display:flex;gap:6px;margin:-2px 0 12px}
+.seasontabs .pill{padding:6px 12px;font-size:11px}
+.carelist{display:flex;flex-direction:column}
+.carerow{display:flex;align-items:center;gap:12px;padding:10px 2px}
+.carerow+.carerow{border-top:1px solid var(--cream-dark)}
+.careic{width:34px;height:34px;border-radius:10px;flex:none;display:flex;align-items:center;justify-content:center}
+.careic svg{width:18px;height:18px}
+.careic--irrigazione{background:var(--acqua-bg);color:var(--acqua-ink)}
+.careic--concimazione{background:var(--olive-bg);color:var(--olive-ink)}
+.careic--calcio{background:var(--carta-2);color:var(--ink-mid)}
+.careic--potatura{background:var(--rose-bg);color:var(--rose-ink)}
+.careic--npk{background:var(--sage-bg);color:var(--sage-ink)}
+.carem{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.caren{font:600 13px/1.25 var(--font-sans);color:var(--ink)}
+.cared{font:400 11.5px/1.35 var(--font-sans);color:var(--ink-mid)}
+.cared.none{color:var(--ink-faint)}
+
+.notelist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px}
+.notelist li{display:flex;gap:8px;font:400 11.5px/1.45 var(--font-sans);color:var(--ink-mid)}
+.notelist li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--rose);flex:none;margin-top:6px}
+
+/* fallback senza foto */
+.dh-np{padding:18px 16px 4px}
+.dh-np .np-name{font:600 19px/1.15 var(--font-display);color:var(--ink)}
+.dh-np .np-sci{font:400 12.5px/1.35 var(--font-display);font-style:italic;color:var(--ink-faint);margin-top:2px}
+.dh-np .np-badge{display:inline-block;margin-top:8px;font:700 8.5px/1 var(--font-sans);letter-spacing:.06em;
+  text-transform:uppercase;background:var(--gold-pale);color:var(--gold-dark);padding:3px 8px;border-radius:999px}
+
+/* desktop side sheet */
+.side-dim{position:absolute;inset:0;background:rgba(30,22,10,.28);z-index:10}
+.side-sheet{position:absolute;right:0;top:0;bottom:0;width:400px;background:var(--white);z-index:11;
+  box-shadow:-18px 0 50px -22px rgba(30,22,10,.4);display:flex;flex-direction:column}
+.side-sheet .sheet-grab{display:none}
+
+/* pattern app-wide: nuovo progetto come side sheet */
+.np-form{padding:20px 18px}
+.np-form label{display:block;margin-bottom:6px;font:600 11px/1.2 var(--font-sans);letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+.np-form .mrow{margin-bottom:14px}
+.np-editor{min-height:88px;border:1px solid var(--cream-dark);border-radius:13px;padding:10px 14px;color:var(--ink-faint);font-size:13px}
+.side-foot{margin-top:auto;display:flex;gap:10px;padding:14px 18px;border-top:1px solid var(--cream-dark)}
+.side-foot .btn{flex:1}
+
+.note{margin-top:28px;max-width:680px;background:var(--white);border:1px solid var(--cream-dark);border-radius:14px;padding:16px 18px}
+.note b{font:600 13px/1.3 var(--font-display);display:block;margin-bottom:8px}
+.note ul{margin:0;padding-left:18px;font-size:12.5px;line-height:1.7;color:var(--ink-mid)}
+.note li{margin-bottom:6px}
+.note .t{color:var(--sage-dark);font-weight:600}
+.note .warn{color:var(--rose-dark);font-weight:600}
+</style>
+
+<!-- Icone reali dell'app (copiate da src/components/IconDefs.vue): stile
+     "acquerellato" = silhouette piena + accento più scuro ritagliato. -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true"><defs>
+  <clipPath id="clip-goccia"><path d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Zm9.85,105.59a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/></clipPath>
+  <clipPath id="clip-foglia"><path d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49A101.72,101.72,0,0,0,46.7,175.2a4,4,0,0,0,6.61,1.43l85-86.3a8,8,0,0,1,11.32,11.32L56.74,195.94,42.55,210.13a8.2,8.2,0,0,0-.6,11.1,8,8,0,0,0,11.71.43l16.79-16.79c14.14,6.84,28.41,10.57,42.56,11.07q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07Z"/></clipPath>
+  <clipPath id="clip-concimazione"><path d="M205.41,159.07a60.9,60.9,0,0,1-31.83,8.86,71.71,71.71,0,0,1-27.36-5.66A55.55,55.55,0,0,0,136,194.51V224a8,8,0,0,1-8.53,8,8.18,8.18,0,0,1-7.47-8.25V211.31L81.38,172.69A52.5,52.5,0,0,1,63.44,176a45.82,45.82,0,0,1-23.92-6.67C17.73,156.09,6,125.62,8.27,87.79a8,8,0,0,1,7.52-7.52c37.83-2.23,68.3,9.46,81.5,31.25A46,46,0,0,1,103.74,140a4,4,0,0,1-6.89,2.43l-19.2-20.1a8,8,0,0,0-11.31,11.31l53.88,55.25c.06-.78.13-1.56.21-2.33a68.56,68.56,0,0,1,18.64-39.46l50.59-53.46a8,8,0,0,0-11.31-11.32l-49,51.82a4,4,0,0,1-6.78-1.74c-4.74-17.48-2.65-34.88,6.4-49.82,17.86-29.48,59.42-45.26,111.18-42.22a8,8,0,0,1,7.52,7.52C250.67,99.65,234.89,141.21,205.41,159.07Z"/></clipPath>
+  <clipPath id="clip-potatura"><path d="M236.52,187.09l-143-97.87a36,36,0,1,0-14.38,17.27l21.39,21.69L79.15,149.54l0,0a35.91,35.91,0,1,0,14.38,17.27l26.91-18.41L170,198.64a32.26,32.26,0,0,0,22.7,9.37,31.52,31.52,0,0,0,4.11-.27l.28,0,36.27-6.11a8,8,0,0,0,3.19-14.5Zm-162.38-97A20,20,0,1,1,80,76,20,20,0,0,1,74.14,90.13Zm0,104A20,20,0,1,1,80,180,20,20,0,0,1,74.14,194.15Zm61-101.5L169.94,57.4a32.19,32.19,0,0,1,26.84-9.14l.28,0,36,6.07a8.21,8.21,0,0,1,6.09,4.42,8,8,0,0,1-2.67,10.12l-69.93,47.85a4,4,0,0,1-4.51,0l-26.31-18A4,4,0,0,1,135.18,92.65Z"/></clipPath>
+  <clipPath id="clip-provetta"><path d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23Zm-90.08-42.91c-15.91-8.05-31.05-12.32-45.22-12.81l24.47-40.8A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167C171.4,169.34,154.29,168.34,131.61,156.86Z"/></clipPath>
+  <clipPath id="clip-sole"><path d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/></clipPath>
+  <clipPath id="clip-uovo"><path d="M128,28 C96,28 68,92 68,148 a60,60 0 0 0 120,0 C188,92 160,28 128,28 Z"/></clipPath>
+
+  <symbol id="i-goccia" viewBox="0 0 256 256"><path fill="var(--acqua)" d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Zm9.85,105.59a57.6,57.6,0,0,1-46.56,46.55A8.75,8.75,0,0,1,136,200a8,8,0,0,1-1.32-15.89c16.57-2.79,30.63-16.85,33.44-33.45a8,8,0,0,1,15.78,2.68Z"/><g clip-path="url(#clip-goccia)"><ellipse cx="95" cy="175" rx="45" ry="35" fill="var(--acqua-dark)" opacity=".4"/></g></symbol>
+  <symbol id="i-concimazione" viewBox="0 0 256 256"><path fill="var(--olive)" d="M205.41,159.07a60.9,60.9,0,0,1-31.83,8.86,71.71,71.71,0,0,1-27.36-5.66A55.55,55.55,0,0,0,136,194.51V224a8,8,0,0,1-8.53,8,8.18,8.18,0,0,1-7.47-8.25V211.31L81.38,172.69A52.5,52.5,0,0,1,63.44,176a45.82,45.82,0,0,1-23.92-6.67C17.73,156.09,6,125.62,8.27,87.79a8,8,0,0,1,7.52-7.52c37.83-2.23,68.3,9.46,81.5,31.25A46,46,0,0,1,103.74,140a4,4,0,0,1-6.89,2.43l-19.2-20.1a8,8,0,0,0-11.31,11.31l53.88,55.25c.06-.78.13-1.56.21-2.33a68.56,68.56,0,0,1,18.64-39.46l50.59-53.46a8,8,0,0,0-11.31-11.32l-49,51.82a4,4,0,0,1-6.78-1.74c-4.74-17.48-2.65-34.88,6.4-49.82,17.86-29.48,59.42-45.26,111.18-42.22a8,8,0,0,1,7.52,7.52C250.67,99.65,234.89,141.21,205.41,159.07Z"/><g clip-path="url(#clip-concimazione)"><ellipse cx="128" cy="195" rx="30" ry="20" fill="var(--olive-dark)" opacity=".4"/></g></symbol>
+  <symbol id="i-provetta" viewBox="0 0 256 256"><path fill="var(--sage)" fill-rule="evenodd" d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23Zm-90.08-42.91c-15.91-8.05-31.05-12.32-45.22-12.81l24.47-40.8A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167C171.4,169.34,154.29,168.34,131.61,156.86Z"/><g clip-path="url(#clip-provetta)"><ellipse cx="128" cy="185" rx="55" ry="26" fill="var(--sage-dark)" opacity=".4"/></g></symbol>
+  <symbol id="i-potatura" viewBox="0 0 256 256"><path fill="var(--rose)" d="M236.52,187.09l-143-97.87a36,36,0,1,0-14.38,17.27l21.39,21.69L79.15,149.54l0,0a35.91,35.91,0,1,0,14.38,17.27l26.91-18.41L170,198.64a32.26,32.26,0,0,0,22.7,9.37,31.52,31.52,0,0,0,4.11-.27l.28,0,36.27-6.11a8,8,0,0,0,3.19-14.5Zm-162.38-97A20,20,0,1,1,80,76,20,20,0,0,1,74.14,90.13Zm0,104A20,20,0,1,1,80,180,20,20,0,0,1,74.14,194.15Zm61-101.5L169.94,57.4a32.19,32.19,0,0,1,26.84-9.14l.28,0,36,6.07a8.21,8.21,0,0,1,6.09,4.42,8,8,0,0,1-2.67,10.12l-69.93,47.85a4,4,0,0,1-4.51,0l-26.31-18A4,4,0,0,1,135.18,92.65Z"/><g clip-path="url(#clip-potatura)"><ellipse cx="165" cy="155" rx="45" ry="20" fill="var(--rose-dark)" opacity=".4"/></g></symbol>
+  <symbol id="i-sole" viewBox="0 0 256 256"><path fill="var(--gold)" d="M120,40V16a8,8,0,0,1,16,0V40a8,8,0,0,1-16,0Zm8,24a64,64,0,1,0,64,64A64.07,64.07,0,0,0,128,64ZM58.34,69.66A8,8,0,0,0,69.66,58.34l-16-16A8,8,0,0,0,42.34,53.66Zm0,116.68-16,16a8,8,0,0,0,11.32,11.32l16-16a8,8,0,0,0-11.32-11.32ZM192,72a8,8,0,0,0,5.66-2.34l16-16a8,8,0,0,0-11.32-11.32l-16,16A8,8,0,0,0,192,72Zm5.66,114.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32-11.32ZM48,128a8,8,0,0,0-8-8H16a8,8,0,0,0,0,16H40A8,8,0,0,0,48,128Zm80,80a8,8,0,0,0-8,8v24a8,8,0,0,0,16,0V216A8,8,0,0,0,128,208Zm112-88H216a8,8,0,0,0,0,16h24a8,8,0,0,0,0-16Z"/><g clip-path="url(#clip-sole)"><ellipse cx="128" cy="152" rx="32" ry="22" fill="var(--gold-dark)" opacity=".4"/></g></symbol>
+  <symbol id="i-foglia" viewBox="0 0 256 256"><path fill="var(--olive)" d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49A101.72,101.72,0,0,0,46.7,175.2a4,4,0,0,0,6.61,1.43l85-86.3a8,8,0,0,1,11.32,11.32L56.74,195.94,42.55,210.13a8.2,8.2,0,0,0-.6,11.1,8,8,0,0,0,11.71.43l16.79-16.79c14.14,6.84,28.41,10.57,42.56,11.07q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07Z"/><g clip-path="url(#clip-foglia)"><ellipse cx="76" cy="172" rx="48" ry="32" fill="var(--olive-dark)" opacity=".4" transform="rotate(-24 76 172)"/></g></symbol>
+  <symbol id="i-uovo" viewBox="0 0 256 256"><path fill="var(--uovo)" fill-rule="evenodd" d="M128,28 C96,28 68,92 68,148 a60,60 0 0 0 120,0 C188,92 160,28 128,28 Z"/><g clip-path="url(#clip-uovo)"><ellipse cx="118" cy="176" rx="46" ry="40" fill="var(--uovo-dark)" opacity=".4"/></g></symbol>
+</defs></svg>
+
+<div class="wrap">
+  <div class="lead">
+    <h1>Selettore specie — redesign (v2)</h1>
+    <p><b>Niente più creazione o modifica di specie dall'app</b> (con la multiutenza il catalogo è dato condiviso in sola lettura).
+      Il selettore fa solo due cose: <b>cercare</b> e <b>scegliere</b>.</p>
+    <p>Scelta una specie, si apre un <b>foglio con la sua scheda completa in sola lettura</b> — dal basso su mobile, <b>laterale da destra su desktop</b>
+      (lo stesso pattern che sostituirà tutte le modali centrali dell'app). Tutti i dati che prima erano sparsi nelle 3 tab del form
+      ora si leggono qui: descrizione, esigenze, calendario cure, coltivazione, note tecniche.</p>
+    <p style="font-size:12.5px;color:var(--ink-soft)"><b>Icone:</b> nella prima versione erano abbozzi — un mockup è HTML a sé, non può <i>referenziare</i> lo sprite dell'app (<code>IconDefs.vue</code>, interno al bundle Vue). Ora ho <b>copiato i path reali</b> nel mockup: quelle che vedi qui sotto (goccia, germoglio, provetta, forbici, sole, foglia) sono <b>esattamente le icone dell'app</b>. Nel codice basta <code>&lt;Icon name="goccia" /&gt;</code>. Manca solo l'<b>uovo del Calcio</b> (l'ho disegnato beige) — non c'è nello sprite, va aggiunto (Task 2 del piano).</p>
+  </div>
+
+  <div class="tabs" id="tabs">
+    <button data-s="cerca" class="on">Ricerca</button>
+    <button data-s="dossier">Scheda specie · mobile</button>
+    <button data-s="dossier-np">Scheda specie · senza foto</button>
+    <button data-s="chosen">Dopo la scelta</button>
+    <button data-s="desk">Scheda specie · desktop</button>
+    <button data-s="pattern">Pattern app-wide</button>
+  </div>
+
+  <div class="stage">
+
+    <!-- ============ RICERCA ============ -->
+    <div class="device screen on" data-screen="cerca">
+      <div class="notch"></div>
+      <div class="screenin"><div class="app">
+        <div class="page-title">Nuova pianta</div>
+        <div class="card-lite">
+          <span class="combo-lbl">Specie *</span>
+          <div class="combo-field">
+            <svg class="ic mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+            <input class="form-input" value="salv" placeholder="Cerca specie…">
+          </div>
+          <div class="dropdown">
+            <div class="dd-group"><span class="slabel">Nel tuo giardino</span></div>
+            <div class="dd-row">
+              <span class="dd-thumb leaf"></span>
+              <span class="dd-m"><span class="dd-name">Salvia officinalis</span><span class="dd-sci">Salvia officinalis</span></span>
+              <svg class="ic dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="dd-group"><span class="slabel">Nel catalogo</span></div>
+            <div class="dd-row">
+              <span class="dd-thumb leaf2"></span>
+              <span class="dd-m"><span class="dd-name">Salvia nemorosa <span class="badge-mini cv">cultivar</span></span><span class="dd-sci">Salvia nemorosa 'Caradonna'</span></span>
+              <svg class="ic dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="dd-row">
+              <span class="dd-thumb na"><svg class="wic" style="width:17px;height:17px"><use href="#i-foglia"/></svg></span>
+              <span class="dd-m"><span class="dd-name">Salvia sclarea <span class="badge-mini bz">bozza</span></span><span class="dd-sci">Salvia sclarea</span></span>
+              <svg class="ic dd-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+            <div class="dd-spin"><span class="spinner"></span> Ricerca nel catalogo…</div>
+            <div class="dd-foot">
+              <span>Non la trovi?</span>
+              <a href="#">Chiedi a Zorba di aggiungerla al catalogo →</a>
+            </div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- ============ DOSSIER · MOBILE ============ -->
+    <div class="device screen" data-screen="dossier">
+      <div class="notch"></div>
+      <div class="screenin">
+        <div class="app" style="filter:blur(1.5px)">
+          <div class="page-title">Nuova pianta</div>
+          <div class="card-lite"><span class="combo-lbl">Specie *</span><div class="form-input">Rosa 'Old Blush'</div></div>
+        </div>
+        <div class="sheet-dim"></div>
+        <div class="sheet">
+          <div class="sheet-grab"></div>
+          <button class="sheet-x">×</button>
+          <div class="sheet-body">
+            <div class="ghost"><svg viewBox="0 0 512 512"><path d="M376 435c-3-3-2-6 2-16 6-12 5-16-4-28-5-6-8-13-8-21-1-8-3-13-6-17-2-2-3-4-3-6 0-5 7-17 12-20 3-1 7-2 12-3 10-1 13-3 13-8 0-5-3-9-8-11-3-2-7-2-28-2-14 0-30 1-36 1-21 2-50 3-66 1-15-2-17-2-35-7-12-4-19-6-40-17-16-8-38-16-45-17l-4-1v-20l7 1c4 0 11 2 17 3l1-1c0-10 1-18 1-18l1-1c-3-11-8-22-11-30 4-8 7-11 12-11h1c-1-6-5-11-8-14-3-4-7-8-9-8-1 0-3 1-4 2Z"/></svg></div>
+
+            <div class="dh">
+              <div class="dh-scrim"></div>
+              <span class="dh-chip">bozza · catalogo</span>
+              <div class="dh-cap">
+                <p class="dh-name">Rosa 'Old Blush'</p>
+                <p class="dh-sci">Rosa chinensis</p>
+              </div>
+            </div>
+
+            <div class="dbody">
+              <div class="slabel">La specie</div>
+              <p class="prose">Rosa cinese antica, rifiorente quasi tutto l'anno in clima mite. Portamento arbustivo compatto, fiori rosa carico che schiariscono col sole. Poco esigente, tollera potature drastiche.</p>
+
+              <div class="slabel">Esigenze</div>
+              <div class="kv">
+                <div><span class="k"><svg class="wic"><use href="#i-sole"/></svg> Luce</span><span class="v">Pieno sole</span></div>
+                <div><span class="k"><svg class="wic"><use href="#i-goccia"/></svg> Acqua</span><span class="v">Moderata, regolare</span></div>
+                <div><span class="k"><svg class="wic"><use href="#i-foglia"/></svg> Terreno</span><span class="v">Fertile, ben drenato</span></div>
+              </div>
+
+              <div class="slabel">Calendario cure</div>
+              <div class="seasontabs">
+                <button class="pill active">Primavera</button><button class="pill">Estate</button><button class="pill">Autunno</button><button class="pill">Inverno</button>
+              </div>
+              <div class="carelist">
+                <div class="carerow">
+                  <span class="careic careic--irrigazione"><svg class="wic"><use href="#i-goccia"/></svg></span>
+                  <span class="carem"><span class="caren">Irrigazione</span><span class="cared">Ogni 4 giorni</span></span>
+                </div>
+                <div class="carerow">
+                  <span class="careic careic--concimazione"><svg class="wic"><use href="#i-concimazione"/></svg></span>
+                  <span class="carem"><span class="caren">Concimazione</span><span class="cared">Ogni 21 giorni</span></span>
+                </div>
+                <div class="carerow">
+                  <span class="careic careic--calcio"><svg class="wic"><use href="#i-uovo"/></svg></span>
+                  <span class="carem"><span class="caren">Calcio</span><span class="cared none">Non prevista in questa stagione</span></span>
+                </div>
+                <div class="carerow">
+                  <span class="careic careic--potatura"><svg class="wic"><use href="#i-potatura"/></svg></span>
+                  <span class="carem"><span class="caren">Potatura</span><span class="cared">Taglio leggero di formazione</span></span>
+                </div>
+                <div class="carerow">
+                  <span class="careic careic--npk"><svg class="wic"><use href="#i-provetta"/></svg></span>
+                  <span class="carem"><span class="caren">Fabbisogno NPK</span><span class="cared">5-8-10</span></span>
+                </div>
+              </div>
+
+              <div class="slabel">Coltivazione</div>
+              <div class="kv">
+                <div><span class="k">Famiglia</span><span class="v">Rosaceae</span></div>
+                <div><span class="k">Adatta al vaso</span><span class="v">Sì · min 20 L · rinvaso 24 mesi</span></div>
+                <div><span class="k">Resistenza al gelo</span><span class="v">media</span></div>
+                <div><span class="k">Spaziatura</span><span class="v">80 cm</span></div>
+                <div><span class="k">Si abbina a</span><span class="v">lavanda, aglio, calendula</span></div>
+                <div><span class="k">Evitare vicino a</span><span class="v">bosso</span></div>
+              </div>
+
+              <div class="slabel">Note tecniche</div>
+              <ul class="notelist">
+                <li>Soffre i ristagni idrici prolungati</li>
+                <li>Sensibile a oidio in estati umide senza arieggiamento</li>
+                <li>Concimazioni azotate tardive ritardano l'indurimento dei rami</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DOSSIER · SENZA FOTO ============ -->
+    <div class="device screen" data-screen="dossier-np">
+      <div class="notch"></div>
+      <div class="screenin">
+        <div class="app" style="filter:blur(1.5px)"><div class="page-title">Nuova pianta</div></div>
+        <div class="sheet-dim"></div>
+        <div class="sheet">
+          <div class="sheet-grab"></div>
+          <button class="sheet-x" style="background:var(--cream-dark);color:var(--ink-mid)">×</button>
+          <div class="sheet-body">
+            <div class="ghost"><svg viewBox="0 0 512 512"><path d="M376 435c-3-3-2-6 2-16 6-12 5-16-4-28-5-6-8-13-8-21-1-8-3-13-6-17-2-2-3-4-3-6 0-5 7-17 12-20 3-1 7-2 12-3 10-1 13-3 13-8 0-5-3-9-8-11-3-2-7-2-28-2-14 0-30 1-36 1-21 2-50 3-66 1Z"/></svg></div>
+            <div class="dh-np">
+              <div class="np-name">Basilico</div>
+              <div class="np-sci">Ocimum basilicum</div>
+              <span class="np-badge">verificata</span>
+            </div>
+            <div class="dbody" style="padding-top:8px">
+              <div class="slabel">La specie</div>
+              <p class="prose">Annuale aromatica, teme il freddo sotto i 10&nbsp;°C. Cimare spesso per ritardare la fioritura e mantenere la pianta cespugliosa.</p>
+              <div class="slabel">Esigenze</div>
+              <div class="kv">
+                <div><span class="k"><svg class="wic"><use href="#i-sole"/></svg> Luce</span><span class="v">Sole / mezz'ombra</span></div>
+                <div><span class="k"><svg class="wic"><use href="#i-goccia"/></svg> Acqua</span><span class="v">Frequente, senza ristagni</span></div>
+              </div>
+              <div class="slabel">Calendario cure</div>
+              <div class="seasontabs">
+                <button class="pill">Primavera</button><button class="pill active">Estate</button><button class="pill">Autunno</button><button class="pill">Inverno</button>
+              </div>
+              <div class="carelist">
+                <div class="carerow">
+                  <span class="careic careic--irrigazione"><svg class="wic"><use href="#i-goccia"/></svg></span>
+                  <span class="carem"><span class="caren">Irrigazione</span><span class="cared">Ogni giorno</span></span>
+                </div>
+                <div class="carerow">
+                  <span class="careic careic--concimazione"><svg class="wic"><use href="#i-concimazione"/></svg></span>
+                  <span class="carem"><span class="caren">Concimazione</span><span class="cared">Ogni 15 giorni</span></span>
+                </div>
+              </div>
+              <div class="slabel">Coltivazione</div>
+              <div class="kv">
+                <div><span class="k">Famiglia</span><span class="v">Lamiaceae</span></div>
+                <div><span class="k">Semina</span><span class="v">primavera</span></div>
+                <div><span class="k">Germinazione</span><span class="v">7-14 gg</span></div>
+                <div><span class="k">Al trapianto</span><span class="v">25-30 gg dalla semina</span></div>
+                <div><span class="k">Prima raccolta</span><span class="v">50-60 gg dal trapianto</span></div>
+                <div><span class="k">Si abbina a</span><span class="v">pomodoro, peperone</span></div>
+                <div><span class="k">Evitare vicino a</span><span class="v">ruta</span></div>
+              </div>
+              <div class="slabel">Note tecniche</div>
+              <p class="prose" style="color:var(--ink-faint);font-style:italic">Nessuna nota tecnica per questa specie.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DOPO LA SCELTA ============ -->
+    <div class="device screen" data-screen="chosen">
+      <div class="notch"></div>
+      <div class="screenin"><div class="app">
+        <div class="page-title">Nuova pianta</div>
+        <div class="card-lite">
+          <span class="combo-lbl">Specie *</span>
+          <div class="chosen">
+            <span class="th"></span>
+            <span class="m">
+              <span class="nm">Rosa 'Old Blush'</span>
+              <span class="sci">Rosa chinensis</span>
+              <span class="acts">
+                <button>Vedi scheda completa</button>
+                <button class="alt">Cambia</button>
+              </span>
+            </span>
+          </div>
+        </div>
+
+        <div class="card-lite" style="margin-top:10px">
+          <span class="combo-lbl">Zona *</span>
+          <div class="form-input" style="color:var(--ink-faint)">Seleziona zona…</div>
+        </div>
+        <div class="card-lite" style="margin-top:10px">
+          <span class="combo-lbl">Coltivata in</span>
+          <div style="display:flex;gap:6px">
+            <span class="pill active">Vaso</span><span class="pill">Terra</span><span class="pill">Acqua</span>
+          </div>
+        </div>
+        <button class="btn btn-sage" style="width:100%;margin-top:14px;border-radius:16px;min-height:48px">Aggiungi pianta</button>
+      </div></div>
+    </div>
+
+    <!-- ============ DESKTOP · SIDE SHEET ============ -->
+    <div class="deskframe screen" data-screen="desk">
+      <div class="dnav">
+        <b><span style="width:16px;height:16px;background:#141414;border-radius:4px;display:inline-block"></span> Il Giardino di Zorba</b>
+        <a>Home</a><a>Meteo</a><a>Zone</a><a class="on">Piante</a><a>Progetti</a><a>Concimi</a><a>Attività</a><a>Zorba dice</a><a>Gallery</a>
+      </div>
+      <div class="dmain">
+        <div class="page-title">Nuova pianta</div>
+        <div class="card-lite" style="max-width:440px">
+          <span class="combo-lbl">Specie *</span>
+          <div class="chosen">
+            <span class="th"></span>
+            <span class="m"><span class="nm">Passiflora caerulea</span><span class="sci">Passiflora caerulea</span>
+              <span class="acts"><button>Vedi scheda completa</button><button class="alt">Cambia</button></span></span>
+          </div>
+        </div>
+      </div>
+      <div class="side-dim"></div>
+      <div class="side-sheet">
+        <button class="sheet-x">×</button>
+        <div class="sheet-body">
+          <div class="ghost"><svg viewBox="0 0 512 512"><path d="M376 435c-3-3-2-6 2-16 6-12 5-16-4-28-5-6-8-13-8-21-1-8-3-13-6-17Z"/></svg></div>
+          <div class="dh" style="height:170px">
+            <div class="dh-scrim"></div>
+            <span class="dh-chip">verificata</span>
+            <div class="dh-cap"><p class="dh-name">Passiflora caerulea</p><p class="dh-sci">Passiflora caerulea</p></div>
+          </div>
+          <div class="dbody">
+            <div class="slabel">La specie</div>
+            <p class="prose">Rampicante vigorosa, sempreverde in clima mite, semi-rustica: al Nord perde la parte aerea e ricaccia da terra. Fiori spettacolari da giugno a ottobre.</p>
+            <div class="slabel">Esigenze</div>
+            <div class="kv">
+              <div><span class="k"><svg class="wic"><use href="#i-sole"/></svg> Luce</span><span class="v">Pieno sole</span></div>
+              <div><span class="k"><svg class="wic"><use href="#i-goccia"/></svg> Acqua</span><span class="v">Regolare in estate</span></div>
+              <div><span class="k"><svg class="wic"><use href="#i-foglia"/></svg> Terreno</span><span class="v">Qualsiasi, ben drenato</span></div>
+            </div>
+            <div class="slabel">Calendario cure</div>
+            <div class="seasontabs">
+              <button class="pill active">Primavera</button><button class="pill">Estate</button><button class="pill">Autunno</button><button class="pill">Inverno</button>
+            </div>
+            <div class="carelist">
+              <div class="carerow">
+                <span class="careic careic--irrigazione"><svg class="wic"><use href="#i-goccia"/></svg></span>
+                <span class="carem"><span class="caren">Irrigazione</span><span class="cared">Ogni 5 giorni</span></span>
+              </div>
+              <div class="carerow">
+                <span class="careic careic--concimazione"><svg class="wic"><use href="#i-concimazione"/></svg></span>
+                <span class="carem"><span class="caren">Concimazione</span><span class="cared">Ogni 21 giorni</span></span>
+              </div>
+              <div class="carerow">
+                <span class="careic careic--potatura"><svg class="wic"><use href="#i-potatura"/></svg></span>
+                <span class="carem"><span class="caren">Potatura</span><span class="cared">Diradamento dei rami vecchi</span></span>
+              </div>
+              <div class="carerow">
+                <span class="careic careic--npk"><svg class="wic"><use href="#i-provetta"/></svg></span>
+                <span class="carem"><span class="caren">Fabbisogno NPK</span><span class="cared">7-7-7</span></span>
+              </div>
+            </div>
+            <div class="slabel">Coltivazione</div>
+            <div class="kv">
+              <div><span class="k">Famiglia</span><span class="v">Passifloraceae</span></div>
+              <div><span class="k">Adatta al vaso</span><span class="v">Sì · min 30 L</span></div>
+              <div><span class="k">Resistenza al gelo</span><span class="v">bassa</span></div>
+            </div>
+            <div class="slabel">Note tecniche</div>
+            <ul class="notelist"><li>Pacciamare il piede in inverno sotto i -5 °C</li><li>Può diventare infestante da seme</li></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PATTERN APP-WIDE ============ -->
+    <div class="deskframe screen" data-screen="pattern">
+      <div class="dnav">
+        <b><span style="width:16px;height:16px;background:#141414;border-radius:4px;display:inline-block"></span> Il Giardino di Zorba</b>
+        <a>Home</a><a>Meteo</a><a>Zone</a><a>Piante</a><a class="on">Progetti</a><a>Concimi</a><a>Attività</a><a>Zorba dice</a><a>Gallery</a>
+      </div>
+      <div class="dmain">
+        <div class="page-title" style="display:flex;justify-content:space-between;align-items:center">Progetti
+          <span class="pill" style="background:var(--white)">＋ Aggiungi</span></div>
+        <div style="border-top:1px solid var(--cream-dark)"></div>
+        <div style="padding:14px 2px;border-bottom:1px solid var(--cream-dark);color:var(--ink-soft)">
+          <div style="font:600 15px/1.2 var(--font-display);color:var(--ink)">Impianto siepe mista lato nord</div>
+          <div style="font-size:12px;margin-top:3px">Est · scade 12 novembre</div>
+        </div>
+        <div style="padding:14px 2px;border-bottom:1px solid var(--cream-dark);color:var(--ink-soft)">
+          <div style="font:600 15px/1.2 var(--font-display);color:var(--ink)">Rialzo dell'orto in cassoni</div>
+          <div style="font-size:12px;margin-top:3px">Ovest · scade 3 marzo</div>
+        </div>
+      </div>
+      <div class="side-dim"></div>
+      <div class="side-sheet">
+        <div class="sheet-hd" style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px 12px">
+          <h3 style="font:600 16px/1.1 var(--font-display);margin:0">Nuovo progetto</h3>
+          <button class="sheet-x" style="position:static;background:var(--cream-dark);color:var(--ink-mid)">×</button>
+        </div>
+        <div class="np-form">
+          <div class="mrow"><label>Titolo</label><input class="form-input" placeholder="Titolo del progetto"></div>
+          <div class="mrow"><label>Descrizione</label><div class="np-editor">Cosa vuoi fare, e perché…</div></div>
+          <div class="mrow"><label>Zona</label><input class="form-input" placeholder="Zona (opzionale)"></div>
+        </div>
+        <div class="side-foot">
+          <button class="btn btn-ghost">Annulla</button>
+          <button class="btn btn-sage">Salva</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <b>Conferme e cose da decidere</b>
+    <ul>
+      <li><span class="t">Confermato:</span> niente edit/creazione specie dall'app; foglio laterale su desktop, dal basso su mobile, per tutte le modali; scheda specie col layout di "La specie" / "Stato cure" della Scheda Pianta, con le <b>icone acquerellate reali</b> dallo sprite (<code>sole</code>, <code>goccia</code>, <code>foglia</code>, <code>concimazione</code>, <code>potatura</code>, <code>provetta</code>).</li>
+      <li><span class="t">Calendario cure:</span> stesso layout di "Stato cure" (riga con icona colorata + valore), con le <b>pill delle stagioni</b> sotto il titolo — si sceglie la stagione e le righe mostrano il fabbisogno per quel periodo. Righe: Irrigazione, Concimazione, Calcio, Potatura, Fabbisogno NPK.</li>
+      <li><span class="warn">Icona uovo per il Calcio:</span> non esiste più nello sprite (persa anche in Scheda Pianta, dove il Calcio usa <code>provetta</code>). Va riaggiunta (<code>i-uovo</code>) e usata sia qui che in Scheda Pianta; tinta beige.</li>
+      <li><span class="t">"Manca una specie?"</span> → link a "Zorba dice" (l'agente <code>/elabora</code> la aggiunge al catalogo). Il precompilamento del tipo richiesta è un follow-up.</li>
+      <li><span class="t">Dopo la scelta</span> resta una card compatta con "Vedi scheda completa" (riapre il foglio) + "Cambia". Il foglio si apre <i>automaticamente</i> alla scelta la prima volta.</li>
+      <li><span class="warn">Nota tecnica (non in questo giro):</span> togliere i pulsanti non basta a livello sicurezza — la tabella <code>specie</code> ha ancora una RLS di scrittura aperta ("temporanea", CLAUDE.md). Va chiusa con una migration a parte ora che c'è il login.</li>
+      <li><span class="warn">Rollout del pattern foglio:</span> è un lavoro a sé dopo questo — tocca ProgettiView, ConcimiView, SottozoneView, EditPianta, ModalConferma, dettaglio meteo. Lo pianifichiamo come batch separato.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+  const tabs = document.getElementById('tabs');
+  const screens = document.querySelectorAll('.screen');
+  tabs.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    tabs.querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b));
+    screens.forEach(s => s.classList.toggle('on', s.dataset.screen === b.dataset.s));
+  });
+</script>

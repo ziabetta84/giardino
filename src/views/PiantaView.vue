@@ -253,7 +253,7 @@ function apriLuce(f) {
   if (f?.path) luce.value = f
 }
 
-const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'provetta' }
+const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'uovo' }
 const LABEL_CURA = { irrigazione: 'Irrigazione', concimazione: 'Concimazione', potatura: 'Potatura', calcio: 'Calcio' }
 function iconaCura(tipo) { return ICONE_CURA[tipo] ?? 'foglia' }
 
@@ -473,24 +473,7 @@ async function eliminaPianta() {
   font: 400 12.5px/1.4 var(--font-sans); color: var(--olive-ink);
 }
 
-/* Stato cure: righe con filetto, icona categoria a sinistra. */
-.care { display: flex; flex-direction: column; }
-.care__row { display: flex; align-items: center; gap: 12px; padding: 10px 2px; }
-.care__row + .care__row { border-top: 1px solid var(--cream-dark); }
-.care__ic {
-  flex: none; width: 34px; height: 34px; border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--olive-tile); color: var(--ink-mid);
-}
-.care__ic svg { width: 18px; height: 18px; }
-.care__ic--irrigazione { background: var(--acqua-bg); color: var(--acqua-ink); }
-.care__ic--concimazione { background: var(--olive-bg); color: var(--olive-ink); }
-.care__ic--calcio { background: var(--sage-bg); color: var(--sage-ink); }
-.care__ic--potatura { background: var(--rose-bg); color: var(--rose-ink); }
-.care__m { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.care__n { font: 600 13px/1.25 var(--font-sans); color: var(--ink); }
-.care__d { font: 400 11.5px/1.35 var(--font-sans); color: var(--ink-mid); }
-
+/* Stato cure: .care* ora globali in main.css. Qui resta solo il bottone azione. */
 .care-act {
   flex: none; font: 600 10.5px/1 var(--font-sans); padding: 7px 12px;
   border-radius: 999px; border: 1px solid var(--cream-dark);
