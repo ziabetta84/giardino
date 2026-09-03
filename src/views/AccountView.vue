@@ -2,9 +2,9 @@
   <!-- Loggato: dentro il layout normale dell'app (vedi App.vue), quindi qui
        si può permettere titolo e card come le altre view. -->
   <div v-if="!caricamento && utente && !recuperoInCorso" style="max-width:420px;margin:0 auto;">
-    <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;margin-bottom:16px;">Account</h1>
-    <div class="card" style="padding:18px;">
-      <p class="section-label" style="margin-bottom:10px;">Accesso effettuato</p>
+    <h1 class="page-title">Account</h1>
+    <div class="form-card">
+      <p class="slabel">Accesso effettuato</p>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
         <Icon name="persona" style="width:28px;height:28px;flex-shrink:0;" />
         <p style="font-size:14px;font-weight:600;word-break:break-all;">{{ utente.email }}</p>
@@ -15,8 +15,8 @@
       <p v-if="errore" style="font-size:12px;color:var(--rose-dark);margin-top:10px;">{{ errore }}</p>
     </div>
 
-    <div class="card" style="padding:18px;margin-top:16px;">
-      <p class="section-label" style="margin-bottom:10px;">Token GitHub</p>
+    <div class="form-card" style="margin-top:16px;">
+      <p class="slabel">Token GitHub</p>
       <p style="font-size:12px;color:var(--ink-soft);margin-bottom:12px;">Serve per inviare richieste a Zorba e salvare modifiche ai dati del giardino (permesso <code>contents:write</code> sul repo).</p>
 
       <template v-if="tokenPresente && !modificandoToken">
@@ -62,7 +62,7 @@
   <div v-else-if="!caricamento" style="width:100%;max-width:340px;">
     <div style="text-align:center;margin-bottom:20px;">
       <ZorbaLogo style="width:64px;height:64px;margin:0 auto 8px;" />
-      <h1 class="title-display gradient-title title-settle" style="font-size:1.6rem;font-weight:800;">
+      <h1 class="page-title" style="font-size:1.5rem">
         {{ recuperoInCorso ? 'Nuova password' : 'Entra nel Giardino di Zorba' }}
       </h1>
     </div>
@@ -223,11 +223,7 @@ async function onEsci() {
 </script>
 
 <style scoped>
-.field-label {
-  font-size: 11px; font-weight: 600; color: var(--ink-soft);
-  text-transform: uppercase; letter-spacing: .05em;
-  display: block; margin-bottom: 6px;
-}
+.form-card > .slabel:first-child { margin-top: 0; }
 .link-reset {
   background: none; border: none; padding: 0; text-align: left;
   font-size: 12px; color: var(--ink-soft); text-decoration: underline;
