@@ -1,0 +1,581 @@
+<title>Taccuino Fase 2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600;700&family=Caveat:wght@500;600&display=swap">
+<style>
+  :root {
+    --carta:#fbf7ef; --carta-2:#f4eede; --ink:#33291c; --seppia:#6e5d45; --faint:#a8987d; --linea:#e7ddc8;
+    --acqua:#6f9fc0; --acqua-bg:#e2edf3; --acqua-ink:#2b566e;
+    --olive:#9aaa5a; --olive-bg:#ececd8; --olive-ink:#545e2a;
+    --rose:#cc6e6e;  --rose-bg:#f6e3e1;  --rose-ink:#8a3f3a;
+    --sage:#7a9e82;  --sage-bg:#e4ede4;  --sage-ink:#37543f;
+    --gold:#e0b84a;  --gold-bg:#f7ecd0;  --gold-ink:#7a5a15;
+    --f-display:'Fraunces',Georgia,serif; --f-sans:'DM Sans',system-ui,sans-serif; --f-hand:'Caveat',cursive;
+    --shell:#e7e4dd;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--shell); color:#2c2a22; font-family:var(--f-sans); -webkit-font-smoothing:antialiased; }
+
+  .bar { position:sticky; top:0; z-index:20; display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+    padding:12px 18px; background:#f1eee7ee; backdrop-filter:blur(10px); border-bottom:1px solid #d3ccbe; }
+  .bar h1 { margin:0; font:600 13px/1 var(--f-sans); }
+  .bar h1 span { color:#6c6656; font-weight:400; }
+  .seg { display:flex; border:1px solid #cfc9bb; border-radius:9px; overflow:hidden; }
+  .seg button { appearance:none; border:0; background:transparent; cursor:pointer; font:500 12px/1 var(--f-sans);
+    color:#6c6656; padding:8px 12px; }
+  .seg button + button { border-left:1px solid #cfc9bb; }
+  .seg button[aria-pressed="true"] { background:#2c2a22; color:#f1eee7; }
+
+  main { max-width:1000px; margin:0 auto; padding:26px 20px 60px; }
+  .lead { font-size:13.5px; line-height:1.6; color:#6c6656; max-width:64ch; margin:0 0 22px; }
+  .lead b { color:#2c2a22; }
+  .screens { display:flex; gap:30px; flex-wrap:wrap; }
+
+  .device { position:relative; width:360px; flex:0 0 auto; border:1px solid #cfc9bb; border-radius:30px; background:var(--carta);
+    box-shadow:0 22px 50px -20px rgba(40,28,10,.42); overflow:hidden; display:flex; flex-direction:column; }
+  .chin { font:500 9.5px/1 var(--f-sans); letter-spacing:.16em; text-transform:uppercase; color:#6c6656;
+    background:#f1eee7; padding:8px 18px; border-bottom:1px solid #d3ccbe; flex:none; }
+  .screen { position:relative; overflow-y:auto; max-height:760px; color:var(--ink); scrollbar-width:none; }
+  .screen::-webkit-scrollbar { width:0; }
+
+  .appbar { position:sticky; top:0; z-index:5; display:flex; align-items:center; justify-content:space-between;
+    padding:9px 14px; background:#fbf7efe6; backdrop-filter:blur(8px); border-bottom:1px solid var(--linea); }
+  .appbar__mark { display:inline-flex; align-items:center; gap:7px; font:600 12.5px/1 var(--f-display); color:var(--ink); }
+  .appbar__mark svg { width:20px; height:20px; }
+  .appbar__btn { width:32px; height:32px; display:grid; place-items:center; color:var(--sage); }
+  .appbar__btn svg { width:19px; height:19px; }
+  .bottomnav { display:flex; justify-content:space-around; align-items:center; flex:none; padding:7px 4px;
+    border-top:1px solid var(--linea); background:var(--carta); }
+  .bottomnav a { display:flex; flex-direction:column; align-items:center; gap:3px; padding:2px 6px;
+    font:500 9px/1 var(--f-sans); color:var(--faint); text-decoration:none; }
+  .bottomnav a.on { color:var(--rose); }
+  .bottomnav a.on.cat, .bottomnav a.cat { color:#141414; }
+  .bn-ic { width:20px; height:20px; }
+  .bn-ic svg { width:100%; height:100%; }
+
+  .pad { padding:16px; }
+
+  /* page title — Fraunces piatto, niente gradiente */
+  .ptitle { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:2px 0 18px; }
+  .ptitle h2 { margin:0; font:600 26px/1.05 var(--f-display); letter-spacing:-0.01em; color:var(--ink); }
+  .pill { flex:none; display:inline-flex; align-items:center; gap:5px; font:600 11px/1 var(--f-sans);
+    padding:8px 13px; border-radius:999px; border:1px solid var(--linea); background:var(--carta); color:var(--seppia);
+    cursor:default; text-decoration:none; }
+  .pill svg { width:13px; height:13px; }
+  .pill--go { border-color:color-mix(in srgb,var(--sage) 40%,transparent); color:var(--sage-ink); }
+
+  .slabel { display:flex; align-items:center; gap:7px; font:700 11px/1 var(--f-sans); letter-spacing:.13em;
+    text-transform:uppercase; color:var(--faint); margin:24px 2px 12px; }
+  .slabel::after { content:""; flex:1; height:1px; background:var(--linea); }
+
+  .row { display:flex; gap:12px; align-items:flex-start; padding:12px 2px; text-decoration:none; color:inherit; }
+  .row + .row { border-top:1px solid var(--linea); }
+  .row__m { flex:1; min-width:0; }
+  .row__t { font:600 15px/1.25 var(--f-display); color:var(--ink); }
+  .row__d { font:400 12px/1.5 var(--f-sans); color:var(--seppia); margin-top:3px;
+    display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .row__meta { display:flex; gap:12px; flex-wrap:wrap; margin-top:7px; font:400 11px/1 var(--f-sans); color:var(--faint); }
+  .row__meta span { display:inline-flex; align-items:center; gap:4px; }
+  .row__meta svg { width:11px; height:11px; }
+  .row__chev { flex:none; width:13px; height:13px; color:var(--faint); margin-top:4px; }
+
+  .st { flex:none; font:600 9.5px/1 var(--f-sans); letter-spacing:.04em; text-transform:uppercase;
+    padding:4px 8px; border-radius:999px; margin-top:2px; }
+  .st--n { background:var(--carta-2); color:var(--faint); }
+  .st--g { background:var(--gold-bg); color:var(--gold-ink); }
+  .st--s { background:var(--sage-bg); color:var(--sage-ink); }
+  .st--r { background:var(--rose-bg); color:var(--rose-ink); }
+
+  .empty { text-align:center; padding:52px 20px; color:var(--faint); }
+  .empty svg { width:26px; height:26px; opacity:.5; }
+  .empty p { margin:10px 0 0; font:400 13px/1.5 var(--f-sans); }
+  .empty p b { display:block; font:600 14px/1.3 var(--f-display); color:var(--seppia); margin-bottom:2px; }
+
+  /* ---- Progetto: intestazione + timeline tappe ---- */
+  .phdr { }
+  .phdr .back { display:inline-flex; align-items:center; gap:5px; font:500 12px/1 var(--f-sans); color:var(--seppia);
+    text-decoration:none; }
+  .phdr .back svg { width:13px; height:13px; }
+  .phdr h2 { margin:12px 0 3px; font:600 24px/1.12 var(--f-display); letter-spacing:-0.01em; color:var(--ink); }
+  .phdr .sub { display:flex; align-items:center; gap:8px; flex-wrap:wrap; font:400 12px/1 var(--f-sans); color:var(--faint); }
+  .phdr .sub svg { width:12px; height:12px; }
+  .prose { font:400 13px/1.62 var(--f-sans); color:var(--seppia); margin:12px 0 0; }
+
+  /* ---- Tappe: linea che si disegna man mano che si scrolla, colore per esito ---- */
+  .path { position:relative; margin-top:12px; padding-left:30px; --draw:0; }
+  .path__svg { position:absolute; left:2px; top:0; width:20px; height:100%; overflow:visible; }
+  .path__base  { fill:none; stroke:var(--linea); stroke-width:1.25; vector-effect:non-scaling-stroke; stroke-linecap:round; }
+  .path__trail { fill:none; stroke:url(#trailGrad); stroke-width:2; vector-effect:non-scaling-stroke;
+    stroke-linecap:round; stroke-dasharray:100; stroke-dashoffset:calc(100 - var(--draw) * 100); }
+
+  .step { position:relative; padding:13px 0; }
+  .step__dot { position:absolute; left:-22px; top:17px; width:9px; height:9px; border-radius:50%;
+    background:var(--faint); transform:scale(0); transition:transform .4s cubic-bezier(.34,1.7,.6,1); }
+  .step__dot--g { background:var(--gold); } .step__dot--s { background:var(--sage); }
+  .step__dot--r { background:var(--rose); } .step__dot--f { background:var(--faint); }
+  .step__dot.in { transform:scale(1); }
+
+  .step__head { display:flex; align-items:baseline; gap:9px; flex-wrap:wrap; }
+  .step__date { font:600 13px/1.2 var(--f-display); color:var(--seppia); }
+  .step__esito { font:600 9.5px/1 var(--f-sans); letter-spacing:.05em; text-transform:uppercase; }
+  .step__esito--g { color:var(--gold-ink); } .step__esito--s { color:var(--sage-ink); }
+  .step__esito--r { color:var(--rose-ink); } .step__esito--f { color:var(--faint); }
+  .step__desc { margin:4px 0 0; font:400 12.5px/1.5 var(--f-sans); color:var(--ink); }
+
+  .pgoal { position:relative; display:flex; align-items:center; gap:8px; padding-top:2px;
+    font:400 11.5px/1 var(--f-sans); color:var(--faint); }
+  .pgoal svg { width:15px; height:15px; }
+  .pgoal .pnode { position:absolute; left:-23px; width:11px; height:11px; border-radius:50%;
+    background:var(--rose); transform:scale(0); transition:transform .4s cubic-bezier(.34,1.7,.6,1); }
+  .pgoal .pnode.in { transform:scale(1); }
+
+  .path__add { position:relative; padding:1px 0; }
+  .path__add button { appearance:none; border:0; background:transparent; color:var(--faint);
+    font:600 11.5px/1 var(--f-sans); cursor:default; padding:2px 6px; }
+  .path__add button svg { width:11px; height:11px; vertical-align:-1px; }
+
+  @media (prefers-reduced-motion:reduce){
+    .path { --draw:1 !important; }
+    .step__dot, .pgoal .pnode { transform:scale(1) !important; transition:none !important; }
+  }
+
+  .pfiller { height:360px; border-top:1px solid var(--linea); margin-top:22px; padding-top:12px;
+    font:400 11px/1.5 var(--f-sans); color:var(--faint); }
+
+  .pactions { display:flex; gap:10px; margin-top:22px; }
+  .btn { flex:1; appearance:none; border:1px solid var(--linea); background:transparent; border-radius:12px;
+    padding:11px; font:600 12px/1 var(--f-sans); cursor:default; color:var(--seppia); }
+  .btn--save { background:var(--sage-ink); border-color:var(--sage-ink); color:var(--carta); }
+  .btn--del { flex:none; color:var(--rose-ink); border-color:color-mix(in srgb,var(--rose) 35%,transparent); }
+
+  /* ---- Gallery: feed di post per pianta ---- */
+  .gpost { margin-bottom:26px; }
+  .gpost__hd { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+  .gpost__name { font:600 14px/1.2 var(--f-display); color:var(--ink); text-decoration:none;
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .chip { display:inline-flex; align-items:center; gap:4px; font:600 9.5px/1 var(--f-sans); letter-spacing:.04em;
+    text-transform:uppercase; background:var(--carta-2); color:var(--seppia); padding:4px 8px; border-radius:999px; flex:none; }
+  .chip svg { width:11px; height:11px; }
+  .gpost__n { margin-left:auto; font:400 11px/1 var(--f-sans); color:var(--faint); flex:none; }
+  .gtrack { display:flex; gap:8px; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
+  .gtrack::-webkit-scrollbar { height:0; }
+  .gslide { position:relative; flex:0 0 88%; scroll-snap-align:center; border-radius:16px; overflow:hidden; height:280px; }
+  .gimg { width:100%; height:100%; }
+  .gimg--1 { background:linear-gradient(120deg,#5f7d4e,#93a559 40%,#c9ae6b 78%,#bb8b63); }
+  .gimg--2 { background:linear-gradient(140deg,#7a8f4a,#adb96a 52%,#d8c07d); }
+  .gimg--3 { background:linear-gradient(160deg,#4f6d54,#83a06c 56%,#b7a06b); }
+  .gov { position:absolute; left:0; right:0; bottom:0; padding:22px 12px 10px; display:flex; align-items:center; gap:8px;
+    background:linear-gradient(0deg,rgba(20,15,8,.55),transparent); color:#fdf8ee; font:600 11px/1 var(--f-sans); }
+  .gov svg { width:12px; height:12px; }
+  .gdots { display:flex; gap:5px; justify-content:center; margin-top:8px; }
+  .gdots span { width:5px; height:5px; border-radius:50%; background:var(--linea); }
+  .gdots span.on { background:var(--rose); width:14px; border-radius:3px; }
+
+  /* ---- Zorba dice: storico a sinistra (drawer scorrevole per molte conversazioni) ---- */
+  .hstore { position:absolute; left:0; top:0; bottom:0; width:82%; max-width:300px; z-index:30;
+    display:flex; flex-direction:column; background:var(--carta); border-right:1px solid var(--linea);
+    box-shadow:6px 0 26px -12px rgba(40,28,10,.4); transform:translateX(-102%); transition:transform .28s ease; }
+  .hstore.open { transform:translateX(0); }
+  .hstore__hd { display:flex; align-items:center; justify-content:space-between; padding:12px 14px 9px; flex:none; }
+  .hstore__hd b { font:700 10.5px/1 var(--f-sans); letter-spacing:.13em; text-transform:uppercase; color:var(--faint); }
+  .hstore__new { display:inline-flex; align-items:center; gap:5px; font:600 10.5px/1 var(--f-sans); padding:6px 11px;
+    border-radius:999px; border:1px solid color-mix(in srgb,var(--sage) 40%,transparent); color:var(--sage-ink);
+    background:var(--carta); text-decoration:none; }
+  .hstore__new svg { width:12px; height:12px; }
+  .hstore__list { flex:1; overflow-y:auto; }
+  .hitem { display:flex; align-items:center; gap:10px; padding:10px 14px; text-decoration:none; color:inherit; }
+  .hitem + .hitem { border-top:1px solid var(--linea); }
+  .hitem.on { background:color-mix(in srgb,var(--sage) 12%,transparent); }
+  .hitem__ic { width:22px; height:22px; flex:none; }
+  .hitem__ic svg { width:100%; height:100%; }
+  .hitem__m { flex:1; min-width:0; }
+  .hitem__t { font:600 12px/1.3 var(--f-sans); color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .hitem__d { font:400 10px/1.3 var(--f-sans); color:var(--faint); margin-top:1px; }
+  .adot { width:7px; height:7px; border-radius:50%; background:var(--gold); flex:none; }
+  .hback { position:absolute; inset:0; z-index:25; background:rgba(40,28,10,.32); opacity:0; pointer-events:none;
+    transition:opacity .25s; }
+  .hback.open { opacity:1; pointer-events:auto; }
+
+  .htoggle { display:inline-flex; align-items:center; gap:6px; appearance:none; border:1px solid var(--linea);
+    background:var(--carta); border-radius:999px; padding:6px 11px; font:600 10.5px/1 var(--f-sans);
+    color:var(--seppia); cursor:pointer; }
+  .htoggle svg { width:14px; height:14px; }
+  .alocalhd { display:flex; align-items:center; gap:9px; margin:10px 0 3px; }
+  .alocalhd h2 { margin:0; font:600 23px/1 var(--f-display); color:var(--ink); display:flex; align-items:center; gap:8px; }
+  .alocalhd h2 svg { width:30px; height:30px; }
+  .asub { font:400 12px/1.4 var(--f-sans); color:var(--faint); margin:0 0 16px; }
+
+  .req { }
+  .reqchips { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+  .reqchip { font:600 11px/1 var(--f-sans); padding:7px 11px; border-radius:999px; border:1px solid var(--linea);
+    background:var(--carta); color:var(--seppia); cursor:default; }
+  .reqchip.on { background:var(--sage-bg); border-color:color-mix(in srgb,var(--sage) 40%,transparent); color:var(--sage-ink); }
+  .reqbox { border:1px solid var(--linea); border-radius:14px; padding:12px; background:var(--carta); }
+  .reqbox textarea { width:100%; border:0; resize:none; background:transparent; font:400 13px/1.5 var(--f-sans);
+    color:var(--ink); min-height:66px; outline:none; }
+  .reqbox textarea::placeholder { color:var(--faint); }
+  .reqbar { display:flex; align-items:center; justify-content:space-between; margin-top:8px; padding-top:8px;
+    border-top:1px solid var(--linea); }
+  .reqbar .ph { display:inline-flex; align-items:center; gap:5px; font:500 11px/1 var(--f-sans); color:var(--seppia); }
+  .reqbar .ph svg { width:14px; height:14px; }
+  .reqsend { appearance:none; border:0; background:var(--sage-ink); color:var(--carta); border-radius:999px;
+    font:600 11px/1 var(--f-sans); padding:8px 16px; cursor:default; }
+
+  .answer { margin-top:20px; }
+  .answer__hd { display:flex; align-items:center; gap:8px; font:700 10.5px/1 var(--f-sans); letter-spacing:.12em;
+    text-transform:uppercase; color:var(--faint); margin-bottom:10px; }
+  .answer__hd svg { width:14px; height:14px; color:var(--seppia); }
+  .answer__body { border-left:2px solid var(--sage); padding:2px 0 2px 13px; }
+  .answer__body p { margin:0 0 9px; font:400 13px/1.6 var(--f-sans); color:var(--seppia); }
+  .answer__body p:last-child { margin-bottom:0; }
+
+  @media (max-width:560px){ main{padding:20px 14px 44px} .screens{gap:22px;justify-content:center} .device{width:100%;max-width:372px} }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-lampadina" viewBox="0 0 256 256"><path fill="var(--gold)" fill-rule="evenodd" d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Z"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 256 256"><path fill="var(--acqua)" fill-rule="evenodd" d="M128,16a88.1,88.1,0,0,0-88,88c0,75.3,80,132.17,83.41,134.55a8,8,0,0,0,9.18,0C136,236.17,216,179.3,216,104A88.1,88.1,0,0,0,128,16Zm0,56a32,32,0,1,1-32,32A32,32,0,0,1,128,72Z"/></symbol>
+  <symbol id="i-bandiera" viewBox="0 0 256 256"><path fill="var(--rose)" d="M42.76,50.7A8,8,0,0,0,40,56.73V216a8,8,0,0,0,16,0V171.16c58-51.32,90.63,26.42,169.34-5.5A8,8,0,0,0,232,158.17V48.79a8,8,0,0,0-11.35-7.26c-73.51,32.98-104-45.94-177.89,9.17Z"/></symbol>
+  <symbol id="i-cornice" viewBox="0 0 256 256"><path fill="var(--sage)" fill-rule="evenodd" d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM156,88a12,12,0,1,1-12,12A12,12,0,0,1,156,88Zm60,112H40V160.69l46.34-46.35a8,8,0,0,1,11.32,0h0L165,181.66a8,8,0,0,0,11.32-11.32l-17.66-17.65L173,138.34a8,8,0,0,1,11.31,0L216,170.07V200Z"/></symbol>
+  <symbol id="i-provetta" viewBox="0 0 256 256"><path fill="var(--sage)" fill-rule="evenodd" d="M221.69,199.77,160,96.92V40h8a8,8,0,0,0,0-16H88a8,8,0,0,0,0,16h8V96.92L34.31,199.77A16,16,0,0,0,48,224H208a16,16,0,0,0,13.72-24.23Zm-90.08-42.91c-15.91-8.05-31.05-12.32-45.22-12.81l24.47-40.8A7.93,7.93,0,0,0,112,99.14V40h32V99.14a7.93,7.93,0,0,0,1.14,4.11L183.36,167C171.4,169.34,154.29,168.34,131.61,156.86Z"/></symbol>
+  <symbol id="i-foglia" viewBox="0 0 256 256"><path fill="var(--olive)" d="M223.45,40.07a8,8,0,0,0-7.52-7.52C139.8,28.08,78.82,51,52.82,94a87.09,87.09,0,0,0-12.76,49A101.72,101.72,0,0,0,46.7,175.2a4,4,0,0,0,6.61,1.43l85-86.3a8,8,0,0,1,11.32,11.32L56.74,195.94,42.55,210.13a8.2,8.2,0,0,0-.6,11.1,8,8,0,0,0,11.71.43l16.79-16.79c14.14,6.84,28.41,10.57,42.56,11.07q1.67.06,3.33.06A86.93,86.93,0,0,0,162,203.18C205,177.18,227.93,116.21,223.45,40.07Z"/></symbol>
+  <symbol id="i-campanella" viewBox="0 0 256 256"><path fill="var(--rose)" fill-rule="evenodd" d="M221.8,175.94C216.25,166.38,208,139.33,208,104a80,80,0,1,0-160,0c0,35.34-8.26,62.38-13.81,71.94A16,16,0,0,0,48,200H88.81a40,40,0,0,0,78.38,0H208a16,16,0,0,0,13.8-24.06Z"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 256 256"><path fill="var(--gold)" d="M224,120v96a8,8,0,0,1-8,8H160a8,8,0,0,1-8-8V164a4,4,0,0,0-4-4H108a4,4,0,0,0-4,4v52a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V120a16,16,0,0,1,4.69-11.31l80-80a16,16,0,0,1,22.62,0l80,80A16,16,0,0,1,224,120Z"/></symbol>
+  <symbol id="i-persona" viewBox="0 0 256 256"><path fill="var(--sage)" d="M128,40a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,40Zm0,208a103.65,103.65,0,0,1-84-42.89c.4-27.92,56.29-43.11,84-43.11s83.6,15.19,84,43.11A103.65,103.65,0,0,1,128,248Z"/></symbol>
+  <symbol id="i-goccia" viewBox="0 0 256 256"><path fill="var(--acqua)" d="M174,47.75a254.19,254.19,0,0,0-41.45-38.3,8,8,0,0,0-9.18,0A254.19,254.19,0,0,0,82,47.75C54.51,79.32,40,112.6,40,144a88,88,0,0,0,176,0C216,112.6,201.49,79.32,174,47.75Z"/></symbol>
+  <symbol id="i-terra" viewBox="0 0 256 256"><path fill="currentColor" d="M208,48a87.48,87.48,0,0,0-35.36,7.43c-15.1-25.37-39.92-38-41.06-38.59a8,8,0,0,0-7.16,0c-1.14.58-26,13.22-41.06,38.59A87.48,87.48,0,0,0,48,48a8,8,0,0,0-8,8V96a88.11,88.11,0,0,0,80,87.63v35.43L83.58,200.84a8,8,0,1,0-7.16,14.32l48,24a8,8,0,0,0,7.16,0l48-24a8,8,0,0,0-7.16-14.32L136,219.06V183.63A88.11,88.11,0,0,0,216,96V56A8,8,0,0,0,208,48Z"/></symbol>
+  <symbol id="ic-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-cam" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3v11H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="ic-list" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="ic-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/></symbol>
+  <symbol id="zorba" viewBox="0 0 512 512">
+    <g transform="translate(0 512) scale(0.1 -0.1)"><path fill="#141414" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34 -95 -78 -115 -32 -15 -72 -17 -282 -16 -135 0 -297 6 -360 12 -213 22 -501 26 -660 8 -148 -16 -171 -21 -345 -74 -119 -36 -187 -64 -405 -169 -160 -77 -376 -157 -452 -168 l-38 -6 0 -196 0 -196 68 6 c38 4 114 16 171 28 56 11 104 19 106 17 3 -2 9 -84 15 -182 6 -99 13 -183 16 -187 2 -5 5 -41 6 -82 0 -63 -4 -81 -31 -135 -17 -34 -35 -62 -39 -62 -9 0 -131 -99 -177 -143 -20 -19 -40 -50 -45 -68 -5 -18 -14 -114 -20 -213 -6 -100 -18 -241 -27 -314 -18 -150 -12 -190 34 -237 51 -51 79 -59 211 -63 129 -4 167 3 210 41 16 15 22 31 22 64 0 54 -29 87 -91 103 -24 6 -50 13 -56 15 -21 7 -15 65 17 155 16 47 30 94 30 105 1 11 9 35 18 54 14 29 26 37 67 48 65 16 330 60 419 68 38 4 75 9 83 12 22 8 15 -14 -22 -72 -20 -30 -38 -68 -41 -84 -14 -70 74 -165 281 -302 182 -120 202 -132 275 -162 90 -37 140 -46 251 -47 82 0 102 3 145 25 80 40 95 96 41 150 -36 36 -89 55 -151 55 -38 0 -126 34 -126 49 0 4 -40 42 -90 84 -49 43 -90 83 -90 90 0 18 204 143 315 193 142 64 572 204 649 211 76 7 72 11 122 -142 18 -55 56 -163 84 -240 29 -77 65 -178 81 -225 39 -112 77 -180 116 -206 52 -35 137 -47 300 -42 201 6 263 33 263 115 0 16 -7 39 -16 52 -20 28 -88 60 -126 61 -26 0 -28 3 -28 38 0 21 4 73 9 117 6 44 13 116 16 160 3 44 10 100 15 125 6 25 21 117 35 205 28 171 62 307 126 500 112 334 130 413 155 668 17 183 12 251 -38 502 -91 465 -355 899 -680 1117 -53 36 -104 45 -137 26 -23 -13 -26 -20 -24 -61 2 -26 -1 -47 -6 -47 -5 0 -28 21 -51 47 -64 73 -139 133 -166 133 -13 0 -33 -9 -45 -21z"/><path fill="#141414" d="M124 3636 c-52 -23 -68 -73 -60 -187 26 -406 211 -760 516 -990 108 -82 230 -139 390 -184 66 -19 315 -31 424 -20 l77 7 -3 198 c-2 109 -6 201 -9 204 -3 4 -17 2 -31 -3 -14 -5 -77 -15 -140 -22 -99 -11 -132 -10 -224 2 -60 9 -127 24 -149 34 -161 74 -273 169 -363 308 -86 132 -116 202 -162 377 -48 180 -68 227 -112 260 -38 28 -110 36 -154 16z"/><path fill="#7cc491" d="M4023 3784 c-18 -8 -33 -18 -33 -22 0 -4 14 -27 32 -51 38 -52 30 -76 -23 -76 -40 0 -59 28 -59 88 0 42 -12 47 -34 15 -41 -58 -32 -131 19 -155 29 -14 40 -15 77 -4 53 16 99 51 132 101 38 58 35 77 -20 100 -53 23 -49 23 -91 4z"/></g>
+  </symbol>
+</svg>
+
+<div class="bar">
+  <h1>Il Giardino di Zorba <span>· Taccuino — Fase 2</span></h1>
+  <div style="flex:1"></div>
+  <div class="seg" role="group" aria-label="Schermo">
+    <button type="button" id="b-prg" aria-pressed="true">Progetti</button>
+    <button type="button" id="b-prog" aria-pressed="false">Progetto</button>
+    <button type="button" id="b-gal" aria-pressed="false">Galleria</button>
+    <button type="button" id="b-ag" aria-pressed="false">Zorba dice</button>
+  </div>
+</div>
+
+<main>
+  <p class="lead">
+    Le viste della <b>Fase 2</b> nel linguaggio "Taccuino" già deciso: titolo di pagina in <b>Fraunces piatto</b>
+    (niente gradiente), liste con filetti, pill per le azioni brevi, colore nelle icone acquerellate.
+    Cambia schermo dai controlli sopra. Contenuti d'esempio.
+  </p>
+
+  <div class="screens">
+    <div class="device" data-s="prg">
+      <div class="chin">Progetti</div>
+      <div class="screen">
+        <header class="appbar"><span class="appbar__mark"><svg><use href="#zorba"/></svg> Il Giardino di Zorba</span>
+          <a class="appbar__btn" href="#"><svg viewBox="0 0 256 256"><use href="#i-persona"/></svg></a></header>
+        <div class="pad">
+          <div class="ptitle"><h2>Progetti</h2><span class="pill"><svg><use href="#ic-plus"/></svg> Aggiungi</span></div>
+
+          <a class="row" href="#">
+            <div class="row__m">
+              <div class="row__t">Aiuola aromatiche lato sud</div>
+              <div class="row__d">Preparare il terreno, seminare salvia, timo e origano, pacciamatura di paglia.</div>
+              <div class="row__meta"><span><svg><use href="#i-pin"/></svg> Sud</span><span><svg><use href="#i-bandiera"/></svg> 18 ottobre</span></div>
+            </div>
+            <span class="st st--g">In corso</span>
+          </a>
+          <a class="row" href="#">
+            <div class="row__m">
+              <div class="row__t">Rinvaso agrumi in terrazza</div>
+              <div class="row__d">Vasi più grandi, terriccio drenante, concime a lenta cessione.</div>
+              <div class="row__meta"><span><svg><use href="#i-pin"/></svg> Terrazza</span></div>
+            </div>
+            <span class="st st--n">Aperto</span>
+          </a>
+          <a class="row" href="#">
+            <div class="row__m">
+              <div class="row__t">Siepe di lauro lungo il recinto</div>
+              <div class="row__d">Messa a dimora di 12 piante, irrigazione a goccia il primo anno.</div>
+              <div class="row__meta"><span><svg><use href="#i-pin"/></svg> Ovest</span><span><svg><use href="#i-bandiera"/></svg> 3 maggio 2025</span></div>
+            </div>
+            <span class="st st--s">Completato</span>
+          </a>
+          <a class="row" href="#">
+            <div class="row__m">
+              <div class="row__t">Semina prato fiorito</div>
+              <div class="row__d">Zona a nord del pozzo — miscuglio da farfalle e impollinatori.</div>
+              <div class="row__meta"><span><svg><use href="#i-pin"/></svg> Orto</span></div>
+            </div>
+            <span class="st st--r">Fallito</span>
+          </a>
+        </div>
+      </div>
+      <nav class="bottomnav">
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-casa"/></svg></span>Home</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-pin"/></svg></span>Zone</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span>Piante</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-provetta"/></svg></span>Concimi</a>
+        <a href="#" class="on"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-campanella"/></svg></span>Attività</a>
+        <a href="#" class="cat"><span class="bn-ic"><svg viewBox="0 0 512 512"><use href="#zorba"/></svg></span>Zorba dice</a>
+      </nav>
+    </div>
+
+    <div class="device" data-s="prog" hidden>
+      <div class="chin">Progetto</div>
+      <div class="screen">
+        <header class="appbar"><span class="appbar__mark"><svg><use href="#zorba"/></svg> Il Giardino di Zorba</span>
+          <a class="appbar__btn" href="#"><svg viewBox="0 0 256 256"><use href="#i-persona"/></svg></a></header>
+        <div class="pad">
+          <div class="phdr">
+            <a class="back" href="#"><svg style="transform:rotate(180deg)"><use href="#ic-chev"/></svg> Progetti</a>
+            <h2>Aiuola aromatiche lato sud</h2>
+            <div class="sub"><span class="st st--g" style="margin:0">In corso</span><span><svg><use href="#i-pin"/></svg> Sud</span><span>creato il 2 settembre</span></div>
+            <p class="prose">Preparare il terreno lungo il muro a sud, seminare salvia, timo e origano, poi pacciamare con paglia. Scadenza calcolata dall'ultima tappa: 18 ottobre.</p>
+          </div>
+
+          <div class="slabel">Tappe</div>
+          <div class="path">
+            <svg class="path__svg" viewBox="0 0 20 600" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="trailGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"  stop-color="var(--sage)"/>
+                  <stop offset="34%" stop-color="var(--sage)"/>
+                  <stop offset="34%" stop-color="var(--gold)"/>
+                  <stop offset="70%" stop-color="var(--gold)"/>
+                  <stop offset="70%" stop-color="var(--faint)"/>
+                  <stop offset="100%" stop-color="var(--faint)"/>
+                </linearGradient>
+              </defs>
+              <path class="path__base"  d="M 10 4 L 10 596"/>
+              <path class="path__trail" pathLength="100" d="M 10 4 L 10 596"/>
+            </svg>
+
+            <div class="path__add"><button type="button"><svg><use href="#ic-plus"/></svg> Aggiungi tappa</button></div>
+
+            <div class="step">
+              <span class="step__dot step__dot--s" style="--d:.3s"></span>
+              <div class="step__head"><span class="step__date">4 settembre</span><span class="step__esito step__esito--s">Riuscito</span></div>
+              <p class="step__desc">Vangatura e rimozione infestanti, aggiunto stallatico maturo.</p>
+            </div>
+            <div class="path__add"><button type="button"><svg><use href="#ic-plus"/></svg></button></div>
+
+            <div class="step">
+              <span class="step__dot step__dot--g" style="--d:.55s"></span>
+              <div class="step__head"><span class="step__date">28 settembre</span><span class="step__esito step__esito--g">Atteso</span></div>
+              <p class="step__desc">Semina di salvia e timo a spaglio, leggera copertura di terriccio.</p>
+            </div>
+            <div class="path__add"><button type="button"><svg><use href="#ic-plus"/></svg></button></div>
+
+            <div class="step">
+              <span class="step__dot step__dot--f" style="--d:.8s"></span>
+              <div class="step__head"><span class="step__date">18 ottobre</span><span class="step__esito step__esito--f">Saltato</span></div>
+              <p class="step__desc">Pacciamatura con paglia — rimandata, paglia non disponibile.</p>
+            </div>
+
+            <div class="pgoal"><span class="pnode" style="--d:1.05s"></span><svg><use href="#i-bandiera"/></svg> Scadenza · 18 ottobre</div>
+          </div>
+
+          <div class="pactions">
+            <button class="btn btn--del" type="button">Elimina</button>
+            <button class="btn btn--save" type="button">Salva modifiche</button>
+          </div>
+          <div class="pfiller">Spazio in più solo nel mockup, per avere abbastanza scroll e vedere il sentiero disegnarsi man mano.</div>
+        </div>
+      </div>
+      <nav class="bottomnav">
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-casa"/></svg></span>Home</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-pin"/></svg></span>Zone</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span>Piante</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-provetta"/></svg></span>Concimi</a>
+        <a href="#" class="on"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-campanella"/></svg></span>Attività</a>
+        <a href="#" class="cat"><span class="bn-ic"><svg viewBox="0 0 512 512"><use href="#zorba"/></svg></span>Zorba dice</a>
+      </nav>
+    </div>
+
+    <div class="device" data-s="gal" hidden>
+      <div class="chin">Galleria</div>
+      <div class="screen">
+        <header class="appbar"><span class="appbar__mark"><svg><use href="#zorba"/></svg> Il Giardino di Zorba</span>
+          <a class="appbar__btn" href="#"><svg viewBox="0 0 256 256"><use href="#i-persona"/></svg></a></header>
+        <div class="pad">
+          <div class="ptitle"><h2>Galleria</h2><span class="pill"><svg><use href="#ic-plus"/></svg> Aggiungi</span></div>
+
+          <div class="gpost">
+            <div class="gpost__hd">
+              <a class="gpost__name" href="#">Rosa 'Old Blush'</a>
+              <span class="chip"><svg><use href="#i-pin"/></svg> Est</span>
+              <span class="gpost__n">3 foto</span>
+            </div>
+            <div class="gtrack">
+              <div class="gslide"><div class="gimg gimg--1"></div><div class="gov"><span>14 mar</span><span><svg><use href="#i-pin"/></svg> Est · Orto</span><span><svg><use href="#i-terra"/></svg></span></div></div>
+              <div class="gslide"><div class="gimg gimg--2"></div><div class="gov"><span>2 giu</span></div></div>
+              <div class="gslide"><div class="gimg gimg--3"></div><div class="gov"><span>1 set</span></div></div>
+            </div>
+            <div class="gdots"><span class="on"></span><span></span><span></span></div>
+          </div>
+
+          <div class="gpost">
+            <div class="gpost__hd">
+              <a class="gpost__name" href="#">Salvia officinalis</a>
+              <span class="chip"><svg><use href="#i-pin"/></svg> Sud</span>
+              <span class="gpost__n">2 foto</span>
+            </div>
+            <div class="gtrack">
+              <div class="gslide"><div class="gimg gimg--2"></div><div class="gov"><span>20 ago</span><span><svg><use href="#i-pin"/></svg> Sud</span></div></div>
+              <div class="gslide"><div class="gimg gimg--3"></div><div class="gov"><span>28 ago</span></div></div>
+            </div>
+            <div class="gdots"><span class="on"></span><span></span></div>
+          </div>
+
+          <div class="gpost">
+            <div class="gpost__hd">
+              <span class="gpost__name">Foto generiche</span>
+              <span class="gpost__n">1 foto</span>
+            </div>
+            <div class="gtrack">
+              <div class="gslide"><div class="gimg gimg--1"></div><div class="gov"><span>10 lug</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="bottomnav">
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-casa"/></svg></span>Home</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-pin"/></svg></span>Zone</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span>Piante</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-provetta"/></svg></span>Concimi</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-campanella"/></svg></span>Attività</a>
+        <a href="#" class="cat"><span class="bn-ic"><svg viewBox="0 0 512 512"><use href="#zorba"/></svg></span>Zorba dice</a>
+      </nav>
+    </div>
+
+    <div class="device" data-s="ag" hidden>
+      <div class="chin">Zorba dice</div>
+
+      <div class="hback open" id="hback"></div>
+      <aside class="hstore open" id="hstore">
+        <div class="hstore__hd"><b>Storico</b><a class="hstore__new" href="#" data-htoggle><svg><use href="#ic-plus"/></svg> Nuova</a></div>
+        <div class="hstore__list">
+          <a class="hitem on" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span><span class="hitem__m"><span class="hitem__t">Che pianta è questa?</span><span class="hitem__d">oggi · 17:04</span></span><span class="adot"></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-provetta"/></svg></span><span class="hitem__m"><span class="hitem__t">Consiglio concimazione per gli agrumi</span><span class="hitem__d">ieri · 09:20</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-lampadina"/></svg></span><span class="hitem__m"><span class="hitem__t">Pianifica: siepe di lauro lungo il recinto</span><span class="hitem__d">28 ago</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-campanella"/></svg></span><span class="hitem__m"><span class="hitem__t">Le foglie del limone ingialliscono</span><span class="hitem__d">21 ago</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span><span class="hitem__m"><span class="hitem__t">Identifica: fiore viola nell'aiuola nord</span><span class="hitem__d">14 ago</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-provetta"/></svg></span><span class="hitem__m"><span class="hitem__t">Che concime per le ortensie?</span><span class="hitem__d">2 ago</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-campanella"/></svg></span><span class="hitem__m"><span class="hitem__t">Macchie scure sulle foglie della salvia</span><span class="hitem__d">27 lug</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-lampadina"/></svg></span><span class="hitem__m"><span class="hitem__t">Pianifica: orto rialzato lato est</span><span class="hitem__d">18 lug</span></span></a>
+          <a class="hitem" href="#"><span class="hitem__ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span><span class="hitem__m"><span class="hitem__t">È infestante o va tenuta?</span><span class="hitem__d">9 lug</span></span></a>
+        </div>
+      </aside>
+
+      <div class="screen">
+        <header class="appbar"><span class="appbar__mark"><svg><use href="#zorba"/></svg> Il Giardino di Zorba</span>
+          <a class="appbar__btn" href="#"><svg viewBox="0 0 256 256"><use href="#i-persona"/></svg></a></header>
+
+        <div class="pad">
+          <button class="htoggle" type="button" data-htoggle><svg><use href="#ic-list"/></svg> Storico</button>
+          <div class="alocalhd">
+            <h2><svg><use href="#zorba"/></svg> Zorba dice</h2>
+          </div>
+          <p class="asub">Elaborato da Claude Code · risposta entro pochi minuti</p>
+
+          <div class="req">
+            <div class="reqchips">
+              <span class="reqchip on">Identifica specie</span>
+              <span class="reqchip">Consiglio cura</span>
+              <span class="reqchip">Diagnosi</span>
+              <span class="reqchip">Concimazione</span>
+              <span class="reqchip">Progetto</span>
+            </div>
+            <div class="reqbox">
+              <textarea placeholder="Descrivi cosa ti serve — allega una foto se aiuta…"></textarea>
+              <div class="reqbar">
+                <span class="ph"><svg><use href="#ic-cam"/></svg> Aggiungi foto</span>
+                <button class="reqsend" type="button">Invia</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="answer">
+            <div class="answer__hd"><svg><use href="#ic-spark"/></svg> Risposta · identifica specie · oggi 17:06</div>
+            <div class="answer__body">
+              <p>È <i>Muscari armeniacum</i>, il muscari o "uva di gatto": bulbosa perenne primaverile della famiglia delle Asparagaceae.</p>
+              <p>PlantNet la dà al 94% su questo scatto; la forma a grappolo dei fioretti ovoidali blu orlati di bianco conferma.</p>
+              <p>Va tenuta all'asciutto d'estate durante il riposo del bulbo; tende a naturalizzarsi e infittirsi, quindi tienila sotto controllo se non la vuoi invadente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <nav class="bottomnav">
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-casa"/></svg></span>Home</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-pin"/></svg></span>Zone</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-foglia"/></svg></span>Piante</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-provetta"/></svg></span>Concimi</a>
+        <a href="#"><span class="bn-ic"><svg viewBox="0 0 256 256"><use href="#i-campanella"/></svg></span>Attività</a>
+        <a href="#" class="on cat"><span class="bn-ic"><svg viewBox="0 0 512 512"><use href="#zorba"/></svg></span>Zorba dice</a>
+      </nav>
+    </div>
+  </div>
+</main>
+
+<script>
+  (function () {
+    var updaters = [];
+    var map = { 'b-prg':'prg', 'b-prog':'prog', 'b-gal':'gal', 'b-ag':'ag' };
+    var btns = Object.keys(map).map(function (id) { return document.getElementById(id); });
+    function show(s) {
+      btns.forEach(function (b) { b.setAttribute('aria-pressed', String(map[b.id] === s)); });
+      document.querySelectorAll('.device').forEach(function (d) { d.hidden = d.dataset.s !== s; });
+      requestAnimationFrame(function () { updaters.forEach(function (u) { u(); }); });
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { show(map[b.id]); }); });
+
+    var SHAPES = {
+      soft: "M 10 4 C 3 100, 17 190, 10 300 C 3 410, 17 500, 10 596",
+      wave: "M 10 4 C -5 52, 25 104, 10 156 C -5 208, 25 260, 10 312 C -5 364, 25 416, 10 468 C -5 516, 22 560, 10 596",
+      line: "M 10 4 L 10 596"
+    };
+    var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    document.querySelectorAll('.device .path').forEach(function (path) {
+      var screen = path.closest('.screen');
+      var trail = path.querySelector('.path__trail');
+      var base  = path.querySelector('.path__base');
+      var dots  = path.querySelectorAll('.step__dot, .pgoal .pnode');
+
+      function update() {
+        if (!screen || path.offsetParent === null) return;
+        if (reduce) { path.style.setProperty('--draw', 1); dots.forEach(function (d) { d.classList.add('in'); }); return; }
+        var pr = path.getBoundingClientRect(), sr = screen.getBoundingClientRect();
+        var top = pr.top - sr.top;
+        var frac = (sr.height * 0.78 - top) / (pr.height + sr.height * 0.46);
+        frac = Math.max(0, Math.min(1, frac));
+        path.style.setProperty('--draw', frac.toFixed(4));
+        dots.forEach(function (d) {
+          var dr = d.getBoundingClientRect();
+          var df = ((dr.top + dr.height / 2) - pr.top) / (pr.height || 1);
+          d.classList.toggle('in', frac >= df - 0.02);
+        });
+      }
+      if (screen) {
+        screen.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+        window.addEventListener('resize', function () { requestAnimationFrame(update); });
+      }
+      updaters.push(update);
+      requestAnimationFrame(update);
+      setTimeout(update, 90);
+    });
+
+    // Zorba dice: drawer dello storico a sinistra
+    var hstore = document.getElementById('hstore');
+    if (hstore) {
+      var back = document.getElementById('hback');
+      document.querySelectorAll('[data-htoggle]').forEach(function (b) {
+        b.addEventListener('click', function () { hstore.classList.toggle('open'); if (back) back.classList.toggle('open'); });
+      });
+      if (back) back.addEventListener('click', function () { hstore.classList.remove('open'); back.classList.remove('open'); });
+    }
+  })();
+</script>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;">Concimi</h1>
-      <button @click="apriNuovo" class="btn btn-rose" style="padding:8px 16px;">＋ Aggiungi</button>
+    <div class="page-title__row">
+      <h1 class="page-title">Concimi</h1>
+      <button @click="apriNuovo" class="pill">＋ Aggiungi</button>
     </div>
 
     <!-- Skeleton -->
@@ -14,38 +14,29 @@
     </div>
 
     <template v-else>
-      <div v-if="concimi.length" style="display:flex;flex-direction:column;gap:10px;">
-        <div v-for="c in concimi" :key="c.id" class="card hover-card"
-          :style="`padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;cursor:pointer;${c.disponibile === false ? 'opacity:.65;' : ''}`"
+      <div v-if="concimi.length" class="feedlist">
+        <div v-for="c in concimi" :key="c.id" class="feed feed--tap"
+          :style="c.disponibile === false ? 'opacity:.7' : null"
           @click="apriModifica(c)">
-          <div style="flex:1;min-width:0;">
-            <h3 class="title-serif" style="font-size:15px;font-weight:600;margin-bottom:4px;">{{ c.nome }}</h3>
-            <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;">
-              <span class="badge" style="background:var(--sage-pale);color:var(--sage-dark);">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
-              <span v-if="c.disponibile === false" class="badge badge-warn" style="display:inline-flex;align-items:center;gap:4px;">
-                <Icon name="allerta" style="width:11px;height:11px;" />Terminato
-              </span>
+          <div class="feed__m">
+            <div class="feed__n">
+              {{ c.nome }}<span v-if="c.disponibile === false" class="feed__tag">terminato</span>
             </div>
-            <p v-if="c.descrizione" class="text-light" style="font-size:12px;color:var(--ink-soft);line-height:1.5;margin-top:6px;">{{ descrizioneBreve(c) }}</p>
+            <div v-if="descrizioneBreve(c)" class="feed__d">{{ descrizioneBreve(c) }}</div>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-            <button @click.stop="toggleDisponibile(c)" :disabled="salvandoDisponibile === c.id"
-              :aria-label="c.disponibile === false ? 'Segna come disponibile' : 'Segna come terminato'"
-              class="toggle-switch" :class="{ attivo: c.disponibile !== false, salvando: salvandoDisponibile === c.id }">
-              <span class="toggle-switch-knob"><Spinner v-if="salvandoDisponibile === c.id" /></span>
-            </button>
-            <button @click.stop="avviaElimina(c)" aria-label="Elimina concime"
-              style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;padding:4px;">×</button>
-          </div>
+          <span class="feed__npk">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
+          <button @click.stop="toggleDisponibile(c)" :disabled="salvandoDisponibile === c.id"
+            :aria-label="c.disponibile === false ? 'Segna come disponibile' : 'Segna come terminato'"
+            class="toggle-switch" :class="{ attivo: c.disponibile !== false, salvando: salvandoDisponibile === c.id }">
+            <span class="toggle-switch-knob"><Spinner v-if="salvandoDisponibile === c.id" /></span>
+          </button>
+          <button @click.stop="avviaElimina(c)" aria-label="Elimina concime" class="feed__del">×</button>
         </div>
       </div>
 
-      <div v-else style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="width:64px;height:64px;border-radius:50%;background:var(--sage-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <Icon name="provetta" style="width:28px;height:28px;" />
-        </div>
-        <p class="title-serif" style="font-size:15px;color:var(--ink-soft);font-weight:600;">Nessun concime ancora</p>
-        <p class="text-light" style="font-size:12px;margin-top:6px;">Aggiungi i concimi che possiedi per ricevere suggerimenti nelle Attività</p>
+      <div v-else class="empty">
+        <Icon name="provetta" />
+        <p><b>Nessun concime ancora</b>Aggiungi i concimi che possiedi per ricevere suggerimenti nelle Attività</p>
       </div>
     </template>
 
@@ -53,7 +44,7 @@
     <Teleport to="body">
       <div v-if="mostraForm" class="overlay" @click.self="chiudiForm">
         <div class="modal-box">
-          <h3 style="font-family:var(--font-serif);font-size:16px;font-weight:600;margin-bottom:16px;">
+          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;">
             {{ modificaId ? 'Modifica concime' : 'Nuovo concime' }}
           </h3>
           <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
@@ -206,6 +197,24 @@ async function eliminaConcime() {
 </script>
 
 <style scoped>
+/* Riga concime: tap sull'intera riga apre la modale di modifica.
+   Override parent-qualificato (come .care-act in PiantaView): non ridefinisce
+   .feed globale, aggiunge solo il cursore per la riga interattiva. */
+.feedlist .feed--tap { cursor: pointer; }
+
+/* Bottone elimina inline, stile bare come prima del restyle. */
+.feedlist .feed__del {
+  flex: none;
+  background: none;
+  border: none;
+  color: var(--ink-faint);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px;
+}
+.feedlist .feed__del:hover { color: var(--rose-dark); }
+
 .overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(42,34,24,0.4);

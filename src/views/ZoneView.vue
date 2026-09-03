@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;">Zone</h1>
-      <RouterLink to="/zone/nuova" class="btn btn-rose" style="text-decoration:none;">＋ Aggiungi</RouterLink>
+    <div class="page-title__row">
+      <h1 class="page-title">Zone</h1>
+      <RouterLink to="/zone/nuova" class="pill">＋ Aggiungi</RouterLink>
     </div>
 
     <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-dark);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
@@ -10,51 +10,34 @@
     </p>
 
     <!-- Skeleton -->
-    <div v-if="store.loading" class="zone-grid">
-      <div v-for="i in 6" :key="i" class="card" style="padding:18px;min-width:0;">
-        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
-          <div class="skeleton" style="height:28px;width:28px;border-radius:50%;"></div>
-          <div class="skeleton" style="height:20px;width:60px;border-radius:999px;"></div>
-        </div>
-        <div class="skeleton" style="height:15px;width:70%;margin-bottom:8px;"></div>
-        <div class="skeleton" style="height:11px;width:90%;margin-bottom:4px;"></div>
-        <div class="skeleton" style="height:11px;width:75%;margin-bottom:14px;"></div>
-        <div class="skeleton" style="height:36px;border-radius:10px;"></div>
+    <div v-if="store.loading" class="destlist">
+      <div v-for="i in 6" :key="i" class="dest">
+        <div class="skeleton dest__ic" style="border-radius:50%;"></div>
+        <div class="skeleton" style="height:13px;flex:1;max-width:160px;border-radius:6px;"></div>
+        <div class="skeleton" style="height:11px;width:56px;border-radius:6px;"></div>
       </div>
     </div>
 
-    <div v-else-if="!zoneList.length" style="text-align:center;padding:60px 0;color:var(--ink-faint);">
-      <div style="width:56px;height:56px;border-radius:50%;background:var(--acqua-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-        <Icon name="pin" style="width:24px;height:24px;" />
-      </div>
-      <p style="color:var(--ink-soft);">Nessuna zona ancora configurata</p>
+    <div v-else-if="!zoneList.length" class="empty">
+      <Icon name="pin" />
+      <p><b>Nessuna zona</b>Non hai ancora configurato nessuna zona del giardino.</p>
     </div>
 
-    <div v-else class="zone-grid">
-      <div v-for="z in zoneList" :key="z.key" class="card hover-card" style="padding:18px;min-width:0;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--acqua-tile);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <Icon :name="z.icona ? `zona-${z.icona}` : 'pin'" style="width:18px;height:18px;" />
-          </div>
-          <span class="badge badge-gold">{{ contaPiante(z.key) }} piante</span>
-        </div>
-        <h3 class="title-display" style="font-size:16px;font-weight:600;text-transform:capitalize;margin-bottom:4px;">
-          {{ z.nome }}
-        </h3>
-        <p style="font-size:11px;color:var(--ink-soft);line-height:1.6;margin-bottom:14px;">{{ descrizioneBreve(z) }}</p>
-        <div class="zone-card-actions">
-          <RouterLink :to="`/piante?zona=${z.key}`" class="btn btn-sage" style="flex:1;padding:8px;font-size:12px;border-radius:10px;text-decoration:none;min-height:38px;">
-            Piante →
+    <div v-else class="destlist">
+      <div v-for="z in zoneList" :key="z.key" class="dest zrow">
+        <RouterLink :to="`/piante?zona=${z.key}`" class="zrow__main">
+          <Icon :name="store.iconaZona(z.key)" class="dest__ic" />
+          <span class="dest__n zname">{{ z.nome ?? z.key }}</span>
+          <span class="dest__c">{{ contaPiante(z.key) }} piante</span>
+          <Icon name="back" class="dest__chev" />
+        </RouterLink>
+        <p v-if="descrizioneZona(z)" class="zrow__desc">{{ descrizioneZona(z) }}</p>
+        <div class="zrow__act">
+          <RouterLink :to="`/zone/${z.key}/sottozone`" class="pill-mini">Sottozone</RouterLink>
+          <RouterLink :to="`/zone/${z.key}/modifica`" class="pill-mini" title="Modifica zona" aria-label="Modifica zona">
+            <Icon name="matita" />
           </RouterLink>
-          <RouterLink :to="`/zone/${z.key}/sottozone`" class="btn btn-ghost" style="padding:8px 12px;font-size:12px;border-radius:10px;text-decoration:none;min-height:38px;">
-            Sottozone
-          </RouterLink>
-          <RouterLink :to="`/zone/${z.key}/modifica`" class="btn btn-ghost" style="padding:8px 10px;font-size:13px;border-radius:10px;text-decoration:none;min-height:38px;display:flex;align-items:center;justify-content:center;">
-            <Icon name="matita" style="width:14px;height:14px;" />
-          </RouterLink>
-          <button type="button" @click="daEliminare = z.key" class="btn btn-ghost"
-            style="padding:8px 10px;font-size:16px;line-height:1;border-radius:10px;min-height:38px;display:flex;align-items:center;justify-content:center;color:var(--rose-dark);"
-            title="Elimina zona" aria-label="Elimina zona">×</button>
+          <button type="button" @click="daEliminare = z.key" class="pill-mini pill-mini--del" title="Elimina zona" aria-label="Elimina zona">×</button>
         </div>
       </div>
     </div>
@@ -71,26 +54,18 @@
 </template>
 
 <style scoped>
-/* 2 colonne su schermi larghi; sotto i 640px (soglia mobile già usata nel
-   resto dell'app) una sola colonna: con descrizione + 3 bottoni azione,
-   il contenuto della card non si restringe a sufficienza per stare in metà
-   di uno schermo stretto (grid non riduce le colonne sotto il min-content
-   dei figli), causando overflow orizzontale su telefono. */
-.zone-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-.zone-card-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-@media (max-width: 640px) {
-  .zone-grid {
-    grid-template-columns: 1fr;
-  }
-}
+a.pill { display:inline-flex; align-items:center; text-decoration:none; }
+.zrow { flex-wrap:wrap; }
+.zrow__main { display:flex; align-items:center; gap:11px; flex:1 1 100%; min-width:0; text-decoration:none; }
+.zrow__main .dest__chev { transform: rotate(180deg); }
+.zrow__act { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:4px; }
+.zname { text-transform:capitalize; }
+.zrow__act .pill-mini { cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
+.zrow__act .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
+.zrow__act .pill-mini svg { width:12px; height:12px; }
+.zrow__act .pill-mini--del { color:var(--rose-dark); }
+.zrow__act .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-dark); }
+.zrow__desc { flex: 1 1 100%; margin: 2px 0 0; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
 </style>
 
 <script setup>
@@ -113,11 +88,8 @@ const zoneList = computed(() => {
     .sort((a, b) => (a.nome ?? a.key).localeCompare(b.nome ?? b.key))
 })
 
-function descrizioneBreve(z) {
-  const testo = z.descrizione || z.microclima
-  if (!testo) return '—'
-  const pulito = testo.replace(/<[^>]+>/g, '')
-  return pulito.length > 150 ? pulito.slice(0, 150) + '…' : pulito
+function descrizioneZona(z) {
+  return (z.descrizione || z.microclima || '').replace(/<[^>]*>/g, '').trim()
 }
 
 function contaPiante(zonaKey) {

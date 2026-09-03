@@ -1,9 +1,9 @@
 <template>
-  <div class="card attivita-riga" :style="cardStyle">
+  <div class="attivita-riga" :style="cardStyle">
     <div class="attivita-riga-testata" @click="espansa = !espansa">
       <div :style="iconStyle"><Icon :name="icona(item.tipo)" style="width:18px;height:18px;" /></div>
       <div style="flex:1;min-width:0;">
-        <div class="title-serif" style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
           {{ item.nomeSpecie }}
         </div>
         <div :style="labelStyle">{{ item.label }}</div>
@@ -23,7 +23,7 @@
       <div class="attivita-riga-dettagli">
         <div v-if="pianta" style="display:flex;flex-direction:column;gap:14px;padding-top:12px;margin-top:12px;border-top:1px solid var(--cream-dark);">
           <div>
-            <p class="section-label" style="margin-bottom:8px;">Stato cure</p>
+            <p class="slabel" style="margin-bottom:8px;">Stato cure</p>
             <div style="display:flex;flex-direction:column;gap:10px;">
               <div v-for="tipo in tipiCura" :key="tipo" style="display:flex;align-items:center;gap:10px;">
                 <div :style="`width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--${TINTE_CURA[tipo] ?? 'sage'}-tile);`">
@@ -42,7 +42,7 @@
           </div>
 
           <div v-if="fabbisognoNpk && classificaConcimiPianta.length">
-            <p class="section-label" style="margin-bottom:2px;">Concimi consigliati</p>
+            <p class="slabel" style="margin-bottom:2px;">Concimi consigliati</p>
             <p style="font-size:10.5px;color:var(--ink-faint);margin:0 0 8px;">Fabbisogno attuale: {{ fabbisognoNpk }}</p>
             <div style="display:flex;flex-direction:column;gap:6px;">
               <div v-for="(c, i) in classificaConcimiPianta" :key="c.id"
@@ -60,11 +60,11 @@
           </div>
 
           <div v-if="specie?.esigenze">
-            <p class="section-label" style="margin-bottom:6px;">Esigenze</p>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div v-for="(val, chiave) in specie.esigenze" :key="chiave" style="display:flex;gap:8px;font-size:12px;">
-                <span style="color:var(--ink-faint);text-transform:capitalize;min-width:70px;flex-shrink:0;">{{ chiave }}</span>
-                <span class="text-light" style="color:var(--ink-mid);">{{ val }}</span>
+            <p class="slabel" style="margin-bottom:6px;">Esigenze</p>
+            <div class="kv">
+              <div v-for="(val, chiave) in specie.esigenze" :key="chiave">
+                <span class="k" style="text-transform:capitalize;">{{ chiave }}</span>
+                <span class="v">{{ val }}</span>
               </div>
             </div>
           </div>
@@ -141,12 +141,11 @@ async function registraCuraTipo(tipo) {
   }
 }
 
-const cardStyle = computed(() => {
-  const base = 'padding:12px 16px;'
-  return props.variante === 'urgente'
-    ? base + 'border-color:var(--rose-light);background:var(--rose-pale);'
-    : base
-})
+const cardStyle = computed(() =>
+  props.variante === 'urgente'
+    ? 'padding:12px;background:var(--rose-pale);border-radius:10px;'
+    : 'padding:12px 2px;'
+)
 
 const iconStyle = computed(() => {
   const base = 'width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;'
@@ -155,11 +154,12 @@ const iconStyle = computed(() => {
 
 const labelStyle = computed(() => {
   const base = 'font-size:11px;margin-top:2px;'
-  return base + (props.variante === 'urgente' ? 'color:var(--rose-dark);' : 'color:var(--ink-soft);')
+  return base + (props.variante === 'urgente' ? 'color:var(--rose-dark);' : 'color:var(--ink-mid);')
 })
 </script>
 
 <style scoped>
+.attivita-riga + .attivita-riga { border-top: 1px solid var(--cream-dark); }
 .attivita-riga-testata {
   display: flex; align-items: center; gap: 12px; cursor: pointer;
 }

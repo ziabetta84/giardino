@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
-      <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;">Galleria</h1>
-      <button @click="mostraFormUpload = true" class="btn btn-rose" style="padding:8px 16px;">＋ Aggiungi</button>
+    <div class="page-title__row">
+      <h1 class="page-title">Galleria</h1>
+      <button type="button" class="pill" @click="mostraFormUpload = true">＋ Aggiungi</button>
     </div>
 
     <!-- Skeleton -->
@@ -15,31 +15,22 @@
 
     <template v-else>
       <!-- Nessuna foto -->
-      <div v-if="!gruppi.length" style="text-align:center;padding:60px 20px;color:var(--ink-faint);">
-        <div style="width:64px;height:64px;border-radius:50%;background:var(--sage-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <Icon name="cornice" style="width:28px;height:28px;" />
-        </div>
-        <p class="title-serif" style="font-size:15px;color:var(--ink-soft);font-weight:600;">Nessuna foto ancora</p>
-        <p style="font-size:12px;margin-top:6px;">Fotografa le tue piante e documenta la crescita</p>
-        <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin-top:10px;">{{ errore }}</p>
+      <div v-if="!gruppi.length" class="empty">
+        <Icon name="cornice" />
+        <p><b>Nessuna foto ancora</b>Fotografa le tue piante e documenta la crescita</p>
+        <p v-if="errore" style="color:var(--rose-dark);font-size:11px;">{{ errore }}</p>
       </div>
 
       <!-- Feed: un post per pianta -->
-      <div v-else style="display:flex;flex-direction:column;gap:28px;">
-        <article v-for="g in gruppi" :key="g.piantaId" class="post">
+      <div v-else style="display:flex;flex-direction:column;gap:26px;">
+        <article v-for="g in gruppi" :key="g.piantaId" class="gpost">
           <!-- Header post -->
-          <header style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <span v-if="g.isGenerale" class="title-serif" style="font-size:14px;font-weight:600;color:var(--ink);">Foto generiche</span>
-            <template v-else>
-              <RouterLink :to="`/piante/${g.piantaId}`"
-                class="title-serif"
-                style="font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                {{ g.nomeSpecie }}
-              </RouterLink>
-              <span v-if="g.zona" class="badge badge-gold" style="flex-shrink:0;display:inline-flex;align-items:center;gap:4px;"><Icon :name="store.iconaZona(g.zona)" style="width:11px;height:11px;flex-shrink:0;" />{{ g.zona }}</span>
-            </template>
-            <span style="font-size:11px;color:var(--ink-faint);flex-shrink:0;margin-left:auto;">{{ g.foto.length }} foto</span>
-          </header>
+          <div class="gpost__hd">
+            <span v-if="g.isGenerale" class="gpost__name">Foto generiche</span>
+            <RouterLink v-else :to="`/piante/${g.piantaId}`" class="gpost__name">{{ g.nomeSpecie }}</RouterLink>
+            <span v-if="!g.isGenerale && g.zona" class="chip"><Icon :name="store.iconaZona(g.zona)" />{{ g.zona }}</span>
+            <span class="gpost__n">{{ g.foto.length }} foto</span>
+          </div>
 
           <!-- Carosello foto -->
           <div class="carosello" @scroll="e => onScrollCarosello(e, g.piantaId)">
@@ -49,25 +40,24 @@
               @touchend="annullaPressione"
               @touchmove.passive="annullaPressione"
               @touchcancel="annullaPressione">
-              <img :src="f.thumbUrl" :alt="f.nome" loading="lazy"
-                style="width:100%;height:100%;object-fit:cover;display:block;">
+              <img class="gimg" :src="f.thumbUrl" :alt="f.nome" loading="lazy">
               <!-- Overlay: data, zona/sottozona, coltivato_in -->
-              <div class="overlay">
-                <span style="font-size:11px;font-weight:600;color:#fff;">{{ f.dataBreve }}</span>
-                <span v-if="!g.isGenerale && g.zona" style="display:inline-flex;align-items:center;gap:4px;font-size:11px;color:rgba(255,255,255,0.92);">
-                  <Icon :name="g.sottozona ? store.iconaSottozona(g.zona, g.sottozona) : store.iconaZona(g.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ g.sottozona ? `${g.zona} · ${g.sottozona}` : g.zona }}
+              <div class="gov">
+                <span>{{ f.dataBreve }}</span>
+                <span v-if="!g.isGenerale && g.zona">
+                  <Icon :name="g.sottozona ? store.iconaSottozona(g.zona, g.sottozona) : store.iconaZona(g.zona)" />{{ g.sottozona ? `${g.zona} · ${g.sottozona}` : g.zona }}
                 </span>
-                <span v-if="!g.isGenerale && g.coltivatoIn" :title="labelColtivatoIn(g.coltivatoIn)" style="display:inline-flex;align-items:center;color:rgba(255,255,255,0.92);">
-                  <Icon :name="iconaColtivatoIn(g.coltivatoIn)" style="width:12px;height:12px;flex-shrink:0;" />
+                <span v-if="!g.isGenerale && g.coltivatoIn" :title="labelColtivatoIn(g.coltivatoIn)" :aria-label="labelColtivatoIn(g.coltivatoIn)">
+                  <Icon :name="iconaColtivatoIn(g.coltivatoIn)" />
                 </span>
               </div>
             </div>
           </div>
 
           <!-- Puntini indicatori -->
-          <div v-if="g.foto.length > 1" style="display:flex;justify-content:center;gap:5px;margin-top:8px;">
+          <div v-if="g.foto.length > 1" class="puntini">
             <span v-for="(f, i) in g.foto" :key="f.path"
-              :style="{ width:'6px', height:'6px', borderRadius:'50%', transition:'background 0.2s', background: (slideAttiva[g.piantaId] || 0) === i ? 'var(--rose)' : 'var(--cream-dark)' }"></span>
+              :class="{ on: (slideAttiva[g.piantaId] || 0) === i }"></span>
           </div>
         </article>
       </div>
@@ -88,7 +78,7 @@
         style="position:fixed;inset:0;z-index:200;background:rgba(42,34,24,0.4);display:flex;align-items:flex-end;justify-content:center;padding:0;">
         <div style="background:var(--white);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:520px;box-shadow:0 -8px 40px rgba(42,34,24,0.15);">
           <div style="width:36px;height:4px;background:var(--cream-dark);border-radius:2px;margin:0 auto 20px;"></div>
-          <h3 class="title-serif" style="font-size:16px;font-weight:600;margin-bottom:16px;">Aggiungi foto</h3>
+          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;color:var(--ink);">Aggiungi foto</h3>
 
           <!-- Selezione pianta -->
           <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Pianta</label>
@@ -303,13 +293,35 @@ async function caricaFoto() {
 <style scoped>
 /* Colonna feed stile Instagram: a tutta larghezza su mobile, ma limitata
    e centrata su desktop (senza il cap le foto 4:5 diventano enormi dentro
-   il max-width di 920px di .app-main). */
-.post {
+   il max-width di 920px di .app-main). `.gpost` globale porta solo il
+   margine inferiore: qui lo sostituiamo con la centratura, la spaziatura
+   tra i post la dà il `gap` del contenitore. */
+.gpost {
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
 }
 
+/* Il nome deve poter rimpicciolirsi (ellissi) invece di sfondare la riga
+   o comprimere il chip: come flex-child serve `min-width:0`. */
+.gpost__name {
+  min-width: 0;
+}
+
+/* Chip zona nell'intestazione: la `.chip` globale è tarata sulle foto
+   (testo e icona chiari su scrim scuro). Qui vive su fondo chiaro e non
+   deve comprimersi quando il nome zona è lungo (`flex:none`). */
+.gpost__hd .chip {
+  flex: none;
+  background: var(--cream-dark);
+  color: var(--ink-mid);
+  --acqua: currentColor;
+  --acqua-dark: currentColor;
+}
+
+/* Carosello: valori locali diversi dalle `.gtrack`/`.gslide` globali, che
+   sono assolute e pensate per l'header della scheda pianta. Qui scorrono
+   nel flusso con rapporto 4:5. */
 .carosello {
   display: flex;
   overflow-x: auto;
@@ -331,17 +343,15 @@ async function caricaFoto() {
   -webkit-touch-callout: none;
 }
 
-.overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 20px 12px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 10px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
-  pointer-events: none;
+/* Puntini indicatori: la `.gdots` globale è absolute (header scheda pianta);
+   qui vanno nel flusso, sotto il carosello. */
+.puntini { display: flex; justify-content: center; gap: 5px; margin-top: 8px; }
+.puntini span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cream-dark);
+  transition: background 0.2s, width 0.2s;
 }
+.puntini span.on { background: var(--rose); width: 14px; border-radius: 3px; }
 </style>
