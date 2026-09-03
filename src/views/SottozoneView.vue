@@ -37,46 +37,45 @@
       </div>
     </div>
 
-    <!-- Form nuova/modifica sottozona -->
-    <Teleport to="body">
-      <div v-if="mostraForm" class="overlay" @click.self="chiudiForm">
-        <div class="modal-box">
-          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;">
-            {{ modificaOriginale ? 'Modifica sottozona' : 'Nuova sottozona' }}
-          </h3>
-          <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
-          <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
-          <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin:6px 0 0;">{{ errore }}</p>
-          <select v-model="form.tipo" class="form-input" style="margin:10px 0;">
-            <option value="esterno">Esterno</option>
-            <option value="interno">Interno</option>
-          </select>
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Icona</label>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;margin-bottom:16px;">
-            <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
-              :class="{ active: form.icona === nome }"
-              @click="form.icona = form.icona === nome ? null : nome">
-              <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
-            </button>
-          </div>
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esposizione</label>
-          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;">
-            <label v-for="dir in ['nord','sud','est','ovest']" :key="dir"
-              style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
-              <input type="checkbox" :value="dir" v-model="form.esposizione" style="accent-color:var(--sage);">
-              {{ dir }}
-            </label>
-          </div>
-          <div style="display:flex;gap:10px;justify-content:flex-end;">
-            <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
-            <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
-              style="min-height:40px;padding:8px 16px;">
-              <Spinner v-if="salvando" /><span v-else>Salva</span>
-            </button>
-          </div>
+    <!-- Foglio nuova/modifica sottozona -->
+    <FoglioLaterale
+      :model-value="mostraForm"
+      @update:model-value="v => { if (!v) chiudiForm() }"
+      :titolo="modificaOriginale ? 'Modifica sottozona' : 'Nuova sottozona'"
+    >
+      <div v-if="mostraForm" class="foglio-form">
+        <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
+        <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
+        <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin:6px 0 0;">{{ errore }}</p>
+        <select v-model="form.tipo" class="form-input" style="margin:10px 0;">
+          <option value="esterno">Esterno</option>
+          <option value="interno">Interno</option>
+        </select>
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Icona</label>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;margin-bottom:16px;">
+          <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
+            :class="{ active: form.icona === nome }"
+            @click="form.icona = form.icona === nome ? null : nome">
+            <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
+          </button>
+        </div>
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esposizione</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <label v-for="dir in ['nord','sud','est','ovest']" :key="dir"
+            style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer;">
+            <input type="checkbox" :value="dir" v-model="form.esposizione" style="accent-color:var(--sage);">
+            {{ dir }}
+          </label>
+        </div>
+        <div class="foglio-actions">
+          <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
+          <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
+            style="min-height:40px;padding:8px 16px;">
+            <Spinner v-if="salvando" /><span v-else>Salva</span>
+          </button>
         </div>
       </div>
-    </Teleport>
+    </FoglioLaterale>
 
     <ModalConferma
       :aperto="!!daEliminare"
@@ -97,6 +96,7 @@ import { useSupabase } from '@/composables/useSupabase'
 import { ICONE_ZONA } from '@/composables/useIconeZona'
 import MiniEditor from '@/components/MiniEditor.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -268,14 +268,4 @@ async function eliminaSottozona() {
 .szrow__espo { display: inline-flex; align-items: center; gap: 4px; }
 .szrow__espo svg { width: 12px; height: 12px; flex: none; }
 
-.overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(42,34,24,0.4);
-  display: flex; align-items: center; justify-content: center; padding: 16px;
-}
-.modal-box {
-  background: var(--white); border-radius: 20px; padding: 24px;
-  width: 100%; max-width: 360px;
-  box-shadow: 0 20px 60px rgba(42,34,24,0.2);
-}
 </style>
