@@ -1,6 +1,6 @@
 <template>
   <div style="max-width:420px;margin:0 auto;">
-    <h1 class="page-title">Impostazioni</h1>
+    <h1 class="page-title" style="margin-bottom:24px">Impostazioni</h1>
 
     <div class="form-card" style="margin-bottom:12px">
       <p class="slabel">Posizione</p>

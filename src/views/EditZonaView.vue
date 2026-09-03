@@ -4,7 +4,7 @@
       ← Zone
     </RouterLink>
 
-    <h1 class="page-title">
+    <h1 class="page-title" style="margin-bottom:20px">
       {{ isNuova ? 'Nuova zona' : 'Modifica zona' }}
     </h1>
 

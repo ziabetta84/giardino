@@ -2,7 +2,7 @@
   <!-- Loggato: dentro il layout normale dell'app (vedi App.vue), quindi qui
        si può permettere titolo e card come le altre view. -->
   <div v-if="!caricamento && utente && !recuperoInCorso" style="max-width:420px;margin:0 auto;">
-    <h1 class="page-title">Account</h1>
+    <h1 class="page-title" style="margin-bottom:24px">Account</h1>
     <div class="form-card">
       <p class="slabel">Accesso effettuato</p>
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">

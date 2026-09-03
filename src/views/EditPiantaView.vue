@@ -5,7 +5,7 @@
       ← {{ isNuova ? 'Piante' : 'Dettaglio' }}
     </RouterLink>
 
-    <h1 class="page-title">
+    <h1 class="page-title" style="margin-bottom:20px">
       {{ isNuova ? 'Nuova pianta' : 'Modifica pianta' }}
     </h1>
 
