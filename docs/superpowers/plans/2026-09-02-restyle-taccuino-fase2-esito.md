@@ -25,6 +25,9 @@ Eseguita subagent-driven (1 implementer + 1 reviewer per task, fix-loop, come Fa
 5. **ConcimiView** — `.feed` è usata senza `.feed__rank` (nata per la lista "Concimi consigliati" della scheda pianta): controllare che la riga non collassi/disallinei.
 6. **GalleryView** — carosello del feed tenuto scoped (`.carosello`/`.slide`/`.puntini`): i globali Fase-1 `.gtrack/.gslide/.gdots` sono `position:absolute` (fatti per l'header foto della scheda pianta) e inservibili in-flow.
 7. **AgenteView** — lo storico ora è un drawer da sinistra a **tutte** le larghezze (prima su desktop era una colonna fissa a due colonne). Voluto dal mockup Fase 2.
+8. **Zone / Sottozone** — la lista di destinazioni **non mostra più** la descrizione/microclima della zona né descrizione/esposizione della sottozona (restano nel form di modifica). Coerente con "lista di destinazioni" (la lista "il giardino" in Home non ha descrizioni), ma è info prima visibile: confermare che va bene o chiedere di rimettere una riga secondaria compatta.
+9. **ProgettoView** — la traccia è colorata da `stroke:url(#trailGrad)` (gradiente definito nell'SVG inline della vista) mentre la regola `.path__trail` sta in `main.css`: verificare che la traccia risulti **colorata per esito**, non nera/invisibile.
+10. **AgenteView** — il puntino "in attesa" nello storico non pulsa più (`.pulse-dot` → `.adot` statico). Semplificazione Taccuino; ripristinabile se il segnale serve.
 
 ## Minori / debito tecnico raccolto
 
