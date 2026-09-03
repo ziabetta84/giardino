@@ -4,7 +4,7 @@
     <div class="foglio" :class="{ open: modelValue }" role="dialog" aria-modal="true"
       :inert="!modelValue" tabindex="-1" ref="pannello" @keydown.esc="chiudi">
       <div class="foglio__grab" aria-hidden="true"></div>
-      <div class="foglio__hd">
+      <div v-if="!senzaIntestazione" class="foglio__hd">
         <slot name="intestazione"><h3 v-if="titolo">{{ titolo }}</h3><span v-else></span></slot>
         <button type="button" class="foglio__x" aria-label="Chiudi" @click="chiudi">×</button>
       </div>
@@ -19,6 +19,7 @@ import { watch, nextTick, ref, onBeforeUnmount, onMounted } from 'vue'
 const props = defineProps({
   modelValue: { type: Boolean, default: false },
   titolo: { type: String, default: '' },
+  senzaIntestazione: { type: Boolean, default: false },
 })
 const emit = defineEmits(['update:modelValue'])
 const pannello = ref(null)
