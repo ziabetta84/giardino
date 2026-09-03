@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;margin-bottom:24px;">Meteo</h1>
+    <h1 class="page-title" style="margin-bottom:24px">Meteo</h1>
 
     <div v-if="loading" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;">
       <div v-for="i in 7" :key="i" class="card" style="padding:20px;">
@@ -24,15 +24,15 @@
           <Icon :name="adessoMeteo.icona" style="width:42px;height:42px;" />
         </div>
         <div style="flex:1;">
-          <p class="section-label" style="margin-bottom:2px;">Adesso</p>
+          <p class="slabel">Adesso</p>
           <div style="display:flex;align-items:baseline;gap:10px;">
-            <span class="title-display" style="font-size:2.1rem;font-weight:800;line-height:1;">{{ adessoMeteo.temp }}°</span>
-            <span class="text-light" style="font-size:14px;color:var(--ink-soft);">{{ adessoMeteo.descrizione }}</span>
+            <span class="meteo-temp" style="font-size:2.1rem;font-weight:800;line-height:1;">{{ adessoMeteo.temp }}°</span>
+            <span style="font-size:14px;color:var(--ink-soft);">{{ adessoMeteo.descrizione }}</span>
           </div>
         </div>
       </div>
 
-      <div v-if="avvisi.length" class="card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:16px;">
+      <div v-if="avvisi.length" class="form-card" style="padding:14px 16px;border-color:var(--rose-light);background:var(--rose-pale);margin-bottom:16px;">
         <p style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--rose-dark);margin-bottom:8px;">
           <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />Condizioni avverse in arrivo
         </p>
@@ -43,8 +43,8 @@
         </div>
       </div>
 
-      <div v-if="orarieDaAdesso.length" class="card" style="padding:16px;margin-bottom:16px;">
-        <p class="section-label" style="margin-bottom:10px;">Oggi, ora per ora</p>
+      <div v-if="orarieDaAdesso.length" class="form-card" style="margin-bottom:16px;">
+        <p class="slabel">Oggi, ora per ora</p>
         <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;">
           <div v-for="o in orarieDaAdesso" :key="o.ora"
             class="ora-box"
@@ -53,7 +53,7 @@
             <div style="font-size:11px;color:var(--ink-soft);">{{ o.label }}</div>
             <Icon :name="o.icona" style="width:22px;height:22px;margin:4px auto;" />
             <div style="font-size:12px;font-weight:600;">{{ o.temp }}°</div>
-            <div v-if="o.pioggiaProb !== null" class="text-light" style="display:flex;align-items:center;justify-content:center;gap:2px;font-size:10px;color:var(--ink-faint);margin-top:2px;">
+            <div v-if="o.pioggiaProb !== null" style="display:flex;align-items:center;justify-content:center;gap:2px;font-size:10px;color:var(--ink-faint);margin-top:2px;">
               <Icon name="goccia" style="width:9px;height:9px;" />{{ o.pioggiaProb }}%
             </div>
           </div>
@@ -67,9 +67,9 @@
           @click="apriDettaglio(g)">
           <div class="meteo-label">{{ g.label }}</div>
           <Icon :name="g.icona" style="width:40px;height:40px;margin:10px auto;" />
-          <div class="text-light" style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
+          <div style="font-size:12px;color:var(--ink-soft);margin-bottom:8px;">{{ g.descrizione }}</div>
           <div style="font-weight:600;font-size:15px;">{{ g.tMax }}° / {{ g.tMin }}°</div>
-          <div class="text-light" style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;color:var(--ink-soft);margin-top:4px;">
+          <div style="display:flex;align-items:center;justify-content:center;gap:10px;font-size:11px;color:var(--ink-soft);margin-top:4px;">
             <span style="display:flex;align-items:center;gap:3px;"><Icon name="goccia" style="width:11px;height:11px;" />{{ g.pioggia }} mm</span>
             <span style="display:flex;align-items:center;gap:3px;"><Icon name="vento" style="width:11px;height:11px;" />{{ g.vento }} km/h</span>
           </div>
@@ -87,10 +87,10 @@
             </div>
             <div>
               <div class="meteo-label" style="font-size:15px;">{{ giornoSelezionato.label }}</div>
-              <div class="text-light" style="font-size:13px;color:var(--ink-soft);">{{ giornoSelezionato.descrizione }}</div>
+              <div style="font-size:13px;color:var(--ink-soft);">{{ giornoSelezionato.descrizione }}</div>
             </div>
           </div>
-          <div class="title-display" style="font-weight:800;font-size:1.8rem;margin-bottom:18px;">
+          <div class="meteo-temp" style="font-weight:800;font-size:1.8rem;margin-bottom:18px;">
             {{ giornoSelezionato.tMax }}° / {{ giornoSelezionato.tMin }}°
           </div>
           <div class="meteo-dettaglio-stats">
@@ -177,9 +177,12 @@ onMounted(async () => {
   flex-shrink: 0;
 }
 .meteo-label {
-  font-family: var(--font-serif); font-size: 13px;
+  font-family: var(--font-display); font-size: 13px;
   font-weight: 600; color: var(--ink-mid); text-transform: capitalize;
 }
+.meteo-temp { font-family: var(--font-display); font-weight: 800; }
+.form-card > .slabel:first-child,
+.meteo-hero .slabel { margin-top: 0; }
 .ora-box { background: var(--cream); }
 .ora-corrente { background: var(--gold-pale); border: 1px solid var(--gold-light); }
 .meteo-giorni-grid {

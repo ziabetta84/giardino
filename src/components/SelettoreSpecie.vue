@@ -1,5 +1,5 @@
 <template>
-  <div class="card" style="padding:16px;position:relative;">
+  <div class="form-card" style="position:relative;">
     <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Specie *</label>
     <input
       v-model="specieQuery"

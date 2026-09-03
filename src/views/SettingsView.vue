@@ -1,9 +1,9 @@
 <template>
   <div style="max-width:420px;margin:0 auto;">
-    <h1 class="title-display gradient-title title-settle" style="font-size:1.9rem;font-weight:800;margin-bottom:16px;">Impostazioni</h1>
+    <h1 class="page-title" style="margin-bottom:24px">Impostazioni</h1>
 
-    <div class="card" style="padding:18px;margin-bottom:12px;">
-      <p class="section-label" style="margin-bottom:10px;">Posizione</p>
+    <div class="form-card" style="margin-bottom:12px">
+      <p class="slabel">Posizione</p>
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <input v-model.number="form.lat" type="number" placeholder="Latitudine" class="form-input">
         <input v-model.number="form.lon" type="number" placeholder="Longitudine" class="form-input">
@@ -11,8 +11,8 @@
       <input v-model.number="form.altitude" type="number" placeholder="Altitudine (m)" class="form-input">
     </div>
 
-    <div class="card" style="padding:18px;margin-bottom:12px;">
-      <p class="section-label" style="margin-bottom:10px;">Zona climatica</p>
+    <div class="form-card" style="margin-bottom:12px">
+      <p class="slabel">Zona climatica</p>
       <select v-model="form.zona_climatica_id" class="form-input">
         <option :value="null">Non impostata</option>
         <option v-for="z in zoneClimatiche" :key="z.id" :value="z.id">{{ z.nome }}</option>
@@ -75,3 +75,7 @@ async function salva() {
   }
 }
 </script>
+
+<style scoped>
+.form-card > .slabel:first-child { margin-top: 0; }
+</style>

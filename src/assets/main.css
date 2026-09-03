@@ -164,10 +164,14 @@ body::before {
 .pill-icona:hover:not(.active) { border-color: var(--acqua); color: var(--acqua-dark); }
 
 /* EditZonaView: sfonda il max-width di .app-main su schermi larghi, così il
-   form (in particolare la griglia icone) respira invece di allungarsi. */
+   form (in particolare la griglia icone) respira invece di allungarsi.
+   Il vecchio `margin-left: calc((100% - 1040px) / 2)` diventava negativo
+   (il contenitore è più stretto di 1040px) e spingeva il form sotto la
+   sidebar fissa da 200px. `min()` limita la larghezza a quello che c'è
+   davvero a destra della sidebar, senza margini negativi. */
 .zona-edit-wide { width: 100%; }
 @media (min-width: 1100px) {
-  .zona-edit-wide { width: 1040px; margin-left: calc((100% - 1040px) / 2); }
+  .zona-edit-wide { width: min(1040px, calc(100vw - 248px)); margin-left: 0; }
 }
 
 /* Search */
@@ -622,3 +626,17 @@ body::before {
 .answer__body { border-left:2px solid var(--sage); padding:2px 0 2px 13px; }
 .answer__body p { margin:0 0 9px; font:400 13px/1.6 var(--font-sans); color:var(--ink-mid); }
 .answer__body p:last-child { margin-bottom:0; }
+
+/* ===== restyle Fase 2 Batch 3: form e viste di servizio ===== */
+.field-label {
+  display: block; margin-bottom: 6px;
+  font: 600 11px/1.2 var(--font-sans);
+  letter-spacing: .05em; text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 14px;
+  padding: 16px;
+}
