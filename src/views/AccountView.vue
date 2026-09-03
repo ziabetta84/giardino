@@ -41,7 +41,7 @@
       </template>
     </div>
 
-    <RouterLink to="/impostazioni" class="card hover-card" style="display:flex;align-items:center;justify-content:space-between;padding:16px;margin-top:16px;text-decoration:none;color:inherit;">
+    <RouterLink to="/impostazioni" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;text-decoration:none;color:inherit;">
       <span style="font-size:14px;font-weight:600;">Impostazioni giardino</span>
       <Icon name="pin" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);" />
     </RouterLink>
