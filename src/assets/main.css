@@ -667,6 +667,18 @@ body::before {
 }
 @media (prefers-reduced-motion:reduce){ .foglio,.foglio-dim{transition:none} }
 
+/* Contenuto di un form dentro il foglio: .foglio__body è senza padding
+   di proposito (in SelettoreSpecie l'hero è a tutta larghezza). */
+.foglio-form { padding: 4px 16px 22px; }
+.foglio-form > .field-label:first-child,
+.foglio-form > label:first-child { margin-top: 0; }
+.foglio-actions {
+  display: flex; gap: 10px; justify-content: flex-end;
+  margin-top: 18px; padding-top: 14px;
+  border-top: 1px solid var(--cream-dark);
+}
+@media (min-width: 640px) { .foglio-form { padding: 4px 18px 24px; } }
+
 /* ===== "Stato cure" / calendario cure — condiviso (era scoped in PiantaView) ===== */
 .care { display: flex; flex-direction: column; }
 .care__row { display: flex; align-items: center; gap: 12px; padding: 10px 2px; }
