@@ -18,6 +18,8 @@
   --olive-light: #d8e4b0;
   --acqua:       #6f9fc0;
   --acqua-dark:  #4c7793;
+  --uovo:      #cbb994;
+  --uovo-dark: #a68f63;
 
   /* Fondo-tinta (bande/chip) e testo-su-tinta (AA) per dominio — restyle "Taccuino" */
   --acqua-bg:  #e2edf3;  --acqua-ink: #2b566e;
