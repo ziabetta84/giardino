@@ -53,6 +53,7 @@
 
     <RouterLink :to="`/piante/${piantaId}`" class="dossier-pianta__link">Apri la scheda completa →</RouterLink>
     </template>
+    <p v-else class="prose">Questa pianta non è più disponibile.</p>
   </div>
 </template>
 

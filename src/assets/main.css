@@ -699,3 +699,7 @@ body::before {
 
 /* Riga nota sotto un'etichetta (fabbisogno, messa a dimora). */
 .feed-nb { margin: -4px 0 10px; font-size: 11.5px; color: var(--ink-soft); }
+
+/* Elenco note tecniche / avvertenze (era scoped in PiantaView). */
+.notelist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.notelist li { font: 400 12.5px/1.55 var(--font-sans); color: var(--ink-mid); }

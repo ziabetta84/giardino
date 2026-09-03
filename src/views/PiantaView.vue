@@ -460,8 +460,5 @@ async function eliminaPianta() {
   font: 400 12.5px/1.4 var(--font-sans); color: var(--olive-ink);
 }
 
-/* Stato cure: .care* / .care-act* / .feed-nb ora globali in main.css. */
-
-.notelist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
-.notelist li { font: 400 12.5px/1.55 var(--font-sans); color: var(--ink-mid); }
+/* Stato cure: .care* / .care-act* / .feed-nb / .notelist ora globali in main.css. */
 </style>
