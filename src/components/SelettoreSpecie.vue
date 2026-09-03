@@ -16,7 +16,7 @@
         <div class="dd-group"><div class="slabel">Nel tuo giardino</div></div>
         <div v-for="s in speciePossedute" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
           <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
-            :style="s.immagine?.url ? { backgroundImage: `url(${urlMiniatura(s.immagine.url, 96)})` } : null">
+            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
             <Icon v-if="!s.immagine?.url" name="foglia" />
           </span>
           <span class="dd-m">
@@ -31,7 +31,7 @@
         <div class="dd-group"><div class="slabel">Nel catalogo</div></div>
         <div v-for="s in specieCatalogo" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
           <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
-            :style="s.immagine?.url ? { backgroundImage: `url(${urlMiniatura(s.immagine.url, 96)})` } : null">
+            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
             <Icon v-if="!s.immagine?.url" name="foglia" />
           </span>
           <span class="dd-m">
@@ -47,7 +47,7 @@
       <template v-else>
         <div v-for="s in specieFiltrate" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
           <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
-            :style="s.immagine?.url ? { backgroundImage: `url(${urlMiniatura(s.immagine.url, 96)})` } : null">
+            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
             <Icon v-if="!s.immagine?.url" name="foglia" />
           </span>
           <span class="dd-m">
@@ -64,7 +64,7 @@
       <p v-if="ricercaInCorso" class="dd-nota"><Spinner style="width:12px;height:12px;" />Ricerca nel catalogo…</p>
       <p v-if="ricercaOffline" class="dd-nota">Ricerca nel catalogo non disponibile offline — solo le specie già caricate.</p>
       <p v-if="!specieFiltrate.length && specieQuery.trim() && !ricercaInCorso" class="dd-nota">Nessuna specie trovata</p>
-      <p v-if="!specieQuery.trim()" class="dd-nota">Specie del tuo giardino — digita per cercare in tutto il catalogo, cultivar inclusi</p>
+      <p v-if="!specieQuery.trim()" class="dd-nota">Specie verificate — digita per cercare in tutto il catalogo, cultivar inclusi</p>
 
       <RouterLink to="/agente" class="dd-foot" @mousedown.prevent>
         <span>Non la trovi?</span><span class="dd-foot-cta">Chiedi a Zorba di aggiungerla →</span>
@@ -73,7 +73,7 @@
 
     <!-- Card compatta della specie scelta: la scheda completa vive nel foglio. -->
     <div v-if="specieSelezionata && !dropdownAperto" class="scheda-chosen">
-      <span class="sc-th" :style="hero ? { backgroundImage: `url(${hero.thumbUrl})` } : null"></span>
+      <span class="sc-th" :style="hero ? { backgroundImage: bgUrl(hero.thumbUrl) } : null"></span>
       <span class="sc-m">
         <span class="sc-nm">{{ specieSelezionata.nome }}</span>
         <span v-if="specieSelezionata.specie" class="sc-sci">{{ specieSelezionata.specie }}</span>
@@ -84,25 +84,26 @@
       </span>
     </div>
 
-    <FoglioLaterale v-if="specieSelezionata" v-model="dossierAperto">
+    <FoglioLaterale v-model="dossierAperto">
       <template #intestazione><span></span></template>
+      <template v-if="specieSelezionata">
       <div class="dossier">
         <div class="specie-ghost" aria-hidden="true"><svg viewBox="0 0 512 512" aria-hidden="true"><g transform="translate(0 512) scale(0.1 -0.1)"><path class="sg" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34 -95 -78 -115 -32 -15 -72 -17 -282 -16 -135 0 -297 6 -360 12 -213 22 -501 26 -660 8 -148 -16 -171 -21 -345 -74 -119 -36 -187 -64 -405 -169 -160 -77 -376 -157 -452 -168 l-38 -6 0 -196 0 -196 68 6 c38 4 114 16 171 28 56 11 104 19 106 17 3 -2 9 -84 15 -182 6 -99 13 -183 16 -187 2 -5 5 -41 6 -82 0 -63 -4 -81 -31 -135 -17 -34 -35 -62 -39 -62 -9 0 -131 -99 -177 -143 -20 -19 -40 -50 -45 -68 -5 -18 -14 -114 -20 -213 -6 -100 -18 -241 -27 -314 -18 -150 -12 -190 34 -237 51 -51 79 -59 211 -63 129 -4 167 3 210 41 16 15 22 31 22 64 0 54 -29 87 -91 103 -24 6 -50 13 -56 15 -21 7 -15 65 17 155 16 47 30 94 30 105 1 11 9 35 18 54 14 29 26 37 67 48 65 16 330 60 419 68 38 4 75 9 83 12 22 8 15 -14 -22 -72 -20 -30 -38 -68 -41 -84 -14 -70 74 -165 281 -302 182 -120 202 -132 275 -162 90 -37 140 -46 251 -47 82 0 102 3 145 25 80 40 95 96 41 150 -36 36 -89 55 -151 55 -38 0 -126 34 -126 49 0 4 -40 42 -90 84 -49 43 -90 83 -90 90 0 18 204 143 315 193 142 64 572 204 649 211 76 7 72 11 122 -142 18 -55 56 -163 84 -240 29 -77 65 -178 81 -225 39 -112 77 -180 116 -206 52 -35 137 -47 300 -42 201 6 263 33 263 115 0 16 -7 39 -16 52 -20 28 -88 60 -126 61 -26 0 -28 3 -28 38 0 21 4 73 9 117 6 44 13 116 16 160 3 44 10 100 15 125 6 25 21 117 35 205 28 171 62 307 126 500 112 334 130 413 155 668 17 183 12 251 -38 502 -91 465 -355 899 -680 1117 -53 36 -104 45 -137 26 -23 -13 -26 -20 -24 -61 2 -26 -1 -47 -6 -47 -5 0 -28 21 -51 47 -64 73 -139 133 -166 133 -13 0 -33 -9 -45 -21z m661 -3244 c0 -17 9 -29 31 -41 31 -16 32 -17 26 -74 -9 -84 -37 -154 -64 -158 -17 -3 -24 3 -29 24 -8 30 2 231 12 257 9 25 24 20 24 -8z"/><path class="sg" d="M124 3636 c-52 -23 -68 -73 -60 -187 26 -406 211 -760 516 -990 108 -82 230 -139 390 -184 66 -19 315 -31 424 -20 l77 7 -3 198 c-2 109 -6 201 -9 204 -3 4 -17 2 -31 -3 -14 -5 -77 -15 -140 -22 -99 -11 -132 -10 -224 2 -60 9 -127 24 -149 34 -161 74 -273 169 -363 308 -86 132 -116 202 -162 377 -48 180 -68 227 -112 260 -38 28 -110 36 -154 16z"/></g></svg></div>
 
-        <div v-if="hero" class="dh" :style="{ backgroundImage: `url(${hero.thumbUrl})` }">
+        <div v-if="hero" class="dh" :style="{ backgroundImage: bgUrl(hero.thumbUrl) }">
           <div class="dh-scrim"></div>
           <span class="dh-chip">{{ statoBadge }}</span>
           <div class="dh-cap">
             <p class="dh-name">{{ specieSelezionata.nome }}</p>
             <p v-if="specieSelezionata.specie" class="dh-sci">{{ specieSelezionata.specie }}</p>
           </div>
-          <a v-if="hero.attribuzione" :href="hero.fontePagina" target="_blank" rel="noopener"
+          <a v-if="hero.attribuzione && hero.fontePagina" :href="hero.fontePagina" target="_blank" rel="noopener"
             class="dh-credit" @click.stop>Foto: {{ hero.attribuzione }} / Wikimedia Commons</a>
         </div>
         <div v-else class="dh-np">
           <div class="np-name">{{ specieSelezionata.nome }}</div>
           <div v-if="specieSelezionata.specie" class="np-sci">{{ specieSelezionata.specie }}</div>
-          <span class="np-badge">{{ statoBadge }}</span>
+          <span class="np-badge badge-mini" :class="statoBadgeClasse">{{ statoBadge }}</span>
         </div>
 
         <div class="dossier-body">
@@ -150,6 +151,7 @@
           </template>
         </div>
       </div>
+      </template>
     </FoglioLaterale>
   </div>
 </template>
@@ -177,6 +179,13 @@ const emit = defineEmits(['update:modelValue'])
 
 const store = useDatiStore()
 const supabase = useSupabase()
+
+// Compone un valore CSS url() con la stringa fra virgolette doppie ed
+// escape di " e \ — gli URL Wikimedia sono esterni e possono contenere
+// caratteri che romperebbero un url() non quotato.
+function bgUrl(u) {
+  return u ? `url("${String(u).replace(/["\\]/g, '\\$&')}")` : null
+}
 
 const inputRef       = ref(null)
 const specieQuery    = ref('')
@@ -219,12 +228,17 @@ const specieFiltrate = computed(() => {
     .slice(0, 50)
 })
 
-// Tendina raggruppata: "Nel tuo giardino" (specie verificate) vs "Nel
-// catalogo" (il resto). Le due intestazioni compaiono solo quando entrambi
-// i gruppi hanno voci; altrimenti la lista è piatta (es. campo vuoto → solo
-// verificate).
-const speciePossedute = computed(() => specieFiltrate.value.filter(s => s.verificata))
-const specieCatalogo  = computed(() => specieFiltrate.value.filter(s => !s.verificata))
+// Tendina raggruppata: "Nel tuo giardino" (specie di cui l'utente ha almeno
+// una pianta) vs "Nel catalogo" (il resto). Il possesso si legge da
+// store.piante (p.specie è lo slug della specie, cioè s.key), non da
+// s.verificata (che è un flag di curatela sul catalogo condiviso, non
+// possesso). Le due intestazioni compaiono solo quando entrambi i gruppi
+// hanno voci; altrimenti la lista è piatta.
+const slugPossedute = computed(() =>
+  new Set(Object.values(store.piante ?? {}).map(p => p.specie).filter(Boolean))
+)
+const speciePossedute = computed(() => specieFiltrate.value.filter(s => slugPossedute.value.has(s.key)))
+const specieCatalogo  = computed(() => specieFiltrate.value.filter(s => !slugPossedute.value.has(s.key)))
 const mostraGruppi    = computed(() => speciePossedute.value.length > 0 && specieCatalogo.value.length > 0)
 
 // Ricerca live: parte da 2 caratteri (stessa soglia del filtro locale sopra),
@@ -382,6 +396,15 @@ const statoBadge = computed(() => {
   if (!s) return ''
   if (s.specie_padre_id) return 'cultivar'
   return s.stato_verifica === 'verificato' ? 'verificata' : 'bozza'
+})
+
+// Colore del chip nell'header senza foto, coerente con la tendina:
+// 'cv' (sage, cultivar) / 'bz' (gold, bozza) / '' (neutro, verificata).
+const statoBadgeClasse = computed(() => {
+  const s = specieSelezionata.value
+  if (!s) return ''
+  if (s.specie_padre_id) return 'cv'
+  return s.stato_verifica === 'verificato' ? '' : 'bz'
 })
 
 // Immagine hero della specie (Wikimedia): propria o, per i cultivar, ereditata
@@ -564,6 +587,9 @@ watch(() => props.modelValue, () => {
   padding: 2px 6px;
   border-radius: 999px;
   flex-shrink: 0;
+  /* stato "verificata": chip neutro (cv/bz sotto lo ridefiniscono) */
+  background: var(--cream-dark);
+  color: var(--ink-soft);
 }
 .badge-mini.cv { background: var(--sage-pale); color: var(--sage-dark); }
 .badge-mini.bz { background: var(--gold-pale); color: var(--gold-dark); }
@@ -729,10 +755,9 @@ watch(() => props.modelValue, () => {
   font: 700 8.5px/1 var(--font-sans);
   letter-spacing: .06em;
   text-transform: uppercase;
-  background: var(--gold-pale);
-  color: var(--gold-dark);
   padding: 3px 8px;
   border-radius: 999px;
+  /* colore da .badge-mini / .badge-mini.cv|.bz (vedi statoBadgeClasse) */
 }
 .dossier-body {
   padding: 16px 16px 26px;
