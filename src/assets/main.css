@@ -153,7 +153,7 @@ body::before {
 .pill.active { background: var(--sage); color: white; border-color: var(--sage); box-shadow: 0 2px 10px rgba(122,158,130,0.3); }
 .pill:hover:not(.active) { border-color: var(--sage-light); color: var(--sage); }
 
-/* Selettore icona zona/sottozona (EditZonaView, SottozoneView): pillole
+/* Selettore icona zona/sottozona (ZoneView, SottozoneView): pillole
    compatte quadrate, disposte in griglia dal contenitore. Da attivo sfondo
    azzurro chiaro invece del verde pieno di .pill.active, altrimenti l'icona
    azzurra (--acqua) sopra il verde è poco leggibile. */
@@ -164,17 +164,6 @@ body::before {
 }
 .pill-icona.active { background: var(--acqua-tile); color: var(--acqua-dark); border-color: var(--acqua-tile); box-shadow: none; }
 .pill-icona:hover:not(.active) { border-color: var(--acqua); color: var(--acqua-dark); }
-
-/* EditZonaView: sfonda il max-width di .app-main su schermi larghi, così il
-   form (in particolare la griglia icone) respira invece di allungarsi.
-   Il vecchio `margin-left: calc((100% - 1040px) / 2)` diventava negativo
-   (il contenitore è più stretto di 1040px) e spingeva il form sotto la
-   sidebar fissa da 200px. `min()` limita la larghezza a quello che c'è
-   davvero a destra della sidebar, senza margini negativi. */
-.zona-edit-wide { width: 100%; }
-@media (min-width: 1100px) {
-  .zona-edit-wide { width: min(1040px, calc(100vw - 248px)); margin-left: 0; }
-}
 
 /* Search */
 .search-input {

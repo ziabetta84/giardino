@@ -216,7 +216,7 @@
         <path fill="var(--sage)" d="M128,40a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,40Zm0,208a103.65,103.65,0,0,1-84-42.89c.4-27.92,56.29-43.11,84-43.11s83.6,15.19,84,43.11A103.65,103.65,0,0,1,128,248Z"/>
         <g clip-path="url(#clip-persona)"><ellipse cx="128" cy="212" rx="55" ry="18" fill="var(--sage-dark)" opacity=".4"/></g>
       </symbol>
-      <!-- Icone "tipo di zona": selezionabili in EditZonaView/SottozoneView,
+      <!-- Icone "tipo di zona": selezionabili in ZoneView/SottozoneView,
            tutte nello stesso azzurro dell'icona "Zone" nel menu (--acqua),
            un solo colore per l'intero set per non colorare di verde la
            pagina Zone. Prefisso "i-zona-" per non confondersi con le icone
