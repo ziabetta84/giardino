@@ -40,41 +40,40 @@
       </div>
     </template>
 
-    <!-- Modale nuovo/modifica -->
-    <Teleport to="body">
-      <div v-if="mostraForm" class="overlay" @click.self="chiudiForm">
-        <div class="modal-box">
-          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;">
-            {{ modificaId ? 'Modifica concime' : 'Nuovo concime' }}
-          </h3>
-          <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">NPK</label>
-          <div style="display:flex;gap:8px;margin-bottom:16px;">
-            <input v-model.number="form.n" type="number" min="0" placeholder="N" class="form-input" style="text-align:center;">
-            <input v-model.number="form.p" type="number" min="0" placeholder="P" class="form-input" style="text-align:center;">
-            <input v-model.number="form.k" type="number" min="0" placeholder="K" class="form-input" style="text-align:center;">
-          </div>
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Descrizione (opzionale)</label>
-          <textarea v-model="form.descrizione" placeholder="Preparazione, dosi, tempo di macerazione…"
-            rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:16px;">
-            <span style="font-size:13px;color:var(--ink-mid);">Disponibile in dispensa</span>
-            <button type="button" @click="form.disponibile = !form.disponibile"
-              class="toggle-switch" :class="{ attivo: form.disponibile }"
-              :aria-label="form.disponibile ? 'Segna come terminato' : 'Segna come disponibile'">
-              <span class="toggle-switch-knob"></span>
-            </button>
-          </div>
-          <div style="display:flex;gap:10px;justify-content:flex-end;">
-            <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
-            <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
-              style="min-height:40px;padding:8px 16px;">
-              <Spinner v-if="salvando" /><span v-else>Salva</span>
-            </button>
-          </div>
+    <!-- Foglio nuovo/modifica -->
+    <FoglioLaterale
+      :model-value="mostraForm"
+      @update:model-value="v => { if (!v) chiudiForm() }"
+      :titolo="modificaId ? 'Modifica concime' : 'Nuovo concime'"
+    >
+      <div v-if="mostraForm" class="foglio-form">
+        <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">NPK</label>
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <input v-model.number="form.n" type="number" min="0" placeholder="N" class="form-input" style="text-align:center;">
+          <input v-model.number="form.p" type="number" min="0" placeholder="P" class="form-input" style="text-align:center;">
+          <input v-model.number="form.k" type="number" min="0" placeholder="K" class="form-input" style="text-align:center;">
+        </div>
+        <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Descrizione (opzionale)</label>
+        <textarea v-model="form.descrizione" placeholder="Preparazione, dosi, tempo di macerazione…"
+          rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+          <span style="font-size:13px;color:var(--ink-mid);">Disponibile in dispensa</span>
+          <button type="button" @click="form.disponibile = !form.disponibile"
+            class="toggle-switch" :class="{ attivo: form.disponibile }"
+            :aria-label="form.disponibile ? 'Segna come terminato' : 'Segna come disponibile'">
+            <span class="toggle-switch-knob"></span>
+          </button>
+        </div>
+        <div class="foglio-actions">
+          <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
+          <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
+            style="min-height:40px;padding:8px 16px;">
+            <Spinner v-if="salvando" /><span v-else>Salva</span>
+          </button>
         </div>
       </div>
-    </Teleport>
+    </FoglioLaterale>
 
     <ModalConferma
       :aperto="daEliminare !== null"
@@ -92,6 +91,7 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
 import ModalConferma from '@/components/ModalConferma.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -197,9 +197,9 @@ async function eliminaConcime() {
 </script>
 
 <style scoped>
-/* Riga concime: tap sull'intera riga apre la modale di modifica.
-   Override parent-qualificato (come .care-act in PiantaView): non ridefinisce
-   .feed globale, aggiunge solo il cursore per la riga interattiva. */
+/* Riga concime: tap sull'intera riga apre il foglio di modifica.
+   Override parent-qualificato: non ridefinisce la .feed globale,
+   aggiunge solo il cursore per la riga interattiva. */
 .feedlist .feed--tap { cursor: pointer; }
 
 /* Bottone elimina inline, stile bare come prima del restyle. */
@@ -215,16 +215,6 @@ async function eliminaConcime() {
 }
 .feedlist .feed__del:hover { color: var(--rose-dark); }
 
-.overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(42,34,24,0.4);
-  display: flex; align-items: center; justify-content: center; padding: 16px;
-}
-.modal-box {
-  background: var(--white); border-radius: 20px; padding: 24px;
-  width: 100%; max-width: 360px;
-  box-shadow: 0 20px 60px rgba(42,34,24,0.2);
-}
 .toggle-switch {
   position: relative;
   width: 42px; height: 24px;
