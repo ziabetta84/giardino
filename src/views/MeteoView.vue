@@ -23,7 +23,7 @@
       <template v-if="adessoMeteo">
         <div class="slabel">Oggi</div>
         <div class="adesso" role="button" tabindex="0"
-          @click="apriDettaglio(giorni[0])" @keydown.enter="apriDettaglio(giorni[0])">
+          @click="apriDettaglio(giorni[0])" @keydown.enter="apriDettaglio(giorni[0])" @keydown.space.prevent="apriDettaglio(giorni[0])">
           <span class="adesso__ic"><Icon :name="adessoMeteo.icona" /></span>
           <div class="adesso__m">
             <div class="adesso__label">adesso</div>
@@ -63,7 +63,7 @@
         <div class="slabel">I prossimi giorni</div>
         <div class="ledger">
           <div v-for="g in giorniSuccessivi" :key="g.data" class="day" role="button" tabindex="0"
-            @click="apriDettaglio(g)" @keydown.enter="apriDettaglio(g)">
+            @click="apriDettaglio(g)" @keydown.enter="apriDettaglio(g)" @keydown.space.prevent="apriDettaglio(g)">
             <span v-if="haAvviso(g)" class="day__flag" aria-hidden="true"></span>
             <div class="day__gut">
               <div class="day__wd">{{ g.wd }}</div>
@@ -205,7 +205,7 @@ onMounted(async () => {
 .day { position: relative; display: grid; grid-template-columns: 38px 34px 1fr; grid-template-rows: auto auto;
   column-gap: 12px; align-items: center; padding: 13px 4px; cursor: pointer; }
 .day + .day { border-top: 1px solid var(--cream-dark); }
-.day:hover { background: var(--white); }
+@media (hover: hover) { .day:hover { background: var(--white); } }
 .day__flag { position: absolute; top: 10px; right: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
 .day__gut { grid-row: 1 / 3; text-align: center; line-height: 1.05; }
 .day__wd { font-family: var(--font-hand); font-weight: 600; font-size: 12.5px; text-transform: capitalize; color: var(--ink-soft); }

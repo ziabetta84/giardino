@@ -1,7 +1,7 @@
 <template>
   <div class="attivita-riga" :class="{ 'attivita-riga--urgente': variante === 'urgente' }"
     role="button" tabindex="0"
-    @click="$emit('apri-dossier', item)" @keydown.enter="$emit('apri-dossier', item)">
+    @click="$emit('apri-dossier', item)" @keydown.enter="$emit('apri-dossier', item)" @keydown.space.prevent="$emit('apri-dossier', item)">
     <span class="care__ic" :class="`care__ic--${item.tipo}`"><Icon :name="iconaCura(item.tipo)" /></span>
     <div class="attivita-riga__m">
       <div class="attivita-riga__nome">{{ item.nomeSpecie }}</div>

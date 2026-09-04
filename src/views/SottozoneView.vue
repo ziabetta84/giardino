@@ -258,7 +258,7 @@ async function eliminaSottozona() {
 <style scoped>
 .szrow { flex-wrap:wrap; }
 .szrow__act { display:flex; gap:6px; flex-wrap:wrap; }
-.dest .pill-mini { cursor:pointer; display:inline-flex; align-items:center; gap:4px; }
+.dest .pill-mini { display:inline-flex; align-items:center; gap:4px; }
 .dest .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .dest .pill-mini svg { width:12px; height:12px; }
 .dest .pill-mini--del { color:var(--rose-dark); }
