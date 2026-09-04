@@ -159,4 +159,10 @@ onMounted(async () => {
 <style scoped>
 /* L'hero arriva a filo dei bordi di .app-main (padding 28px 16px). */
 .hero { margin: -28px -16px 0; }
+
+/* Il bottone "Fatto" qui non ha ancora un handler (nessun @click) — resta
+   volutamente non wireato in questo giro. Con .pill-mini ora cursor:pointer
+   di base (per gli altri 5 usi, tutti interattivi), qui va tenuto un
+   cursore statico per non promettere un'azione che non esiste. */
+.task .pill-mini { cursor: default; }
 </style>

@@ -14,7 +14,7 @@
         <div v-for="r in richieste" :key="r.id" class="hitem-wrap">
           <a class="hitem" :class="{ on: r.id === richiestaSelezionataId }"
             role="button" tabindex="0"
-            @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)">
+            @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)" @keydown.space.prevent="selezionaRichiesta(r.id)">
             <span class="hitem__ic">
               <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
             </span>

@@ -312,6 +312,12 @@ async function caricaFoto() {
    qui serve solo evitare che si comprima quando il nome zona è lungo. */
 .gpost__hd .chip {
   flex: none;
+  /* .chip di base non forza più --acqua (ora è chiara per default): qui
+     serve ancora currentColor, altrimenti l'icona zona (acquerellata,
+     dipinta in --acqua/--acqua-dark) torna azzurra invece di seguire il
+     testo del chip. */
+  --acqua: currentColor;
+  --acqua-dark: currentColor;
 }
 
 /* Carosello: valori locali diversi dalle `.gtrack`/`.gslide` globali, che
