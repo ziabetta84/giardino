@@ -48,10 +48,12 @@ import { ref, onMounted, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { useAuth } from '@/composables/useAuth'
+import { useTema } from '@/composables/useTema'
 
 const store = useDatiStore()
 const { isAutenticato } = useApi()
 const { utente, caricamento } = useAuth()
+const { riconciliaConSettings } = useTema()
 
 const tokenOk     = ref(isAutenticato())
 const mostraBanner = ref(true)
@@ -77,6 +79,7 @@ let idUtenteCaricato = null
 onMounted(async () => {
   await store.caricaTutto()
   idUtenteCaricato = utente.value?.id ?? null
+  riconciliaConSettings()
 
   // Confrontiamo solo l'id (stringa primitiva), non l'intero oggetto utente:
   // onAuthStateChange riemette un nuovo oggetto anche per eventi che non

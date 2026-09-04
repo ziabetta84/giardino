@@ -19,6 +19,14 @@
       </select>
     </div>
 
+    <div class="form-card" style="margin-bottom:12px">
+      <p class="slabel">Aspetto</p>
+      <select :value="tema" @change="impostaTema($event.target.value)" class="form-input">
+        <option value="light">Chiaro</option>
+        <option value="dark">Scuro</option>
+      </select>
+    </div>
+
     <p v-if="errore" style="font-size:12px;color:var(--rose-dark);margin-bottom:10px;">{{ errore }}</p>
 
     <button @click="salva" :disabled="salvando" class="btn btn-sage" style="width:100%;min-height:44px;">
@@ -32,11 +40,13 @@ import { ref, onMounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSettingsApi } from '@/composables/useSettingsApi'
 import { useSupabase } from '@/composables/useSupabase'
+import { useTema } from '@/composables/useTema'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
 const settingsApi = useSettingsApi()
 const supabase = useSupabase()
+const { tema, impostaTema } = useTema()
 
 const salvando = ref(false)
 const errore = ref(null)
@@ -65,7 +75,7 @@ async function salva() {
       location: { lat: form.value.lat, lon: form.value.lon, altitude: form.value.altitude },
       units: store.settings?.units ?? { temperature: 'celsius', wind: 'kmh', precipitation: 'mm' },
       meteo: store.settings?.meteo ?? { provider: 'open-meteo', days: 3 },
-      ui: store.settings?.ui ?? { theme: 'auto' },
+      ui: store.settings?.ui ?? { theme: 'light' },
       zona_climatica_id: form.value.zona_climatica_id,
     })
   } catch (e) {

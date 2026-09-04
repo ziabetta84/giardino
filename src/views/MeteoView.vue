@@ -205,7 +205,7 @@ onMounted(async () => {
 .day__flag { position: absolute; top: 10px; right: 2px; width: 6px; height: 6px; border-radius: 50%; background: var(--rose); }
 .day__gut { grid-row: 1 / 3; text-align: center; line-height: 1.05; }
 .day__wd { font-family: var(--font-hand); font-weight: 600; font-size: 12.5px; text-transform: capitalize; color: var(--ink-soft); }
-.day__dm { font-family: var(--font-display); font-size: 18px; color: #000; }
+.day__dm { font-family: var(--font-display); font-size: 18px; color: var(--ink); }
 .day__i { grid-row: 1 / 3; width: 34px; height: 34px; }
 .day__i svg { width: 100%; height: 100%; display: block; }
 .day__desc { display: flex; align-items: baseline; gap: 8px; min-width: 0; font-size: 12.5px; color: var(--ink-mid); }
