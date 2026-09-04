@@ -20,18 +20,20 @@
     </div>
 
     <template v-else>
-      <div class="slabel">Oggi</div>
-      <div v-if="adessoMeteo" class="adesso" role="button" tabindex="0"
-        @click="apriDettaglio(giorni[0])" @keydown.enter="apriDettaglio(giorni[0])">
-        <span class="adesso__ic"><Icon :name="adessoMeteo.icona" /></span>
-        <div class="adesso__m">
-          <div class="adesso__label">adesso</div>
-          <div class="adesso__temp">{{ adessoMeteo.temp }}<sup>°</sup></div>
-          <div class="adesso__desc">
-            <b>{{ adessoMeteo.descrizione }}</b><template v-if="adessoMeteo.umidita != null"> · umidità {{ adessoMeteo.umidita }}%</template><template v-if="adessoMeteo.vento != null"> · vento {{ adessoMeteo.vento }} km/h</template>
+      <template v-if="adessoMeteo">
+        <div class="slabel">Oggi</div>
+        <div class="adesso" role="button" tabindex="0"
+          @click="apriDettaglio(giorni[0])" @keydown.enter="apriDettaglio(giorni[0])">
+          <span class="adesso__ic"><Icon :name="adessoMeteo.icona" /></span>
+          <div class="adesso__m">
+            <div class="adesso__label">adesso</div>
+            <div class="adesso__temp">{{ adessoMeteo.temp }}<sup>°</sup></div>
+            <div class="adesso__desc">
+              <b>{{ adessoMeteo.descrizione }}</b><template v-if="adessoMeteo.umidita != null"> · umidità {{ adessoMeteo.umidita }}%</template><template v-if="adessoMeteo.vento != null"> · vento {{ adessoMeteo.vento }} km/h</template>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
 
       <template v-if="orarieDaAdesso.length">
         <div class="slabel">Le prossime ore</div>
@@ -57,27 +59,29 @@
         </div>
       </div>
 
-      <div class="slabel">I prossimi giorni</div>
-      <div class="ledger">
-        <div v-for="g in giorniSuccessivi" :key="g.data" class="day" role="button" tabindex="0"
-          @click="apriDettaglio(g)" @keydown.enter="apriDettaglio(g)">
-          <span v-if="haAvviso(g)" class="day__flag" aria-hidden="true"></span>
-          <div class="day__gut">
-            <div class="day__wd">{{ g.wd }}</div>
-            <div class="day__dm">{{ g.dm }}</div>
-          </div>
-          <span class="day__i"><Icon :name="g.icona" /></span>
-          <div class="day__desc">
-            <span class="nm">{{ g.descrizione }}</span>
-            <span class="day__rain">{{ g.pioggia }} mm</span>
-          </div>
-          <div class="exc">
-            <span class="exc__lo">{{ g.tMin }}°</span>
-            <span class="exc__track"><span class="exc__fill" :style="excStyle(g)"></span></span>
-            <span class="exc__hi">{{ g.tMax }}°</span>
+      <template v-if="giorniSuccessivi.length">
+        <div class="slabel">I prossimi giorni</div>
+        <div class="ledger">
+          <div v-for="g in giorniSuccessivi" :key="g.data" class="day" role="button" tabindex="0"
+            @click="apriDettaglio(g)" @keydown.enter="apriDettaglio(g)">
+            <span v-if="haAvviso(g)" class="day__flag" aria-hidden="true"></span>
+            <div class="day__gut">
+              <div class="day__wd">{{ g.wd }}</div>
+              <div class="day__dm">{{ g.dm }}</div>
+            </div>
+            <span class="day__i"><Icon :name="g.icona" /></span>
+            <div class="day__desc">
+              <span class="nm">{{ g.descrizione }}</span>
+              <span class="day__rain">{{ g.pioggia }} mm</span>
+            </div>
+            <div class="exc">
+              <span class="exc__lo">{{ g.tMin }}°</span>
+              <span class="exc__track"><span class="exc__fill" :style="excStyle(g)"></span></span>
+              <span class="exc__hi">{{ g.tMax }}°</span>
+            </div>
           </div>
         </div>
-      </div>
+      </template>
     </template>
 
     <FoglioLaterale

@@ -74,7 +74,7 @@ function valutaAvvisi(g) {
 export function useMeteo() {
   const giorni      = ref([])
   const oggi        = ref(null)
-  const loading     = ref(false)
+  const loading     = ref(true)
   const errore      = ref(null)
 
   async function carica(lat, lon, days = 7) {
