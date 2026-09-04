@@ -38,6 +38,29 @@ function mediaGiorno(orari, valori, dataGiorno) {
   return conteggio ? somma / conteggio : null
 }
 
+// Le 24 ore che cadono in un giorno (stringa "YYYY-MM-DD"): stessa forma
+// usata finora da orarieOggi. La risposta Open-Meteo contiene già 7×24
+// punti orari (forecast_days vale anche per hourly), prima ne usavamo solo 24.
+function oreDelGiorno(h, dataGiorno) {
+  if (!h?.time) return []
+  const ore = []
+  for (let i = 0; i < h.time.length; i++) {
+    if (!h.time[i].startsWith(dataGiorno)) continue
+    ore.push({
+      ora: h.time[i],
+      label: h.time[i].slice(11, 16),
+      icona: WMO[h.weathercode[i]] ?? 'meteo',
+      descrizione: WMO_LABEL[h.weathercode[i]] ?? '',
+      temp: Math.round(h.temperature_2m[i]),
+      pioggiaProb: h.precipitation_probability?.[i] ?? null,
+      vento: Math.round(h.windspeed_10m[i]),
+      umidita: h.relative_humidity_2m?.[i] ?? null,
+      umiditaSuolo: h.soil_moisture_0_to_1cm?.[i] != null ? Math.round(h.soil_moisture_0_to_1cm[i] * 100) : null,
+    })
+  }
+  return ore
+}
+
 function valutaAvvisi(g) {
   const avvisi = []
   if (g.tMin <= 3) avvisi.push({ icona:'gelo', testo:`Rischio gelo (min ${g.tMin}°)` })
@@ -51,8 +74,7 @@ function valutaAvvisi(g) {
 export function useMeteo() {
   const giorni      = ref([])
   const oggi        = ref(null)
-  const orarieOggi  = ref([])
-  const loading     = ref(false)
+  const loading     = ref(true)
   const errore      = ref(null)
 
   async function carica(lat, lon, days = 7) {
@@ -69,9 +91,12 @@ export function useMeteo() {
       giorni.value = d.time.map((data, i) => {
         const umidita = mediaGiorno(h?.time, h?.relative_humidity_2m, data)
         const umiditaSuolo = mediaGiorno(h?.time, h?.soil_moisture_0_to_1cm, data)
+        const giornoDate = new Date(data)
         return {
           data,
-          label: new Date(data).toLocaleDateString('it-IT', { weekday:'short', day:'numeric', month:'short' }),
+          label: giornoDate.toLocaleDateString('it-IT', { weekday:'short', day:'numeric', month:'short' }),
+          wd: giornoDate.toLocaleDateString('it-IT', { weekday:'short' }),
+          dm: giornoDate.toLocaleDateString('it-IT', { day:'numeric' }),
           codice: d.weathercode[i],
           icona: WMO[d.weathercode[i]] ?? 'meteo',
           descrizione: WMO_LABEL[d.weathercode[i]] ?? '',
@@ -82,21 +107,10 @@ export function useMeteo() {
           umidita: umidita != null ? Math.round(umidita) : null,
           umiditaSuolo: umiditaSuolo != null ? Math.round(umiditaSuolo * 100) : null,
           evapotraspirazione: d.et0_fao_evapotranspiration?.[i]?.toFixed(1) ?? null,
+          ore: oreDelGiorno(h, data),
         }
       })
       oggi.value = giorni.value[0] ?? null
-
-      orarieOggi.value = h?.time ? h.time.slice(0, 24).map((ora, i) => ({
-        ora,
-        label: ora.slice(11, 16),
-        icona: WMO[h.weathercode[i]] ?? 'meteo',
-        descrizione: WMO_LABEL[h.weathercode[i]] ?? '',
-        temp: Math.round(h.temperature_2m[i]),
-        pioggiaProb: h.precipitation_probability?.[i] ?? null,
-        vento: Math.round(h.windspeed_10m[i]),
-        umidita: h.relative_humidity_2m?.[i] ?? null,
-        umiditaSuolo: h.soil_moisture_0_to_1cm?.[i] != null ? Math.round(h.soil_moisture_0_to_1cm[i] * 100) : null,
-      })) : []
     } catch (e) {
       errore.value = e.message
     } finally {
@@ -107,6 +121,10 @@ export function useMeteo() {
   const avvisi = computed(() => giorni.value.flatMap((g, i) =>
     valutaAvvisi(g).map(a => ({ ...a, giorno: i === 0 ? 'Oggi' : g.label, key: `${g.data}-${a.testo}` }))
   ))
+
+  // Le ore di oggi: prima era un ref popolato a mano, ora deriva dal primo
+  // giorno (che ha già il suo array `ore`). Export invariato.
+  const orarieOggi = computed(() => giorni.value[0]?.ore ?? [])
 
   return { giorni, oggi, orarieOggi, avvisi, loading, errore, carica }
 }
