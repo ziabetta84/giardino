@@ -37,8 +37,8 @@
         </div>
         <div class="phead-cap">
           <span class="phead-cap__chips">
-            <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
-            <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
+            <span class="chip chip--on-photo"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+            <span v-if="pianta.coltivato_in" class="chip chip--ic chip--on-photo" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
           </span>
           <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
           <p class="pbino">{{ specie?.specie }}</p>
@@ -54,8 +54,8 @@
         <div class="phead-text__body">
           <div class="phead-text__id">
             <span class="phead-text__chips">
-              <span class="phead-text__chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
-              <span v-if="pianta.coltivato_in" class="phead-text__chip phead-text__chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
+              <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+              <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
             </span>
             <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
             <p class="phead-text__bino">{{ specie?.specie }}</p>
@@ -65,11 +65,11 @@
       </div>
 
       <!-- Alert cura: unico blocco sollevato, tinta olive, solo icona a sinistra -->
-      <div v-if="cureUrgenti.length" class="card alert-cura">
-        <span class="alert-cura__ic"><Icon name="campanella" /></span>
-        <div class="alert-cura__main">
-          <div class="alert-cura__title">Da curare subito</div>
-          <div class="alert-cura__rows">
+      <div v-if="cureUrgenti.length" class="card alertbox">
+        <span class="alertbox__ic"><Icon name="campanella" /></span>
+        <div class="alertbox__main">
+          <div class="alertbox__title">Da curare subito</div>
+          <div class="alertbox__rows">
             <div v-for="c in cureUrgenti" :key="c.tipo" class="alert-cura__row">
               <span>{{ c.label }}</span>
               <button class="care-act care-act--rose" type="button" @click="registraCura(c.tipo)" :disabled="salvando === c.tipo">
@@ -411,13 +411,6 @@ async function eliminaPianta() {
 }
 .phead-text__back svg { width: 15px; height: 15px; }
 .phead-text__body { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.phead-text__chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  font: 700 9.5px/1 var(--font-sans); letter-spacing: .05em; text-transform: uppercase;
-  color: var(--ink-mid); background: var(--cream-dark);
-  padding: 4px 9px; border-radius: 999px;
-}
-.phead-text__chip svg { width: 11px; height: 11px; }
 .phead-text__name {
   font: 700 24px/1.12 var(--font-display); color: var(--ink);
   letter-spacing: -0.01em; margin: 8px 0 2px; text-wrap: balance;
@@ -428,7 +421,6 @@ async function eliminaPianta() {
   color: var(--ink-soft); margin: 0;
 }
 .phead-text__chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.phead-text__chip--ic { padding: 4px 7px; }
 .phead-text__edit {
   flex: none; display: inline-flex; align-items: center; gap: 6px;
   font: 600 11px/1 var(--font-sans); color: var(--ink-mid);
@@ -437,24 +429,9 @@ async function eliminaPianta() {
 }
 .phead-text__edit svg { width: 12px; height: 12px; }
 
-/* Alert cura: unico blocco sollevato, tinta olive, sola icona a sinistra.
-   Sobrio come nel mockup: niente ombra, bordo tenue, icona tinta (non bianca). */
-.alert-cura {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: 14px 15px; margin: 16px 0 0;
-  background: var(--olive-bg);
-  border: 1px solid color-mix(in srgb, var(--olive) 28%, transparent);
-  border-radius: 16px; box-shadow: none;
-}
-.alert-cura__ic {
-  flex: none; width: 36px; height: 36px; border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  background: color-mix(in srgb, var(--olive) 16%, var(--cream)); color: var(--olive-ink);
-}
-.alert-cura__ic svg { width: 20px; height: 20px; }
-.alert-cura__main { flex: 1; min-width: 0; }
-.alert-cura__title { font: 600 14px/1.25 var(--font-display); color: var(--olive-ink); }
-.alert-cura__rows { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+/* Alert cura: .alertbox* ora globale in main.css. .alert-cura__row resta
+   scoped qui: la riga (label + bottone) ha un layout diverso da quella
+   degli avvisi meteo. */
 .alert-cura__row {
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   font: 400 12.5px/1.4 var(--font-sans); color: var(--olive-ink);

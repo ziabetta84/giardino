@@ -673,6 +673,8 @@ watch(() => props.modelValue, () => {
   background: var(--cream-dark);
   color: var(--ink-mid);
 }
+.dossier-x:hover { opacity: .85; }
+.dossier-x:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .dossier :deep(.specie-ghost svg) {
   display: block;
   width: 100%;

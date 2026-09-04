@@ -67,7 +67,12 @@ const chart = computed(() => {
   const ore = props.giorno?.ore ?? []
   if (ore.length < 2) return null
   const W = 320, H = 92, pad = 6, bandaUmido = 34
-  const temps = ore.map(o => o.temp)
+  // Solo le ore con temperatura nota entrano nel range/nella linea: Math.round(null)
+  // sarebbe 0, un punto spurio che trascinerebbe giù tMin. In pratica Open-Meteo
+  // non restituisce mai null qui, ma teniamolo esplicito.
+  const puntiTemp = ore.map((o, i) => (o.temp != null ? { i, t: o.temp } : null)).filter(Boolean)
+  if (puntiTemp.length < 2) return null
+  const temps = puntiTemp.map(p => p.t)
   const tMin = Math.min(...temps)
   const tMax = Math.max(...temps)
   const tSpan = (tMax - tMin) || 1
@@ -78,7 +83,9 @@ const chart = computed(() => {
   const yPerc = p => base - (Math.max(0, Math.min(100, p ?? 0)) / 100) * bandaUmido
   const nx = i => x(i).toFixed(1)
 
-  const tempPoints = ore.map((o, i) => `${nx(i)},${yTemp(o.temp).toFixed(1)}`).join(' ')
+  // Le ore senza temperatura lasciano un vuoto nella linea (indice invariato,
+  // per restare allineate a pioggia/umidità che usano tutte le 24 ore).
+  const tempPoints = puntiTemp.map(({ i, t }) => `${nx(i)},${yTemp(t).toFixed(1)}`).join(' ')
   // Probabilità di pioggia come area continua: pavimento → profilo → pavimento.
   const rainArea = `M${nx(0)},${base} `
     + ore.map((o, i) => `L${nx(i)},${yPerc(o.pioggiaProb).toFixed(1)}`).join(' ')
@@ -89,14 +96,16 @@ const chart = computed(() => {
     ? ore.map((o, i) => `${nx(i)},${yPerc(o.umidita).toFixed(1)}`).join(' ')
     : null
 
+  const primo = puntiTemp[0]
+  const ultimo = puntiTemp[puntiTemp.length - 1]
   return {
     W, H, base,
     bandX: pad.toFixed(1), bandY: bandaTop.toFixed(1),
     bandW: (W - 2 * pad).toFixed(1), bandH: bandaUmido.toFixed(1),
     x0: nx(0), xN: nx(ore.length - 1),
     tempPoints, rainArea, umidPoints,
-    first: { x: nx(0), y: yTemp(ore[0].temp).toFixed(1) },
-    last: { x: nx(ore.length - 1), y: yTemp(ore[ore.length - 1].temp).toFixed(1) },
+    first: { x: nx(primo.i), y: yTemp(primo.t).toFixed(1) },
+    last: { x: nx(ultimo.i), y: yTemp(ultimo.t).toFixed(1) },
   }
 })
 

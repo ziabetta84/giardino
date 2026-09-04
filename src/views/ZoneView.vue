@@ -102,7 +102,7 @@
 .zrow__main .dest__chev { transform: rotate(180deg); }
 .zrow__act { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:4px; }
 .zname { text-transform:capitalize; }
-.zrow__act .pill-mini { cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
+.zrow__act .pill-mini { text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
 .zrow__act .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .zrow__act .pill-mini svg { width:12px; height:12px; }
 .zrow__act .pill-mini--del { color:var(--rose-dark); }

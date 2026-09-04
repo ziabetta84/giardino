@@ -308,13 +308,14 @@ async function caricaFoto() {
   min-width: 0;
 }
 
-/* Chip zona nell'intestazione: la `.chip` globale è tarata sulle foto
-   (testo e icona chiari su scrim scuro). Qui vive su fondo chiaro e non
-   deve comprimersi quando il nome zona è lungo (`flex:none`). */
+/* Chip zona nell'intestazione: la .chip globale è già chiara di base;
+   qui serve solo evitare che si comprima quando il nome zona è lungo. */
 .gpost__hd .chip {
   flex: none;
-  background: var(--cream-dark);
-  color: var(--ink-mid);
+  /* .chip di base non forza più --acqua (ora è chiara per default): qui
+     serve ancora currentColor, altrimenti l'icona zona (acquerellata,
+     dipinta in --acqua/--acqua-dark) torna azzurra invece di seguire il
+     testo del chip. */
   --acqua: currentColor;
   --acqua-dark: currentColor;
 }
