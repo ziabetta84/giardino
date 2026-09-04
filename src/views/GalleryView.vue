@@ -308,15 +308,10 @@ async function caricaFoto() {
   min-width: 0;
 }
 
-/* Chip zona nell'intestazione: la `.chip` globale è tarata sulle foto
-   (testo e icona chiari su scrim scuro). Qui vive su fondo chiaro e non
-   deve comprimersi quando il nome zona è lungo (`flex:none`). */
+/* Chip zona nell'intestazione: la .chip globale è già chiara di base;
+   qui serve solo evitare che si comprima quando il nome zona è lungo. */
 .gpost__hd .chip {
   flex: none;
-  background: var(--cream-dark);
-  color: var(--ink-mid);
-  --acqua: currentColor;
-  --acqua-dark: currentColor;
 }
 
 /* Carosello: valori locali diversi dalle `.gtrack`/`.gslide` globali, che

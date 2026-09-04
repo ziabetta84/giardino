@@ -383,9 +383,10 @@ body::before {
 .phead-cap { position:absolute; left:16px; right:16px; bottom:20px; z-index:2; color:#fdf8ee;
   pointer-events:none; }
 .chip { display:inline-flex; align-items:center; gap:5px; font:700 9.5px/1 var(--font-sans);
-  letter-spacing:.05em; text-transform:uppercase; background:rgba(253,248,238,.22); color:#fdf8ee;
-  padding:4px 9px; border-radius:999px; --acqua:#fdf8ee; --acqua-dark:#fdf8ee; }
+  letter-spacing:.05em; text-transform:uppercase; background:var(--cream-dark); color:var(--ink-mid);
+  padding:4px 9px; border-radius:999px; }
 .chip svg { width:11px; height:11px; }
+.chip--on-photo { background:rgba(253,248,238,.22); color:#fdf8ee; --acqua:#fdf8ee; --acqua-dark:#fdf8ee; }
 .pname { font:700 24px/1.12 var(--font-display); color:#fdf8ee; margin:8px 0 2px;
   letter-spacing:-0.01em; text-shadow:0 2px 14px rgba(0,0,0,.35); text-wrap:balance; }
 .pname i { font-weight:400; }

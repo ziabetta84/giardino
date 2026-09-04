@@ -37,8 +37,8 @@
         </div>
         <div class="phead-cap">
           <span class="phead-cap__chips">
-            <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
-            <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
+            <span class="chip chip--on-photo"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+            <span v-if="pianta.coltivato_in" class="chip chip--ic chip--on-photo" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
           </span>
           <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
           <p class="pbino">{{ specie?.specie }}</p>
@@ -54,8 +54,8 @@
         <div class="phead-text__body">
           <div class="phead-text__id">
             <span class="phead-text__chips">
-              <span class="phead-text__chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
-              <span v-if="pianta.coltivato_in" class="phead-text__chip phead-text__chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
+              <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+              <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
             </span>
             <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
             <p class="phead-text__bino">{{ specie?.specie }}</p>
@@ -411,13 +411,6 @@ async function eliminaPianta() {
 }
 .phead-text__back svg { width: 15px; height: 15px; }
 .phead-text__body { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
-.phead-text__chip {
-  display: inline-flex; align-items: center; gap: 5px;
-  font: 700 9.5px/1 var(--font-sans); letter-spacing: .05em; text-transform: uppercase;
-  color: var(--ink-mid); background: var(--cream-dark);
-  padding: 4px 9px; border-radius: 999px;
-}
-.phead-text__chip svg { width: 11px; height: 11px; }
 .phead-text__name {
   font: 700 24px/1.12 var(--font-display); color: var(--ink);
   letter-spacing: -0.01em; margin: 8px 0 2px; text-wrap: balance;
@@ -428,7 +421,6 @@ async function eliminaPianta() {
   color: var(--ink-soft); margin: 0;
 }
 .phead-text__chips { display: flex; gap: 6px; flex-wrap: wrap; }
-.phead-text__chip--ic { padding: 4px 7px; }
 .phead-text__edit {
   flex: none; display: inline-flex; align-items: center; gap: 6px;
   font: 600 11px/1 var(--font-sans); color: var(--ink-mid);
