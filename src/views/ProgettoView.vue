@@ -1,8 +1,6 @@
 <template>
   <div>
-    <RouterLink to="/progetti" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
-      ← Progetti
-    </RouterLink>
+    <RouterLink to="/progetti" class="back-link"><Icon name="back" /> Progetti</RouterLink>
 
     <template v-if="store.loading">
       <div class="skeleton" style="height:28px;width:60%;margin-bottom:8px;"></div>

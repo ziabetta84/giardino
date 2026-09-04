@@ -9,7 +9,7 @@
     </template>
 
     <template v-else-if="!pianta">
-      <RouterLink to="/piante" class="phead-text__back"><Icon name="back" /> Piante</RouterLink>
+      <RouterLink to="/piante" class="back-link"><Icon name="back" /> Piante</RouterLink>
       <div style="text-align:center;padding:60px 0;color:var(--ink-faint);">
         <div style="width:56px;height:56px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
           <Icon name="foglia" style="width:24px;height:24px;" />
@@ -40,7 +40,7 @@
             <span class="chip chip--on-photo"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
             <span v-if="pianta.coltivato_in" class="chip chip--ic chip--on-photo" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
           </span>
-          <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
+          <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
           <p class="pbino">{{ specie?.specie }}</p>
         </div>
         <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
@@ -50,14 +50,14 @@
 
       <!-- Header testuale ridotto: nessuna foto disponibile -->
       <div v-else class="phead-text">
-        <RouterLink to="/piante" class="phead-text__back"><Icon name="back" /> Piante</RouterLink>
+        <RouterLink to="/piante" class="back-link"><Icon name="back" /> Piante</RouterLink>
         <div class="phead-text__body">
           <div class="phead-text__id">
             <span class="phead-text__chips">
               <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
               <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
             </span>
-            <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta"> {{ pianta.varieta }}</i></h1>
+            <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
             <p class="phead-text__bino">{{ specie?.specie }}</p>
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
@@ -404,12 +404,6 @@ async function eliminaPianta() {
 
 /* Header testuale ridotto (nessuna foto disponibile). */
 .phead-text { margin: -8px 0 4px; }
-.phead-text__back {
-  display: inline-flex; align-items: center; gap: 6px;
-  font: 400 13px/1 var(--font-sans); color: var(--ink-soft);
-  text-decoration: none; margin-bottom: 16px;
-}
-.phead-text__back svg { width: 15px; height: 15px; }
 .phead-text__body { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
 .phead-text__name {
   font: 700 24px/1.12 var(--font-display); color: var(--ink);
