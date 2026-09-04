@@ -716,3 +716,21 @@ body::before {
 .exc--lg .exc__hi { color:var(--gold-ink); font-size:15px; }
 .exc--lg .exc__track { height:8px; }
 .exc--lg .exc__fill { left:0; right:0; }
+
+/* ===== Blocco avviso — icona in tessera + titolo + righe, tinta per dominio =====
+   Base olive (PiantaView "Da curare subito"); .alertbox--rose per gli avvisi
+   meteo. Il contenuto della riga (.__row) resta scoped nel consumatore: il
+   layout differisce (label+bottone vs icona+testo). */
+.alertbox { display:flex; gap:12px; align-items:flex-start; padding:14px 15px; margin:16px 0 0;
+  background:var(--olive-bg); border:1px solid color-mix(in srgb, var(--olive) 28%, transparent);
+  border-radius:16px; box-shadow:none; }
+.alertbox__ic { flex:none; width:36px; height:36px; border-radius:11px;
+  display:flex; align-items:center; justify-content:center;
+  background:color-mix(in srgb, var(--olive) 16%, var(--cream)); color:var(--olive-ink); }
+.alertbox__ic svg { width:20px; height:20px; }
+.alertbox__main { flex:1; min-width:0; }
+.alertbox__title { font:600 14px/1.25 var(--font-display); color:var(--olive-ink); }
+.alertbox__rows { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+.alertbox--rose { background:var(--rose-bg); border-color:color-mix(in srgb, var(--rose) 28%, transparent); }
+.alertbox--rose .alertbox__ic { background:color-mix(in srgb, var(--rose) 16%, var(--cream)); color:var(--rose-ink); }
+.alertbox--rose .alertbox__title { color:var(--rose-ink); }

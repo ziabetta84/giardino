@@ -47,11 +47,11 @@
         </div>
       </template>
 
-      <div v-if="avvisi.length" class="alert-meteo">
-        <span class="alert-meteo__ic"><Icon name="allerta" /></span>
-        <div class="alert-meteo__main">
-          <div class="alert-meteo__title">Occhio a questi giorni</div>
-          <div class="alert-meteo__rows">
+      <div v-if="avvisi.length" class="alertbox alertbox--rose">
+        <span class="alertbox__ic"><Icon name="allerta" /></span>
+        <div class="alertbox__main">
+          <div class="alertbox__title">Occhio a questi giorni</div>
+          <div class="alertbox__rows">
             <div v-for="a in avvisi" :key="a.key" class="alert-meteo__row">
               <Icon :name="a.icona" /><span><b>{{ a.giorno }}</b> — {{ a.testo }}</span>
             </div>
@@ -188,15 +188,11 @@ onMounted(async () => {
 .hour__r { display: flex; align-items: center; justify-content: center; gap: 2px; font-size: 9px; color: var(--acqua-ink); margin-top: 1px; }
 .hour__r svg { width: 8px; height: 8px; }
 
-/* Blocco avvisi — stessa struttura di .alert-cura in PiantaView, tinta rosa */
-.alert-meteo { display: flex; gap: 12px; align-items: flex-start; padding: 14px 15px; margin: 22px 0 2px;
-  background: var(--rose-bg); border: 1px solid color-mix(in srgb, var(--rose) 28%, transparent); border-radius: 16px; }
-.alert-meteo__ic { flex: none; width: 36px; height: 36px; border-radius: 11px; display: flex; align-items: center; justify-content: center;
-  background: color-mix(in srgb, var(--rose) 16%, var(--cream)); color: var(--rose-ink); }
-.alert-meteo__ic svg { width: 20px; height: 20px; }
-.alert-meteo__main { flex: 1; min-width: 0; }
-.alert-meteo__title { font: 600 14px/1.25 var(--font-display); color: var(--rose-ink); }
-.alert-meteo__rows { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+/* Blocco avvisi: .alertbox / .alertbox--rose ora globali in main.css.
+   .alert-meteo__row resta scoped qui: riga icona+testo, diversa da quella
+   di PiantaView. Margine locale: qui il blocco sta dopo il nastro orario,
+   non subito sotto un titolo come in PiantaView. */
+.alertbox.alertbox--rose { margin: 22px 0 2px; }
 .alert-meteo__row { display: flex; align-items: center; gap: 8px; font: 400 12.5px/1.4 var(--font-sans); color: var(--rose-ink); }
 .alert-meteo__row svg { width: 15px; height: 15px; flex: none; }
 
