@@ -239,6 +239,12 @@ body::before {
 .pill-icona.active { background: var(--acqua-tile); color: var(--acqua-dark); border-color: var(--acqua-tile); box-shadow: none; }
 .pill-icona:hover:not(.active) { border-color: var(--acqua); color: var(--acqua-dark); }
 
+/* Filtri zona/sottozona con icona (PianteView): stesso problema e stessa
+   soluzione di .pill-icona sopra, ma per pillole a larghezza libera
+   (etichetta + icona), non quadrate. */
+.pill--acqua.active { background: var(--acqua-tile); color: var(--acqua-dark); border-color: var(--acqua-tile); box-shadow: none; }
+.pill--acqua:hover:not(.active) { border-color: var(--acqua); color: var(--acqua-dark); }
+
 /* Search */
 .search-input {
   width: 100%; height: 44px;
