@@ -1,0 +1,31 @@
+-- Chiude la RLS di scrittura "temporanea" su `specie` (introdotta da
+-- 20260826060000_specie_rls_scrittura_pubblica_temporanea.sql). L'unico
+-- scrittore lato client era la modale crea/modifica di SelettoreSpecie.vue,
+-- rimossa nel redesign del selettore (commit 6f92ca7 / merge 4e02e25):
+-- `specie` è catalogo condiviso in multiutenza, dall'app è sola lettura.
+--
+-- Le scritture legittime restano tutte:
+--   * comando /elabora (revisione_specie)
+--   * import da fonti/ (fonti/criterio-importazione.md)
+--   * migration in questa cartella
+-- e passano da service-role / postgres, che bypassano l'RLS: non sono
+-- toccate da questo cambiamento.
+--
+-- Dopo questa migration, su `specie` resta solo la policy di lettura
+-- pubblica ("specie: lettura pubblica", SELECT USING (true), da
+-- 20260815000000_specie_zone_climatiche.sql). Per anon/authenticated:
+--   * INSERT -> negato (42501: new row violates row-level security policy)
+--   * UPDATE -> nessuna riga è visibile per l'update, ogni UPDATE tocca
+--               0 righe (semantica Postgres RLS senza policy UPDATE: non
+--               è un errore, è un no-op completo)
+--   * DELETE -> già negato prima (nessuna policy)
+-- Verificato empiricamente (SET ROLE anon + REST con chiave publishable).
+--
+-- Rollback:
+--   create policy "specie: scrittura pubblica temporanea (insert)"
+--     on specie for insert with check (true);
+--   create policy "specie: scrittura pubblica temporanea (update)"
+--     on specie for update using (true) with check (true);
+
+drop policy if exists "specie: scrittura pubblica temporanea (insert)" on specie;
+drop policy if exists "specie: scrittura pubblica temporanea (update)" on specie;
