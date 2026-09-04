@@ -125,12 +125,12 @@ const legenda = computed(() => {
 .mg-chart__base { stroke: var(--acqua); opacity: .35; stroke-width: 1; }
 .mg-chart__rain { fill: var(--acqua); opacity: .38; }
 .mg-chart__umid { stroke: var(--sage-dark); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-.mg-chart__temp { stroke: var(--gold-dark); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.mg-chart__temp { stroke: var(--gold-dark); stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .mg-chart__dot { fill: var(--gold-dark); }
 .mg-chart__leg { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 7px; font-size: 9.5px; color: var(--ink-soft); }
 .mg-chart__leg-i { display: inline-flex; align-items: center; gap: 5px; }
 .mg-chart__leg-i::before { content: ""; width: 12px; height: 2px; border-radius: 2px; flex: none; }
-.mg-chart__leg-i--temp::before { background: var(--gold-dark); height: 2.5px; }
+.mg-chart__leg-i--temp::before { background: var(--gold-dark); height: 2px; }
 .mg-chart__leg-i--umid::before { background: var(--sage-dark); }
 .mg-chart__leg-i--rain::before { height: 8px; background: var(--acqua); opacity: .5; }
 .mg-chart__x { display: flex; justify-content: space-between; font-size: 9px; color: var(--ink-faint); margin-top: 3px; padding: 0 2px; }
