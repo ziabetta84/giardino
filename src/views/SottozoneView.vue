@@ -1,8 +1,6 @@
 <template>
   <div>
-    <RouterLink :to="`/zone`" style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:16px;">
-      ← Zone
-    </RouterLink>
+    <RouterLink :to="`/zone`" class="back-link"><Icon name="back" /> Zone</RouterLink>
 
     <div class="page-title__row">
       <h1 class="page-title">{{ zona?.nome ?? route.params.zona }} · Sottozone</h1>

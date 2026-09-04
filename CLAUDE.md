@@ -133,4 +133,4 @@ Le foto esistenti sono in `docs/gallery/piante/{id-pianta}/{timestamp}_{filename
 --rose: #cc6e6e  --gold: #e0b84a  --sage: #7a9e82  --olive: #9aaa5a  --cream: #faf7f2
 ```
 Font: Playfair Display (titoli display) · Lora (serif secondario) · DM Sans (UI/body).
-Classi globali: `.card`, `.btn`, `.btn-rose/sage/ghost`, `.badge`, `.pill`, `.skeleton`, `.form-input`, `.search-input`, `.title-display`, `.gradient-title`, `.section-label`.
+Classi globali: `.card`, `.btn`, `.btn-rose/sage/ghost`, `.badge`, `.pill`, `.skeleton`, `.form-input`, `.search-input`, `.page-title`/`.page-title__row`, `.back-link`, `.section-label`.

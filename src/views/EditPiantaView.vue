@@ -1,8 +1,7 @@
 <template>
   <div>
-    <RouterLink :to="isNuova ? '/piante' : `/piante/${route.params.id}`"
-      style="display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-soft);text-decoration:none;margin-bottom:20px;">
-      ← {{ isNuova ? 'Piante' : 'Dettaglio' }}
+    <RouterLink :to="isNuova ? '/piante' : `/piante/${route.params.id}`" class="back-link">
+      <Icon name="back" /> {{ isNuova ? 'Piante' : 'Dettaglio' }}
     </RouterLink>
 
     <h1 class="page-title" style="margin-bottom:20px">
