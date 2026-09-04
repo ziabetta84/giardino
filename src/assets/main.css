@@ -704,3 +704,15 @@ body::before {
 /* Elenco note tecniche / avvertenze (era scoped in PiantaView). */
 .notelist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
 .notelist li { font: 400 12.5px/1.55 var(--font-sans); color: var(--ink-mid); }
+
+/* ===== Barra escursione min–max — registro Meteo + foglio del giorno ===== */
+.exc { display:flex; align-items:center; gap:8px; }
+.exc__lo, .exc__hi { flex:none; font:600 11.5px/1 var(--font-display); color:var(--ink-mid); }
+.exc__track { position:relative; flex:1; height:5px; border-radius:999px; background:var(--cream-dark); }
+.exc__fill { position:absolute; top:0; bottom:0; border-radius:999px;
+  background:linear-gradient(90deg, var(--acqua), var(--gold)); }
+.exc--lg { gap:12px; }
+.exc--lg .exc__lo { color:var(--acqua-ink); font-size:15px; }
+.exc--lg .exc__hi { color:var(--gold-ink); font-size:15px; }
+.exc--lg .exc__track { height:8px; }
+.exc--lg .exc__fill { left:0; right:0; }
