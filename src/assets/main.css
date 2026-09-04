@@ -48,6 +48,80 @@
   --font-hand:    'Caveat', 'Segoe Script', cursive;
 }
 
+/* ===== Dark mode (Fase 3 restyle "Taccuino") =====
+   Stessa identità calda della palette chiara, invertita — non un grigio
+   neutro: ogni token scuro nasce dalla stessa tinta del suo equivalente
+   chiaro. Attivato da useTema.js impostando data-theme su <html>.
+   Regola per token futuri: l'accento base si schiarisce (non si scurisce)
+   per leggibilità su fondo scuro; la variante "-dark" (enfasi/hover)
+   diventa ancora più chiara; le tinte pallide ("-light"/"-pale", sfondi
+   pillole/badge) diventano versioni scure sature della stessa tinta; le
+   coppie "-bg"/"-ink" restano superficie scura satura + testo chiaro. */
+:root[data-theme="dark"] {
+  --rose:        #e0898a;
+  --rose-dark:   #f0acac;
+  --rose-light:  #4a2b2b;
+  --rose-pale:   #241a19;
+  --gold:        #eec769;
+  --gold-dark:   #f6da97;
+  --gold-light:  #4a3c1e;
+  --gold-pale:   #231e13;
+  --sage:        #93bb9b;
+  --sage-dark:   #b7d6bd;
+  --sage-light:  #2b3c30;
+  --sage-pale:   #1c211c;
+  --olive:       #b3c473;
+  --olive-dark:  #cddb95;
+  --olive-light: #38401f;
+  --acqua:       #8dbcdd;
+  --acqua-dark:  #b3d5ec;
+  --uovo:        #ddcda6;
+  --uovo-dark:   #ecdfc0;
+
+  --acqua-bg:  #203244;  --acqua-ink: #a8cfe6;
+  --olive-bg:  #2a2e18;  --olive-ink: #cddb95;
+  --rose-bg:   #3a2422;  --rose-ink:  #f0acac;
+  --sage-bg:   #223326;  --sage-ink:  #b7d6bd;
+  --gold-bg:   #362c15;  --gold-ink:  #f6da97;
+  --carta-2:   #241f14;
+
+  --rose-tile:   #3a2422;
+  --gold-tile:   #362c15;
+  --sage-tile:   #223326;
+  --olive-tile:  #2a2e18;
+  --acqua-tile:  #203244;
+  --ink-tile:    #2e2718;
+  --ink:         #f2e8d8;
+  --ink-mid:     #cdbfa4;
+  --ink-soft:    #8f8369;
+  --ink-faint:   #4a4230;
+  --cream:       #1c1810;
+  --cream-dark:  #342c1d;
+  --white:       #262015;
+}
+
+:root[data-theme="dark"] body::before {
+  /* Stesso sfondo organico, tinte più tenui perché si notano di più sullo scuro */
+  background-image:
+    radial-gradient(ellipse 800px 600px at 10% 20%, rgba(224,137,138,0.05) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 500px at 90% 80%, rgba(147,187,155,0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 400px 400px at 60% 10%, rgba(238,199,105,0.04) 0%, transparent 70%);
+}
+
+/* Zorba resta sempre nero (ZorbaLogo.vue, icona "gatto" con classe .is-zorba):
+   su fondo scuro un alone chiaro lo separa dallo sfondo invece di schiarirlo. */
+:root[data-theme="dark"] .zorba-logo,
+:root[data-theme="dark"] .zorba-mini,
+:root[data-theme="dark"] .is-zorba {
+  filter: drop-shadow(0 0 3px rgba(242,232,216,.55));
+}
+
+/* Foto (galleria, scheda pianta, hero Home): leggera attenuazione, non un cambio di colore */
+:root[data-theme="dark"] .gimg,
+:root[data-theme="dark"] .hero__scene {
+  filter: brightness(.88);
+}
+
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
