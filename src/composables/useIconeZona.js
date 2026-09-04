@@ -1,4 +1,4 @@
-// Slug delle icone selezionabili per zona/sottozona (EditZonaView, SottozoneView).
+// Slug delle icone selezionabili per zona/sottozona (ZoneView, SottozoneView).
 // Ogni slug corrisponde al <symbol id="i-zona-{slug}"> in IconDefs.vue ed e' il
 // valore salvato in zone.icona / sottozone.icona. Nessuna label: il selettore
 // mostra solo l'icona.
