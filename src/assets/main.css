@@ -520,7 +520,12 @@ body::before {
 .stat b { color:var(--rose-ink); }
 
 @media (min-width: 640px) {
-  .hero { min-height: 280px; }
+  /* La scena SVG (viewBox 400x250, "slice") copre sempre tutta la larghezza:
+     su schermi larghi (sidebar desktop, .app-main arriva a 920px) il fattore
+     di scala che serve a coprire la larghezza taglierebbe le cime dei fiori
+     con un'altezza troppo bassa — 360px è la misura minima empirica (Chrome
+     headless, larghezza 920px) che li mostra interi. */
+  .hero { min-height: 360px; }
   .phead-photo { height: 360px; }
 }
 
