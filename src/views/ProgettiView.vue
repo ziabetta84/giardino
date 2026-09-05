@@ -44,9 +44,12 @@
       titolo="Nuovo progetto"
     >
       <div v-if="mostraForm" class="foglio-form">
+        <label class="field-label">Titolo</label>
         <input v-model="form.titolo" placeholder="Titolo" class="form-input" style="margin-bottom:10px;">
+        <label class="field-label">Descrizione</label>
         <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
-        <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input" style="margin:10px 0 0;">
+        <label class="field-label" style="margin-top:10px;">Zona</label>
+        <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input">
         <div class="foglio-actions">
           <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
           <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"

@@ -72,63 +72,61 @@
       @annulla="daEliminareFoto = null"
     />
 
-    <!-- Modal upload -->
-    <Teleport to="body">
-      <div v-if="mostraFormUpload" @click.self="mostraFormUpload = false"
-        style="position:fixed;inset:0;z-index:200;background:rgba(42,34,24,0.4);display:flex;align-items:flex-end;justify-content:center;padding:0;">
-        <div style="background:var(--white);border-radius:24px 24px 0 0;padding:24px;width:100%;max-width:520px;box-shadow:0 -8px 40px rgba(42,34,24,0.15);">
-          <div style="width:36px;height:4px;background:var(--cream-dark);border-radius:2px;margin:0 auto 20px;"></div>
-          <h3 style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:16px;color:var(--ink);">Aggiungi foto</h3>
+    <!-- Foglio upload -->
+    <FoglioLaterale
+      :model-value="mostraFormUpload"
+      @update:model-value="v => mostraFormUpload = v"
+      titolo="Aggiungi foto"
+    >
+      <div class="foglio-form">
+        <!-- Selezione pianta -->
+        <label class="field-label">Pianta</label>
+        <select v-model="uploadPiantaId" class="form-input" style="margin-bottom:14px;">
+          <option value="">Nessuna (foto generica)</option>
+          <optgroup v-for="(ps, zona) in piantaPerZona" :key="zona" :label="zona">
+            <option v-for="p in ps" :key="p.id" :value="p.id">{{ p.etichetta }}</option>
+          </optgroup>
+        </select>
 
-          <!-- Selezione pianta -->
-          <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Pianta</label>
-          <select v-model="uploadPiantaId" class="form-input" style="margin-bottom:14px;">
-            <option value="">Nessuna (foto generica)</option>
-            <optgroup v-for="(ps, zona) in piantaPerZona" :key="zona" :label="zona">
-              <option v-for="p in ps" :key="p.id" :value="p.id">{{ p.etichetta }}</option>
-            </optgroup>
-          </select>
+        <!-- Selezione foto: due bottoni separati invece di un unico input
+             generico, perché su alcuni browser/telefoni Android un input
+             "accept=image/*" senza capture viene comunque risolto dal
+             sistema verso la fotocamera, saltando la scelta della libreria
+             (stesso pattern di AgenteView.vue). -->
+        <div v-if="uploadPreview" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--sage-light);border-radius:12px;background:var(--sage-pale);">
+          <img :src="uploadPreview" alt="Anteprima della foto selezionata" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">
+          <div style="flex:1;font-size:13px;font-weight:600;color:var(--sage-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ uploadNomeFile }}</div>
+          <button type="button" @click="rimuoviUpload" aria-label="Rimuovi foto" style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">×</button>
+        </div>
 
-          <!-- Selezione foto: due bottoni separati invece di un unico input
-               generico, perché su alcuni browser/telefoni Android un input
-               "accept=image/*" senza capture viene comunque risolto dal
-               sistema verso la fotocamera, saltando la scelta della libreria
-               (stesso pattern di AgenteView.vue). -->
-          <div v-if="uploadPreview" style="display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--sage-light);border-radius:12px;background:var(--sage-pale);">
-            <img :src="uploadPreview" alt="Anteprima della foto selezionata" style="width:44px;height:44px;object-fit:cover;border-radius:8px;flex-shrink:0;">
-            <div style="flex:1;font-size:13px;font-weight:600;color:var(--sage-dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ uploadNomeFile }}</div>
-            <button type="button" @click="rimuoviUpload" aria-label="Rimuovi foto" style="background:none;border:none;color:var(--ink-faint);font-size:20px;line-height:1;cursor:pointer;flex-shrink:0;">×</button>
-          </div>
+        <div v-else style="display:flex;gap:8px;">
+          <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
+            <Icon name="cornice" style="width:16px;height:16px;flex-shrink:0;" />Libreria
+            <input type="file" accept="image/*" @change="selezionaUpload" style="display:none;">
+          </label>
+          <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
+            <Icon name="fotocamera" style="width:16px;height:16px;flex-shrink:0;" />Fotocamera
+            <input type="file" accept="image/*" capture="environment" @change="selezionaUpload" style="display:none;">
+          </label>
+        </div>
+        <p v-if="!uploadPreview" style="font-size:11px;color:var(--ink-faint);margin-top:6px;text-align:center;">JPG o PNG · max 10 MB</p>
 
-          <div v-else style="display:flex;gap:8px;">
-            <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-              <Icon name="cornice" style="width:16px;height:16px;flex-shrink:0;" />Libreria
-              <input type="file" accept="image/*" @change="selezionaUpload" style="display:none;">
-            </label>
-            <label style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:16px;border:2px dashed var(--sage-light);border-radius:14px;cursor:pointer;background:var(--sage-pale);font-size:13px;font-weight:600;color:var(--sage-dark);">
-              <Icon name="fotocamera" style="width:16px;height:16px;flex-shrink:0;" />Fotocamera
-              <input type="file" accept="image/*" capture="environment" @change="selezionaUpload" style="display:none;">
-            </label>
-          </div>
-          <p v-if="!uploadPreview" style="font-size:11px;color:var(--ink-faint);margin-top:6px;text-align:center;">JPG o PNG · max 10 MB</p>
+        <p v-if="dataScattoRilevata" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sage-dark);margin-top:8px;">
+          <Icon name="calendario" style="width:13px;height:13px;flex-shrink:0;" />Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
+        </p>
 
-          <p v-if="dataScattoRilevata" style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--sage-dark);margin-top:8px;">
-            <Icon name="calendario" style="width:13px;height:13px;flex-shrink:0;" />Data rilevata dai metadati: {{ dataScattoRilevata.toLocaleDateString('it-IT', { day:'numeric', month:'long', year:'numeric' }) }}
-          </p>
+        <p v-if="erroreUpload" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);margin-top:8px;">
+          <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />{{ erroreUpload }}
+        </p>
 
-          <p v-if="erroreUpload" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--rose-dark);margin-top:8px;">
-            <Icon name="campanella" style="width:13px;height:13px;flex-shrink:0;" />{{ erroreUpload }}
-          </p>
-
-          <div style="display:flex;gap:10px;margin-top:16px;">
-            <button @click="mostraFormUpload = false" class="btn btn-ghost" style="flex:1;min-height:44px;">Annulla</button>
-            <button @click="caricaFoto" :disabled="!uploadFileObj || caricandoUpload" class="btn btn-rose" style="flex:2;min-height:44px;">
-              <Spinner v-if="caricandoUpload" />{{ caricandoUpload ? 'Caricamento…' : 'Carica foto' }}
-            </button>
-          </div>
+        <div class="foglio-actions">
+          <button @click="mostraFormUpload = false" class="btn btn-ghost" style="flex:1;min-height:44px;">Annulla</button>
+          <button @click="caricaFoto" :disabled="!uploadFileObj || caricandoUpload" class="btn btn-rose" style="flex:2;min-height:44px;">
+            <Spinner v-if="caricandoUpload" />{{ caricandoUpload ? 'Caricamento…' : 'Carica foto' }}
+          </button>
         </div>
       </div>
-    </Teleport>
+    </FoglioLaterale>
   </div>
 </template>
 
@@ -137,6 +135,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useGalleria } from '@/composables/useGalleria'
 import ModalConferma from '@/components/ModalConferma.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 

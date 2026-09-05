@@ -31,8 +31,10 @@
           <span class="st" :class="classeStato(form.stato)">{{ labelStato(form.stato) }}</span>
         </div>
 
+        <label class="field-label">Zona</label>
         <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input">
 
+        <label class="field-label">Descrizione</label>
         <MiniEditor v-model="form.descrizione" placeholder="Descrizione, contesto, note…" />
 
         <div style="display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--ink-soft);margin-top:2px;">

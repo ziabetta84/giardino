@@ -24,7 +24,7 @@ onMounted(() => {
 .boot-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 500; /* sopra tutto lo stack esistente (max precedente: .foglio a 321) */
   background: var(--cream);
   display: flex;
   align-items: center;

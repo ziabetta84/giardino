@@ -20,9 +20,16 @@
       </div>
 
       <div style="display:flex;gap:8px;margin-bottom:10px;">
-        <input v-model.number="form.lat" type="number" placeholder="Latitudine" class="form-input">
-        <input v-model.number="form.lon" type="number" placeholder="Longitudine" class="form-input">
+        <div style="flex:1;">
+          <label class="field-label">Latitudine</label>
+          <input v-model.number="form.lat" type="number" placeholder="Latitudine" class="form-input">
+        </div>
+        <div style="flex:1;">
+          <label class="field-label">Longitudine</label>
+          <input v-model.number="form.lon" type="number" placeholder="Longitudine" class="form-input">
+        </div>
       </div>
+      <label class="field-label">Altitudine</label>
       <input v-model.number="form.altitude" type="number" placeholder="Altitudine (m)" class="form-input">
       <p v-if="erroreGeo" style="font-size:12px;color:var(--rose-dark);margin:8px 0 0;">{{ erroreGeo }}</p>
     </div>
