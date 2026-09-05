@@ -1,8 +1,10 @@
 <template>
   <div>
-    <!-- Hero acquerello -->
+    <!-- Hero: aiuola a china, animata, con Zorba -->
     <div class="hero">
-      <div class="hero__scene" :style="sceneStyle" aria-hidden="true"></div>
+      <div class="hero__scene">
+        <HeroAiuola :stagione="stagioneCorrente" :luce="luceScena" />
+      </div>
 
       <span class="leaf leaf--1"><Icon name="foglia" /></span>
       <span class="leaf leaf--2"><Icon name="foglia" style="--olive:var(--gold);--olive-dark:var(--gold-dark)" /></span>
@@ -84,8 +86,9 @@
 import { computed, onMounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useMeteo } from '@/composables/useMeteo'
-import { valutaCura, cureUrgentiPianta } from '@/composables/useCure'
+import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import HeroAiuola from '@/components/HeroAiuola.vue'
 import Icon from '@/components/Icon.vue'
 
 const store = useDatiStore()
@@ -95,7 +98,16 @@ const oggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numer
 
 const meteoOggi = computed(() => meteoGiorni.value?.[0] ?? null)
 
-const sceneStyle = { backgroundImage: `url(${new URL('@/assets/hero-giardino.jpg', import.meta.url).href})` }
+// Stagione dal mese corrente (stessa euristica di useCure.js per le urgenze
+// di cura). Luce da alba/tramonto di oggi (Open-Meteo, via useMeteo) — finché
+// il meteo non è ancora arrivato si mostra "giorno" come default ragionevole.
+const stagioneCorrente = computed(() => stagione())
+const luceScena = computed(() => {
+  const g = meteoOggi.value
+  if (!g?.alba || !g?.tramonto) return 'giorno'
+  const ora = new Date()
+  return (ora >= new Date(g.alba) && ora < new Date(g.tramonto)) ? 'giorno' : 'notte'
+})
 
 // Potatura non è più una cura a urgenza (resta registrabile nella scheda pianta):
 // il feed "Da fare oggi" valuta solo irrigazione, concimazione e — per le poche

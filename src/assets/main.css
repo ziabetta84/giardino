@@ -116,9 +116,10 @@
   filter: drop-shadow(0 0 3px rgba(242,232,216,.55));
 }
 
-/* Foto (galleria, scheda pianta, hero Home): leggera attenuazione, non un cambio di colore */
-:root[data-theme="dark"] .gimg,
-:root[data-theme="dark"] .hero__scene {
+/* Foto (galleria, scheda pianta): leggera attenuazione, non un cambio di colore.
+   L'hero Home non è più una foto (aiuola SVG a china, HeroAiuola.vue) — i
+   suoi colori sono già token tema-aware, non va scurita anche lei. */
+:root[data-theme="dark"] .gimg {
   filter: brightness(.88);
 }
 
@@ -503,8 +504,7 @@ body::before {
 /* ===== restyle: hero ===== */
 .hero { position:relative; overflow:hidden; padding:15px 17px 16px; min-height:176px;
   background:var(--sage-bg); }
-.hero__scene { position:absolute; inset:0; background-position:center 75%;
-  background-size:cover; background-repeat:no-repeat; }
+.hero__scene { position:absolute; inset:0; }
 .hero__scene::after { content:""; position:absolute; inset:0; background:
   linear-gradient(95deg, var(--cream) 6%, color-mix(in srgb, var(--cream) 52%, transparent) 40%, transparent 68%),
   linear-gradient(0deg, color-mix(in srgb, var(--cream) 42%, transparent), transparent 44%); }
