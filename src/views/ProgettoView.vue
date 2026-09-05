@@ -357,6 +357,13 @@ async function eliminaProgetto() {
 </script>
 
 <style scoped>
+/* La traccia non scatta al nuovo colore quando cambia un esito: sfuma,
+   come inchiostro che si spande invece di un riempimento che si aggiorna.
+   Non serve una guardia reduced-motion: è un fondersi di colore, non uno
+   spostamento spaziale (vedi "riduci movimento" in HeroAiuola.vue per lo
+   stesso principio). */
+#trailGrad stop { transition: stop-color var(--motion-sheet) var(--ease-standard); }
+
 .tappa-insert {
   display: flex;
   gap: 6px;
