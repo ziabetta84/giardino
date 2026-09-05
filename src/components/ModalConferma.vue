@@ -4,10 +4,11 @@
       <div class="modal-box" role="alertdialog" aria-modal="true" tabindex="-1"
         ref="box" @keydown.esc="$emit('annulla')">
         <h3 class="mc-titolo">{{ titolo }}</h3>
-        <p style="font-size:13px;color:var(--ink-soft);line-height:1.5;">{{ messaggio }}</p>
+        <p class="prose">{{ messaggio }}</p>
+        <p v-if="errore" class="mc-errore">{{ errore }}</p>
         <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
-          <button class="btn btn-ghost" style="min-height:40px;padding:8px 18px;" @click="$emit('annulla')">Annulla</button>
-          <button class="btn" style="min-height:40px;padding:8px 18px;background:var(--rose);color:white;" @click="$emit('conferma')" :disabled="caricamento">
+          <button class="btn btn-ghost" @click="$emit('annulla')">Annulla</button>
+          <button class="btn btn-rose" @click="$emit('conferma')" :disabled="caricamento">
             <Spinner v-if="caricamento" />{{ caricamento ? 'Eliminazione…' : 'Elimina' }}
           </button>
         </div>
@@ -25,6 +26,10 @@ const props = defineProps({
   titolo:     { type: String,  default: 'Conferma eliminazione' },
   messaggio:  { type: String,  default: 'Questa azione non può essere annullata.' },
   caricamento:{ type: Boolean, default: false },
+  // Messaggio di errore opzionale (es. un fallimento di rete durante la
+  // conferma): il modale resta aperto e lo mostra invece di sparire senza
+  // spiegazioni. null/assente = nessun errore, nessuna riga mostrata.
+  errore:     { type: String,  default: null },
 })
 defineEmits(['conferma', 'annulla'])
 
@@ -47,12 +52,17 @@ watch(() => props.aperto, (v) => {
   padding: 24px;
   width: 100%; max-width: 360px;
   box-shadow: 0 20px 60px rgba(42,34,24,0.2);
-  animation: mc-in 150ms ease;
+  animation: mc-in 150ms var(--ease-standard);
 }
 .mc-titolo {
   font: 600 16px/1.2 var(--font-display);
   color: var(--ink);
   margin: 0 0 8px;
+}
+.mc-errore {
+  font: 400 12px/1.4 var(--font-sans);
+  color: var(--rose-ink);
+  margin: -6px 0 4px;
 }
 @keyframes mc-in {
   from { opacity: 0; transform: translateY(8px) scale(.98); }
