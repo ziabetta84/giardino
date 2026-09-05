@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "src/views/GalleryView.vue"
+        ],
+        "createdAt": "2026-09-05T07:36:57.467Z",
+        "reason": "Indicatore puntini carosello (.puntini span, 2-8 elementi statici): animare width qui non causa reflow misurabile (nessun sibling/contenuto sotto si sposta, riga flex isolata di pochi px). Una versione a transform:scaleX() distorcerebbe il cerchio in un'ellisse durante la transizione — sacrificio visivo per un guadagno prestazionale impercettibile a questa scala"
+      }
+    ]
+  }
+}

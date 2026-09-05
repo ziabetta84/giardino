@@ -8,3 +8,5 @@ fonti/rhs_from_sitemaps/
 fonti/rhs-varietà/
 .env.local
 backups/
+.impeccable/config.local.json
+.impeccable/hook.cache.json

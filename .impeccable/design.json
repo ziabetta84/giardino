@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-05T08:50:00.000Z",
+  "title": "Design System: Giardino di Rob",
+  "extensions": {
+    "colorMeta": {
+      "rose": { "role": "secondary", "displayName": "Rosa ad Acquerello", "canonical": "#cc6e6e", "tonalRamp": ["#391414", "#642323", "#8f3232", "#ba4141", "#cb6b6b", "#da9696", "#e9c1c1", "#f8ecec"] },
+      "gold": { "role": "secondary", "displayName": "Ocra Dorata", "canonical": "#e0b84a", "tonalRamp": ["#41330b", "#735a14", "#a5801c", "#d7a725", "#e2bc54", "#eacf86", "#f3e3b7", "#fbf6e9"] },
+      "sage": { "role": "primary", "displayName": "Verde Salvia Diluito", "canonical": "#7a9e82", "tonalRamp": ["#202c23", "#394e3e", "#517058", "#6a9173", "#8bab92", "#adc3b2", "#cfdcd1", "#f0f4f1"] },
+      "olive": { "role": "tertiary", "displayName": "Verde Muschio", "canonical": "#9aaa5a", "tonalRamp": ["#2e321a", "#50592e", "#737f42", "#96a655", "#aebb7b", "#c6cfa1", "#dde3c8", "#f5f6ee"] },
+      "acqua": { "role": "tertiary", "displayName": "China Blu Cielo", "canonical": "#6f9fc0", "tonalRamp": ["#172935", "#29485e", "#3b6886", "#4d87af", "#74a2c2", "#9cbdd4", "#c5d8e6", "#edf3f7"] },
+      "uovo": { "role": "tertiary", "displayName": "Ocra Uovo", "canonical": "#cbb994", "tonalRamp": ["#332b19", "#5b4b2c", "#826c3f", "#a98d52", "#bda778", "#d1c09f", "#e4dac7", "#f7f4ee"] },
+      "ink": { "role": "neutral", "displayName": "Inchiostro", "canonical": "#2a2218", "tonalRamp": ["#31271c", "#564531", "#7b6346", "#a0815b", "#b69e7f", "#cbbaa5", "#e1d6ca", "#f6f3ef"] },
+      "cream": { "role": "neutral", "displayName": "Carta", "canonical": "#faf7f2", "tonalRamp": ["#372b15", "#614b25", "#8b6b36", "#b68c46", "#c7a66e", "#d8c098", "#e8dac2", "#f8f4ed"] },
+      "zorba-black": { "role": "neutral", "displayName": "Nero di Zorba", "canonical": "#141414", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#2a2a2a", "#3a3a3a", "#5a5a5a", "#8a8a8a"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Fraunces (nomi e titoli)", "purpose": "Ogni nome — pianta, progetto, zona, pagina, persona — a qualunque dimensione. Mai per corpo testo o numeri di servizio." },
+      "body": { "displayName": "DM Sans (corpo)", "purpose": "Testo corrente, descrizioni, risposte dell'assistente AI." },
+      "ui": { "displayName": "DM Sans (chrome UI)", "purpose": "Bottoni, pillole, etichette compatte non maiuscole." },
+      "label": { "displayName": "DM Sans maiuscolo tracciato", "purpose": "Etichette di sezione, di campo, chip di stato." },
+      "hand": { "displayName": "Caveat (accento manoscritto)", "purpose": "Solo la data in Home, come annotazione scritta a penna." }
+    },
+    "shadows": [
+      { "name": "ambientale", "value": "0 2px 12px rgba(42,34,24,0.06)", "purpose": "Riposo di ogni card." },
+      { "name": "sollevata", "value": "0 8px 28px rgba(42,34,24,0.12)", "purpose": "Hover di una card cliccabile, insieme a translateY(-2px)." },
+      { "name": "flottante", "value": "0 20px 60px rgba(42,34,24,0.2)", "purpose": "Modale di conferma, superfici che escono dal flusso." },
+      { "name": "di-bordo", "value": "-18px 0 50px -22px rgba(30,22,10,0.4)", "purpose": "Foglio laterale (desktop); versione verticale equivalente su mobile." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Decelerazione morbida condivisa da ogni transizione di stato: bottoni, pillole, input, card, foglio, drawer, modale, pagina, pallini della timeline tappe. Mai un rimbalzo/elastico." },
+      { "name": "motion-quick", "value": "0.18s", "purpose": "Durata per la risposta immediata di un controllo (bottone, pillola, input, toggle)." },
+      { "name": "motion-sheet", "value": "0.26s", "purpose": "Durata per una superficie che scorre o si rivela (foglio, drawer, modale, un elemento che appare nella pagina)." },
+      { "name": "zorba-tail-wag", "value": "4.6s ease-in-out infinite", "purpose": "Coda di Zorba, loop continuo (disattivato con prefers-reduced-motion) — animazione di carattere, intenzionalmente fuori dal sistema di decelerazione." },
+      { "name": "zorba-eye-blink", "value": "6.2s ease-in-out infinite", "purpose": "Battito di ciglia di Zorba, loop continuo — animazione di carattere, intenzionalmente fuori dal sistema di decelerazione." },
+      { "name": "scena-ridisegno-cinematico", "value": "View Transitions API + replay stroke-dashoffset per tratto", "purpose": "Su cambio reale di stagione/luce nell'aiuola Home: dissolvenza dello sfondo + ridisegno a china della nuova stagione, invece di uno scatto CSS istantaneo. Evento raro, non una transizione di stato UI." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bottone Primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Azione affermativa (salva/conferma) — Verde Salvia Diluito.",
+      "html": "<button class=\"ds-btn-primary\">Salva</button>",
+      "css": ".ds-btn-primary { display:inline-flex; align-items:center; justify-content:center; gap:6px; height:44px; padding:10px 18px; border-radius:12px; border:none; background:#7a9e82; color:#ffffff; font:600 13px/1 'DM Sans', system-ui, sans-serif; box-shadow:0 3px 14px rgba(122,158,130,0.3); cursor:pointer; transition:all .18s cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { background:#5a7e62; transform:translateY(-1px); } .ds-btn-primary:focus-visible { outline:2px solid #e0b84a; outline-offset:2px; } .ds-btn-primary:active { transform:scale(.97); }"
+    },
+    {
+      "name": "Bottone Distruttivo",
+      "kind": "button",
+      "refersTo": "button-destructive",
+      "description": "Elimina/conferma irreversibile — Rosa ad Acquerello, mai per salvare.",
+      "html": "<button class=\"ds-btn-danger\">Elimina</button>",
+      "css": ".ds-btn-danger { display:inline-flex; align-items:center; justify-content:center; gap:6px; height:44px; padding:10px 18px; border-radius:12px; border:none; background:#cc6e6e; color:#ffffff; font:600 13px/1 'DM Sans', system-ui, sans-serif; box-shadow:0 3px 14px rgba(204,110,110,0.3); cursor:pointer; transition:all .18s cubic-bezier(0.4,0,0.2,1); } .ds-btn-danger:hover { background:#b85f5f; transform:translateY(-1px); } .ds-btn-danger:focus-visible { outline:2px solid #e0b84a; outline-offset:2px; } .ds-btn-danger:active { transform:scale(.97); }"
+    },
+    {
+      "name": "Bottone Ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Azione secondaria/annulla.",
+      "html": "<button class=\"ds-btn-ghost\">Annulla</button>",
+      "css": ".ds-btn-ghost { display:inline-flex; align-items:center; justify-content:center; gap:6px; height:44px; padding:10px 18px; border-radius:12px; border:1px solid #f0ebe2; background:#f0ebe2; color:#5a4e3e; font:600 13px/1 'DM Sans', system-ui, sans-serif; cursor:pointer; transition:all .18s cubic-bezier(0.4,0,0.2,1); } .ds-btn-ghost:hover { background:#e0d8cc; } .ds-btn-ghost:focus-visible { outline:2px solid #e0b84a; outline-offset:2px; } .ds-btn-ghost:active { transform:scale(.97); }"
+    },
+    {
+      "name": "Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Superficie bianca sollevata su fondo carta, angoli 20px.",
+      "html": "<div class=\"ds-card\"><h3 class=\"ds-card__title\">Rosa Damascena</h3><p class=\"ds-card__body\">Prossima cura: irrigazione tra 2 giorni.</p></div>",
+      "css": ".ds-card { background:#ffffff; border:1px solid #f0ebe2; border-radius:20px; box-shadow:0 2px 12px rgba(42,34,24,0.06); padding:16px; transition:transform .18s cubic-bezier(0.4,0,0.2,1), box-shadow .18s cubic-bezier(0.4,0,0.2,1); } .ds-card:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(42,34,24,0.12); } .ds-card__title { margin:0 0 6px; font:600 15px/1.25 'Fraunces', Georgia, serif; color:#2a2218; } .ds-card__body { margin:0; font:400 13px/1.5 'DM Sans', system-ui, sans-serif; color:#5a4e3e; }"
+    },
+    {
+      "name": "Input di Ricerca",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo testo standard, focus in Ocra Dorata.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Cerca una pianta…\" />",
+      "css": ".ds-input { width:100%; min-height:44px; padding:10px 16px; border-radius:14px; border:1px solid #f0ebe2; background:#ffffff; font:400 14px/1.4 'DM Sans', system-ui, sans-serif; color:#2a2218; box-shadow:0 2px 8px rgba(42,34,24,0.05); outline:none; transition:border .18s cubic-bezier(0.4,0,0.2,1), box-shadow .18s cubic-bezier(0.4,0,0.2,1); } .ds-input::placeholder { color:#c8bfb0; } .ds-input:focus { border-color:#e0b84a; box-shadow:0 0 0 3px rgba(224,184,74,0.15); }"
+    },
+    {
+      "name": "Pillole Filtro",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Filtro selezionabile, piena in Verde Salvia Diluito da attiva.",
+      "html": "<div style=\"display:flex;gap:8px;\"><button class=\"ds-pill ds-pill--active\">Tutte</button><button class=\"ds-pill\">Da innaffiare</button></div>",
+      "css": ".ds-pill { padding:7px 14px; border-radius:999px; font:500 12px/1 'DM Sans', system-ui, sans-serif; border:1px solid #f0ebe2; background:#ffffff; color:#9a8e7e; cursor:pointer; transition:all .18s cubic-bezier(0.4,0,0.2,1); } .ds-pill:hover { border-color:#c8d9c8; color:#7a9e82; } .ds-pill--active { background:#7a9e82; color:#ffffff; border-color:#7a9e82; box-shadow:0 2px 10px rgba(122,158,130,0.3); }"
+    },
+    {
+      "name": "Badge di Stato",
+      "kind": "chip",
+      "refersTo": "badge-warn",
+      "description": "Etichetta di stato pallida (ok/warn) per cure e progetti.",
+      "html": "<span class=\"ds-badge ds-badge--warn\">Da curare</span> <span class=\"ds-badge ds-badge--ok\">In ordine</span>",
+      "css": ".ds-badge { display:inline-block; padding:3px 10px; border-radius:999px; font:600 11px/1 'DM Sans', system-ui, sans-serif; } .ds-badge--warn { background:#fdf4f4; color:#b85f5f; border:1px solid #f0d0d0; } .ds-badge--ok { background:#f2f7f2; color:#7a9e82; border:1px solid #c8d9c8; }"
+    },
+    {
+      "name": "Azione di Riga",
+      "kind": "button",
+      "refersTo": "care-act",
+      "description": "Conferma di un singolo elemento in una lista (cura registrata, tappa completata) — pattern canonico unico, mai duplicato con .btn/.btn-rose e dimensioni forzate via stile inline.",
+      "html": "<div style=\"display:flex;gap:8px;\"><button class=\"ds-care-act\">Fatto</button><button class=\"ds-care-act ds-care-act--rose\">Fatto</button></div>",
+      "css": ".ds-care-act { flex:none; font:600 10.5px/1 'DM Sans', system-ui, sans-serif; padding:7px 12px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; border:1px solid #f0ebe2; background:#ffffff; color:#5a4e3e; cursor:pointer; white-space:nowrap; transition:all .18s cubic-bezier(0.4,0,0.2,1); } .ds-care-act:hover { border-color:#c8bfb0; } .ds-care-act:disabled { opacity:.55; cursor:default; } .ds-care-act--rose { border-color:#f0d0d0; color:#b85f5f; }"
+    },
+    {
+      "name": "Il Foglio (sheet)",
+      "kind": "custom",
+      "refersTo": "foglio",
+      "description": "Pannello di dettaglio a scomparsa: dal basso su mobile, da destra su desktop.",
+      "html": "<div class=\"ds-foglio-wrap\"><div class=\"ds-foglio-dim\"></div><div class=\"ds-foglio\"><div class=\"ds-foglio__grab\"></div><div class=\"ds-foglio__hd\"><h3>Registra cura</h3><button class=\"ds-foglio__x\">×</button></div><div class=\"ds-foglio__body\">Contenuto del form…</div></div></div>",
+      "css": ".ds-foglio-wrap { position:relative; height:220px; overflow:hidden; border-radius:12px; } .ds-foglio-dim { position:absolute; inset:0; background:rgba(30,22,10,.34); } .ds-foglio { position:absolute; left:0; right:0; bottom:0; display:flex; flex-direction:column; background:#ffffff; border-radius:22px 22px 0 0; height:80%; box-shadow:0 -18px 50px -20px rgba(30,22,10,.5); } .ds-foglio__grab { width:38px; height:4px; border-radius:999px; background:#f0ebe2; margin:9px auto 2px; } .ds-foglio__hd { display:flex; align-items:center; justify-content:space-between; gap:10px; padding:6px 16px 12px; } .ds-foglio__hd h3 { font:600 16px/1.15 'Fraunces', Georgia, serif; margin:0; color:#2a2218; } .ds-foglio__x { width:30px; height:30px; border-radius:50%; border:0; background:#f0ebe2; color:#5a4e3e; font-size:17px; line-height:1; cursor:pointer; } .ds-foglio__body { padding:0 16px 16px; font:400 13px/1.5 'DM Sans', system-ui, sans-serif; color:#5a4e3e; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Il Taccuino da Giardino",
+    "overview": "Il sistema è un bullet journal da giardino: una pagina di carta calda, scritta e disegnata a mano, dove Zorba — il gatto nero realmente esistito e sepolto nel giardino, oggi voce dell'assistente AI — entra e esce dalle pagine per accompagnare chi cura il giardino. Non è un pannello di controllo: è un quaderno che si sfoglia, con un fondo a lavaggio d'acquerello sempre presente sotto ogni schermata, illustrazioni a china (l'aiuola della Home, che cambia con stagione e ora del giorno) e icone dipinte come macchie di pigmento più che come segnaletica.\n\nL'atmosfera voluta è calda e quieta: nessuna urgenza visiva se non quella reale delle cure da fare, ritmo lento da fine giornata in giardino, mai il tono energico o affollato di un'app da produttività. I componenti sono morbidi e arrotondati — angoli generosi (12–22px), ombre soffuse, niente spigoli — così che toccare un bottone o aprire un foglio senta \"di carta e cuscino\", non di scheda tecnica.\n\nRifiuti visivi confermati: niente estetica da SaaS/dashboard generico (card piatte grigie, blu corporate, icone outline sottili da tool aziendale); niente cliché da app di giardinaggio da stock (foto botaniche generiche, verde/marrone scontati) al posto dell'illustrazione a china/acquerello.",
+    "keyCharacteristics": [
+      "Pagina di carta calda (--cream) con un lavaggio d'acquerello organico sempre presente sullo sfondo",
+      "Fraunces per ogni nome e titolo, mai per il corpo del testo o i numeri di servizio",
+      "Icone come macchie di pigmento: silhouette piena + un accenno più scuro dove il colore \"si raccoglie\"",
+      "Zorba sempre nero, unica eccezione alla palette, presenza ricorrente dell'assistente AI",
+      "Angoli generosi e ombre soffuse ovunque; liste separate da filetti sottili, non da riquadri"
+    ],
+    "rules": [
+      { "name": "La Regola di Zorba Nero", "body": "Zorba è identità, non decorazione: resta nero (#141414) in ogni tema e in ogni superficie che lo mostra — unica eccezione ammessa alla palette. In dark mode non si schiarisce: gli si aggiunge un alone chiaro (drop-shadow) che lo separa dallo sfondo scuro.", "section": "colors" },
+      { "name": "La Regola del Caldo-al-Buio", "body": "Il dark mode non è un grigio neutro invertito: ogni token scuro nasce dalla tinta del suo equivalente chiaro. L'accento base si schiarisce (non si scurisce) per leggibilità; le tinte pallide diventano versioni scure sature della stessa tinta; le coppie -bg/-ink restano sempre superficie scura satura + testo chiaro.", "section": "colors" },
+      { "name": "La Regola del Nome in Fraunces", "body": "Ogni volta che l'interfaccia mostra un nome — di pianta, progetto, zona, pagina, persona — usa Fraunces, qualunque sia la dimensione. Numeri, etichette, pulsanti e chrome di navigazione restano sempre in DM Sans.", "section": "typography" },
+      { "name": "La Regola del Sollevamento Solo-su-Interazione", "body": "Niente ombra profonda su una superficie ferma: l'ombra si intensifica solo quando l'elemento risponde a un tocco, hover o apertura.", "section": "elevation" },
+      { "name": "La Regola della Decelerazione Unica", "body": "Ogni transizione di stato (hover, focus, apertura, comparsa) usa ease-standard, mai un rimbalzo/elastico (cubic-bezier con overshoot). Il 'pop' giocoso è un'eccezione che si nota — e nel Taccuino da Giardino non c'è: anche un pallino che compare in una timeline si posa, non rimbalza.", "section": "elevation" },
+      { "name": "La Regola dell'Azione di Riga Unica", "body": "Confermare un elemento di lista (cura, tappa) usa sempre .care-act/.care-act--rose, con l'etichetta 'Fatto' semplice — mai '✓ Fatto', mai un .btn/.btn-rose con dimensioni forzate via stile inline. Un secondo pattern per la stessa azione è la deriva più facile da introdurre per un nuovo componente scritto senza controllare cosa già esiste.", "section": "components" },
+      { "name": "La Regola dei Due Battiti", "body": "Zorba ha due reazioni, non intercambiabili: il battito lento (reagisci()) è per un evento raro che merita di essere notato (il ridisegno cinematico dell'Aiuola su cambio stagione/luce); il battito normale (confermaCura()) è per una conferma frequente che deve solo sentirsi certa (ogni 'Fatto' registrato in Home). Usare il lento per un'azione quotidiana lo svaluterebbe; usare il normale per un evento raro lo renderebbe invisibile.", "section": "components" }
+    ],
+    "dos": [
+      "Do mantenere il lavaggio d'acquerello di sfondo (gradienti radiali rose/sage/gold, 6–8% opacità) su ogni pagina: è la carta del taccuino, non un dettaglio opzionale.",
+      "Do usare Fraunces per ogni nome/titolo, a qualunque dimensione, e riservare DM Sans a tutto ciò che è servizio (numeri, etichette, chrome).",
+      "Do applicare la Regola di Ink-Pooling a ogni nuova icona: silhouette piena in tinta di dominio + un'ellisse -dark clippata al 40% di opacità.",
+      "Do riservare il Verde Salvia Diluito alle azioni affermative e il Rosa ad Acquerello solo a quelle distruttive/urgenti — non scambiarli.",
+      "Do separare le righe di lista con filetti hairline, non con card impilate una sopra l'altra.",
+      "Do dare alle superfici che escono dal flusso (modale, foglio, appbar) un'ombra o un blur più marcato di qualunque card ferma.",
+      "Do usare ease-standard per ogni transizione di stato, e una delle due durate condivise (motion-quick/motion-sheet) invece di inventare un nuovo numero.",
+      "Do usare .care-act/.care-act--rose per confermare un elemento di lista (cura, tappa) ovunque nell'app, con l'etichetta 'Fatto' semplice.",
+      "Do far reagire Zorba a eventi reali e rari (es. il ridisegno cinematico dell'Aiuola) invece di aggiungere animazioni decorative indipendenti — la reazione resta un tocco minimo (un battito di ciglia più lento), mai una coreografia nuova."
+    ],
+    "donts": [
+      "Don't introdurre superfici piatte grigie, blu corporate o icone outline sottili da tool aziendale: rompe l'identità di giardino disegnato a mano.",
+      "Don't sostituire l'illustrazione a china/acquerello con foto stock botaniche generiche o gradienti verde/marrone scontati da app di giardinaggio.",
+      "Don't schiarire o ricolorare Zorba, nemmeno per uno stato disabilitato/muto: resta nero, al massimo con un alone in dark mode.",
+      "Don't stringere il sistema di raggi (6–22px) verso angoli da 2–4px \"da dashboard\": la morbidezza è la firma tattile del sistema.",
+      "Don't incorniciare in una card con bordo pieno una lista che già usa il pattern a filetti — sarebbe una doppia gerarchia di contenimento.",
+      "Don't usare un easing con overshoot (rimbalzo/elastico) su un elemento d'interfaccia: rompe la Regola della Decelerazione Unica ed è in tensione diretta con un sistema \"caldo e quieto\"."
+    ]
+  }
+}
