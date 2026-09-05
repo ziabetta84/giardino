@@ -81,7 +81,7 @@ export function useMeteo() {
     loading.value = true
     errore.value  = null
     try {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,et0_fao_evapotranspiration&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m,relative_humidity_2m,soil_moisture_0_to_1cm&forecast_days=${days}&timezone=auto`
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,et0_fao_evapotranspiration,sunrise,sunset&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m,relative_humidity_2m,soil_moisture_0_to_1cm&forecast_days=${days}&timezone=auto`
       const res  = await fetch(url)
       if (!res.ok) throw new Error('Errore API meteo')
       const raw  = await res.json()
@@ -107,6 +107,8 @@ export function useMeteo() {
           umidita: umidita != null ? Math.round(umidita) : null,
           umiditaSuolo: umiditaSuolo != null ? Math.round(umiditaSuolo * 100) : null,
           evapotraspirazione: d.et0_fao_evapotranspiration?.[i]?.toFixed(1) ?? null,
+          alba: d.sunrise?.[i] ?? null,
+          tramonto: d.sunset?.[i] ?? null,
           ore: oreDelGiorno(h, data),
         }
       })
