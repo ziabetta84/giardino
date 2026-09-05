@@ -529,19 +529,6 @@ body::before {
   .phead-photo { height: 360px; }
 }
 
-.leaf { position:absolute; top:-16px; width:17px; height:17px; opacity:0; pointer-events:none;
-  animation:leaf-fall linear infinite; }
-.leaf svg { width:100%; height:100%; }
-.leaf--1 { left:16%; animation-duration:11s; animation-delay:0s; }
-.leaf--2 { left:49%; animation-duration:14s; animation-delay:3.4s; }
-.leaf--3 { left:73%; animation-duration:9.5s; animation-delay:6.6s; }
-@keyframes leaf-fall {
-  0%   { transform:translateY(-16px) translateX(0) rotate(0); opacity:0; }
-  14%  { opacity:.62; }
-  82%  { opacity:.62; }
-  100% { transform:translateY(150px) translateX(26px) rotate(230deg); opacity:0; }
-}
-@media (prefers-reduced-motion: reduce) { .leaf { display:none; } }
 
 /* restyle: cornice — appbar solo mobile (la sidebar copre >= 640px) */
 @media (min-width: 640px) { .appbar { display: none; } }

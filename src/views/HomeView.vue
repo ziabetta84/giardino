@@ -6,10 +6,6 @@
         <HeroAiuola :stagione="stagioneCorrente" :luce="luceScena" />
       </div>
 
-      <span class="leaf leaf--1"><Icon name="foglia" /></span>
-      <span class="leaf leaf--2"><Icon name="foglia" style="--olive:var(--gold);--olive-dark:var(--gold-dark)" /></span>
-      <span class="leaf leaf--3"><Icon name="foglia" style="--olive:var(--rose);--olive-dark:var(--rose-dark)" /></span>
-
       <div class="hero__grid">
         <div class="hero__txt">
           <div class="date">{{ oggi }}</div>
