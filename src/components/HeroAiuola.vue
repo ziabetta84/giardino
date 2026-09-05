@@ -3,8 +3,8 @@
     ref="scenaEl"
     class="zc-scene"
     :class="{ play: animare }"
-    :data-light="luce"
-    :data-season="stagione"
+    :data-light="luceVisibile"
+    :data-season="stagioneVisibile"
     viewBox="0 0 400 250"
     preserveAspectRatio="xMidYMax slice"
     aria-hidden="true"
@@ -171,8 +171,8 @@
               <use href="#stemShape" style="fill:var(--olive)"/>
               <use href="#stemShape" style="fill:var(--olive-dark)" opacity=".55" transform="translate(168,300) scale(.34,.86) translate(-262,-300)"/>
               <g transform="translate(162,278) rotate(-55) scale(1.3)"><use href="#leafShape" style="fill:var(--sage)"/></g>
-              <path d="M236,146 C231,129 220,122 211,117 C199,103 190,95 184,93 C177,95 169,103 155,118 C143,124 136,133 132,146 C136,157 145,169 156,175 C169,187 177,195 184,199 C193,194 200,186 213,173 C225,168 233,158 236,146 Z" style="fill:var(--rose)"/>
-              <path d="M236,146 C231,129 220,122 211,117 C199,103 190,95 184,93 C177,95 169,103 155,118 C143,124 136,133 132,146 C136,157 145,169 156,175 C169,187 177,195 184,199 C193,194 200,186 213,173 C225,168 233,158 236,146 Z" style="fill:var(--rose-dark)" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
+              <path d="M241,150 C241,133 233,119 220,115 C212,100 198,92 184,92 C168,92 155,100 148,115 C133,119 126,135 126,150 C126,167 136,179 148,185 C157,195 171,200 184,200 C201,200 213,195 221,184 C232,178 241,166 241,150 Z" style="fill:var(--rose)"/>
+              <path d="M241,150 C241,133 233,119 220,115 C212,100 198,92 184,92 C168,92 155,100 148,115 C133,119 126,135 126,150 C126,167 136,179 148,185 C157,195 171,200 184,200 C201,200 213,195 221,184 C232,178 241,166 241,150 Z" style="fill:var(--rose-dark)" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
             </g>
 
             <g transform="translate(314.4,400.0) rotate(3.2) scale(0.76) translate(-155,-428)">
@@ -187,15 +187,15 @@
               <use href="#stemShape" style="fill:var(--olive)"/>
               <use href="#stemShape" style="fill:var(--olive-dark)" opacity=".55" transform="translate(168,300) scale(.34,.86) translate(-262,-300)"/>
               <g transform="translate(162,278) rotate(-55) scale(1.3)"><use href="#leafShape" style="fill:var(--sage)"/></g>
-              <path d="M236,146 C231,129 220,122 211,117 C199,103 190,95 184,93 C177,95 169,103 155,118 C143,124 136,133 132,146 C136,157 145,169 156,175 C169,187 177,195 184,199 C193,194 200,186 213,173 C225,168 233,158 236,146 Z" style="fill:var(--rose)"/>
-              <path d="M236,146 C231,129 220,122 211,117 C199,103 190,95 184,93 C177,95 169,103 155,118 C143,124 136,133 132,146 C136,157 145,169 156,175 C169,187 177,195 184,199 C193,194 200,186 213,173 C225,168 233,158 236,146 Z" style="fill:var(--rose-dark)" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
+              <path d="M241,150 C241,133 233,119 220,115 C212,100 198,92 184,92 C168,92 155,100 148,115 C133,119 126,135 126,150 C126,167 136,179 148,185 C157,195 171,200 184,200 C201,200 213,195 221,184 C232,178 241,166 241,150 Z" style="fill:var(--rose)"/>
+              <path d="M241,150 C241,133 233,119 220,115 C212,100 198,92 184,92 C168,92 155,100 148,115 C133,119 126,135 126,150 C126,167 136,179 148,185 C157,195 171,200 184,200 C201,200 213,195 221,184 C232,178 241,166 241,150 Z" style="fill:var(--rose-dark)" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
             </g>
 
             <path class="ink-trace" pathLength="1" style="animation-delay:0.35s;animation-duration:.22s" d="M585,400 Q552.6,414.0 520.2,394.0"/>
 
             <path class="ink-trace" pathLength="1" style="animation-delay:0.57s" transform="translate(520.2,394.0) rotate(-5.8) scale(0.92) translate(-155,-428)" d="M150,428 C137,390 145,354 151,317 C163,277 170,234 181,195 C182,184 187,170 189,159"/>
 
-            <path class="ink-trace" pathLength="1" style="animation-delay:0.97s" transform="translate(520.2,394.0) rotate(-5.8) scale(0.92) translate(-155,-428)" d="M236,146 C231,129 220,122 211,117 C199,103 190,95 184,93 C177,95 169,103 155,118 C143,124 136,133 132,146 C136,157 145,169 156,175 C169,187 177,195 184,199 C193,194 200,186 213,173 C225,168 233,158 236,146 Z"/>
+            <path class="ink-trace" pathLength="1" style="animation-delay:0.97s" transform="translate(520.2,394.0) rotate(-5.8) scale(0.92) translate(-155,-428)" d="M241,150 C241,133 233,119 220,115 C212,100 198,92 184,92 C168,92 155,100 148,115 C133,119 126,135 126,150 C126,167 136,179 148,185 C157,195 171,200 184,200 C201,200 213,195 221,184 C232,178 241,166 241,150 Z"/>
 
             <path class="ink-trace" pathLength="1" style="animation-delay:1.37s;animation-duration:.22s" d="M520.2,394.0 Q495.1,420.0 470,406"/>
 
@@ -215,7 +215,7 @@
 
             <path class="ink-trace" pathLength="1" style="animation-delay:3.85s" transform="translate(109.5,402.3) rotate(-9.2) scale(0.94) translate(-155,-428)" d="M150,428 C137,390 145,354 151,317 C163,277 170,234 181,195 C182,184 187,170 189,159"/>
 
-            <path class="ink-trace" pathLength="1" style="animation-delay:4.25s" transform="translate(109.5,402.3) rotate(-9.2) scale(0.94) translate(-155,-428)" d="M236,146 C231,129 220,122 211,117 C199,103 190,95 184,93 C177,95 169,103 155,118 C143,124 136,133 132,146 C136,157 145,169 156,175 C169,187 177,195 184,199 C193,194 200,186 213,173 C225,168 233,158 236,146 Z"/>
+            <path class="ink-trace" pathLength="1" style="animation-delay:4.25s" transform="translate(109.5,402.3) rotate(-9.2) scale(0.94) translate(-155,-428)" d="M241,150 C241,133 233,119 220,115 C212,100 198,92 184,92 C168,92 155,100 148,115 C133,119 126,135 126,150 C126,167 136,179 148,185 C157,195 171,200 184,200 C201,200 213,195 221,184 C232,178 241,166 241,150 Z"/>
 
             <path class="ink-trace" pathLength="1" style="animation-delay:4.65s;animation-duration:.22s" d="M109.5,402.3 Q74.3,416.3 39.2,401.6"/>
 
@@ -321,8 +321,8 @@
               <use href="#stemShape" style="fill:var(--olive)"/>
               <use href="#stemShape" style="fill:var(--olive-dark)" opacity=".55" transform="translate(168,300) scale(.34,.86) translate(-262,-300)"/>
               <g transform="translate(162,278) rotate(55) scale(1.3)"><use href="#leafShape" style="fill:var(--sage)"/></g>
-              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#efe9d6"/>
-              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#c7bd98" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
+              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#ddc7c0"/>
+              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#a9847a" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
             </g>
 
             <g transform="translate(109.5,402.3) rotate(-9.2) scale(0.94) translate(-155,-428)">
@@ -337,8 +337,8 @@
               <use href="#stemShape" style="fill:var(--olive)"/>
               <use href="#stemShape" style="fill:var(--olive-dark)" opacity=".55" transform="translate(168,300) scale(.34,.86) translate(-262,-300)"/>
               <g transform="translate(162,278) rotate(55) scale(1.3)"><use href="#leafShape" style="fill:var(--sage)"/></g>
-              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#efe9d6"/>
-              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#c7bd98" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
+              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#ddc7c0"/>
+              <path d="M236,146 C232,168 217,186 200,195 C176,204 164,196 152,178 C142,162 142,130 152,114 C164,96 176,88 200,97 C216,106 232,124 236,146 Z" fill="#a9847a" opacity=".5" transform="translate(184,146) scale(.55) translate(-140,-100)"/>
             </g>
 
             <g transform="translate(520.2,394.0) rotate(-5.8) scale(0.92) translate(-155,-428)">
@@ -388,26 +388,125 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
 
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
-defineProps({
+const props = defineProps({
   stagione: { type: String, required: true },
   luce: { type: String, required: true },
 })
+// Emesso quando stagione/luce cambiano davvero (non al mount): HomeView lo
+// usa per far "notare" il cambiamento a Zorba (un battito di ciglia più
+// lento), invece di aggiungere un'animazione decorativa qui.
+const emit = defineEmits(['cambio-scena'])
 
 // Colori e Zorba sono già tutti presenti al primo istante (vedi HomeView.vue);
 // la matita a china parte poco dopo il mount e ripassa la scena una sola
 // volta, senza loop — coerente con come si comporta il resto dell'app.
 const animare = ref(false)
+const scenaEl = ref(null)
+
+// Copia interna effettivamente mostrata a schermo: il template non legge mai
+// le prop direttamente. Questo lascia il tempo di aprire una View Transition
+// e congelare i tratti a china della nuova stagione (dashoffset:1, invisibili)
+// PRIMA che il DOM cambi, così la stagione che appare si ridisegna davvero
+// invece di comparire già completa dentro la dissolvenza.
+const stagioneVisibile = ref(props.stagione)
+const luceVisibile = ref(props.luce)
+
+function ridottoMovimento() {
+  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+}
+
+// I tratti a china di una stagione sono già temporizzati singolarmente
+// (animation-delay/-duration inline, vedi il template): il ridisegno su
+// cambio di stato riusa esattamente quegli stessi valori invece di
+// inventarne di nuovi, così il "ripasso" iniziale e quello su cambio
+// stagione sembrano la stessa mano che disegna.
+function tocchiChina(chiaveStagione) {
+  return scenaEl.value?.querySelectorAll(`.szn-${chiaveStagione} path.ink-trace`) ?? []
+}
+
+function azzeraTratti(chiaveStagione) {
+  tocchiChina(chiaveStagione).forEach((tratto) => {
+    tratto.getAnimations().forEach((a) => a.cancel())
+    tratto.style.strokeDashoffset = '1'
+  })
+}
+
+function ridisegnaTratti(chiaveStagione) {
+  tocchiChina(chiaveStagione).forEach((tratto) => {
+    const durata = (parseFloat(tratto.style.animationDuration) || 0.4) * 1000
+    const ritardo = (parseFloat(tratto.style.animationDelay) || 0) * 1000
+    tratto.animate(
+      [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }],
+      { duration: durata, delay: ritardo, easing: 'linear', fill: 'forwards' }
+    )
+  })
+}
+
+let transizioneCorrente = null
+
+watch(() => [props.stagione, props.luce], async ([nuovaStagione, nuovaLuce]) => {
+  const stagioneCambiata = nuovaStagione !== stagioneVisibile.value
+  const luceCambiata = nuovaLuce !== luceVisibile.value
+  if (!stagioneCambiata && !luceCambiata) return
+
+  emit('cambio-scena')
+
+  const applica = async () => {
+    if (stagioneCambiata) azzeraTratti(nuovaStagione)
+    stagioneVisibile.value = nuovaStagione
+    luceVisibile.value = nuovaLuce
+    await nextTick()
+  }
+
+  // "Riduci movimento": scatto secco e definitivo, senza alcuna animazione —
+  // né dissolvenza né ridisegno. Va verificato PRIMA e separatamente dal
+  // supporto a View Transitions: un browser senza quel supporto ma senza
+  // preferenza di movimento ridotto deve comunque vedere ridisegnare la china.
+  if (ridottoMovimento()) {
+    stagioneVisibile.value = nuovaStagione
+    luceVisibile.value = nuovaLuce
+    if (stagioneCambiata) {
+      await nextTick()
+      tocchiChina(nuovaStagione).forEach((tratto) => {
+        tratto.getAnimations().forEach((a) => a.cancel())
+        tratto.style.strokeDashoffset = '0'
+      })
+    }
+    return
+  }
+
+  // Senza View Transitions (Firefox): niente dissolvenza dello sfondo, ma la
+  // stagione nuova — se è lei a cambiare — si ridisegna comunque a china.
+  if (!document.startViewTransition) {
+    await applica()
+    if (stagioneCambiata) ridisegnaTratti(nuovaStagione)
+    return
+  }
+
+  transizioneCorrente?.skipTransition()
+  transizioneCorrente = document.startViewTransition(applica)
+  try {
+    await transizioneCorrente.ready
+    if (stagioneCambiata) ridisegnaTratti(nuovaStagione)
+  } catch {
+    // transizione saltata da un cambio successivo troppo ravvicinato: nessun problema
+  }
+})
+
 onMounted(() => {
   requestAnimationFrame(() => { animare.value = true })
+})
+onUnmounted(() => {
+  transizioneCorrente?.skipTransition()
 })
 </script>
 
 <style scoped>
-.zc-scene { display:block; width:100%; height:100%; }
+.zc-scene { display:block; width:100%; height:100%; view-transition-name: giardino-scena; }
 
 .zc-scene {
   --scn-sky-a: var(--cream-dark); --scn-sky-b: var(--gold-tile);

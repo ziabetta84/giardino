@@ -35,6 +35,6 @@ onMounted(() => {
   height: 140px;
 }
 
-.boot-fade-leave-active { transition: opacity 0.4s ease; }
+.boot-fade-leave-active { transition: opacity 0.4s var(--ease-standard); }
 .boot-fade-leave-to { opacity: 0; }
 </style>

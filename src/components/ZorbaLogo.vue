@@ -200,6 +200,40 @@ onMounted(() => {
     svg.querySelector('#tail').classList.add('wag')
   }, 2000)
 })
+
+// Due reazioni a eventi reali esterni a questo componente, entrambe via
+// battito di ciglia ma con un significato diverso — non vanno confuse tra
+// loro: quella lenta resta un segnale raro e speciale, quella normale è il
+// piccolo "ok" quotidiano. Rimuove e riaggiunge la classe (con reflow
+// forzato in mezzo) perché una classe già presente non farebbe ripartire
+// l'animazione — a differenza del battito e della coda al mount, che
+// avvengono una sola volta.
+function battito(classe) {
+  if (props.mini) return
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+  const occhio = root.value?.querySelector('#eye')
+  if (!occhio) return
+  occhio.classList.remove(classe)
+  void occhio.getBoundingClientRect()
+  occhio.classList.add(classe)
+}
+
+// HomeView, quando la scena dell'aiuola si ridisegna davvero per un cambio
+// di stagione/luce: un battito più lento del solito, come se Zorba notasse
+// il cambiamento. Evento raro — resta un segnale che si distingue.
+function reagisci() {
+  battito('blink-lento')
+}
+
+// HomeView, quando una cura viene registrata con successo dal bottone
+// "Fatto": lo stesso battito del mount, breve e discreto — un "ok" che
+// resta certo e leggero anche alla decima cura della sessione, non una
+// celebrazione (vedi delight.md: "routine saves should simply feel certain").
+function confermaCura() {
+  battito('blink')
+}
+
+defineExpose({ reagisci, confermaCura })
 </script>
 
 <style scoped>
@@ -232,4 +266,5 @@ onMounted(() => {
 }
 .zorba-logo :deep(#tail.wag) { animation: zorba-tail-wag 1s ease-in-out 1; }
 .zorba-logo :deep(#eye.blink) { animation: zorba-eye-blink 0.4s ease-in-out 1; }
+.zorba-logo :deep(#eye.blink-lento) { animation: zorba-eye-blink 0.9s ease-in-out 1; }
 </style>
