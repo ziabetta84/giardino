@@ -4,11 +4,27 @@
 
     <div class="form-card" style="margin-bottom:12px">
       <p class="slabel">Posizione</p>
+
+      <button type="button" @click="usaPosizioneDispositivo" :disabled="localizzando" class="btn btn-ghost" style="width:100%;margin-bottom:10px;">
+        <Spinner v-if="localizzando" />{{ localizzando ? 'Localizzazione…' : '📍 Usa la mia posizione' }}
+      </button>
+
+      <div style="position:relative;margin-bottom:10px;">
+        <input v-model="queryIndirizzo" @keyup.enter="cercaIndirizzoUtente" type="text" placeholder="Cerca indirizzo…" class="form-input" style="width:100%;">
+        <ul v-if="risultatiIndirizzo.length" style="list-style:none;margin:4px 0 0;padding:0;border:1px solid var(--border,#ddd);border-radius:8px;overflow:hidden;">
+          <li v-for="(r, i) in risultatiIndirizzo" :key="i" @click="scegliIndirizzo(r)" style="padding:8px 10px;cursor:pointer;font-size:13px;">
+            {{ r.display_name }}
+          </li>
+        </ul>
+        <p v-if="risultatiIndirizzo.length" style="font-size:11px;color:var(--text-muted,#888);margin:4px 0 0;">dati © OpenStreetMap</p>
+      </div>
+
       <div style="display:flex;gap:8px;margin-bottom:10px;">
         <input v-model.number="form.lat" type="number" placeholder="Latitudine" class="form-input">
         <input v-model.number="form.lon" type="number" placeholder="Longitudine" class="form-input">
       </div>
       <input v-model.number="form.altitude" type="number" placeholder="Altitudine (m)" class="form-input">
+      <p v-if="erroreGeo" style="font-size:12px;color:var(--rose-dark);margin:8px 0 0;">{{ erroreGeo }}</p>
     </div>
 
     <div class="form-card" style="margin-bottom:12px">
@@ -41,17 +57,65 @@ import { useDatiStore } from '@/stores/dati'
 import { useSettingsApi } from '@/composables/useSettingsApi'
 import { useSupabase } from '@/composables/useSupabase'
 import { useTema } from '@/composables/useTema'
+import { useGeolocalizzazione } from '@/composables/useGeolocalizzazione'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
 const settingsApi = useSettingsApi()
 const supabase = useSupabase()
 const { tema, impostaTema } = useTema()
+const { richiediPosizioneDispositivo, cercaIndirizzo, ottieniAltitudine } = useGeolocalizzazione()
 
 const salvando = ref(false)
 const errore = ref(null)
 const zoneClimatiche = ref([])
 const form = ref({ lat: null, lon: null, altitude: null, zona_climatica_id: null })
+
+const localizzando = ref(false)
+const erroreGeo = ref(null)
+const queryIndirizzo = ref('')
+const risultatiIndirizzo = ref([])
+
+async function usaPosizioneDispositivo() {
+  localizzando.value = true
+  erroreGeo.value = null
+  try {
+    const { lat, lon } = await richiediPosizioneDispositivo()
+    await impostaPosizione(lat, lon)
+  } catch (e) {
+    erroreGeo.value = e.message
+  } finally {
+    localizzando.value = false
+  }
+}
+
+async function cercaIndirizzoUtente() {
+  if (!queryIndirizzo.value.trim()) return
+  erroreGeo.value = null
+  try {
+    risultatiIndirizzo.value = await cercaIndirizzo(queryIndirizzo.value.trim())
+    if (!risultatiIndirizzo.value.length) erroreGeo.value = 'Nessun indirizzo trovato.'
+  } catch (e) {
+    erroreGeo.value = e.message
+  }
+}
+
+async function scegliIndirizzo(r) {
+  risultatiIndirizzo.value = []
+  queryIndirizzo.value = r.display_name
+  await impostaPosizione(r.lat, r.lon)
+}
+
+async function impostaPosizione(lat, lon) {
+  form.value.lat = lat
+  form.value.lon = lon
+  try {
+    const altitudine = await ottieniAltitudine(lat, lon)
+    if (altitudine != null) form.value.altitude = altitudine
+  } catch {
+    // altitudine resta modificabile a mano, nessun blocco del flusso
+  }
+}
 
 onMounted(async () => {
   await store.caricaTutto()
