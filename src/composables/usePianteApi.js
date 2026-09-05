@@ -62,6 +62,20 @@ export function usePianteApi() {
     store.piante = { ...store.piante, [id]: { ...piantaEsistente, ultima_cura } }
   }
 
+  // Inverso di registraCura: ripristina il valore precedente di ultima_cura[tipo]
+  // (o rimuove del tutto la chiave se la cura non era mai stata registrata prima),
+  // per il toast "Annulla" dopo un "Fatto" — evita di lasciare l'unico dato usato
+  // per calcolare le urgenze (Home, Attività) sovrascritto senza via di recupero.
+  async function annullaCura(id, tipo, valorePrecedente) {
+    const piantaEsistente = store.piante?.[id] ?? {}
+    const ultima_cura = { ...(piantaEsistente.ultima_cura || {}) }
+    if (valorePrecedente == null) delete ultima_cura[tipo]
+    else ultima_cura[tipo] = valorePrecedente
+    const { error } = await supabase.from('piante').update({ ultima_cura }).eq('id', id)
+    if (error) throw error
+    store.piante = { ...store.piante, [id]: { ...piantaEsistente, ultima_cura } }
+  }
+
   // Raggruppa per pianta prima di scrivere: un gruppo può contenere più voci
   // per la stessa pianta (es. irrigazione E concimazione insieme), e ognuna
   // deve arrivare a un'unica riga jsonb finale — chiamare registraCura in
@@ -95,5 +109,5 @@ export function usePianteApi() {
     store.piante = nuove
   }
 
-  return { salvaPianta, eliminaPianta, registraCura, registraCuraMultipla, rinominaSpecieInPiante }
+  return { salvaPianta, eliminaPianta, registraCura, annullaCura, registraCuraMultipla, rinominaSpecieInPiante }
 }

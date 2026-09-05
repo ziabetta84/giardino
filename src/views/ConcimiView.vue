@@ -5,6 +5,10 @@
       <button @click="apriNuovo" class="pill">＋ Aggiungi</button>
     </div>
 
+    <p v-if="erroreDisponibile" style="font-size:12px;color:var(--rose-ink);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
+      {{ erroreDisponibile }}
+    </p>
+
     <!-- Skeleton -->
     <div v-if="store.loading" style="display:flex;flex-direction:column;gap:10px;">
       <div v-for="i in 3" :key="i" class="card" style="padding:16px;">
@@ -65,6 +69,7 @@
             <span class="toggle-switch-knob"></span>
           </button>
         </div>
+        <p v-if="erroreSalvataggio" style="font-size:12px;color:var(--rose-ink);margin:-6px 0 10px;">{{ erroreSalvataggio }}</p>
         <div class="foglio-actions">
           <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
           <button class="btn btn-sage" @click="salva" :disabled="!form.nome.trim() || salvando"
@@ -80,8 +85,9 @@
       titolo="Eliminare questo concime?"
       messaggio="Questa azione non può essere annullata."
       :caricamento="eliminando"
+      :errore="erroreEliminazione"
       @conferma="eliminaConcime"
-      @annulla="daEliminare = null"
+      @annulla="daEliminare = null; erroreEliminazione = null"
     />
   </div>
 </template>
@@ -106,6 +112,9 @@ const form = ref({ nome: '', n: null, p: null, k: null, descrizione: '', disponi
 
 const daEliminare = ref(null)
 const eliminando  = ref(false)
+const erroreEliminazione = ref(null)
+const erroreSalvataggio  = ref(null)
+const erroreDisponibile  = ref(null)
 
 const concimi = computed(() => {
   if (!store.concimi) return []
@@ -117,12 +126,14 @@ const concimi = computed(() => {
 function apriNuovo() {
   modificaId.value = null
   form.value = { nome: '', n: null, p: null, k: null, descrizione: '', disponibile: true }
+  erroreSalvataggio.value = null
   mostraForm.value = true
 }
 
 function apriModifica(c) {
   modificaId.value = c.id
   form.value = { nome: c.nome, n: c.npk.n, p: c.npk.p, k: c.npk.k, descrizione: c.descrizione ?? '', disponibile: c.disponibile !== false }
+  erroreSalvataggio.value = null
   mostraForm.value = true
 }
 
@@ -139,6 +150,7 @@ async function salva() {
   const nome = form.value.nome.trim()
   if (!nome || salvando.value) return
   salvando.value = true
+  erroreSalvataggio.value = null
   const riga = {
     nome,
     npk: { n: form.value.n || 0, p: form.value.p || 0, k: form.value.k || 0 },
@@ -157,6 +169,8 @@ async function salva() {
     }
     store.concimi = { ...store.concimi, [id]: riga }
     mostraForm.value = false
+  } catch {
+    erroreSalvataggio.value = 'Non sono riuscito a salvare il concime. Riprova.'
   } finally {
     salvando.value = false
   }
@@ -165,11 +179,14 @@ async function salva() {
 async function toggleDisponibile(c) {
   if (salvandoDisponibile.value) return
   salvandoDisponibile.value = c.id
+  erroreDisponibile.value = null
   const disponibile = c.disponibile === false
   try {
     const { error } = await supabase.from('concimi').update({ disponibile }).eq('id', c.id)
     if (error) throw error
     store.concimi = { ...store.concimi, [c.id]: { ...store.concimi[c.id], disponibile } }
+  } catch {
+    erroreDisponibile.value = `Non sono riuscito ad aggiornare "${c.nome}". Riprova.`
   } finally {
     salvandoDisponibile.value = null
   }
@@ -182,6 +199,7 @@ function avviaElimina(c) {
 async function eliminaConcime() {
   if (!daEliminare.value) return
   eliminando.value = true
+  erroreEliminazione.value = null
   const id = daEliminare.value
   try {
     const { error } = await supabase.from('concimi').delete().eq('id', id)
@@ -190,6 +208,8 @@ async function eliminaConcime() {
     delete nuovi[id]
     store.concimi = nuovi
     daEliminare.value = null
+  } catch {
+    erroreEliminazione.value = 'Non sono riuscito a eliminare il concime. Riprova.'
   } finally {
     eliminando.value = false
   }
@@ -224,7 +244,7 @@ async function eliminaConcime() {
   cursor: pointer;
   flex-shrink: 0;
   padding: 3px;
-  transition: background .2s ease;
+  transition: background var(--motion-quick) var(--ease-standard);
 }
 .toggle-switch.attivo {
   background: var(--sage);
@@ -242,7 +262,7 @@ async function eliminaConcime() {
   background: var(--white);
   box-shadow: 0 1px 3px rgba(42,34,24,0.25);
   transform: translateX(0);
-  transition: transform .2s ease;
+  transition: transform var(--motion-quick) var(--ease-standard);
   font-size: 10px;
   color: var(--ink-faint);
 }

@@ -24,8 +24,11 @@
            unica slide; senza nemmeno quella, header testuale ridotto. -->
       <div v-if="hasPhotos || fotoHero" class="phead-photo">
         <div class="gtrack" @scroll.passive="onGtrackScroll">
-          <figure v-for="f in slides" :key="f.path ?? 'hero'" class="gslide" @click="apriLuce(f)">
-            <img class="gimg" :src="f.thumbUrl" :alt="specie?.nome ?? pianta.specie" loading="lazy">
+          <figure v-for="(f, i) in slides" :key="f.path ?? 'hero'" class="gslide"
+            :tabindex="f.path ? 0 : null" :role="f.path ? 'button' : null"
+            :aria-label="f.path ? 'Apri foto a schermo intero' : null"
+            @click="apriLuce(f)" @keydown.enter="apriLuce(f)" @keydown.space.prevent="apriLuce(f)">
+            <img class="gimg" :src="f.thumbUrl" :alt="altFoto(i)" loading="lazy">
           </figure>
         </div>
         <div class="phead-scrim"></div>
@@ -64,32 +67,19 @@
         </div>
       </div>
 
-      <!-- Alert cura: unico blocco sollevato, tinta olive, solo icona a sinistra -->
-      <div v-if="cureUrgenti.length" class="card alertbox">
-        <span class="alertbox__ic"><Icon name="campanella" /></span>
-        <div class="alertbox__main">
-          <div class="alertbox__title">Da curare subito</div>
-          <div class="alertbox__rows">
-            <div v-for="c in cureUrgenti" :key="c.tipo" class="alert-cura__row">
-              <span>{{ c.label }}</span>
-              <button class="care-act care-act--rose" type="button" @click="registraCura(c.tipo)" :disabled="salvando === c.tipo">
-                <Spinner v-if="salvando === c.tipo" /><span v-else>Registra</span>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Stato cure -->
+      <!-- Stato cure: le righe urgenti si distinguono per colore (.care-act--rose)
+           invece di duplicare il controllo in un alert separato più in alto —
+           stesso comando "registra questa cura", un solo posto dove trovarlo. -->
       <div class="slabel">Stato cure</div>
       <div class="care">
         <div v-for="tipo in tipiCura" :key="tipo" class="care__row">
           <span class="care__ic" :class="`care__ic--${tipo}`"><Icon :name="iconaCura(tipo)" /></span>
           <span class="care__m">
             <span class="care__n">{{ LABEL_CURA[tipo] ?? tipo }}</span>
-            <span class="care__d">{{ statoCura(tipo) }}</span>
+            <span class="care__d" :class="{ 'care__d--urgente': tipiUrgenti.has(tipo) }">{{ statoCura(tipo) }}</span>
+            <span v-if="erroreCura?.tipo === tipo" class="care__d care__d--err">{{ erroreCura.messaggio }}</span>
           </span>
-          <button class="care-act" type="button" @click="registraCura(tipo)" :disabled="salvando === tipo">
+          <button class="care-act" :class="{ 'care-act--rose': tipiUrgenti.has(tipo) }" type="button" @click="registraCura(tipo)" :disabled="salvando === tipo">
             <Spinner v-if="salvando === tipo" /><span v-else>Fatto</span>
           </button>
         </div>
@@ -116,18 +106,42 @@
         <svg class="specie-ghost" viewBox="0 0 512 512" aria-hidden="true"><g transform="translate(0 512) scale(0.1 -0.1)"><path class="sg" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34 -95 -78 -115 -32 -15 -72 -17 -282 -16 -135 0 -297 6 -360 12 -213 22 -501 26 -660 8 -148 -16 -171 -21 -345 -74 -119 -36 -187 -64 -405 -169 -160 -77 -376 -157 -452 -168 l-38 -6 0 -196 0 -196 68 6 c38 4 114 16 171 28 56 11 104 19 106 17 3 -2 9 -84 15 -182 6 -99 13 -183 16 -187 2 -5 5 -41 6 -82 0 -63 -4 -81 -31 -135 -17 -34 -35 -62 -39 -62 -9 0 -131 -99 -177 -143 -20 -19 -40 -50 -45 -68 -5 -18 -14 -114 -20 -213 -6 -100 -18 -241 -27 -314 -18 -150 -12 -190 34 -237 51 -51 79 -59 211 -63 129 -4 167 3 210 41 16 15 22 31 22 64 0 54 -29 87 -91 103 -24 6 -50 13 -56 15 -21 7 -15 65 17 155 16 47 30 94 30 105 1 11 9 35 18 54 14 29 26 37 67 48 65 16 330 60 419 68 38 4 75 9 83 12 22 8 15 -14 -22 -72 -20 -30 -38 -68 -41 -84 -14 -70 74 -165 281 -302 182 -120 202 -132 275 -162 90 -37 140 -46 251 -47 82 0 102 3 145 25 80 40 95 96 41 150 -36 36 -89 55 -151 55 -38 0 -126 34 -126 49 0 4 -40 42 -90 84 -49 43 -90 83 -90 90 0 18 204 143 315 193 142 64 572 204 649 211 76 7 72 11 122 -142 18 -55 56 -163 84 -240 29 -77 65 -178 81 -225 39 -112 77 -180 116 -206 52 -35 137 -47 300 -42 201 6 263 33 263 115 0 16 -7 39 -16 52 -20 28 -88 60 -126 61 -26 0 -28 3 -28 38 0 21 4 73 9 117 6 44 13 116 16 160 3 44 10 100 15 125 6 25 21 117 35 205 28 171 62 307 126 500 112 334 130 413 155 668 17 183 12 251 -38 502 -91 465 -355 899 -680 1117 -53 36 -104 45 -137 26 -23 -13 -26 -20 -24 -61 2 -26 -1 -47 -6 -47 -5 0 -28 21 -51 47 -64 73 -139 133 -166 133 -13 0 -33 -9 -45 -21z m661 -3244 c0 -17 9 -29 31 -41 31 -16 32 -17 26 -74 -9 -84 -37 -154 -64 -158 -17 -3 -24 3 -29 24 -8 30 2 231 12 257 9 25 24 20 24 -8z"/><path class="sg" d="M124 3636 c-52 -23 -68 -73 -60 -187 26 -406 211 -760 516 -990 108 -82 230 -139 390 -184 66 -19 315 -31 424 -20 l77 7 -3 198 c-2 109 -6 201 -9 204 -3 4 -17 2 -31 -3 -14 -5 -77 -15 -140 -22 -99 -11 -132 -10 -224 2 -60 9 -127 24 -149 34 -161 74 -273 169 -363 308 -86 132 -116 202 -162 377 -48 180 -68 227 -112 260 -38 28 -110 36 -154 16z"/></g></svg>
         <div class="slabel">La specie</div>
         <p v-if="specie.descrizione" class="prose">{{ specie.descrizione }}</p>
-        <div v-if="coltivazione" class="kv">
-          <div v-if="coltivazione.famiglia_botanica"><span class="k">Famiglia</span><span class="v">{{ coltivazione.famiglia_botanica }}</span></div>
-          <div v-if="coltivazione.giorni_germinazione"><span class="k">Germinazione</span><span class="v">{{ coltivazione.giorni_germinazione }} gg</span></div>
-          <div v-if="coltivazione.giorni_trapianto"><span class="k">Al trapianto</span><span class="v">{{ coltivazione.giorni_trapianto }} gg dalla semina</span></div>
-          <div v-if="coltivazione.giorni_raccolta"><span class="k">Prima raccolta</span><span class="v">{{ coltivazione.giorni_raccolta }} gg dal trapianto</span></div>
-          <div v-if="coltivazione.finestra_semina?.length"><span class="k">Finestra semina</span><span class="v">{{ coltivazione.finestra_semina.join(', ') }}</span></div>
-          <div v-if="coltivazione.finestra_trapianto?.length"><span class="k">Finestra trapianto</span><span class="v">{{ coltivazione.finestra_trapianto.join(', ') }}</span></div>
-          <div v-if="coltivazione.resistenza_gelo"><span class="k">Resistenza al gelo</span><span class="v">{{ coltivazione.resistenza_gelo }}</span></div>
-          <div v-if="coltivazione.spaziatura_cm"><span class="k">Spaziatura</span><span class="v">{{ coltivazione.spaziatura_cm }} cm</span></div>
-          <div v-if="coltivazione.consociazioni_favorevoli?.length"><span class="k">Si abbina a</span><span class="v">{{ coltivazione.consociazioni_favorevoli.join(', ') }}</span></div>
-          <div v-if="coltivazione.consociazioni_sfavorevoli?.length"><span class="k">Evitare vicino a</span><span class="v">{{ coltivazione.consociazioni_sfavorevoli.join(', ') }}</span></div>
-        </div>
+        <!-- Fino a 10 fatti in un'unica griglia diventavano un muro di dati:
+             raggruppati per categoria (≤3 per gruppo) invece di un unico
+             .kv piatto, così l'occhio si ferma dove serve invece di
+             scorrere tutto in blocco ogni volta. -->
+        <template v-if="coltivazione">
+          <template v-if="coltivazione.famiglia_botanica || coltivazione.resistenza_gelo">
+            <span class="field-label">Identità</span>
+            <div class="kv">
+              <div v-if="coltivazione.famiglia_botanica"><span class="k">Famiglia</span><span class="v">{{ coltivazione.famiglia_botanica }}</span></div>
+              <div v-if="coltivazione.resistenza_gelo"><span class="k">Resistenza al gelo</span><span class="v">{{ coltivazione.resistenza_gelo }}</span></div>
+            </div>
+          </template>
+          <template v-if="coltivazione.giorni_germinazione || coltivazione.giorni_trapianto || coltivazione.giorni_raccolta">
+            <span class="field-label">Tempistiche</span>
+            <div class="kv">
+              <div v-if="coltivazione.giorni_germinazione"><span class="k">Germinazione</span><span class="v">{{ coltivazione.giorni_germinazione }} gg</span></div>
+              <div v-if="coltivazione.giorni_trapianto"><span class="k">Al trapianto</span><span class="v">{{ coltivazione.giorni_trapianto }} gg dalla semina</span></div>
+              <div v-if="coltivazione.giorni_raccolta"><span class="k">Prima raccolta</span><span class="v">{{ coltivazione.giorni_raccolta }} gg dal trapianto</span></div>
+            </div>
+          </template>
+          <template v-if="coltivazione.finestra_semina?.length || coltivazione.finestra_trapianto?.length || coltivazione.spaziatura_cm">
+            <span class="field-label">Semina e spaziatura</span>
+            <div class="kv">
+              <div v-if="coltivazione.finestra_semina?.length"><span class="k">Finestra semina</span><span class="v">{{ coltivazione.finestra_semina.join(', ') }}</span></div>
+              <div v-if="coltivazione.finestra_trapianto?.length"><span class="k">Finestra trapianto</span><span class="v">{{ coltivazione.finestra_trapianto.join(', ') }}</span></div>
+              <div v-if="coltivazione.spaziatura_cm"><span class="k">Spaziatura</span><span class="v">{{ coltivazione.spaziatura_cm }} cm</span></div>
+            </div>
+          </template>
+          <template v-if="coltivazione.consociazioni_favorevoli?.length || coltivazione.consociazioni_sfavorevoli?.length">
+            <span class="field-label">Consociazioni</span>
+            <div class="kv">
+              <div v-if="coltivazione.consociazioni_favorevoli?.length"><span class="k">Si abbina a</span><span class="v">{{ coltivazione.consociazioni_favorevoli.join(', ') }}</span></div>
+              <div v-if="coltivazione.consociazioni_sfavorevoli?.length"><span class="k">Evitare vicino a</span><span class="v">{{ coltivazione.consociazioni_sfavorevoli.join(', ') }}</span></div>
+            </div>
+          </template>
+        </template>
       </div>
 
       <!-- Esigenze -->
@@ -167,8 +181,9 @@
       titolo="Eliminare questa pianta?"
       :messaggio="messaggioEliminaPianta"
       :caricamento="eliminando"
+      :errore="erroreEliminazione"
       @conferma="eliminaPianta"
-      @annulla="daEliminare = false"
+      @annulla="daEliminare = false; erroreEliminazione = null"
     />
 
     <LightboxFoto
@@ -188,9 +203,12 @@
       titolo="Eliminare questa foto?"
       messaggio="Questa azione non può essere annullata."
       :caricamento="eliminandoFoto"
+      :errore="erroreEliminazioneFoto"
       @conferma="confermaEliminaFoto"
-      @annulla="daEliminareFoto = null"
+      @annulla="daEliminareFoto = null; erroreEliminazioneFoto = null"
     />
+
+    <ToastCura ref="toastCura" @errore="e => erroreCura = e" />
   </div>
 </template>
 
@@ -206,6 +224,7 @@ import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'
+import ToastCura from '@/components/ToastCura.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 
@@ -216,13 +235,17 @@ const pianteApi = usePianteApi()
 const galleria = useGalleria()
 
 const salvando   = ref(null)
+const erroreCura = ref(null)
+const toastCura  = ref(null)
 const daEliminare = ref(false)
 const eliminando  = ref(false)
+const erroreEliminazione = ref(null)
 
 const fotoPianta    = ref([])
 const luce          = ref(null)
 const daEliminareFoto = ref(null)
 const eliminandoFoto  = ref(false)
+const erroreEliminazioneFoto = ref(null)
 const indiceFotoCorrente = ref(0)
 
 // La galleria in cima alla scheda: le foto personali se ci sono, altrimenti
@@ -237,6 +260,14 @@ const fotoHero = computed(() => {
 const hasPhotos = computed(() => fotoPianta.value.length > 0)
 const soloHero  = computed(() => !hasPhotos.value && !!fotoHero.value)
 const slides    = computed(() => (hasPhotos.value ? fotoPianta.value : (fotoHero.value ? [fotoHero.value] : [])))
+
+// Prima tutte le foto condividevano lo stesso alt (solo il nome specie):
+// uno screen reader sentiva testo identico per ogni slide. Con più di una
+// foto si numera; con una sola il nome basta.
+function altFoto(i) {
+  const nome = specie.value?.nome ?? pianta.value?.specie ?? ''
+  return slides.value.length > 1 ? `${nome} — foto ${i + 1}` : nome
+}
 
 // Pallini della galleria in sincrono con lo scorrimento (porta della logica
 // del mockup, adattata a un ref Vue).
@@ -298,11 +329,14 @@ watch(() => route.params.id, (id) => caricaFotoPianta(id))
 async function confermaEliminaFoto() {
   if (!daEliminareFoto.value) return
   eliminandoFoto.value = true
+  erroreEliminazioneFoto.value = null
   try {
     await galleria.elimina(daEliminareFoto.value)
     fotoPianta.value = fotoPianta.value.filter(f => f.path !== daEliminareFoto.value.path)
     if (luce.value?.path === daEliminareFoto.value.path) luce.value = null
     daEliminareFoto.value = null
+  } catch {
+    erroreEliminazioneFoto.value = 'Non sono riuscito a eliminare la foto. Riprova.'
   } finally {
     eliminandoFoto.value = false
   }
@@ -357,6 +391,9 @@ function statoCura(tipo) {
 const cureUrgenti = computed(() =>
   pianta.value ? cureUrgentiPianta(pianta.value, specie.value, contestoCura.value) : []
 )
+// Per colorare in rosa la riga urgente direttamente in "Stato cure" invece
+// di un alert separato che duplica lo stesso identico comando "registra".
+const tipiUrgenti = computed(() => new Set(cureUrgenti.value.map(c => c.tipo)))
 
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
 // Solo i primi 3: la dispensa può avere una decina di concimi, l'intera
@@ -369,9 +406,14 @@ const classificaConcimiPianta = computed(() =>
 async function registraCura(tipo) {
   if (!pianta.value || salvando.value) return
   salvando.value = tipo
+  erroreCura.value = null
   const id = pianta.value.id
+  const valorePrecedente = pianta.value.ultima_cura?.[tipo] ?? null
   try {
     await pianteApi.registraCura(id, tipo)
+    toastCura.value?.apri(id, tipo, valorePrecedente)
+  } catch {
+    erroreCura.value = { tipo, messaggio: 'Non sono riuscito a registrare la cura. Riprova.' }
   } finally {
     salvando.value = null
   }
@@ -380,11 +422,14 @@ async function registraCura(tipo) {
 async function eliminaPianta() {
   if (!pianta.value) return
   eliminando.value = true
+  erroreEliminazione.value = null
   const id = pianta.value.id
   try {
     await galleria.eliminaCartella(id)
     await pianteApi.eliminaPianta(id)
     router.push('/piante')
+  } catch {
+    erroreEliminazione.value = 'Non sono riuscito a eliminare la pianta. Riprova.'
   } finally {
     eliminando.value = false
   }
@@ -423,13 +468,14 @@ async function eliminaPianta() {
 }
 .phead-text__edit svg { width: 12px; height: 12px; }
 
-/* Alert cura: .alertbox* ora globale in main.css. .alert-cura__row resta
-   scoped qui: la riga (label + bottone) ha un layout diverso da quella
-   degli avvisi meteo. */
-.alert-cura__row {
-  display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  font: 400 12.5px/1.4 var(--font-sans); color: var(--olive-ink);
-}
+/* Stato cure: .care* / .care-act* / .feed-nb / .notelist ora globali in main.css.
+   Le due varianti sotto sono specifiche di questa vista: una riga urgente
+   (stesso colore del bottone .care-act--rose) e un errore di salvataggio. */
+.care__d--urgente { color: var(--rose-ink); }
+.care__d--err { color: var(--rose-ink); }
 
-/* Stato cure: .care* / .care-act* / .feed-nb / .notelist ora globali in main.css. */
+/* "La specie": più .kv consecutivi (uno per sotto-gruppo, vedi template)
+   invece di un'unica griglia — serve solo lo spazio tra un gruppo e il
+   successivo, il primo resta attaccato al testo della descrizione. */
+.kv + .field-label { margin-top: 16px; }
 </style>

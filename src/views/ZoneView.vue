@@ -5,7 +5,7 @@
       <button type="button" @click="apriNuovo" class="pill">＋ Aggiungi</button>
     </div>
 
-    <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-dark);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
+    <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-ink);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
       {{ erroreEliminazione }}
     </p>
 
@@ -50,7 +50,7 @@
     >
       <div v-if="mostraForm" class="foglio-form">
         <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
-        <p v-if="errore" style="font-size:11px;color:var(--rose-dark);margin:0 0 10px;">{{ errore }}</p>
+        <p v-if="errore" style="font-size:11px;color:var(--rose-ink);margin:0 0 10px;">{{ errore }}</p>
         <select v-model="form.tipo" class="form-input" style="margin-bottom:12px;">
           <option value="esterno">Esterno</option>
           <option value="interno">Interno</option>
@@ -105,8 +105,8 @@
 .zrow__act .pill-mini { text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
 .zrow__act .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .zrow__act .pill-mini svg { width:12px; height:12px; }
-.zrow__act .pill-mini--del { color:var(--rose-dark); }
-.zrow__act .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-dark); }
+.zrow__act .pill-mini--del { color:var(--rose-ink); }
+.zrow__act .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-ink); }
 .zrow__desc { flex: 1 1 100%; margin: 2px 0 0; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
 </style>
 

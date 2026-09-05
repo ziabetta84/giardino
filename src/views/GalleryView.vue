@@ -68,8 +68,9 @@
       titolo="Eliminare questa foto?"
       messaggio="Questa azione non può essere annullata."
       :caricamento="eliminandoFoto"
+      :errore="erroreEliminazione"
       @conferma="confermaEliminaFoto"
-      @annulla="daEliminareFoto = null"
+      @annulla="daEliminareFoto = null; erroreEliminazione = null"
     />
 
     <!-- Foglio upload -->
@@ -148,6 +149,7 @@ const caricandoUpload = ref(false)
 const errore          = ref(null)
 const erroreUpload    = ref(null)
 const daEliminareFoto = ref(null)
+const erroreEliminazione = ref(null)
 const eliminandoFoto  = ref(false)
 const mostraFormUpload = ref(false)
 const uploadPiantaId  = ref('')
@@ -225,10 +227,13 @@ function annullaPressione() {
 async function confermaEliminaFoto() {
   if (!daEliminareFoto.value) return
   eliminandoFoto.value = true
+  erroreEliminazione.value = null
   try {
     await galleria.elimina(daEliminareFoto.value)
     foto.value = foto.value.filter(f => f.path !== daEliminareFoto.value.path)
     daEliminareFoto.value = null
+  } catch {
+    erroreEliminazione.value = 'Non sono riuscito a eliminare la foto. Riprova.'
   } finally {
     eliminandoFoto.value = false
   }
@@ -351,7 +356,7 @@ async function caricaFoto() {
   height: 6px;
   border-radius: 50%;
   background: var(--cream-dark);
-  transition: background 0.2s, width 0.2s;
+  transition: background var(--motion-quick) var(--ease-standard), width var(--motion-quick) var(--ease-standard);
 }
 .puntini span.on { background: var(--rose); width: 14px; border-radius: 3px; }
 </style>

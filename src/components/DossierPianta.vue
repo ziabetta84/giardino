@@ -54,6 +54,8 @@
     <RouterLink :to="`/piante/${piantaId}`" class="dossier-pianta__link">Apri la scheda completa →</RouterLink>
     </template>
     <p v-else class="prose">Questa pianta non è più disponibile.</p>
+
+    <ToastCura ref="toastCura" />
   </div>
 </template>
 
@@ -66,6 +68,7 @@ import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import { iconaCura, LABEL_CURA, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
+import ToastCura from '@/components/ToastCura.vue'
 
 const props = defineProps({ piantaId: { type: String, required: true } })
 const store = useDatiStore()
@@ -92,11 +95,17 @@ const classificaConcimiPianta = computed(() =>
 )
 
 const salvandoTipo = ref(null)
+const toastCura = ref(null)
 async function registraCuraTipo(tipo) {
   if (!pianta.value || salvandoTipo.value) return
   salvandoTipo.value = tipo
-  try { await pianteApi.registraCura(props.piantaId, tipo) }
-  finally { salvandoTipo.value = null }
+  const valorePrecedente = pianta.value.ultima_cura?.[tipo] ?? null
+  try {
+    await pianteApi.registraCura(props.piantaId, tipo)
+    toastCura.value?.apri(props.piantaId, tipo, valorePrecedente)
+  } finally {
+    salvandoTipo.value = null
+  }
 }
 </script>
 
