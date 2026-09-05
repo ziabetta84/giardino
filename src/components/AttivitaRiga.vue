@@ -12,9 +12,8 @@
       </div>
     </div>
     <button @click.stop="$emit('registra', item)" :disabled="disabled"
-      :class="['btn', variante === 'urgente' ? 'btn-rose' : 'btn-ghost']"
-      style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
-      <Spinner v-if="disabled" /><span v-else>✓ Fatto</span>
+      :class="['care-act', { 'care-act--rose': variante === 'urgente' }]">
+      <Spinner v-if="disabled" /><span v-else>Fatto</span>
     </button>
   </div>
 </template>

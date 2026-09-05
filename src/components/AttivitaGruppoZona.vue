@@ -5,9 +5,8 @@
         <Icon :name="store.iconaZona(gruppo.zona)" style="width:12px;height:12px;flex-shrink:0;" />{{ etichettaZona }} ({{ gruppo.items.length }})
       </span>
       <button @click="$emit('registraGruppo', gruppo)" :disabled="salvandoGruppo === gruppo.chiave"
-        :class="['btn', variante === 'urgente' ? 'btn-rose' : 'btn-ghost']"
-        style="font-size:11px;padding:4px 9px;min-height:26px;">
-        <Spinner v-if="salvandoGruppo === gruppo.chiave" /><span v-else>✓ Segna tutto fatto</span>
+        :class="['care-act', { 'care-act--rose': variante === 'urgente' }]">
+        <Spinner v-if="salvandoGruppo === gruppo.chiave" /><span v-else>Segna tutto fatto</span>
       </button>
     </div>
     <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;position:relative;">

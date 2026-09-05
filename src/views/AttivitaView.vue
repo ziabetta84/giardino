@@ -78,9 +78,10 @@
 
       <!-- Tappe progetto -->
       <template v-else-if="tappeProgetto.length">
-        <div class="tappa-lista">
-          <div v-for="t in tappeProgetto" :key="`${t.progettoId}-${t.indice}`"
-            class="tappa-riga" :class="{ 'tappa-riga--urgente': t.urgente }">
+        <TransitionGroup name="stagger" tag="div" class="tappa-lista">
+          <div v-for="(t, i) in tappeProgetto" :key="`${t.progettoId}-${t.indice}`"
+            class="tappa-riga" :class="{ 'tappa-riga--urgente': t.urgente }"
+            :style="`transition-delay:${Math.min(i, 6) * 0.06}s;`">
             <span class="tappa-riga__ic" :class="{ 'tappa-riga__ic--urgente': t.urgente }"><Icon name="lampadina" /></span>
             <div class="tappa-riga__m">
               <RouterLink :to="`/progetti/${t.progettoId}`" class="tappa-riga__t">{{ t.progettoTitolo }}</RouterLink>
@@ -89,18 +90,24 @@
               </div>
             </div>
             <button @click="registraTappa(t)" :disabled="salvandoTappa === `${t.progettoId}-${t.indice}`"
-              :class="['btn', t.urgente ? 'btn-rose' : 'btn-ghost']" style="font-size:11px;padding:5px 10px;min-height:30px;flex-shrink:0;">
-              <Spinner v-if="salvandoTappa === `${t.progettoId}-${t.indice}`" /><span v-else>✓ Fatto</span>
+              :class="['care-act', { 'care-act--rose': t.urgente }]">
+              <Spinner v-if="salvandoTappa === `${t.progettoId}-${t.indice}`" /><span v-else>Fatto</span>
             </button>
           </div>
-        </div>
+        </TransitionGroup>
       </template>
 
-      <!-- Tutto ok (per la tab attiva) -->
-      <div v-if="vuotaTab" class="empty">
-        <Icon name="foglia" />
-        <p><b>Tutto in ordine!</b>Nessuna cura urgente qui</p>
-      </div>
+      <!-- Tutto ok (per la tab attiva): l'unico vero traguardo di questa
+           vista — azzerare l'arretrato — merita un ingresso autoriale
+           invece di comparire di scatto. Non riusa i token --motion-quick/
+           --motion-sheet apposta: è un momento raro, non un feedback di
+           routine (vedi Motion in DESIGN.md). -->
+      <Transition name="tab-pulita">
+        <div v-if="vuotaTab" class="empty">
+          <Icon name="foglia" />
+          <p><b>Tutto in ordine!</b>Nessuna cura urgente qui</p>
+        </div>
+      </Transition>
       </div>
       </Transition>
     </template>
@@ -112,6 +119,8 @@
     >
       <DossierPianta v-if="dossierItem" :pianta-id="dossierItem.piantaId" />
     </FoglioLaterale>
+
+    <ToastCura ref="toastCura" />
   </div>
 </template>
 
@@ -126,6 +135,7 @@ import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import DossierPianta from '@/components/DossierPianta.vue'
+import ToastCura from '@/components/ToastCura.vue'
 import { raggruppaPerZona } from '@/utils/raggruppaAttivita'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -205,11 +215,14 @@ const vuotaTab = computed(() =>
   tabAttiva.value === 'progetti' ? !tappeProgetto.value.length : !daFareTab.value.length && !inScadenzaTab.value.length
 )
 
+const toastCura = ref(null)
 async function registra(item) {
   if (salvando.value || salvandoGruppo.value) return
   salvando.value = item.key
+  const valorePrecedente = store.piante?.[item.piantaId]?.ultima_cura?.[item.tipo] ?? null
   try {
     await pianteApi.registraCura(item.piantaId, item.tipo)
+    toastCura.value?.apri(item.piantaId, item.tipo, valorePrecedente)
   } finally {
     salvando.value = null
   }
@@ -242,7 +255,7 @@ async function registraTappa(t) {
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 
-.tappa-lista { display:flex; flex-direction:column; margin-bottom:24px; }
+.tappa-lista { display:flex; flex-direction:column; margin-bottom:24px; position:relative; }
 .tappa-riga { display:flex; align-items:center; gap:12px; padding:12px 2px; }
 .tappa-riga + .tappa-riga { border-top:1px solid var(--cream-dark); }
 .tappa-riga--urgente { padding:12px; background:var(--rose-pale); border-radius:10px; }
@@ -255,4 +268,17 @@ async function registraTappa(t) {
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .tappa-riga__d { font:400 11px/1.4 var(--font-sans); color:var(--ink-soft); margin-top:2px; }
 .tappa-riga__d--urgente { color:var(--rose-dark); }
+
+/* "Tutto in ordine!": l'unico vero traguardo della vista Attività — arrivare
+   a zero cure urgenti nella tab attiva. Ingresso deliberatamente più lento
+   e composto di una transizione di routine (600ms, non le 180-260ms di
+   --motion-quick/--motion-sheet): un momento raro che merita di essere
+   notato, non un cambio di stato qualsiasi. Nessun rimbalzo — la stessa
+   decelerazione morbida di tutto il resto, solo più a lungo. */
+.tab-pulita-enter-active { transition: opacity .6s var(--ease-standard), transform .6s var(--ease-standard); }
+.tab-pulita-enter-from { opacity: 0; transform: translateY(14px) scale(.96); }
+@media (prefers-reduced-motion: reduce) {
+  .tab-pulita-enter-active { transition: opacity .3s var(--ease-standard); }
+  .tab-pulita-enter-from { transform: none; }
+}
 </style>
