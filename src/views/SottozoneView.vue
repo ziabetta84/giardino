@@ -7,19 +7,25 @@
       <button type="button" @click="apriNuovo" class="pill">＋ Aggiungi</button>
     </div>
 
-    <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-ink);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
-      {{ erroreEliminazione }}
-    </p>
+    <!-- Skeleton -->
+    <div v-if="store.loading" class="destlist">
+      <div v-for="i in 4" :key="i" class="dest">
+        <div class="skeleton dest__ic" style="border-radius:50%;"></div>
+        <div class="skeleton" style="height:13px;flex:1;max-width:160px;border-radius:6px;"></div>
+        <div class="skeleton" style="height:11px;width:56px;border-radius:6px;"></div>
+      </div>
+    </div>
 
-    <div v-if="!sottozone.length" class="empty">
+    <div v-else-if="!sottozone.length" class="empty">
       <Icon name="pin" />
       <p><b>Nessuna sottozona</b>Questa zona non ha ancora sottozone configurate.</p>
+      <button type="button" @click="apriNuovo" class="pill" style="margin-top:14px;">＋ Aggiungi una sottozona</button>
     </div>
 
     <div v-else class="destlist">
       <div v-for="sz in sottozone" :key="sz.nome" class="dest szrow">
         <Icon :name="store.iconaSottozona(route.params.zona, sz.nome)" class="dest__ic" />
-        <span class="dest__n">{{ sz.nome }}</span>
+        <span class="dest__n szname">{{ sz.nome }}</span>
         <span v-if="sz.tipo" class="dest__c szt">{{ sz.tipo }}</span>
         <span class="dest__c">{{ contaPiante(sz) }} piante</span>
         <div class="szrow__act">
@@ -30,7 +36,7 @@
         </div>
         <div v-if="sz.esposizione?.length || descrizioneSottozona(sz)" class="szrow__desc">
           <span v-if="sz.esposizione?.length" class="szrow__espo"><Icon name="sole" />{{ sz.esposizione.join(', ') }}</span>
-          <span v-if="descrizioneSottozona(sz)">{{ descrizioneSottozona(sz) }}</span>
+          <span v-if="descrizioneSottozona(sz)" class="szrow__note" v-html="descrizioneSottozona(sz)"></span>
         </div>
       </div>
     </div>
@@ -50,12 +56,20 @@
           <option value="interno">Interno</option>
         </select>
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Icona</label>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;margin-bottom:16px;">
-          <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
-            :class="{ active: form.icona === nome }"
-            @click="form.icona = form.icona === nome ? null : nome">
-            <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
-          </button>
+        <input v-model="filtroIcona" type="text" placeholder="Cerca un'icona…" class="form-input" style="margin-bottom:8px;">
+        <div class="icona-box" style="margin-bottom:16px;">
+          <template v-for="gruppo in gruppiIconaFiltrati" :key="gruppo.label">
+            <p class="icona-gruppo-label">{{ gruppo.label }}</p>
+            <div class="icona-griglia">
+              <button type="button" v-for="nome in gruppo.icone" :key="nome" class="pill pill-icona"
+                :class="{ active: form.icona === nome }"
+                :aria-label="nome" :aria-pressed="form.icona === nome" :title="nome"
+                @click="form.icona = form.icona === nome ? null : nome">
+                <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
+              </button>
+            </div>
+          </template>
+          <p v-if="!gruppiIconaFiltrati.length" class="icona-vuoto">Nessuna icona trovata.</p>
         </div>
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Esposizione</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -80,8 +94,9 @@
       titolo="Eliminare questa sottozona?"
       messaggio="Le piante che la referenziano resteranno, senza più sottozona assegnata."
       :caricamento="eliminando"
+      :errore="erroreEliminazione"
       @conferma="eliminaSottozona"
-      @annulla="daEliminare = null"
+      @annulla="daEliminare = null; erroreEliminazione = null"
     />
   </div>
 </template>
@@ -91,7 +106,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { ICONE_ZONA } from '@/composables/useIconeZona'
+import { ICONE_ZONA_GRUPPI } from '@/composables/useIconeZona'
 import MiniEditor from '@/components/MiniEditor.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
@@ -113,6 +128,15 @@ const erroreEliminazione = ref(null)
 // nuova sottozona): serve per sapere quale chiave aggiornare/rinominare in
 // store.sottozone, dato che è indicizzato per nome.
 const modificaOriginale = ref(null)
+const filtroIcona = ref('')
+
+const gruppiIconaFiltrati = computed(() => {
+  const q = filtroIcona.value.trim().toLowerCase()
+  if (!q) return ICONE_ZONA_GRUPPI
+  return ICONE_ZONA_GRUPPI
+    .map(g => ({ label: g.label, icone: g.icone.filter(nome => nome.includes(q)) }))
+    .filter(g => g.icone.length)
+})
 
 const zona = computed(() => store.zone?.[route.params.zona] ?? null)
 const sottozone = computed(() => {
@@ -127,13 +151,19 @@ function contaPiante(sz) {
     .filter(p => p.zona === route.params.zona && p.sottozona === sz.nome).length
 }
 
+// Non viene ripulito dal markup: MiniEditor ammette solo p/br/b/strong/i/em
+// senza attributi e passa sempre da sanitizza() prima del salvataggio, quindi
+// è sicuro mostrarlo qui con v-html (vedi commento in MiniEditor.vue) — così
+// grassetto/corsivo scritti dall'utente restano visibili anche in lista,
+// invece di sparire dietro la sola vista di modifica.
 function descrizioneSottozona(sz) {
-  return (sz.descrizione || '').replace(/<[^>]*>/g, '').trim()
+  return (sz.descrizione || '').trim()
 }
 
 function apriNuovo() {
   modificaOriginale.value = null
   form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null }
+  filtroIcona.value = ''
   errore.value = null
   mostraForm.value = true
 }
@@ -141,12 +171,14 @@ function apriNuovo() {
 function apriModifica(sz) {
   modificaOriginale.value = sz.nome
   form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', esposizione: sz.esposizione ? [...sz.esposizione] : [], icona: sz.icona ?? null }
+  filtroIcona.value = ''
   errore.value = null
   mostraForm.value = true
 }
 
 function chiudiForm() {
   mostraForm.value = false
+  filtroIcona.value = ''
   modificaOriginale.value = null
   form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null }
   errore.value = null
@@ -246,7 +278,6 @@ async function eliminaSottozona() {
     daEliminare.value = null
   } catch (e) {
     erroreEliminazione.value = e.message || 'Errore durante l\'eliminazione della sottozona.'
-    daEliminare.value = null
   } finally {
     eliminando.value = false
   }
@@ -256,14 +287,21 @@ async function eliminaSottozona() {
 <style scoped>
 .szrow { flex-wrap:wrap; }
 .szrow__act { display:flex; gap:6px; flex-wrap:wrap; }
-.dest .pill-mini { display:inline-flex; align-items:center; gap:4px; }
 .dest .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .dest .pill-mini svg { width:12px; height:12px; }
 .dest .pill-mini--del { color:var(--rose-ink); }
 .dest .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-ink); }
+.szname { font-family: var(--font-display); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .szt { text-transform:capitalize; }
 .szrow__desc { flex: 1 1 100%; margin: 2px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
 .szrow__espo { display: inline-flex; align-items: center; gap: 4px; }
 .szrow__espo svg { width: 12px; height: 12px; flex: none; }
+.szrow__note :deep(p) { display: inline; margin: 0; }
+.szrow__note :deep(br) { display: none; }
+.icona-box { max-height:220px; overflow-y:auto; padding:8px; border:1px solid var(--cream-dark); border-radius:12px; }
+.icona-gruppo-label { font:700 9.5px/1 var(--font-sans); letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin:10px 0 6px; }
+.icona-gruppo-label:first-child { margin-top:0; }
+.icona-griglia { display:grid; grid-template-columns:repeat(auto-fill,minmax(44px,1fr)); gap:4px; }
+.icona-vuoto { font:400 12px/1.4 var(--font-sans); color:var(--ink-soft); text-align:center; margin:4px 0; }
 
 </style>
