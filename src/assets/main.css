@@ -449,7 +449,8 @@ body::before {
 
 .prose { font:400 13px/1.62 var(--font-sans); color:var(--ink-mid); margin:0 0 12px; }
 
-.pill-mini { flex:none; font:600 10.5px/1 var(--font-sans); padding:6px 12px;
+.pill-mini { flex:none; font:600 10.5px/1 var(--font-sans); padding:6px 14px; min-height:44px;
+  display:inline-flex; align-items:center; justify-content:center; gap:4px;
   border-radius:999px; border:1px solid var(--cream-dark); background:transparent; color:var(--ink-mid); cursor:pointer; }
 
 .delete { display:block; width:100%; text-align:center; margin:22px 0 4px; font:500 12px/1 var(--font-sans);

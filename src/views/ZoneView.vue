@@ -5,10 +5,6 @@
       <button type="button" @click="apriNuovo" class="pill">＋ Aggiungi</button>
     </div>
 
-    <p v-if="erroreEliminazione" style="font-size:12px;color:var(--rose-ink);background:var(--rose-pale);padding:10px 14px;border-radius:12px;margin-bottom:16px;">
-      {{ erroreEliminazione }}
-    </p>
-
     <!-- Skeleton -->
     <div v-if="store.loading" class="destlist">
       <div v-for="i in 6" :key="i" class="dest">
@@ -21,6 +17,7 @@
     <div v-else-if="!zoneList.length" class="empty">
       <Icon name="pin" />
       <p><b>Nessuna zona</b>Non hai ancora configurato nessuna zona del giardino.</p>
+      <button type="button" @click="apriNuovo" class="pill" style="margin-top:14px;">＋ Aggiungi una zona</button>
     </div>
 
     <div v-else class="destlist">
@@ -28,10 +25,14 @@
         <RouterLink :to="`/piante?zona=${z.key}`" class="zrow__main">
           <Icon :name="store.iconaZona(z.key)" class="dest__ic" />
           <span class="dest__n zname">{{ z.nome ?? z.key }}</span>
+          <span v-if="z.tipo" class="dest__c zt">{{ z.tipo }}</span>
           <span class="dest__c">{{ contaPiante(z.key) }} piante</span>
           <Icon name="back" class="dest__chev" />
         </RouterLink>
-        <p v-if="descrizioneZona(z)" class="zrow__desc">{{ descrizioneZona(z) }}</p>
+        <div v-if="z.esposizione?.length || descrizioneZona(z)" class="zrow__desc">
+          <span v-if="z.esposizione?.length" class="zrow__espo"><Icon name="sole" />{{ z.esposizione.join(', ') }}</span>
+          <span v-if="descrizioneZona(z)" class="zrow__note" v-html="descrizioneZona(z)"></span>
+        </div>
         <div class="zrow__act">
           <RouterLink :to="`/zone/${z.key}/sottozone`" class="pill-mini">Sottozone</RouterLink>
           <button type="button" @click="apriModifica(z)" class="pill-mini" title="Modifica zona" aria-label="Modifica zona">
@@ -60,12 +61,20 @@
         <label class="field-label" style="margin-top:12px">Microclima</label>
         <MiniEditor v-model="form.microclima" placeholder="Caratteristiche di luce, temperatura, umidità…" />
         <label class="field-label" style="margin-top:12px">Icona</label>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(30px,1fr));gap:0;max-height:140px;overflow-y:auto;padding:6px;border:1px solid var(--cream-dark);border-radius:10px;margin-top:6px;">
-          <button type="button" v-for="nome in ICONE_ZONA" :key="nome" class="pill pill-icona"
-            :class="{ active: form.icona === nome }"
-            @click="form.icona = form.icona === nome ? null : nome">
-            <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
-          </button>
+        <input v-model="filtroIcona" type="text" placeholder="Cerca un'icona…" class="form-input" style="margin:6px 0 8px;">
+        <div class="icona-box">
+          <template v-for="gruppo in gruppiIconaFiltrati" :key="gruppo.label">
+            <p class="icona-gruppo-label">{{ gruppo.label }}</p>
+            <div class="icona-griglia">
+              <button type="button" v-for="nome in gruppo.icone" :key="nome" class="pill pill-icona"
+                :class="{ active: form.icona === nome }"
+                :aria-label="nome" :aria-pressed="form.icona === nome" :title="nome"
+                @click="form.icona = form.icona === nome ? null : nome">
+                <Icon :name="`zona-${nome}`" style="width:18px;height:18px;vertical-align:middle;" />
+              </button>
+            </div>
+          </template>
+          <p v-if="!gruppiIconaFiltrati.length" class="icona-vuoto">Nessuna icona trovata.</p>
         </div>
         <label class="field-label" style="margin-top:12px">Esposizione</label>
         <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
@@ -90,8 +99,9 @@
       titolo="Eliminare questa zona?"
       messaggio="Verranno eliminate anche tutte le sottozone collegate."
       :caricamento="eliminando"
+      :errore="erroreEliminazione"
       @conferma="eliminaZona"
-      @annulla="daEliminare = null"
+      @annulla="daEliminare = null; erroreEliminazione = null"
     />
   </div>
 </template>
@@ -101,20 +111,30 @@
 .zrow__main { display:flex; align-items:center; gap:11px; flex:1 1 100%; min-width:0; text-decoration:none; }
 .zrow__main .dest__chev { transform: rotate(180deg); }
 .zrow__act { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:4px; }
-.zname { text-transform:capitalize; }
-.zrow__act .pill-mini { text-decoration:none; display:inline-flex; align-items:center; gap:4px; }
+.zname { text-transform:capitalize; font-family: var(--font-display); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.zt { text-transform:capitalize; }
+.zrow__act .pill-mini { text-decoration:none; }
 .zrow__act .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .zrow__act .pill-mini svg { width:12px; height:12px; }
 .zrow__act .pill-mini--del { color:var(--rose-ink); }
 .zrow__act .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-ink); }
-.zrow__desc { flex: 1 1 100%; margin: 2px 0 0; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
+.zrow__desc { flex: 1 1 100%; margin: 2px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
+.zrow__espo { display: inline-flex; align-items: center; gap: 4px; }
+.zrow__espo svg { width: 12px; height: 12px; flex: none; }
+.zrow__note :deep(p) { display: inline; margin: 0; }
+.zrow__note :deep(br) { display: none; }
+.icona-box { max-height:220px; overflow-y:auto; padding:8px; border:1px solid var(--cream-dark); border-radius:12px; }
+.icona-gruppo-label { font:700 9.5px/1 var(--font-sans); letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft); margin:10px 0 6px; }
+.icona-gruppo-label:first-child { margin-top:0; }
+.icona-griglia { display:grid; grid-template-columns:repeat(auto-fill,minmax(44px,1fr)); gap:4px; }
+.icona-vuoto { font:400 12px/1.4 var(--font-sans); color:var(--ink-soft); text-align:center; margin:4px 0; }
 </style>
 
 <script setup>
 import { computed, ref } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { ICONE_ZONA } from '@/composables/useIconeZona'
+import { ICONE_ZONA_GRUPPI } from '@/composables/useIconeZona'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Spinner from '@/components/Spinner.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
@@ -135,6 +155,15 @@ const errore     = ref(null)
 // aggiornare/rinominare.
 const modificaOriginale = ref(null)
 const form = ref({ nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: [], icona: null })
+const filtroIcona = ref('')
+
+const gruppiIconaFiltrati = computed(() => {
+  const q = filtroIcona.value.trim().toLowerCase()
+  if (!q) return ICONE_ZONA_GRUPPI
+  return ICONE_ZONA_GRUPPI
+    .map(g => ({ label: g.label, icone: g.icone.filter(nome => nome.includes(q)) }))
+    .filter(g => g.icone.length)
+})
 
 function formVuoto() {
   return { nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: [], icona: null }
@@ -143,6 +172,7 @@ function formVuoto() {
 function apriNuovo() {
   modificaOriginale.value = null
   form.value = formVuoto()
+  filtroIcona.value = ''
   errore.value = null
   mostraForm.value = true
 }
@@ -157,12 +187,14 @@ function apriModifica(z) {
     esposizione: z.esposizione ? [...z.esposizione] : [],
     icona:       z.icona ?? null,
   }
+  filtroIcona.value = ''
   errore.value = null
   mostraForm.value = true
 }
 
 function chiudiForm() {
   mostraForm.value = false
+  filtroIcona.value = ''
   modificaOriginale.value = null
   form.value = formVuoto()
   errore.value = null
@@ -216,9 +248,25 @@ async function salva() {
     store.zone = nuoveZone
 
     // Un rename lascia store.sottozone (indicizzato per nome zona) e
-    // store.piante[*].zona sotto il vecchio nome: ricaricare tutto da
-    // Supabase è più sicuro che rincollare a mano ogni chiave derivata.
-    if (rinominata) await store.aggiorna()
+    // store.piante[*].zona sotto il vecchio nome: riassegniamo qui le
+    // stesse chiavi già in memoria invece di un reload completo dello
+    // store, che azzererebbe l'intera vista dietro uno skeleton per un
+    // cambio di un solo campo di testo.
+    if (rinominata) {
+      if (store.sottozone?.[nomeOriginale]) {
+        const nuoveSottozone = { ...store.sottozone }
+        nuoveSottozone[salvata.nome] = nuoveSottozone[nomeOriginale]
+        delete nuoveSottozone[nomeOriginale]
+        store.sottozone = nuoveSottozone
+      }
+      if (store.piante) {
+        const nuovePiante = { ...store.piante }
+        for (const [id, p] of Object.entries(nuovePiante)) {
+          if (p.zona === nomeOriginale) nuovePiante[id] = { ...p, zona: salvata.nome }
+        }
+        store.piante = nuovePiante
+      }
+    }
 
     chiudiForm()
   } catch (e) {
@@ -235,8 +283,13 @@ const zoneList = computed(() => {
     .sort((a, b) => (a.nome ?? a.key).localeCompare(b.nome ?? b.key))
 })
 
+// Non viene ripulito dal markup: MiniEditor ammette solo p/br/b/strong/i/em
+// senza attributi e passa sempre da sanitizza() prima del salvataggio, quindi
+// è sicuro mostrarlo qui con v-html (vedi commento in MiniEditor.vue) — così
+// grassetto/corsivo scritti dall'utente restano visibili anche in lista,
+// invece di sparire dietro la sola vista di modifica.
 function descrizioneZona(z) {
-  return (z.descrizione || z.microclima || '').replace(/<[^>]*>/g, '').trim()
+  return (z.descrizione || z.microclima || '').trim()
 }
 
 function contaPiante(zonaKey) {
@@ -259,7 +312,6 @@ async function eliminaZona() {
       // ora blocca l'operazione esplicitamente.
       if (error.code === '23503') {
         erroreEliminazione.value = 'Non puoi eliminare una zona che contiene ancora piante: spostale o eliminale prima.'
-        daEliminare.value = null
         return
       }
       throw error
@@ -279,7 +331,6 @@ async function eliminaZona() {
     daEliminare.value = null
   } catch (e) {
     erroreEliminazione.value = e.message || 'Errore durante l\'eliminazione della zona.'
-    daEliminare.value = null
   } finally {
     eliminando.value = false
   }
