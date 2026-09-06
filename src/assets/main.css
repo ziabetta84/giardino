@@ -850,3 +850,17 @@ body::before {
 .alertbox--rose { background:var(--rose-bg); border-color:color-mix(in srgb, var(--rose) 28%, transparent); }
 .alertbox--rose .alertbox__ic { background:color-mix(in srgb, var(--rose) 16%, var(--cream)); color:var(--rose-ink); }
 .alertbox--rose .alertbox__title { color:var(--rose-ink); }
+
+/* Riga icona+testo dentro .alertbox__rows: era scoped solo in MeteoView,
+   promossa qui perché anche MeteoGiorno.vue (foglio di dettaglio) la riusa
+   per ripetere l'avviso specifico del giorno aperto. */
+.alert-meteo__row { display:flex; align-items:center; gap:8px; font:400 12.5px/1.4 var(--font-sans); color:var(--rose-ink); }
+.alert-meteo__row svg { width:15px; height:15px; flex:none; }
+
+/* Visivamente invisibile ma letto dagli screen reader: per dare
+   un'alternativa testuale a un'icona che porta un'informazione (es. la
+   condizione meteo nel nastro orario) senza aggiungere rumore visivo. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}

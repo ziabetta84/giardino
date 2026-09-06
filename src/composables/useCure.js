@@ -28,13 +28,19 @@ export function parseGiorni(testo) {
   return numero
 }
 
-// Pioggia cumulata (oggi + domani) considerata sufficiente da sostituire un'irrigazione manuale
-const SOGLIA_PIOGGIA_MM = 5
+// Pioggia cumulata (oggi + domani) considerata sufficiente da sostituire un'irrigazione manuale.
+// Esportate (non solo interne): MeteoView.vue le riusa per mostrare lo stesso
+// segnale "irrigazione sospesa" con lo stesso criterio, invece di un avviso
+// meteo scollegato con una soglia diversa.
+export const SOGLIA_PIOGGIA_MM = 5
 
-function pioggiaInArrivo(meteoGiorni) {
-  if (!Array.isArray(meteoGiorni) || !meteoGiorni.length) return false
-  const cumulata = meteoGiorni.slice(0, 2).reduce((tot, g) => tot + (parseFloat(g.pioggia) || 0), 0)
-  return cumulata >= SOGLIA_PIOGGIA_MM
+export function pioggiaCumulata2gg(meteoGiorni) {
+  if (!Array.isArray(meteoGiorni) || !meteoGiorni.length) return 0
+  return meteoGiorni.slice(0, 2).reduce((tot, g) => tot + (parseFloat(g.pioggia) || 0), 0)
+}
+
+export function pioggiaInArrivo(meteoGiorni) {
+  return pioggiaCumulata2gg(meteoGiorni) >= SOGLIA_PIOGGIA_MM
 }
 
 export function valutaCura(pianta, specie, tipo, contesto = {}) {

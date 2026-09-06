@@ -1,5 +1,11 @@
 <template>
   <div class="mg">
+    <div v-if="avvisi.length" class="mg__avvisi">
+      <div v-for="a in avvisi" :key="a.testo" class="alert-meteo__row">
+        <Icon :name="a.icona" /><span>{{ a.testo }}</span>
+      </div>
+    </div>
+
     <div class="mg__hd">
       <span class="mg__ic"><Icon :name="giorno.icona" /></span>
       <div class="mg__cond">{{ giorno.descrizione }}</div>
@@ -43,6 +49,7 @@ import Icon from '@/components/Icon.vue'
 
 const props = defineProps({
   giorno: { type: Object, required: true },
+  avvisi: { type: Array, default: () => [] },
 })
 
 // Statistiche del giorno: pioggia e vento sempre, le altre solo se presenti
@@ -122,6 +129,7 @@ const legenda = computed(() => {
 <style scoped>
 .mg { padding: 4px 16px 22px; }
 @media (min-width: 640px) { .mg { padding: 4px 18px 24px; } }
+.mg__avvisi { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .mg__hd { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
 .mg__ic { width: 58px; height: 58px; flex: none; }
 .mg__ic svg { width: 100%; height: 100%; display: block; }

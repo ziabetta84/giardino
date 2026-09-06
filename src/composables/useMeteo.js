@@ -16,8 +16,9 @@ const WMO_LABEL = {
   45:'Nebbia', 48:'Nebbia',
   51:'Pioggia leggera', 53:'Pioggia moderata', 55:'Pioggia intensa',
   61:'Pioggia leggera', 63:'Pioggia moderata', 65:'Pioggia intensa',
-  71:'Neve leggera', 73:'Neve moderata', 75:'Neve intensa',
+  71:'Neve leggera', 73:'Neve moderata', 75:'Neve intensa', 77:'Nevischio',
   80:'Rovesci leggeri', 81:'Rovesci moderati', 82:'Rovesci intensi',
+  85:'Rovesci di neve leggeri', 86:'Rovesci di neve intensi',
   95:'Temporale', 96:'Temporale con grandine', 99:'Temporale forte',
 }
 
@@ -76,8 +77,17 @@ export function useMeteo() {
   const oggi        = ref(null)
   const loading     = ref(true)
   const errore      = ref(null)
+  const aggiornatoAlle = ref(null)
+  // Flag privato, non il ref `loading` (che parte già a true prima della
+  // primissima chiamata, per mostrare subito lo skeleton): senza questa
+  // guardia due chiamate sovrapposte (es. un doppio tap su "Riprova" prima
+  // che il bottone sparisca dal DOM) finirebbero per scrivere giorni/errore
+  // in un ordine deciso dalla rete, non dal click.
+  let inCorso = false
 
   async function carica(lat, lon, days = 7) {
+    if (inCorso) return
+    inCorso = true
     loading.value = true
     errore.value  = null
     try {
@@ -113,10 +123,23 @@ export function useMeteo() {
         }
       })
       oggi.value = giorni.value[0] ?? null
+      aggiornatoAlle.value = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
     } catch (e) {
-      errore.value = e.message
+      // Messaggio fisso in italiano indipendente dalla causa: un fetch fallito
+      // per assenza di rete produce eccezioni tecniche del browser (es. "Failed
+      // to fetch"), non testo pensato per l'utente — il dettaglio resta solo
+      // in console per il debug.
+      console.error('Meteo: caricamento fallito', e)
+      errore.value = 'Non riesco a raggiungere il servizio meteo. Controlla la connessione e riprova.'
+      // Azzerato anche qui: senza, un retry fallito dopo un caricamento
+      // riuscito avrebbe lasciato "Aggiornato alle" congelato su un orario
+      // ormai vecchio — ma il ramo dati non è comunque mai visibile insieme
+      // all'errore (v-else-if="errore" nasconde l'intero v-else), quindi
+      // azzerarlo non fa sparire nulla che l'utente stia già vedendo.
+      aggiornatoAlle.value = null
     } finally {
       loading.value = false
+      inCorso = false
     }
   }
 
@@ -128,5 +151,5 @@ export function useMeteo() {
   // giorno (che ha già il suo array `ore`). Export invariato.
   const orarieOggi = computed(() => giorni.value[0]?.ore ?? [])
 
-  return { giorni, oggi, orarieOggi, avvisi, loading, errore, carica }
+  return { giorni, oggi, orarieOggi, avvisi, loading, errore, aggiornatoAlle, carica }
 }
