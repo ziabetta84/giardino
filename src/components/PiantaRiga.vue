@@ -1,28 +1,34 @@
 <template>
-  <RouterLink :to="`/piante/${pianta.id}`" class="card hover-card pr">
-    <div class="pr__thumb" :style="urgente ? 'background:var(--rose-tile)' : 'background:var(--olive-tile)'">
-      <img v-if="thumbEffettivo" :src="thumbEffettivo" alt="" loading="lazy">
-      <Icon v-else :name="urgente ? 'campanella' : 'foglia'" class="pr__thumb-ico" />
-      <div v-if="thumbEffettivo && urgente" class="pr__badge">
-        <Icon name="campanella" class="pr__badge-ico" />
+  <div class="pr">
+    <RouterLink :to="`/piante/${pianta.id}`" class="pr__link">
+      <div class="pr__thumb" :style="urgente ? 'background:var(--rose-tile)' : 'background:var(--olive-tile)'">
+        <img v-if="thumbEffettivo" :src="thumbEffettivo" alt="" loading="lazy">
+        <Icon v-else :name="urgente ? 'campanella' : 'foglia'" class="pr__thumb-ico" />
+        <div v-if="thumbEffettivo && urgente" class="pr__badge">
+          <Icon name="campanella" class="pr__badge-ico" />
+        </div>
       </div>
-    </div>
-    <div class="pr__body">
-      <div class="pr__name">
-        {{ specie?.nome ?? pianta.specie }}
+      <div class="pr__body">
+        <div class="pr__name">
+          {{ specie?.nome ?? pianta.specie }}
+        </div>
+        <div v-if="pianta.varieta" class="pr__var">
+          {{ pianta.varieta }}
+        </div>
+        <div class="pr__zona">
+          <Icon :name="store.iconaZona(pianta.zona)" class="pr__zona-ico" /><span>{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
+        </div>
+        <div v-if="urgente && cureUrgenti.length" class="pr__urg">
+          {{ cureUrgenti.map(c => c.label).join(' · ') }}
+        </div>
       </div>
-      <div v-if="pianta.varieta" class="pr__var">
-        {{ pianta.varieta }}
-      </div>
-      <div class="pr__zona">
-        <Icon :name="store.iconaZona(pianta.zona)" class="pr__zona-ico" /><span>{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
-      </div>
-      <div v-if="urgente && cureUrgenti.length" class="pr__urg">
-        {{ cureUrgenti.map(c => c.label).join(' · ') }}
-      </div>
-    </div>
-    <button @click.prevent="$emit('elimina')" class="pr__del" title="Elimina">×</button>
-  </RouterLink>
+      <Icon name="back" class="pr__chev" />
+    </RouterLink>
+    <!-- Fuori da RouterLink (che renderizza <a>): un <button> dentro <a> non è
+         contenuto valido HTML5 ed è quello che causava il comportamento
+         incoerente da tastiera/screen reader. -->
+    <button type="button" @click="$emit('elimina')" class="pr__del" aria-label="Elimina pianta" title="Elimina pianta">×</button>
+  </div>
 </template>
 
 <script setup>
@@ -54,8 +60,19 @@ const thumbEffettivo = computed(() => props.thumbUrl || (specie.value?.immagine?
 .pr {
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding: 12px 2px;
+}
+/* Filetto hairline, non una card per riga (vedi .dest/.feed): questa lista
+   scala a decine di piante, una card-con-ombra per riga impilata non regge
+   il confronto col resto del "Taccuino" — vedi Layout/Shapes in DESIGN.md. */
+.pr + .pr { border-top: 1px solid var(--cream-dark); }
+.pr__link {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
   gap: 14px;
-  padding: 12px 16px;
   text-decoration: none;
   color: inherit;
 }
@@ -112,7 +129,7 @@ const thumbEffettivo = computed(() => props.thumbUrl || (specie.value?.immagine?
   font-family: var(--font-display);
   font-style: italic;
   font-size: 11px;
-  color: var(--ink-faint);
+  color: var(--ink-mid);
   margin-top: 1px;
   white-space: nowrap;
   overflow: hidden;
@@ -120,7 +137,7 @@ const thumbEffettivo = computed(() => props.thumbUrl || (specie.value?.immagine?
 }
 .pr__zona {
   font-size: 11px;
-  color: var(--ink-soft);
+  color: var(--ink-mid);
   font-weight: 400;
   margin-top: 2px;
   display: flex;
@@ -139,19 +156,49 @@ const thumbEffettivo = computed(() => props.thumbUrl || (specie.value?.immagine?
 }
 .pr__urg {
   font-size: 11px;
-  color: var(--rose-dark);
+  color: var(--rose-ink);
   font-weight: 500;
   margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Stesso chevron di .dest__chev (ruotato 180°, "back" punta a destra):
+   senza la card rimossa, era l'unico segnale rimasto che la riga porta
+   a un dettaglio — .pr__link non aveva più alcuna affordance propria. */
+.pr__chev {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+  color: var(--ink-soft);
+  transform: rotate(180deg);
 }
 .pr__del {
-  padding: 8px 10px;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 8px;
   border: none;
   background: transparent;
-  color: var(--ink-faint);
+  color: var(--rose-ink);
   cursor: pointer;
   font-size: 18px;
   line-height: 1;
   flex-shrink: 0;
+}
+/* Filetto verticale tra l'area di navigazione e l'azione distruttiva: sul
+   filetto orizzontale che già separa le righe, senza inventare un nuovo
+   colore. Riduce il rischio di toccare "elimina" mirando alla riga. */
+.pr__del::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: var(--cream-dark);
 }
 </style>

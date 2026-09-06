@@ -8,7 +8,8 @@
     <!-- Search -->
     <div style="position:relative;margin-bottom:12px;">
       <Icon name="cerca" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--ink-faint);pointer-events:none;" />
-      <input class="search-input" v-model="cerca" type="search" placeholder="Cerca per nome o specie…">
+      <input class="search-input" v-model="cerca" type="search" placeholder="Cerca per nome o specie…" style="padding-right:40px;">
+      <button v-if="cerca" type="button" class="search-clear" @click="cerca = ''" aria-label="Cancella ricerca">×</button>
     </div>
 
     <!-- Filtri zona -->
@@ -32,15 +33,14 @@
     </div>
 
     <!-- Skeleton -->
-    <div v-if="store.loading" style="display:flex;flex-direction:column;gap:8px;">
-      <div v-for="i in 5" :key="i" class="card" style="display:flex;align-items:center;gap:14px;padding:12px 16px;">
-        <div class="skeleton" style="width:52px;height:52px;border-radius:14px;flex-shrink:0;"></div>
+    <div v-if="store.loading" style="display:flex;flex-direction:column;">
+      <div v-for="i in 5" :key="i" class="pr-skeleton">
+        <div class="skeleton" style="width:48px;height:48px;border-radius:14px;flex-shrink:0;"></div>
         <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
           <div class="skeleton" style="height:14px;width:40%;"></div>
           <div class="skeleton" style="height:11px;width:60%;"></div>
           <div class="skeleton" style="height:11px;width:30%;"></div>
         </div>
-        <div class="skeleton" style="height:22px;width:50px;border-radius:999px;"></div>
       </div>
     </div>
 
@@ -50,7 +50,7 @@
         <p class="section-label" style="display:flex;align-items:center;gap:6px;">
           <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da curare
         </p>
-        <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;position:relative;">
+        <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;margin-bottom:20px;position:relative;">
           <PiantaRiga v-for="(p, i) in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
             :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
             @elimina="avviaElimina(p)" />
@@ -66,20 +66,26 @@
            vecchia prima di far entrare quella nuova, che poi si dispone
            con il consueto stagger a cascata. -->
       <Transition v-if="pianteFiltrate.length" name="fade" mode="out-in">
-        <TransitionGroup :key="chiaveLista" name="stagger" tag="div" style="display:flex;flex-direction:column;gap:8px;position:relative;">
+        <TransitionGroup :key="chiaveLista" name="stagger" tag="div" style="display:flex;flex-direction:column;position:relative;">
           <PiantaRiga v-for="(p, i) in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
             :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
             @elimina="avviaElimina(p)" />
         </TransitionGroup>
       </Transition>
 
-      <!-- Stato vuoto -->
-      <div v-else style="text-align:center;padding:48px 20px;color:var(--ink-faint);">
-        <div style="width:64px;height:64px;border-radius:50%;background:var(--olive-tile);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <Icon name="foglia" style="width:28px;height:28px;" />
-        </div>
-        <p class="text-light" style="font-size:14px;color:var(--ink-soft);">Nessuna pianta trovata</p>
-        <p class="text-light" style="font-size:12px;margin-top:4px;">Prova a cambiare il filtro o la ricerca</p>
+      <!-- Stato vuoto: un giardino senza ancora nessuna pianta (frequente ora
+           che l'app è multiutente, ogni account riparte da zero) è un caso
+           diverso da un filtro/ricerca che non trova corrispondenze — lo
+           stesso messaggio per entrambi indicherebbe di "cambiare il filtro"
+           a chi non ne ha impostato nessuno. -->
+      <div v-else-if="giardinoVuoto" class="empty">
+        <Icon name="foglia" />
+        <p><b>Il tuo giardino è ancora vuoto</b>Aggiungi la tua prima pianta per iniziare a tenerne traccia</p>
+        <RouterLink to="/piante/nuova" class="pill" style="text-decoration:none;display:inline-flex;margin-top:14px;">＋ Aggiungi una pianta</RouterLink>
+      </div>
+      <div v-else class="empty">
+        <Icon name="foglia" />
+        <p><b>Nessuna pianta trovata</b>Prova a cambiare il filtro o la ricerca</p>
       </div>
     </template>
 
@@ -88,8 +94,9 @@
       titolo="Eliminare questa pianta?"
       messaggio="Questa azione non può essere annullata. Verranno eliminate anche eventuali foto associate."
       :caricamento="eliminando"
+      :errore="erroreEliminazione"
       @conferma="eliminaPianta"
-      @annulla="daEliminare = null"
+      @annulla="daEliminare = null; erroreEliminazione = null"
     />
   </div>
 </template>
@@ -127,6 +134,7 @@ const filtroZona = ref(route.query.zona ?? 'tutte')
 const filtroSottozona = ref('tutte')
 const daEliminare = ref(null)
 const eliminando  = ref(false)
+const erroreEliminazione = ref(null)
 
 const filtriZona = computed(() => {
   const zone = store.zone ? Object.entries(store.zone).map(([key, z]) => ({ key, label: z.nome ?? key })) : []
@@ -160,6 +168,11 @@ const piante = computed(() => {
   })
 })
 
+// Vero solo se il giardino non ha ancora nessuna pianta, indipendentemente
+// da filtro/ricerca — distingue "non c'è ancora niente da mostrare" da
+// "il filtro attuale non trova corrispondenze" (vedi stato vuoto nel template).
+const giardinoVuoto = computed(() => !store.piante || !Object.keys(store.piante).length)
+
 // Cambiare zona/sottozona sostituisce quasi per intero l'insieme delle
 // piante mostrate: la lista principale si rimonta su questa chiave (vedi
 // il <Transition mode="out-in"> nel template) per far uscire del tutto la
@@ -178,9 +191,16 @@ const pianteFiltrate = computed(() => {
     lista = lista.filter(p => p.sottozona === filtroSottozona.value)
   if (cerca.value.trim()) {
     const q = cerca.value.toLowerCase()
-    lista = lista.filter(p =>
-      p.id.includes(q) || (p.specie ?? '').toLowerCase().includes(q)
-    )
+    // Anche su varietà e nome specie (non solo lo slug in p.specie): sono i
+    // dati che la riga mostra in evidenza, quelli con cui un utente con più
+    // piante della stessa specie le distingue.
+    lista = lista.filter(p => {
+      const nomeSpecie = store.specie?.[p.specie]?.nome ?? ''
+      return p.id.includes(q) ||
+        (p.specie ?? '').toLowerCase().includes(q) ||
+        (p.varieta ?? '').toLowerCase().includes(q) ||
+        nomeSpecie.toLowerCase().includes(q)
+    })
     lista = [...lista].sort((a, b) => (a.urgente ? -1 : 1) - (b.urgente ? -1 : 1))
   } else if (filtroZona.value !== 'tutte') {
     lista = [...lista].sort((a, b) => (a.urgente ? -1 : 1) - (b.urgente ? -1 : 1))
@@ -201,13 +221,32 @@ function avviaElimina(pianta) {
 async function eliminaPianta() {
   if (!daEliminare.value) return
   eliminando.value = true
+  erroreEliminazione.value = null
   const id = daEliminare.value.id
   try {
     await galleria.eliminaCartella(id)
     await pianteApi.eliminaPianta(id)
     daEliminare.value = null
+  } catch {
+    erroreEliminazione.value = 'Non sono riuscito a eliminare la pianta. Riprova.'
   } finally {
     eliminando.value = false
   }
 }
 </script>
+
+<style scoped>
+/* Ricalca esattamente la forma di .pr (PiantaRiga.vue) durante il
+   caricamento — stesso filetto hairline tra le righe, non una card. */
+.pr-skeleton { display: flex; align-items: center; gap: 14px; padding: 12px 2px; }
+.pr-skeleton + .pr-skeleton { border-top: 1px solid var(--cream-dark); }
+
+/* Svuota la ricerca in un tocco invece di cancellare carattere per
+   carattere — utile su mobile con una mano sola. */
+.search-clear {
+  position: absolute; right: 0; top: 0; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border: none; background: transparent; color: var(--ink-faint);
+  font-size: 18px; line-height: 1; cursor: pointer;
+}
+</style>
