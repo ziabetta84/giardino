@@ -898,8 +898,11 @@
     "progetto": null,
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-09-07T20:48:16.233Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Cocciniglie e formiche insieme sono un'associazione classica: le formiche \"allevano\" le cocciniglie proteggendole dai predatori naturali in cambio della melata zuccherina che producono — è già l'alert noto in scheda per il tuo arancio (\"controllare eventuali cocciniglie in estate\"), ora manifestato.\n\nAzione concreta:\n1. Interrompi il percorso delle formiche verso il ramo: applica una fascia collosa (banda adesiva per tronchi) o terra di diatomee alla base del ramo/tronco — senza allontanare le formiche, ogni trattamento sulle cocciniglie sarà meno efficace.\n2. Rimuovi meccanicamente le cocciniglie: passa un batuffolo con alcol denaturato o acqua e sapone di Marsiglia sulle placchette visibili, oppure se il ramo è piccolo e molto infestato, tallialo ed eliminalo (non compostarlo).\n3. Tratta poi con olio minerale bianco o olio di neem, spruzzato la sera o presto al mattino per evitare ustioni fogliari (a inizio settembre a Fano fa ancora caldo nelle ore centrali).\n4. Ripeti il trattamento dopo 7-10 giorni per colpire le nuove nascite sfuggite al primo passaggio.\n\nControlla anche le piante vicine: le formiche spesso spostano l'infestazione da un ramo all'altro.",
+      "elaborata": "2026-09-07T21:00:00.000Z"
+    }
   }
 }
