@@ -95,7 +95,7 @@
             <div class="feed__m">
               <div class="feed__n">{{ c.nome }}<span v-if="c.disponibile === false" class="feed__tag">terminato</span></div>
             </div>
-            <span class="feed__npk">{{ c.npk.n }}-{{ c.npk.p }}-{{ c.npk.k }}</span>
+            <span class="feed__npk">{{ formattaNPK(c.npk) }}</span>
           </div>
         </div>
         <p v-else class="prose">Nessun concime in dispensa per questo fabbisogno.</p>
@@ -220,7 +220,7 @@ import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
-import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
+import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'

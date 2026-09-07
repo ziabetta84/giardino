@@ -18,7 +18,20 @@ function distanza(a, b) {
   return Math.sqrt((na.n - nb.n) ** 2 + (na.p - nb.p) ** 2 + (na.k - nb.k) ** 2)
 }
 
-const SOGLIA_DISTANZA = 0.15
+// Un nutriente non specificato (null, es. concime fatto in casa mai testato)
+// resta "N/D": va distinto da uno zero reale ("0-10-10" è un dato valido),
+// che altrimenti si leggerebbe come "non contiene nutrienti" (vedi critica
+// del 07/09/2026).
+export function formattaNPK(npk) {
+  if (!npk || (npk.n == null && npk.p == null && npk.k == null)) return 'N/D'
+  const parte = v => (v == null ? '–' : v)
+  return `${parte(npk.n)}-${parte(npk.p)}-${parte(npk.k)}`
+}
+
+// Esportata perché ConcimiView.vue la riusa per costruire "Adatto per" dalla
+// classifica completa invece che dal solo vincitore (vedi critica del
+// 07/09/2026): un'unica soglia condivisa, non due copie dello stesso 0.15.
+export const SOGLIA_DISTANZA = 0.15
 
 export function concimeConsigliato(npkRichiestoTesto, concimi) {
   const richiesto = parseNPK(npkRichiestoTesto)
