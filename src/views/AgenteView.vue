@@ -1,55 +1,15 @@
 <template>
   <div class="agente-page">
-    <!-- Storico conversazioni: drawer a scomparsa da sinistra -->
-    <div class="hback" :class="{ open: sidebarAperta }" @click="sidebarAperta = false"></div>
-    <aside id="hstore" class="hstore" :class="{ open: sidebarAperta }"
-      tabindex="-1" @keydown.esc="sidebarAperta = false">
-      <div class="hstore__hd">
-        <b>Storico</b>
-        <button type="button" class="hstore__new" @click="nuovaRichiesta">＋ Nuova</button>
-        <button type="button" class="hstore__close" aria-label="Chiudi storico" @click="sidebarAperta = false">✕</button>
-      </div>
-
-      <div class="hstore__list">
-        <div v-for="r in richieste" :key="r.id" class="hitem-wrap">
-          <a class="hitem" :class="{ on: r.id === richiestaSelezionataId }"
-            role="button" tabindex="0"
-            @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)" @keydown.space.prevent="selezionaRichiesta(r.id)">
-            <span class="hitem__ic">
-              <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
-            </span>
-            <span class="hitem__m">
-              <span class="hitem__t">{{ titoloRichiesta(r) }}</span>
-              <span class="hitem__d">{{ formatData(r.creata) }}</span>
-            </span>
-            <span v-if="r.stato === 'in_attesa'" class="adot"></span>
-          </a>
-          <button type="button" class="hitem-kebab" aria-label="Altre azioni"
-            @click.stop="toggleMenu(r.id, $event)">⋮</button>
-        </div>
-        <p v-if="!richieste.length" class="hstore__empty">Nessuna richiesta ancora</p>
-      </div>
-    </aside>
-
-    <!-- Teleportato su body: la lista dello storico ha overflow-y auto, quindi
-         un menu posizionato al suo interno verrebbe tagliato quando la riga è
-         vicina al bordo scrollabile. -->
-    <Teleport to="body">
-      <div v-if="menuApertoId" class="agente-storico-menu" :style="{ top: menuPos.top + 'px', left: menuPos.left + 'px' }" @click.stop>
-        <button type="button" class="agente-storico-menu-item" @click="apriEliminazione(menuApertoId)">
-          <Icon name="cestino" style="width:14px;height:14px;" />Elimina
-        </button>
-      </div>
-    </Teleport>
-
-    <button type="button" class="htoggle" @click="sidebarAperta = true">
-      <Icon name="lista" /> Storico
-    </button>
-
-    <h1 class="agente-h1">
-      <ZorbaLogo style="width:30px;height:30px;flex-shrink:0;" />Zorba dice
-    </h1>
-    <p class="agente-sub">Elaborato da Claude Code · risposta entro pochi minuti</p>
+    <div class="agente-hd">
+      <h1 class="agente-h1">
+        <ZorbaLogo style="width:30px;height:30px;flex-shrink:0;" />Zorba dice
+      </h1>
+      <button type="button" class="pill agente-storico-btn" @click="storicoAperto = true">
+        <Icon name="lista" /> Storico
+        <span v-if="nonVisti" class="badge badge-gold">{{ nonVisti }}</span>
+      </button>
+    </div>
+    <p class="agente-sub">Zorba controlla la coda quando può</p>
 
     <!-- Token mancante -->
     <div v-if="!tokenPresente" class="agente-tokenbox">
@@ -58,19 +18,24 @@
       <RouterLink to="/account" class="btn btn-sage" style="display:inline-block;min-height:36px;padding:6px 14px;font-size:13px;">Vai su Account</RouterLink>
     </div>
 
-    <!-- Nuova richiesta -->
+    <!-- Nuova richiesta: contenuto centrale finché non si apre una risposta dallo storico -->
     <div v-if="!richiestaSelezionata" class="agente-nuova">
       <p class="slabel">Nuova richiesta</p>
 
-      <div class="reqchips">
-        <button v-for="t in TIPI_RICHIESTA" :key="t.value" type="button" class="reqchip"
-          :class="{ on: nuovoTipo === t.value }" @click="nuovoTipo = t.value">{{ t.label }}</button>
+      <div class="reqgroups">
+        <div v-for="g in GRUPPI_TIPO" :key="g.label" class="reqgroup">
+          <span class="reqgroup__label">{{ g.label }}</span>
+          <div class="reqchips">
+            <button v-for="v in g.tipi" :key="v" type="button" class="reqchip"
+              :class="{ on: nuovoTipo === v }" @click="selezionaTipo(v)">{{ TIPI_MAP[v].label }}</button>
+          </div>
+        </div>
       </div>
+      <p class="agente-hint">{{ TIPI_MAP[nuovoTipo]?.hint }}</p>
 
       <!-- Revisione specie: indica quale specie, non serve una foto -->
       <div v-if="nuovoTipo === 'revisione_specie'" class="agente-extra">
         <SelettoreSpecie v-model="specieSelezionata" />
-        <p class="agente-hint">Zorba controlla i campi mancanti o incompleti della scheda e li completa.</p>
       </div>
 
       <!-- Pianifica progetto: un progetto esistente da completare, oppure uno
@@ -82,7 +47,6 @@
           <option v-for="p in progettiEsistenti" :key="p.id" :value="p.id">{{ p.titolo }}</option>
         </select>
         <input v-if="!progettoSelezionato" v-model="nuovoProgettoTitolo" placeholder="Titolo del nuovo progetto" class="form-input">
-        <p class="agente-hint">Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.</p>
       </div>
 
       <div class="reqbox">
@@ -127,14 +91,19 @@
       </div>
     </div>
 
-    <!-- Dettaglio della richiesta selezionata nello storico -->
+    <!-- Dettaglio e risposta della richiesta selezionata: sostituisce il
+         compose form nel contenuto centrale, con un modo esplicito per
+         tornare a scrivere una nuova richiesta. -->
     <div v-else class="agente-dettaglio">
+      <button type="button" class="back-link agente-torna" @click="tornaANuova">
+        <Icon name="back" />Nuova richiesta
+      </button>
       <div class="agente-dettaglio-hd">
-        <span class="hitem__ic">
+        <span class="areq__ic">
           <Icon v-if="infoTipo(richiestaSelezionata.tipo).icon" :name="infoTipo(richiestaSelezionata.tipo).icon" />
         </span>
         <p class="agente-dettaglio-tipo">{{ infoTipo(richiestaSelezionata.tipo).label }}</p>
-        <span class="badge" :style="stileBadge(richiestaSelezionata.stato)">{{ labelStato(richiestaSelezionata.stato) }}</span>
+        <span class="badge" :class="classeBadge(richiestaSelezionata.stato)">{{ labelStato(richiestaSelezionata.stato) }}</span>
       </div>
       <p class="agente-dettaglio-data">{{ formatData(richiestaSelezionata.creata) }}</p>
 
@@ -165,9 +134,36 @@
       <!-- In attesa -->
       <div v-else-if="richiestaSelezionata.stato === 'in_attesa'" class="agente-attesa">
         <span class="adot"></span>
-        <p>In attesa di elaborazione da Claude Code…</p>
+        <p>In attesa che Zorba risponda…</p>
       </div>
     </div>
+
+    <!-- Il Foglio: storico richieste, righe a filetti come nel resto dell'app -->
+    <FoglioLaterale v-model="storicoAperto" titolo="Storico">
+      <div class="foglio-form">
+        <div v-if="richieste.length" class="feedlist">
+          <div v-for="r in richieste" :key="r.id" class="feed feed--tap"
+            role="button" tabindex="0"
+            @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)" @keydown.space.prevent="selezionaRichiesta(r.id)">
+            <span class="areq__ic">
+              <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
+            </span>
+            <div class="feed__m">
+              <div class="feed__n">
+                {{ titoloRichiesta(r) }}
+                <span v-if="statoRiga(r)" class="badge" :class="statoRiga(r).classe">{{ statoRiga(r).testo }}</span>
+              </div>
+              <div class="feed__d">{{ formatData(r.creata) }}</div>
+            </div>
+            <button type="button" class="feed__del" aria-label="Elimina richiesta" @click.stop="apriEliminazione(r.id)">×</button>
+          </div>
+        </div>
+        <div v-else class="empty">
+          <Icon name="lampadina" />
+          <p><b>Nessuna richiesta ancora</b>Scrivi a Zorba per identificare una specie, un consiglio di cura o un progetto da pianificare</p>
+        </div>
+      </div>
+    </FoglioLaterale>
 
     <ModalConferma
       :aperto="daEliminare !== null"
@@ -189,6 +185,7 @@ import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
 
 const store = useDatiStore()
 const { saveJSON, tokenPresente } = useApi()
@@ -205,25 +202,47 @@ const fotoBase64   = ref(null)
 const fotoPreview  = ref(null)
 const nomeFile     = ref('')
 const errore       = ref(null)
-const sidebarAperta = ref(false)
+const storicoAperto = ref(false)
 const richiestaSelezionataId = ref(null)
-const menuApertoId = ref(null)
-const menuPos = ref({ top: 0, left: 0 })
 const daEliminare = ref(null)
 const eliminando = ref(false)
 
 const TIPI_RICHIESTA = [
-  { value: 'identifica_specie',      label: 'Identifica specie da foto',  icon: 'foglia' },
-  { value: 'revisione_specie',       label: 'Revisiona/completa specie',  icon: 'matita' },
-  { value: 'consiglio_cura',         label: 'Consiglio per cura',         icon: 'goccia' },
-  { value: 'consiglio_concimazione', label: 'Consiglio concimazione',     icon: 'concimazione' },
-  { value: 'diagnosi',               label: 'Diagnosi problema',          icon: 'cerca' },
-  { value: 'pianifica_progetto',     label: 'Pianifica progetto',         icon: 'lampadina' },
-  { value: 'altro',                  label: 'Altro',                      icon: null },
+  { value: 'identifica_specie',      label: 'Identifica da foto',        icon: 'foglia',       hint: 'Carica una foto: Zorba prova a riconoscere la specie.' },
+  { value: 'revisione_specie',       label: 'Revisiona/completa specie', icon: 'matita',        hint: 'Zorba controlla i campi mancanti o incompleti della scheda e li completa.' },
+  { value: 'consiglio_cura',         label: 'Consiglio per cura',        icon: 'goccia',        hint: 'Descrivi la pianta o il problema: Zorba consiglia come curarla.' },
+  { value: 'consiglio_concimazione', label: 'Consiglio concimazione',    icon: 'concimazione',  hint: 'Zorba suggerisce quale concime della dispensa usare e con che dose.' },
+  { value: 'diagnosi',               label: 'Diagnosi problema',         icon: 'cerca',         hint: 'Foto o descrizione di un problema: Zorba prova a capire cosa non va.' },
+  { value: 'pianifica_progetto',     label: 'Pianifica progetto',        icon: 'lampadina',     hint: 'Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.' },
+  { value: 'altro',                  label: 'Altro',                     icon: null,            hint: 'Qualcosa che non rientra nelle altre categorie.' },
 ]
 const TIPI_MAP = Object.fromEntries(TIPI_RICHIESTA.map(t => [t.value, t]))
 function infoTipo(tipo) {
   return TIPI_MAP[tipo] ?? { label: tipo?.replace(/_/g, ' ') ?? '', icon: null }
+}
+
+// Raggruppati per restare sotto la soglia di ~4 scelte visibili per decisione
+// (7 tipi piatti la superavano — vedi critica del 07/09/2026).
+const GRUPPI_TIPO = [
+  { label: 'Specie',      tipi: ['identifica_specie', 'revisione_specie'] },
+  { label: 'Cura',        tipi: ['consiglio_cura', 'consiglio_concimazione', 'diagnosi'] },
+  { label: 'Varie',       tipi: ['pianifica_progetto', 'altro'] },
+]
+
+// Ogni tipo mostra campi diversi (foto, testo, specie, progetto): passare da
+// uno all'altro azzera i campi del form precedente, altrimenti un valore
+// nascosto dal tipo corrente (es. una foto allegata sotto "diagnosi") può
+// finire silenziosamente in un invio di tipo diverso che non la mostra più.
+function selezionaTipo(v) {
+  if (nuovoTipo.value === v) return
+  nuovoTipo.value = v
+  nuovoMessaggio.value = ''
+  specieSelezionata.value = ''
+  progettoSelezionato.value = ''
+  nuovoProgettoTitolo.value = ''
+  fotoBase64.value = null
+  fotoPreview.value = null
+  nomeFile.value = ''
 }
 
 function titoloRichiesta(r) {
@@ -276,34 +295,49 @@ const richiestaSelezionata = computed(() =>
   richieste.value.find(r => r.id === richiestaSelezionataId.value) ?? null
 )
 
+// --- "Nuovo": una risposta arrivata che l'utente non ha ancora aperto.
+// Salvato solo in localStorage (come il token GitHub): richieste-agente.json
+// resta senza scoping per utente, quindi il "letto" è per-browser, non condiviso.
+const CHIAVE_VISTE = 'agente_risposte_viste'
+function caricaViste() {
+  try { return new Set(JSON.parse(localStorage.getItem(CHIAVE_VISTE) ?? '[]')) } catch { return new Set() }
+}
+const viste = ref(caricaViste())
+function segnaVisto(id) {
+  if (viste.value.has(id)) return
+  viste.value = new Set(viste.value).add(id)
+  try { localStorage.setItem(CHIAVE_VISTE, JSON.stringify([...viste.value])) } catch { /* localStorage non disponibile */ }
+}
+// Prima apertura in assoluto (chiave mai scritta): le richieste già risposte
+// non contano come "nuove" solo perché questa funzionalità non esisteva prima.
+function inizializzaViste() {
+  if (localStorage.getItem(CHIAVE_VISTE) !== null) return
+  const risposte = richieste.value.filter(r => r.stato !== 'in_attesa').map(r => r.id)
+  viste.value = new Set(risposte)
+  try { localStorage.setItem(CHIAVE_VISTE, JSON.stringify(risposte)) } catch { /* localStorage non disponibile */ }
+}
+const nonVisti = computed(() => richieste.value.filter(r => r.stato !== 'in_attesa' && !viste.value.has(r.id)).length)
+
+function statoRiga(r) {
+  if (r.stato === 'in_attesa') return { classe: 'badge-gold', testo: 'In attesa' }
+  if (!viste.value.has(r.id)) return { classe: 'badge-gold', testo: 'Nuovo' }
+  if (r.stato === 'errore') return { classe: 'badge-warn', testo: 'Errore' }
+  return null
+}
+
 function selezionaRichiesta(id) {
   richiestaSelezionataId.value = id
-  sidebarAperta.value = false
+  storicoAperto.value = false
+  const r = richieste.value.find(x => x.id === id)
+  if (r && r.stato !== 'in_attesa') segnaVisto(id)
 }
 
-function nuovaRichiesta() {
+function tornaANuova() {
   richiestaSelezionataId.value = null
-  sidebarAperta.value = false
-}
-
-function toggleMenu(id, event) {
-  if (menuApertoId.value === id) {
-    menuApertoId.value = null
-    return
-  }
-  const rect = event.currentTarget.getBoundingClientRect()
-  const LARGHEZZA_MENU = 130
-  menuPos.value = { top: rect.bottom + 4, left: Math.max(8, rect.right - LARGHEZZA_MENU) }
-  menuApertoId.value = id
-}
-
-function chiudiMenu() {
-  menuApertoId.value = null
 }
 
 function apriEliminazione(id) {
   daEliminare.value = id
-  menuApertoId.value = null
 }
 
 async function confermaEliminazione() {
@@ -343,25 +377,24 @@ function avviaPolling() {
 onMounted(async () => {
   await store.caricaTutto()
   await caricaRichieste()
+  inizializzaViste()
   avviaPolling()
-  window.addEventListener('click', chiudiMenu)
 })
 
 onUnmounted(() => {
   if (pollTimer) clearInterval(pollTimer)
-  window.removeEventListener('click', chiudiMenu)
 })
 
 function labelStato(stato) {
-  if (stato === 'completata') return '✓ Completata'
-  if (stato === 'errore') return '✗ Errore'
-  return '○ In attesa'
+  if (stato === 'completata') return 'Completata'
+  if (stato === 'errore') return 'Errore'
+  return 'In attesa'
 }
 
-function stileBadge(stato) {
-  if (stato === 'completata') return 'background:var(--sage-pale);color:var(--sage-dark);'
-  if (stato === 'errore') return 'background:var(--rose-pale);color:var(--rose-dark);'
-  return 'background:var(--gold-pale);color:var(--gold-dark);'
+function classeBadge(stato) {
+  if (stato === 'completata') return 'badge-ok'
+  if (stato === 'errore') return 'badge-warn'
+  return 'badge-gold'
 }
 
 function formatData(iso) {
@@ -437,19 +470,24 @@ async function aggiungiRichiesta() {
 .agente-page { position: relative; }
 
 /* --- intestazione locale --- */
-.htoggle { margin-bottom: 14px; }
+.agente-hd { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+/* Stessa tipografia di .page-title (26px/600/1.05), qui in flex per
+   affiancare Zorba al titolo — .page-title da sola non lo consentirebbe. */
 .agente-h1 {
   display: flex; align-items: center; gap: 9px;
-  font: 600 23px/1.1 var(--font-display);
+  font: 600 26px/1.05 var(--font-display);
   letter-spacing: -0.01em;
   color: var(--ink);
-  margin: 0 0 4px;
+  margin: 0;
 }
 .agente-sub {
   font: 400 13px/1.5 var(--font-sans);
   color: var(--ink-soft);
   margin: 0 0 20px;
 }
+.agente-storico-btn { display: inline-flex; align-items: center; gap: 6px; flex: none; }
+.agente-storico-btn svg { width: 14px; height: 14px; }
+.agente-storico-btn .badge { margin-left: 2px; }
 
 /* --- banner token mancante: card leggera, niente decorazione pesante --- */
 .agente-tokenbox {
@@ -463,13 +501,13 @@ async function aggiungiRichiesta() {
 .agente-tokenbox .prose { margin: 0 0 10px; }
 
 /* --- blocco nuova richiesta --- */
-.agente-nuova { margin-bottom: 22px; }
+.agente-nuova { margin-bottom: 26px; }
 .agente-nuova .slabel { margin-bottom: 12px; }
 .agente-extra { margin-bottom: 12px; }
 .agente-hint {
   font: 400 11.5px/1.5 var(--font-sans);
   color: var(--ink-soft);
-  margin: 6px 0 0;
+  margin: 6px 0 12px;
 }
 .reqchip { appearance: none; font-family: var(--font-sans); }
 .reqbox textarea { font-family: var(--font-sans); }
@@ -480,7 +518,7 @@ async function aggiungiRichiesta() {
 }
 .agente-foto-preview img {
   width: 40px; height: 40px; object-fit: cover;
-  border-radius: 8px; flex-shrink: 0;
+  border-radius: 11px; flex-shrink: 0;
 }
 .agente-foto-nome {
   flex: 1; min-width: 0;
@@ -510,86 +548,41 @@ async function aggiungiRichiesta() {
   padding: 8px 12px;
   background: var(--rose-pale);
   border: 1px solid var(--rose-light);
-  border-radius: 10px;
+  border-radius: 12px;
   font: 400 12px/1.4 var(--font-sans);
   color: var(--rose-dark);
 }
 .agente-errore svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-/* --- storico: righe + kebab (drawer .hstore/.hitem sono globali, Fase 2) --- */
-/* Chiusura del drawer raggiungibile da tastiera/screen reader: .hback è un
-   <div> non focalizzabile, questo bottone è l'unico controllo di chiusura
-   etichettato quando il drawer è a scomparsa (sotto i 640px). */
-.hstore__close {
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: inherit;
-  font-size: 15px;
-  line-height: 1;
-  padding: 4px 6px;
-}
-.hitem-wrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-width: 0;
-}
-.hitem-wrap + .hitem-wrap { border-top: 1px solid var(--cream-dark); }
-.hitem-wrap .hitem { flex: 1; min-width: 0; cursor: pointer; }
-.hitem-kebab {
+/* --- storico, nel Foglio: righe a filetti (.feedlist/.feed sono globali) --- */
+.areq__ic { width: 22px; height: 22px; flex: none; }
+.areq__ic svg { width: 100%; height: 100%; }
+.feedlist .feed--tap { cursor: pointer; }
+.feedlist .feed__n { display: flex; align-items: center; gap: 8px; }
+.feedlist .feed__del {
   flex: none;
-  background: none; border: none; cursor: pointer;
-  color: var(--ink-soft);
-  font-size: 16px;
-  padding: 6px 10px;
-}
-.hstore__empty {
-  font: 400 12px/1.5 var(--font-sans);
-  color: var(--ink-soft);
-  text-align: center;
-  padding: 20px 8px;
-}
-
-/* --- menu kebab, teleportato su body --- */
-.agente-storico-menu {
-  position: fixed;
-  z-index: 300;
-  background: var(--white);
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(42,34,24,0.18);
-  padding: 4px;
-  min-width: 130px;
-}
-.agente-storico-menu-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 8px 10px;
-  border: none;
   background: none;
-  border-radius: 8px;
-  font-family: var(--font-sans);
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--rose-dark);
+  border: none;
+  color: var(--ink-faint);
+  font-size: 20px;
+  line-height: 1;
   cursor: pointer;
-  text-align: left;
+  padding: 4px;
 }
-.agente-storico-menu-item:hover { background: var(--rose-pale); }
+.feedlist .feed__del:hover { color: var(--rose-dark); }
 
-/* --- dettaglio richiesta selezionata --- */
-.agente-dettaglio { margin-top: 4px; }
+/* --- dettaglio richiesta: contenuto centrale al posto del compose form --- */
+.agente-torna {
+  appearance: none; background: none; border: none; padding: 0; cursor: pointer;
+}
 .agente-dettaglio-hd {
   display: flex; align-items: center; gap: 10px;
 }
-.agente-dettaglio-hd .hitem__ic { width: 22px; height: 22px; flex: none; }
-.agente-dettaglio-hd .hitem__ic svg { width: 100%; height: 100%; }
+/* Etichetta di categoria (es. "Diagnosi problema"), non un nome: DM Sans,
+   non Fraunces — la specie sotto (.agente-dettaglio-specie) è il nome vero. */
 .agente-dettaglio-tipo {
   flex: 1; min-width: 0;
-  font: 600 14px/1.3 var(--font-display);
+  font: 600 14px/1.3 var(--font-sans);
   color: var(--ink);
 }
 .agente-dettaglio-data {
@@ -598,7 +591,7 @@ async function aggiungiRichiesta() {
   margin: 6px 0 0;
 }
 .agente-dettaglio-specie {
-  font: 600 13px/1.4 var(--font-sans);
+  font: 600 13px/1.4 var(--font-display);
   color: var(--sage-dark);
   margin: 12px 0 0;
 }
@@ -621,8 +614,8 @@ async function aggiungiRichiesta() {
   margin-top: 16px;
   padding: 12px 14px;
   background: var(--gold-pale);
+  border: 1px solid var(--gold-light);
   border-radius: 12px;
-  border-left: 3px solid var(--gold);
 }
 .agente-attesa p {
   font: 400 12px/1.4 var(--font-sans);
