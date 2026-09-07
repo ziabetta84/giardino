@@ -205,14 +205,14 @@ Ogni colore funzionale ha una coppia "-bg"/"-ink" (es. `acqua-bg #e2edf3` / `acq
 **Label/Mono Font:** DM Sans, stessa famiglia del body ma in maiuscolo tracciato per le etichette
 **Hand Font:** Caveat (con Segoe Script, cursive come fallback) — accento manoscritto
 
-**Character:** Fraunces porta la voce calda e un po' letteraria del taccuino ovunque compaia un nome — di pianta, di pagina, di persona — mentre DM Sans resta discreto e leggibilissimo per tutta l'interazione. Caveat appare una sola volta per pagina (la data in Home), come se qualcuno l'avesse scritta a penna in un angolo.
+**Character:** Fraunces porta la voce calda e un po' letteraria del taccuino ovunque compaia un nome — di pianta, di pagina, di persona — mentre DM Sans resta discreto e leggibilissimo per tutta l'interazione. Caveat appare una sola volta per pagina, come se qualcuno l'avesse scritta a penna in un angolo: la data in Home, oppure — nella Galleria — la data scritta a mano sul bordo di ogni polaroid, il dettaglio che rende l'album "di carta" invece che uno schermo.
 
 ### Hierarchy
 - **Display** (600, 24–26px, line-height 1.05–1.1): titoli di pagina (`.page-title`) e saluto della Home (`.greet`); stesso peso e famiglia, poco più piccoli (14.5–16px), per nomi di card e titoli di modale/foglio.
 - **Title** (600, 13–15px, line-height 1.2–1.25): nomi di riga in liste (progetti, attività, zone) — Fraunces anche qui, non DM Sans: ogni "nome" nel taccuino usa il display font, indipendentemente dalla dimensione.
 - **Body** (400, 12.5–14px, line-height 1.4–1.62): testo corrente, descrizioni, risposte dell'assistente AI.
 - **Label** (700, 9.5–11px, letter-spacing 0.04–0.13em, maiuscolo): etichette di sezione (`.slabel`), etichette di campo, chip di stato — sempre tracciate e maiuscole, mai in Fraunces.
-- **Hand** (400, 19px, Caveat): la data in Home; nessun altro uso nell'app.
+- **Hand** (400, 19px, Caveat): la data in Home; la didascalia-data sotto ogni foto nella Galleria (vedi "Album Polaroid" in Components). Nessun altro uso nell'app: resta un accento raro, non un font di servizio.
 
 ### Named Rules
 **La Regola del Nome in Fraunces.** Ogni volta che l'interfaccia mostra un *nome* — di pianta, progetto, zona, pagina, persona — usa Fraunces, qualunque sia la dimensione. Numeri, etichette, pulsanti e chrome di navigazione restano sempre in DM Sans: la distinzione è semantica (identità vs. servizio), non solo dimensionale.
@@ -295,6 +295,13 @@ Pannello che scivola dal basso su mobile (angoli 22px solo in alto) e da destra 
 Linea verticale che si disegna progressivamente (stroke-dasharray animato) mentre si scorre la pagina, con un pallino colorato per esito di ogni tappa (oro/salvia/rosa/neutro). È la rappresentazione visiva del progresso di un progetto di giardino nel tempo, non una lista piatta di date.
 
 **Goccia d'inchiostro.** Quando un pallino entra in vista (o si cambia l'esito di una tappa), non scatta a scala piena: un alone dello stesso colore si allarga e sparisce (450ms) mentre il pallino pieno si assesta, come inchiostro che si posa sulla carta invece di una spunta generica. Il colore della traccia stessa non cambia di scatto quando un esito viene modificato: sfuma (`--motion-sheet`) da un colore all'altro. **Tentato e scartato**: una distorsione "a mano libera" della linea via filtro SVG (`feTurbulence`/`feDisplacementMap`) — verificata con rendering reale, non solo letto nel codice: a tratto spesso il colore della traccia spariva del tutto. Stessa lezione di `HeroAiuola.vue`/`transform-box:fill-box` — non riprovare una tecnica SVG esotica su questi elementi senza prima validarla con un rendering vero, non solo a occhio sul codice.
+
+### Album Polaroid (Galleria)
+Ogni pianta mostra le proprie foto come una pila fisica invece di un feed a tutta larghezza stile social: cornice bianca (`.polaroid`, angolo minimo del sistema 6px), didascalia-data in Caveat (19px, l'unico contenuto della didascalia) sotto la foto — non un overlay scuro sopra l'immagine — e una rotazione lieve e stabile per foto (±2–4°, derivata da un hash del percorso file, mai ri-randomizzata a ogni render: un oggetto fisico non trema quando la pagina si aggiorna). Zona/sottozona/coltivato_in vivono nell'header accanto al nome della pianta (`.gpost__hd-meta`, su una riga propria che va a capo sotto il nome quando lo spazio non basta — il nome non è mai schiacciato), non più in didascalia: la foto porta solo la data.
+
+Oltre 1 foto, le 3 più recenti restano sfalsate in una pila chiusa (la più recente sempre in primo piano, "+N altre" oltre le 3, badge rientrato nel bordo della carta); un tap/Invio/Spazio la apre in un ventaglio orizzontale scorrevole con lo stesso scroll-snap di prima, ogni carta che lascia intravedere le vicine invece di occupare tutto lo schermo. Aprirne una richiude tutte le altre (accordion, non toggle indipendenti): il "muro di foto" che la pila esiste per evitare altrimenti si ricompone silenziosamente scorrendo un giardino con molte piante. Il ventaglio aperto prende il focus programmaticamente e si chiude con Esc, stesso pattern di `LightboxFoto.vue`. Il bottone di eliminazione è sempre un fratello del contenitore cliccabile, mai un figlio: un `<button>` reale annidato in un `div[role=button]` è l'anti-pattern ARIA da evitare ogni volta che si aggiunge un'affordance a un elemento già interattivo.
+
+Nessun ingrandimento a piena pagina: l'album è pensato per sfogliare in fretta, non per ispezionare un dettaglio (deciso esplicitamente in critica del 07/09/2026 — un lightbox appesantirebbe un compito che deve restare leggero).
 
 ### Icone ad acquerello — sistema firma
 Ogni icona (cura, meteo, zona) è una silhouette piena in stile Phosphor "fill" nella tinta del proprio dominio, con un'ellisse più scura della stessa famiglia (`-dark`) ritagliata dentro la forma a opacità 40%, a simulare il punto in cui il colore "si raccoglie" come acquerello vero. Un solo colore per icona, mai un contorno sottile: a 16–19px (barra di navigazione) una linea sottile risulterebbe illeggibile.
