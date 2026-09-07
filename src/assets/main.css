@@ -811,6 +811,11 @@ body::before {
 .care__ic--calcio { background: var(--uovo-bg); color: var(--uovo-ink); }
 .care__ic--npk { background: var(--sage-bg); color: var(--sage-ink); }
 .care__ic--potatura { background: var(--rose-bg); color: var(--rose-ink); }
+/* Tappa di progetto scaduta in "Da fare oggi" (Home): sempre rosa, non oro —
+   a differenza di .tappa-riga__ic in AttivitaView.vue (oro/rosa secondo
+   urgenza), qui entrano solo tappe già urgenti per costruzione, quindi non
+   serve lo stato "in arrivo" (vedi critica del 07/09/2026). */
+.care__ic--tappa { background: var(--rose-bg); color: var(--rose-ink); }
 
 /* Suggerimento concime: promossa da scoped (era solo in AttivitaRiga.vue) a
    globale, così HomeView.vue può riusarla senza duplicare le stesse 3
@@ -831,7 +836,7 @@ body::before {
   min-height: 44px; display: inline-flex; align-items: center; justify-content: center;
   border-radius: 999px; border: 1px solid var(--cream-dark);
   background: var(--white); color: var(--ink-mid); cursor: pointer;
-  white-space: nowrap;
+  white-space: nowrap; text-decoration: none;
 }
 .care-act:disabled { opacity: .55; cursor: default; }
 .care-act:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.15); }

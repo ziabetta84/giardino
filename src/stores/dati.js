@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useMeteo } from '@/composables/useMeteo'
+import { useMeteo, LOCATION_FALLBACK } from '@/composables/useMeteo'
 import { useApi } from '@/composables/useApi'
 import { useSupabase } from '@/composables/useSupabase'
 
@@ -324,13 +324,17 @@ export const useDatiStore = defineStore('dati', () => {
       // loading torna false prima che il meteo sia arrivato e la riga meteo
       // in Home mostra "non disponibile" invece di "in caricamento" per la
       // finestra in cui sta ancora arrivando (vedi critica del 07/09/2026).
-      const lat = settings.value?.location?.lat
-      const lon = settings.value?.location?.lon
-      if (lat && lon) {
-        const { giorni, carica } = useMeteo()
-        await carica(lat, lon, 2)
-        meteo.value = giorni.value
-      }
+      // Fallback su LOCATION_FALLBACK (stesso di MeteoView.vue) se l'utente
+      // non ha ancora impostato una location in /impostazioni: prima non
+      // c'era alcun fallback qui, quindi un utente nuovo non vedeva mai il
+      // meteo su Home né la sospensione dell'irrigazione in caso di pioggia,
+      // anche se /meteo stesso funzionava già grazie al proprio fallback
+      // locale (vedi critica del 07/09/2026).
+      const lat = settings.value?.location?.lat ?? LOCATION_FALLBACK.lat
+      const lon = settings.value?.location?.lon ?? LOCATION_FALLBACK.lon
+      const { giorni, carica } = useMeteo()
+      await carica(lat, lon, 2)
+      meteo.value = giorni.value
     } catch (e) {
       errore.value = e.message
     } finally {

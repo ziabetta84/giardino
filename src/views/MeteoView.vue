@@ -107,7 +107,7 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref, computed } from 'vue'
-import { useMeteo } from '@/composables/useMeteo'
+import { useMeteo, LOCATION_FALLBACK } from '@/composables/useMeteo'
 import { pioggiaInArrivo, pioggiaCumulata2gg } from '@/composables/useCure'
 import { useDatiStore } from '@/stores/dati'
 import Icon from '@/components/Icon.vue'
@@ -182,7 +182,7 @@ function chiudiDettaglio() { giornoSelezionato.value = null }
 
 function caricaMeteo() {
   const s = store.settings
-  carica(s?.location?.lat ?? 43.8309, s?.location?.lon ?? 12.9860)
+  carica(s?.location?.lat ?? LOCATION_FALLBACK.lat, s?.location?.lon ?? LOCATION_FALLBACK.lon)
 }
 
 onMounted(async () => {

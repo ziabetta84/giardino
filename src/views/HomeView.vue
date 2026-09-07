@@ -94,19 +94,30 @@
     <template v-else-if="daFareOggi.length">
       <div class="tasklist">
         <div v-for="a in daFareOggi.slice(0, 5)" :key="a.key" class="task">
-          <span class="care__ic" :class="`care__ic--${a.tipo}`"><Icon :name="iconaCura(a.tipo)" /></span>
-          <div class="task__m">
-            <div class="task__n">{{ a.nomeSpecie }}</div>
-            <div class="task__d">{{ a.label }}</div>
-            <div v-if="a.tipo === 'concimazione' && a.suggerimento" class="attivita-riga__sugg">
-              <Icon name="concimazione" /> Consigliato: {{ a.suggerimento.nome }} ({{ a.suggerimento.npk.n }}-{{ a.suggerimento.npk.p }}-{{ a.suggerimento.npk.k }})
-              <Icon v-if="a.suggerimento.disponibile === false" name="allerta" class="attivita-riga__sugg-warn" aria-label="Terminato" />
+          <template v-if="a.tipo === 'tappa'">
+            <span class="care__ic care__ic--tappa"><Icon name="lampadina" /></span>
+            <div class="task__m">
+              <div class="task__n">{{ a.progettoTitolo }}</div>
+              <div class="task__d">{{ a.label }}</div>
+              <div v-if="a.extra" class="task__d">+{{ a.extra }} altr{{ a.extra === 1 ? 'a tappa' : 'e tappe' }} in ritardo</div>
             </div>
-            <div v-if="erroreRegistrazione?.key === a.key" class="task__d task__d--err" role="alert">{{ erroreRegistrazione.messaggio }}</div>
-          </div>
-          <button class="care-act" type="button" @click="registra(a)" :disabled="salvando === a.key">
-            <Spinner v-if="salvando === a.key" /><span v-else>Fatto</span>
-          </button>
+            <RouterLink class="care-act" :to="`/progetti/${a.progettoId}`">Vedi</RouterLink>
+          </template>
+          <template v-else>
+            <span class="care__ic" :class="`care__ic--${a.tipo}`"><Icon :name="iconaCura(a.tipo)" /></span>
+            <div class="task__m">
+              <div class="task__n">{{ a.nomeSpecie }}</div>
+              <div class="task__d">{{ a.label }}</div>
+              <div v-if="a.tipo === 'concimazione' && a.suggerimento" class="attivita-riga__sugg">
+                <Icon name="concimazione" /> Consigliato: {{ a.suggerimento.nome }} ({{ a.suggerimento.npk.n }}-{{ a.suggerimento.npk.p }}-{{ a.suggerimento.npk.k }})
+                <Icon v-if="a.suggerimento.disponibile === false" name="allerta" class="attivita-riga__sugg-warn" aria-label="Terminato" />
+              </div>
+              <div v-if="erroreRegistrazione?.key === a.key" class="task__d task__d--err" role="alert">{{ erroreRegistrazione.messaggio }}</div>
+            </div>
+            <button class="care-act" type="button" @click="registra(a)" :disabled="salvando === a.key">
+              <Spinner v-if="salvando === a.key" /><span v-else>Fatto</span>
+            </button>
+          </template>
         </div>
       </div>
       <RouterLink v-if="daFareOggi.length > 5" class="seeall" to="/attivita">
@@ -120,14 +131,18 @@
          Due varianti, non una sola: zero zone e zero piante-ma-zone-già-
          create sono situazioni diverse con un'azione successiva diversa —
          mandare chi ha già una zona a "creane una" è un'affermazione falsa,
-         non solo un tono sbagliato (vedi critica del 07/09/2026). -->
-    <div v-if="!store.loading && !store.errore && numPiante === 0 && numZone === 0" class="empty">
+         non solo un tono sbagliato (vedi critica del 07/09/2026). In più,
+         "!daFareOggi.length": zero piante non vuol dire zero da fare — una
+         tappa di progetto scaduta è comunque reale anche senza piante, e
+         deve vedersi nella lista sopra invece che sotto un invito a
+         iniziare che la nasconderebbe (vedi critica del 07/09/2026). -->
+    <div v-if="!store.loading && !store.errore && numPiante === 0 && numZone === 0 && !daFareOggi.length" class="empty">
       <Icon name="pin" />
       <p><b>Il tuo giardino ti aspetta</b>Aggiungi la prima zona per iniziare a tracciare piante e cure</p>
       <RouterLink class="btn btn-sage empty__cta" to="/zone">Crea la tua prima zona</RouterLink>
     </div>
 
-    <div v-else-if="!store.loading && !store.errore && numPiante === 0" class="empty">
+    <div v-else-if="!store.loading && !store.errore && numPiante === 0 && !daFareOggi.length" class="empty">
       <Icon name="foglia" />
       <p><b>La tua prima pianta ti aspetta</b>Aggiungi una pianta a una delle tue zone per iniziare a monitorarne le cure</p>
       <RouterLink class="btn btn-sage empty__cta" to="/piante/nuova">Aggiungi la tua prima pianta</RouterLink>
@@ -177,6 +192,7 @@ import { usePianteApi } from '@/composables/usePianteApi'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { iconaCura } from '@/composables/useCureVisual'
 import { concimeConsigliato } from '@/composables/useConcimi'
+import { tappeAttese } from '@/composables/useProgetti'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ToastCura from '@/components/ToastCura.vue'
 import HeroAiuola from '@/components/HeroAiuola.vue'
@@ -292,6 +308,34 @@ function rangoUrgenza(giorni) {
   return giorni === Infinity ? -1e15 : giorni
 }
 
+// Una riga per progetto, non una per tappa: più tappe scadute sullo stesso
+// progetto affollerebbero i 5 posti di "Da fare oggi" a scapito di piante e
+// altri progetti (vedi critica del 07/09/2026). La tappa più scaduta
+// rappresenta il progetto; le altre si contano in "+N altre" sulla riga.
+const tappeUrgentiOggi = computed(() => {
+  const gruppi = new Map()
+  for (const t of tappeAttese(store.progetti)) {
+    if (!t.urgente) continue
+    if (!gruppi.has(t.progettoId)) gruppi.set(t.progettoId, [])
+    gruppi.get(t.progettoId).push(t)
+  }
+  const righe = []
+  for (const [progettoId, lista] of gruppi) {
+    lista.sort((a, b) => a.giorni - b.giorni)
+    const [principale, ...altre] = lista
+    righe.push({
+      key: `tappa-${progettoId}-${principale.indice}`,
+      tipo: 'tappa',
+      progettoId,
+      progettoTitolo: principale.progettoTitolo,
+      label: `${principale.tappa.descrizione} — scaduta ${Math.abs(principale.giorni)} gg fa`,
+      giorni: principale.giorni,
+      extra: altre.length,
+    })
+  }
+  return righe
+})
+
 const daFareOggi = computed(() => {
   if (!store.piante) return []
   const items = []
@@ -316,9 +360,12 @@ const daFareOggi = computed(() => {
       items.push({ key: `${id}-${tipo}`, piantaId: id, tipo, nomeSpecie, label: c.label, giorni: c.giorni, suggerimento })
     }
   }
-  // La più scaduta per prima: senza questo, la lista (troncata alle prime 5 in
-  // template) seguiva l'ordine di creazione delle piante, potendo nascondere
-  // una cura scaduta da settimane dietro una scaduta da un giorno.
+  items.push(...tappeUrgentiOggi.value)
+  // La più scaduta per prima (cure e tappe competono sulla stessa scala di
+  // giorni di ritardo reali, decisione dell'utente del 07/09/2026): senza
+  // questo, la lista (troncata alle prime 5 in template) seguiva l'ordine
+  // di creazione delle piante, potendo nascondere una cura o una tappa
+  // scaduta da settimane dietro una scaduta da un giorno.
   items.sort((a, b) => rangoUrgenza(a.giorni) - rangoUrgenza(b.giorni))
   return items
 })
@@ -342,24 +389,31 @@ watch(() => daFareOggi.value.length, (n) => {
 
 // Zorba deve sentirsi collegato allo stesso giardino che l'utente vede sopra,
 // non un rimando statico e sempre uguale (vedi critica del 06/09/2026): la
-// riga "Zorba dice" nomina la pianta più scaduta (daFareOggi è già ordinata
-// per urgenza) invece di un invito generico sempre identico.
+// riga "Zorba dice" nomina la pianta o la tappa più scadute (daFareOggi è già
+// ordinata per urgenza) invece di un invito generico sempre identico.
 const zorbaDiceSottotitolo = computed(() => {
   const fallback = 'Chiedi un consiglio, identifica una specie, pianifica un progetto'
   if (store.loading || !store.piante) return fallback
+  const n = daFareOggi.value.length
   // Zero piante è l'inizio, non un arretrato azzerato: non riusa la riga
   // "il giardino è in ordine" (vedi critica del 06/09/2026). Zero zone e
   // zone-già-create-ma-zero-piante sono due situazioni diverse (vedi critica
-  // del 07/09/2026): a chi ha già una zona non si dice di crearne una.
-  if (numPiante.value === 0) {
+  // del 07/09/2026): a chi ha già una zona non si dice di crearne una. Solo
+  // se non c'è nemmeno una tappa in ritardo (!n): zero piante non vuol dire
+  // zero da fare (vedi critica del 07/09/2026).
+  if (numPiante.value === 0 && !n) {
     return numZone.value === 0
       ? "Non c'è ancora nulla da monitorare: aggiungi una zona per iniziare"
       : "Non c'è ancora nessuna pianta da monitorare: aggiungine una per iniziare"
   }
-  const n = daFareOggi.value.length
   if (n === 0) return 'Il giardino è in ordine: chiedimi comunque un consiglio, o pianifica qualcosa di nuovo'
-  if (n === 1) return `Ho notato che ${daFareOggi.value[0].nomeSpecie} aspetta ancora una cura`
-  return `Ho notato ${n} cure in attesa nel giardino — vuoi un consiglio?`
+  if (n === 1) {
+    const item = daFareOggi.value[0]
+    return item.tipo === 'tappa'
+      ? `Ho notato che il progetto "${item.progettoTitolo}" ha una tappa scaduta`
+      : `Ho notato che ${item.nomeSpecie} aspetta ancora una cura`
+  }
+  return `Ho notato ${n} cose in attesa nel giardino — vuoi un consiglio?`
 })
 
 const salvando = ref(null)
@@ -392,7 +446,11 @@ const homeCards = computed(() => {
     // non si legge come un errore, uno zero sì.
     { to: '/zone',     icona: 'pin',        label: 'Zone',     count: numZone.value ? `${numZone.value}` : null, urgent: false },
     { to: '/piante',   icona: 'foglia',     label: 'Piante',   count: numUrgenti.value ? `${numUrgenti.value} da curare` : (numPiante.value ? `${numPiante.value}` : null), urgent: !!numUrgenti.value },
-    { to: '/progetti', icona: 'lampadina',  label: 'Progetti', count: numProgetti.value !== null ? `${numProgetti.value} apert${numProgetti.value === 1 ? 'o' : 'i'}` : null, urgent: false },
+    // Numero di progetti (non di tappe) in ritardo: coerente con come Piante
+    // conta piante urgenti, non cure urgenti (vedi critica del 07/09/2026 —
+    // prima "urgent" era fisso a false, indipendentemente da cosa fosse
+    // davvero scaduto).
+    { to: '/progetti', icona: 'lampadina',  label: 'Progetti', count: tappeUrgentiOggi.value.length ? `${tappeUrgentiOggi.value.length} in ritardo` : (numProgetti.value !== null ? `${numProgetti.value} apert${numProgetti.value === 1 ? 'o' : 'i'}` : null), urgent: tappeUrgentiOggi.value.length > 0 },
     { to: '/concimi',  icona: 'provetta',   label: 'Concimi',  count: numConcimi.value !== null ? `${numConcimi.value}` : null, urgent: false },
     { to: '/attivita', icona: 'campanella', label: 'Attività', count: n ? `${n} urgent${n === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: n > 0 },
     { to: '/gallery',  icona: 'cornice',    label: 'Gallery',  count: null, urgent: false },

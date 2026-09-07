@@ -24,6 +24,14 @@ const WMO_LABEL = {
 
 const CODICI_TEMPORALE = [95, 96, 99]
 
+// Fano (PU), il giardino di origine dell'app: fallback ragionevole finché
+// l'utente non imposta la propria posizione in /impostazioni, condiviso fra
+// MeteoView.vue e stores/dati.js così i due non possano più divergere (vedi
+// critica del 07/09/2026 — dati.js non aveva alcun fallback, quindi un utente
+// senza location configurata non vedeva mai il meteo né la sospensione
+// dell'irrigazione in caso di pioggia, mentre /meteo funzionava comunque).
+export const LOCATION_FALLBACK = { lat: 43.8309, lon: 12.9860 }
+
 // Umidità aria e del suolo non hanno un aggregato giornaliero nell'API:
 // si calcola la media delle ore che cadono in quel giorno a partire
 // dall'orario (stringa "YYYY-MM-DDTHH:mm" che inizia con la data del giorno).
