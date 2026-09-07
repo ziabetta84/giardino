@@ -890,5 +890,16 @@
       "messaggio": "**Iresine herbstii** (pianta del sangue), Amaranthaceae — PlantNet la indica come *Iresine diffusa* (sinonimo/nome accettato dello stesso taxon) con il 93% di confidenza; il giudizio visivo conferma pienamente, senza divergenze.\n\nCaratteristiche in foto: fogliame ovale magenta-viola intenso con nervature centrali rosa acceso, disposizione opposta, portamento erbaceo-cespuglioso — sembra una talea appena messa a dimora (tutore di bambù di sostegno), non ancora radicata stabilmente.\n\n**Attenzione**: è una pianta tenera, non tollera il gelo — nel clima di Centinarola va protetta o ritirata in inverno se non in posizione molto riparata, altrimenti trattata come annuale.\n\nLa specie è già nel catalogo (`iresine-herbstii`) ma senza NPK compilato. Proposta, categoria fogliame ornamentale (azoto prevalente per mantenere colore e vigore):\n- Primavera: **15-10-10**\n- Estate: **15-10-10**\n- Autunno: (vuoto — rallentamento vegetativo)\n- Inverno: (vuoto — riposo/pianta tenera)\n\nCure nelle prime settimane: terreno sempre umido non inzuppato, posizione luminosa ma non sole diretto nelle ore centrali, evitare correnti fredde vicino al muro.\n",
       "elaborata": "2026-09-07T14:04:56.000Z"
     }
+  },
+  "r-1788814095749-hx7m": {
+    "tipo": "consiglio_cura",
+    "messaggio": "Su un ramo dell'albero di arancio navel c'è un ramo pieno di cocciniglie e formiche, cos'è meglio fare?",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-07T20:48:16.233Z",
+    "risposta": null
   }
 }
