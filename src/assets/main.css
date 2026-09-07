@@ -18,8 +18,17 @@
   --olive-light: #d8e4b0;
   --acqua:       #6f9fc0;
   --acqua-dark:  #4c7793;
-  --uovo:      #cbb994;
-  --uovo-dark: #a68f63;
+  /* Tonalità ~22° (terracotta/argilla), il punto medio esatto fra rosa (~0°)
+     e oro (~44°): la versione precedente di questo fix era finita vicina
+     all'oro, poi vicina al rosa a sua volta — 44° è tutto lo spazio
+     disponibile fra i due vicini, e a lucentezza/saturazione così basse
+     (tinte quasi bianche) anche il punto medio resta a un pelo dall'uno o
+     dall'altro (vedi critica del 07/09/2026). La disambiguazione reale nella
+     tessera .care__ic--calcio resta la forma dell'icona uovo, non il solo
+     colore di sfondo — non riprovare un quarto aggiustamento di sola tinta
+     in questa finestra di 44° senza prima considerare saturazione/lucentezza. */
+  --uovo:      #cba894;
+  --uovo-dark: #a67c63;
 
   /* Fondo-tinta (bande/chip) e testo-su-tinta (AA) per dominio — restyle "Taccuino" */
   --acqua-bg:  #e2edf3;  --acqua-ink: #2b566e;
@@ -27,6 +36,7 @@
   --rose-bg:   #f6e3e1;  --rose-ink:  #8a3f3a;
   --sage-bg:   #e4ede4;  --sage-ink:  #37543f;
   --gold-bg:   #f7ecd0;  --gold-ink:  #7a5a15;
+  --uovo-bg:   #f5ebe5;  --uovo-ink:  #6d442c;
   --carta-2:   #f4eede;
 
   --rose-tile:   #f6e3e1;
@@ -89,14 +99,15 @@
   --olive-light: #38401f;
   --acqua:       #8dbcdd;
   --acqua-dark:  #b3d5ec;
-  --uovo:        #ddcda6;
-  --uovo-dark:   #ecdfc0;
+  --uovo:        #ddbaa6;
+  --uovo-dark:   #ecd0c0;
 
   --acqua-bg:  #203244;  --acqua-ink: #a8cfe6;
   --olive-bg:  #2a2e18;  --olive-ink: #cddb95;
   --rose-bg:   #3a2422;  --rose-ink:  #f0acac;
   --sage-bg:   #223326;  --sage-ink:  #b7d6bd;
   --gold-bg:   #362c15;  --gold-ink:  #f6da97;
+  --uovo-bg:   #302017;  --uovo-ink:  #ecd0c0;
   --carta-2:   #241f14;
 
   --rose-tile:   #3a2422;
@@ -388,6 +399,7 @@ body::before {
 
 .wxrow { display:flex; align-items:center; gap:11px; padding:12px 2px; text-decoration:none;
   border-top:1px solid var(--cream-dark); border-bottom:1px solid var(--cream-dark); }
+.wxrow:focus-visible { position:relative; z-index:2; outline:none; box-shadow: inset 0 0 0 3px var(--gold); }
 .wxrow__ic { width:30px; height:30px; flex:none; }
 .wxrow__ic svg { width:100%; height:100%; }
 .wxrow__m { flex:1; min-width:0; }
@@ -397,6 +409,7 @@ body::before {
 
 .zdice { display:flex; align-items:center; gap:11px; padding:12px 2px; text-decoration:none;
   border-bottom:1px solid var(--cream-dark); }
+.zdice:focus-visible { position:relative; z-index:2; outline:none; box-shadow: inset 0 0 0 3px var(--gold); }
 .zdice__ic { width:28px; height:28px; flex:none; }
 .zdice__ic svg { width:100%; height:100%; }
 .zdice__m { flex:1; min-width:0; }
@@ -407,18 +420,18 @@ body::before {
 .tasklist { display:flex; flex-direction:column; }
 .task { display:flex; align-items:center; gap:11px; padding:11px 2px; }
 .task + .task { border-top:1px solid var(--cream-dark); }
-.task__ic { width:30px; height:30px; flex:none; }
-.task__ic svg { width:100%; height:100%; }
 .task__m { flex:1; min-width:0; }
 .task__n { font:600 14.5px/1.25 var(--font-display); color:var(--ink); }
 .task__d { font:400 12px/1.4 var(--font-sans); color:var(--ink-mid); margin-top:2px; }
 
 .seeall { display:block; padding:11px 2px 2px; font:600 12px/1 var(--font-sans);
   color:var(--sage-dark); text-decoration:none; border-top:1px solid var(--cream-dark); }
+.seeall:focus-visible { position:relative; z-index:2; outline:none; box-shadow: inset 0 0 0 3px var(--gold); }
 
 .destlist { display:flex; flex-direction:column; }
 .dest { display:flex; align-items:center; gap:11px; padding:11px 2px; text-decoration:none; }
 .dest + .dest { border-top:1px solid var(--cream-dark); }
+.dest:focus-visible { position:relative; z-index:2; outline:none; box-shadow: inset 0 0 0 3px var(--gold); }
 .dest__ic { width:26px; height:26px; flex:none; }
 .dest__ic svg { width:100%; height:100%; }
 .dest__n { flex:1; font:600 13.5px/1.2 var(--font-sans); color:var(--ink); }
@@ -537,7 +550,8 @@ body::before {
 .stat { display:flex; gap:7px; flex-wrap:wrap; }
 .stat span { font:600 11px/1 var(--font-sans); padding:5px 9px; border-radius:999px;
   background:var(--cream); border:1px solid var(--cream-dark); color:var(--ink-mid); }
-.stat b { color:var(--rose-ink); }
+.stat b { color:var(--ink-mid); }
+.stat b.urg { color:var(--rose-ink); }
 
 @media (min-width: 640px) {
   /* La scena SVG (viewBox 400x250, "slice") copre sempre tutta la larghezza:
@@ -794,9 +808,18 @@ body::before {
 .care__ic svg { width: 18px; height: 18px; }
 .care__ic--irrigazione { background: var(--acqua-bg); color: var(--acqua-ink); }
 .care__ic--concimazione { background: var(--olive-bg); color: var(--olive-ink); }
-.care__ic--calcio { background: var(--carta-2); color: var(--ink-mid); }
+.care__ic--calcio { background: var(--uovo-bg); color: var(--uovo-ink); }
 .care__ic--npk { background: var(--sage-bg); color: var(--sage-ink); }
 .care__ic--potatura { background: var(--rose-bg); color: var(--rose-ink); }
+
+/* Suggerimento concime: promossa da scoped (era solo in AttivitaRiga.vue) a
+   globale, così HomeView.vue può riusarla senza duplicare le stesse 3
+   dichiarazioni una seconda volta — stesso principio di .care__ic/.care-act
+   (vedi critica del 07/09/2026). */
+.attivita-riga__sugg { display:flex; align-items:center; gap:4px; font:400 11px/1.4 var(--font-sans); color:var(--sage-dark); margin-top:2px; }
+.attivita-riga__sugg svg { width:12px; height:12px; flex:none; }
+.attivita-riga__sugg-warn { color:var(--rose); }
+
 .care__m { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .care__n { font: 600 13px/1.25 var(--font-sans); color: var(--ink); }
 .care__d { font: 400 11.5px/1.35 var(--font-sans); color: var(--ink-mid); }
@@ -811,6 +834,7 @@ body::before {
   white-space: nowrap;
 }
 .care-act:disabled { opacity: .55; cursor: default; }
+.care-act:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.15); }
 /* --rose-ink (non --rose-dark): stesso contrasto AA già usato da .dest__c.urg/.stat b,
    qui su sfondo --white/--cream --rose-dark scende sotto 4.5:1 in light mode. */
 .care-act--rose { border-color: var(--rose-light); color: var(--rose-ink); }

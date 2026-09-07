@@ -251,8 +251,28 @@ export const useDatiStore = defineStore('dati', () => {
   const loading   = ref(false)
   const errore    = ref(null)
 
+  // App.vue (all'avvio) e ogni singola view che ne ha bisogno (stesso
+  // pattern in tutta l'app) chiamano caricaTutto() nel proprio onMounted:
+  // la sessione (che sblocca il mount di App.vue e della prima rotta) si
+  // risolve molto prima delle query Supabase qui sotto, quindi la seconda
+  // chiamata partiva prima che piante.value fosse valorizzato dalla prima e
+  // duplicava l'intero caricamento invece di attendere quello già in corso.
+  // Condividendo la stessa promessa fra chiamate concorrenti, la seconda
+  // aspetta la prima invece di rilanciarla.
+  let promessaCaricamento = null
+
   async function caricaTutto() {
     if (piante.value) return  // già caricati
+    if (promessaCaricamento) return promessaCaricamento
+    promessaCaricamento = eseguiCaricamento()
+    try {
+      await promessaCaricamento
+    } finally {
+      promessaCaricamento = null
+    }
+  }
+
+  async function eseguiCaricamento() {
     loading.value = true
     errore.value = null
     try {
@@ -294,22 +314,27 @@ export const useDatiStore = defineStore('dati', () => {
       const slugReferenziati = [...new Set([...slugPiante, ...slugRichieste])]
 
       specie.value = await caricaSpecie(slugReferenziati)
+
+      // Previsioni meteo (solo oggi/domani): usate da useCure per sospendere
+      // l'irrigazione delle piante esterne quando è prevista pioggia
+      // sufficiente. Dentro il try, non dopo: useMeteo().carica() cattura già
+      // i propri errori di rete internamente (non li rilancia, vedi
+      // useMeteo.js) quindi non può far scattare il catch qui sotto — ma
+      // deve restare coperta da `loading` insieme al resto, altrimenti
+      // loading torna false prima che il meteo sia arrivato e la riga meteo
+      // in Home mostra "non disponibile" invece di "in caricamento" per la
+      // finestra in cui sta ancora arrivando (vedi critica del 07/09/2026).
+      const lat = settings.value?.location?.lat
+      const lon = settings.value?.location?.lon
+      if (lat && lon) {
+        const { giorni, carica } = useMeteo()
+        await carica(lat, lon, 2)
+        meteo.value = giorni.value
+      }
     } catch (e) {
       errore.value = e.message
     } finally {
       loading.value = false
-    }
-
-    // Previsioni meteo (solo oggi/domani): usate da useCure per sospendere
-    // l'irrigazione delle piante esterne quando è prevista pioggia sufficiente.
-    // Un eventuale errore di rete resta silenzioso: senza dati meteo affidabili
-    // le cure vengono valutate come se non piovesse (nessuna soppressione).
-    const lat = settings.value?.location?.lat
-    const lon = settings.value?.location?.lon
-    if (lat && lon) {
-      const { giorni, carica } = useMeteo()
-      await carica(lat, lon, 2)
-      meteo.value = giorni.value
     }
   }
 

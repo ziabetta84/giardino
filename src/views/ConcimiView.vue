@@ -40,7 +40,7 @@
 
       <div v-else class="empty">
         <Icon name="provetta" />
-        <p><b>Nessun concime ancora</b>Aggiungi i concimi che possiedi per ricevere suggerimenti nelle Attività</p>
+        <p><b>Nessun concime ancora</b>Aggiungi i concimi che possiedi per ricevere suggerimenti quando una pianta ha bisogno di concimazione</p>
       </div>
     </template>
 

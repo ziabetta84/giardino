@@ -40,7 +40,4 @@ defineEmits(['registra', 'apri-dossier'])
 .attivita-riga__nome { font:600 13px/1.25 var(--font-display); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .attivita-riga__label { font:400 11px/1.4 var(--font-sans); color:var(--ink-mid); margin-top:2px; }
 .attivita-riga__label--urgente { color:var(--rose-dark); }
-.attivita-riga__sugg { display:flex; align-items:center; gap:4px; font:400 11px/1.4 var(--font-sans); color:var(--sage-dark); margin-top:2px; }
-.attivita-riga__sugg svg { width:12px; height:12px; flex:none; }
-.attivita-riga__sugg-warn { color:var(--rose); }
 </style>
