@@ -5,8 +5,8 @@
 // specie/stagione come prima di questa funzionalità (vedi useCure.js).
 export function programmaIrrigazioneEffettivo(piantaId, zonaNome, programmi) {
   if (!programmi) return null
-  if (programmi.piante[piantaId]) return { ...programmi.piante[piantaId], livello: 'pianta' }
-  if (zonaNome && programmi.zone[zonaNome]) return { ...programmi.zone[zonaNome], livello: 'zona' }
+  if (programmi.piante?.[piantaId]) return { ...programmi.piante[piantaId], livello: 'pianta' }
+  if (zonaNome && programmi.zone?.[zonaNome]) return { ...programmi.zone[zonaNome], livello: 'zona' }
   if (programmi.giardino) return { ...programmi.giardino, livello: 'giardino' }
   return null
 }

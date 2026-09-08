@@ -25,14 +25,20 @@ export function useIrrigazioneApi() {
   }
 
   function patchStore(chiave, chiaveVoce, voce) {
+    // store.programmiIrrigazione può essere null (caricamento iniziale da
+    // Supabase fallito, vedi stores/dati.js) o comunque privo di uno dei tre
+    // livelli: senza normalizzare qui, uno spread lascerebbe mancante
+    // giardino/zone/piante e ogni lettura successiva del resolver
+    // (useIrrigazioneAuto.js) esploderebbe in tutta l'app.
+    const base = store.programmiIrrigazione ?? { giardino: null, zone: {}, piante: {} }
     if (chiave === 'giardino') {
-      store.programmiIrrigazione = { ...store.programmiIrrigazione, giardino: voce }
+      store.programmiIrrigazione = { ...base, giardino: voce }
       return
     }
-    const copia = { ...store.programmiIrrigazione[chiave] }
+    const copia = { ...base[chiave] }
     if (voce) copia[chiaveVoce] = voce
     else delete copia[chiaveVoce]
-    store.programmiIrrigazione = { ...store.programmiIrrigazione, [chiave]: copia }
+    store.programmiIrrigazione = { ...base, [chiave]: copia }
   }
 
   async function salvaProgramma(target, ogniGiorni) {

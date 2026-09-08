@@ -6,6 +6,7 @@
     <p class="prose" style="margin:-6px 0 20px;">
       Imposta un programma "ogni N giorni" per tutto il giardino, per una zona o per una singola pianta. Le piante coperte da un programma attivo non compaiono più tra le cure da fare a mano — la pioggia prevista continua comunque a sospenderlo.
     </p>
+    <p v-if="erroreRimozione" role="alert" style="font-size:12px;color:var(--rose-dark);margin:-10px 0 16px;">{{ erroreRimozione }}</p>
 
     <div v-if="store.loading" class="destlist">
       <div v-for="i in 4" :key="i" class="dest">
@@ -27,16 +28,27 @@
       </div>
 
       <template v-for="z in zoneList" :key="z.nome">
-        <div class="dest" style="cursor:pointer;" @click="toggleZona(z.nome)">
-          <Icon :name="store.iconaZona(z.nome)" class="dest__ic" />
-          <span class="dest__n">{{ z.nome }}</span>
-          <span v-if="programmaZona(z.nome)" class="badge badge-ok">ogni {{ programmaZona(z.nome).ogniGiorni }} gg</span>
-          <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaGiardino) }}</span>
-          <button type="button" class="pill-mini" @click.stop="apriModifica({ zona: z.nome }, z.nome, programmaZona(z.nome)?.ogniGiorni)" aria-label="Modifica programma zona">
-            <Icon name="matita" />
-          </button>
-          <button v-if="programmaZona(z.nome)" type="button" class="pill-mini pill-mini--del" @click.stop="rimuovi({ zona: z.nome })" aria-label="Rimuovi programma zona">×</button>
-          <Icon name="back" class="dest__chev" :style="{ transform: espanse.has(z.nome) ? 'rotate(-90deg)' : 'rotate(90deg)' }" />
+        <div class="dest">
+          <!-- L'area che espande/comprime resta fratella dei due pill-mini,
+               mai loro contenitore: un elemento interattivo annidato dentro
+               un altro (qui role="button") è l'anti-pattern ARIA vietato in
+               questo progetto (stesso principio di AttivitaRiga.vue). -->
+          <div class="irr-zrow__main" role="button" tabindex="0"
+            :aria-expanded="espanse.has(z.nome)"
+            :aria-label="`${espanse.has(z.nome) ? 'Comprimi' : 'Espandi'} zona ${z.nome}`"
+            @click="toggleZona(z.nome)" @keydown.enter="toggleZona(z.nome)" @keydown.space.prevent="toggleZona(z.nome)">
+            <Icon :name="store.iconaZona(z.nome)" class="dest__ic" />
+            <span class="dest__n">{{ z.nome }}</span>
+            <span v-if="programmaZona(z.nome)" class="badge badge-ok">ogni {{ programmaZona(z.nome).ogniGiorni }} gg</span>
+            <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaGiardino) }}</span>
+            <Icon name="back" class="dest__chev" :style="{ transform: espanse.has(z.nome) ? 'rotate(-90deg)' : 'rotate(90deg)' }" />
+          </div>
+          <div class="irr-zrow__act">
+            <button type="button" class="pill-mini" @click="apriModifica({ zona: z.nome }, z.nome, programmaZona(z.nome)?.ogniGiorni)" aria-label="Modifica programma zona">
+              <Icon name="matita" />
+            </button>
+            <button v-if="programmaZona(z.nome)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ zona: z.nome })" aria-label="Rimuovi programma zona">×</button>
+          </div>
         </div>
         <div v-if="espanse.has(z.nome)" class="destlist" style="padding-left:30px;">
           <div v-for="p in pianteDellaZona(z.nome)" :key="p.id" class="dest">
@@ -146,7 +158,25 @@ async function salva() {
     salvando.value = false
   }
 }
+const erroreRimozione = ref(null)
 async function rimuovi(target) {
-  await irrigazioneApi.rimuoviProgramma(target)
+  erroreRimozione.value = null
+  try {
+    await irrigazioneApi.rimuoviProgramma(target)
+  } catch (e) {
+    erroreRimozione.value = 'Rimozione non riuscita. Riprova.'
+  }
 }
 </script>
+
+<style scoped>
+/* Area cliccabile che espande/comprime una zona: fratella, non contenitore,
+   dei due pill-mini (vedi commento nel template). */
+.irr-zrow__main { display:flex; align-items:center; gap:11px; flex:1; min-width:0; cursor:pointer; }
+.irr-zrow__main:focus-visible { outline:none; box-shadow: inset 0 0 0 3px var(--gold); }
+.irr-zrow__act { display:flex; gap:6px; flex-wrap:wrap; }
+.dest .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
+.dest .pill-mini svg { width:12px; height:12px; }
+.dest .pill-mini--del { color:var(--rose-ink); }
+.dest .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-ink); }
+</style>
