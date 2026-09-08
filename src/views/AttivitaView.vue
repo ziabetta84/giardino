@@ -11,7 +11,7 @@
           <div class="skeleton" style="height:13px;width:50%;"></div>
           <div class="skeleton" style="height:11px;width:70%;"></div>
         </div>
-        <div class="skeleton" style="width:70px;height:28px;border-radius:8px;"></div>
+        <div class="skeleton" style="width:70px;height:28px;border-radius:999px;"></div>
       </div>
     </div>
 
@@ -21,23 +21,23 @@
            ha una tab propria: i suoi valori sono testo libero per stagione
            (es. "taglio leggero"), non un intervallo in giorni, quindi non
            genera mai una scadenza qui (vedi useCure.js/parseGiorni). -->
-      <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;">
-        <button type="button" class="pill tab-icona" :class="{ active: tabAttiva === 'irrigazione' }" @click="tabAttiva = 'irrigazione'">
+      <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;" role="tablist" aria-label="Tipo di attività">
+        <button type="button" id="tab-irrigazione" role="tab" :aria-selected="tabAttiva === 'irrigazione'" aria-controls="pannello-attivita" class="pill tab-icona" :class="{ active: tabAttiva === 'irrigazione' }" @click="tabAttiva = 'irrigazione'">
           <Icon name="goccia" />Irrigazione
           <span v-if="conteggioTab.irrigazione" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.irrigazione }}</span>
         </button>
-        <button type="button" class="pill tab-icona" :class="{ active: tabAttiva === 'concimi' }" @click="tabAttiva = 'concimi'">
+        <button type="button" id="tab-concimi" role="tab" :aria-selected="tabAttiva === 'concimi'" aria-controls="pannello-attivita" class="pill tab-icona" :class="{ active: tabAttiva === 'concimi' }" @click="tabAttiva = 'concimi'">
           <Icon name="concimazione" />Concimi &amp; calcio
           <span v-if="conteggioTab.concimi" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.concimi }}</span>
         </button>
-        <button type="button" class="pill tab-icona" :class="{ active: tabAttiva === 'progetti' }" @click="tabAttiva = 'progetti'">
+        <button type="button" id="tab-progetti" role="tab" :aria-selected="tabAttiva === 'progetti'" aria-controls="pannello-attivita" class="pill tab-icona" :class="{ active: tabAttiva === 'progetti' }" @click="tabAttiva = 'progetti'">
           <Icon name="lampadina" />Progetti
           <span v-if="conteggioTab.progetti" class="badge badge-warn" style="margin-left:4px;">{{ conteggioTab.progetti }}</span>
         </button>
       </div>
 
       <Transition name="fade" mode="out-in">
-      <div :key="tabAttiva">
+      <div :key="tabAttiva" id="pannello-attivita" role="tabpanel" :aria-labelledby="`tab-${tabAttiva}`">
       <template v-if="tabAttiva !== 'progetti'">
         <!-- Da fare -->
         <template v-if="daFareTab.length">
@@ -50,6 +50,7 @@
               variante="urgente"
               :salvando="salvando"
               :salvando-gruppo="salvandoGruppo"
+              :errore-azione="erroreAzione"
               @registra="registra"
               @registra-gruppo="registraGruppo"
               @apri-dossier="apriDossier"
@@ -68,6 +69,7 @@
               variante="scadenza"
               :salvando="salvando"
               :salvando-gruppo="salvandoGruppo"
+              :errore-azione="erroreAzione"
               @registra="registra"
               @registra-gruppo="registraGruppo"
               @apri-dossier="apriDossier"
@@ -88,6 +90,7 @@
               <div class="tappa-riga__d" :class="{ 'tappa-riga__d--urgente': t.urgente }">
                 {{ t.tappa.descrizione }} — {{ t.urgente ? `scaduta ${Math.abs(t.giorni)} gg fa` : `tra ${t.giorni} gg` }}
               </div>
+              <div v-if="erroreAzione?.chiave === `${t.progettoId}-${t.indice}`" class="tappa-riga__d tappa-riga__err" role="alert">{{ erroreAzione.messaggio }}</div>
             </div>
             <button @click="registraTappa(t)" :disabled="salvandoTappa === `${t.progettoId}-${t.indice}`"
               :class="['care-act', { 'care-act--rose': t.urgente }]">
@@ -120,7 +123,7 @@
       <DossierPianta v-if="dossierItem" :pianta-id="dossierItem.piantaId" />
     </FoglioLaterale>
 
-    <ToastCura ref="toastCura" />
+    <ToastCura ref="toastCura" @errore="onErroreToast" />
   </div>
 </template>
 
@@ -216,13 +219,25 @@ const vuotaTab = computed(() =>
 )
 
 const toastCura = ref(null)
+// Un solo stato d'errore per riga/gruppo/tappa (in scrittura o in annullamento
+// da ToastCura): la vista non aveva alcuna gestione errore prima di questa
+// correzione — un fallimento silenzioso su una PWA usata sul campo con
+// connessione instabile è indistinguibile da un successo. Tenuto per chiave
+// (item.key / gruppo.chiave / `${progettoId}-${indice}`) così ogni riga
+// mostra solo il proprio errore, stesso pattern di erroreRegistrazione in
+// HomeView.vue.
+const erroreAzione = ref(null)
+
 async function registra(item) {
   if (salvando.value || salvandoGruppo.value) return
   salvando.value = item.key
+  erroreAzione.value = null
   const valorePrecedente = store.piante?.[item.piantaId]?.ultima_cura?.[item.tipo] ?? null
   try {
     await pianteApi.registraCura(item.piantaId, item.tipo)
     toastCura.value?.apri(item.piantaId, item.tipo, valorePrecedente)
+  } catch {
+    erroreAzione.value = { chiave: item.key, messaggio: 'Non sono riuscito a registrare la cura. Riprova.' }
   } finally {
     salvando.value = null
   }
@@ -231,8 +246,20 @@ async function registra(item) {
 async function registraGruppo(gruppo) {
   if (salvandoGruppo.value || salvando.value) return
   salvandoGruppo.value = gruppo.chiave
+  erroreAzione.value = null
+  // Voci per l'annullamento in blocco: il valore precedente di ogni pianta va
+  // letto ORA, prima della scrittura — dopo, store.piante riflette già il
+  // nuovo valore e l'annulla del toast non avrebbe più nulla da ripristinare.
+  const voci = gruppo.items.map(item => ({
+    id: item.piantaId,
+    tipo: item.tipo,
+    valorePrecedente: store.piante?.[item.piantaId]?.ultima_cura?.[item.tipo] ?? null,
+  }))
   try {
     await pianteApi.registraCuraMultipla(gruppo.items)
+    toastCura.value?.apriLotto(voci, gruppo.chiave)
+  } catch {
+    erroreAzione.value = { chiave: gruppo.chiave, messaggio: 'Non sono riuscito a registrare le cure del gruppo. Riprova.' }
   } finally {
     salvandoGruppo.value = null
   }
@@ -242,23 +269,32 @@ async function registraTappa(t) {
   const chiave = `${t.progettoId}-${t.indice}`
   if (salvandoTappa.value) return
   salvandoTappa.value = chiave
+  erroreAzione.value = null
+  const espitoPrecedente = t.tappa.esito ?? 'atteso'
   try {
     await progettiApi.registraTappa(t.tappa.id, 'riuscito')
+    toastCura.value?.apriTappa(t.tappa.id, espitoPrecedente, chiave)
+  } catch {
+    erroreAzione.value = { chiave, messaggio: 'Non sono riuscito a registrare la tappa. Riprova.' }
   } finally {
     salvandoTappa.value = null
   }
 }
+
+function onErroreToast(e) {
+  erroreAzione.value = { chiave: e.chiave, messaggio: e.messaggio }
+}
 </script>
 
 <style scoped>
-.attivita-data { font-family: var(--font-display); font-style: italic; font-size: 14px; color: var(--ink-soft); margin: 4px 2px 20px; }
+.attivita-data { font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--ink-soft); margin: 4px 2px 20px; }
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 
 .tappa-lista { display:flex; flex-direction:column; margin-bottom:24px; position:relative; }
 .tappa-riga { display:flex; align-items:center; gap:12px; padding:12px 2px; }
 .tappa-riga + .tappa-riga { border-top:1px solid var(--cream-dark); }
-.tappa-riga--urgente { padding:12px; background:var(--rose-pale); border-radius:10px; }
+.tappa-riga--urgente { padding:12px; background:var(--rose-pale); border-radius:12px; }
 .tappa-riga__ic { flex:none; width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;
   background:var(--gold-bg); color:var(--gold-ink); }
 .tappa-riga__ic--urgente { background:var(--rose-bg); color:var(--rose-ink); }
@@ -268,6 +304,7 @@ async function registraTappa(t) {
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .tappa-riga__d { font:400 11px/1.4 var(--font-sans); color:var(--ink-soft); margin-top:2px; }
 .tappa-riga__d--urgente { color:var(--rose-dark); }
+.tappa-riga__err { color:var(--rose-ink); }
 
 /* "Tutto in ordine!": l'unico vero traguardo della vista Attività — arrivare
    a zero cure urgenti nella tab attiva. Ingresso deliberatamente più lento
