@@ -230,6 +230,25 @@ export function mappaConcimi(righeConcimi) {
   }]))
 }
 
+// Irrigazione automatica: righe piatte da Supabase ricostruite come cascata
+// pronta all'uso — pianta_id/zona_id entrambi null = livello giardino.
+// zona_id orfano ignorato per sicurezza, stesso criterio di mappaSottozone.
+export function mappaProgrammiIrrigazione(righeProgrammi, zonaNomePerId) {
+  const risultato = { giardino: null, zone: {}, piante: {} }
+  for (const r of righeProgrammi) {
+    const voce = { id: r.id, ogniGiorni: r.ogni_giorni }
+    if (r.pianta_id) {
+      risultato.piante[r.pianta_id] = voce
+    } else if (r.zona_id) {
+      const nomeZona = zonaNomePerId[r.zona_id]
+      if (nomeZona) risultato.zone[nomeZona] = voce
+    } else {
+      risultato.giardino = voce
+    }
+  }
+  return risultato
+}
+
 export function mappaSettings(rigaSettings) {
   if (!rigaSettings) return null
   return {
@@ -247,6 +266,7 @@ export const useDatiStore = defineStore('dati', () => {
   const progetti  = ref(null)
   const settings  = ref(null)
   const concimi   = ref(null)
+  const programmiIrrigazione = ref(null)
   const meteo     = ref(null)
   const loading   = ref(false)
   const errore    = ref(null)
@@ -283,7 +303,7 @@ export const useDatiStore = defineStore('dati', () => {
         return data ?? []
       }
 
-      const [righeZone, righeSottozone, righePiante, richiesteData, righeProgetti, righeTappe, righeSettings, righeConcimi] =
+      const [righeZone, righeSottozone, righePiante, richiesteData, righeProgetti, righeTappe, righeSettings, righeConcimi, righeProgrammiIrrigazione] =
         await Promise.all([
           query(supabase.from('zone').select('*')),
           query(supabase.from('sottozone').select('*')),
@@ -293,6 +313,7 @@ export const useDatiStore = defineStore('dati', () => {
           query(supabase.from('tappe').select('*')),
           query(supabase.from('settings').select('*')),
           query(supabase.from('concimi').select('*')),
+          query(supabase.from('programmi_irrigazione').select('*')),
         ])
 
       const zonaNomePerId = Object.fromEntries(righeZone.map(z => [z.id, z.nome]))
@@ -302,6 +323,7 @@ export const useDatiStore = defineStore('dati', () => {
       piante.value    = mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId)
       progetti.value  = mappaProgetti(righeProgetti, righeTappe)
       concimi.value   = mappaConcimi(righeConcimi)
+      programmiIrrigazione.value = mappaProgrammiIrrigazione(righeProgrammiIrrigazione, zonaNomePerId)
       settings.value  = mappaSettings(righeSettings[0] ?? null)
 
       // Slug delle specie da caricare subito: quelle delle piante possedute
@@ -361,5 +383,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, specie, zone, sottozone, progetti, settings, concimi, meteo, loading, errore, caricaTutto, aggiorna, iconaZona, iconaSottozona }
+  return { piante, specie, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, iconaZona, iconaSottozona }
 })
