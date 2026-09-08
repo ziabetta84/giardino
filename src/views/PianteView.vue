@@ -164,7 +164,7 @@ const piante = computed(() => {
   if (!store.piante) return []
   return Object.entries(store.piante).map(([id, p]) => {
     const sp = store.specie?.[p.specie] ?? null
-    const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, store.programmiIrrigazione)?.ogniGiorni ?? null
+    const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
     const urgenti = cureUrgentiPianta(p, sp, { programmaAutomatico })
     return { id, ...p, urgente: urgenti.length > 0 }
   })

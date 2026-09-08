@@ -287,7 +287,7 @@ const numProgetti = computed(() => store.progetti ? Object.keys(store.progetti).
 // sospendere l'irrigazione quando la riga meteo qui sopra mostra pioggia in
 // arrivo — le due sezioni potevano contraddirsi a vista.
 function contestoPianta(p, id) {
-  const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, store.programmiIrrigazione)?.ogniGiorni ?? null
+  const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
   return { meteo: store.meteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
 }
 

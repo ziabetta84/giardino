@@ -49,7 +49,7 @@ defineEmits(['elimina'])
 const store = useDatiStore()
 const specie = computed(() => store.specie?.[props.pianta.specie] ?? null)
 const programmaAutomatico = computed(() =>
-  programmaIrrigazioneEffettivo(props.pianta.id, props.pianta.zona, store.programmiIrrigazione)?.ogniGiorni ?? null
+  programmaIrrigazioneEffettivo(props.pianta.id, props.pianta.zona, props.pianta.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
 )
 const cureUrgenti = computed(() =>
   props.urgente ? cureUrgentiPianta(props.pianta, specie.value, { programmaAutomatico: programmaAutomatico.value }) : []

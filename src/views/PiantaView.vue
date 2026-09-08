@@ -361,7 +361,7 @@ const coltivazione = computed(() => specie.value?.coltivazione ?? null)
 const contestoCura = computed(() => ({
   esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
   meteo: store.meteo,
-  programmaAutomatico: programmaIrrigazioneEffettivo(route.params.id, pianta.value?.zona, store.programmiIrrigazione)?.ogniGiorni ?? null,
+  programmaAutomatico: programmaIrrigazioneEffettivo(route.params.id, pianta.value?.zona, pianta.value?.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 
 // I tipi di cura con cadenza/urgenza sono irrigazione, concimazione e —

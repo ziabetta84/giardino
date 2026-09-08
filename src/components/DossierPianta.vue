@@ -89,7 +89,7 @@ const tipiCura = computed(() => {
 const contestoCura = computed(() => ({
   esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
   meteo: store.meteo,
-  programmaAutomatico: programmaIrrigazioneEffettivo(props.piantaId, pianta.value?.zona, store.programmiIrrigazione)?.ogniGiorni ?? null,
+  programmaAutomatico: programmaIrrigazioneEffettivo(props.piantaId, pianta.value?.zona, pianta.value?.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
 const classificaConcimiPianta = computed(() =>
