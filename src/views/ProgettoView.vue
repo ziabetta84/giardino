@@ -73,7 +73,7 @@
 
         <template v-for="(t, i) in form.tappe" :key="i">
           <div class="step">
-            <span class="step__dot" :class="classeEsitoDot(t.esito)"></span>
+            <span class="step__dot" :ref="el => setDotRef(i, el)" :class="classeEsitoDot(t.esito)"></span>
             <div class="step__head">
               <span class="step__date">{{ formatData(t.data) }}</span>
               <span class="step__esito" :class="classeEsito(t.esito)">{{ labelEsito(t.esito) }}</span>
@@ -82,7 +82,7 @@
             <template v-if="tappaApertaIndex === i">
               <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin:6px 0;">
                 <input type="date" v-model="t.data" class="form-input" style="flex:1;min-width:120px;">
-                <select v-model="t.esito" class="form-input" style="flex:1;min-width:100px;">
+                <select v-model="t.esito" class="form-input" style="flex:1;min-width:100px;" @change="rilanciaBloom(i)">
                   <option value="atteso">Atteso</option>
                   <option value="riuscito">Riuscito</option>
                   <option value="fallito">Fallito</option>
@@ -92,11 +92,12 @@
               <textarea v-model="t.descrizione" placeholder="Cosa aspettarti / cosa fare" rows="2"
                 class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:8px;"></textarea>
               <div style="display:flex;gap:10px;align-items:center;">
-                <button type="button" @click="tappaApertaIndex = null" class="btn btn-sage" style="flex:1;font-size:13px;padding:7px;">Fatto</button>
+                <button type="button" @click="tappaApertaIndex = null" :class="['care-act', { 'care-act--rose': t.esito === 'fallito' }]">Fatto</button>
                 <button type="button" @click="rimuoviTappa(i)" style="background:none;border:none;color:var(--rose-dark);font-size:12px;cursor:pointer;">Elimina</button>
               </div>
             </template>
-            <p v-else class="step__desc" style="cursor:pointer;" @click="tappaApertaIndex = i">{{ t.descrizione }}</p>
+            <p v-else class="step__desc" role="button" tabindex="0" style="cursor:pointer;"
+              @click="tappaApertaIndex = i" @keydown.enter="tappaApertaIndex = i" @keydown.space.prevent="tappaApertaIndex = i">{{ t.descrizione }}</p>
           </div>
 
           <!-- "+" solo TRA le tappe: l'append in fondo è coperto dal pulsante in cima
@@ -139,10 +140,11 @@
     <ModalConferma
       :aperto="daEliminare"
       titolo="Eliminare questo progetto?"
-      messaggio="Questa azione non può essere annullata."
+      :messaggio="messaggioEliminaProgetto"
       :caricamento="eliminando"
+      :errore="erroreEliminazione"
       @conferma="eliminaProgetto"
-      @annulla="daEliminare = false"
+      @annulla="daEliminare = false; erroreEliminazione = null"
     />
   </div>
 </template>
@@ -172,6 +174,19 @@ const salvando = ref(false)
 const errore = ref(null)
 const daEliminare = ref(false)
 const eliminando = ref(false)
+const erroreEliminazione = ref(null)
+
+// Nomina cosa si perde (ogni tappa registrata), come già fa PianteView per le
+// foto e ZoneView per le sottozone — il messaggio generico di ModalConferma
+// non basta per un progetto che può rappresentare mesi di lavoro reale.
+const messaggioEliminaProgetto = computed(() => {
+  const n = form.value?.tappe?.length ?? 0
+  if (!n) return 'Questa azione non può essere annullata.'
+  const dettaglio = n === 1
+    ? "Verrà eliminata anche l'unica tappa registrata."
+    : `Verranno eliminate anche tutte le ${n} tappe registrate.`
+  return `${dettaglio} Questa azione non può essere annullata.`
+})
 
 const LABEL_STATO = {
   aperto: 'Aperto', in_corso: 'In corso', completato: 'Completato',
@@ -273,6 +288,27 @@ function rimuoviTappa(i) {
   nextTick(updateTrail)
 }
 
+// Riferimenti ai puntini delle tappe: servono solo per far ripartire il
+// bloom d'inchiostro (vedi rilanciaBloom sotto), non per lo scrub sullo
+// scroll (che legge il DOM direttamente in updateTrail).
+const dotRefs = ref([])
+function setDotRef(i, el) { dotRefs.value[i] = el }
+
+// Goccia d'inchiostro al cambio di esito: la classe .in del puntino è già
+// "true" (l'utente sta guardando proprio quella tappa, quindi è già entrata
+// in vista), quindi cambiare solo il colore non fa ripartire l'animazione
+// legata all'aggiunta della classe. Togliendola e rimettendola si forza la
+// stessa transizione "falso→vero" che updateTrail() produce per un puntino
+// che entra in vista per la prima volta — offsetWidth forza il reflow tra
+// le due, altrimenti il browser le fonde in un no-op.
+function rilanciaBloom(i) {
+  const el = dotRefs.value[i]
+  if (!el || !el.classList.contains('in')) return
+  el.classList.remove('in')
+  void el.offsetWidth
+  el.classList.add('in')
+}
+
 // --- scrub della traccia legato allo scroll di window ---
 const pathEl = ref(null)
 let scrollHandler = null
@@ -346,10 +382,13 @@ async function salva() {
 
 async function eliminaProgetto() {
   eliminando.value = true
+  erroreEliminazione.value = null
   const id = route.params.id
   try {
     await progettiApi.eliminaProgetto(id)
     router.push('/progetti')
+  } catch {
+    erroreEliminazione.value = 'Non sono riuscito a eliminare il progetto. Riprova.'
   } finally {
     eliminando.value = false
   }
@@ -371,4 +410,6 @@ async function eliminaProgetto() {
   width: 100%;
   padding: 6px 0;
 }
+
+.step__desc:focus-visible { outline: none; border-radius: 6px; box-shadow: inset 0 0 0 3px var(--gold); }
 </style>
