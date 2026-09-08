@@ -44,6 +44,25 @@ export function pioggiaInArrivo(meteoGiorni) {
 }
 
 export function valutaCura(pianta, specie, tipo, contesto = {}) {
+  // Un programma di irrigazione automatica attivo (giardino/zona/pianta,
+  // vedi useIrrigazioneAuto.js) sostituisce del tutto la valutazione da
+  // specie+stagione per questa pianta: l'utente non deve più vedere un
+  // promemoria manuale per un'irrigazione che ha già pianificato altrove.
+  // La sospensione per pioggia resta valida — stessa soglia e messaggio
+  // già usati per l'irrigazione manuale, per non contraddirsi in due punti
+  // diversi dell'app.
+  if (tipo === 'irrigazione' && contesto.programmaAutomatico != null) {
+    if (pianta?.coltivato_in !== 'acqua' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
+      return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
+    }
+    return {
+      urgente: false,
+      label: `irrigazione — automatica (ogni ${contesto.programmaAutomatico} gg)`,
+      giorni: null,
+      automatico: true,
+    }
+  }
+
   const stagCorrente = stagione()
   const manutenzione = specie?.manutenzione?.[tipo]?.[stagCorrente]
   if (!manutenzione || manutenzione === 'mai' || manutenzione === 'non necessario') {
