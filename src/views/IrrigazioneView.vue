@@ -51,7 +51,39 @@
           </div>
         </div>
         <div v-if="espanse.has(z.nome)" class="destlist" style="padding-left:30px;">
-          <div v-for="p in pianteDellaZona(z.nome)" :key="p.id" class="dest">
+          <template v-for="sz in sottozoneDellaZona(z.nome)" :key="sz.nome">
+            <div class="dest">
+              <div class="irr-zrow__main" role="button" tabindex="0"
+                :aria-expanded="espanse.has(chiaveSottozona(z.nome, sz.nome))"
+                :aria-label="`${espanse.has(chiaveSottozona(z.nome, sz.nome)) ? 'Comprimi' : 'Espandi'} sottozona ${sz.nome}`"
+                @click="toggleZona(chiaveSottozona(z.nome, sz.nome))" @keydown.enter="toggleZona(chiaveSottozona(z.nome, sz.nome))" @keydown.space.prevent="toggleZona(chiaveSottozona(z.nome, sz.nome))">
+                <span class="dest__n">{{ sz.nome }}</span>
+                <span v-if="programmaSottozona(z.nome, sz.nome)" class="badge badge-ok">ogni {{ programmaSottozona(z.nome, sz.nome).ogniGiorni }} gg</span>
+                <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoZona(z.nome)) }}</span>
+                <Icon name="back" class="dest__chev" :style="{ transform: espanse.has(chiaveSottozona(z.nome, sz.nome)) ? 'rotate(-90deg)' : 'rotate(90deg)' }" />
+              </div>
+              <div class="irr-zrow__act">
+                <button type="button" class="pill-mini" @click="apriModifica({ zona: z.nome, sottozona: sz.nome }, `${z.nome} · ${sz.nome}`, programmaSottozona(z.nome, sz.nome)?.ogniGiorni)" aria-label="Modifica programma sottozona">
+                  <Icon name="matita" />
+                </button>
+                <button v-if="programmaSottozona(z.nome, sz.nome)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ zona: z.nome, sottozona: sz.nome })" aria-label="Rimuovi programma sottozona">×</button>
+              </div>
+            </div>
+            <div v-if="espanse.has(chiaveSottozona(z.nome, sz.nome))" class="destlist" style="padding-left:30px;">
+              <div v-for="p in pianteDellaZona(z.nome, sz.nome)" :key="p.id" class="dest">
+                <span class="dest__n">{{ nomeSpecie(p) }}<span v-if="p.varieta"> — {{ p.varieta }}</span></span>
+                <span v-if="programmaPianta(p.id)" class="badge badge-ok">ogni {{ programmaPianta(p.id).ogniGiorni }} gg</span>
+                <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoSottozona(z.nome, sz.nome)) }}</span>
+                <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" aria-label="Modifica programma pianta">
+                  <Icon name="matita" />
+                </button>
+                <button v-if="programmaPianta(p.id)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ pianta: p.id })" aria-label="Rimuovi programma pianta">×</button>
+              </div>
+              <p v-if="!pianteDellaZona(z.nome, sz.nome).length" style="font-size:12px;color:var(--ink-soft);padding:10px 2px;">Nessuna pianta in questa sottozona.</p>
+            </div>
+          </template>
+
+          <div v-for="p in pianteDellaZona(z.nome, null)" :key="p.id" class="dest">
             <span class="dest__n">{{ nomeSpecie(p) }}<span v-if="p.varieta"> — {{ p.varieta }}</span></span>
             <span v-if="programmaPianta(p.id)" class="badge badge-ok">ogni {{ programmaPianta(p.id).ogniGiorni }} gg</span>
             <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoZona(z.nome)) }}</span>
@@ -60,7 +92,8 @@
             </button>
             <button v-if="programmaPianta(p.id)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ pianta: p.id })" aria-label="Rimuovi programma pianta">×</button>
           </div>
-          <p v-if="!pianteDellaZona(z.nome).length" style="font-size:12px;color:var(--ink-soft);padding:10px 2px;">Nessuna pianta in questa zona.</p>
+
+          <p v-if="!sottozoneDellaZona(z.nome).length && !pianteDellaZona(z.nome, null).length" style="font-size:12px;color:var(--ink-soft);padding:10px 2px;">Nessuna sottozona né pianta in questa zona.</p>
         </div>
       </template>
 
@@ -99,8 +132,10 @@ onMounted(() => store.caricaTutto())
 const zoneList = computed(() => Object.values(store.zone ?? {}))
 const piante = computed(() => Object.entries(store.piante ?? {}).map(([id, p]) => ({ id, ...p })))
 
-function pianteDellaZona(nomeZona) {
-  return piante.value.filter(p => p.zona === nomeZona)
+// nomeSottozona: null per le piante senza sottozona (mostrate direttamente
+// sotto la zona), altrimenti filtra sulla sottozona specifica.
+function pianteDellaZona(nomeZona, nomeSottozona) {
+  return piante.value.filter(p => p.zona === nomeZona && (p.sottozona ?? null) === nomeSottozona)
 }
 function nomeSpecie(p) {
   return store.specie?.[p.specie]?.nome ?? p.specie
@@ -115,6 +150,23 @@ function programmaPianta(id) { return store.programmiIrrigazione?.piante?.[id] ?
 // vista deve mostrare l'eredità anche quando manca il livello intermedio.
 function programmaEffettivoZona(nome) {
   return programmaZona(nome) ?? programmaGiardino.value
+}
+
+// Chiave composta "<zona>|<sottozona>", stesso separatore di
+// raggruppaAttivita.js — usata sia per leggere store.programmiIrrigazione.sottozone
+// sia come chiave del Set `espanse` (nessuna collisione: i nomi di zona non
+// contengono mai "|").
+function chiaveSottozona(zona, sottozona) {
+  return `${zona}|${sottozona}`
+}
+function sottozoneDellaZona(nomeZona) {
+  return Object.values(store.sottozone?.[nomeZona] ?? {})
+}
+function programmaSottozona(zona, sottozona) {
+  return store.programmiIrrigazione?.sottozone?.[chiaveSottozona(zona, sottozona)] ?? null
+}
+function programmaEffettivoSottozona(zona, sottozona) {
+  return programmaSottozona(zona, sottozona) ?? programmaEffettivoZona(zona)
 }
 function ereditaTesto(effettivo) {
   return effettivo ? `eredita: ogni ${effettivo.ogniGiorni} gg` : 'nessun programma'
