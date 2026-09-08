@@ -233,12 +233,15 @@ export function mappaConcimi(righeConcimi) {
 // Irrigazione automatica: righe piatte da Supabase ricostruite come cascata
 // pronta all'uso — pianta_id/zona_id entrambi null = livello giardino.
 // zona_id orfano ignorato per sicurezza, stesso criterio di mappaSottozone.
-export function mappaProgrammiIrrigazione(righeProgrammi, zonaNomePerId) {
-  const risultato = { giardino: null, zone: {}, piante: {} }
+export function mappaProgrammiIrrigazione(righeProgrammi, zonaNomePerId, sottozonaInfoPerId) {
+  const risultato = { giardino: null, zone: {}, sottozone: {}, piante: {} }
   for (const r of righeProgrammi) {
     const voce = { id: r.id, ogniGiorni: r.ogni_giorni }
     if (r.pianta_id) {
       risultato.piante[r.pianta_id] = voce
+    } else if (r.sottozona_id) {
+      const info = sottozonaInfoPerId[r.sottozona_id]
+      if (info?.zonaNome) risultato.sottozone[`${info.zonaNome}|${info.nome}`] = voce
     } else if (r.zona_id) {
       const nomeZona = zonaNomePerId[r.zona_id]
       if (nomeZona) risultato.zone[nomeZona] = voce
@@ -318,12 +321,13 @@ export const useDatiStore = defineStore('dati', () => {
 
       const zonaNomePerId = Object.fromEntries(righeZone.map(z => [z.id, z.nome]))
       const sottozonaNomePerId = Object.fromEntries(righeSottozone.map(s => [s.id, s.nome]))
+      const sottozonaInfoPerId = Object.fromEntries(righeSottozone.map(s => [s.id, { zonaNome: zonaNomePerId[s.zona_id], nome: s.nome }]))
       zone.value      = mappaZone(righeZone)
       sottozone.value = mappaSottozone(righeSottozone, zonaNomePerId)
       piante.value    = mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId)
       progetti.value  = mappaProgetti(righeProgetti, righeTappe)
       concimi.value   = mappaConcimi(righeConcimi)
-      programmiIrrigazione.value = mappaProgrammiIrrigazione(righeProgrammiIrrigazione, zonaNomePerId)
+      programmiIrrigazione.value = mappaProgrammiIrrigazione(righeProgrammiIrrigazione, zonaNomePerId, sottozonaInfoPerId)
       settings.value  = mappaSettings(righeSettings[0] ?? null)
 
       // Slug delle specie da caricare subito: quelle delle piante possedute
