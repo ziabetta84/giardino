@@ -12,25 +12,45 @@
       <!-- Specie -->
       <SelettoreSpecie v-model="form.specie" />
 
-      <!-- Zona -->
+      <!-- Zona: pillole con icona invece di <select> nativo, come ogni altra
+           superficie che mostra una zona nell'app (righe pianta, filtri
+           PianteView, ZoneView/SottozoneView) — vedi critica del
+           08/09/2026. Il click imposta zona e sottozona insieme (invece di
+           un watcher separato) per evitare di azzerare la sottozona quando
+           si riclicca la stessa zona già selezionata. -->
       <div class="form-card">
         <label class="field-label">Zona *</label>
-        <select v-model="form.zona" class="form-input" style="margin-bottom:10px;">
-          <option value="">Seleziona zona…</option>
-          <option v-for="(z, key) in store.zone ?? {}" :key="key" :value="z.nome ?? key">{{ z.nome ?? key }}</option>
-        </select>
+        <div v-if="Object.keys(store.zone ?? {}).length" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+          <button v-for="(z, key) in store.zone ?? {}" :key="key" type="button"
+            class="pill pill--acqua" :class="{ active: form.zona === (z.nome ?? key) }"
+            :aria-pressed="form.zona === (z.nome ?? key)"
+            style="display:inline-flex;align-items:center;gap:5px;"
+            @click="selezionaZona(z.nome ?? key)">
+            <Icon :name="store.iconaZona(z.nome ?? key)" style="width:13px;height:13px;flex-shrink:0;" />{{ z.nome ?? key }}
+          </button>
+        </div>
+        <p v-else class="field-hint">Nessuna zona ancora creata.</p>
 
-        <label class="field-label">Sottozona</label>
-        <select v-model="form.sottozona" class="form-input" style="margin-bottom:10px;">
-          <option value="">Nessuna</option>
-          <option v-for="s in sottozoneZona" :key="s" :value="s">{{ s }}</option>
-        </select>
+        <template v-if="form.zona">
+          <label class="field-label">Sottozona</label>
+          <div v-if="sottozoneZona.length" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;">
+            <button type="button" class="pill" :class="{ active: !form.sottozona }" :aria-pressed="!form.sottozona" @click="form.sottozona = ''">Nessuna</button>
+            <button v-for="s in sottozoneZona" :key="s" type="button"
+              class="pill pill--acqua" :class="{ active: form.sottozona === s }"
+              :aria-pressed="form.sottozona === s"
+              style="display:inline-flex;align-items:center;gap:5px;"
+              @click="form.sottozona = s">
+              <Icon :name="store.iconaSottozona(form.zona, s)" style="width:12px;height:12px;flex-shrink:0;" />{{ s }}
+            </button>
+          </div>
+          <p v-else class="field-hint">Questa zona non ha sottozone.</p>
+        </template>
 
         <label class="field-label">Coltivata in</label>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
-          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'vaso' }" title="Vaso" aria-label="Vaso" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'vaso'"><Icon name="vaso" style="width:16px;height:16px;" /></button>
-          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'terra' }" title="Terra" aria-label="Terra" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'terra'"><Icon name="terra" style="width:16px;height:16px;" /></button>
-          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'acqua' }" title="Acqua" aria-label="Acqua" style="display:inline-flex;align-items:center;justify-content:center;padding:7px 16px;" @click="form.coltivatoIn = 'acqua'"><Icon name="acqua" style="width:16px;height:16px;" /></button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'vaso' }" :aria-pressed="form.coltivatoIn === 'vaso'" style="display:inline-flex;align-items:center;gap:5px;" @click="form.coltivatoIn = 'vaso'"><Icon name="vaso" style="width:16px;height:16px;" />Vaso</button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'terra' }" :aria-pressed="form.coltivatoIn === 'terra'" style="display:inline-flex;align-items:center;gap:5px;" @click="form.coltivatoIn = 'terra'"><Icon name="terra" style="width:16px;height:16px;" />Terra</button>
+          <button type="button" class="pill" :class="{ active: form.coltivatoIn === 'acqua' }" :aria-pressed="form.coltivatoIn === 'acqua'" style="display:inline-flex;align-items:center;gap:5px;" @click="form.coltivatoIn = 'acqua'"><Icon name="acqua" style="width:16px;height:16px;" />Acqua</button>
         </div>
       </div>
 
@@ -54,8 +74,8 @@
       </div>
 
       <!-- Salva -->
-      <button @click="salva" :disabled="!form.specie || !form.zona || salvando" class="btn btn-rose"
-        style="min-height:48px;font-size:15px;border-radius:16px;">
+      <p v-if="erroreSalvataggio" class="ep-errore" role="alert">{{ erroreSalvataggio }}</p>
+      <button @click="salva" :disabled="!form.specie || !form.zona || salvando" class="btn btn-sage">
         <Spinner v-if="salvando" />{{ salvando ? 'Salvataggio…' : (isNuova ? 'Aggiungi pianta' : 'Salva modifiche') }}
       </button>
     </div>
@@ -78,6 +98,7 @@ const pianteApi = usePianteApi()
 
 const isNuova = computed(() => !route.params.id)
 const salvando = ref(false)
+const erroreSalvataggio = ref(null)
 
 const form = ref({
   specie: '', zona: '', sottozona: '', coltivatoIn: '', varieta: '', impianto: '', impianto_circa: '', note: ''
@@ -91,6 +112,14 @@ const sottozoneZona = computed(() => {
   if (!sz) return []
   return Object.values(sz).map(s => s.nome ?? s).filter(Boolean)
 })
+
+// Non un watcher su form.zona: azzerare la sottozona solo quando la zona
+// cambia davvero, non anche riselezionando quella già attiva (altrimenti un
+// tap ridondante sulla stessa pillola cancellerebbe una scelta già fatta).
+function selezionaZona(nome) {
+  if (form.value.zona !== nome) form.value.sottozona = ''
+  form.value.zona = nome
+}
 
 onMounted(async () => {
   await store.caricaTutto()
@@ -112,6 +141,7 @@ onMounted(async () => {
 async function salva() {
   if (!form.value.specie || !form.value.zona || salvando.value) return
   salvando.value = true
+  erroreSalvataggio.value = null
   const id = isNuova.value ? `${form.value.specie}-${Date.now()}` : route.params.id
   try {
     await pianteApi.salvaPianta({
@@ -127,8 +157,15 @@ async function salva() {
       note: form.value.note || '',
     })
     router.push(isNuova.value ? '/piante' : `/piante/${id}`)
+  } catch {
+    erroreSalvataggio.value = 'Non sono riuscito a salvare la pianta. Riprova.'
   } finally {
     salvando.value = false
   }
 }
 </script>
+
+<style scoped>
+.ep-errore { font: 400 12px/1.4 var(--font-sans); color: var(--rose-ink); margin: -2px 2px 0; }
+.field-hint { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: 0 2px 10px; }
+</style>
