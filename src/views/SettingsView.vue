@@ -50,6 +50,11 @@
       </select>
     </div>
 
+    <RouterLink to="/impostazioni/irrigazione" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;text-decoration:none;color:inherit;">
+      <span style="font-size:13px;font-weight:600;"><Icon name="goccia" style="width:14px;height:14px;vertical-align:-2px;margin-right:6px;color:var(--acqua);" />Irrigazione automatica</span>
+      <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
+    </RouterLink>
+
     <p v-if="errore" role="alert" style="font-size:12px;color:var(--rose-dark);margin-bottom:10px;">{{ errore }}</p>
 
     <button @click="salva" :disabled="salvando" class="btn btn-sage" style="width:100%;min-height:44px;">
