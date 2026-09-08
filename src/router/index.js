@@ -33,9 +33,13 @@ const router = createRouter({
 // scambio del codice per un eventuale link di recupero password) per evitare
 // un redirect lampo verso /account prima che la sessione risulti valida.
 router.beforeEach(async (to) => {
-  const { utente, sessionePronta } = useAuth()
+  const { utente, recuperoInCorso, sessionePronta } = useAuth()
   await sessionePronta
-  if (!utente.value && to.name !== 'account') return { name: 'account' }
+  // Una sessione di recupero password (PASSWORD_RECOVERY) valorizza comunque
+  // `utente`: senza questo controllo, un redirect di reset che non atterra
+  // già su /account (es. sulla Home) mostrerebbe quella rotta invece del
+  // form "Nuova password", pur restando nel layout slim di App.vue.
+  if ((!utente.value || recuperoInCorso.value) && to.name !== 'account') return { name: 'account' }
 })
 
 export default router

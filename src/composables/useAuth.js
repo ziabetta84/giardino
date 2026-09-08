@@ -13,10 +13,29 @@ const supabase = useSupabase()
 // NavBar/StatusBar/AccountView vedono tutte la stessa sessione senza prop drilling.
 const utente = ref(null)
 const caricamento = ref(true)
+
 // true quando la sessione attuale viene da un link di recupero password
 // (evento PASSWORD_RECOVERY): AccountView mostra il form "imposta nuova
 // password" invece del solito login, anche se `utente` è già valorizzato.
-const recuperoInCorso = ref(false)
+// Persistito in sessionStorage (non solo nel ref) perché l'evento
+// PASSWORD_RECOVERY scatta una sola volta, allo scambio del codice PKCE: un
+// refresh della pagina dopo quel momento perderebbe altrimenti lo stato e
+// mostrerebbe la vista Account normale invece del form, con la sessione di
+// reset ancora valida ma irraggiungibile (verificato in critica 08/09/2026).
+const CHIAVE_RECUPERO = 'giardino_recupero_password'
+
+function leggiFlagRecupero() {
+  try { return sessionStorage.getItem(CHIAVE_RECUPERO) === '1' }
+  catch { return false }
+}
+function scriviFlagRecupero(attivo) {
+  try {
+    if (attivo) sessionStorage.setItem(CHIAVE_RECUPERO, '1')
+    else sessionStorage.removeItem(CHIAVE_RECUPERO)
+  } catch { /* storage non disponibile: il flag resta solo in memoria */ }
+}
+
+const recuperoInCorso = ref(leggiFlagRecupero())
 
 // Promise esposta (vedi sotto) così la guardia di navigazione del router può
 // aspettare la sessione senza reimplementare un polling su `caricamento`.
@@ -27,14 +46,19 @@ const sessionePronta = supabase.auth.getSession().then(({ data }) => {
 
 supabase.auth.onAuthStateChange((evento, sessione) => {
   utente.value = sessione?.user ?? null
-  if (evento === 'PASSWORD_RECOVERY') recuperoInCorso.value = true
+  if (evento === 'PASSWORD_RECOVERY') {
+    recuperoInCorso.value = true
+    scriviFlagRecupero(true)
+  }
   // La cache del service worker per le risposte Supabase (vite.config.js) è
   // per-URL, non per-utente: su un device condiviso, senza questa pulizia,
   // un secondo utente offline potrebbe vedere temporaneamente i dati
   // dell'utente precedente. `caches` non esiste in ambienti senza service
   // worker (es. alcuni contesti di test): controllo difensivo.
-  if (evento === 'SIGNED_OUT' && typeof caches !== 'undefined') {
-    caches.delete('giardino-dati-supabase')
+  if (evento === 'SIGNED_OUT') {
+    recuperoInCorso.value = false
+    scriviFlagRecupero(false)
+    if (typeof caches !== 'undefined') caches.delete('giardino-dati-supabase')
   }
 })
 
@@ -82,6 +106,7 @@ export function useAuth() {
     const { error } = await supabase.auth.updateUser({ password })
     if (error) throw traduci(error)
     recuperoInCorso.value = false
+    scriviFlagRecupero(false)
   }
 
   return {

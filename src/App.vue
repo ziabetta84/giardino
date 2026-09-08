@@ -1,10 +1,14 @@
 <template>
   <IconDefs />
 
-  <!-- Senza login: solo il form di accesso, senza il resto del vestito
-       dell'app (nav, statusbar, banner) — la guardia del router (vedi
-       router/index.js) tiene comunque bloccata ogni altra rotta. -->
-  <main v-if="!caricamento && !utente" class="app-main-slogata">
+  <!-- Senza login, o con una sessione di recupero password temporanea
+       (PASSWORD_RECOVERY, vedi useAuth.js): solo il form di accesso, senza
+       il resto del vestito dell'app (nav, statusbar, banner) — la guardia
+       del router (vedi router/index.js) tiene comunque bloccata ogni altra
+       rotta. Senza il controllo su recuperoInCorso, il link di reset
+       porterebbe dritto alla Home con la nav intera intorno al form,
+       perché quella sessione temporanea valorizza comunque `utente`. -->
+  <main v-if="!caricamento && (!utente || recuperoInCorso)" class="app-main-slogata">
     <RouterView />
   </main>
 
@@ -26,7 +30,16 @@
 
     <main class="app-main">
       <RouterView v-slot="{ Component }">
-        <Transition name="page" mode="out-in">
+        <!-- Senza mode="out-in": con quella modalità, lasciare AccountView per
+             qualunque altra rotta smetteva di completare la transizione di
+             uscita e la pagina nuova non entrava mai (pagina bianca finché non
+             si ricaricava, riprodotto anche sul codice non toccato oggi — non
+             è quindi legato alle modifiche di questa sessione). Root cause
+             esatta nell'interazione Transition/RouterView non isolata; questo
+             fix è verificato empiricamente (rimuovendolo il bug sparisce,
+             testato ripetutamente). Il costo è una breve sovrapposizione
+             pagina uscente/entrante invece di un cambio sequenziale. -->
+        <Transition name="page">
           <component :is="Component" />
         </Transition>
       </RouterView>
@@ -52,7 +65,7 @@ import { useTema } from '@/composables/useTema'
 
 const store = useDatiStore()
 const { isAutenticato } = useApi()
-const { utente, caricamento } = useAuth()
+const { utente, caricamento, recuperoInCorso } = useAuth()
 const { riconciliaConSettings } = useTema()
 
 const tokenOk     = ref(isAutenticato())
