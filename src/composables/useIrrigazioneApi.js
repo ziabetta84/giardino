@@ -7,11 +7,16 @@
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
 
-// target: 'giardino' | { zona: nomeZona } | { pianta: piantaId }
+// target: 'giardino' | { zona: nomeZona } | { zona: nomeZona, sottozona: nomeSottozona } | { pianta: piantaId }
+// La chiave composta "<zona>|<sottozona>" (stesso separatore di
+// raggruppaAttivita.js) evita di dover annidare un altro livello di
+// oggetti solo per questa mappa: i nomi di sottozona sono unici solo
+// dentro la propria zona, non globalmente.
 function chiaviTarget(target) {
   if (target === 'giardino') return { chiave: 'giardino', chiaveVoce: null }
-  if (target.zona) return { chiave: 'zone', chiaveVoce: target.zona }
-  return { chiave: 'piante', chiaveVoce: target.pianta }
+  if (target.pianta) return { chiave: 'piante', chiaveVoce: target.pianta }
+  if (target.sottozona) return { chiave: 'sottozone', chiaveVoce: `${target.zona}|${target.sottozona}` }
+  return { chiave: 'zone', chiaveVoce: target.zona }
 }
 
 export function useIrrigazioneApi() {
@@ -46,7 +51,8 @@ export function useIrrigazioneApi() {
     const esistente = programmaEsistente(chiave, chiaveVoce)
 
     const riga = {
-      zona_id: target !== 'giardino' && target.zona ? (store.zone?.[target.zona]?.id ?? null) : null,
+      zona_id: target !== 'giardino' && target.zona && !target.sottozona ? (store.zone?.[target.zona]?.id ?? null) : null,
+      sottozona_id: target !== 'giardino' && target.sottozona ? (store.sottozone?.[target.zona]?.[target.sottozona]?.id ?? null) : null,
       pianta_id: target !== 'giardino' && target.pianta ? target.pianta : null,
       ogni_giorni: ogniGiorni,
     }
