@@ -2,7 +2,7 @@
   <div>
     <div class="page-title__row">
       <h1 class="page-title">Progetti</h1>
-      <button class="pill" @click="mostraForm = true">＋ Aggiungi</button>
+      <button class="pill pill--cta" @click="mostraForm = true">＋ Aggiungi</button>
     </div>
 
     <!-- Skeleton -->
@@ -24,7 +24,7 @@
             <div v-if="p.descrizione" class="prow__d">{{ descrizioneBreve(p) }}</div>
             <div v-if="p.zona || scadenzaCalcolata(p)" class="prow__meta">
               <span v-if="p.zona"><Icon :name="store.iconaZona(p.zona)" />{{ p.zona }}</span>
-              <span v-if="scadenzaCalcolata(p)"><Icon name="bandiera" />{{ formatData(scadenzaCalcolata(p)) }}</span>
+              <span v-if="scadenzaCalcolata(p)"><Icon :name="scadenzaUrgente(p) ? 'bandiera' : 'bandiera-calma'" />{{ formatData(scadenzaCalcolata(p)) }}</span>
             </div>
           </div>
           <span class="st" :class="classeStato(p.stato)">{{ labelStato(p.stato) }}</span>
@@ -50,6 +50,7 @@
         <MiniEditor v-model="form.descrizione" placeholder="Descrizione (opzionale)" />
         <label class="field-label" style="margin-top:10px;">Zona</label>
         <input v-model="form.zona" placeholder="Zona (opzionale)" class="form-input">
+        <p v-if="erroreSalvataggio" class="pv-errore" role="alert">{{ erroreSalvataggio }}</p>
         <div class="foglio-actions">
           <button class="btn btn-ghost" @click="chiudiForm" style="min-height:40px;padding:8px 16px;">Annulla</button>
           <button class="btn btn-sage" @click="salvaProgetto" :disabled="!form.titolo.trim() || salvando"
@@ -66,7 +67,7 @@
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useProgettiApi } from '@/composables/useProgettiApi'
-import { scadenzaCalcolata } from '@/composables/useProgetti'
+import { scadenzaCalcolata, statoTappa } from '@/composables/useProgetti'
 import MiniEditor from '@/components/MiniEditor.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -77,18 +78,42 @@ const progettiApi = useProgettiApi()
 
 const mostraForm = ref(false)
 const salvando   = ref(false)
+const erroreSalvataggio = ref(null)
 const form = ref({ titolo: '', descrizione: '', zona: '' })
 
 function chiudiForm() {
   mostraForm.value = false
+  erroreSalvataggio.value = null
   form.value = { titolo: '', descrizione: '', zona: '' }
 }
 
+// Un progetto "in ritardo senza che nessuno se ne accorga" è esattamente
+// il fallimento che il prodotto vuole evitare (vedi PRODUCT.md), quindi
+// l'elenco non può restare puramente alfabetico: i progetti ancora attivi
+// vengono prima di quelli conclusi/cancellati/falliti (che non richiedono
+// più nulla), e tra gli attivi quelli con la tappa più urgente salgono in
+// cima — a parità di urgenza, la scadenza più vicina precede le altre.
+const STATI_TERMINALI = new Set(['completato', 'cancellato', 'fallito'])
+function scadenzaUrgente(p) {
+  const data = scadenzaCalcolata(p)
+  if (!data) return false
+  const tappa = (p.tappe || []).find(t => t.data === data)
+  return tappa ? statoTappa(tappa).urgente : false
+}
 const progetti = computed(() => {
   if (!store.progetti) return []
   return Object.entries(store.progetti)
     .map(([id, p]) => ({ id, ...p }))
-    .sort((a, b) => (a.titolo ?? '').localeCompare(b.titolo ?? ''))
+    .sort((a, b) => {
+      const terminaleA = STATI_TERMINALI.has(a.stato), terminaleB = STATI_TERMINALI.has(b.stato)
+      if (terminaleA !== terminaleB) return terminaleA ? 1 : -1
+      const urgenteA = scadenzaUrgente(a), urgenteB = scadenzaUrgente(b)
+      if (urgenteA !== urgenteB) return urgenteA ? -1 : 1
+      const scadA = scadenzaCalcolata(a), scadB = scadenzaCalcolata(b)
+      if (scadA && scadB && scadA !== scadB) return scadA.localeCompare(scadB)
+      if (scadA !== scadB) return scadA ? -1 : 1
+      return (a.titolo ?? '').localeCompare(b.titolo ?? '')
+    })
 })
 
 const LABEL_STATO = {
@@ -130,6 +155,7 @@ function descrizioneBreve(p) {
 async function salvaProgetto() {
   if (!form.value.titolo.trim() || salvando.value) return
   salvando.value = true
+  erroreSalvataggio.value = null
   try {
     await progettiApi.salvaProgetto(null, {
       titolo: form.value.titolo.trim(),
@@ -141,8 +167,19 @@ async function salvaProgetto() {
     }, true)
     mostraForm.value = false
     form.value = { titolo: '', descrizione: '', zona: '' }
+  } catch {
+    erroreSalvataggio.value = 'Non sono riuscito a salvare il progetto. Riprova.'
   } finally {
     salvando.value = false
   }
 }
 </script>
+
+<style scoped>
+/* Bottone "＋ Aggiungi": unica azione di creazione della vista, non un
+   filtro — riceve la sua altezza di tocco corretta (44px) senza toccare
+   .pill globale (riusata altrove come filtro), stesso fix già applicato
+   in ConcimiView.vue il 07/09/2026. */
+.pill--cta { min-height: 44px; }
+.pv-errore { font: 400 12px/1.4 var(--font-sans); color: var(--rose-ink); margin: -2px 2px 0; }
+</style>

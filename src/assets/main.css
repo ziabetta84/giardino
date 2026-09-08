@@ -599,7 +599,10 @@ body::before {
 /* --- chip di stato progetto --- */
 .st { flex:none; font:600 9.5px/1 var(--font-sans); letter-spacing:.04em; text-transform:uppercase;
   padding:4px 8px; border-radius:999px; margin-top:2px; }
-.st--n { background:var(--carta-2); color:var(--ink-soft); }
+/* ink-soft su carta-2 era ~2.77:1, sotto il minimo AA 4.5:1 — questo chip
+   copre "Aperto" e "Cancellato" (vedi critica del 08/09/2026); ink-mid dà
+   ~7:1 mantenendo lo stesso sfondo neutro. */
+.st--n { background:var(--carta-2); color:var(--ink-mid); }
 .st--g { background:var(--gold-bg); color:var(--gold-ink); }
 .st--s { background:var(--sage-bg); color:var(--sage-ink); }
 .st--r { background:var(--rose-bg); color:var(--rose-ink); }

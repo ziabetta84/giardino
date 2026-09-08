@@ -191,10 +191,19 @@
         <path fill="var(--sage)" fill-rule="evenodd" d="M208,56H180.28L166.65,35.56A8,8,0,0,0,160,32H96a8,8,0,0,0-6.65,3.56L75.71,56H48A24,24,0,0,0,24,80V192a24,24,0,0,0,24,24H208a24,24,0,0,0,24-24V80A24,24,0,0,0,208,56Zm-44,76a36,36,0,1,1-36-36A36,36,0,0,1,164,132Z"/>
         <g clip-path="url(#clip-fotocamera)"><ellipse cx="90" cy="165" rx="40" ry="26" fill="var(--sage-dark)" opacity=".4"/></g>
       </symbol>
-      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. -->
+      <!-- Bandiera: traguardo/scadenza, un punto d'arrivo nel tempo. Rosa solo
+           quando la scadenza è davvero urgente (vedi statoTappa() in
+           useProgetti.js) — usarla sempre, indipendentemente dalla data,
+           diluirebbe il significato del rosa ovunque altrove nell'app
+           (critica del 08/09/2026). La variante calma condivide la stessa
+           forma in tinta neutra per una scadenza non ancora vicina. -->
       <symbol id="i-bandiera" viewBox="0 0 256 256">
         <path fill="var(--rose)" d="M248,104a8,8,0,0,1-5.37,7.56L64,173.69V216a8,8,0,0,1-16,0V40a8,8,0,0,1,10.63-7.56l184,64A8,8,0,0,1,248,104Z"/>
         <g clip-path="url(#clip-bandiera)"><ellipse cx="150" cy="90" rx="55" ry="30" fill="var(--rose-dark)" opacity=".4"/></g>
+      </symbol>
+      <symbol id="i-bandiera-calma" viewBox="0 0 256 256">
+        <path fill="var(--ink-soft)" d="M248,104a8,8,0,0,1-5.37,7.56L64,173.69V216a8,8,0,0,1-16,0V40a8,8,0,0,1,10.63-7.56l184,64A8,8,0,0,1,248,104Z"/>
+        <g clip-path="url(#clip-bandiera)"><ellipse cx="150" cy="90" rx="55" ry="30" fill="var(--ink-mid)" opacity=".4"/></g>
       </symbol>
       <!-- Icone monocrome (utility): un solo colore ereditato dal contesto,
            nessun accento — base Phosphor, stile "bold"/"fill". -->
