@@ -133,6 +133,7 @@ import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useProgettiApi } from '@/composables/useProgettiApi'
 import { valutaCura, stagione } from '@/composables/useCure'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
@@ -163,7 +164,8 @@ const attivita = computed(() => {
   for (const [id, p] of Object.entries(store.piante)) {
     const sp = store.specie?.[p.specie] ?? null
     const nomeSpecie = sp?.nome ?? p.specie
-    const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno' }
+    const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, store.programmiIrrigazione)?.ogniGiorni ?? null
+    const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
     // La potatura non ha cadenza temporale: è un'etichetta testuale,
     // registrabile per pianta ma mai valutata per urgenza né mostrata nei
     // feed "attività". I tipi con cadenza sono irrigazione, concimazione e

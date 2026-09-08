@@ -64,6 +64,7 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { valutaCura, stagione } from '@/composables/useCure'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import { iconaCura, LABEL_CURA, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import Icon from '@/components/Icon.vue'
@@ -88,6 +89,7 @@ const tipiCura = computed(() => {
 const contestoCura = computed(() => ({
   esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
   meteo: store.meteo,
+  programmaAutomatico: programmaIrrigazioneEffettivo(props.piantaId, pianta.value?.zona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)
 const classificaConcimiPianta = computed(() =>
