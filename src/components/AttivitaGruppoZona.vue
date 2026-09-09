@@ -19,7 +19,7 @@
         :variante="variante"
         :disabled="salvando === item.key || salvandoGruppo === gruppo.chiave"
         :errore="erroreAzione?.chiave === item.key ? erroreAzione.messaggio : null"
-        :style="`transition-delay:${Math.min(i,6) * 0.06}s;`"
+        :style="`--stagger-delay:${Math.min(i,6) * 0.06}s;`"
         @registra="$emit('registra', $event)"
         @apri-dossier="$emit('apri-dossier', $event)"
       />

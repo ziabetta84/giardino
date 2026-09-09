@@ -52,24 +52,34 @@
         </p>
         <TransitionGroup name="stagger" tag="div" style="display:flex;flex-direction:column;margin-bottom:20px;position:relative;">
           <PiantaRiga v-for="(p, i) in pianteUrgenti" :key="'u'+p.id" :pianta="p" urgente :thumb-url="thumbnail[p.id]"
-            :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
+            :style="`--stagger-delay:${Math.min(i,8) * 0.06}s;`"
             @elimina="avviaElimina(p)" />
         </TransitionGroup>
         <p class="section-label">Tutte le piante</p>
       </template>
 
       <!-- Lista principale: un cambio di filtro sostituisce quasi per intero
-           l'insieme delle chiavi, non lo modifica — con solo il
-           TransitionGroup, uscita e entrata si sovrappongono nello stesso
-           punto (l'effetto "carte mescolate" segnalato). Il Transition
-           esterno, agganciato al filtro, fa uscire del tutto la lista
-           vecchia prima di far entrare quella nuova, che poi si dispone
-           con il consueto stagger a cascata. -->
+           l'insieme delle chiavi, non lo modifica — il Transition esterno,
+           agganciato al filtro, fa uscire del tutto la lista vecchia prima
+           di far entrare quella nuova. Durante una ricerca invece
+           (chiaveLista non cambia, si resta sulla stessa istanza) l'elenco
+           si restringe/allarga a ogni tasto: ogni riga anima la propria
+           altezza (grid-template-rows 1fr↔0fr, vedi .riga-cella) invece di
+           uscire dal flusso e farsi scavalcare da un transform di
+           riposizionamento delle righe restanti — quel movimento condiviso
+           è la causa dell'effetto "risultati sovrapposti" segnalato: righe
+           in uscita ferme nella vecchia posizione mentre altre vi scorrono
+           sopra. Con il collasso in altezza il riflusso delle righe
+           rimanenti è una conseguenza naturale del layout, non
+           un'animazione a parte da tenere sincronizzata. -->
       <Transition v-if="pianteFiltrate.length" name="fade" mode="out-in">
-        <TransitionGroup :key="chiaveLista" name="stagger" tag="div" style="display:flex;flex-direction:column;position:relative;">
-          <PiantaRiga v-for="(p, i) in pianteFiltrate" :key="p.id" :pianta="p" :thumb-url="thumbnail[p.id]"
-            :style="`transition-delay:${Math.min(i,8) * 0.06}s;`"
-            @elimina="avviaElimina(p)" />
+        <TransitionGroup :key="chiaveLista" name="righe" tag="div" style="display:flex;flex-direction:column;position:relative;">
+          <div v-for="(p, i) in pianteFiltrate" :key="p.id" class="riga-cella"
+            :style="`--stagger-delay:${Math.min(i,8) * 0.06}s;`">
+            <div class="riga-cella__inner">
+              <PiantaRiga :pianta="p" :thumb-url="thumbnail[p.id]" @elimina="avviaElimina(p)" />
+            </div>
+          </div>
         </TransitionGroup>
       </Transition>
 
@@ -250,5 +260,45 @@ async function eliminaPianta() {
   display: flex; align-items: center; justify-content: center;
   border: none; background: transparent; color: var(--ink-faint);
   font-size: 18px; line-height: 1; cursor: pointer;
+}
+
+/* Riga della lista principale come "smaterializzazione": .riga-cella è
+   l'unica traccia di una grid (animare grid-template-rows tra 1fr e 0fr
+   ne collassa/espande l'altezza), ma la dissolvenza+sfocatura del
+   contenuto vive separata su .riga-cella__inner e la precede — invece di
+   un contenuto che si "ritaglia" mentre il box si stringe (l'effetto
+   ghigliottina della versione a fisarmonica), il contenuto è già
+   scomparso quando lo spazio inizia davvero a richiudersi. Niente
+   position:absolute né transform di riposizionamento: a differenza di
+   .stagger (main.css, usato altrove per liste più statiche), qui non c'è
+   nessun .righe-move da tenere sincronizzato con entrata/uscita — il
+   riflusso delle righe vicine è solo l'effetto normale del layout che
+   cambia altezza, non un'animazione a parte. */
+.riga-cella { display: grid; grid-template-rows: 1fr; min-height: 0; }
+.riga-cella__inner {
+  overflow: hidden; min-height: 0;
+  opacity: 1; filter: blur(0); transform: scale(1);
+  transition: opacity 0.22s ease-out, filter 0.22s ease-out, transform 0.22s ease-out;
+}
+.righe-leave-to .riga-cella__inner,
+.righe-enter-from .riga-cella__inner {
+  opacity: 0; filter: blur(3px); transform: scale(0.96);
+}
+
+/* In uscita il collasso dell'altezza parte con un piccolo ritardo fisso
+   (0.12s) rispetto alla dissolvenza del contenuto, sempre lo stesso per
+   tutte le righe — non un ritardo a cascata per indice: le righe che
+   escono si dissolvono tutte insieme, senza aspettare il proprio turno
+   (è proprio l'attesa in uscita ad aver causato l'effetto sovrapposto
+   della prima versione). In entrata invece l'altezza cresce subito, e
+   solo il contenuto aspetta un istante (0.08s, più l'eventuale ritardo a
+   cascata --stagger-delay) prima di "materializzarsi". */
+.righe-leave-active { transition: grid-template-rows 0.36s cubic-bezier(0.22,1,0.36,1) 0.12s; }
+.righe-enter-active { transition: grid-template-rows 0.36s cubic-bezier(0.22,1,0.36,1); transition-delay: var(--stagger-delay, 0s); }
+.righe-enter-active .riga-cella__inner { transition-delay: calc(var(--stagger-delay, 0s) + 0.08s); }
+.righe-enter-from, .righe-leave-to { grid-template-rows: 0fr; }
+
+@media (prefers-reduced-motion: reduce) {
+  .righe-enter-active, .righe-leave-active, .riga-cella__inner { transition: none !important; }
 }
 </style>

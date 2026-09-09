@@ -176,10 +176,14 @@ body::before {
 @keyframes pageOut { from { opacity:1; } to { opacity:0; } }
 
 /* Liste che entrano/escono con un lieve stagger (Home, Piante, Attività):
-   il ritardo per elemento è impostato inline via transitionDelay, non qui
-   — questo blocco copre solo la transizione condivisa. */
+   il ritardo per elemento è impostato inline via la custom property
+   --stagger-delay, letta solo da .stagger-enter-active — se si usasse la
+   proprietà transition-delay diretta si applicherebbe anche a leave/move,
+   facendo restare gli elementi sovrapposti fermi in attesa del ritardo
+   invece di uscire/riposizionarsi subito (visibile durante una ricerca,
+   dove a ogni carattere la lista fa soprattutto uscite e spostamenti). */
 .stagger-move { transition: transform 0.6s ease-in-out; }
-.stagger-enter-active { transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out; }
+.stagger-enter-active { transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out; transition-delay: var(--stagger-delay, 0s); }
 .stagger-leave-active { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; position: absolute; }
 .stagger-enter-from, .stagger-leave-to { opacity: 0; transform: translateY(10px); }
 @media (prefers-reduced-motion: reduce) {

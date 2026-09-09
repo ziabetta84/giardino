@@ -83,7 +83,7 @@
         <TransitionGroup name="stagger" tag="div" class="tappa-lista">
           <div v-for="(t, i) in tappeProgetto" :key="`${t.progettoId}-${t.indice}`"
             class="tappa-riga" :class="{ 'tappa-riga--urgente': t.urgente }"
-            :style="`transition-delay:${Math.min(i, 6) * 0.06}s;`">
+            :style="`--stagger-delay:${Math.min(i, 6) * 0.06}s;`">
             <span class="tappa-riga__ic" :class="{ 'tappa-riga__ic--urgente': t.urgente }"><Icon name="lampadina" /></span>
             <div class="tappa-riga__m">
               <RouterLink :to="`/progetti/${t.progettoId}`" class="tappa-riga__t">{{ t.progettoTitolo }}</RouterLink>
