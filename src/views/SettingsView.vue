@@ -51,7 +51,7 @@
     </div>
 
     <RouterLink to="/impostazioni/irrigazione" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;text-decoration:none;color:inherit;">
-      <span style="font-size:13px;font-weight:600;"><Icon name="goccia" style="width:14px;height:14px;vertical-align:-2px;margin-right:6px;color:var(--acqua);" />Irrigazione automatica</span>
+      <span style="display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;"><Icon name="goccia" style="width:14px;height:14px;flex-shrink:0;color:var(--acqua);" />Irrigazione automatica</span>
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </RouterLink>
 

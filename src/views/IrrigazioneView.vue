@@ -6,8 +6,6 @@
     <p class="prose" style="margin:-6px 0 20px;">
       Imposta un programma "ogni N giorni" per tutto il giardino, per una zona, per una sottozona o per una singola pianta. Le piante coperte da un programma attivo non compaiono più tra le cure da fare a mano — la pioggia prevista continua comunque a sospenderlo.
     </p>
-    <p v-if="erroreRimozione" role="alert" style="font-size:12px;color:var(--rose-dark);margin:-10px 0 16px;">{{ erroreRimozione }}</p>
-
     <div v-if="store.loading" class="destlist">
       <div v-for="i in 4" :key="i" class="dest">
         <div class="skeleton dest__ic" style="border-radius:50%;"></div>
@@ -24,7 +22,7 @@
         <button type="button" class="pill-mini" @click="apriModifica('giardino', 'Tutto il giardino', programmaGiardino?.ogniGiorni)" aria-label="Modifica programma giardino">
           <Icon name="matita" />
         </button>
-        <button v-if="programmaGiardino" type="button" class="pill-mini pill-mini--del" @click="rimuovi('giardino')" aria-label="Rimuovi programma giardino">×</button>
+        <button v-if="programmaGiardino" type="button" class="pill-mini pill-mini--del" @click="chiediConferma('giardino', 'Tutto il giardino', 'giardino')" aria-label="Rimuovi programma giardino">×</button>
       </div>
 
       <template v-for="z in zoneList" :key="z.nome">
@@ -44,10 +42,10 @@
             <Icon name="back" class="dest__chev" :style="{ transform: espanse.has(z.nome) ? 'rotate(-90deg)' : 'rotate(90deg)' }" />
           </div>
           <div class="irr-zrow__act">
-            <button type="button" class="pill-mini" @click="apriModifica({ zona: z.nome }, z.nome, programmaZona(z.nome)?.ogniGiorni)" aria-label="Modifica programma zona">
+            <button type="button" class="pill-mini" @click="apriModifica({ zona: z.nome }, z.nome, programmaZona(z.nome)?.ogniGiorni)" :aria-label="`Modifica programma di ${z.nome}`">
               <Icon name="matita" />
             </button>
-            <button v-if="programmaZona(z.nome)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ zona: z.nome })" aria-label="Rimuovi programma zona">×</button>
+            <button v-if="programmaZona(z.nome)" type="button" class="pill-mini pill-mini--del" @click="chiediConferma({ zona: z.nome }, z.nome, 'zona')" :aria-label="`Rimuovi programma di ${z.nome}`">×</button>
           </div>
         </div>
         <div v-if="espanse.has(z.nome)" class="destlist" style="padding-left:30px;">
@@ -57,40 +55,43 @@
                 :aria-expanded="espanse.has(chiaveSottozona(z.nome, sz.nome))"
                 :aria-label="`${espanse.has(chiaveSottozona(z.nome, sz.nome)) ? 'Comprimi' : 'Espandi'} sottozona ${sz.nome}`"
                 @click="toggleZona(chiaveSottozona(z.nome, sz.nome))" @keydown.enter="toggleZona(chiaveSottozona(z.nome, sz.nome))" @keydown.space.prevent="toggleZona(chiaveSottozona(z.nome, sz.nome))">
+                <Icon :name="store.iconaSottozona(z.nome, sz.nome)" class="dest__ic" />
                 <span class="dest__n">{{ sz.nome }}</span>
                 <span v-if="programmaSottozona(z.nome, sz.nome)" class="badge badge-ok">ogni {{ programmaSottozona(z.nome, sz.nome).ogniGiorni }} gg</span>
                 <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoZona(z.nome)) }}</span>
                 <Icon name="back" class="dest__chev" :style="{ transform: espanse.has(chiaveSottozona(z.nome, sz.nome)) ? 'rotate(-90deg)' : 'rotate(90deg)' }" />
               </div>
               <div class="irr-zrow__act">
-                <button type="button" class="pill-mini" @click="apriModifica({ zona: z.nome, sottozona: sz.nome }, `${z.nome} · ${sz.nome}`, programmaSottozona(z.nome, sz.nome)?.ogniGiorni)" aria-label="Modifica programma sottozona">
+                <button type="button" class="pill-mini" @click="apriModifica({ zona: z.nome, sottozona: sz.nome }, `${z.nome} · ${sz.nome}`, programmaSottozona(z.nome, sz.nome)?.ogniGiorni)" :aria-label="`Modifica programma di ${sz.nome}`">
                   <Icon name="matita" />
                 </button>
-                <button v-if="programmaSottozona(z.nome, sz.nome)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ zona: z.nome, sottozona: sz.nome })" aria-label="Rimuovi programma sottozona">×</button>
+                <button v-if="programmaSottozona(z.nome, sz.nome)" type="button" class="pill-mini pill-mini--del" @click="chiediConferma({ zona: z.nome, sottozona: sz.nome }, `${z.nome} · ${sz.nome}`, 'sottozona')" :aria-label="`Rimuovi programma di ${sz.nome}`">×</button>
               </div>
             </div>
             <div v-if="espanse.has(chiaveSottozona(z.nome, sz.nome))" class="destlist" style="padding-left:30px;">
               <div v-for="p in pianteDellaZona(z.nome, sz.nome)" :key="p.id" class="dest">
+                <Icon name="foglia" class="dest__ic" style="color:var(--sage);" />
                 <span class="dest__n">{{ nomeSpecie(p) }}<span v-if="p.varieta"> — {{ p.varieta }}</span></span>
                 <span v-if="programmaPianta(p.id)" class="badge badge-ok">ogni {{ programmaPianta(p.id).ogniGiorni }} gg</span>
                 <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoSottozona(z.nome, sz.nome)) }}</span>
-                <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" aria-label="Modifica programma pianta">
+                <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" :aria-label="`Modifica programma di ${nomeSpecie(p)}`">
                   <Icon name="matita" />
                 </button>
-                <button v-if="programmaPianta(p.id)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ pianta: p.id })" aria-label="Rimuovi programma pianta">×</button>
+                <button v-if="programmaPianta(p.id)" type="button" class="pill-mini pill-mini--del" @click="chiediConferma({ pianta: p.id }, nomeSpecie(p), 'pianta')" :aria-label="`Rimuovi programma di ${nomeSpecie(p)}`">×</button>
               </div>
               <p v-if="!pianteDellaZona(z.nome, sz.nome).length" style="font-size:12px;color:var(--ink-soft);padding:10px 2px;">Nessuna pianta in questa sottozona.</p>
             </div>
           </template>
 
           <div v-for="p in pianteDellaZona(z.nome, null)" :key="p.id" class="dest">
+            <Icon name="foglia" class="dest__ic" style="color:var(--sage);" />
             <span class="dest__n">{{ nomeSpecie(p) }}<span v-if="p.varieta"> — {{ p.varieta }}</span></span>
             <span v-if="programmaPianta(p.id)" class="badge badge-ok">ogni {{ programmaPianta(p.id).ogniGiorni }} gg</span>
             <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoZona(z.nome)) }}</span>
-            <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" aria-label="Modifica programma pianta">
+            <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" :aria-label="`Modifica programma di ${nomeSpecie(p)}`">
               <Icon name="matita" />
             </button>
-            <button v-if="programmaPianta(p.id)" type="button" class="pill-mini pill-mini--del" @click="rimuovi({ pianta: p.id })" aria-label="Rimuovi programma pianta">×</button>
+            <button v-if="programmaPianta(p.id)" type="button" class="pill-mini pill-mini--del" @click="chiediConferma({ pianta: p.id }, nomeSpecie(p), 'pianta')" :aria-label="`Rimuovi programma di ${nomeSpecie(p)}`">×</button>
           </div>
 
           <p v-if="!sottozoneDellaZona(z.nome).length && !pianteDellaZona(z.nome, null).length" style="font-size:12px;color:var(--ink-soft);padding:10px 2px;">Nessuna sottozona né pianta in questa zona.</p>
@@ -113,6 +114,16 @@
         </div>
       </div>
     </FoglioLaterale>
+
+    <ModalConferma
+      :aperto="!!daEliminare"
+      :titolo="titoloConferma"
+      :messaggio="messaggioConferma"
+      :caricamento="eliminando"
+      :errore="erroreEliminazione"
+      @conferma="confermaEliminazione"
+      @annulla="annullaEliminazione"
+    />
   </div>
 </template>
 
@@ -121,6 +132,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useIrrigazioneApi } from '@/composables/useIrrigazioneApi'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
+import ModalConferma from '@/components/ModalConferma.vue'
 import Spinner from '@/components/Spinner.vue'
 import Icon from '@/components/Icon.vue'
 
@@ -210,18 +222,48 @@ async function salva() {
     salvando.value = false
   }
 }
-const erroreRimozione = ref(null)
-async function rimuovi(target) {
-  erroreRimozione.value = null
+// Conferma prima di rimuovere un programma: a livello giardino è l'azione
+// dal raggio d'azione più ampio della pagina (ogni pianta senza un livello
+// più specifico torna a mostrare le cure da fare a mano), quindi merita
+// la stessa protezione che ZoneView/SottozoneView danno già all'eliminazione
+// di una zona/sottozona — non solo un click su una ×.
+const daEliminare = ref(null) // { target, titolo, livello }
+const eliminando = ref(false)
+const erroreEliminazione = ref(null)
+
+function chiediConferma(target, titolo, livello) {
+  daEliminare.value = { target, titolo, livello }
+  erroreEliminazione.value = null
+}
+function annullaEliminazione() {
+  daEliminare.value = null
+  erroreEliminazione.value = null
+}
+const titoloConferma = computed(() => `Rimuovere il programma di ${daEliminare.value?.titolo}?`)
+const messaggioConferma = computed(() => daEliminare.value?.livello === 'giardino'
+  ? 'Ogni pianta senza un programma più specifico tornerà a mostrare le cure da fare a mano.'
+  : 'Le piante coperte solo da questo programma torneranno a ereditare dal livello superiore.')
+
+async function confermaEliminazione() {
+  if (!daEliminare.value) return
+  eliminando.value = true
+  erroreEliminazione.value = null
   try {
-    await irrigazioneApi.rimuoviProgramma(target)
+    await irrigazioneApi.rimuoviProgramma(daEliminare.value.target)
+    daEliminare.value = null
   } catch (e) {
-    erroreRimozione.value = 'Rimozione non riuscita. Riprova.'
+    erroreEliminazione.value = 'Rimozione non riuscita. Riprova.'
+  } finally {
+    eliminando.value = false
   }
 }
 </script>
 
 <style scoped>
+/* Regola del Nome in Fraunces (DESIGN.md): ogni nome — qui giardino, zona,
+   sottozona, pianta — usa il font display, come già fanno .zname/.szname
+   in ZoneView.vue/SottozoneView.vue. */
+.dest__n { font-family: var(--font-display); }
 /* Area cliccabile che espande/comprime una zona: fratella, non contenitore,
    dei due pill-mini (vedi commento nel template). */
 .irr-zrow__main { display:flex; align-items:center; gap:11px; flex:1; min-width:0; cursor:pointer; }
