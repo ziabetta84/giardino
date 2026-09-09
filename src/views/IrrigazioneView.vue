@@ -103,6 +103,16 @@
 
     <FoglioLaterale :model-value="mostraForm" @update:model-value="v => { if (!v) chiudiForm() }" :titolo="titoloForm">
       <div v-if="mostraForm" class="foglio-form">
+        <div v-if="suggerimento" class="irr-suggerimento">
+          <ZorbaLogo mini />
+          <p v-if="suggerimento.tipo === 'numero'">
+            Zorba consiglia: ogni {{ suggerimento.ogniGiorni }} giorni.
+            <button v-if="giorniForm !== suggerimento.ogniGiorni" type="button" class="link-reset" @click="giorniForm = suggerimento.ogniGiorni">Usa questo</button>
+          </p>
+          <p v-else>
+            Zorba nota una differenza: <strong>{{ suggerimento.piuEsigente }}</strong> ha bisogno di acqua ogni {{ suggerimento.minGiorni }} giorni, ma <strong>{{ suggerimento.menoEsigente }}</strong> regge fino a ogni {{ suggerimento.maxGiorni }} — troppo diverse per un programma comune. Conviene impostarle una per una.
+          </p>
+        </div>
         <label class="field-label" for="irr-giorni">Ogni quanti giorni</label>
         <input id="irr-giorni" v-model.number="giorniForm" type="number" min="1" step="1" class="form-input" style="margin-bottom:8px;">
         <p v-if="errore" role="alert" style="font-size:11px;color:var(--rose-ink);margin:0 0 10px;">{{ errore }}</p>
@@ -135,6 +145,8 @@ import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import Spinner from '@/components/Spinner.vue'
 import Icon from '@/components/Icon.vue'
+import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import { suggerimentoIrrigazione } from '@/composables/useSuggerimentoIrrigazione'
 
 const store = useDatiStore()
 const irrigazioneApi = useIrrigazioneApi()
@@ -197,17 +209,33 @@ const titoloForm = ref('')
 const giorniForm = ref(null)
 const salvando = ref(false)
 const errore = ref(null)
+const suggerimento = ref(null)
+
+// Le piante fisicamente coperte da questo livello, a prescindere da un
+// eventuale override più specifico già impostato su una di loro — il
+// consiglio descrive cosa c'è in quel punto del giardino, non ricalcola
+// la cascata reale (quella resta compito di useIrrigazioneAuto.js).
+function pianteCoperte(target) {
+  if (target.pianta) {
+    const p = piante.value.find(pp => pp.id === target.pianta)
+    return p ? [p] : []
+  }
+  if (target.sottozona) return pianteDellaZona(target.zona, target.sottozona)
+  return piante.value.filter(p => p.zona === target.zona)
+}
 
 function apriModifica(target, titolo, valoreAttuale) {
   targetForm.value = target
   titoloForm.value = titolo
   giorniForm.value = valoreAttuale ?? null
   errore.value = null
+  suggerimento.value = target === 'giardino' ? null : suggerimentoIrrigazione(pianteCoperte(target), store.specie)
   mostraForm.value = true
 }
 function chiudiForm() {
   mostraForm.value = false
   targetForm.value = null
+  suggerimento.value = null
 }
 async function salva() {
   if (!giorniForm.value || giorniForm.value < 1 || !targetForm.value) return
@@ -273,4 +301,13 @@ async function confermaEliminazione() {
 .dest .pill-mini svg { width:12px; height:12px; }
 .dest .pill-mini--del { color:var(--rose-ink); }
 .dest .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-ink); }
+
+.irr-suggerimento { display:flex; align-items:flex-start; gap:8px; margin-bottom:12px; }
+.irr-suggerimento p { margin:0; font-size:12.5px; line-height:1.5; color:var(--ink-mid); }
+.irr-suggerimento .link-reset {
+  background: none; border: none; padding: 0; margin-left: 4px;
+  font-size: 12.5px; color: var(--sage-dark); text-decoration: underline;
+  cursor: pointer;
+}
+.irr-suggerimento .link-reset:hover { color: var(--sage); }
 </style>
