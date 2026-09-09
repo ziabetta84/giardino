@@ -35,6 +35,7 @@
 import { computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { cureUrgentiPianta } from '@/composables/useCure'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import Icon from '@/components/Icon.vue'
 
@@ -47,8 +48,11 @@ defineEmits(['elimina'])
 
 const store = useDatiStore()
 const specie = computed(() => store.specie?.[props.pianta.specie] ?? null)
+const programmaAutomatico = computed(() =>
+  programmaIrrigazioneEffettivo(props.pianta.id, props.pianta.zona, props.pianta.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
+)
 const cureUrgenti = computed(() =>
-  props.urgente ? cureUrgentiPianta(props.pianta, specie.value) : []
+  props.urgente ? cureUrgentiPianta(props.pianta, specie.value, { programmaAutomatico: programmaAutomatico.value }) : []
 )
 // Senza foto personali, ripiega sull'immagine hero della specie (stesso
 // criterio di PiantaView.vue): l'attribuzione richiesta dalla licenza si

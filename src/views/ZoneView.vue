@@ -266,6 +266,35 @@ async function salva() {
         }
         store.piante = nuovePiante
       }
+      // store.programmiIrrigazione.zone è indicizzato per nome zona, e
+      // .sottozone per chiave composta "<zona>|<sottozona>" (vedi
+      // useIrrigazioneAuto.js / mappaProgrammiIrrigazione in stores/dati.js):
+      // senza questo re-keying, dopo il rename programmaZona/programmaSottozona
+      // per il nuovo nome tornerebbero null finché non si ricarica la pagina,
+      // e ogni pianta coperta da un programma di zona/sottozona tornerebbe a
+      // mostrare i promemoria manuali di irrigazione.
+      if (store.programmiIrrigazione) {
+        const nuoviProgrammi = { ...store.programmiIrrigazione }
+        if (nuoviProgrammi.zone?.[nomeOriginale]) {
+          const nuoveZoneProgrammi = { ...nuoviProgrammi.zone }
+          nuoveZoneProgrammi[salvata.nome] = nuoveZoneProgrammi[nomeOriginale]
+          delete nuoveZoneProgrammi[nomeOriginale]
+          nuoviProgrammi.zone = nuoveZoneProgrammi
+        }
+        if (nuoviProgrammi.sottozone) {
+          const prefissoOriginale = `${nomeOriginale}|`
+          const nuoveSottozoneProgrammi = { ...nuoviProgrammi.sottozone }
+          for (const [chiave, voce] of Object.entries(nuoveSottozoneProgrammi)) {
+            if (chiave.startsWith(prefissoOriginale)) {
+              const suffisso = chiave.slice(prefissoOriginale.length)
+              nuoveSottozoneProgrammi[`${salvata.nome}|${suffisso}`] = voce
+              delete nuoveSottozoneProgrammi[chiave]
+            }
+          }
+          nuoviProgrammi.sottozone = nuoveSottozoneProgrammi
+        }
+        store.programmiIrrigazione = nuoviProgrammi
+      }
     }
 
     chiudiForm()

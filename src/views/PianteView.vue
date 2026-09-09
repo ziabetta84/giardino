@@ -108,6 +108,7 @@ import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { cureUrgentiPianta } from '@/composables/useCure'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import ModalConferma from '@/components/ModalConferma.vue'
 import PiantaRiga from '@/components/PiantaRiga.vue'
 import Icon from '@/components/Icon.vue'
@@ -163,7 +164,8 @@ const piante = computed(() => {
   if (!store.piante) return []
   return Object.entries(store.piante).map(([id, p]) => {
     const sp = store.specie?.[p.specie] ?? null
-    const urgenti = cureUrgentiPianta(p, sp)
+    const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
+    const urgenti = cureUrgentiPianta(p, sp, { programmaAutomatico })
     return { id, ...p, urgente: urgenti.length > 0 }
   })
 })

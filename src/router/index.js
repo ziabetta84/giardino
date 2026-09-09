@@ -18,6 +18,7 @@ const routes = [
   { path: '/gallery',                   name: 'gallery',        component: () => import('@/views/GalleryView.vue') },
   { path: '/account',                   name: 'account',        component: () => import('@/views/AccountView.vue') },
   { path: '/impostazioni',              name: 'impostazioni',   component: () => import('@/views/SettingsView.vue') },
+  { path: '/impostazioni/irrigazione',  name: 'irrigazione',    component: () => import('@/views/IrrigazioneView.vue') },
   { path: '/:pathMatch(.*)*',           name: 'not-found',      redirect: '/' },
 ]
 

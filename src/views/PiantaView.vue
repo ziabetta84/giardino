@@ -222,6 +222,7 @@ import { urlMiniatura } from '@/composables/useWikimedia'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import ModalConferma from '@/components/ModalConferma.vue'
 import LightboxFoto from '@/components/LightboxFoto.vue'
 import ToastCura from '@/components/ToastCura.vue'
@@ -360,6 +361,7 @@ const coltivazione = computed(() => specie.value?.coltivazione ?? null)
 const contestoCura = computed(() => ({
   esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
   meteo: store.meteo,
+  programmaAutomatico: programmaIrrigazioneEffettivo(route.params.id, pianta.value?.zona, pianta.value?.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 
 // I tipi di cura con cadenza/urgenza sono irrigazione, concimazione e —

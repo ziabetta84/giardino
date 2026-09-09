@@ -191,6 +191,7 @@ import { useAuth } from '@/composables/useAuth'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
 import { iconaCura } from '@/composables/useCureVisual'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
@@ -285,16 +286,17 @@ const numProgetti = computed(() => store.progetti ? Object.keys(store.progetti).
 // valutaCura non sa distinguere una pianta esterna da una in casa e non può
 // sospendere l'irrigazione quando la riga meteo qui sopra mostra pioggia in
 // arrivo — le due sezioni potevano contraddirsi a vista.
-function contestoPianta(p) {
-  return { meteo: store.meteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno' }
+function contestoPianta(p, id) {
+  const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
+  return { meteo: store.meteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
 }
 
 const numUrgenti = computed(() => {
   if (!store.piante) return null
   let count = 0
-  for (const [, p] of Object.entries(store.piante)) {
+  for (const [id, p] of Object.entries(store.piante)) {
     const sp = store.specie?.[p.specie] ?? null
-    if (cureUrgentiPianta(p, sp, contestoPianta(p)).length > 0) count++
+    if (cureUrgentiPianta(p, sp, contestoPianta(p, id)).length > 0) count++
   }
   return count
 })
@@ -342,7 +344,7 @@ const daFareOggi = computed(() => {
   for (const [id, p] of Object.entries(store.piante)) {
     const sp = store.specie?.[p.specie] ?? null
     const nomeSpecie = sp?.nome ?? p.specie
-    const contesto = contestoPianta(p)
+    const contesto = contestoPianta(p, id)
     // Potatura non è più una cura a urgenza (resta registrabile nella scheda
     // pianta): il feed valuta solo irrigazione, concimazione e — per le poche
     // specie con beneficio documentato — calcio.
