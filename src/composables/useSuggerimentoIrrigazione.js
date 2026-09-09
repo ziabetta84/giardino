@@ -14,15 +14,25 @@ export const SOGLIA_DIVERGENZA_IRRIGAZIONE = 3
 // per un consiglio (nessuna pianta, o nessuna con manutenzione.irrigazione
 // documentata per la stagione corrente).
 // Frasi che indicano un riposo vegetativo vero e proprio (non solo "nessun
-// dato"), usate SOLO quando dal testo non si riesce a estrarre un numero
-// (vedi sotto: parseGiorni ha sempre la precedenza) — così una parola
-// qualificatrice come "ridotta" accanto a una cadenza reale ("ogni 15-20
-// giorni, ridotta per il riposo estivo") non scarta il numero vero. `mai\b`
-// è stato tolto perché nel linguaggio reale delle schede specie compare
-// quasi sempre in note di tecnica che vogliono dire il contrario di
-// "riposo" ("mai secco", "mai il tubero direttamente" per il ciclamino: la
-// pianta è in piena crescita e va irrigata regolarmente).
+// dato"), controllate solo dopo aver escluso una vera cadenza numerica
+// (CADENZA_REGEX sotto) — così una parola qualificatrice come "ridotta"
+// accanto a una cadenza reale ("ogni 15-20 giorni, ridotta per il riposo
+// estivo") non scarta il numero vero, e un "a 15°C" di temperatura di
+// riposo non viene mai letto come cadenza. `mai\b` è stato tolto perché
+// nel linguaggio reale delle schede specie compare quasi sempre in note di
+// tecnica che vogliono dire il contrario di "riposo" ("mai secco", "mai il
+// tubero direttamente" per il ciclamino: la pianta è in piena crescita e
+// va irrigata regolarmente).
 const RIPOSO_REGEX = /nessun|sospes|non necessari|ridott|dirad/i
+
+// "ogni N ..." è l'unico modo in cui questo catalogo esprime una vera
+// cadenza di irrigazione — un numero che compare altrove nel testo (una
+// temperatura di riposo "a N°C", un range di mesi) non lo è. Senza questo
+// controllo, parseGiorni() (che accetta qualunque numero nudo, vedi
+// useCure.js) leggerebbe "sospesa, tubero a riposo a 15°C" come "ogni 15
+// giorni" invece che come vero riposo — il problema opposto e più grave di
+// "ridotta" che scarta un "ogni 15-20 giorni" vero lì accanto.
+const CADENZA_REGEX = /ogni\s+\d/i
 
 export function suggerimentoIrrigazione(piante, specie) {
   const stagCorrente = stagione()
@@ -32,8 +42,10 @@ export function suggerimentoIrrigazione(piante, specie) {
       const testo = sp?.manutenzione?.irrigazione?.[stagCorrente]
       if (!testo) return null
       const nomeSpecie = sp?.nome ?? p.specie
-      const intervallo = parseGiorni(testo)
-      if (intervallo) return { nomeSpecie, intervallo, riposo: false }
+      if (CADENZA_REGEX.test(testo)) {
+        const intervallo = parseGiorni(testo)
+        if (intervallo) return { nomeSpecie, intervallo, riposo: false }
+      }
       if (RIPOSO_REGEX.test(testo)) return { nomeSpecie, riposo: true }
       return null
     })
