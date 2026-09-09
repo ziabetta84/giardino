@@ -14,14 +14,15 @@ export const SOGLIA_DIVERGENZA_IRRIGAZIONE = 3
 // per un consiglio (nessuna pianta, o nessuna con manutenzione.irrigazione
 // documentata per la stagione corrente).
 // Frasi che indicano un riposo vegetativo vero e proprio (non solo "nessun
-// dato"): se una pianta coinvolta è in questo stato mentre un'altra ha
-// davvero bisogno di essere irrigata, le due esigenze sono incompatibili
-// per definizione — non ha senso proporre un numero che bagnerebbe chi non
-// ne ha bisogno. Stesso criterio già usato da useCure.js per 'mai'/'non
-// necessario' (vedi valutaCura), esteso qui alle formulazioni discorsive
-// che il catalogo specie usa altrettanto spesso ("nessuna", "sospesa",
-// "ridotta", "diradare le innaffiature"...).
-const RIPOSO_REGEX = /nessun|sospes|mai\b|non necessari|ridott|dirad/i
+// dato"), usate SOLO quando dal testo non si riesce a estrarre un numero
+// (vedi sotto: parseGiorni ha sempre la precedenza) — così una parola
+// qualificatrice come "ridotta" accanto a una cadenza reale ("ogni 15-20
+// giorni, ridotta per il riposo estivo") non scarta il numero vero. `mai\b`
+// è stato tolto perché nel linguaggio reale delle schede specie compare
+// quasi sempre in note di tecnica che vogliono dire il contrario di
+// "riposo" ("mai secco", "mai il tubero direttamente" per il ciclamino: la
+// pianta è in piena crescita e va irrigata regolarmente).
+const RIPOSO_REGEX = /nessun|sospes|non necessari|ridott|dirad/i
 
 export function suggerimentoIrrigazione(piante, specie) {
   const stagCorrente = stagione()
@@ -31,9 +32,10 @@ export function suggerimentoIrrigazione(piante, specie) {
       const testo = sp?.manutenzione?.irrigazione?.[stagCorrente]
       if (!testo) return null
       const nomeSpecie = sp?.nome ?? p.specie
-      if (RIPOSO_REGEX.test(testo)) return { nomeSpecie, riposo: true }
       const intervallo = parseGiorni(testo)
-      return intervallo ? { nomeSpecie, intervallo, riposo: false } : null
+      if (intervallo) return { nomeSpecie, intervallo, riposo: false }
+      if (RIPOSO_REGEX.test(testo)) return { nomeSpecie, riposo: true }
+      return null
     })
     .filter(Boolean)
 
