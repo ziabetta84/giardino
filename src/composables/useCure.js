@@ -44,8 +44,8 @@ export function pioggiaInArrivo(meteoGiorni) {
 }
 
 export function valutaCura(pianta, specie, tipo, contesto = {}) {
-  // Un programma di irrigazione automatica attivo (giardino/zona/pianta,
-  // vedi useIrrigazioneAuto.js) sostituisce del tutto la valutazione da
+  // Un programma di irrigazione automatica attivo (giardino/zona/sottozona/
+  // pianta, vedi useIrrigazioneAuto.js) sostituisce del tutto la valutazione da
   // specie+stagione per questa pianta: l'utente non deve più vedere un
   // promemoria manuale per un'irrigazione che ha già pianificato altrove.
   // La sospensione per pioggia resta valida — stessa soglia e messaggio

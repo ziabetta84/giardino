@@ -231,8 +231,11 @@ export function mappaConcimi(righeConcimi) {
 }
 
 // Irrigazione automatica: righe piatte da Supabase ricostruite come cascata
-// pronta all'uso — pianta_id/zona_id entrambi null = livello giardino.
-// zona_id orfano ignorato per sicurezza, stesso criterio di mappaSottozone.
+// pronta all'uso — pianta_id/sottozona_id/zona_id tutti null = livello
+// giardino; sottozona_id ha priorità su zona_id quando entrambi sarebbero
+// applicabili (vedi programmaIrrigazioneEffettivo in useIrrigazioneAuto.js).
+// sottozona_id/zona_id orfani ignorati per sicurezza, stesso criterio di
+// mappaSottozone.
 export function mappaProgrammiIrrigazione(righeProgrammi, zonaNomePerId, sottozonaInfoPerId) {
   const risultato = { giardino: null, zone: {}, sottozone: {}, piante: {} }
   for (const r of righeProgrammi) {

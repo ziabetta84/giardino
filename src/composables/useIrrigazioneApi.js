@@ -35,7 +35,7 @@ export function useIrrigazioneApi() {
     // livelli: senza normalizzare qui, uno spread lascerebbe mancante
     // giardino/zone/piante e ogni lettura successiva del resolver
     // (useIrrigazioneAuto.js) esploderebbe in tutta l'app.
-    const base = store.programmiIrrigazione ?? { giardino: null, zone: {}, piante: {} }
+    const base = store.programmiIrrigazione ?? { giardino: null, zone: {}, sottozone: {}, piante: {} }
     if (chiave === 'giardino') {
       store.programmiIrrigazione = { ...base, giardino: voce }
       return

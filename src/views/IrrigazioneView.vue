@@ -4,7 +4,7 @@
       <h1 class="page-title">Irrigazione automatica</h1>
     </div>
     <p class="prose" style="margin:-6px 0 20px;">
-      Imposta un programma "ogni N giorni" per tutto il giardino, per una zona o per una singola pianta. Le piante coperte da un programma attivo non compaiono più tra le cure da fare a mano — la pioggia prevista continua comunque a sospenderlo.
+      Imposta un programma "ogni N giorni" per tutto il giardino, per una zona, per una sottozona o per una singola pianta. Le piante coperte da un programma attivo non compaiono più tra le cure da fare a mano — la pioggia prevista continua comunque a sospenderlo.
     </p>
     <p v-if="erroreRimozione" role="alert" style="font-size:12px;color:var(--rose-dark);margin:-10px 0 16px;">{{ erroreRimozione }}</p>
 
