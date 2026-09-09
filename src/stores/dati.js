@@ -395,7 +395,7 @@ export const useDatiStore = defineStore('dati', () => {
           await Promise.all(daRegistrare.map(async id => {
             const { data, error } = await supabase.rpc('registra_cura_pianta', { pianta_id: id, tipo_cura: 'irrigazione', data_cura: oggiStr })
             if (error) throw error
-            if (!data) return // nessuna riga toccata (RLS, riga sparita altrove): nessuna scrittura avvenuta, niente da aggiornare
+            if (!data?.id) return // nessuna riga toccata (RLS, riga sparita altrove): PostgREST serializza una riga composita NULL come oggetto con tutti i campi null, non come null — va controllato un campo (la chiave primaria, mai null su una riga reale), non la verità dell'intero oggetto
             piante.value = { ...piante.value, [id]: { ...piante.value[id], ultima_cura: data.ultima_cura } }
           }))
         }
