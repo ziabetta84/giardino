@@ -39,6 +39,7 @@ colors:
   cream-dark: "#f0ebe2"
   white: "#ffffff"
   zorba-black: "#141414"
+  scrim: "#161008"
 typography:
   display:
     fontFamily: "Fraunces, Georgia, 'Times New Roman', serif"
@@ -67,8 +68,24 @@ typography:
     fontSize: "19px"
     fontWeight: 400
     lineHeight: "1.1"
+  title:
+    fontFamily: "Fraunces, Georgia, 'Times New Roman', serif"
+    fontSize: "14px"
+    fontWeight: 600
+    lineHeight: "1.2"
+  caption:
+    fontFamily: "DM Sans, system-ui, sans-serif"
+    fontSize: "12px"
+    fontWeight: 400
+    lineHeight: "1.4"
+  micro:
+    fontFamily: "DM Sans, system-ui, sans-serif"
+    fontSize: "9.5px"
+    fontWeight: 400
+    lineHeight: "1.25"
 rounded:
   tag: "6px"
+  icon-tile: "8px"
   chip: "11px"
   button: "12px"
   input: "14px"
@@ -192,9 +209,10 @@ Ogni colore funzionale ha una coppia "-bg"/"-ink" (es. `acqua-bg #e2edf3` / `acq
 - **Inchiostro** (`#2a2218`, `ink`): testo principale.
 - **Inchiostro Diluito** (`#5a4e3e`, `ink-mid`) / **Inchiostro Sbiadito** (`#9a8e7e`, `ink-soft`) / **Inchiostro Appena Visibile** (`#c8bfb0`, `ink-faint`): gerarchia di testo secondario, dalla didascalia al placeholder.
 - **Bianco** (`#ffffff`, `white`): superficie di card, input, sheet — mai lo sfondo di pagina.
+- **Velo Fotografico** (`#161008`, `scrim`): un nero ancora più profondo dell'Inchiostro, usato solo per scurire una foto reale (overlay del bottone elimina in Galleria, gradiente leggibilità del lightbox, link-overlay sulla copertina di una pianta) — mai su una superficie di carta, dove resta l'Inchiostro a fare da ombra.
 
 ### Named Rules
-**La Regola di Zorba Nero.** Zorba è identità, non decorazione: resta nero (`#141414`) in ogni tema e in ogni superficie che lo mostra — unica eccezione ammessa alla palette. In dark mode non si schiarisce: gli si aggiunge un alone chiaro (`drop-shadow`) che lo separa dallo sfondo scuro.
+**La Regola di Zorba Nero.** Zorba è identità, non decorazione: resta nero (`#141414`) in ogni tema e in ogni superficie che lo mostra — unica eccezione ammessa alla palette. In dark mode non si schiarisce: gli si aggiunge un alone chiaro (`drop-shadow`) che lo separa dallo sfondo scuro. Un solo dettaglio interno alla silhouette fa eccezione all'eccezione: il tratto `#pattern` di `ZorbaLogo.vue` (`#d4b23c`, un oro smorzato) disegna un motivo sottilissimo sul pelo — a stroke scoperto e fill invisibile (`fill-opacity: 0`), quasi impercettibile finché non lo si cerca. Resta un dettaglio di questo unico SVG, non un colore da riusare altrove.
 
 **La Regola del Caldo-al-Buio.** Il dark mode non è un grigio neutro invertito: ogni token scuro nasce dalla tinta del suo equivalente chiaro. L'accento base si schiarisce (non si scurisce) per leggibilità; le tinte pallide (`-light`/`-pale`, sfondi pillola/badge) diventano versioni scure sature della stessa tinta; le coppie `-bg`/`-ink` restano sempre superficie scura satura + testo chiaro.
 
@@ -209,10 +227,12 @@ Ogni colore funzionale ha una coppia "-bg"/"-ink" (es. `acqua-bg #e2edf3` / `acq
 
 ### Hierarchy
 - **Display** (600, 24–26px, line-height 1.05–1.1): titoli di pagina (`.page-title`) e saluto della Home (`.greet`); stesso peso e famiglia, poco più piccoli (14.5–16px), per nomi di card e titoli di modale/foglio.
-- **Title** (600, 13–15px, line-height 1.2–1.25): nomi di riga in liste (progetti, attività, zone) — Fraunces anche qui, non DM Sans: ogni "nome" nel taccuino usa il display font, indipendentemente dalla dimensione.
+- **Title** (600, 14px, line-height 1.2, `{typography.title}`): nomi di riga in liste (progetti, attività, zone, `PiantaRiga.vue`) — Fraunces anche qui, non DM Sans: ogni "nome" nel taccuino usa il display font, indipendentemente dalla dimensione.
 - **Body** (400, 12.5–14px, line-height 1.4–1.62): testo corrente, descrizioni, risposte dell'assistente AI.
 - **Label** (700, 9.5–11px, letter-spacing 0.04–0.13em, maiuscolo): etichette di sezione (`.slabel`), etichette di campo, chip di stato — sempre tracciate e maiuscole, mai in Fraunces.
 - **Hand** (400, 19px, Caveat): la data in Home; la didascalia-data sotto ogni foto nella Galleria (vedi "Album Polaroid" in Components). Nessun altro uso nell'app: resta un accento raro, non un font di servizio.
+- **Caption** (400, 12px, line-height 1.4): il gradino più usato dopo Body — errori di form, note dei banner (es. il banner token GitHub), stato in `StatusBar.vue`, righe vuote nelle liste programmi. Sempre DM Sans, mai un colore diverso da `ink-soft`/`rose-dark`/`gold-dark` a seconda del tono del messaggio.
+- **Micro** (400, 9.5px, line-height 1.25): etichette minuscole ripetute molte volte sullo schermo dove Label (11px) risulterebbe troppo ingombrante — condizione meteo per ora, giorno della settimana nella previsione a 7 giorni, legenda del grafico umidità/temperatura.
 
 ### Named Rules
 **La Regola del Nome in Fraunces.** Ogni volta che l'interfaccia mostra un *nome* — di pianta, progetto, zona, pagina, persona — usa Fraunces, qualunque sia la dimensione. Numeri, etichette, pulsanti e chrome di navigazione restano sempre in DM Sans: la distinzione è semantica (identità vs. servizio), non solo dimensionale.
@@ -247,7 +267,7 @@ Restano fuori da questo sistema, di proposito, le animazioni "di carattere" — 
 
 ## Shapes
 
-Angoli sempre generosi, mai vivi: 6px sulle etichette più piccole (`.zona-tag`), 11–12px su tessere icona e bottoni, 14px su input, 20px sulle card, 22px su modale e foglio, fino al pieno 999px su pillole/badge/chip. Nessun elemento interattivo scende sotto i 6px di raggio — è la firma "morbida" del sistema, distinta da qualunque estetica da dashboard con angoli quasi retti.
+Angoli sempre generosi, mai vivi: 6px sulle etichette più piccole (`.zona-tag`), 8px sulle tessere/bottoni icona più compatti (`{rounded.icon-tile}` — anteprima foto, bottoni 32×32 di `MiniEditor.vue`/`StatusBar.vue`, thumbnail specie), 11–12px su chip e bottoni più grandi, 14px su input, 20px sulle card, 22px su modale e foglio, fino al pieno 999px su pillole/badge/chip. Nessun elemento **interattivo** scende sotto i 6px di raggio — è la firma "morbida" del sistema, distinta da qualunque estetica da dashboard con angoli quasi retti. La regola non si applica a un elemento puramente decorativo e non toccabile (un tassello della griglia foto, un indicatore a pallini, il trattino della legenda di un grafico): lì un raggio minimo (2–3px) è una scelta deliberata di nitidezza, non uno strappo alla regola.
 
 I bordi sono quasi sempre hairline (`1px solid var(--cream-dark)`), usati per separare non per contenere: dividono righe di lista, chiudono in basso l'appbar, aprono in alto il foglio. Le uniche forme piene senza bordo sono le superfici bianche sollevate (card, input, sheet) su fondo carta.
 
@@ -259,6 +279,9 @@ I bordi sono quasi sempre hairline (`1px solid var(--cream-dark)`), usati per se
 - **Destructive:** stessa forma, sfondo Rosa ad Acquerello — solo per eliminare o confermare un'azione irreversibile (mai per salvare).
 - **Ghost:** sfondo Carta Ombrata, testo Inchiostro Diluito, nessuna ombra — azione secondaria/annulla.
 - **Hover / Focus:** scurimento della tinta + lieve sollevamento (`translateY(-1px)`); pressione: leggera contrazione (`scale(0.97)`).
+
+### Bottone × (dismesso)
+Un carattere `×` nudo (`background:none;border:none;cursor:pointer;line-height:1;`) invece di un'icona SVG, per chiudere un'anteprima, annullare un inserimento in linea o togliere il focus da una form breve (Agente, Concimi, Galleria, Progetto). La dimensione segue la densità del contesto in cui compare — 16px in un banner a riga singola, 18px in un modale/card con più aria, 20px quando è l'unico controllo secondario di un blocco — sempre in `ink-faint` o `ink-soft`, mai un colore di dominio. Non è (ancora) un'unica classe condivisa: resta uno stile inline ripetuto di proposito finché non si verifica in browser che un'unica dimensione regga bene tutti i contesti in cui compare oggi.
 
 ### Azione di riga (`.care-act`)
 Bottone compatto usato per confermare un singolo elemento di una lista — una cura registrata, una tappa di progetto completata — sempre con la stessa etichetta "Fatto" (mai "✓ Fatto" o varianti): pillola a contorno sottile su bianco, testo Inchiostro Diluito, 44px di altezza minima come ogni altro bottone dell'app. Variante `.care-act--rose` quando la riga è urgente/scaduta. È il pattern canonico per "questa riga è completata" ovunque compaia nell'app (scheda pianta, dossier pianta, Home, Attività): non introdurre una seconda implementazione con `.btn`/`.btn-rose` e dimensioni forzate via stile inline.

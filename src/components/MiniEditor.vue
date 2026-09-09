@@ -129,8 +129,8 @@ watch(() => props.modelValue, (nuovo) => {
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  border: 1px solid var(--cream-dark, #ddd);
-  background: var(--white, #fff);
+  border: 1px solid var(--cream-dark);
+  background: var(--white);
   cursor: pointer;
   font-size: 14px;
   display: flex;
@@ -138,8 +138,8 @@ watch(() => props.modelValue, (nuovo) => {
   justify-content: center;
 }
 .mini-editor-btn.attivo {
-  background: var(--sage-pale, #e4ede4);
-  border-color: var(--sage, #7a9e82);
+  background: var(--sage-pale);
+  border-color: var(--sage);
 }
 .mini-editor-content {
   min-height: 90px;
@@ -154,6 +154,6 @@ watch(() => props.modelValue, (nuovo) => {
 }
 .mini-editor-content:empty::before {
   content: attr(data-placeholder);
-  color: var(--ink-faint, #999);
+  color: var(--ink-faint);
 }
 </style>

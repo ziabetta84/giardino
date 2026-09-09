@@ -34,13 +34,15 @@
       <ZorbaLogo ref="zorbaLogo" class="hero__z" />
     </div>
 
-    <!-- TEMPORANEO: pannello per forzare stagione/luce e vedere a comando il
+    <!-- Pannello di QA visiva: forza stagione/luce per vedere a comando il
          ridisegno cinematico e le altre scene, senza aspettare un vero
-         cambio di stagione/tramonto. Fuori da .hero apposta: .hero ha
-         overflow:hidden e un'altezza pensata solo per la scena, qualunque
-         cosa aggiunta lì dentro viene ritagliata via e resta invisibile.
-         Solo in sviluppo (assente in build di produzione): da rimuovere
-         quando non serve più. -->
+         cambio di stagione/tramonto (l'unico modo pratico di rivedere tutte
+         le combinazioni in fase di sviluppo/verifica). Fuori da .hero
+         apposta: .hero ha overflow:hidden e un'altezza pensata solo per la
+         scena, qualunque cosa aggiunta lì dentro viene ritagliata via e
+         resta invisibile. Escluso dalla build di produzione via
+         `import.meta.env.DEV` (dead-code eliminato da Vite): resta
+         infrastruttura di sviluppo permanente, non uno scarto da rimuovere. -->
     <div v-if="modalitaSviluppo" class="hero-debug">
       <span class="hero-debug__label">Test scena (solo sviluppo)</span>
       <div class="hero-debug__row">
@@ -269,9 +271,9 @@ const luceScena = computed(() => {
   return (adesso.value >= new Date(g.alba) && adesso.value < new Date(g.tramonto)) ? 'giorno' : 'notte'
 })
 
-// TEMPORANEO: forzatura manuale di stagione/luce per il pannello di test
-// qui sotto — assente in produzione (vedi modalitaSviluppo). null = usa il
-// valore reale calcolato sopra.
+// Forzatura manuale di stagione/luce per il pannello di QA visiva qui sotto
+// — assente in produzione (vedi modalitaSviluppo). null = usa il valore
+// reale calcolato sopra.
 const modalitaSviluppo = import.meta.env.DEV
 const stagioneForzata = ref(null)
 const luceForzata = ref(null)
@@ -490,7 +492,7 @@ onMounted(async () => {
    CTA sotto il testo): margine solo qui, non nella classe condivisa. */
 .empty__cta { margin-top: 14px; text-decoration: none; }
 
-/* TEMPORANEO: pannello di test scena, vedi commento nel template. */
+/* Pannello di QA visiva per la scena, vedi commento nel template. */
 .hero-debug {
   display: flex; flex-direction: column; gap: 6px;
   margin: 10px 0 18px; padding: 10px 12px;

@@ -118,7 +118,7 @@ onBeforeUnmount(() => clearTimeout(timer))
   display: flex; align-items: center; gap: 14px;
   background: var(--ink); color: var(--cream);
   border-radius: 20px; padding: 12px 14px 12px 18px;
-  box-shadow: 0 10px 30px rgba(22,16,8,0.28);
+  box-shadow: 0 10px 30px rgba(42,34,24,0.28);
   font: 500 13px/1.2 var(--font-sans); white-space: nowrap;
   animation: cura-toast-in var(--motion-sheet) var(--ease-standard);
 }

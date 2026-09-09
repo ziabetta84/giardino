@@ -516,7 +516,7 @@ watch(() => props.modelValue, () => {
 }
 .dd-thumb {
   width: 34px; height: 34px;
-  border-radius: 9px;
+  border-radius: 8px;
   flex: none;
   background-size: cover;
   background-position: center;
@@ -603,9 +603,9 @@ watch(() => props.modelValue, () => {
 }
 .sc-th {
   width: 44px; height: 44px;
-  border-radius: 10px;
+  border-radius: 8px;
   flex: none;
-  background: linear-gradient(140deg, #95b592, #5c7d60);
+  background: linear-gradient(140deg, var(--sage), var(--sage-dark));
   background-size: cover;
   background-position: center;
 }

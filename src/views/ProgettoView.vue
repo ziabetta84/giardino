@@ -5,8 +5,8 @@
     <template v-if="store.loading">
       <div class="skeleton" style="height:28px;width:60%;margin-bottom:8px;"></div>
       <div class="skeleton" style="height:14px;width:40%;margin-bottom:24px;"></div>
-      <div class="skeleton" style="height:160px;border-radius:16px;margin-bottom:12px;"></div>
-      <div class="skeleton" style="height:120px;border-radius:16px;"></div>
+      <div class="skeleton" style="height:160px;border-radius:20px;margin-bottom:12px;"></div>
+      <div class="skeleton" style="height:120px;border-radius:20px;"></div>
     </template>
 
     <template v-else-if="!form">

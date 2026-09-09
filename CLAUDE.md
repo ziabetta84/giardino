@@ -6,6 +6,10 @@ Questo file fornisce indicazioni a Claude Code (claude.ai/code) per lavorare in 
 
 **Giardino di Rob** — applicazione web Vue 3 per la gestione di un giardino personale a Centinarola, Fano (PU), Italia. Tutti i contenuti sono in italiano.
 
+## Obiettivo di progetto
+
+Oltre alla gestione del giardino personale, il progetto ha un obiettivo esplicito di **diffusione**: l'utente lavora presso un'agenzia e punta a convincerla a sponsorizzarlo. Questo significa che le scelte di design, robustezza e rifinitura vanno valutate anche con l'occhio di chi deve mostrare l'app a terzi come prodotto, non solo di chi la usa da solo — coerenza visiva, assenza di elementi abbozzati o temporanei (es. pannelli di debug lasciati in vista), stabilità di ciò che è già costruito contano quanto le nuove funzionalità. Non è un mandato a snaturare l'app in un prodotto generico: il contesto resta un giardino specifico a Centinarola, la mascotte Zorba e la palette (vedi sotto) restano fissi — l'obiettivo è la qualità con cui questo caso specifico viene raccontato e mostrato.
+
 ## Comandi principali
 
 ```bash

@@ -1,5 +1,11 @@
 // Logica valutazione cure (irrigazione, concimazione, calcio; potatura solo come etichetta)
 
+// Stagioni meteorologiche per mese intero, tarate sull'emisfero nord/calendario
+// italiano — coerente con la stessa scelta di scope già dichiarata in
+// useZonaClimatica.js (euristica calibrata sulla sola penisola italiana). Non
+// un'assunzione dimenticata: finché l'app resta pensata per giardini italiani,
+// generalizzare solo qui per un ipotetico utente nell'emisfero sud servirebbe
+// a poco, dato che il resto dell'app (zona climatica) non lo supporterebbe comunque.
 const STAGIONE_MESI = {
   primavera: [3,4,5],
   estate:    [6,7,8],
