@@ -904,5 +904,16 @@
       "messaggio": "Cocciniglie e formiche insieme sono un'associazione classica: le formiche \"allevano\" le cocciniglie proteggendole dai predatori naturali in cambio della melata zuccherina che producono — è già l'alert noto in scheda per il tuo arancio (\"controllare eventuali cocciniglie in estate\"), ora manifestato.\n\nAzione concreta:\n1. Interrompi il percorso delle formiche verso il ramo: applica una fascia collosa (banda adesiva per tronchi) o terra di diatomee alla base del ramo/tronco — senza allontanare le formiche, ogni trattamento sulle cocciniglie sarà meno efficace.\n2. Rimuovi meccanicamente le cocciniglie: passa un batuffolo con alcol denaturato o acqua e sapone di Marsiglia sulle placchette visibili, oppure se il ramo è piccolo e molto infestato, tallialo ed eliminalo (non compostarlo).\n3. Tratta poi con olio minerale bianco o olio di neem, spruzzato la sera o presto al mattino per evitare ustioni fogliari (a inizio settembre a Fano fa ancora caldo nelle ore centrali).\n4. Ripeti il trattamento dopo 7-10 giorni per colpire le nuove nascite sfuggite al primo passaggio.\n\nControlla anche le piante vicine: le formiche spesso spostano l'infestazione da un ramo all'altro.",
       "elaborata": "2026-09-07T21:00:00.000Z"
     }
+  },
+  "r-1788989026781-sl05": {
+    "tipo": "pianifica_progetto",
+    "messaggio": "ho raccolto i semi dell'allium sph. che ho in giardino nel lato sinistro dello scivolo. Quando potrei seminarlo? E come? In quale zona mi converrebbe piantarlo? Considera che la terra delle zone nello scivolo è leggermente più ricca e meno sabbiosa di altre zone come Est e Crinale.",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": "Semina Allium sphaerocephalon",
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-09T21:23:47.231Z",
+    "risposta": null
   }
 }
