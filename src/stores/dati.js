@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { useMeteo, LOCATION_FALLBACK } from '@/composables/useMeteo'
 import { useApi } from '@/composables/useApi'
 import { useSupabase } from '@/composables/useSupabase'
+import { irrigazioneDaRegistrareOggi } from '@/composables/useCure'
+import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -364,6 +366,38 @@ export const useDatiStore = defineStore('dati', () => {
       const { giorni, carica } = useMeteo()
       await carica(lat, lon, 2)
       meteo.value = giorni.value
+
+      // Irrigazione sospesa (pioggia prevista o programma automatico) ma
+      // comunque dovuta oggi: la registriamo da soli invece di continuare a
+      // segnalarla come cura da fare — l'utente ha già delegato quella
+      // decisione scegliendo un programma automatico, o la pioggia la copre
+      // di fatto. Gira una sola volta per sessione (stessa guardia di
+      // caricaTutto()), dopo che piante/specie/zone/programmi/meteo sono
+      // tutti pronti. Try/catch proprio: un fallimento di rete isolato qui
+      // non deve trasformarsi in un errore che nasconde dati già caricati
+      // con successo (stesso principio già applicato al meteo qui sopra).
+      try {
+        const daRegistrare = []
+        for (const [id, p] of Object.entries(piante.value)) {
+          const sp = specie.value?.[p.specie] ?? null
+          const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, programmiIrrigazione.value)?.ogniGiorni ?? null
+          const esterno = zone.value?.[p.zona]?.tipo === 'esterno'
+          if (irrigazioneDaRegistrareOggi(p, sp, { programmaAutomatico, esterno, meteo: meteo.value })) {
+            daRegistrare.push(id)
+          }
+        }
+        if (daRegistrare.length) {
+          const oggiStr = new Date().toISOString().split('T')[0]
+          await Promise.all(daRegistrare.map(async id => {
+            const ultima_cura = { ...(piante.value[id].ultima_cura ?? {}), irrigazione: oggiStr }
+            const { error } = await supabase.from('piante').update({ ultima_cura }).eq('id', id)
+            if (error) throw error
+            piante.value = { ...piante.value, [id]: { ...piante.value[id], ultima_cura } }
+          }))
+        }
+      } catch (e) {
+        console.error('Registrazione automatica irrigazione fallita:', e)
+      }
     } catch (e) {
       errore.value = e.message
     } finally {
