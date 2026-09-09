@@ -111,3 +111,28 @@ export function cureUrgentiPianta(pianta, specie, contesto) {
     .map(tipo => ({ tipo, ...valutaCura(pianta, specie, tipo, contesto) }))
     .filter(c => c.urgente)
 }
+
+// Se l'irrigazione di questa pianta è sospesa (dalla pioggia prevista o da
+// un programma automatico attivo, vedi useIrrigazioneAuto.js) ma sarebbe
+// comunque dovuta oggi secondo il proprio intervallo, l'app la registra da
+// sola al posto del promemoria manuale: si fida che l'irrigazione avvenga
+// per conto suo (pioggia reale, o un impianto/programma indipendente)
+// invece di continuare a chiederla all'utente. Puramente di lettura, come
+// valutaCura() — che resta l'unica fonte di verità per cosa mostrare in
+// interfaccia: questa funzione non la chiama e non ne altera il risultato,
+// serve solo a decidere se stores/dati.js deve scrivere ultima_cura.
+export function irrigazioneDaRegistrareOggi(pianta, specie, contesto = {}) {
+  if (pianta?.coltivato_in === 'acqua') return false
+
+  const sospesaDaAutomatico = contesto.programmaAutomatico != null
+  const sospesaDaPioggia = contesto.esterno && pioggiaInArrivo(contesto.meteo)
+  if (!sospesaDaAutomatico && !sospesaDaPioggia) return false
+
+  const intervallo = contesto.programmaAutomatico ?? parseGiorni(specie?.manutenzione?.irrigazione?.[stagione()])
+  if (!intervallo) return false
+
+  const ultimaStr = pianta?.ultima_cura?.irrigazione
+  if (!ultimaStr) return true
+  const trascorsi = Math.floor((new Date() - new Date(ultimaStr)) / 86400000)
+  return trascorsi >= intervallo
+}
