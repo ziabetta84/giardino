@@ -112,27 +112,30 @@ export function cureUrgentiPianta(pianta, specie, contesto) {
     .filter(c => c.urgente)
 }
 
-// Se l'irrigazione di questa pianta è sospesa (dalla pioggia prevista o da
-// un programma automatico attivo, vedi useIrrigazioneAuto.js) ma sarebbe
-// comunque dovuta oggi secondo il proprio intervallo, l'app la registra da
-// sola al posto del promemoria manuale: si fida che l'irrigazione avvenga
-// per conto suo (pioggia reale, o un impianto/programma indipendente)
-// invece di continuare a chiederla all'utente. Puramente di lettura, come
-// valutaCura() — che resta l'unica fonte di verità per cosa mostrare in
-// interfaccia: questa funzione non la chiama e non ne altera il risultato,
-// serve solo a decidere se stores/dati.js deve scrivere ultima_cura.
-export function irrigazioneDaRegistrareOggi(pianta, specie, contesto = {}) {
+// Se il programma di irrigazione automatica di questa pianta (giardino,
+// zona, sottozona o pianta — vedi useIrrigazioneAuto.js) la rende sospesa
+// ma sarebbe comunque dovuta oggi, l'app la registra da sola al posto del
+// promemoria manuale: si fida che l'irrigazione avvenga per conto suo
+// (un impianto o un programma indipendente) invece di continuare a
+// chiederla all'utente. Puramente di lettura, come valutaCura() — che
+// resta l'unica fonte di verità per cosa mostrare in interfaccia: questa
+// funzione non la chiama e non ne altera il risultato, serve solo a
+// decidere se stores/dati.js deve scrivere ultima_cura.
+//
+// Deliberatamente NON copre la sospensione per pioggia prevista: una
+// previsione a 48 ore non è un fatto avvenuto, e oggi la sospensione da
+// pioggia si autocorregge da sola (se la previsione cambia, il promemoria
+// torna) — scrivere una registrazione permanente sulla sola base di una
+// previsione toglierebbe quella capacità di autocorrezione. Un'eventuale
+// estensione alla pioggia richiede prima di poter verificare la pioggia
+// caduta per davvero, non solo quella prevista — fuori dal perimetro di
+// questa funzione per ora, deciso esplicitamente in chat il 9 settembre 2026.
+export function irrigazioneDaRegistrareOggi(pianta, contesto = {}) {
   if (pianta?.coltivato_in === 'acqua') return false
-
-  const sospesaDaAutomatico = contesto.programmaAutomatico != null
-  const sospesaDaPioggia = contesto.esterno && pioggiaInArrivo(contesto.meteo)
-  if (!sospesaDaAutomatico && !sospesaDaPioggia) return false
-
-  const intervallo = contesto.programmaAutomatico ?? parseGiorni(specie?.manutenzione?.irrigazione?.[stagione()])
-  if (!intervallo) return false
+  if (contesto.programmaAutomatico == null) return false
 
   const ultimaStr = pianta?.ultima_cura?.irrigazione
   if (!ultimaStr) return true
   const trascorsi = Math.floor((new Date() - new Date(ultimaStr)) / 86400000)
-  return trascorsi >= intervallo
+  return trascorsi >= contesto.programmaAutomatico
 }
