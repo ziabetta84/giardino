@@ -104,13 +104,13 @@
     <FoglioLaterale :model-value="mostraForm" @update:model-value="v => { if (!v) chiudiForm() }" :titolo="titoloForm">
       <div v-if="mostraForm" class="foglio-form">
         <div v-if="suggerimento" class="irr-suggerimento">
-          <ZorbaLogo mini />
+          <ZorbaLogo mini aria-hidden="true" />
           <p v-if="suggerimento.tipo === 'numero'">
-            Zorba consiglia: ogni {{ suggerimento.ogniGiorni }} giorni.
-            <button v-if="giorniForm !== suggerimento.ogniGiorni" type="button" class="link-reset" @click="giorniForm = suggerimento.ogniGiorni">Usa questo</button>
+            Zorba consiglia: {{ testoOgniGiorni(suggerimento.ogniGiorni) }}<span v-if="suggerimento.copertura.conteggio < suggerimento.copertura.totale"> (dato disponibile per {{ suggerimento.copertura.conteggio }} piante su {{ suggerimento.copertura.totale }})</span>.
+            <button v-if="giorniForm !== suggerimento.ogniGiorni" type="button" class="link-reset" @click="applicaSuggerimento">Usa questo</button>
           </p>
           <p v-else>
-            Zorba nota una differenza: <strong>{{ suggerimento.piuEsigente }}</strong> ha bisogno di acqua ogni {{ suggerimento.minGiorni }} giorni, ma <strong>{{ suggerimento.menoEsigente }}</strong> regge fino a ogni {{ suggerimento.maxGiorni }} — troppo diverse per un programma comune. Conviene impostarle una per una.
+            Zorba nota una differenza: <strong>{{ suggerimento.piuEsigente }}</strong> ha bisogno di acqua {{ testoOgniGiorni(suggerimento.minGiorni) }}, ma <strong>{{ suggerimento.menoEsigente }}</strong><template v-if="suggerimento.maxGiorni !== null"> regge fino a {{ testoOgniGiorni(suggerimento.maxGiorni) }}</template><template v-else> in questo periodo non ne ha bisogno</template> — troppo diverse per un programma comune. Conviene impostarle una per una.
           </p>
         </div>
         <label class="field-label" for="irr-giorni">Ogni quanti giorni</label>
@@ -138,7 +138,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useIrrigazioneApi } from '@/composables/useIrrigazioneApi'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
@@ -236,6 +236,13 @@ function chiudiForm() {
   mostraForm.value = false
   targetForm.value = null
   suggerimento.value = null
+}
+function testoOgniGiorni(n) {
+  return n === 1 ? 'ogni giorno' : `ogni ${n} giorni`
+}
+function applicaSuggerimento() {
+  giorniForm.value = suggerimento.value.ogniGiorni
+  nextTick(() => document.getElementById('irr-giorni')?.focus())
 }
 async function salva() {
   if (!giorniForm.value || giorniForm.value < 1 || !targetForm.value) return
