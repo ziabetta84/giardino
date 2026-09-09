@@ -1,4 +1,4 @@
-import { stagione, parseGiorni } from './useCure.js'
+import { stagione, parseGiorni } from '@/composables/useCure'
 
 // Sopra questa soglia (intervallo più lungo ≥ N volte il più breve tra le
 // specie coinvolte), un unico numero per l'intera zona/sottozona finirebbe
