@@ -3,7 +3,7 @@
 // localStorage — login non controlla ancora nessun dato (arriva con la Fase 5),
 // serve solo a far esistere un account.
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useSupabase } from '@/composables/useSupabase'
 
 const supabase = useSupabase()
@@ -13,6 +13,16 @@ const supabase = useSupabase()
 // NavBar/StatusBar/AccountView vedono tutte la stessa sessione senza prop drilling.
 const utente = ref(null)
 const caricamento = ref(true)
+
+// Nome con cui l'utente vuole essere chiamato (saluto in Home, mail di
+// registrazione, contesti futuri): vive in user_metadata.nome di Supabase
+// Auth — scelto al posto di una colonna `settings` perché disponibile subito
+// in `utente` e interpolabile nel template email come {{ .Data.nome }}, cosa
+// che una riga `settings` (inesistente al momento del signUp) non permette.
+const nomeUtente = computed(() => {
+  const n = utente.value?.user_metadata?.nome
+  return typeof n === 'string' && n.trim() ? n.trim() : null
+})
 
 // true quando la sessione attuale viene da un link di recupero password
 // (evento PASSWORD_RECOVERY): AccountView mostra il form "imposta nuova
@@ -79,10 +89,19 @@ function traduci(error) {
 }
 
 export function useAuth() {
-  async function registrati(email, password) {
-    const { data, error } = await supabase.auth.signUp({ email, password })
+  async function registrati(email, password, nome) {
+    const { data, error } = await supabase.auth.signUp({
+      email, password, options: { data: { nome } },
+    })
     if (error) throw traduci(error)
     return data
+  }
+
+  // updateUser emette USER_UPDATED: onAuthStateChange qui sopra riaggiorna
+  // `utente` (e quindi `nomeUtente`) senza bisogno di un refresh manuale.
+  async function aggiornaNome(nome) {
+    const { error } = await supabase.auth.updateUser({ data: { nome } })
+    if (error) throw traduci(error)
   }
 
   async function accedi(email, password) {
@@ -110,7 +129,7 @@ export function useAuth() {
   }
 
   return {
-    utente, caricamento, recuperoInCorso, sessionePronta,
-    registrati, accedi, esci, richiediResetPassword, impostaNuovaPassword,
+    utente, nomeUtente, caricamento, recuperoInCorso, sessionePronta,
+    registrati, aggiornaNome, accedi, esci, richiediResetPassword, impostaNuovaPassword,
   }
 }

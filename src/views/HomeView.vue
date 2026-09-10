@@ -212,7 +212,7 @@ let giardinoGiaVistoInOrdine = false
 
 const store = useDatiStore()
 const pianteApi = usePianteApi()
-const { utente } = useAuth()
+const { utente, nomeUtente } = useAuth()
 // Rif. a ZorbaLogo per due reazioni distinte (vedi ZorbaLogo.vue): un
 // battito lento quando HeroAiuola segnala un cambio reale di stagione/luce
 // (raro, "Zorba nota il cambiamento"), e un battito normale ad ogni cura
@@ -231,12 +231,14 @@ function prefissoOra() {
   return 'Buonasera'
 }
 
-// Nessun profilo con nome proprio in Supabase Auth (solo email/password, vedi
-// useAuth.js): il saluto usa la parte locale dell'email come nome di
-// cortesia invece di un nome hardcoded, che era corretto solo per un unico
-// utente e sbagliato per chiunque altro ora che l'app è multiutente.
+// Il saluto usa il nome scelto dall'utente in fase di registrazione
+// (user_metadata.nome, vedi useAuth.js). Fallback alla parte locale dell'email
+// per gli account creati prima dell'introduzione del campo, o se lasciato
+// vuoto: mai un nome hardcoded, che era corretto solo per l'unico utente
+// iniziale e sbagliato per chiunque altro ora che l'app è multiutente.
 const saluto = computed(() => {
   const prefisso = prefissoOra()
+  if (nomeUtente.value) return `${prefisso}, ${nomeUtente.value}`
   const locale = utente.value?.email?.split('@')[0]
   if (!locale) return prefisso
   const nome = locale.split(/[._-]+/).filter(Boolean)

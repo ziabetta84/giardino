@@ -9,6 +9,30 @@
         <Icon name="persona" style="width:28px;height:28px;flex-shrink:0;" />
         <p style="font-size:13px;font-weight:600;word-break:break-all;">{{ utente.email }}</p>
       </div>
+
+      <label class="field-label">Nome</label>
+      <div v-if="!modificandoNome" style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
+        <!-- Nome scelto = identità della persona: Fraunces, come ogni nome nel
+             taccuino (Regola del Nome in Fraunces). L'email sopra resta in
+             DM Sans perché è un identificatore di servizio, non un nome. -->
+        <p v-if="nomeUtente" style="flex:1;font:600 15px/1.25 var(--font-display);color:var(--ink);">{{ nomeUtente }}</p>
+        <p v-else style="flex:1;font-size:13px;color:var(--ink-soft);">Non impostato</p>
+        <button type="button" class="btn btn-ghost" style="min-height:36px;padding:6px 14px;font-size:13px;" @click="iniziaModificaNome">Modifica</button>
+      </div>
+      <div v-else style="margin-bottom:16px;">
+        <div style="display:flex;gap:8px;">
+          <input v-model.trim="nomeInput" type="text" maxlength="50" autocomplete="name"
+            placeholder="Come vuoi essere chiamato" class="form-input"
+            style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="onSalvaNome">
+          <button type="button" class="btn btn-sage" style="min-height:36px;padding:6px 14px;font-size:13px;"
+            :disabled="!nomeInput.trim() || salvandoNome" @click="onSalvaNome">
+            {{ salvandoNome ? '…' : 'Salva' }}
+          </button>
+        </div>
+        <button type="button" class="link-reset" style="margin-top:8px;" @click="modificandoNome = false">Annulla</button>
+        <p v-if="erroreNome" role="alert" style="font-size:12px;color:var(--rose-dark);margin-top:8px;">{{ erroreNome }}</p>
+      </div>
+
       <button class="btn btn-ghost" :disabled="uscendo" @click="onEsci">
         {{ uscendo ? 'Uscita in corso…' : 'Esci' }}
       </button>
@@ -102,6 +126,11 @@
       </div>
 
       <form @submit.prevent="onInvia" style="display:flex;flex-direction:column;gap:10px;">
+        <div v-if="modalita === 'registrati'">
+          <label class="field-label">Nome</label>
+          <input v-model.trim="nome" type="text" autocomplete="name" maxlength="50"
+            placeholder="Come vuoi essere chiamato" required class="form-input" style="width:100%;">
+        </div>
         <div>
           <label class="field-label">Email</label>
           <input v-model.trim="email" type="email" autocomplete="email" required class="form-input" style="width:100%;" autofocus>
@@ -138,7 +167,7 @@ import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
 
 const router = useRouter()
-const { utente, caricamento, recuperoInCorso, accedi, registrati, esci, richiediResetPassword, impostaNuovaPassword } = useAuth()
+const { utente, nomeUtente, caricamento, recuperoInCorso, accedi, registrati, aggiornaNome, esci, richiediResetPassword, impostaNuovaPassword } = useAuth()
 const { salvaToken, rimuoviToken, tokenPresente } = useApi()
 
 const zorba = ref(null)
@@ -146,7 +175,14 @@ const zorba = ref(null)
 const modalita  = ref('accedi')
 const email     = ref('')
 const password  = ref('')
+const nome      = ref('')
 const nuovaPassword = ref('')
+
+// Modifica del nome dalla vista loggato (pattern inline come il token GitHub)
+const nomeInput       = ref('')
+const modificandoNome = ref(false)
+const salvandoNome    = ref(false)
+const erroreNome      = ref(null)
 const inviando  = ref(false)
 const uscendo   = ref(false)
 const errore    = ref(null)
@@ -172,6 +208,26 @@ function onRimuoviToken() {
   confermaRimozione.value = false
 }
 
+function iniziaModificaNome() {
+  nomeInput.value = nomeUtente.value || ''
+  erroreNome.value = null
+  modificandoNome.value = true
+}
+
+async function onSalvaNome() {
+  if (salvandoNome.value || !nomeInput.value.trim()) return
+  salvandoNome.value = true
+  erroreNome.value = null
+  try {
+    await aggiornaNome(nomeInput.value.trim())
+    modificandoNome.value = false
+  } catch (e) {
+    erroreNome.value = e.message || 'Errore durante il salvataggio.'
+  } finally {
+    salvandoNome.value = false
+  }
+}
+
 function cambiaModalita(nuova) {
   modalita.value = nuova
   errore.value = null
@@ -194,7 +250,7 @@ async function onInvia() {
       await accedi(email.value, password.value)
       router.push('/')
     } else {
-      await registrati(email.value, password.value)
+      await registrati(email.value, password.value, nome.value)
       emailConferma.value = email.value
       // Battito lento: evento raro (una tantum per account), non la conferma
       // quotidiana di confermaCura() — vedi "Regola dei Due Battiti" in ZorbaLogo.vue.
