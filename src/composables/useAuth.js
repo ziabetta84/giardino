@@ -74,18 +74,28 @@ supabase.auth.onAuthStateChange((evento, sessione) => {
 
 // Supabase Auth risponde in inglese: traduciamo solo i casi che un utente
 // incontra davvero nel flusso normale (email da confermare, credenziali
-// sbagliate, account duplicato) — il resto passa così com'è piuttosto che
-// inventare una traduzione per errori che non abbiamo mai visto succedere.
+// sbagliate, account duplicato, link scaduto, rete assente) — il resto passa
+// così com'è piuttosto che inventare una traduzione per errori mai visti.
 const MESSAGGI_ERRORE = {
   'Email not confirmed': 'Email non confermata: controlla la posta e clicca il link di conferma prima di accedere.',
   'Invalid login credentials': 'Email o password non corretti.',
   'User already registered': 'Esiste già un account con questa email.',
   'Password should be at least 6 characters': 'La password deve avere almeno 6 caratteri.',
+  'Email link is invalid or has expired': 'Il link non è più valido: richiedine uno nuovo.',
+  'Token has expired or is invalid': 'Il link non è più valido: richiedine uno nuovo.',
+  'Failed to fetch': 'Connessione assente: controlla la rete e riprova.',
+  'Load failed': 'Connessione assente: controlla la rete e riprova.',
 }
 
+// Alcuni messaggi di Supabase contengono un valore variabile (i secondi di
+// attesa dopo troppe richieste ravvicinate): non entrano in una mappa a
+// chiave esatta, li riconosciamo per frammento.
 function traduci(error) {
-  const messaggio = MESSAGGI_ERRORE[error.message] ?? error.message
-  return new Error(messaggio)
+  const grezzo = error?.message ?? ''
+  if (/only request this after|rate limit/i.test(grezzo)) {
+    return new Error('Troppi tentativi ravvicinati: aspetta un minuto e riprova.')
+  }
+  return new Error(MESSAGGI_ERRORE[grezzo] ?? grezzo)
 }
 
 export function useAuth() {
@@ -110,6 +120,14 @@ export function useAuth() {
     return data
   }
 
+  // Rimanda l'email di conferma quando la prima non arriva: senza questo, chi
+  // chiude la scheda dopo la registrazione resta bloccato ("Email non
+  // confermata" al login, nessun modo di farsela reinviare dall'app).
+  async function reinviaConferma(email) {
+    const { error } = await supabase.auth.resend({ type: 'signup', email })
+    if (error) throw traduci(error)
+  }
+
   async function esci() {
     const { error } = await supabase.auth.signOut()
     if (error) throw error
@@ -130,6 +148,7 @@ export function useAuth() {
 
   return {
     utente, nomeUtente, caricamento, recuperoInCorso, sessionePronta,
-    registrati, aggiornaNome, accedi, esci, richiediResetPassword, impostaNuovaPassword,
+    registrati, aggiornaNome, accedi, esci, reinviaConferma,
+    richiediResetPassword, impostaNuovaPassword,
   }
 }

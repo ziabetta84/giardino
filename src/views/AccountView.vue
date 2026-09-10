@@ -3,71 +3,79 @@
        si può permettere titolo e card come le altre view. -->
   <div v-if="!caricamento && utente && !recuperoInCorso" style="max-width:420px;margin:0 auto;">
     <h1 class="page-title" style="margin-bottom:24px">Account</h1>
-    <div class="form-card">
-      <p class="slabel">Accesso effettuato</p>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-        <Icon name="persona" style="width:28px;height:28px;flex-shrink:0;" />
-        <p style="font-size:13px;font-weight:600;word-break:break-all;">{{ utente.email }}</p>
+
+    <!-- Blocco identità: stesso Zorba che ti ha accolto all'ingresso, ora più
+         piccolo, e il nome scelto in Fraunces (Regola del Nome in Fraunces).
+         DESIGN.md indica questa vista come la più critica per la fiducia:
+         l'accesso effettuato non deve atterrare sullo schermo più anonimo
+         dell'app (critica 10/09/2026). -->
+    <div class="form-card account-id">
+      <div class="account-id__hd">
+        <ZorbaLogo mini />
+        <div style="min-width:0;flex:1;">
+          <div class="account-id__greet">
+            <p class="account-id__nome">{{ nomeUtente ? `Ciao, ${nomeUtente}` : 'Ciao' }}</p>
+            <button v-if="!modificandoNome" type="button" class="link-reset" @click="iniziaModificaNome">
+              {{ nomeUtente ? 'Modifica nome' : 'Aggiungi il tuo nome' }}
+            </button>
+          </div>
+          <p class="account-id__email">{{ utente.email }}</p>
+        </div>
       </div>
 
-      <label class="field-label">Nome</label>
-      <div v-if="!modificandoNome" style="display:flex;align-items:center;gap:8px;margin-bottom:16px;">
-        <!-- Nome scelto = identità della persona: Fraunces, come ogni nome nel
-             taccuino (Regola del Nome in Fraunces). L'email sopra resta in
-             DM Sans perché è un identificatore di servizio, non un nome. -->
-        <p v-if="nomeUtente" style="flex:1;font:600 15px/1.25 var(--font-display);color:var(--ink);">{{ nomeUtente }}</p>
-        <p v-else style="flex:1;font-size:13px;color:var(--ink-soft);">Non impostato</p>
-        <button type="button" class="btn btn-ghost" style="min-height:36px;padding:6px 14px;font-size:13px;" @click="iniziaModificaNome">Modifica</button>
-      </div>
-      <div v-else style="margin-bottom:16px;">
+      <div v-if="modificandoNome" class="account-id__nome-edit">
+        <label class="field-label" for="account-nome">Come vuoi essere chiamato</label>
         <div style="display:flex;gap:8px;">
-          <input v-model.trim="nomeInput" type="text" maxlength="50" autocomplete="name"
-            placeholder="Come vuoi essere chiamato" class="form-input"
-            style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="onSalvaNome">
-          <button type="button" class="btn btn-sage" style="min-height:36px;padding:6px 14px;font-size:13px;"
+          <input id="account-nome" v-model.trim="nomeInput" type="text" maxlength="50" autocomplete="name"
+            placeholder="Il tuo nome" class="form-input" style="flex:1;" @keyup.enter="onSalvaNome">
+          <button type="button" class="btn btn-sage"
             :disabled="!nomeInput.trim() || salvandoNome" @click="onSalvaNome">
             {{ salvandoNome ? '…' : 'Salva' }}
           </button>
         </div>
         <button type="button" class="link-reset" style="margin-top:8px;" @click="modificandoNome = false">Annulla</button>
-        <p v-if="erroreNome" role="alert" style="font-size:12px;color:var(--rose-dark);margin-top:8px;">{{ erroreNome }}</p>
+        <p v-if="erroreNome" role="alert" class="account-err">{{ erroreNome }}</p>
       </div>
 
-      <button class="btn btn-ghost" :disabled="uscendo" @click="onEsci">
+      <button class="btn btn-ghost" style="width:100%;" :disabled="uscendo" @click="onEsci">
         {{ uscendo ? 'Uscita in corso…' : 'Esci' }}
       </button>
-      <p v-if="errore" role="alert" style="font-size:13px;color:var(--rose-dark);margin-top:10px;">{{ errore }}</p>
+      <p v-if="errore" role="alert" class="account-err">{{ errore }}</p>
     </div>
 
     <div class="form-card" style="margin-top:16px;">
       <p class="slabel">Token GitHub</p>
-      <p style="font-size:13px;color:var(--ink-soft);margin-bottom:12px;">Serve per inviare richieste a Zorba e salvare modifiche ai dati del giardino (permesso <code>contents:write</code> sul repo).</p>
 
+      <!-- Configurato: riga discreta, i controlli stanno dietro "Gestisci".
+           È un meccanismo in via di dismissione (vedi CLAUDE.md), non deve
+           essere l'elemento più pesante della vista. -->
       <template v-if="tokenPresente && !modificandoToken">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;">
+        <div class="token-row">
           <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;color:var(--sage-dark);" />
-          <p style="font-size:13px;font-weight:600;color:var(--sage-dark);">Token configurato</p>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <button type="button" class="btn btn-ghost" style="flex:1;min-height:36px;font-size:13px;" @click="modificandoToken = true">Sostituisci</button>
-          <button type="button" class="btn btn-ghost" style="flex:1;min-height:36px;font-size:13px;color:var(--rose-dark);" @click="confermaRimozione = true">Rimuovi</button>
+          <p class="token-row__stato">Token configurato</p>
+          <button type="button" class="link-reset" @click="modificandoToken = true">Gestisci</button>
         </div>
       </template>
 
+      <!-- Assente (aggiunta senza attriti), o pannello "Gestisci" aperto -->
       <template v-else>
+        <p class="token-hint">Serve per inviare richieste a Zorba e salvare modifiche ai dati del giardino (permesso <code>contents:write</code> sul repo).</p>
         <div style="display:flex;gap:8px;">
-          <input v-model="tokenInput" type="password" placeholder="ghp_…" class="form-input"
-            style="flex:1;min-height:36px;font-size:13px;" @keyup.enter="onSalvaToken">
-          <button type="button" @click="onSalvaToken" :disabled="!tokenInput.trim()" class="btn btn-sage"
-            style="min-height:36px;padding:6px 14px;font-size:13px;">Salva</button>
+          <input v-model="tokenInput" type="password"
+            :placeholder="tokenPresente ? 'ghp_… (nuovo token)' : 'ghp_…'"
+            class="form-input" style="flex:1;" @keyup.enter="onSalvaToken">
+          <button type="button" class="btn btn-sage" :disabled="!tokenInput.trim()" @click="onSalvaToken">Salva</button>
         </div>
-        <button v-if="tokenPresente" type="button" class="link-reset" style="margin-top:8px;" @click="modificandoToken = false; tokenInput = ''">Annulla</button>
+        <div v-if="tokenPresente" style="display:flex;align-items:center;gap:12px;margin-top:8px;">
+          <button type="button" class="link-reset" @click="modificandoToken = false; tokenInput = ''">Annulla</button>
+          <button type="button" class="link-reset" style="color:var(--rose-dark);margin-left:auto;" @click="confermaRimozione = true">Rimuovi token</button>
+        </div>
       </template>
     </div>
 
     <RouterLink to="/impostazioni" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;text-decoration:none;color:inherit;">
       <span style="font-size:13px;font-weight:600;">Impostazioni giardino</span>
-      <Icon name="pin" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);" />
+      <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </RouterLink>
 
     <ModalConferma
@@ -109,23 +117,33 @@
     <!-- Conferma dopo la registrazione: pannello dedicato invece di lasciare
          il form invariato — è il momento a più alta posta emotiva del flusso
          (l'account resta inattivo finché non si clicca il link ricevuto via
-         mail), quindi non riceve solo una riga di testo (vedi critica 08/09/2026). -->
+         mail), quindi non riceve solo una riga di testo (vedi critica 08/09/2026).
+         Da qui si può anche farsi reinviare l'email se non è arrivata. -->
     <div v-else-if="emailConferma" role="status" style="text-align:center;display:flex;flex-direction:column;gap:10px;">
       <p style="font-size:13px;color:var(--ink-mid);line-height:1.5;">
         Ti abbiamo inviato un'email di conferma a<br>
         <strong style="color:var(--ink);word-break:break-all;">{{ emailConferma }}</strong>.<br>
         Apri il link per attivare l'account, poi torna qui per accedere.
       </p>
-      <button type="button" class="btn btn-ghost" @click="tornaAlLogin">Torna al login</button>
+      <p v-if="messaggio" role="status" style="font-size:12px;color:var(--sage-dark);">{{ messaggio }}</p>
+      <p v-if="errore" role="alert" style="font-size:12px;color:var(--rose-dark);">{{ errore }}</p>
+      <button type="button" class="btn btn-ghost" :disabled="inviando" @click="onReinviaConferma">
+        {{ inviando ? 'Un momento…' : 'Non è arrivata? Invia di nuovo' }}
+      </button>
+      <button type="button" class="link-reset" style="align-self:center;" @click="tornaAlLogin">Torna al login</button>
     </div>
 
     <template v-else>
       <div style="display:flex;gap:6px;margin-bottom:16px;justify-content:center;" role="tablist" aria-label="Modalità di accesso">
-        <button type="button" class="pill tab-icona" role="tab" :aria-selected="modalita === 'accedi'" :class="{ active: modalita === 'accedi' }" @click="cambiaModalita('accedi')">Accedi</button>
-        <button type="button" class="pill tab-icona" role="tab" :aria-selected="modalita === 'registrati'" :class="{ active: modalita === 'registrati' }" @click="cambiaModalita('registrati')">Registrati</button>
+        <button id="tab-accedi" type="button" class="pill" role="tab" aria-controls="pannello-accesso"
+          :aria-selected="modalita === 'accedi'" :class="{ active: modalita === 'accedi' }" @click="cambiaModalita('accedi')">Accedi</button>
+        <button id="tab-registrati" type="button" class="pill" role="tab" aria-controls="pannello-accesso"
+          :aria-selected="modalita === 'registrati'" :class="{ active: modalita === 'registrati' }" @click="cambiaModalita('registrati')">Registrati</button>
       </div>
 
-      <form @submit.prevent="onInvia" style="display:flex;flex-direction:column;gap:10px;">
+      <form id="pannello-accesso" role="tabpanel"
+        :aria-labelledby="modalita === 'accedi' ? 'tab-accedi' : 'tab-registrati'"
+        @submit.prevent="onInvia" style="display:flex;flex-direction:column;gap:10px;">
         <div v-if="modalita === 'registrati'">
           <label class="field-label">Nome</label>
           <input v-model.trim="nome" type="text" autocomplete="name" maxlength="50"
@@ -167,7 +185,7 @@ import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
 
 const router = useRouter()
-const { utente, nomeUtente, caricamento, recuperoInCorso, accedi, registrati, aggiornaNome, esci, richiediResetPassword, impostaNuovaPassword } = useAuth()
+const { utente, nomeUtente, caricamento, recuperoInCorso, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
 const { salvaToken, rimuoviToken, tokenPresente } = useApi()
 
 const zorba = ref(null)
@@ -206,6 +224,7 @@ function onSalvaToken() {
 function onRimuoviToken() {
   rimuoviToken()
   confermaRimozione.value = false
+  modificandoToken.value = false
 }
 
 function iniziaModificaNome() {
@@ -238,6 +257,8 @@ function tornaAlLogin() {
   emailConferma.value = null
   modalita.value = 'accedi'
   password.value = ''
+  errore.value = null
+  messaggio.value = null
 }
 
 async function onInvia() {
@@ -258,6 +279,21 @@ async function onInvia() {
     }
   } catch (e) {
     errore.value = e.message || 'Errore durante l\'operazione.'
+  } finally {
+    inviando.value = false
+  }
+}
+
+async function onReinviaConferma() {
+  if (inviando.value) return
+  errore.value = null
+  messaggio.value = null
+  inviando.value = true
+  try {
+    await reinviaConferma(emailConferma.value)
+    messaggio.value = 'Email di conferma inviata di nuovo.'
+  } catch (e) {
+    errore.value = e.message || 'Errore durante l\'invio.'
   } finally {
     inviando.value = false
   }
@@ -332,6 +368,31 @@ async function onEsci() {
 }
 .link-reset:hover { color: var(--ink); }
 .link-reset:disabled { opacity: .5; cursor: default; }
+
+/* Blocco identità della vista loggata: Zorba mini + saluto in Fraunces, con
+   un alone ad acquerello proprio — la stessa cura data allo stato slogato
+   (.account-hero), estesa alla metà loggata (critica 10/09/2026). */
+.form-card.account-id { position: relative; overflow: hidden; }
+.account-id::before {
+  content: '';
+  position: absolute; right: -44px; top: -54px;
+  width: 176px; height: 176px;
+  background: radial-gradient(circle, rgba(224,184,74,0.16) 0%, rgba(122,158,130,0.10) 55%, transparent 78%);
+  pointer-events: none;
+}
+.account-id > * { position: relative; }
+.account-id__hd { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+.account-id :deep(.zorba-mini) { width: 30px; height: 30px; flex: none; margin-top: 2px; }
+.account-id__greet { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
+.account-id__nome { font: 600 18px/1.25 var(--font-display); color: var(--ink); }
+.account-id__email { font-size: 13px; color: var(--ink-mid); word-break: break-all; margin-top: 4px; }
+.account-id__nome-edit { margin: -4px 0 16px; }
+.account-err { font-size: 12px; color: var(--rose-dark); margin-top: 10px; }
+
+/* Token GitHub — stato compatto di default */
+.token-row { display: flex; align-items: center; gap: 8px; }
+.token-row__stato { flex: 1; font-size: 13px; font-weight: 600; color: var(--sage-dark); }
+.token-hint { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5; }
 
 /* Alone ad acquerello dietro Zorba sulla superficie di primo contatto — un
    piccolo elemento illustrativo dedicato, distinto dal lavaggio globale su
