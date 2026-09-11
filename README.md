@@ -37,7 +37,7 @@ giardino/
 
 ### Assistente AI (`AgenteView.vue`)
 
-Le richieste inviate dall'utente vengono accodate in `richieste-agente.json`. Claude Code elabora la coda (comando `/elabora`), genera le risposte, aggiorna il JSON (ed eventualmente `specie.json`/`progetti.json`) e fa il commit.
+Le richieste inviate dall'utente vengono accodate in `richieste-agente.json`. Claude Code elabora la coda (comando `/zorbadice`), genera le risposte, aggiorna il JSON (ed eventualmente `specie.json`/`progetti.json`) e fa il commit.
 
 ---
 

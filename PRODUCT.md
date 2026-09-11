@@ -36,14 +36,14 @@ Non è un quaderno di appunti né un'app di identificazione piante generica: è 
 - Progetti con tappe (milestones) che calcolano una scadenza dal progresso reale, non solo date fisse.
 - Dispensa concimi con abbinamento concime↔pianta per distanza NPK normalizzata.
 - Galleria foto per pianta, organizzata per cartelle.
-- Coda di richieste AI (`richieste-agente.json`) ancora su GitHub/JSON, elaborata manualmente via comando `/elabora`, non in tempo reale: le risposte non sono istantanee.
+- Coda di richieste AI (`richieste-agente.json`) ancora su GitHub/JSON, elaborata manualmente via comando `/zorbadice`, non in tempo reale: le risposte non sono istantanee.
 - Catalogo specie è condiviso fra tutti gli utenti in sola lettura (nessuna scrittura pubblica); zone/sottozone/piante/progetti/tappe/concimi/impostazioni sono privati per utente (RLS).
 - Contenuti e interfaccia interamente in italiano.
 - Deploy statico su GitHub Pages (routing hash-based): nessun backend proprio oltre Supabase.
 
 ## Brand Commitments
 
-- Nome del progetto: "Giardino di Rob" / progetto Supabase "Il Giardino di Zorba".
+- Nome dell'app: "Zorba in giardino". (Repo e documenti interni: "Giardino di Rob"; il progetto Supabase resta etichettato "Il Giardino di Zorba".)
 - Mascotte/logo: **Zorba**, un gatto nero realmente esistito e sepolto nel giardino — va sempre reso nero, anche in dark mode (solo un alone più chiaro attorno, mai schiarire il gatto stesso). Unica eccezione ammessa alla palette colori.
 - Palette: rose `#cc6e6e`, gold `#e0b84a`, sage `#7a9e82`, olive `#9aaa5a`, cream `#faf7f2`.
 - Font: Fraunces (titoli display), DM Sans (UI/testo), Caveat (accento manoscritto).

@@ -69,8 +69,8 @@ Le **specie** sono ora gestite su **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`,
 
 - **Lettura**: `useDatiStore` (`stores/dati.js → caricaSpecie()`) legge le specie da Supabase via `useSupabase.js` (client con URL + chiave anon in `.env`, sicuri da versionare perché protetti dalle policy RLS). L'oggetto risultante mantiene la stessa forma usata da tutta l'app (stessa chiave `slug`, stessi campi `specie`, `coltivazione`, ecc. — mappati da `nome_scientifico`/`ciclo_colturale`, vedi `mappaSpecie()`).
 - **Fallback**: se Supabase non risponde, si ripiega su `specie.json` statico (fetch, non GitHub API) — file mantenuto solo come copia di riserva offline, non più aggiornato ad ogni scrittura: può quindi risultare via via disallineato da Supabase.
-- **Scrittura**: nessun client pubblico scrive più su `specie`. La modale crea/modifica di `SelettoreSpecie.vue` è stata rimossa nel redesign del selettore (il componente è ora in sola lettura); `SelettoreSpecie.vue` e `stores/dati.js` fanno solo `.select()`. Le policy RLS di scrittura "temporanee" (`specie: scrittura pubblica temporanea (insert|update)`, `true`) sono state **rimosse** — migration `supabase/migrations/20260904120000_specie_rls_solo_curatore.sql`. Ora per `anon`/`authenticated`: `SELECT` pubblico (policy `specie: lettura pubblica`), `INSERT` negato (42501), `UPDATE` = no-op su 0 righe, `DELETE` negato. Le scritture legittime (`/elabora` per `revisione_specie`, import da `fonti/`, migration) passano da **service-role / `postgres`**, che bypassano l'RLS e non sono toccate.
-- Il comando `/elabora` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json`.
+- **Scrittura**: nessun client pubblico scrive più su `specie`. La modale crea/modifica di `SelettoreSpecie.vue` è stata rimossa nel redesign del selettore (il componente è ora in sola lettura); `SelettoreSpecie.vue` e `stores/dati.js` fanno solo `.select()`. Le policy RLS di scrittura "temporanee" (`specie: scrittura pubblica temporanea (insert|update)`, `true`) sono state **rimosse** — migration `supabase/migrations/20260904120000_specie_rls_solo_curatore.sql`. Ora per `anon`/`authenticated`: `SELECT` pubblico (policy `specie: lettura pubblica`), `INSERT` negato (42501), `UPDATE` = no-op su 0 righe, `DELETE` negato. Le scritture legittime (`/zorbadice` per `revisione_specie`, import da `fonti/`, migration) passano da **service-role / `postgres`**, che bypassano l'RLS e non sono toccate.
+- Il comando `/zorbadice` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json`.
 - Le migration schema/dati vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`, import da fonti esterne — vedi `fonti/criterio-importazione.md`).
 
 ### Migrazione zone/sottozone/piante → Supabase (Fase 5, completata)
@@ -91,7 +91,7 @@ Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con 
 
 `cure_log` come tabella a parte e uno script di importazione per `coltivazione` erano nello scope originale della issue #122 ma sono stati chiusi come già soddisfatti: `piante.ultima_cura` (jsonb, solo l'ultima cura per tipo) copre l'unico uso reale oggi (calcolo urgenze), e `piante.coltivato_in` (vaso/terra/acqua) è lo stesso campo già descritto con un altro nome.
 
-`richieste-agente.json` resta l'unico dato ancora su GitHub/JSON senza scoping per utente — legato al comando `/elabora`, eseguito manualmente, va ridiscusso a parte in un round futuro.
+`richieste-agente.json` resta l'unico dato ancora su GitHub/JSON senza scoping per utente — legato al comando `/zorbadice`, eseguito manualmente, va ridiscusso a parte in un round futuro.
 
 ### Autenticazione utente (Fase 4 migrazione Supabase, avviata)
 
@@ -103,7 +103,7 @@ Il router (`router/index.js`) ha una guardia globale: senza sessione attiva, ogn
 
 ## Coda richieste agente AI
 
-Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.json` con stato `in_attesa`. Il comando `/elabora` (`.claude/commands/elabora.md`) contiene la procedura completa, tipo per tipo — è la fonte di verità, da consultare invece di indovinare il formato risposta; in sintesi: legge la coda, elabora ogni richiesta (può includere foto in base64), aggiorna il JSON con `stato: completata` e `risposta.messaggio`, azzera `foto` (per non far crescere il file oltre la soglia di ~1MB della Contents API), e fa commit.
+Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.json` con stato `in_attesa`. Il comando `/zorbadice` (`.claude/commands/zorbadice.md`) contiene la procedura completa, tipo per tipo — è la fonte di verità, da consultare invece di indovinare il formato risposta; in sintesi: legge la coda, elabora ogni richiesta (può includere foto in base64), aggiorna il JSON con `stato: completata` e `risposta.messaggio`, azzera `foto` (per non far crescere il file oltre la soglia di ~1MB della Contents API), e fa commit.
 
 Alcuni tipi scrivono anche altrove, non solo la risposta testuale:
 - `revisione_specie` → aggiorna anche la riga corrispondente nella tabella `specie` su Supabase (via MCP `execute_sql`/`apply_migration`), non `specie.json`
