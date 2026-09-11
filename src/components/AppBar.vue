@@ -2,7 +2,7 @@
   <header class="appbar">
     <span class="appbar__mark">
       <ZorbaLogo mini />
-      Il Giardino di Zorba
+      Zorba in giardino
     </span>
     <span class="appbar__actions">
       <RouterLink class="appbar__btn" to="/account" aria-label="Account">

@@ -32,8 +32,8 @@ export default defineConfig({
       injectRegister: false,
       includeAssets: ['favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png', 'apple-touch-icon.png'],
       manifest: {
-        name: 'Il Giardino di Zorba',
-        short_name: 'Il Giardino di Zorba',
+        name: 'Zorba in giardino',
+        short_name: 'Zorba',
         description: 'Gestione del giardino di Centinarola, Fano (PU)',
         start_url: '/giardino/',
         scope: '/giardino/',

@@ -2,7 +2,7 @@
   <nav class="sidebar">
     <span class="sidebar__mark">
       <ZorbaLogo mini />
-      Il Giardino di Zorba
+      Zorba in giardino
     </span>
 
     <RouterLink to="/" exact-active-class="on">

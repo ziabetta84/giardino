@@ -95,7 +95,7 @@
     <div class="account-hero">
       <ZorbaLogo ref="zorba" style="width:64px;height:64px;margin:0 auto 8px;" />
       <h1 class="page-title">
-        {{ recuperoInCorso ? 'Nuova password' : (emailConferma ? 'Controlla la posta' : 'Entra nel Giardino di Zorba') }}
+        {{ recuperoInCorso ? 'Nuova password' : (emailConferma ? 'Controlla la posta' : 'Lascia entrare Zorba in giardino') }}
       </h1>
     </div>
 
