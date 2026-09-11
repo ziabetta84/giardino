@@ -11,6 +11,39 @@
         ],
         "createdAt": "2026-09-05T07:36:57.467Z",
         "reason": "Indicatore puntini carosello (.puntini span, 2-8 elementi statici): animare width qui non causa reflow misurabile (nessun sibling/contenuto sotto si sposta, riga flex isolata di pochi px). Una versione a transform:scaleX() distorcerebbe il cerchio in un'ellisse durante la transizione — sacrificio visivo per un guadagno prestazionale impercettibile a questa scala"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "sf mono",
+        "createdAt": "2026-09-10T23:01:50.242Z",
+        "reason": "model: monospace stack for inline <code> only (technical section), not a brand display/body font; DESIGN.md type system intentionally omits mono"
+      },
+      {
+        "rule": "numbered-section-labels",
+        "value": "*",
+        "files": [
+          "public/stato-progetto.html"
+        ],
+        "createdAt": "2026-09-10T23:06:31.536Z",
+        "reason": "model: DESIGN.md 'Timeline delle tappe' component — date label above each milestone heading, not decorative section numbering"
+      },
+      {
+        "rule": "all-caps-body",
+        "value": "*",
+        "files": [
+          "public/stato-progetto.html"
+        ],
+        "createdAt": "2026-09-10T23:06:31.550Z",
+        "reason": "model: eyebrow + section/scheda labels per DESIGN.md label typography (uppercase tracked); body copy is normal case"
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "public/stato-progetto.html"
+        ],
+        "createdAt": "2026-09-10T23:06:31.562Z",
+        "reason": "model: DESIGN.md 'Regola del Nome in Fraunces' — display face on every heading/name; body, ledes, labels, captions all DM Sans"
       }
     ]
   }
