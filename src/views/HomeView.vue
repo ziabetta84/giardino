@@ -31,7 +31,8 @@
         </div>
       </div>
 
-      <ZorbaLogo ref="zorbaLogo" class="hero__z" />
+      <ZorbaLogo ref="zorbaLogo" class="hero__z"
+        :class="luceEffettiva === 'notte' ? 'hero__z--notte' : 'hero__z--giorno'" />
     </div>
 
     <!-- Pannello di QA visiva: forza stagione/luce per vedere a comando il
