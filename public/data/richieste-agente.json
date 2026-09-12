@@ -915,5 +915,16 @@
     "stato": "in_attesa",
     "creata": "2026-09-09T21:23:47.231Z",
     "risposta": null
+  },
+  "r-1789197054692-wwmg": {
+    "tipo": "pianifica_progetto",
+    "messaggio": "Quest'anno l'allium è finalmente fiorito, ho raccolto i semi e li ho conservato in vaso. Si possono seminare? Quando? È necessaria una tecnica particolare?",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": "Semina allium sphaeroncephalon",
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-12T07:10:55.253Z",
+    "risposta": null
   }
 }
