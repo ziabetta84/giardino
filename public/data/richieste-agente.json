@@ -940,9 +940,12 @@
     "progetto": "beeaf4ef-49a3-4898-9521-f7c2947a130d",
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-09-13T10:50:57.525Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Buon segno che il seme non sia ammuffito: è ancora vitale, semplicemente in dormienza. Dopo circa 7 settimane a temperatura ambiente senza radichetta né germoglio, il nocciolo di albicocco ha probabilmente bisogno di un periodo di freddo per rompere la dormienza (comune nei semi di drupacee) — è esattamente lo scenario già previsto nel piano del progetto.\n\nConsiglio: sposta subito il sacchetto (tovagliolo umido, non zuppo) nello scomparto verdure del frigorifero, 3-5°C, per 6-8 settimane. Controlla ogni 1-2 settimane che l'umidità sia mantenuta e che non compaia muffa. La radichetta dovrebbe comparire tra inizio e metà novembre; a quel punto va seminato subito in vaso con terriccio drenante (radichetta verso il basso, 2-3 cm di profondità).\n\nHo aggiornato il progetto \"Albicocco\": registrato questo controllo come tappa e spostate di conseguenza in avanti le tappe di fine stratificazione (8/11) e verifica generale (24/12).",
+      "elaborata": "2026-09-13T00:00:00.000Z"
+    }
   },
   "r-1789296741686-me3j": {
     "tipo": "pianifica_progetto",
@@ -951,8 +954,11 @@
     "progetto": "8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c",
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-09-13T10:52:22.469Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Piselli: la germinazione a zero è quasi certamente dovuta al caldo intenso di agosto — i piselli germinano male (o marciscono) sopra i 20-25°C, e la semina del 10/08 è caduta in piena fascia calda estiva. Risemina ora in semenzaio: con le temperature più miti di metà settembre la germinazione dovrebbe riuscire, in genere 7-12 giorni.\n\nCavolo nero: perdere 5 piantine su 8 dopo il travaso è un tasso di mortalità alto ma non insolito da stress da trapianto/caldo; controlla comunque le 3 superstiti per altiche o afidi sulla pagina inferiore delle foglie. Semina altri 5-6 semi ora per completare la fila Nord-Centro: il cavolo nero tollera bene semine scalari anche a metà settembre.\n\nHo aggiornato il progetto \"Orto Autunno-Inverno\": registrate le due mancate riuscite, aggiunte le tappe di risemina (16/09) e posticipato il trapianto in campo dal 6/10 al 20/10 per dare tempo alle nuove piante di raggiungere una taglia adeguata (di conseguenza slitta al 5/12 anche la prima raccolta di cavolo nero).",
+      "elaborata": "2026-09-13T00:00:00.000Z"
+    }
   }
 }
