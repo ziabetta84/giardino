@@ -30,7 +30,14 @@ export default defineConfig({
       // automaticamente: così la StatusBar può sapere con certezza quando un
       // aggiornamento è davvero pronto prima di ricaricare la pagina.
       injectRegister: false,
-      includeAssets: ['favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png', 'apple-touch-icon.png'],
+      includeAssets: [
+        'favicon.ico',
+        'favicon-16x16.png',
+        'favicon-32x32.png',
+        'apple-touch-icon.png',
+        'android-chrome-192x192-maskable.png',
+        'android-chrome-512x512-maskable.png',
+      ],
       manifest: {
         name: 'Zorba in giardino',
         short_name: 'Zorba',
@@ -41,8 +48,10 @@ export default defineConfig({
         theme_color: '#faf7f2',
         background_color: '#faf7f2',
         icons: [
-          { src: 'android-chrome-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: 'android-chrome-512x512.png', sizes: '512x512', type: 'image/png' },
+          { src: 'android-chrome-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: 'android-chrome-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: 'android-chrome-192x192-maskable.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },
+          { src: 'android-chrome-512x512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
