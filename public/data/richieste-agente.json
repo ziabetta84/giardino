@@ -932,5 +932,16 @@
       "messaggio": "Questa richiesta descrive lo stesso raccolto di semi di Allium sphaerocephalon già segnalato nella richiesta del 9/09 (non ancora elaborata a quel momento): ho unificato le due nella stessa scheda progetto \"Semina Allium sphaerocephalon\" invece di creare un secondo progetto duplicato — trovi lì il piano completo con le tappe.\n\nIn sintesi: sì, si possono seminare. Non serve una tecnica particolare oltre alla stratificazione a freddo naturale, indispensabile per la germinazione: semina in autunno in contenitori con substrato drenante (terriccio + sabbia), lasciati all'aperto esposti al freddo invernale. Germinazione attesa a fine inverno/inizio primavera 2027; i bulbi giovani impiegano poi 2-3 anni per arrivare a fiore.",
       "elaborata": "2026-09-12T00:00:00.000Z"
     }
+  },
+  "r-1789296656876-l4s3": {
+    "tipo": "pianifica_progetto",
+    "messaggio": "Il seme non è ammuffito, ma non ha nemmeno fatto né radichetta né germoglio. Cosa ne pensi?",
+    "specie": null,
+    "progetto": "beeaf4ef-49a3-4898-9521-f7c2947a130d",
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-13T10:50:57.525Z",
+    "risposta": null
   }
 }
