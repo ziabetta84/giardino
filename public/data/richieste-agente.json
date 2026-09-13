@@ -954,8 +954,11 @@
     "progetto": "8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c",
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-09-13T11:07:35.267Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Sì, ma non a contatto diretto con i semi: lo stallatico (anche se maturo) va sempre lavorato nel terreno con un certo anticipo, mai messo nel solco di semina — rischio di bruciature da eccesso di sali/ammoniaca e, per le carote in particolare, radici forcute/pelose da azoto in eccesso troppo vicino alla semina.\n\nPer le semine dirette imminenti (carote 22/09, spinaci 30/09 in Sud-Ovest): distribuisci 2-3 kg/m² di stallatico maturo e interralo a 15-20 cm mescolandolo bene al terreno, con almeno una settimana di anticipo sulla semina — meglio se due. Ho aggiornato la tappa \"Preparazione del terreno in Sud-Ovest\" spostandola al 15/09 e aggiungendo lo stallatico come opzione al posto/in aggiunta al compost.\n\nPer cavolo nero e piselli in risemina (16/09): niente stallatico nel semenzaio, è troppo \"forte\" per radichette appena germinate in un vassoio alveolato — lì serve solo terriccio universale per semine. Puoi però incorporarlo nelle file Nord-Rete/Nord-Centro in vista del trapianto del 20/10, dove il margine è maggiore trattandosi di piantine già sviluppate: ho aggiunto una tappa apposita all'1/10.",
+      "elaborata": "2026-09-13T00:00:00.000Z"
+    }
   }
 }
