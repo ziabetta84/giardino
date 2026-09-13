@@ -943,5 +943,16 @@
     "stato": "in_attesa",
     "creata": "2026-09-13T10:50:57.525Z",
     "risposta": null
+  },
+  "r-1789296741686-me3j": {
+    "tipo": "pianifica_progetto",
+    "messaggio": "Dei semi dei piselli che ho messo in semenzaio nessuno ha germogliato. Delle piantine di cavolo nero invece, ne sono sopravvissute solo 3. Cosa mi consigli?",
+    "specie": null,
+    "progetto": "8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c",
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-13T10:52:22.469Z",
+    "risposta": null
   }
 }
