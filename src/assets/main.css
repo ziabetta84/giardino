@@ -197,6 +197,19 @@ body::before {
   .fade-enter-active, .fade-leave-active { transition: none !important; }
 }
 
+/* Uscita di SplashAiuola.vue verso la Home compatta (HomeView.vue): globale
+   e non scoped perché l'elemento animato passa da un Teleport a body — una
+   classe scoped lì dentro rischia di non incontrare l'attributo giusto.
+   --motion-sheet (non --motion-quick): è una superficie a schermo intero
+   che si rivela, non la risposta di un controllo. La Home sotto è già
+   montata e ferma: qui basta dissolvere lo splash, non serve animare anche
+   lei (vedi commento in HomeView.vue sul perché niente "atterraggio"). */
+.splash-esce-leave-active { transition: opacity var(--motion-sheet) var(--ease-standard); }
+.splash-esce-leave-to { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .splash-esce-leave-active { transition: none !important; }
+}
+
 /* Skeleton */
 @keyframes shimmer {
   0%   { background-position: -600px 0; }

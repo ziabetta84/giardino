@@ -8,12 +8,20 @@
          fetch (in cache, quindi gratis in pratica) dell'immagine già usata
          dalla striscia, non vale la complessità di condividerle un'unica
          istanza per evitarlo. -->
-    <SplashAiuola v-if="mostraSplash"
-      :stagione="stagioneEffettiva" :luce="luceEffettiva"
-      :saluto="saluto" :data-oggi="oggi"
-      :num-piante="numPiante" :num-zone="numZone" :num-urgenti="numUrgenti"
-      :loading="store.loading" :errore="!!store.errore"
-      @fine="chiudiSplash" />
+    <!-- Dissolvenza in uscita (non un "atterraggio" del dipinto verso la
+         striscia: le due tele non sono garantite pixel-coerenti, un taglio
+         netto nasconde meglio una piccola discrepanza di stile di quanto
+         farebbe una trasformazione continua — decisione presa in shape).
+         La Home compatta sotto è già montata e ferma: la dissolvenza la
+         rivela, non la anima lei stessa. -->
+    <Transition name="splash-esce">
+      <SplashAiuola v-if="mostraSplash"
+        :stagione="stagioneEffettiva" :luce="luceEffettiva"
+        :saluto="saluto" :data-oggi="oggi"
+        :num-piante="numPiante" :num-zone="numZone" :num-urgenti="numUrgenti"
+        :loading="store.loading" :errore="!!store.errore"
+        @fine="chiudiSplash" />
+    </Transition>
 
     <!-- inert mentre lo splash è aperto: senza questo il resto della pagina
          resta comunque raggiungibile con Tab e visibile a uno screen reader
