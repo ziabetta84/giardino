@@ -77,15 +77,19 @@ const box = ref(null)
 // 0 = solo scena+Zorba, 1 = saluto/data, 2 = pillole — scandito sui tempi
 // dell'animazione di mount di ZorbaLogo.vue (tratteggio ~1.2s, battito a
 // 1.6s, coda a 2.0s) così saluto e pillole non anticipano Zorba che deve
-// ancora "arrivare" nella scena.
+// ancora "arrivare" nella scena. Tempi allungati dopo verifica live
+// (16/09/2026): 600/1400/3400ms lasciava leggere a malapena il saluto prima
+// di sparire — un rituale d'apertura raro (una volta per fascia) può
+// permettersi di restare fermo più a lungo, coerente col "ritmo lento da
+// fine giornata in giardino" di DESIGN.md.
 const fase = ref(0)
 let timers = []
 
 onMounted(() => {
   nextTick(() => box.value?.focus())
-  timers.push(setTimeout(() => { fase.value = 1 }, 600))
-  timers.push(setTimeout(() => { fase.value = 2 }, 1400))
-  timers.push(setTimeout(salta, 3400))
+  timers.push(setTimeout(() => { fase.value = 1 }, 700))
+  timers.push(setTimeout(() => { fase.value = 2 }, 1900))
+  timers.push(setTimeout(salta, 5200))
 })
 onUnmounted(() => timers.forEach(clearTimeout))
 
