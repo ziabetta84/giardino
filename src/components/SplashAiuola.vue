@@ -1,4 +1,10 @@
 <template>
+  <!-- Teleport a body: montato da HomeView.vue, quindi dentro .app-main, che
+       ha position:relative + z-index:1 (stacking context) — senza Teleport
+       lo splash resta intrappolato in quel contesto, e la StatusBar (fuori
+       da .app-main, z-index:50) gli passerebbe sopra nonostante il suo
+       z-index:480 locale. Stesso motivo/stesso pattern di LightboxFoto.vue. -->
+  <Teleport to="body">
   <div ref="box" class="splash" role="dialog" aria-modal="true" aria-label="Il tuo giardino"
     tabindex="-1" @click.self="salta" @keydown.esc="salta">
 
@@ -40,6 +46,7 @@
 
     <button type="button" class="splash__salta" @click="salta">Salta</button>
   </div>
+  </Teleport>
 </template>
 
 <script setup>
@@ -92,7 +99,6 @@ function salta() {
   position: fixed; inset: 0; z-index: 480; /* sotto BootLogo (500): HomeView aspetta bootCompletato prima di montarmi, ma resto comunque al riparo se i due dovessero mai sovrapporsi */
   overflow: hidden;
   background: var(--sage-bg);
-  display: flex; flex-direction: column; justify-content: flex-end;
   cursor: pointer;
 }
 .splash__scene { position: absolute; inset: 0; }
@@ -101,15 +107,20 @@ function salta() {
   background: linear-gradient(to top, rgba(20,16,8,.55), transparent 55%);
 }
 
+/* Due blocchi assoluti indipendenti, non una colonna flex: con flex
+   sarebbero finiti impilati uno sopra l'altro (Zorba sopra il testo) invece
+   che affiancati sullo stesso bordo inferiore. */
 .splash__z {
-  position: relative; z-index: 2; align-self: flex-end;
+  position: absolute; z-index: 2; right: 22px; bottom: 26px;
   width: 116px; height: 116px;
-  margin: 0 22px 6px 0;
 }
 .splash .splash__z--giorno { filter: drop-shadow(0 4px 8px rgba(122,90,21,.35)); }
 .splash .splash__z--notte  { filter: drop-shadow(0 0 6px rgba(242,232,216,.65)); }
 
-.splash__txt { position: relative; z-index: 2; padding: 0 22px 30px; cursor: default; }
+.splash__txt {
+  position: absolute; z-index: 2; left: 0; right: 0; bottom: 0;
+  padding: 0 152px 30px 22px; cursor: default; /* padding destro: spazio riservato a Zorba */
+}
 .splash__txt .date {
   font: 400 21px/1 var(--font-hand); color: #e9dfca;
 }
