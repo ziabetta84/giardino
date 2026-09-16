@@ -546,7 +546,7 @@ body::before {
    della versione precedente). Niente più padding testuale: l'unico
    contenuto interno è Zorba, posizionato in assoluto per conto suo. */
 .hero { position:relative; overflow:hidden;
-  aspect-ratio: 3.5 / 1; min-height:80px;
+  aspect-ratio: 4.5 / 1; min-height:70px;
   background:var(--sage-bg); }
 .hero__scene { position:absolute; inset:0; }
 /* Unica sfumatura rimasta: gli ultimi px in basso, dove il bordo esatto del
@@ -557,13 +557,14 @@ body::before {
    vivono ora su carta piena in .hero-info, non più sul dipinto. */
 .hero__scene::after { content:""; position:absolute; inset:0; background:
   linear-gradient(to bottom, transparent, transparent calc(100% - 10px), var(--cream) 100%); }
-/* Altezza relativa a quella della striscia (non larghezza: a 3.5:1 le due
-   non coincidono), non un pixel fisso — così Zorba resta nella stessa
-   proporzione sia sul telefono che quando .app-main tocca i suoi 920px di
-   larghezza massima, invece di restare minuscolo su schermi larghi o
-   sproporzionato su quelli stretti. */
-.hero__z { position:absolute; right:8px; bottom:6px; z-index:2;
-  height:46%; aspect-ratio:1; width:auto; min-height:42px; max-height:80px; }
+/* Altezza relativa a quella della striscia (non larghezza: la striscia non è
+   quadrata), non un pixel fisso — così Zorba resta nella stessa proporzione
+   sia sul telefono che quando .app-main tocca i suoi 920px di larghezza
+   massima. 70% (non 46%, la proporzione della versione precedente più alta):
+   su una striscia così bassa Zorba può restare grande e riconoscibile invece
+   di scalare in proporzione fino a diventare un timbro. */
+.hero__z { position:absolute; right:8px; bottom:4px; z-index:2;
+  height:70%; aspect-ratio:1; width:auto; min-height:48px; max-height:110px; }
 /* Zorba resta piatto nero (Regola di Zorba Nero) ma riceve un'ombra coerente
    con la luce del *dipinto* sotto di lui — non con il tema chiaro/scuro
    dell'app (due cose distinte: una è l'ora nella scena, l'altra è la

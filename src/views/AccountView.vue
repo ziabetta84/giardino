@@ -394,18 +394,5 @@ async function onEsci() {
 .token-row__stato { flex: 1; font-size: 13px; font-weight: 600; color: var(--sage-dark); }
 .token-hint { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5; }
 
-/* Alone ad acquerello dietro Zorba sulla superficie di primo contatto — un
-   piccolo elemento illustrativo dedicato, distinto dal lavaggio globale su
-   `body::before`, perché questa è la vista che DESIGN.md indica come più
-   critica per fiducia e non aveva finora nulla di proprio (critica 08/09/2026). */
-.account-hero { position: relative; text-align: center; margin-bottom: 20px; }
-.account-hero::before {
-  content: '';
-  position: absolute; left: 50%; top: -12px;
-  width: 132px; height: 132px; transform: translateX(-50%);
-  background: radial-gradient(circle, rgba(224,184,74,0.18) 0%, rgba(122,158,130,0.12) 55%, transparent 75%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-.account-hero > * { position: relative; }
+.account-hero { text-align: center; margin-bottom: 20px; }
 </style>
