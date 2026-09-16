@@ -9,16 +9,22 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
-import { bootCompletato } from '@/composables/useBootSequence'
+import { bootCompletato, splashInArrivo } from '@/composables/useBootSequence'
 
 const visibile = ref(true)
 
 onMounted(() => {
-  // durata totale animazione: 3s, poi dissolvenza verso il contenuto dell'app
+  // Quando sta per partire SplashAiuola.vue (fascia del saluto nuova, non
+  // "riduci movimento"), il logo-solo da 3s diventerebbe una seconda
+  // schermata d'ingresso subito prima di quella vera — ridondante e confuso
+  // (verificato live 16/09/2026). Resta solo il tempo minimo per coprire il
+  // primo paint della pagina; il resto del "benvenuto" lo fa la scena
+  // dipinta dello splash, non questo logo da solo.
+  const durata = splashInArrivo() ? 400 : 3000
   setTimeout(() => {
     visibile.value = false
     bootCompletato.value = true
-  }, 3000)
+  }, durata)
 })
 </script>
 

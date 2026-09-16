@@ -228,7 +228,7 @@ import HeroAiuola from '@/components/HeroAiuola.vue'
 import SplashAiuola from '@/components/SplashAiuola.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
-import { bootCompletato } from '@/composables/useBootSequence'
+import { bootCompletato, prefissoOra, fasciaGiaVista, segnaFasciaVista, movimentoRidotto } from '@/composables/useBootSequence'
 
 // Variabile di modulo, non di componente: si azzera solo con un reload vero,
 // non a ogni rimontaggio di HomeView (che avviene a ogni navigazione, vedi
@@ -250,15 +250,6 @@ const zorbaLogo = ref(null)
 
 const oggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
 
-// Prefisso per fascia oraria: un "Buongiorno" fisso alle 19 di sera rompe il
-// ritmo "da fine giornata in giardino" che l'app vuole avere.
-function prefissoOra() {
-  const ora = new Date().getHours()
-  if (ora < 12) return 'Buongiorno'
-  if (ora < 18) return 'Buon pomeriggio'
-  return 'Buonasera'
-}
-
 // Il saluto usa il nome scelto dall'utente in fase di registrazione
 // (user_metadata.nome, vedi useAuth.js). Fallback alla parte locale dell'email
 // per gli account creati prima dell'introduzione del campo, o se lasciato
@@ -276,32 +267,12 @@ const saluto = computed(() => {
 
 // Splash a schermo intero (SplashAiuola.vue): una volta per fascia del
 // saluto (mattina/pomeriggio/sera — stessi confini di prefissoOra(), non
-// duplicati), persistita in localStorage perché la sessione del browser
-// sopravvive a molte più aperture di questa vista di quante ne farebbe un
-// singolo mount. "Riduci movimento" salta lo splash (non ha senso fermo,
-// e il salto stesso sarebbe un'animazione) ma segna comunque la fascia come
-// vista, altrimenti si ripresenterebbe al primo cambio di stato reattivo.
-function fasciaCorrente() {
-  const p = prefissoOra()
-  if (p === 'Buongiorno') return 'mattina'
-  if (p === 'Buon pomeriggio') return 'pomeriggio'
-  return 'sera'
-}
-function chiaveFasciaOggi() {
-  return `${new Date().toISOString().slice(0, 10)}-${fasciaCorrente()}`
-}
-function fasciaGiaVista() {
-  try { return localStorage.getItem('giardino_splash_fascia') === chiaveFasciaOggi() }
-  catch { return true } // storage inaccessibile (es. modalità privata): non insistere
-}
-function segnaFasciaVista() {
-  try { localStorage.setItem('giardino_splash_fascia', chiaveFasciaOggi()) }
-  catch { /* storage inaccessibile: lo splash si ripresenterà, non è grave */ }
-}
-function movimentoRidotto() {
-  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
-}
-
+// duplicati: vedi useBootSequence.js, condiviso anche con BootLogo.vue),
+// persistita in localStorage perché la sessione del browser sopravvive a
+// molte più aperture di questa vista di quante ne farebbe un singolo mount.
+// "Riduci movimento" salta lo splash (non ha senso fermo, e il salto stesso
+// sarebbe un'animazione) ma segna comunque la fascia come vista, altrimenti
+// si ripresenterebbe al primo cambio di stato reattivo.
 const mostraSplash = ref(false)
 let fermaOsservazioneBoot = null
 if (fasciaGiaVista() || movimentoRidotto()) {
