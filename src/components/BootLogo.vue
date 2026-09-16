@@ -9,6 +9,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import { bootCompletato } from '@/composables/useBootSequence'
 
 const visibile = ref(true)
 
@@ -16,6 +17,7 @@ onMounted(() => {
   // durata totale animazione: 3s, poi dissolvenza verso il contenuto dell'app
   setTimeout(() => {
     visibile.value = false
+    bootCompletato.value = true
   }, 3000)
 })
 </script>

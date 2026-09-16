@@ -539,33 +539,31 @@ body::before {
 @keyframes z-blink { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(.08)} }
 
 /* ===== restyle: hero ===== */
-/* aspect-ratio invece di min-height fissi: un'altezza in pixel calcolata solo
-   per 390px/920px si rompeva a qualunque altra larghezza (es. una finestra
-   desktop più stretta), cambiando il rapporto e tagliando a volte i lati
-   invece dell'alto, in modo imprevedibile da una larghezza all'altra.
-   1536:904 scala con qualsiasi larghezza mantenendo lo stesso taglio
-   relativo ovunque — è il rapporto (1536×1024 meno ~120px dall'alto) che
-   lascia sole/luna dipinti in vista senza tagliare il fondo dell'aiuola. */
-.hero { position:relative; overflow:hidden; padding:15px 17px 16px;
-  aspect-ratio: 1536 / 904; min-height:200px;
+/* Striscia compatta (3.5:1, non più 1536:904): il dipinto è ora un
+   riferimento, non lo spazio d'ingresso — quello vive in SplashAiuola.vue a
+   schermo intero. aspect-ratio invece di un'altezza fissa in px scala con
+   qualunque larghezza senza dover ritestare ogni breakpoint (stesso motivo
+   della versione precedente). Niente più padding testuale: l'unico
+   contenuto interno è Zorba, posizionato in assoluto per conto suo. */
+.hero { position:relative; overflow:hidden;
+  aspect-ratio: 3.5 / 1; min-height:80px;
   background:var(--sage-bg); }
 .hero__scene { position:absolute; inset:0; }
-/* Il velo resta ancorato all'angolo in alto a sinistra (dove vivono data/
-   saluto) invece di stendersi su tutta la larghezza: ora che la scena è un
-   dipinto vero (non più un vettoriale piatto), coprire fino al 68% avrebbe
-   nascosto proprio il cespuglio "firma" di ogni stagione. */
-/* Terza sfumatura, solo negli ultimi 12px in basso: ognuno degli 8 dipinti ha
-   il suo tono di "crema" (sono 8 generazioni indipendenti, mai pixel-identiche),
-   e il bordo esatto dell'immagine incontra il crema vero dell'app senza
-   transizione — una giuntura visibile. Questa fascia la nasconde qualunque
-   sia il dipinto mostrato, invece di intonare a mano ciascuna delle 8 immagini. */
+/* Unica sfumatura rimasta: gli ultimi px in basso, dove il bordo esatto del
+   dipinto incontra il crema vero dell'app. Ognuno degli 8 dipinti ha il suo
+   tono di "crema" leggermente diverso (8 generazioni indipendenti) — questa
+   fascia nasconde la giuntura qualunque sia il dipinto mostrato. La sfumatura
+   diagonale che proteggeva il saluto non serve più: saluto/data/pillole
+   vivono ora su carta piena in .hero-info, non più sul dipinto. */
 .hero__scene::after { content:""; position:absolute; inset:0; background:
-  linear-gradient(100deg, var(--cream) 2%, color-mix(in srgb, var(--cream) 45%, transparent) 20%, transparent 40%),
-  linear-gradient(0deg, color-mix(in srgb, var(--cream) 32%, transparent), transparent 34%),
-  linear-gradient(to bottom, transparent, transparent calc(100% - 12px), var(--cream) 100%); }
-.hero__grid { position:relative; z-index:1; }
-.hero__txt { max-width:70%; }
-.hero__z { position:absolute; right:8px; bottom:0; z-index:2; width:106px; height:106px; }
+  linear-gradient(to bottom, transparent, transparent calc(100% - 10px), var(--cream) 100%); }
+/* Altezza relativa a quella della striscia (non larghezza: a 3.5:1 le due
+   non coincidono), non un pixel fisso — così Zorba resta nella stessa
+   proporzione sia sul telefono che quando .app-main tocca i suoi 920px di
+   larghezza massima, invece di restare minuscolo su schermi larghi o
+   sproporzionato su quelli stretti. */
+.hero__z { position:absolute; right:8px; bottom:6px; z-index:2;
+  height:46%; aspect-ratio:1; width:auto; min-height:42px; max-height:80px; }
 /* Zorba resta piatto nero (Regola di Zorba Nero) ma riceve un'ombra coerente
    con la luce del *dipinto* sotto di lui — non con il tema chiaro/scuro
    dell'app (due cose distinte: una è l'ora nella scena, l'altra è la
@@ -576,30 +574,21 @@ body::before {
    regola dark-theme generale a parità di classi. */
 .hero .hero__z--giorno { filter: drop-shadow(0 3px 5px rgba(122,90,21,.32)); }
 .hero .hero__z--notte { filter: drop-shadow(0 0 4px rgba(242,232,216,.6)); }
-/* Contorno di carta netto (non un alone sfocato, che sopra un dipinto denso
-   leggeva come una nebbia sgradevole invece che come protezione): quattro
-   copie diagonali a 1px ricalcano il bordo delle lettere, nello stesso
-   spirito del contorno a china spesso dei dipinti stessi, più un'ombra
-   morbida minima per un filo di stacco. Protegge la leggibilità da sé (come
-   le pillole, che hanno già un fondo proprio) invece di dipendere dal velo
-   largo quanto .hero__scene::after, che copre solo fino al 40% mentre
-   .hero__txt arriva al 70%. */
-.date { font-family:var(--font-hand); font-size:19px; color:var(--sage-ink); line-height:1.1;
-  text-shadow: -1px -1px 0 var(--cream), 1px -1px 0 var(--cream),
-    -1px 1px 0 var(--cream), 1px 1px 0 var(--cream), 0 1px 3px rgba(250,247,242,.8); }
+
+/* Saluto, data e pillole: carta piena sotto la striscia, non più sovrapposti
+   al dipinto — niente più bisogno del contorno di leggibilità (era un
+   cerotto già segnalato in critica, non una scelta di stile). */
+.hero-info { padding:14px 2px 4px; }
+.date { font-family:var(--font-hand); font-size:19px; color:var(--sage-ink); line-height:1.1; }
 .greet { font:600 24px/1.1 var(--font-display); letter-spacing:-0.01em;
-  margin:3px 0 9px; color:var(--ink); text-wrap:balance;
-  text-shadow: -1px -1px 0 var(--cream), 1px -1px 0 var(--cream),
-    -1px 1px 0 var(--cream), 1px 1px 0 var(--cream), 0 1px 4px rgba(250,247,242,.85); }
+  margin:3px 0 9px; color:var(--ink); text-wrap:balance; }
 .stat { display:flex; gap:7px; flex-wrap:wrap; }
 .stat span { font:600 11px/1 var(--font-sans); padding:5px 9px; border-radius:999px;
-  background:var(--cream); border:1px solid var(--cream-dark); color:var(--ink-mid); }
+  background:var(--white); border:1px solid var(--cream-dark); color:var(--ink-mid); }
 .stat b { color:var(--ink-mid); }
 .stat b.urg { color:var(--rose-ink); }
 
 @media (min-width: 640px) {
-  /* .hero non ha più un'altezza propria da correggere qui: aspect-ratio la
-     scala già da sola con qualunque larghezza (vedi sopra). */
   .phead-photo { height: 360px; }
 }
 

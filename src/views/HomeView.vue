@@ -1,38 +1,62 @@
 <template>
   <div>
-    <!-- Hero: aiuola a china, animata, con Zorba -->
+    <!-- Ingresso a schermo intero, una volta per fascia del saluto (vedi
+         mostraSplash più sotto): stessa scena della striscia qui sotto, ma a
+         piena pagina, con Zorba che entra animato seguito da saluto e
+         pillole. Monta HeroAiuola/ZorbaLogo in una seconda istanza,
+         indipendente dalla striscia sempre presente sotto: costa un secondo
+         fetch (in cache, quindi gratis in pratica) dell'immagine già usata
+         dalla striscia, non vale la complessità di condividerle un'unica
+         istanza per evitarlo. -->
+    <SplashAiuola v-if="mostraSplash"
+      :stagione="stagioneEffettiva" :luce="luceEffettiva"
+      :saluto="saluto" :data-oggi="oggi"
+      :num-piante="numPiante" :num-zone="numZone" :num-urgenti="numUrgenti"
+      :loading="store.loading" :errore="!!store.errore"
+      @fine="chiudiSplash" />
+
+    <!-- inert mentre lo splash è aperto: senza questo il resto della pagina
+         resta comunque raggiungibile con Tab e visibile a uno screen reader
+         (due <h1> "Buonasera, ..." in contemporanea, focus che scappa dal
+         "dialog" mentre è ancora visivamente sopra tutto) — coprirla
+         visivamente con position:fixed non basta. -->
+    <div :inert="mostraSplash">
+
+    <!-- Hero: aiuola a china, animata, con Zorba — striscia compatta,
+         niente più testo sovrapposto al dipinto (vedi hero-info sotto). -->
     <div class="hero">
       <div class="hero__scene">
         <HeroAiuola :stagione="stagioneEffettiva" :luce="luceEffettiva" @cambio-scena="zorbaLogo?.reagisci?.()" />
       </div>
 
-      <div class="hero__grid">
-        <div class="hero__txt">
-          <div class="date">{{ oggi }}</div>
-          <h1 class="greet">{{ saluto }}</h1>
-          <div class="stat">
-            <template v-if="store.loading">
-              <span class="skeleton" style="width:64px;height:22px;border-radius:999px;"></span>
-              <span class="skeleton" style="width:52px;height:22px;border-radius:999px;"></span>
-              <span class="skeleton" style="width:76px;height:22px;border-radius:999px;"></span>
-            </template>
-            <template v-else-if="store.errore">
-              <span>Dati non disponibili</span>
-            </template>
-            <template v-else-if="numPiante === 0">
-              <span>{{ numZone === 0 ? 'Pronto per iniziare' : 'Aggiungi una pianta' }}</span>
-            </template>
-            <template v-else>
-              <span>{{ numPiante }} piante</span>
-              <span>{{ numZone }} zone</span>
-              <span><b :class="{ urg: numUrgenti }">{{ numUrgenti }} piante da curare</b></span>
-            </template>
-          </div>
-        </div>
-      </div>
-
       <ZorbaLogo ref="zorbaLogo" class="hero__z"
         :class="luceEffettiva === 'notte' ? 'hero__z--notte' : 'hero__z--giorno'" />
+    </div>
+
+    <!-- Saluto, data e pillole: su carta piena, non più stampati sul
+         dipinto (era un cerotto di leggibilità, non una scelta di stile —
+         vedi critica dell'11/09). -->
+    <div class="hero-info">
+      <div class="date">{{ oggi }}</div>
+      <h1 class="greet">{{ saluto }}</h1>
+      <div class="stat">
+        <template v-if="store.loading">
+          <span class="skeleton" style="width:64px;height:22px;border-radius:999px;"></span>
+          <span class="skeleton" style="width:52px;height:22px;border-radius:999px;"></span>
+          <span class="skeleton" style="width:76px;height:22px;border-radius:999px;"></span>
+        </template>
+        <template v-else-if="store.errore">
+          <span>Dati non disponibili</span>
+        </template>
+        <template v-else-if="numPiante === 0">
+          <span>{{ numZone === 0 ? 'Pronto per iniziare' : 'Aggiungi una pianta' }}</span>
+        </template>
+        <template v-else>
+          <span>{{ numPiante }} piante</span>
+          <span>{{ numZone }} zone</span>
+          <span><b :class="{ urg: numUrgenti }">{{ numUrgenti }} piante da curare</b></span>
+        </template>
+      </div>
     </div>
 
     <!-- Pannello di QA visiva: forza stagione/luce per vedere a comando il
@@ -184,6 +208,7 @@
     </div>
 
     <ToastCura ref="toastCura" @errore="e => erroreRegistrazione = { key: `${e.id}-${e.tipo}`, messaggio: e.messaggio }" />
+    </div>
   </div>
 </template>
 
@@ -200,8 +225,10 @@ import { tappeAttese } from '@/composables/useProgetti'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ToastCura from '@/components/ToastCura.vue'
 import HeroAiuola from '@/components/HeroAiuola.vue'
+import SplashAiuola from '@/components/SplashAiuola.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
+import { bootCompletato } from '@/composables/useBootSequence'
 
 // Variabile di modulo, non di componente: si azzera solo con un reload vero,
 // non a ogni rimontaggio di HomeView (che avviene a ogni navigazione, vedi
@@ -246,6 +273,61 @@ const saluto = computed(() => {
     .map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ')
   return nome ? `${prefisso}, ${nome}` : prefisso
 })
+
+// Splash a schermo intero (SplashAiuola.vue): una volta per fascia del
+// saluto (mattina/pomeriggio/sera — stessi confini di prefissoOra(), non
+// duplicati), persistita in localStorage perché la sessione del browser
+// sopravvive a molte più aperture di questa vista di quante ne farebbe un
+// singolo mount. "Riduci movimento" salta lo splash (non ha senso fermo,
+// e il salto stesso sarebbe un'animazione) ma segna comunque la fascia come
+// vista, altrimenti si ripresenterebbe al primo cambio di stato reattivo.
+function fasciaCorrente() {
+  const p = prefissoOra()
+  if (p === 'Buongiorno') return 'mattina'
+  if (p === 'Buon pomeriggio') return 'pomeriggio'
+  return 'sera'
+}
+function chiaveFasciaOggi() {
+  return `${new Date().toISOString().slice(0, 10)}-${fasciaCorrente()}`
+}
+function fasciaGiaVista() {
+  try { return localStorage.getItem('giardino_splash_fascia') === chiaveFasciaOggi() }
+  catch { return true } // storage inaccessibile (es. modalità privata): non insistere
+}
+function segnaFasciaVista() {
+  try { localStorage.setItem('giardino_splash_fascia', chiaveFasciaOggi()) }
+  catch { /* storage inaccessibile: lo splash si ripresenterà, non è grave */ }
+}
+function movimentoRidotto() {
+  return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
+}
+
+const mostraSplash = ref(false)
+let fermaOsservazioneBoot = null
+if (fasciaGiaVista() || movimentoRidotto()) {
+  if (!fasciaGiaVista()) segnaFasciaVista()
+} else if (bootCompletato.value) {
+  // BootLogo (App.vue) ha già finito: nessuna copertura da aspettare, si
+  // può mostrare subito (caso tipico: si torna su Home più tardi nella
+  // sessione, in una fascia nuova).
+  mostraSplash.value = true
+} else {
+  // Avvio a freddo: BootLogo sta ancora coprendo lo schermo. Avviare qui i
+  // timer di SplashAiuola scorrerebbe l'intera sequenza nascosta dietro il
+  // logo di boot — si aspetta che finisca prima di montarlo davvero.
+  fermaOsservazioneBoot = watch(bootCompletato, (pronto) => {
+    if (!pronto) return
+    mostraSplash.value = true
+    fermaOsservazioneBoot?.()
+    fermaOsservazioneBoot = null
+  })
+}
+onUnmounted(() => fermaOsservazioneBoot?.())
+
+function chiudiSplash() {
+  mostraSplash.value = false
+  segnaFasciaVista()
+}
 
 // Il meteo di oggi viene dallo store (già caricato una volta da
 // caricaTutto() e condiviso con AttivitaView.vue): prima questa vista aveva
