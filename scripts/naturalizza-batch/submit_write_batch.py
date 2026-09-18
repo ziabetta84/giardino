@@ -22,7 +22,7 @@ SYSTEM_PROMPT = """Riscrivi la descrizione di specie botaniche per un catalogo i
 3. NIENTE LABEL "Famiglia botanica: X. Portamento: Y.": sono già colonne proprie del database (famiglia_botanica, ciclo_vitale), quindi ometterle come dump non è perdita — ma puoi comunque menzionarle in prosa naturale (es. "arbusto della famiglia delle Rosaceae"). Se il tipo comune coincide col nome della famiglia (es. "orchidea"/Orchidaceae) usa un termine neutro ("pianta della famiglia delle Orchidaceae") per non essere ridondante.
 4. NOMI COMUNI: escludili sempre, a meno che non siano nomi di cultivar/varietà specifici (tra apici singoli) o nomi comuni realmente diffusi anche in italiano (es. "Rambutan", "Durian", "Mango"). Non inventare mai una traduzione italiana di un nome comune inglese che non esiste davvero in italiano — in quel caso usa il nome scientifico come soggetto della frase.
 5. RUSTICITÀ RHS (H1a-H7): traducila SEMPRE in una temperatura testuale, mai il codice nudo, secondo questa tabella ufficiale (rhs.org.uk/advice/rhs-hardiness-rating): H1a oltre 15°C (serra riscaldata, tropicale); H1b 10-15°C (serra riscaldata, subtropicale); H1c 5-10°C (serra riscaldata, temperato caldo); H2 1-5°C (delicata, serra fresca/priva di gelo); H3 da -5 a 1°C (poco rustica, serra non riscaldata/riparo); H4 da -10 a -5°C (rustica, inverno medio); H5 da -15 a -10°C (rustica, inverno freddo); H6 da -20 a -15°C (molto rustica, inverno molto freddo); H7 sotto -20°C (estremamente rustica). Non aggiungere interpretazioni oltre questa tabella.
-6. NIENTE CITAZIONI-ELENCO DI CULTIVAR tipo "RHS elenca N cultivar coltivate (tra cui 'A', 'B')": i nomi esistono già come righe figlie nel database, ometterli non è perdita. Se una cultivar ha un tratto DISTINTIVO proprio descritto nel testo (es. un colore diverso dei fiori), menzionalo comunque brevemente nella narrativa della specie madre (non creare qui righe separate).
+6. NIENTE NOME DELLA FONTE DENTRO LA PROSA (RHS, PFAF, Le Georgiche, ecc.): un'enciclopedia non cita mai la propria fonte in una frase discorsiva — la provenienza è già tracciata a parte nella colonna `fonti`, non va ripetuta nel testo. Questo vale sia per le citazioni-elenco di cultivar tipo "RHS elenca N cultivar coltivate (tra cui 'A', 'B')" (i nomi esistono già come righe figlie nel database, ometterli non è perdita; se una cultivar ha un tratto DISTINTIVO proprio descritto nel testo, es. un colore diverso dei fiori, menzionalo comunque brevemente nella narrativa della specie madre, non creare qui righe separate) sia per il caso "descrizione del genere, da RHS"/"(fonte RHS)" quando manca contenuto specifico di specie: riformula senza nominare la fonte, es. "Non sono disponibili dati specifici per la specie: si riportano i tratti generali del genere X" oppure semplicemente descrivi il genere in prosa naturale senza premessa.
 7. NIENTE TIC DA IA: mai "non solo... ma anche", "un vero e proprio", "regalando/regalandoci", "cornice ideale", "vero gioiello". Varia la struttura delle frasi.
 8. CAMPO `alert`: contiene voci già strutturate (dati verificati). Regole per voce:
    a) Voci "Parassiti:", "Malattie:", "Potatura:", "Propagazione:" marcate "(RHS, testo originale in inglese)": traducile in italiano, rimuovi quella dicitura (ormai falsa), mantieni il prefisso semantico.
@@ -39,6 +39,7 @@ Usa sempre lo strumento fornito per rispondere, in un'unica chiamata."""
 TOOL = {
     "name": "restituisci_riscrittura",
     "description": "Restituisce la descrizione riscritta, l'array alert aggiornato e i flag di controllo qualità",
+    "strict": True,
     "input_schema": {
         "type": "object",
         "properties": {
@@ -48,11 +49,12 @@ TOOL = {
             "gia_corretto": {"type": "boolean"},
         },
         "required": ["descrizione_riscritta", "alert_riscritto", "fonte_troncata", "gia_corretto"],
+        "additionalProperties": False,
     },
 }
 
 
-def build_request(row: dict) -> dict:
+def build_request(row: dict, effort=None) -> dict:
     user_payload = {
         "nome": row.get("nome"),
         "famiglia_botanica": row.get("famiglia_botanica"),
@@ -61,30 +63,40 @@ def build_request(row: dict) -> dict:
         "alert": row.get("alert"),
         "descrizione": row.get("descrizione"),
     }
-    return {
-        "custom_id": row["id"],
-        "params": {
-            "model": MODEL,
-            "max_tokens": 2000,
-            "system": SYSTEM_PROMPT,
-            "tools": [TOOL],
-            "tool_choice": {"type": "tool", "name": TOOL["name"]},
-            "messages": [
-                {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)}
-            ],
-        },
+    params = {
+        "model": MODEL,
+        "max_tokens": 2000,
+        # System prompt identico su tutte le righe: cache_control lo rende
+        # rifatturabile a 0.1x sugli hit (best-effort in un batch concorrente,
+        # ma nessun costo aggiuntivo se non ci sono hit). TTL 1h invece del
+        # default 5 min per coprire meglio il tempo di elaborazione del batch.
+        "system": [
+            {"type": "text", "text": SYSTEM_PROMPT, "cache_control": {"type": "ephemeral", "ttl": "1h"}},
+        ],
+        "tools": [TOOL],
+        "tool_choice": {"type": "tool", "name": TOOL["name"]},
+        "messages": [
+            {"role": "user", "content": json.dumps(user_payload, ensure_ascii=False)}
+        ],
     }
+    if effort:
+        params["output_config"] = {"effort": effort}
+    return {"custom_id": row["id"], "params": params}
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--in", dest="infile", required=True)
     parser.add_argument("--out", default="write_batch_id.txt")
+    parser.add_argument(
+        "--effort", choices=["low", "medium", "high", "xhigh", "max"], default=None,
+        help="Sperimentale, per lo sweep costo/qualita sul prototipo: default omesso = thinking adattivo standard.",
+    )
     args = parser.parse_args()
 
     load_env()
     rows = json.loads(Path(args.infile).read_text())
-    requests = [build_request(r) for r in rows]
+    requests = [build_request(r, effort=args.effort) for r in rows]
 
     client = anthropic_client()
     batch = client.messages.batches.create(requests=requests)

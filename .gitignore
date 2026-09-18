@@ -10,3 +10,6 @@ fonti/rhs-varietà/
 backups/
 .impeccable/config.local.json
 .impeccable/hook.cache.json
+scripts/naturalizza-batch/*.json
+scripts/naturalizza-batch/*.sql
+scripts/naturalizza-batch/*_batch_id*.txt

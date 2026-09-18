@@ -47,16 +47,30 @@ RHS_QUERY = """
 SOURCES = {"hidden": HIDDEN_QUERY, "rhs": RHS_QUERY, "all": f"({HIDDEN_QUERY}) or ({RHS_QUERY})"}
 
 
+ORDER_CLAUSES = {
+    # Ha un'immagine Wikimedia (import una tantum) come proxy di notorieta: le
+    # specie davvero rare raramente hanno una foto CC decente su Commons,
+    # quelle comuni da giardino/orto quasi sempre si. random() come criterio
+    # secondario per non ripescare sempre le stesse righe in cima.
+    "popolarita": "order by (immagine is not null) desc, random()",
+    "random": "order by random()",
+    "slug": "order by slug",
+}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", choices=SOURCES, default="rhs")
     parser.add_argument("--limit", type=int, default=None, help="per un prototipo su un campione casuale")
+    parser.add_argument("--order", choices=ORDER_CLAUSES, default=None,
+                         help="popolarita = priorita alle specie con immagine (piu conosciute); default: slug, o random se --limit")
     parser.add_argument("--out", default="export.json")
     args = parser.parse_args()
 
     load_env()
     where = SOURCES[args.source]
-    order_limit = f"order by random() limit {args.limit}" if args.limit else "order by slug"
+    order = args.order or ("random" if args.limit else "slug")
+    order_limit = ORDER_CLAUSES[order] + (f" limit {args.limit}" if args.limit else "")
     query = f"""
         select json_agg(row_to_json(t)) from (
           select id, slug, nome, famiglia_botanica, ciclo_vitale, esigenze, alert, descrizione, fonti
@@ -68,7 +82,7 @@ def main():
     rows = run_psql_json(query) or []
     out_path = Path(args.out)
     save_json(out_path, rows)
-    print(f"Esportate {len(rows)} righe in {out_path} (source={args.source}{f', limit={args.limit}' if args.limit else ''})")
+    print(f"Esportate {len(rows)} righe in {out_path} (source={args.source}, order={order}{f', limit={args.limit}' if args.limit else ''})")
 
 
 if __name__ == "__main__":

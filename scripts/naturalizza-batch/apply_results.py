@@ -41,7 +41,7 @@ def main():
 
     to_write = []
     report = {"scritte": [], "saltate_fail": [], "saltate_errore_scrittura": [],
-              "saltate_troncate": [], "gia_corrette": []}
+              "saltate_troncate": [], "gia_corrette": [], "saltate_output_incompleto": []}
 
     for row_id, result in write_results.items():
         if row_id not in rows:
@@ -65,6 +65,12 @@ def main():
                     "problemi": verdict.get("output", {}).get("problemi") if verdict.get("ok") else [f"verifica {verdict.get('tipo')}"],
                 })
                 continue
+        if "descrizione_riscritta" not in output or "alert_riscritto" not in output:
+            # Tool call senza strict:true: lo schema richiesto non e garantito su scala.
+            # Non e sicuro applicare un UPDATE parziale (rischio di svuotare alert) -
+            # si salta, il giro successivo la ripesca da sola.
+            report["saltate_output_incompleto"].append({"id": row_id, "slug": rows[row_id]["slug"]})
+            continue
         to_write.append((row_id, output))
         report["scritte"].append(row_id)
 
@@ -84,6 +90,7 @@ def main():
     print(f"Saltate (errore/scaduto nel batch di scrittura): {len(report['saltate_errore_scrittura'])}")
     print(f"Saltate (fonte troncata, per revisione manuale): {len(report['saltate_troncate'])}")
     print(f"Già corrette, nessuna modifica: {len(report['gia_corrette'])}")
+    print(f"Saltate (output del modello incompleto, senza strict): {len(report['saltate_output_incompleto'])}")
     print(f"SQL scritto in {args.sql_out}, report in {args.report_out}")
 
     if args.apply:

@@ -20,8 +20,11 @@ ECCEZIONI CONSAPEVOLI — NON sono perdita di informazione:
 - Nomi comuni non-cultivar omessi di proposito.
 - "Famiglia botanica: X. Portamento: Y." reso in prosa naturale invece che come label.
 - Citazioni-elenco di cultivar rimosse dalla prosa (i nomi esistono come righe figlie nel database) — a meno che manchi un tratto DISTINTIVO di una cultivar specifica.
+- Nome della fonte (RHS/PFAF/ecc.) omesso dalla prosa, incluso nel caso "descrizione del genere" quando manca contenuto specifico di specie — la provenienza resta tracciata a parte nella colonna `fonti`. La frase "Non sono disponibili dati specifici per la specie: si riportano i tratti generali del genere X" è una riformulazione equivalente di "descrizione del genere"/"da RHS", NON un'aggiunta inventata.
 - Codici di rusticità RHS tradotti in temperatura invece del codice nudo, se plausibile per il codice.
 - Voci di `alert` NON marcate "testo originale in inglese" lasciate invariate.
+- Voce "Rischi segnalati dalla fonte (testo originale in inglese, non tradotto per non alterarne il significato): None known" (o equivalente banale) tradotta in "Rischi segnalati dalla fonte: nessun rischio noto", CON RIMOZIONE della dicitura "testo originale in inglese": è il comportamento richiesto per questo caso specifico, non una violazione della regola generale "non tradurre i rischi marcati in inglese" (quella si applica solo quando il contenuto è sostanziale, non a "None known").
+- Menzionare famiglia_botanica/ciclo_vitale/esigenze in prosa naturale anche quando quella formulazione esatta non compare nel testo originale: sono colonne verificate del database fornite come dati aggiuntivi, non un'invenzione.
 
 Segnala come problema reale: numeri diversi, esigenze/aree/usi omessi o alterati, periodi di fioritura fusi impropriamente, traduzioni imprecise dei rischi/parassiti/malattie tradotti, invenzioni non presenti nei dati forniti.
 
@@ -30,6 +33,7 @@ Usa sempre lo strumento fornito per rispondere."""
 TOOL = {
     "name": "verdetto",
     "description": "Restituisce il verdetto di fedeltà fattuale",
+    "strict": True,
     "input_schema": {
         "type": "object",
         "properties": {
@@ -37,6 +41,7 @@ TOOL = {
             "problemi": {"type": "array", "items": {"type": "string"}},
         },
         "required": ["verdetto", "problemi"],
+        "additionalProperties": False,
     },
 }
 
@@ -56,7 +61,9 @@ def build_request(row: dict, write_output: dict) -> dict:
         "params": {
             "model": MODEL,
             "max_tokens": 1000,
-            "system": SYSTEM_PROMPT,
+            "system": [
+                {"type": "text", "text": SYSTEM_PROMPT, "cache_control": {"type": "ephemeral", "ttl": "1h"}},
+            ],
             "tools": [TOOL],
             "tool_choice": {"type": "tool", "name": TOOL["name"]},
             "messages": [
