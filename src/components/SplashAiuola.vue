@@ -9,7 +9,7 @@
     tabindex="-1" @click.self="salta" @keydown.esc="salta">
 
     <div class="splash__scene">
-      <HeroAiuola :stagione="stagione" :luce="luce" />
+      <HeroAiuola :stagione="stagione" :luce="luce" ingresso-lento />
     </div>
     <div class="splash__scrim"></div>
 
