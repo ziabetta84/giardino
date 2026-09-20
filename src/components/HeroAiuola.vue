@@ -50,15 +50,13 @@
       </g>
     </svg>
 
-    <!-- Prototipo "contorno che si compone": sagome vere della scena
-         (autunno-giorno, unica tela tracciata finora — vedi
-         src/assets/hero/contorni/), non una forma decorativa inventata.
-         Attivo solo quando ingressoLento=true (lo splash a schermo intero,
-         non la striscia della Home) e solo per una scena che ha davvero un
-         tracciato: le altre 7 restano sulla dissolvenza rapida invariata
-         finché non vengono tracciate a loro volta. -->
+    <!-- "Contorno che si compone": sagome vere della scena (autotrace sulla
+         tela corrispondente, vedi src/assets/hero/contorni/), non una forma
+         decorativa inventata. Attivo solo quando ingressoLento=true (lo
+         splash a schermo intero, non la striscia della Home) — tutte e 8 le
+         combinazioni stagione×luce hanno oggi un tracciato reale. -->
     <div v-if="usaIngressoLento" ref="contornoEl" class="zc-contorno" :class="{ visibile: contornoVisibile }" aria-hidden="true">
-      <svg viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMax slice">
+      <svg :viewBox="viewBoxContorno" preserveAspectRatio="xMidYMax slice">
         <g v-html="contornoSvg"></g>
       </svg>
     </div>
@@ -82,7 +80,14 @@ import autunnoGiorno from '@/assets/hero/autunno-giorno.webp'
 import autunnoNotte from '@/assets/hero/autunno-notte.webp'
 import invernoGiorno from '@/assets/hero/inverno-giorno.webp'
 import invernoNotte from '@/assets/hero/inverno-notte.webp'
+import contornoPrimaveraGiornoRaw from '@/assets/hero/contorni/primavera-giorno.svg?raw'
+import contornoPrimaveraNotteRaw from '@/assets/hero/contorni/primavera-notte.svg?raw'
+import contornoEstateGiornoRaw from '@/assets/hero/contorni/estate-giorno.svg?raw'
+import contornoEstateNotteRaw from '@/assets/hero/contorni/estate-notte.svg?raw'
 import contornoAutunnoGiornoRaw from '@/assets/hero/contorni/autunno-giorno.svg?raw'
+import contornoAutunnoNotteRaw from '@/assets/hero/contorni/autunno-notte.svg?raw'
+import contornoInvernoGiornoRaw from '@/assets/hero/contorni/inverno-giorno.svg?raw'
+import contornoInvernoNotteRaw from '@/assets/hero/contorni/inverno-notte.svg?raw'
 
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
@@ -122,21 +127,50 @@ const immagini = {
 function estraiContenutoSvg(raw) {
   return raw.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '')
 }
-// Solo autunno-giorno ha oggi un tracciato reale (prototipo su una sola
-// tela, deciso in brainstorming 19/09/2026): le altre 7 combinazioni restano
-// senza voce nella mappa finché non vengono tracciate a loro volta.
+// Tutte e 8 le combinazioni hanno un tracciato reale (autotrace -centerline
+// sulla tela corrispondente, sottopercorsi con lunghezza precalcolata —
+// vedi cronologia). Le tele "vanno bene così come sono" (autunno-notte,
+// estate-notte) sono tracciate sull'immagine originale, invariata; le altre
+// 5 sono state rigenerate (cielo azzurro, cancello aperto, prato+vialetto)
+// e ritracciate su quella nuova versione — 20/09/2026.
 const contorni = {
-  autunno: { giorno: estraiContenutoSvg(contornoAutunnoGiornoRaw) },
+  primavera: { giorno: estraiContenutoSvg(contornoPrimaveraGiornoRaw), notte: estraiContenutoSvg(contornoPrimaveraNotteRaw) },
+  estate: { giorno: estraiContenutoSvg(contornoEstateGiornoRaw), notte: estraiContenutoSvg(contornoEstateNotteRaw) },
+  autunno: { giorno: estraiContenutoSvg(contornoAutunnoGiornoRaw), notte: estraiContenutoSvg(contornoAutunnoNotteRaw) },
+  inverno: { giorno: estraiContenutoSvg(contornoInvernoGiornoRaw), notte: estraiContenutoSvg(contornoInvernoNotteRaw) },
 }
+
+// Risoluzione nativa di ciascuna tela (il tracciato è in quelle coordinate
+// esatte, autotrace lavora sui pixel reali dell'immagine): 3 delle 8 tele
+// rigenerate sono uscite da Gemini/ChatGPT a 1264×NNN invece di 1536×1024
+// come le altre 5. Un viewBox fisso "0 0 1536 1024" per tutte, come prima,
+// faceva apparire il contorno di quelle 3 rimpicciolito e ancorato in alto a
+// sinistra invece di riempire lo schermo come il dipinto sottostante (che
+// invece scala sempre a piena pagina via object-fit:cover, indifferente
+// alla risoluzione) — bug segnalato dal vivo il 20/09/2026.
+const dimensioniTela = {
+  primavera: { giorno: [1264, 843], notte: [1264, 848] },
+  estate: { giorno: [1264, 842], notte: [1536, 1024] },
+  autunno: { giorno: [1536, 1024], notte: [1536, 1024] },
+  inverno: { giorno: [1536, 1024], notte: [1536, 1024] },
+}
+const viewBoxContorno = computed(() => {
+  const [w, h] = dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024]
+  return `0 0 ${w} ${h}`
+})
 
 // Il cancello è il fulcro compositivo di ogni tela (la soglia del
 // giardino): il bloom di colore e la spinta di camera dell'ingresso lento
 // partono da lì, non dal centro geometrico dell'immagine. Coordinate in %
 // del riquadro renderizzato (object-fit:cover già applicato), calibrate a
-// occhio sulla tela tracciata e verificate dal vivo — solo autunno/giorno
-// per ora, stesso motivo di `contorni`.
+// occhio su ciascuna tela e verificate dal vivo solo su un sottoinsieme
+// (autunno/giorno, inverno/notte) — le altre sono una stima a occhio da
+// aggiustare se in prova risultano visibilmente sbagliate.
 const puntiFuoco = {
-  autunno: { giorno: { x: 69, y: 62 } },
+  primavera: { giorno: { x: 58, y: 55 }, notte: { x: 63, y: 55 } },
+  estate: { giorno: { x: 63, y: 55 }, notte: { x: 73, y: 60 } },
+  autunno: { giorno: { x: 69, y: 62 }, notte: { x: 63, y: 55 } },
+  inverno: { giorno: { x: 77, y: 55 }, notte: { x: 73, y: 52 } },
 }
 const puntoFuoco = computed(() => puntiFuoco[stagioneVisibile.value]?.[luceVisibile.value] ?? { x: 50, y: 50 })
 const stileFuoco = computed(() => ({
@@ -204,6 +238,15 @@ async function avviaIngressoLento() {
   await nextTick()
   const tratti = [...(contornoEl.value?.querySelectorAll('path') ?? [])]
   if (tratti.length === 0) { animare.value = true; return } // asset mancante/malformato: fallback alla dissolvenza normale
+  // Ordine per lunghezza decrescente, non l'ordine di scansione grezzo di
+  // autotrace (arbitrario, non correlato alla dimensione visiva): senza
+  // questo, su alcune tele (estate-giorno, verificato dal vivo) i tanti
+  // trattini minuscoli dell'erba finivano sparsi per tutto il budget mentre
+  // le sagome grandi (fiori, cancello) restavano quasi invisibili — un
+  // effetto "scarabocchio confuso" invece di una forma che si compone. Le
+  // sagome grandi ora disegnano per prime, i dettagli piccoli riempiono
+  // dopo, come farebbe una mano vera.
+  tratti.sort((a, b) => Number(b.dataset.len) - Number(a.dataset.len))
   const budgetRitardo = Math.max(DISEGNO_MS - DURATA_TRATTO_MS, 0)
   // Web Animations API invece di stroke-dasharray/transition pilotata da CSS:
   // con ~1000 elementi la sequenza "imposta stato pieno, forza un reflow,

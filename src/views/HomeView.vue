@@ -87,6 +87,14 @@
         <button type="button" class="pill" :class="{ active: luceEffettiva === 'notte' }" @click="luceForzata = 'notte'">notte</button>
         <button type="button" class="pill" @click="stagioneForzata = null; luceForzata = null">reale</button>
       </div>
+      <div class="hero-debug__row">
+        <!-- Riapre lo splash a schermo intero con la combinazione scelta
+             sopra, ignorando il gate "una volta per fascia" (localStorage):
+             altrimenti l'unico modo per rivedere lo splash su una scena
+             forzata sarebbe svuotare a mano giardino_splash_fascia e
+             ricaricare, perdendo la scelta delle pillole a ogni reload. -->
+        <button type="button" class="pill" @click="mostraSplash = true">Mostra splash</button>
+      </div>
     </div>
 
     <!-- Meteo -->
