@@ -119,6 +119,7 @@ import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { cureUrgentiPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
+import { normalizzaApici } from '@/utils/normalizzaTesto'
 import ModalConferma from '@/components/ModalConferma.vue'
 import PiantaRiga from '@/components/PiantaRiga.vue'
 import Icon from '@/components/Icon.vue'
@@ -202,16 +203,16 @@ const pianteFiltrate = computed(() => {
   if (filtroZona.value !== 'tutte' && filtroSottozona.value !== 'tutte')
     lista = lista.filter(p => p.sottozona === filtroSottozona.value)
   if (cerca.value.trim()) {
-    const q = cerca.value.toLowerCase()
+    const q = normalizzaApici(cerca.value.toLowerCase())
     // Anche su varietà e nome specie (non solo lo slug in p.specie): sono i
     // dati che la riga mostra in evidenza, quelli con cui un utente con più
     // piante della stessa specie le distingue.
     lista = lista.filter(p => {
       const nomeSpecie = store.specie?.[p.specie]?.nome ?? ''
       return p.id.includes(q) ||
-        (p.specie ?? '').toLowerCase().includes(q) ||
-        (p.varieta ?? '').toLowerCase().includes(q) ||
-        nomeSpecie.toLowerCase().includes(q)
+        normalizzaApici((p.specie ?? '').toLowerCase()).includes(q) ||
+        normalizzaApici((p.varieta ?? '').toLowerCase()).includes(q) ||
+        normalizzaApici(nomeSpecie.toLowerCase()).includes(q)
     })
     lista = [...lista].sort((a, b) => (a.urgente ? -1 : 1) - (b.urgente ? -1 : 1))
   } else if (filtroZona.value !== 'tutte') {

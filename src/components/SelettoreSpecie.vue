@@ -138,6 +138,7 @@ import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
 import { parseGiorni, stagione } from '@/composables/useCure'
 import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
+import { normalizzaApici } from '@/utils/normalizzaTesto'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
@@ -184,10 +185,10 @@ const specieFiltrate = computed(() => {
       // stesso), mai un suggerimento a campo vuoto — vedi filtro sotto
       cultivarDi: s.specie_padre_id ? (nomePerId[s.specie_padre_id] ?? '') : null,
     }))
-  const q = specieQuery.value.trim().toLowerCase()
+  const q = normalizzaApici(specieQuery.value.trim().toLowerCase())
 
   const base = q
-    ? tutte.filter(s => s.nome.toLowerCase().includes(q) || s.nomeScientifico.toLowerCase().includes(q))
+    ? tutte.filter(s => normalizzaApici(s.nome.toLowerCase()).includes(q) || normalizzaApici(s.nomeScientifico.toLowerCase()).includes(q))
     : tutte.filter(s => s.verificata && !s.cultivarDi)
 
   return base

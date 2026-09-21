@@ -129,6 +129,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
 import { formattaNPK, classificaConcimiPerFabbisogno, SOGLIA_DISTANZA } from '@/composables/useConcimi'
 import { stagione } from '@/composables/useCure'
+import { normalizzaApici } from '@/utils/normalizzaTesto'
 import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import Icon from '@/components/Icon.vue'
@@ -159,8 +160,8 @@ const concimi = computed(() => {
 
 const concimiFiltrati = computed(() => {
   if (!cerca.value.trim()) return concimi.value
-  const q = cerca.value.trim().toLowerCase()
-  return concimi.value.filter(c => (c.nome ?? '').toLowerCase().includes(q) || (c.descrizione ?? '').toLowerCase().includes(q))
+  const q = normalizzaApici(cerca.value.trim().toLowerCase())
+  return concimi.value.filter(c => normalizzaApici((c.nome ?? '').toLowerCase()).includes(q) || normalizzaApici((c.descrizione ?? '').toLowerCase()).includes(q))
 })
 
 // Per ogni concime, le specie per cui è oggi un abbinamento NPK entro soglia
