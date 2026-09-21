@@ -80,14 +80,19 @@ import autunnoGiorno from '@/assets/hero/autunno-giorno.webp'
 import autunnoNotte from '@/assets/hero/autunno-notte.webp'
 import invernoGiorno from '@/assets/hero/inverno-giorno.webp'
 import invernoNotte from '@/assets/hero/inverno-notte.webp'
-import contornoPrimaveraGiornoRaw from '@/assets/hero/contorni/primavera-giorno.svg?raw'
-import contornoPrimaveraNotteRaw from '@/assets/hero/contorni/primavera-notte.svg?raw'
-import contornoEstateGiornoRaw from '@/assets/hero/contorni/estate-giorno.svg?raw'
-import contornoEstateNotteRaw from '@/assets/hero/contorni/estate-notte.svg?raw'
-import contornoAutunnoGiornoRaw from '@/assets/hero/contorni/autunno-giorno.svg?raw'
-import contornoAutunnoNotteRaw from '@/assets/hero/contorni/autunno-notte.svg?raw'
-import contornoInvernoGiornoRaw from '@/assets/hero/contorni/inverno-giorno.svg?raw'
-import contornoInvernoNotteRaw from '@/assets/hero/contorni/inverno-notte.svg?raw'
+// Import pigro, non `?raw` statico: 8 file da 76-136KB (812KB in tutto)
+// importati come stringa finivano TUTTI incorporati nel bundle JS di
+// HomeView (che monta questo componente), anche se ne serve visualizzato
+// uno solo per volta — misurato dal vivo: 840KB/315KB gzip sul chunk
+// HomeView, segnalato da Vite stesso come "chunk troppo grande". Su una
+// connessione lenta/instabile (registrazione reale 21/09/2026, 6-80 KB/s)
+// bastava questo a spiegare 4-10s di schermo bianco prima che l'app
+// mostrasse qualunque cosa — letto per errore come "l'animazione non è
+// fluida", ma il vero collo di bottiglia era il download, non il
+// rendering. import.meta.glob senza eager:true crea un chunk separato per
+// ciascun file, scaricato solo quando avviaIngressoLento lo richiede
+// davvero per la scena attiva.
+const contornoModuli = import.meta.glob('@/assets/hero/contorni/*.svg', { query: '?raw', import: 'default' })
 
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
@@ -133,11 +138,10 @@ function estraiContenutoSvg(raw) {
 // estate-notte) sono tracciate sull'immagine originale, invariata; le altre
 // 5 sono state rigenerate (cielo azzurro, cancello aperto, prato+vialetto)
 // e ritracciate su quella nuova versione — 20/09/2026.
-const contorni = {
-  primavera: { giorno: estraiContenutoSvg(contornoPrimaveraGiornoRaw), notte: estraiContenutoSvg(contornoPrimaveraNotteRaw) },
-  estate: { giorno: estraiContenutoSvg(contornoEstateGiornoRaw), notte: estraiContenutoSvg(contornoEstateNotteRaw) },
-  autunno: { giorno: estraiContenutoSvg(contornoAutunnoGiornoRaw), notte: estraiContenutoSvg(contornoAutunnoNotteRaw) },
-  inverno: { giorno: estraiContenutoSvg(contornoInvernoGiornoRaw), notte: estraiContenutoSvg(contornoInvernoNotteRaw) },
+async function caricaContorno(stagione, luce) {
+  const carica = contornoModuli[`/src/assets/hero/contorni/${stagione}-${luce}.svg`]
+  if (!carica) return null // non dovrebbe succedere: tutte e 8 esistono
+  return estraiContenutoSvg(await carica())
 }
 
 // Risoluzione nativa di ciascuna tela (il tracciato è in quelle coordinate
@@ -246,11 +250,17 @@ const contornoVisibile = ref(false)
 // tornare a scala 1 proprio mentre arriva il colore (bug trovato dal vivo:
 // legare .zoom-in a contornoVisibile annullava la spinta a metà).
 const cameraAttiva = ref(false)
+// Popolato da avviaIngressoLento, non da un computed sincrono: il contenuto
+// va scaricato al bisogno (vedi caricaContorno sopra), non può più essere
+// letto da una mappa già pronta in memoria.
+const contornoSvg = ref(null)
 
 const DISEGNO_MS = 2600 // durata del tratteggio del contorno reale
 
-const contornoSvg = computed(() => contorni[stagioneVisibile.value]?.[luceVisibile.value] ?? null)
-const usaIngressoLento = computed(() => props.ingressoLento && !!contornoSvg.value && !ridottoMovimento())
+// Non dipende più dall'esistenza di un contorno già caricato (tutte e 8 le
+// scene ce l'hanno, verificato — vedi caricaContorno): dipende solo
+// dall'intento del chiamante e dalla preferenza di movimento.
+const usaIngressoLento = computed(() => props.ingressoLento && !ridottoMovimento())
 
 // La dissolvenza d'ingresso parte quando il dipinto è davvero decodificato
 // (evento load, o già .complete se arrivava dalla cache del browser), non a
@@ -290,6 +300,16 @@ const DURATA_TRATTO_MS = 220 // ogni sagoma (petalo, foglia, filo d'erba) si dis
 // le due tele condividono le stesse linee, quindi il passaggio di consegne
 // non "salta".
 async function avviaIngressoLento() {
+  // Scaricato solo ora, solo per la scena davvero attiva — non più una
+  // mappa con tutte e 8 le tele già pronte in memoria (vedi contornoModuli
+  // sopra). Su una connessione lenta questo aggiunge un'attesa reale prima
+  // che il contorno inizi a disegnarsi (prima non c'era, il costo era già
+  // stato pagato tutto in anticipo dentro il bundle di HomeView) — ma è
+  // un'attesa piccola e localizzata (76-136KB, una sola tela) invece di
+  // 812KB scaricati sempre, per tutte le scene, solo per aprire la Home.
+  const raw = await caricaContorno(stagioneVisibile.value, luceVisibile.value)
+  if (!raw) { animare.value = true; return } // non dovrebbe succedere: tutte e 8 le scene hanno un tracciato
+  contornoSvg.value = raw
   contornoVisibile.value = true
   cameraAttiva.value = true
   await nextTick()
