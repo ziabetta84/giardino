@@ -1,5 +1,5 @@
 <template>
-  <div class="zc-scene" :class="{ play: animare, 'ingresso-lento': usaIngressoLento, 'zoom-in': cameraAttiva }" :style="stileFuoco" :data-light="luceVisibile">
+  <div ref="contenitoreEl" class="zc-scene" :class="{ play: animare, 'ingresso-lento': usaIngressoLento, 'zoom-in': cameraAttiva }" :style="stileFuoco" :data-light="luceVisibile">
     <img
       ref="imgEl"
       :src="immagineCorrente"
@@ -56,7 +56,7 @@
          splash a schermo intero, non la striscia della Home) — tutte e 8 le
          combinazioni stagione×luce hanno oggi un tracciato reale. -->
     <div v-if="usaIngressoLento" ref="contornoEl" class="zc-contorno" :class="{ visibile: contornoVisibile }" aria-hidden="true">
-      <svg :viewBox="viewBoxContorno" preserveAspectRatio="xMidYMax slice">
+      <svg :viewBox="viewBoxContorno" preserveAspectRatio="none">
         <g v-html="contornoSvg"></g>
       </svg>
     </div>
@@ -154,9 +154,29 @@ const dimensioniTela = {
   autunno: { giorno: [1536, 1024], notte: [1536, 1024] },
   inverno: { giorno: [1536, 1024], notte: [1536, 1024] },
 }
+// Il contorno deve mostrare ESATTAMENTE la stessa finestra di ritaglio del
+// dipinto sottostante — altrimenti le due tele si disallineano appena il
+// riquadro non ha il rapporto nativo della tela (bug reale, trovato dal
+// vivo il 20/09/2026 dopo aver corretto solo .zc-painting: object-position
+// segue --fx, ma preserveAspectRatio="xMidYMax slice" dell'SVG resta
+// centrato per costruzione — preserveAspectRatio non supporta un ancoraggio
+// a percentuale arbitraria, solo le 9 combinazioni xMin/Mid/Max×Min/Mid/Max).
+// Si calcola quindi a mano la stessa finestra che produrrebbe
+// object-fit:cover + object-position:"fx% bottom" su questa risoluzione
+// nativa, e si usa come viewBox — nessun preserveAspectRatio speciale
+// necessario, la finestra ha già lo stesso rapporto del riquadro per
+// costruzione (vw/vh = cw/ch sempre).
 const viewBoxContorno = computed(() => {
-  const [w, h] = dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024]
-  return `0 0 ${w} ${h}`
+  const [iw, ih] = dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024]
+  const cw = contenitoreW.value
+  const ch = contenitoreH.value
+  if (!cw || !ch) return `0 0 ${iw} ${ih}` // prima della prima misura del ResizeObserver
+  const scale = Math.max(cw / iw, ch / ih)
+  const vw = cw / scale // larghezza della finestra visibile, in pixel nativi della tela
+  const vh = ch / scale
+  const xStart = (iw - vw) * (puntoFuoco.value.x / 100) // stessa formula di object-position-x = fx
+  const yStart = ih - vh // object-position-y fissa a "bottom", come .zc-painting
+  return `${xStart} ${yStart} ${vw} ${vh}`
 })
 
 // Il cancello è il fulcro compositivo di ogni tela (la soglia del
@@ -173,10 +193,47 @@ const puntiFuoco = {
   inverno: { giorno: { x: 77, y: 55 }, notte: { x: 73, y: 52 } },
 }
 const puntoFuoco = computed(() => puntiFuoco[stagioneVisibile.value]?.[luceVisibile.value] ?? { x: 50, y: 50 })
-const stileFuoco = computed(() => ({
-  '--fx': puntoFuoco.value.x + '%',
-  '--fy': puntoFuoco.value.y + '%',
-}))
+
+// Le coordinate sopra sono state calibrate a occhio su schermate desktop
+// (rapporto vicino a quello nativo della tela, ~1.5): su un riquadro con un
+// rapporto molto diverso — un telefono in verticale, o la striscia
+// larghissima della Home — la stessa % non cade più nello stesso punto
+// dello schermo, perché object-fit:cover ritaglia in modo diverso a seconda
+// del rapporto. Bug reale trovato in critica del 20/09/2026: su un iPhone
+// verticale (390×844) il cancello di autunno/giorno finiva del tutto fuori
+// dal ritaglio visibile.
+//
+// Asse X: risolto senza calcoli — impostando object-position-x sullo stesso
+// --fx già calibrato (vedi CSS .zc-painting), il punto a frazione fx
+// dell'immagine finisce SEMPRE alla stessa frazione fx del riquadro
+// renderizzato, qualunque sia il ritaglio. È una proprietà della formula di
+// object-position, non un'approssimazione: verificato algebricamente prima
+// di scriverlo (xPx = cw·fx per costruzione, si semplifica il termine di
+// scala). Impossibile per l'asse Y allo stesso modo, perché lì l'ancoraggio
+// resta fisso su "bottom" (non su fy) per continuare a mostrare la base
+// della scena: va ricalcolato davvero in base al riquadro renderizzato.
+const contenitoreEl = ref(null)
+const contenitoreW = ref(1536)
+const contenitoreH = ref(1024)
+let smettiOsservazione = null
+
+function fuocoYRenderizzato(fyPercent, iw, ih, cw, ch) {
+  if (!cw || !ch || !iw || !ih) return fyPercent
+  const scale = Math.max(cw / iw, ch / ih)
+  const alturaScalata = ih * scale
+  const offsetY = ch - alturaScalata // object-position-y fissa a "bottom" (100%)
+  const yPx = offsetY + (fyPercent / 100) * alturaScalata
+  return (yPx / ch) * 100
+}
+
+const stileFuoco = computed(() => {
+  const [iw, ih] = dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024]
+  const fy = fuocoYRenderizzato(puntoFuoco.value.y, iw, ih, contenitoreW.value, contenitoreH.value)
+  return {
+    '--fx': puntoFuoco.value.x + '%',
+    '--fy': fy + '%',
+  }
+})
 
 const animare = ref(false)
 const erroreImg = ref(false)
@@ -326,10 +383,33 @@ onMounted(() => {
   // in quel caso l'evento load non scatta più una volta montato l'handler,
   // quindi va controllato .complete esplicitamente.
   if (imgEl.value?.complete) onImgCaricata()
+
+  // Misura reale del riquadro per fuocoYRenderizzato sopra: la striscia
+  // della Home e lo splash a schermo intero hanno rapporti larghezza/altezza
+  // molto diversi, e possono cambiare (resize finestra, rotazione telefono,
+  // .app-main che passa a due colonne da 640px) mentre il componente resta
+  // montato — un ResizeObserver invece di leggere le dimensioni una sola
+  // volta al mount.
+  if (contenitoreEl.value && window.ResizeObserver) {
+    const osservatore = new ResizeObserver((voci) => {
+      const box = voci[0]?.contentBoxSize?.[0]
+      if (box) {
+        contenitoreW.value = box.inlineSize
+        contenitoreH.value = box.blockSize
+      } else {
+        // Safari meno recenti: niente contentBoxSize, si torna a contentRect.
+        const rect = voci[0]?.contentRect
+        if (rect) { contenitoreW.value = rect.width; contenitoreH.value = rect.height }
+      }
+    })
+    osservatore.observe(contenitoreEl.value)
+    smettiOsservazione = () => osservatore.disconnect()
+  }
 })
 onUnmounted(() => {
   clearTimeout(disegnoTimer)
   transizioneCorrente?.skipTransition()
+  smettiOsservazione?.()
 })
 </script>
 
@@ -347,7 +427,15 @@ onUnmounted(() => {
 
 .zc-painting {
   position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; object-position: center bottom;
+  object-fit: cover;
+  /* var(--fx), non "center": ritaglia sempre centrato sul cancello invece
+     che sul centro geometrico della tela — su un riquadro molto più stretto
+     (telefono in verticale) "center" tagliava il cancello fuori dallo
+     schermo del tutto (bug reale, critica del 20/09/2026). Con
+     object-position-x = --fx il punto a quella frazione dell'immagine
+     finisce sempre alla stessa frazione del riquadro, qualunque il
+     ritaglio — vedi commento esteso su stileFuoco nello script. */
+  object-position: var(--fx, 50%) bottom;
   opacity: 0; transform: scale(1.045); filter: blur(7px);
   transition: opacity .9s cubic-bezier(.22,1,.36,1),
               transform .9s cubic-bezier(.22,1,.36,1),

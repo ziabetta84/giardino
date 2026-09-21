@@ -5,10 +5,28 @@
        da .app-main, z-index:50) gli passerebbe sopra nonostante il suo
        z-index:480 locale. Stesso motivo/stesso pattern di LightboxFoto.vue. -->
   <Teleport to="body">
-  <div ref="box" class="splash" role="dialog" aria-modal="true" aria-label="Il tuo giardino"
-    tabindex="-1" @click.self="salta" @keydown.esc="salta">
+  <!-- Transition qui dentro, non attorno a <SplashAiuola> in HomeView.vue
+       come prima: un Transition non può animare un componente la cui radice
+       è un <Teleport> (Vue lo segnala anche a console, "renders non-element
+       root node that cannot be animated") — la dissolvenza in uscita non
+       scattava mai davvero, il componente spariva di scatto. Qui il
+       Transition avvolge l'elemento vero, dentro il Teleport: funziona, e
+       HomeView smonta il componente solo a transizione finita (@after-leave
+       → emit('fine')), non subito al click su "Salta". Trovato e corretto
+       il 20/09/2026. -->
+  <Transition name="splash-esce" @after-leave="onUscitaCompleta">
+  <div v-if="visibile" ref="box" class="splash" role="dialog" aria-modal="true" aria-label="Il tuo giardino"
+    tabindex="-1" @keydown.esc="salta">
 
-    <div class="splash__scene">
+    <!-- @click qui, non @click.self su .splash: .splash__scene è a piena
+         pagina (inset:0) e intercetta ogni click prima che raggiunga
+         .splash stesso — .self quindi non scattava MAI, verificato con
+         elementFromPoint in critica del 20/09/2026 (il click sulla scena
+         sembrava cliccabile, cursor:pointer ereditato da .splash, ma non
+         faceva nulla). Testo/Zorba/bottone restano sopra come fratelli,
+         quindi un click su di loro non attraversa mai .splash__scene e non
+         chiude lo splash per sbaglio mentre si legge o si tocca "Salta". -->
+    <div class="splash__scene" @click="salta">
       <HeroAiuola :stagione="stagione" :luce="luce" ingresso-lento />
     </div>
     <div class="splash__scrim"></div>
@@ -46,6 +64,7 @@
 
     <button type="button" class="splash__salta" @click="salta">Salta</button>
   </div>
+  </Transition>
   </Teleport>
 </template>
 
@@ -74,6 +93,13 @@ const props = defineProps({
 const emit = defineEmits(['fine'])
 
 const box = ref(null)
+// Controlla il v-if interno (vedi Transition nel template): salta() lo
+// mette a false per avviare l'uscita animata; onUscitaCompleta (@after-leave,
+// a transizione CSS finita) emette 'fine' verso HomeView, che solo allora
+// smonta davvero il componente. Prima "salta" emetteva 'fine' subito e
+// HomeView smontava tutto all'istante, senza lasciare il tempo a nessuna
+// dissolvenza di scattare.
+const visibile = ref(true)
 // 0 = solo scena+Zorba, 1 = saluto/data, 2 = pillole — scandito sui tempi
 // dell'animazione di mount di ZorbaLogo.vue (tratteggio ~1.2s, battito a
 // 1.6s, coda a 2.0s) così saluto e pillole non anticipano Zorba che deve
@@ -94,6 +120,9 @@ onMounted(() => {
 onUnmounted(() => timers.forEach(clearTimeout))
 
 function salta() {
+  visibile.value = false
+}
+function onUscitaCompleta() {
   emit('fine')
 }
 </script>
@@ -108,7 +137,16 @@ function salta() {
 .splash__scene { position: absolute; inset: 0; }
 .splash__scrim {
   position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(to top, rgba(20,16,8,.55), transparent 55%);
+  /* .55 che sfumava già a partire da 0% non bastava dove vive davvero il
+     testo: misurato dal vivo (critica del 20/09/2026 + verifica pixel reale,
+     non solo getComputedStyle) che a ~11% di altezza dal fondo — dove cade
+     la data — il contrasto reale era 2.49:1 contro un minimo di 4.5:1,
+     perché il gradiente aveva già perso metà della sua forza a quel punto.
+     Ora un pianerottolo pieno fino al 28% (copre data/saluto/pillole su
+     qualunque altezza di schermo ragionevole) prima di sfumare a 0 al 58%:
+     verificato che porta il contrasto della data a 5:1. */
+  background: linear-gradient(to top,
+    rgba(20,16,8,.68) 0%, rgba(20,16,8,.68) 28%, transparent 58%);
 }
 
 /* Due blocchi assoluti indipendenti, non una colonna flex: con flex
@@ -138,17 +176,37 @@ function salta() {
 .splash__stat b.urg { color: #f3c9c2; }
 
 .splash__salta {
+  /* min-height:44px + flex per centrare, non padding a mano: stesso
+     pattern di .btn in main.css. Prima era alto 28px (8px di padding +
+     12px di riga), sotto il minimo di tocco che il sistema stesso impone —
+     ed era anche l'unico modo affidabile di chiudere lo splash su touch
+     finché il click sulla scena non funzionava (P0, corretto a parte).
+     Misurato dal vivo: ora 44px esatti. */
   position: absolute; z-index: 3; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px;
   top: max(16px, env(safe-area-inset-top)); right: 16px;
   background: rgba(20,16,8,.35); color: #fff; border: none; border-radius: 999px;
-  padding: 8px 16px; font: 600 12px/1 var(--font-sans);
+  padding: 0 18px; font: 600 12px/1 var(--font-sans);
 }
 
 .splash-riga-enter-active { transition: opacity .5s var(--ease-standard), transform .5s var(--ease-standard); }
 .splash-riga-enter-from { opacity: 0; transform: translateY(10px); }
 
+/* Uscita verso la Home: dissolvenza più uno zoom impercettibile che
+   continua nella stessa direzione della spinta di camera dell'ingresso
+   lento (HeroAiuola.vue, scale 1→1.03) invece di invertirla — la scena
+   prosegue ad aprirsi, non "torna indietro", mentre sfuma. Durata più
+   generosa dei 0.26s di --motion-sheet (qui vive in scoped, non più in
+   main.css: era attorno a <SplashAiuola> in HomeView.vue, ma un Transition
+   non anima un componente la cui radice è un Teleport — non scattava mai
+   davvero, vedi commento nel template). */
+.splash-esce-leave-active { transition: opacity .42s var(--ease-standard), transform .42s var(--ease-standard); }
+.splash-esce-leave-to { opacity: 0; transform: scale(1.03); }
+
 @media (prefers-reduced-motion: reduce) {
   .splash-riga-enter-active { transition: opacity .3s var(--ease-standard); }
   .splash-riga-enter-from { transform: none; }
+  .splash-esce-leave-active { transition: none; }
 }
 </style>

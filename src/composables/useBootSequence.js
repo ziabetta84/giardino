@@ -9,33 +9,54 @@ import { ref } from 'vue'
 // nascosti dietro il logo di boot, invisibili all'utente.
 export const bootCompletato = ref(false)
 
-// Fascia del saluto e chiave "una volta al giorno per fascia": unica fonte
-// di verità condivisa tra BootLogo.vue (decide se accorciare il proprio
-// logo-solo perché sta per partire SplashAiuola) e HomeView.vue/
-// SplashAiuola.vue (testo del saluto + gating dello splash stesso) — due
-// punti che calcolavano gli stessi confini orari in modo duplicato
-// rischiavano di disallinearsi silenziosamente.
+// Le 4 fasce del saluto, mostrato ovunque compaia (intestazione Home,
+// splash) — confini decisi in critica del 20/09/2026, deliberatamente
+// indipendenti dalla cadenza dello splash qui sotto: prima le due cose
+// condividevano gli stessi 3 confini orari, ma la cadenza "una volta per
+// fascia" (fino a 3 volte al giorno, identica ogni volta) consumava il
+// momento più in fretta di quanto valesse la pena — vedi splash a schermo
+// intero più sotto per la cadenza separata.
 export function prefissoOra() {
   const ora = new Date().getHours()
-  if (ora < 12) return 'Buongiorno'
-  if (ora < 18) return 'Buon pomeriggio'
-  return 'Buonasera'
+  if (ora >= 6 && ora < 13) return 'Buongiorno'
+  if (ora >= 13 && ora < 18) return 'Buon pomeriggio'
+  if (ora >= 18 && ora < 22) return 'Buonasera'
+  return 'Buonanotte'
 }
-function fasciaCorrente() {
-  const p = prefissoOra()
-  if (p === 'Buongiorno') return 'mattina'
-  if (p === 'Buon pomeriggio') return 'pomeriggio'
-  return 'sera'
+
+// Cadenza dello splash a schermo intero: due finestre fisse al giorno,
+// mattina e sera, non più legate alle fasce del saluto sopra. Fuori da
+// entrambe (pomeriggio, notte fonda) lo splash non compare affatto quel
+// giorno — un'apertura della Home in quella fascia oraria non "consuma"
+// né la finestra di mattina né quella di sera.
+function finestraSplashCorrente() {
+  const ora = new Date().getHours()
+  if (ora >= 5 && ora < 12) return 'mattina'
+  if (ora >= 18 && ora < 24) return 'sera'
+  return null
 }
-function chiaveFasciaOggi() {
-  return `${new Date().toISOString().slice(0, 10)}-${fasciaCorrente()}`
+function chiaveFinestraOggi() {
+  const finestra = finestraSplashCorrente()
+  if (!finestra) return null
+  return `${new Date().toISOString().slice(0, 10)}-${finestra}`
 }
+// Un'unica chiave in localStorage basta per tracciare entrambe le finestre:
+// ciascuna produce una chiave diversa (stessa data, finestra diversa), quindi
+// segnare "vista" la mattina non consuma quella della sera, e il giorno dopo
+// la data cambia comunque entrambe.
 export function fasciaGiaVista() {
-  try { return localStorage.getItem('giardino_splash_fascia') === chiaveFasciaOggi() }
+  try {
+    const chiave = chiaveFinestraOggi()
+    if (!chiave) return true // fuori da entrambe le finestre: comportati come "già vista", niente splash
+    return localStorage.getItem('giardino_splash_fascia') === chiave
+  }
   catch { return true } // storage inaccessibile (es. modalità privata): non insistere
 }
 export function segnaFasciaVista() {
-  try { localStorage.setItem('giardino_splash_fascia', chiaveFasciaOggi()) }
+  try {
+    const chiave = chiaveFinestraOggi()
+    if (chiave) localStorage.setItem('giardino_splash_fascia', chiave)
+  }
   catch { /* storage inaccessibile: lo splash si ripresenterà, non è grave */ }
 }
 export function movimentoRidotto() {

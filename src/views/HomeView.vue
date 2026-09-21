@@ -11,17 +11,21 @@
     <!-- Dissolvenza in uscita (non un "atterraggio" del dipinto verso la
          striscia: le due tele non sono garantite pixel-coerenti, un taglio
          netto nasconde meglio una piccola discrepanza di stile di quanto
-         farebbe una trasformazione continua — decisione presa in shape).
-         La Home compatta sotto è già montata e ferma: la dissolvenza la
-         rivela, non la anima lei stessa. -->
-    <Transition name="splash-esce">
-      <SplashAiuola v-if="mostraSplash"
-        :stagione="stagioneEffettiva" :luce="luceEffettiva"
-        :saluto="saluto" :data-oggi="oggi"
-        :num-piante="numPiante" :num-zone="numZone" :num-urgenti="numUrgenti"
-        :loading="store.loading" :errore="!!store.errore"
-        @fine="chiudiSplash" />
-    </Transition>
+         farebbe una trasformazione continua — decisione presa in shape). La
+         Home compatta sotto è già montata e ferma: la dissolvenza la rivela,
+         non la anima lei stessa. L'animazione vera vive dentro
+         SplashAiuola.vue stesso, non in un <Transition> qui attorno: la
+         radice di SplashAiuola è un <Teleport>, e un <Transition> non può
+         animare un componente il cui root è un Teleport (Vue lo segnala
+         anche a console) — nessuna dissolvenza scattava mai davvero prima
+         di questa correzione (20/09/2026). @fine ora arriva solo a
+         transizione interna già conclusa, quindi qui basta smontare. -->
+    <SplashAiuola v-if="mostraSplash"
+      :stagione="stagioneEffettiva" :luce="luceEffettiva"
+      :saluto="saluto" :data-oggi="oggi"
+      :num-piante="numPiante" :num-zone="numZone" :num-urgenti="numUrgenti"
+      :loading="store.loading" :errore="!!store.errore"
+      @fine="chiudiSplash" />
 
     <!-- inert mentre lo splash è aperto: senza questo il resto della pagina
          resta comunque raggiungibile con Tab e visibile a uno screen reader
@@ -281,13 +285,14 @@ const saluto = computed(() => {
   return nome ? `${prefisso}, ${nome}` : prefisso
 })
 
-// Splash a schermo intero (SplashAiuola.vue): una volta per fascia del
-// saluto (mattina/pomeriggio/sera — stessi confini di prefissoOra(), non
-// duplicati: vedi useBootSequence.js, condiviso anche con BootLogo.vue),
-// persistita in localStorage perché la sessione del browser sopravvive a
-// molte più aperture di questa vista di quante ne farebbe un singolo mount.
+// Splash a schermo intero (SplashAiuola.vue): due finestre fisse al giorno,
+// mattina (5–12) e sera (18–24) — non più legate alle fasce del saluto
+// (deciso in critica del 20/09/2026: "una volta per fascia" arrivava fino a
+// 3 volte al giorno, identico ogni volta, un'usura eccessiva per un momento
+// pensato per restare un picco). Logica di finestra e persistenza in
+// useBootSequence.js, condiviso anche con BootLogo.vue.
 // "Riduci movimento" salta lo splash (non ha senso fermo, e il salto stesso
-// sarebbe un'animazione) ma segna comunque la fascia come vista, altrimenti
+// sarebbe un'animazione) ma segna comunque la finestra come vista, altrimenti
 // si ripresenterebbe al primo cambio di stato reattivo.
 const mostraSplash = ref(false)
 let fermaOsservazioneBoot = null
