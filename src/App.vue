@@ -131,12 +131,15 @@ onMounted(async () => {
   .app-main { padding-bottom: 128px; }
 }
 
-/* Da 640px in su la sidebar è fissa a sinistra (200px): il contenuto scorre
-   a destra della sidebar, allineato a sinistra; il centraggio vero è un
-   raffinamento di Fase 2. */
+/* Da 640px in su la sidebar è fissa a sinistra (200px): il contenuto va
+   centrato nello spazio residuo a destra della sidebar (non nell'intero
+   viewport, altrimenti risulterebbe otticamente spostato verso la sidebar).
+   Sotto i 1120px (200 + 920) quello spazio residuo è più stretto della
+   colonna stessa: max(0px, ...) fa collassare il calcolo e si torna al
+   semplice flush-left di prima, senza margini negativi. */
 @media (min-width: 640px) {
   .app-main {
-    margin-left: 200px;
+    margin-left: calc(200px + max(0px, (100vw - 1120px) / 2));
     margin-right: auto;
     padding-top: 20px;
   }
