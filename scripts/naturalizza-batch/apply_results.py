@@ -10,9 +10,20 @@ Uso:
 """
 import argparse
 import json
+import re
 from pathlib import Path
 
 from common import load_env, run_psql_file, save_json
+
+# Controllo deterministico post-batch: residui di label-dump ("Colore di fioritura: X.",
+# "Periodo di fioritura principale: Y.", "Portamento: Z.", "Forma: W.") che il modello a
+# volte copia/traduce letteralmente invece di scioglierli in prosa (regola 3). Non sostituisce
+# la verifica di fedeltà Haiku (quella controlla la perdita di fatti, non lo stile) — scoperto
+# a mano su 5 righe del primo lotto reale (17-23/09/2026).
+LABEL_DUMP_RE = re.compile(
+    r"^(Colore di fioritura|Periodo[i]? di fioritura( principale)?|Portamento|Famiglia botanica|Forma)\s*:",
+    re.IGNORECASE,
+)
 
 
 def sql_string(value: str) -> str:
@@ -41,7 +52,8 @@ def main():
 
     to_write = []
     report = {"scritte": [], "saltate_fail": [], "saltate_errore_scrittura": [],
-              "saltate_troncate": [], "gia_corrette": [], "saltate_output_incompleto": []}
+              "saltate_troncate": [], "gia_corrette": [], "saltate_output_incompleto": [],
+              "saltate_label_dump": []}
 
     for row_id, result in write_results.items():
         if row_id not in rows:
@@ -71,6 +83,9 @@ def main():
             # si salta, il giro successivo la ripesca da sola.
             report["saltate_output_incompleto"].append({"id": row_id, "slug": rows[row_id]["slug"]})
             continue
+        if LABEL_DUMP_RE.match(output["descrizione_riscritta"].strip()):
+            report["saltate_label_dump"].append({"id": row_id, "slug": rows[row_id]["slug"]})
+            continue
         to_write.append((row_id, output))
         report["scritte"].append(row_id)
 
@@ -91,6 +106,7 @@ def main():
     print(f"Saltate (fonte troncata, per revisione manuale): {len(report['saltate_troncate'])}")
     print(f"Già corrette, nessuna modifica: {len(report['gia_corrette'])}")
     print(f"Saltate (output del modello incompleto, senza strict): {len(report['saltate_output_incompleto'])}")
+    print(f"Saltate (residuo di label-dump in testa alla descrizione): {len(report['saltate_label_dump'])}")
     print(f"SQL scritto in {args.sql_out}, report in {args.report_out}")
 
     if args.apply:
