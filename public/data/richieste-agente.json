@@ -974,5 +974,16 @@
       "messaggio": "PlantNet suggerisce Sedum × rubrotinctum (confidenza 24%) e Sedum adolphi (22%), ma le caratteristiche nella foto sembrano più coerenti con Crassula ovata (albero di giada): foglie ovali-lanceolate appuntite, lucide, disposte in coppie nettamente opposte a croce lungo il fusto, senza i tipici \"chicchi\" tondeggianti dalle punte rossastre di S. rubrotinctum. È una giovane pianta/talea appena radicata, coerente con l'aspetto delle Crassula ovata comuni nei vivai.\n\nCura: pieno sole (tollera anche mezz'ombra), annaffiature scarse lasciando asciugare bene il terreno tra un turno e l'altro, substrato molto drenante come quello già usato per i cactus vicini. Non tollera gelate: se resta in vaso all'aperto a Centinarola, ritirala o proteggila sotto i 5°C.\n\nFabbisogno NPK proposto (Crassula ovata è già in catalogo ma senza valori NPK): primavera \"5-5-5\", estate/autunno/inverno vuoto — succulenta a fabbisogno minimo, concimazione solo nella fase di crescita attiva primaverile.",
       "elaborata": "2026-09-20T00:00:00.000Z"
     }
+  },
+  "r-1790489275084-o7bz": {
+    "tipo": "pianifica_progetto",
+    "messaggio": "Ho modificato il progetto, ho inserito le ultime cose fatte. Cosa ne pensi? Inoltre, puoi valutare eventualmente se modificare le tappe successive?",
+    "specie": null,
+    "progetto": "8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c",
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-27T06:07:55.704Z",
+    "risposta": null
   }
 }
