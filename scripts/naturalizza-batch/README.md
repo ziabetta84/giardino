@@ -1,11 +1,8 @@
 # Naturalizzazione/traduzione descrizioni via Anthropic Message Batches API
 
 Script per finire la naturalizzazione dello stile delle `descrizione` (issue **#153**),
-sulla parte rimasta in inglese (le ~108 righe residue del lotto "inglese nascosto"
-e il blocco RHS marcato, ~11.700 righe) e sugli stub minimi italiani mai toccati
-(`--source stub`, ~3.065 righe: famiglia/portamento/altezza, spesso con
-`esigenze` popolato — nessuna traduzione da fare, ma lo stesso identico problema
-di costo per riga via agenti Claude Code). Fatto come script separato, fuori da
+sulla parte rimasta in inglese: le ~108 righe residue del lotto "inglese nascosto"
+e il blocco RHS marcato (~11.700 righe). Fatto come script separato, fuori da
 Claude Code, perché il costo osservato via agenti/fork Claude Code era enorme
 (~11.000-12.500 token per riga, quasi tutto overhead di tool-calling) — vedi
 memoria di progetto "naturalizzazione-descrizioni" per l'analisi completa.

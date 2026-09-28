@@ -44,21 +44,7 @@ RHS_QUERY = """
     and descrizione ilike '%testo originale in inglese%'
 """
 
-# Stub minimi PFAF (fase 4, punto 4.a del piano): solo famiglia/portamento/altezza
-# in descrizione, ma spesso con esigenze.luce/acqua/terreno popolato -- materiale
-# reale su cui scrivere una prosa breve, non solo "lascia stare" per definizione.
-# lingua_descrizione='stub' e' popolata da scripts/rileva-lingua-descrizione.py.
-STUB_QUERY = """
-    specie_padre_id is null
-    and lingua_descrizione = 'stub'
-"""
-
-SOURCES = {
-    "hidden": HIDDEN_QUERY,
-    "rhs": RHS_QUERY,
-    "stub": STUB_QUERY,
-    "all": f"({HIDDEN_QUERY}) or ({RHS_QUERY})",
-}
+SOURCES = {"hidden": HIDDEN_QUERY, "rhs": RHS_QUERY, "all": f"({HIDDEN_QUERY}) or ({RHS_QUERY})"}
 
 
 ORDER_CLAUSES = {
