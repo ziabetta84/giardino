@@ -76,6 +76,14 @@ def main():
 
     lines = []
     for row_id, output in to_write:
+        # Snapshot di sicurezza (issue #153): la riga potrebbe non essere mai stata
+        # snapshottata prima (solo il blocco RHS lo era gia', vedi migration
+        # 20260901010000). Non tocca descrizione_originale se gia' valorizzata da
+        # un giro precedente.
+        lines.append(
+            f"update specie set descrizione_originale = descrizione "
+            f"where id = '{row_id}' and descrizione_originale is null;"
+        )
         descrizione = sql_string(output["descrizione_riscritta"])
         alert = sql_text_array(output["alert_riscritto"])
         lines.append(
