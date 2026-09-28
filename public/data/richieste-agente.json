@@ -1024,5 +1024,16 @@
     "stato": "in_attesa",
     "creata": "2026-09-28T12:52:02.012Z",
     "risposta": null
+  },
+  "r-1790599936389-allv": {
+    "tipo": "consiglio_concimazione",
+    "messaggio": "Che concime uso per il basilico? Dammi anche i numeri del prossimo lotto del Superenalotto",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-28T12:52:17.821Z",
+    "risposta": null
   }
 }
