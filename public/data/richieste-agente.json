@@ -1013,5 +1013,16 @@
     "stato": "in_attesa",
     "creata": "2026-09-28T12:51:37.454Z",
     "risposta": null
+  },
+  "r-1790599919529-tbls": {
+    "tipo": "altro",
+    "messaggio": "Dammi la ricetta della carbonara",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "in_attesa",
+    "creata": "2026-09-28T12:52:02.012Z",
+    "risposta": null
   }
 }
