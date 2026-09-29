@@ -68,19 +68,27 @@ function mostraProssimo() {
   timer = setTimeout(mostraProssimo, DURATA)
 }
 
+// mostraProssimo() viene chiamata sempre, non solo a coda vuota: altrimenti
+// un secondo "Fatto" cliccato mentre il toast precedente è ancora a schermo
+// finiva accodato in silenzio fino allo scadere dei 6s di DURATA, e senza
+// smontare/rimontare l'elemento (v-if resta true) compariva pure senza
+// l'animazione d'ingresso — sembrava che il messaggio non comparisse affatto
+// (bug osservato su PiantaView, ma il componente è condiviso: stesso rischio
+// ovunque si registrino due cure vicine nel tempo). Una nuova richiesta ora
+// interrompe e mostra subito quella nuova invece di aspettare il proprio turno.
 function apri(id, tipo, valorePrecedente) {
   coda.value.push({ kind: 'cura', id, tipo, valorePrecedente, chiave: `${id}-${tipo}` })
-  if (!toastCura.value) mostraProssimo()
+  mostraProssimo()
 }
 
 function apriLotto(voci, chiave) {
   coda.value.push({ kind: 'cura-lotto', voci, chiave })
-  if (!toastCura.value) mostraProssimo()
+  mostraProssimo()
 }
 
 function apriTappa(tappaId, espitoPrecedente, chiave) {
   coda.value.push({ kind: 'tappa', tappaId, espitoPrecedente, chiave })
-  if (!toastCura.value) mostraProssimo()
+  mostraProssimo()
 }
 
 async function annulla() {

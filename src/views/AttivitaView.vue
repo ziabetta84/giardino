@@ -289,7 +289,7 @@ function onErroreToast(e) {
 </script>
 
 <style scoped>
-.attivita-data { font-family: var(--font-display); font-style: italic; font-size: 13px; color: var(--ink-soft); margin: 4px 2px 20px; }
+.attivita-data { font-family: var(--font-sans); font-size: 12px; color: var(--ink-soft); margin: 4px 2px 20px; }
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 
