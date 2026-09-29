@@ -29,8 +29,8 @@ colors:
   acqua-dark: "#4c7793"
   acqua-bg: "#e2edf3"
   acqua-ink: "#2b566e"
-  uovo: "#cbb994"
-  uovo-dark: "#a68f63"
+  uovo: "#cba894"
+  uovo-dark: "#a67c63"
   ink: "#2a2218"
   ink-mid: "#5a4e3e"
   ink-soft: "#9a8e7e"
@@ -170,7 +170,7 @@ components:
 
 **Creative North Star: "Il Taccuino da Giardino"**
 
-Il sistema è un bullet journal da giardino: una pagina di carta calda, scritta e disegnata a mano, dove Zorba — il gatto nero realmente esistito e sepolto nel giardino, oggi voce dell'assistente AI — entra e esce dalle pagine per accompagnare chi cura il giardino. Non è un pannello di controllo: è un quaderno che si sfoglia, con un fondo a lavaggio d'acquerello sempre presente sotto ogni schermata, illustrazioni a china (l'aiuola della Home, che cambia con stagione e ora del giorno) e icone dipinte come macchie di pigmento più che come segnaletica.
+Il sistema è un bullet journal da giardino: una pagina di carta calda, scritta e disegnata a mano, dove Zorba — il gatto nero realmente esistito e sepolto nel giardino, oggi voce dell'assistente AI — entra e esce dalle pagine per accompagnare chi cura il giardino. Non è un pannello di controllo: è un quaderno che si sfoglia, con un fondo a lavaggio d'acquerello sempre presente sotto ogni schermata, illustrazioni a china (l'aiuola della Home: otto dipinti ad acquerello/china generati, uno per stagione e ora del giorno, con un contorno disegnato a mano che si ricompone sopra ciascuno all'apertura) e icone dipinte come macchie di pigmento più che come segnaletica.
 
 L'atmosfera voluta è calda e quieta: nessuna urgenza visiva se non quella reale delle cure da fare, ritmo lento da fine giornata in giardino, mai il tono energico o affollato di un'app da produttività. I componenti sono morbidi e arrotondati — angoli generosi (12–22px), ombre soffuse, niente spigoli — così che toccare un bottone o aprire un foglio senta "di carta e cuscino", non di scheda tecnica.
 
@@ -197,7 +197,7 @@ Una palette calda da erbario — non un blu/grigio da prodotto software — con 
 ### Tertiary (colori funzionali per dominio di cura)
 - **China Blu Cielo** (`#6f9fc0`, `acqua`): irrigazione.
 - **Verde Muschio** (`#9aaa5a`, `olive`): concimazione.
-- **Ocra Uovo** (`#cbb994`, `uovo`): apporto di calcio/altri trattamenti minori.
+- **Ocra Uovo** (`#cba894`, `uovo`): apporto di calcio/altri trattamenti minori.
 - **Verde Salvia** (`sage`, riuso del primary): cura generica/NPK.
 - **Rosa ad Acquerello** (`rose`, riuso del secondary): potatura.
 
@@ -215,6 +215,44 @@ Ogni colore funzionale ha una coppia "-bg"/"-ink" (es. `acqua-bg #e2edf3` / `acq
 **La Regola di Zorba Nero.** Zorba è identità, non decorazione: resta nero (`#141414`) in ogni tema e in ogni superficie che lo mostra — unica eccezione ammessa alla palette. In dark mode non si schiarisce: gli si aggiunge un alone chiaro (`drop-shadow`) che lo separa dallo sfondo scuro. Un solo dettaglio interno alla silhouette fa eccezione all'eccezione: il tratto `#pattern` di `ZorbaLogo.vue` (`#d4b23c`, un oro smorzato) disegna un motivo sottilissimo sul pelo — a stroke scoperto e fill invisibile (`fill-opacity: 0`), quasi impercettibile finché non lo si cerca. Resta un dettaglio di questo unico SVG, non un colore da riusare altrove.
 
 **La Regola del Caldo-al-Buio.** Il dark mode non è un grigio neutro invertito: ogni token scuro nasce dalla tinta del suo equivalente chiaro. L'accento base si schiarisce (non si scurisce) per leggibilità; le tinte pallide (`-light`/`-pale`, sfondi pillola/badge) diventano versioni scure sature della stessa tinta; le coppie `-bg`/`-ink` restano sempre superficie scura satura + testo chiaro.
+
+### Dark Mode — valori esatti
+Applicati da `useTema.js` via `data-theme="dark"` su `<html>`. Ogni riga applica la Regola del Caldo-al-Buio: l'accento base si schiarisce, `-light`/`-pale` diventano superfici scure sature, le coppie `-bg`/`-ink` si invertono in superficie scura + testo chiaro.
+
+| Token | Chiaro | Scuro |
+|---|---|---|
+| `rose` | `#cc6e6e` | `#e0898a` |
+| `rose-dark` | `#b85f5f` | `#f0acac` |
+| `rose-light` | `#f0d0d0` | `#4a2b2b` |
+| `rose-pale` | `#fdf4f4` | `#241a19` |
+| `rose-bg` / `rose-ink` | `#f6e3e1` / `#8a3f3a` | `#3a2422` / `#f0acac` |
+| `gold` | `#e0b84a` | `#eec769` |
+| `gold-dark` | `#b8902a` | `#f6da97` |
+| `gold-light` | `#f5e9bc` | `#4a3c1e` |
+| `gold-pale` | `#fdfbf0` | `#231e13` |
+| `gold-bg` / `gold-ink` | `#f7ecd0` / `#7a5a15` | `#362c15` / `#f6da97` |
+| `sage` | `#7a9e82` | `#93bb9b` |
+| `sage-dark` | `#5a7e62` | `#b7d6bd` |
+| `sage-light` | `#c8d9c8` | `#2b3c30` |
+| `sage-pale` | `#f2f7f2` | `#1c211c` |
+| `sage-bg` / `sage-ink` | `#e4ede4` / `#37543f` | `#223326` / `#b7d6bd` |
+| `olive` | `#9aaa5a` | `#b3c473` |
+| `olive-dark` | `#6d7a3e` | `#cddb95` |
+| `olive-light` | `#d8e4b0` | `#38401f` |
+| `olive-bg` / `olive-ink` | `#ececd8` / `#545e2a` | `#2a2e18` / `#cddb95` |
+| `acqua` | `#6f9fc0` | `#8dbcdd` |
+| `acqua-dark` | `#4c7793` | `#b3d5ec` |
+| `acqua-bg` / `acqua-ink` | `#e2edf3` / `#2b566e` | `#203244` / `#a8cfe6` |
+| `uovo` | `#cba894` | `#ddbaa6` |
+| `uovo-dark` | `#a67c63` | `#ecd0c0` |
+| `uovo-bg` / `uovo-ink` | `#f5ebe5` / `#6d442c` | `#302017` / `#ecd0c0` |
+| `ink` | `#2a2218` | `#f2e8d8` |
+| `ink-mid` | `#5a4e3e` | `#cdbfa4` |
+| `ink-soft` | `#9a8e7e` | `#8f8369` |
+| `ink-faint` | `#c8bfb0` | `#4a4230` |
+| `cream` | `#faf7f2` | `#1c1810` |
+| `cream-dark` | `#f0ebe2` | `#342c1d` |
+| `white` | `#ffffff` | `#262015` |
 
 ## Typography
 
@@ -239,7 +277,7 @@ Ogni colore funzionale ha una coppia "-bg"/"-ink" (es. `acqua-bg #e2edf3` / `acq
 
 ## Layout
 
-L'app è una PWA a singola colonna su mobile (barra in alto con blur, `.appbar`, e barra di navigazione in basso, `.bottomnav`) che diventa a due colonne da 640px in su, con una sidebar fissa a sinistra (200px) al posto della barra orizzontale — l'area di contenuto (`.app-main`) arriva fino a 920px. Non esiste una griglia a colonne multiple per il contenuto: ogni vista è un flusso verticale singolo, denso ma arioso, con card e liste che si susseguono.
+L'app è una PWA a singola colonna su mobile (barra in alto con blur, `.appbar`, e barra di navigazione in basso, `.bottomnav`) che diventa a due colonne da 640px in su, con una sidebar fissa a sinistra (200px) al posto della barra orizzontale — l'area di contenuto (`.app-main`) arriva fino a 920px. Da 1120px di viewport in su (200px di sidebar + 920px di area) il contenuto si centra nello spazio residuo a destra della sidebar invece di restare incollato a sinistra; sotto quella soglia il calcolo collassa e torna al semplice flush-left, senza margini negativi. Non esiste una griglia a colonne multiple per il contenuto: ogni vista è un flusso verticale singolo, denso ma arioso, con card e liste che si susseguono.
 
 Le liste preferiscono i **filetti** (hairline `1px solid var(--cream-dark)` tra una riga e l'altra) al posto di racchiudere ogni riga in una card separata — un pattern esplicito nel codice ("liste con filetti") che tiene le pagine leggere invece di impilare bordi su bordi. Le card restano riservate a contenuti che devono davvero isolarsi dal flusso (form, riepiloghi, blocchi di avviso).
 
@@ -306,10 +344,21 @@ Bottone compatto usato per confermare un singolo elemento di una lista — una c
 - **Mobile:** appbar in alto con blur (`backdrop-filter: blur(8px)`) su carta semi-trasparente, e barra di tab in basso; le icone inattive diventano monocromatiche (`currentColor`), quella attiva riprende il colore originale — la navigazione "si accende" solo dove sei.
 - **Desktop (≥640px):** sidebar fissa a sinistra (200px), stesso principio di ricolorazione icona attiva/inattiva; l'appbar mobile scompare.
 
-### L'Aiuola (Home) — scena a china viva
-La scena SVG dell'hero (`HeroAiuola.vue`) non è un'illustrazione statica: al mount, una matita a china ripassa l'intera scena una volta sola (tratti con `stroke-dasharray`, sfalsati nel tempo). Oltre a questo, se stagione o luce cambiano davvero mentre l'app resta aperta (un tramonto reale, un mese che finisce), la scena non scatta più da uno stato all'altro: il cielo dissolve con la View Transitions API mentre gli elementi della nuova stagione si ridisegnano a china con la stessa coreografia dell'apertura, riusando i medesimi ritardi/durate per tratto — un'animazione di carattere, fuori dal sistema di decelerazione. Su browser senza View Transitions (Firefox) il ridisegno a china resta, senza la dissolvenza di sfondo; con `prefers-reduced-motion` tutto scatta all'istante, senza alcuna animazione.
+### L'Aiuola — dipinto e china, non più scena vettoriale
+`HeroAiuola.vue` non è più una scena SVG procedurale ma un rendering ibrido: otto dipinti ad acquerello/china generati (uno per stagione × ora del giorno — primavera/estate/autunno/inverno, giorno/notte), ciascuno con un cancello aperto ricorrente ("lascia entrare Zorba in giardino") e sole/luna dipinti dentro la tela stessa, caricati pigri per non gonfiare il bundle della Home. Sopra le tele restano vettoriali e animate solo nuvole (drift orizzontale in loop, 85–110s lineari) di giorno e stelle (twinkle) di notte — l'unico movimento continuo su una scena altrimenti ferma. Ogni tela ha un punto di fuoco calibrato sul cancello che guida il crop tra i due contesti in cui appare: la striscia compatta della Home (`.hero`, aspect-ratio 4.5:1, min-height 70px) e lo schermo intero dello Splash d'ingresso (sotto).
 
-Un'oscillazione permanente dei singoli fiori/cespugli ("il vento nell'aiuola") è stata tentata e scartata: `transform-box:fill-box` sui gruppi `<use>`+`transform` di questa scena disallineava i tratti a china dalle forme colorate su WebKit (bug/incompatibilità del motore, non un errore di battitura nei valori) — vedi verifica del 05/09/2026. Non riprovare la stessa tecnica senza prima validarla in browser reale.
+L'ingresso ha due velocità. Di default (striscia della Home) la tela dissolve rapidamente (0.9s). Nello Splash d'ingresso parte invece l'ingresso lento, l'erede diretto della china che ripassava la scena: un contorno tracciato reale della tela — ottenuto per autotrace-centerline dal dipinto stesso, un file per ciascuna delle otto combinazioni — si disegna sottopercorso per sottopercorso via Web Animations API su un budget di 2.6s, poi la tela a colori dissolve dentro un cerchio che si allarga dal cancello, con un bloom caldo e uno zoom di camera impercettibile: la stessa idea del ridisegno a china originale, ora sopra un dipinto reale invece di una scena vettoriale.
+
+Un cambio reale di stagione/luce mentre l'app resta aperta attraversa ancora la View Transitions API (dissolvenza del cielo, fallback a scatto secco dove assente) ed emette `cambio-scena`, che fa battere le palpebre a Zorba più lentamente (vedi "Zorba — mascotte/assistente"). Nella striscia della Home, Zorba (angolo in basso a destra, 70% dell'altezza della striscia) riceve un'ombra coerente con la luce *dipinta nella scena*, non con il tema chiaro/scuro dell'app — di giorno un'ombra di contatto calda, di notte lo stesso alone chiaro usato per il dark mode: sono due cose distinte, l'ora nella scena e la preferenza dell'utente, che possono non coincidere. Con `prefers-reduced-motion` tutto scatta all'istante.
+
+**Tentato e scartato**: un'oscillazione permanente dei singoli fiori/cespugli ("il vento nell'aiuola") nella vecchia scena vettoriale — `transform-box:fill-box` sui gruppi `<use>`+`transform` disallineava i tratti a china dalle forme colorate su WebKit (bug del motore, non un errore nei valori) — verifica del 05/09/2026. La scena vettoriale a cui si applicava non esiste più (sostituita dai dipinti l'11/09/2026), ma la lezione resta: non fidarsi di `transform-box:fill-box` su `<use>` animati senza validare su WebKit reale.
+
+### Lo Splash d'Ingresso (`SplashAiuola.vue`)
+Overlay a schermo intero che apre la sessione due volte al giorno — una finestra fissa al mattino (5–12) e una alla sera (18–24), non più legata alle fasce del saluto (fino a tre volte al giorno era usura, non accoglienza) — montando la stessa Aiuola con l'ingresso lento descritto sopra. Sequenza temporizzata: saluto e data a 700ms, pillole meteo/azioni a 1900ms, chiusura automatica a 5200ms se non saltato; un bottone "Salta" (minimo 44px di tocco) permette di uscire prima. In uscita, dissolvenza più uno zoom impercettibile coerente con la spinta di camera dell'ingresso, non un'inversione secca.
+
+A differenza della striscia della Home, qui saluto/data/pillole restano sovrapposti al dipinto: un velo sfumato dal basso (pieno fino al 28% di altezza, poi a zero al 58%) li rende leggibili — soglia tarata sul contrasto reale misurato a schermo (non solo dichiarato in CSS) per restare sopra 4.5:1 anche dove cade la data, la riga più in basso. Il velo non è tarato una volta per tutte: la prima versione sfumava già a partire dallo 0% di altezza e non copriva a sufficienza dove cade davvero il testo — corretto solo dopo una verifica sul pixel reale, non sul solo valore dichiarato in CSS. Ogni futura modifica al velo va riverificata allo stesso modo, non dedotta dal codice.
+
+Il logo di apertura app (`BootLogo.vue`) coordina la propria durata con lo Splash invece di sommarsi a esso: se sa che lo Splash sta per arrivare resta solo 400ms (il tempo di coprire il primo paint), altrimenti i 3 secondi pieni di sempre — due schermate d'ingresso complete in sequenza sarebbero un'usura, non un'accoglienza.
 
 ### Il Foglio (bottom sheet / side sheet) — segnaposto ricorrente
 Pannello che scivola dal basso su mobile (angoli 22px solo in alto) e da destra su desktop (larghezza fissa 420px), usato per form di dettaglio (specie, cura, storico dell'agente) senza lasciare la pagina sottostante. Overlay scuro semitrasparente dietro, "maniglia" orizzontale visibile solo su mobile. È il modo standard con cui l'app apre un compito breve senza cambiare rotta.
@@ -356,3 +405,4 @@ SVG a china animato: coda che oscilla (4.6s, easing morbido) e occhio che sbatte
 - **Don't** stringere il sistema di raggi (6–22px) verso angoli da 2–4px "da dashboard": la morbidezza è la firma tattile del sistema.
 - **Don't** incorniciare in una card con bordo pieno una lista che già usa il pattern a filetti — sarebbe una doppia gerarchia di contenimento.
 - **Don't** usare un easing con overshoot (rimbalzo/elastico) su un elemento d'interfaccia: rompe la Regola della Decelerazione Unica ed è in tensione diretta con un sistema "caldo e quieto".
+- **Don't** sovrapporre testo leggibile al dipinto dell'Aiuola nella striscia compatta della Home: provato con un contorno di carta il 11/09/2026, spostato sotto su carta piena il 16/09 perché il contrasto non reggeva in modo uniforme sulle otto tele. Nello Splash a schermo intero il testo resta sul dipinto, ma solo dietro un velo tarato e verificato sul pixel reale (vedi "Lo Splash d'Ingresso").

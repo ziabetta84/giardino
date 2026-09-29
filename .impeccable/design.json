@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-05T08:50:00.000Z",
+  "generatedAt": "2026-09-29T00:00:00.000Z",
   "title": "Design System: Giardino di Rob",
   "extensions": {
     "colorMeta": {
@@ -9,7 +9,7 @@
       "sage": { "role": "primary", "displayName": "Verde Salvia Diluito", "canonical": "#7a9e82", "tonalRamp": ["#202c23", "#394e3e", "#517058", "#6a9173", "#8bab92", "#adc3b2", "#cfdcd1", "#f0f4f1"] },
       "olive": { "role": "tertiary", "displayName": "Verde Muschio", "canonical": "#9aaa5a", "tonalRamp": ["#2e321a", "#50592e", "#737f42", "#96a655", "#aebb7b", "#c6cfa1", "#dde3c8", "#f5f6ee"] },
       "acqua": { "role": "tertiary", "displayName": "China Blu Cielo", "canonical": "#6f9fc0", "tonalRamp": ["#172935", "#29485e", "#3b6886", "#4d87af", "#74a2c2", "#9cbdd4", "#c5d8e6", "#edf3f7"] },
-      "uovo": { "role": "tertiary", "displayName": "Ocra Uovo", "canonical": "#cbb994", "tonalRamp": ["#332b19", "#5b4b2c", "#826c3f", "#a98d52", "#bda778", "#d1c09f", "#e4dac7", "#f7f4ee"] },
+      "uovo": { "role": "tertiary", "displayName": "Ocra Uovo", "canonical": "#cba894", "tonalRamp": ["#33241a", "#5b3f2d", "#825941", "#a97354", "#bd8f79", "#d1ac9f", "#e4c9c7", "#f7ede9"] },
       "ink": { "role": "neutral", "displayName": "Inchiostro", "canonical": "#2a2218", "tonalRamp": ["#31271c", "#564531", "#7b6346", "#a0815b", "#b69e7f", "#cbbaa5", "#e1d6ca", "#f6f3ef"] },
       "cream": { "role": "neutral", "displayName": "Carta", "canonical": "#faf7f2", "tonalRamp": ["#372b15", "#614b25", "#8b6b36", "#b68c46", "#c7a66e", "#d8c098", "#e8dac2", "#f8f4ed"] },
       "zorba-black": { "role": "neutral", "displayName": "Nero di Zorba", "canonical": "#141414", "tonalRamp": ["#000000", "#0a0a0a", "#141414", "#1f1f1f", "#2a2a2a", "#3a3a3a", "#5a5a5a", "#8a8a8a"] }
@@ -33,7 +33,8 @@
       { "name": "motion-sheet", "value": "0.26s", "purpose": "Durata per una superficie che scorre o si rivela (foglio, drawer, modale, un elemento che appare nella pagina)." },
       { "name": "zorba-tail-wag", "value": "4.6s ease-in-out infinite", "purpose": "Coda di Zorba, loop continuo (disattivato con prefers-reduced-motion) — animazione di carattere, intenzionalmente fuori dal sistema di decelerazione." },
       { "name": "zorba-eye-blink", "value": "6.2s ease-in-out infinite", "purpose": "Battito di ciglia di Zorba, loop continuo — animazione di carattere, intenzionalmente fuori dal sistema di decelerazione." },
-      { "name": "scena-ridisegno-cinematico", "value": "View Transitions API + replay stroke-dashoffset per tratto", "purpose": "Su cambio reale di stagione/luce nell'aiuola Home: dissolvenza dello sfondo + ridisegno a china della nuova stagione, invece di uno scatto CSS istantaneo. Evento raro, non una transizione di stato UI." }
+      { "name": "scena-ridisegno-cinematico", "value": "View Transitions API (document.startViewTransition), fallback a scatto secco se assente", "purpose": "Su cambio reale di stagione/luce nella striscia Home: dissolvenza verso la nuova tela invece di uno scatto CSS istantaneo. Evento raro (cambio-scena), non una transizione di stato UI — distinto dal contorno tracciato via Web Animations API, riservato all'ingresso lento dello Splash." },
+      { "name": "aiuola-contorno-tracciato", "value": "Web Animations API, budget 2.6s totali, ~220ms per sottopercorso, ordine per lunghezza decrescente", "purpose": "Ingresso lento dell'Aiuola (solo nello Splash): un contorno autotrace-centerline della tela si disegna sottopercorso per sottopercorso, poi la tela a colori dissolve dentro un cerchio che si allarga dal cancello. Erede diretto del ridisegno a china della vecchia scena vettoriale." }
     ],
     "breakpoints": [
       { "name": "sm", "value": "640px" }
@@ -115,7 +116,7 @@
   ],
   "narrative": {
     "northStar": "Il Taccuino da Giardino",
-    "overview": "Il sistema è un bullet journal da giardino: una pagina di carta calda, scritta e disegnata a mano, dove Zorba — il gatto nero realmente esistito e sepolto nel giardino, oggi voce dell'assistente AI — entra e esce dalle pagine per accompagnare chi cura il giardino. Non è un pannello di controllo: è un quaderno che si sfoglia, con un fondo a lavaggio d'acquerello sempre presente sotto ogni schermata, illustrazioni a china (l'aiuola della Home, che cambia con stagione e ora del giorno) e icone dipinte come macchie di pigmento più che come segnaletica.\n\nL'atmosfera voluta è calda e quieta: nessuna urgenza visiva se non quella reale delle cure da fare, ritmo lento da fine giornata in giardino, mai il tono energico o affollato di un'app da produttività. I componenti sono morbidi e arrotondati — angoli generosi (12–22px), ombre soffuse, niente spigoli — così che toccare un bottone o aprire un foglio senta \"di carta e cuscino\", non di scheda tecnica.\n\nRifiuti visivi confermati: niente estetica da SaaS/dashboard generico (card piatte grigie, blu corporate, icone outline sottili da tool aziendale); niente cliché da app di giardinaggio da stock (foto botaniche generiche, verde/marrone scontati) al posto dell'illustrazione a china/acquerello.",
+    "overview": "Il sistema è un bullet journal da giardino: una pagina di carta calda, scritta e disegnata a mano, dove Zorba — il gatto nero realmente esistito e sepolto nel giardino, oggi voce dell'assistente AI — entra e esce dalle pagine per accompagnare chi cura il giardino. Non è un pannello di controllo: è un quaderno che si sfoglia, con un fondo a lavaggio d'acquerello sempre presente sotto ogni schermata, illustrazioni a china (l'aiuola della Home: otto dipinti ad acquerello/china generati, uno per stagione e ora del giorno, con un contorno disegnato a mano che si ricompone sopra ciascuno all'apertura) e icone dipinte come macchie di pigmento più che come segnaletica.\n\nL'atmosfera voluta è calda e quieta: nessuna urgenza visiva se non quella reale delle cure da fare, ritmo lento da fine giornata in giardino, mai il tono energico o affollato di un'app da produttività. I componenti sono morbidi e arrotondati — angoli generosi (12–22px), ombre soffuse, niente spigoli — così che toccare un bottone o aprire un foglio senta \"di carta e cuscino\", non di scheda tecnica.\n\nRifiuti visivi confermati: niente estetica da SaaS/dashboard generico (card piatte grigie, blu corporate, icone outline sottili da tool aziendale); niente cliché da app di giardinaggio da stock (foto botaniche generiche, verde/marrone scontati) al posto dell'illustrazione a china/acquerello.",
     "keyCharacteristics": [
       "Pagina di carta calda (--cream) con un lavaggio d'acquerello organico sempre presente sullo sfondo",
       "Fraunces per ogni nome e titolo, mai per il corpo del testo o i numeri di servizio",
@@ -149,7 +150,8 @@
       "Don't schiarire o ricolorare Zorba, nemmeno per uno stato disabilitato/muto: resta nero, al massimo con un alone in dark mode.",
       "Don't stringere il sistema di raggi (6–22px) verso angoli da 2–4px \"da dashboard\": la morbidezza è la firma tattile del sistema.",
       "Don't incorniciare in una card con bordo pieno una lista che già usa il pattern a filetti — sarebbe una doppia gerarchia di contenimento.",
-      "Don't usare un easing con overshoot (rimbalzo/elastico) su un elemento d'interfaccia: rompe la Regola della Decelerazione Unica ed è in tensione diretta con un sistema \"caldo e quieto\"."
+      "Don't usare un easing con overshoot (rimbalzo/elastico) su un elemento d'interfaccia: rompe la Regola della Decelerazione Unica ed è in tensione diretta con un sistema \"caldo e quieto\".",
+      "Don't sovrapporre testo leggibile al dipinto dell'Aiuola nella striscia compatta della Home: provato con un contorno di carta l'11/09/2026, spostato sotto su carta piena il 16/09 perché il contrasto non reggeva in modo uniforme sulle otto tele. Nello Splash a schermo intero il testo resta sul dipinto, ma solo dietro un velo tarato e verificato sul pixel reale."
     ]
   }
 }
