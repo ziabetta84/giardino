@@ -237,7 +237,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useAuth } from '@/composables/useAuth'
 import { usePianteApi } from '@/composables/usePianteApi'
-import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
+import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { iconaCura } from '@/composables/useCureVisual'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
@@ -425,11 +425,8 @@ const daFareOggi = computed(() => {
     const nomeSpecie = sp?.nome ?? p.specie
     const contesto = contestoPianta(p, id)
     // Potatura non è più una cura a urgenza (resta registrabile nella scheda
-    // pianta): il feed valuta solo irrigazione, concimazione e — per le poche
-    // specie con beneficio documentato — calcio.
-    const tipi = ['irrigazione', 'concimazione']
-    if (sp?.manutenzione?.calcio) tipi.push('calcio')
-    for (const tipo of tipi) {
+    // pianta): il feed valuta solo i tipi con cadenza (vedi tipiCuraPianta).
+    for (const tipo of tipiCuraPianta(p, sp)) {
       const c = valutaCura(p, sp, tipo, contesto)
       if (!c.urgente) continue
       // Stessa chiamata di AttivitaView.vue: le due viste non devono poter

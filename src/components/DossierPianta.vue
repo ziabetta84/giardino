@@ -63,7 +63,7 @@
 import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
-import { valutaCura, stagione } from '@/composables/useCure'
+import { valutaCura, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import { iconaCura, LABEL_CURA, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
@@ -78,14 +78,7 @@ const pianteApi = usePianteApi()
 const pianta = computed(() => store.piante?.[props.piantaId] ?? null)
 const specie = computed(() => pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null)
 
-// "calcio" riguarda solo le poche specie con un beneficio documentato (vedi
-// PiantaView): mostrarlo per tutte le altre come "Non configurata" sarebbe
-// rumore, a differenza di irrigazione/concimazione sempre pertinenti.
-const tipiCura = computed(() => {
-  const base = ['irrigazione', 'concimazione']
-  if (specie.value?.manutenzione?.calcio) base.push('calcio')
-  return base
-})
+const tipiCura = computed(() => tipiCuraPianta(pianta.value, specie.value))
 const contestoCura = computed(() => ({
   esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
   meteo: store.meteo,

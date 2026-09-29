@@ -411,6 +411,7 @@ const stagioneCal = ref(stagione())
 
 const TIPI_CURA_DOSSIER = [
   { tipo: 'irrigazione',  label: 'Irrigazione',   icona: 'goccia' },
+  { tipo: 'cambio_acqua', label: 'Ricambio acqua', icona: 'goccia' },
   { tipo: 'concimazione', label: 'Concimazione',  icona: 'concimazione' },
   { tipo: 'calcio',       label: 'Calcio',         icona: 'uovo' },
   { tipo: 'potatura',     label: 'Potatura',       icona: 'potatura' },
@@ -429,7 +430,7 @@ const cureRighe = computed(() => {
       const testo = grezzo != null ? String(grezzo).trim() : ''
       let valore = ''
       if (testo) {
-        if (t.tipo === 'irrigazione' || t.tipo === 'concimazione' || t.tipo === 'calcio') {
+        if (t.tipo === 'irrigazione' || t.tipo === 'cambio_acqua' || t.tipo === 'concimazione' || t.tipo === 'calcio') {
           const n = parseGiorni(testo)
           valore = typeof n === 'number' && n > 0
             ? (n === 1 ? 'Ogni giorno' : `Ogni ${n} giorni`)

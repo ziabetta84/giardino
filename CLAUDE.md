@@ -125,7 +125,9 @@ Schema richiesta:
 
 ## Logica cure (`useCure.js`)
 
-`valutaCura(pianta, specie, tipo)` legge `specie.manutenzione[tipo][stagione]`, calcola i giorni dall'ultima cura e restituisce `{ urgente, label, giorni }`. `cureUrgentiPianta` filtra solo i tipi urgenti. La stagione è calcolata dal mese corrente.
+`valutaCura(pianta, specie, tipo)` legge `specie.manutenzione[tipo][stagione]`, calcola i giorni dall'ultima cura e restituisce `{ urgente, label, giorni }`. `tipiCuraPianta(pianta, specie)` centralizza quali tipi valutare/mostrare per una pianta (irrigazione, concimazione, calcio se pertinente) — unico punto usato da `DossierPianta.vue`, `PiantaView.vue`, `AttivitaView.vue` e `HomeView.vue`, invece di 4 liste duplicate. `cureUrgentiPianta` la usa e filtra solo i tipi urgenti. La stagione è calcolata dal mese corrente.
+
+Per le piante con `coltivato_in === 'acqua'` (issue #173), `tipiCuraPianta` sostituisce `irrigazione` con `cambio_acqua` ("Ricambio acqua" in UI — l'etichetta "Irrigazione" non ha senso per una pianta già immersa in acqua): stessa logica di cadenza, letta da `specie.manutenzione.cambio_acqua[stagione]` se presente, altrimenti cadenza generica di 14 giorni finché la specie non viene revisionata (vedi `/zorbadice` → `revisione_specie`). Per vaso/terra il campo non compare mai.
 
 ## Gallery
 

@@ -1,7 +1,7 @@
 // Mappe icone/etichette per cure ed esigenze, condivise da PiantaView,
 // AttivitaRiga/DossierPianta e SelettoreSpecie (prima duplicate in 3 file).
-export const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'uovo' }
-export const LABEL_CURA = { irrigazione: 'Irrigazione', concimazione: 'Concimazione', potatura: 'Potatura', calcio: 'Calcio' }
+export const ICONE_CURA = { irrigazione: 'goccia', concimazione: 'concimazione', potatura: 'potatura', calcio: 'uovo', cambio_acqua: 'goccia' }
+export const LABEL_CURA = { irrigazione: 'Irrigazione', concimazione: 'Concimazione', potatura: 'Potatura', calcio: 'Calcio', cambio_acqua: 'Ricambio acqua' }
 export function iconaCura(tipo) { return ICONE_CURA[tipo] ?? 'foglia' }
 
 export const ICONE_ESIGENZA = {

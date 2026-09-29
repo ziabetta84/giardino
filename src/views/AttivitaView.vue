@@ -132,7 +132,7 @@ import { ref, computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useProgettiApi } from '@/composables/useProgettiApi'
-import { valutaCura, stagione } from '@/composables/useCure'
+import { valutaCura, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
@@ -168,11 +168,8 @@ const attivita = computed(() => {
     const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
     // La potatura non ha cadenza temporale: è un'etichetta testuale,
     // registrabile per pianta ma mai valutata per urgenza né mostrata nei
-    // feed "attività". I tipi con cadenza sono irrigazione, concimazione e
-    // (per le specie con beneficio documentato) calcio.
-    const tipiCura = ['irrigazione', 'concimazione']
-    if (sp?.manutenzione?.calcio) tipiCura.push('calcio')
-    for (const tipo of tipiCura) {
+    // feed "attività" (vedi tipiCuraPianta).
+    for (const tipo of tipiCuraPianta(p, sp)) {
       const c = valutaCura(p, sp, tipo, contesto)
       if (c.giorni !== null) {
         const suggerimento = tipo === 'concimazione'
@@ -199,7 +196,10 @@ const tappeProgetto = computed(() =>
 // (con molte piante diventa uno scroll lunghissimo). Niente tab per la
 // potatura: essendo testo libero non genera mai voci in daFare/inScadenza.
 const tabAttiva = ref('irrigazione')
-const TIPI_TAB = { irrigazione: ['irrigazione'], concimi: ['concimazione', 'calcio'] }
+// La tab "Irrigazione" raggruppa anche "cambio_acqua" (piante coltivate in
+// acqua, issue #173): stessa icona "goccia", stesso ambito "cure legate
+// all'acqua", esattamente come "Concimi & calcio" raggruppa già due tipi.
+const TIPI_TAB = { irrigazione: ['irrigazione', 'cambio_acqua'], concimi: ['concimazione', 'calcio'] }
 
 const daFareTab = computed(() =>
   tabAttiva.value === 'progetti' ? [] : daFare.value.filter(i => TIPI_TAB[tabAttiva.value].includes(i.tipo))
@@ -211,7 +211,7 @@ const gruppiDaFareTab = computed(() => raggruppaPerZona(daFareTab.value, store.p
 const gruppiInScadenzaTab = computed(() => raggruppaPerZona(inScadenzaTab.value, store.piante))
 
 const conteggioTab = computed(() => ({
-  irrigazione: daFare.value.filter(i => i.tipo === 'irrigazione').length,
+  irrigazione: daFare.value.filter(i => TIPI_TAB.irrigazione.includes(i.tipo)).length,
   concimi: daFare.value.filter(i => i.tipo === 'concimazione' || i.tipo === 'calcio').length,
   progetti: tappeProgetto.value.filter(t => t.urgente).length,
 }))

@@ -219,7 +219,7 @@ import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
-import { valutaCura, cureUrgentiPianta, stagione } from '@/composables/useCure'
+import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
@@ -364,16 +364,9 @@ const contestoCura = computed(() => ({
   programmaAutomatico: programmaIrrigazioneEffettivo(route.params.id, pianta.value?.zona, pianta.value?.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 
-// I tipi di cura con cadenza/urgenza sono irrigazione, concimazione e —
-// solo per le poche specie con beneficio documentato — calcio. La potatura
-// non è mai valutata per urgenza: resta però in coda come riga registrabile
-// ("ultima: N giorni fa", bottone "Fatto").
-const tipiCura = computed(() => {
-  const base = ['irrigazione', 'concimazione']
-  if (specie.value?.manutenzione?.calcio) base.push('calcio')
-  base.push('potatura')
-  return base
-})
+// La potatura non è mai valutata per urgenza (vedi tipiCuraPianta): resta
+// però in coda come riga registrabile ("ultima: N giorni fa", bottone "Fatto").
+const tipiCura = computed(() => [...tipiCuraPianta(pianta.value, specie.value), 'potatura'])
 
 const giorniDaPotatura = computed(() => {
   const s = pianta.value?.ultima_cura?.potatura

@@ -806,6 +806,7 @@ body::before {
 }
 .care__ic svg { width: 18px; height: 18px; }
 .care__ic--irrigazione { background: var(--acqua-bg); color: var(--acqua-ink); }
+.care__ic--cambio_acqua { background: var(--acqua-bg); color: var(--acqua-ink); }
 .care__ic--concimazione { background: var(--olive-bg); color: var(--olive-ink); }
 .care__ic--calcio { background: var(--uovo-bg); color: var(--uovo-ink); }
 .care__ic--npk { background: var(--sage-bg); color: var(--sage-ink); }

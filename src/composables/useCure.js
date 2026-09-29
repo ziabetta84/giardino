@@ -49,6 +49,13 @@ export function pioggiaInArrivo(meteoGiorni) {
   return pioggiaCumulata2gg(meteoGiorni) >= SOGLIA_PIOGGIA_MM
 }
 
+// Cadenza generica per il ricambio dell'acqua finché la specie non ha un dato
+// dedicato in specie.manutenzione.cambio_acqua (catalogo di ~15.700 specie:
+// la stragrande maggioranza non lo avrà popolato da subito) — deciso in chat
+// il 29/09/2026 (issue #173): meglio un'indicazione generica utile che uno
+// stato "non configurata" che non aiuta chi ha una pianta in acqua.
+const INTERVALLO_CAMBIO_ACQUA_DEFAULT = 14
+
 export function valutaCura(pianta, specie, tipo, contesto = {}) {
   // Un programma di irrigazione automatica attivo (giardino/zona/sottozona/
   // pianta, vedi useIrrigazioneAuto.js) sostituisce del tutto la valutazione da
@@ -56,7 +63,10 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   // promemoria manuale per un'irrigazione che ha già pianificato altrove.
   // La sospensione per pioggia resta valida — stessa soglia e messaggio
   // già usati per l'irrigazione manuale, per non contraddirsi in due punti
-  // diversi dell'app.
+  // diversi dell'app. (Il guard coltivato_in === 'acqua' qui e più sotto è
+  // difensivo: da issue #173 una pianta in acqua non riceve più tipo
+  // 'irrigazione' — vedi tipiCuraPianta — ma se mai richiamata così va
+  // comunque trattata come le altre piante esterne.)
   if (tipo === 'irrigazione' && contesto.programmaAutomatico != null) {
     if (pianta?.coltivato_in !== 'acqua' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
       return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
@@ -71,22 +81,32 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
 
   const stagCorrente = stagione()
   const manutenzione = specie?.manutenzione?.[tipo]?.[stagCorrente]
-  if (!manutenzione || manutenzione === 'mai' || manutenzione === 'non necessario') {
+  let intervallo = parseGiorni(manutenzione)
+
+  if (manutenzione === 'mai' || manutenzione === 'non necessario') {
     return { urgente: false, label: null, giorni: null }
   }
+  if (!manutenzione) {
+    if (tipo !== 'cambio_acqua') return { urgente: false, label: null, giorni: null }
+    intervallo = INTERVALLO_CAMBIO_ACQUA_DEFAULT
+  }
 
-  const intervallo = parseGiorni(manutenzione)
-  const ultimaStr  = pianta?.ultima_cura?.[tipo]
+  const ultimaStr = pianta?.ultima_cura?.[tipo]
   if (!intervallo) return { urgente: false, label: manutenzione, giorni: null }
 
   if (tipo === 'irrigazione' && pianta?.coltivato_in !== 'acqua' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
     return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
   }
 
+  // "cambio_acqua" nel testo della label si legge "ricambio acqua" (stesso
+  // nome scelto per l'utente, vedi LABEL_CURA in useCureVisual.js) invece
+  // del nome della chiave interna.
+  const nomeTipo = tipo === 'cambio_acqua' ? 'ricambio acqua' : tipo
+
   if (!ultimaStr) {
     // La potatura resta chiamabile (la scheda pianta mostra "ultima: N gg fa")
     // ma non è mai urgente: nessuna cadenza temporale da rispettare.
-    return { urgente: tipo !== 'potatura', label: `${tipo} — mai registrata`, giorni: Infinity }
+    return { urgente: tipo !== 'potatura', label: `${nomeTipo} — mai registrata`, giorni: Infinity }
   }
 
   const ultima     = new Date(ultimaStr)
@@ -98,22 +118,32 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   return {
     urgente,
     label: urgente
-      ? `${tipo} — scaduta ${Math.abs(rimanenti)} gg fa`
-      : `${tipo} — tra ${rimanenti} gg`,
+      ? `${nomeTipo} — scaduta ${Math.abs(rimanenti)} gg fa`
+      : `${nomeTipo} — tra ${rimanenti} gg`,
     giorni: rimanenti,
     intervallo,
     trascorsi,
   }
 }
 
+// Tipi di cura con cadenza/urgenza da valutare per questa pianta — irrigazione
+// (o, per le piante coltivate in acqua, il suo equivalente "cambio_acqua":
+// mostrare "Irrigazione" per una pianta già immersa in acqua non ha senso,
+// issue #173), concimazione e — per le specie con beneficio documentato —
+// calcio. Centralizza una lista prima duplicata in 4 punti (DossierPianta,
+// PiantaView, AttivitaView, HomeView), che altrimenti avrebbero dovuto
+// aggiungere la stessa condizione coltivato_in ciascuno per conto proprio.
+export function tipiCuraPianta(pianta, specie) {
+  const tipi = [pianta?.coltivato_in === 'acqua' ? 'cambio_acqua' : 'irrigazione', 'concimazione']
+  if (specie?.manutenzione?.calcio) tipi.push('calcio')
+  return tipi
+}
+
 export function cureUrgentiPianta(pianta, specie, contesto) {
   // La potatura non ha cadenza temporale: è un'etichetta testuale,
   // registrabile per pianta ma mai valutata per urgenza né mostrata nei
-  // feed "attività". I tipi con cadenza sono irrigazione, concimazione e
-  // (per le specie con beneficio documentato) calcio.
-  const tipi = ['irrigazione', 'concimazione']
-  if (specie?.manutenzione?.calcio) tipi.push('calcio')
-  return tipi
+  // feed "attività".
+  return tipiCuraPianta(pianta, specie)
     .map(tipo => ({ tipo, ...valutaCura(pianta, specie, tipo, contesto) }))
     .filter(c => c.urgente)
 }
