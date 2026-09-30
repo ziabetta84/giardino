@@ -11,3 +11,12 @@ sql_sitemaps/
 sql_recupero/
 rhs_recupero_aggregato.json
 sql_cultivar/
+nuove_pagine_sitemap.txt
+id_map.tsv
+id_map_senza_id.log
+progresso_nuove.log
+scarica_nuove_output.log
+nuove_108_parsed.jsonl
+bug_cm_report.json
+fix_cm_updates.json
+fix_cm_*.sql
