@@ -69,3 +69,14 @@ export function movimentoRidotto() {
 export function splashInArrivo() {
   return !fasciaGiaVista() && !movimentoRidotto()
 }
+
+// Richiesta manuale di rivedere lo splash (pulsante "Rivedi il benvenuto" in
+// AccountView.vue): stato di modulo come bootCompletato sopra, così
+// sopravvive alla navigazione interna verso "/" (router.push, non un vero
+// reload) e HomeView può leggerlo al proprio mount. Si autoconsuma in
+// HomeView.vue non appena letto, per non far ripartire lo splash a ogni
+// visita successiva della Home.
+export const splashRichiesto = ref(false)
+export function richiediSplash() {
+  splashRichiesto.value = true
+}

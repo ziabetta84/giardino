@@ -248,7 +248,7 @@ import HeroAiuola from '@/components/HeroAiuola.vue'
 import SplashAiuola from '@/components/SplashAiuola.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
-import { bootCompletato, prefissoOra, fasciaGiaVista, segnaFasciaVista, movimentoRidotto } from '@/composables/useBootSequence'
+import { bootCompletato, prefissoOra, fasciaGiaVista, segnaFasciaVista, movimentoRidotto, splashRichiesto } from '@/composables/useBootSequence'
 
 // Variabile di modulo, non di componente: si azzera solo con un reload vero,
 // non a ogni rimontaggio di HomeView (che avviene a ogni navigazione, vedi
@@ -296,8 +296,17 @@ const saluto = computed(() => {
 // si ripresenterebbe al primo cambio di stato reattivo.
 const mostraSplash = ref(false)
 let fermaOsservazioneBoot = null
-if (fasciaGiaVista() || movimentoRidotto()) {
+// Richiesta manuale dal pulsante "Rivedi il benvenuto" in AccountView.vue:
+// salta il controllo di finestra oraria/già-vista di oggi (si autoconsuma
+// subito, un solo utilizzo), ma resta soggetto a "riduci movimento" come il
+// percorso normale.
+const forzato = splashRichiesto.value
+if (forzato) splashRichiesto.value = false
+if (!forzato && (fasciaGiaVista() || movimentoRidotto())) {
   if (!fasciaGiaVista()) segnaFasciaVista()
+} else if (movimentoRidotto()) {
+  // forzato ma riduci-movimento attivo: nessuna finestra da segnare, si
+  // esce senza mostrare nulla (stesso trattamento del percorso normale).
 } else if (bootCompletato.value) {
   // BootLogo (App.vue) ha già finito: nessuna copertura da aspettare, si
   // può mostrare subito (caso tipico: si torna su Home più tardi nella

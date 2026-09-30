@@ -78,6 +78,14 @@
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </RouterLink>
 
+    <!-- Rivede lo splash d'ingresso di Home fuori dalla sua cadenza normale
+         (due finestre al giorno, una volta a testa) — vedi richiediSplash()
+         in useBootSequence.js. -->
+    <button type="button" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;width:100%;text-align:left;font-family:inherit;cursor:pointer;" @click="onRivediSplash">
+      <span style="font-size:13px;font-weight:600;">Rivedi il benvenuto</span>
+      <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
+    </button>
+
     <ModalConferma
       :aperto="confermaRimozione"
       titolo="Rimuovere il token GitHub?"
@@ -183,6 +191,7 @@ import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
+import { richiediSplash } from '@/composables/useBootSequence'
 
 const router = useRouter()
 const { utente, nomeUtente, caricamento, recuperoInCorso, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
@@ -343,6 +352,11 @@ async function onAnnullaRecupero() {
   } finally {
     inviando.value = false
   }
+}
+
+function onRivediSplash() {
+  richiediSplash()
+  router.push('/')
 }
 
 async function onEsci() {
