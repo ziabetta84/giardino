@@ -69,6 +69,12 @@ import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useFoglie } from '@/composables/useFoglie'
 import placeholderTela from '@/assets/hero/splash-autunno-giorno.webp'
 import telaAutunnoNotte from '@/assets/hero/splash-autunno-notte.webp'
+import telaPrimaveraGiorno from '@/assets/hero/splash-primavera-giorno.webp'
+import telaPrimaveraNotte from '@/assets/hero/splash-primavera-notte.webp'
+import telaEstateGiorno from '@/assets/hero/splash-estate-giorno.webp'
+import telaEstateNotte from '@/assets/hero/splash-estate-notte.webp'
+import telaInvernoGiorno from '@/assets/hero/splash-inverno-giorno.webp'
+import telaInvernoNotte from '@/assets/hero/splash-inverno-notte.webp'
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
 const props = defineProps({
@@ -92,11 +98,9 @@ const props = defineProps({
 // lento), invece di aggiungere un'animazione decorativa qui.
 const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 
-// Una tela per ogni combinazione stagione × luce. PLACEHOLDER: per ora tutte
-// e 8 puntano alla tela verticale 896×1216 di autunno/giorno (cancello rosso,
-// sentiero chiaro, da cui `SplashAiuola.vue` parte a schermo intero); man
-// mano che arrivano le tele vere basta sostituire la riga della combinazione
-// con la sua immagine e i suoi valori. Per ogni tela:
+// Una tela per ogni combinazione stagione × luce (tutte e 8 sono tele vere).
+// Autunno/giorno è la tela verticale 896×1216 da cui `SplashAiuola.vue` parte
+// a schermo intero (cancello rosso, sentiero chiaro). Per ogni tela:
 // - src, dim: file e risoluzione nativa (serve a fuocoYRenderizzato per
 //   ritrovare il cancello dopo object-fit:cover);
 // - fuoco: il cancello, fulcro compositivo (la soglia del giardino) da cui
@@ -107,14 +111,16 @@ const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 //   larga: qui si mostra la fascia del cancello e del sentiero, a ~39% (cioè
 //   circa dal pixel 400 al 600 su 1216).
 const telaPlaceholder = { src: placeholderTela, dim: [896, 1216], fuoco: { x: 53.5, y: 40 }, striscia: 39 }
-// Autunno/notte: tela vera (896×1200), stessa scena di autunno/giorno con
-// cancello nello stesso punto (~53,5% × 40%), quindi stesso fuoco e ritaglio.
-const telaAutunnoNotte_ = { src: telaAutunnoNotte, dim: [896, 1200], fuoco: { x: 53, y: 39 }, striscia: 39 }
+// Tele vere (896×1200) per le scene nuove: stesso scatto di autunno/giorno
+// per tutte (stesso cancello, stesso sentiero), quindi stesso fuoco
+// (~53% × 39%) e stesso ritaglio striscia. Il placeholder resta solo per
+// autunno/giorno, che ha la sua tela originale (896×1216).
+const telaVera = (src) => ({ src, dim: [896, 1200], fuoco: { x: 53, y: 39 }, striscia: 39 })
 const tele = {
-  primavera: { giorno: telaPlaceholder, notte: telaPlaceholder },
-  estate: { giorno: telaPlaceholder, notte: telaPlaceholder },
-  autunno: { giorno: telaPlaceholder, notte: telaAutunnoNotte_ },
-  inverno: { giorno: telaPlaceholder, notte: telaPlaceholder },
+  primavera: { giorno: telaVera(telaPrimaveraGiorno), notte: telaVera(telaPrimaveraNotte) },
+  estate: { giorno: telaVera(telaEstateGiorno), notte: telaVera(telaEstateNotte) },
+  autunno: { giorno: telaPlaceholder, notte: telaVera(telaAutunnoNotte) },
+  inverno: { giorno: telaVera(telaInvernoGiorno), notte: telaVera(telaInvernoNotte) },
 }
 const puntoFuoco = computed(() => tela.value.fuoco)
 
