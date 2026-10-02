@@ -1,5 +1,5 @@
 <template>
-  <div ref="contenitoreEl" class="zc-scene" :class="{ play: animare, 'ingresso-lento': usaIngressoLento, 'zoom-in': cameraAttiva }" :style="stileFuoco" :data-light="luceVisibile">
+  <div ref="contenitoreEl" class="zc-scene" :class="{ play: animare, 'ingresso-lento': usaIngressoLento, 'zoom-in': cameraAttiva, 'con-foglie': foglieAttive }" :style="stileFuoco" :data-light="luceVisibile">
     <img
       ref="imgEl"
       :src="immagineCorrente"
@@ -50,28 +50,23 @@
       </g>
     </svg>
 
-    <!-- "Contorno che si compone": sagome vere della scena (autotrace sulla
-         tela corrispondente, vedi src/assets/hero/contorni/), non una forma
-         decorativa inventata. Attivo solo quando ingressoLento=true (lo
-         splash a schermo intero, non la striscia della Home) — tutte e 8 le
-         combinazioni stagione×luce hanno oggi un tracciato reale. -->
-    <div v-if="usaIngressoLento" ref="contornoEl" class="zc-contorno" :class="{ visibile: contornoVisibile }" aria-hidden="true">
-      <svg :viewBox="viewBoxContorno" preserveAspectRatio="none">
-        <g v-html="contornoSvg"></g>
-      </svg>
-    </div>
-
-    <!-- Bagliore caldo dal cancello: si accende quando il colore prende il
-         sopravvento (stessa soglia di .play), non un elemento permanente
+    <!-- Bagliore caldo dal cancello: si accende insieme al cerchio che
+         rivela il colore (stessa soglia di .play), non un elemento permanente
          della scena. mix-blend-mode:screen invece di un'opacità piatta —
          schiarisce quello che c'è sotto come luce vera, non vela il dipinto
          con un velo uniforme. -->
     <div v-if="usaIngressoLento" class="zc-bloom" aria-hidden="true"></div>
+
+    <!-- "Vento d'autunno": foglie in diagonale e, ogni tanto, una che si posa
+         sulla testa di Zorba (vedi composables/useFoglie.js). Sostituisce le
+         nuvole vettoriali nella scena autunno/giorno. -->
+    <canvas v-if="foglieAttive" ref="foglieEl" class="zc-foglie" aria-hidden="true"></canvas>
   </div>
 </template>
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { useFoglie } from '@/composables/useFoglie'
 import primaveraGiorno from '@/assets/hero/primavera-giorno.webp'
 import primaveraNotte from '@/assets/hero/primavera-notte.webp'
 import estateGiorno from '@/assets/hero/estate-giorno.webp'
@@ -80,36 +75,28 @@ import autunnoGiorno from '@/assets/hero/autunno-giorno.webp'
 import autunnoNotte from '@/assets/hero/autunno-notte.webp'
 import invernoGiorno from '@/assets/hero/inverno-giorno.webp'
 import invernoNotte from '@/assets/hero/inverno-notte.webp'
-// Import pigro, non `?raw` statico: 8 file da 76-136KB (812KB in tutto)
-// importati come stringa finivano TUTTI incorporati nel bundle JS di
-// HomeView (che monta questo componente), anche se ne serve visualizzato
-// uno solo per volta — misurato dal vivo: 840KB/315KB gzip sul chunk
-// HomeView, segnalato da Vite stesso come "chunk troppo grande". Su una
-// connessione lenta/instabile (registrazione reale 21/09/2026, 6-80 KB/s)
-// bastava questo a spiegare 4-10s di schermo bianco prima che l'app
-// mostrasse qualunque cosa — letto per errore come "l'animazione non è
-// fluida", ma il vero collo di bottiglia era il download, non il
-// rendering. import.meta.glob senza eager:true crea un chunk separato per
-// ciascun file, scaricato solo quando avviaIngressoLento lo richiede
-// davvero per la scena attiva.
-const contornoModuli = import.meta.glob('@/assets/hero/contorni/*.svg', { query: '?raw', import: 'default' })
-
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
 const props = defineProps({
   stagione: { type: String, required: true },
   luce: { type: String, required: true },
-  // Sequenza "disegno poi colore" (vedi avviaIngressoLento): solo lo splash a
-  // schermo intero la usa, una volta per fascia del giorno — la striscia
+  // Ingresso "il cancello si apre" (cerchio di colore dal cancello, vedi
+  // CSS .ingresso-lento): solo lo splash a schermo intero lo usa, una volta per fascia del giorno — la striscia
   // hero della Home, rimontata a ogni apertura, resta sulla dissolvenza
   // rapida per non appesantire l'uso quotidiano (deciso in brainstorming
   // 19/09/2026, non un'omissione).
   ingressoLento: { type: Boolean, default: false },
+  // Dove si posa la foglia speciale del vento d'autunno: la posizione di
+  // Zorba nel contenitore che ospita questo componente, in px dal bordo
+  // destro/basso del riquadro; `dim` è il lato di Zorba (numero, o funzione
+  // dell'altezza del riquadro quando scala con la striscia). Senza questa
+  // prop le foglie cadono comunque, ma nessuna si posa.
+  zorba: { type: Object, default: null },
 })
 // Emesso quando stagione/luce cambiano davvero (non al mount): HomeView lo
 // usa per far "notare" il cambiamento a Zorba (un battito di ciglia più
 // lento), invece di aggiungere un'animazione decorativa qui.
-const emit = defineEmits(['cambio-scena'])
+const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 
 // Un dipinto ad acquerello/china per ogni combinazione stagione × luce
 // (generati una tantum, vedi src/assets/hero/): a differenza della vecchia
@@ -124,65 +111,15 @@ const immagini = {
   inverno: { giorno: invernoGiorno, notte: invernoNotte },
 }
 
-// Estrae solo il/i <path> dal documento SVG tracciato (autotrace -centerline
-// da src/components/HeroAiuola.vue → vedi processo in fonti/), scartando il
-// wrapper <svg> del file sorgente: qui il viewBox/preserveAspectRatio è
-// quello di .zc-contorno, per allinearsi pixel a pixel all'object-fit:cover
-// del dipinto sottostante.
-function estraiContenutoSvg(raw) {
-  return raw.replace(/^[\s\S]*?<svg[^>]*>/, '').replace(/<\/svg>\s*$/, '')
-}
-// Tutte e 8 le combinazioni hanno un tracciato reale (autotrace -centerline
-// sulla tela corrispondente, sottopercorsi con lunghezza precalcolata —
-// vedi cronologia). Le tele "vanno bene così come sono" (autunno-notte,
-// estate-notte) sono tracciate sull'immagine originale, invariata; le altre
-// 5 sono state rigenerate (cielo azzurro, cancello aperto, prato+vialetto)
-// e ritracciate su quella nuova versione — 20/09/2026.
-async function caricaContorno(stagione, luce) {
-  const carica = contornoModuli[`/src/assets/hero/contorni/${stagione}-${luce}.svg`]
-  if (!carica) return null // non dovrebbe succedere: tutte e 8 esistono
-  return estraiContenutoSvg(await carica())
-}
-
-// Risoluzione nativa di ciascuna tela (il tracciato è in quelle coordinate
-// esatte, autotrace lavora sui pixel reali dell'immagine): 3 delle 8 tele
-// rigenerate sono uscite da Gemini/ChatGPT a 1264×NNN invece di 1536×1024
-// come le altre 5. Un viewBox fisso "0 0 1536 1024" per tutte, come prima,
-// faceva apparire il contorno di quelle 3 rimpicciolito e ancorato in alto a
-// sinistra invece di riempire lo schermo come il dipinto sottostante (che
-// invece scala sempre a piena pagina via object-fit:cover, indifferente
-// alla risoluzione) — bug segnalato dal vivo il 20/09/2026.
+// Risoluzione nativa di ciascuna tela: 3 delle 8 tele rigenerate sono uscite
+// da Gemini/ChatGPT a 1264×NNN invece di 1536×1024 come le altre 5. Serve a
+// fuocoYRenderizzato per ritrovare il cancello dopo object-fit:cover.
 const dimensioniTela = {
   primavera: { giorno: [1264, 843], notte: [1264, 848] },
   estate: { giorno: [1264, 842], notte: [1536, 1024] },
   autunno: { giorno: [1536, 1024], notte: [1536, 1024] },
   inverno: { giorno: [1536, 1024], notte: [1536, 1024] },
 }
-// Il contorno deve mostrare ESATTAMENTE la stessa finestra di ritaglio del
-// dipinto sottostante — altrimenti le due tele si disallineano appena il
-// riquadro non ha il rapporto nativo della tela (bug reale, trovato dal
-// vivo il 20/09/2026 dopo aver corretto solo .zc-painting: object-position
-// segue --fx, ma preserveAspectRatio="xMidYMax slice" dell'SVG resta
-// centrato per costruzione — preserveAspectRatio non supporta un ancoraggio
-// a percentuale arbitraria, solo le 9 combinazioni xMin/Mid/Max×Min/Mid/Max).
-// Si calcola quindi a mano la stessa finestra che produrrebbe
-// object-fit:cover + object-position:"fx% bottom" su questa risoluzione
-// nativa, e si usa come viewBox — nessun preserveAspectRatio speciale
-// necessario, la finestra ha già lo stesso rapporto del riquadro per
-// costruzione (vw/vh = cw/ch sempre).
-const viewBoxContorno = computed(() => {
-  const [iw, ih] = dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024]
-  const cw = contenitoreW.value
-  const ch = contenitoreH.value
-  if (!cw || !ch) return `0 0 ${iw} ${ih}` // prima della prima misura del ResizeObserver
-  const scale = Math.max(cw / iw, ch / ih)
-  const vw = cw / scale // larghezza della finestra visibile, in pixel nativi della tela
-  const vh = ch / scale
-  const xStart = (iw - vw) * (puntoFuoco.value.x / 100) // stessa formula di object-position-x = fx
-  const yStart = ih - vh // object-position-y fissa a "bottom", come .zc-painting
-  return `${xStart} ${yStart} ${vw} ${vh}`
-})
-
 // Il cancello è il fulcro compositivo di ogni tela (la soglia del
 // giardino): il bloom di colore e la spinta di camera dell'ingresso lento
 // partono da lì, non dal centro geometrico dell'immagine. Coordinate in %
@@ -242,36 +179,20 @@ const stileFuoco = computed(() => {
 const animare = ref(false)
 const erroreImg = ref(false)
 const imgEl = ref(null)
-const contornoEl = ref(null)
-const contornoVisibile = ref(false)
-// A differenza di contornoVisibile (torna false a fine disegno, per
-// dissolvere il contorno) questo flag resta true per tutta la sequenza: la
-// spinta di camera deve tenere lo zoom acquisito durante il disegno, non
-// tornare a scala 1 proprio mentre arriva il colore (bug trovato dal vivo:
-// legare .zoom-in a contornoVisibile annullava la spinta a metà).
+// Resta true per tutta la sequenza d'ingresso: la spinta di camera (da 1.08
+// a 1) parte con l'immagine e non deve tornare indietro a metà.
 const cameraAttiva = ref(false)
-// Popolato da avviaIngressoLento, non da un computed sincrono: il contenuto
-// va scaricato al bisogno (vedi caricaContorno sopra), non può più essere
-// letto da una mappa già pronta in memoria.
-const contornoSvg = ref(null)
 
-const DISEGNO_MS = 2600 // durata del tratteggio del contorno reale
-
-// Non dipende più dall'esistenza di un contorno già caricato (tutte e 8 le
-// scene ce l'hanno, verificato — vedi caricaContorno): dipende solo
-// dall'intento del chiamante e dalla preferenza di movimento.
+// Dipende solo dall'intento del chiamante e dalla preferenza di movimento.
 const usaIngressoLento = computed(() => props.ingressoLento && !ridottoMovimento())
 
-// La dissolvenza d'ingresso parte quando il dipinto è davvero decodificato
-// (evento load, o già .complete se arrivava dalla cache del browser), non a
-// un timer fisso indipendente dal caricamento: su una rete lenta un timer
-// fisso mostrerebbe uno scatto secco invece della dissolvenza prevista.
+// La rivelazione parte quando il dipinto è davvero decodificato (evento
+// load, o già .complete se arrivava dalla cache del browser), non a un timer
+// fisso indipendente dal caricamento: su una rete lenta un timer fisso
+// mostrerebbe uno scatto secco invece della dissolvenza prevista.
 function onImgCaricata() {
-  if (usaIngressoLento.value) {
-    avviaIngressoLento()
-  } else {
-    animare.value = true
-  }
+  animare.value = true
+  cameraAttiva.value = true
 }
 // Un dipinto mancante non deve lasciare la scena bloccata invisibile in
 // attesa di un evento load che non arriverà mai: si passa comunque allo
@@ -280,81 +201,6 @@ function onImgCaricata() {
 function onImgErrore() {
   erroreImg.value = true
   animare.value = true
-}
-
-let disegnoTimer = null
-const DURATA_TRATTO_MS = 220 // ogni sagoma (petalo, foglia, filo d'erba) si disegna in fretta
-
-// Fase 1: il contorno vero si disegna — non un unico stroke-dashoffset sulla
-// lunghezza totale (il tracciato è un solo <path> con ~1000 sottopercorsi,
-// uno per M di autotrace: il dash-pattern SVG riparte da zero a ogni
-// sottopercorso, quindi quel trucco "un valore solo" faceva comparire quasi
-// tutto insieme invece di disegnarsi in sequenza — verificato via
-// getAnimations()/currentTime, non solo letto nel codice, vedi cronologia).
-// Qui ogni sagoma ha la propria lunghezza reale e un ritardo proporzionale
-// alla sua posizione nell'ordine di scansione di autotrace, sparso
-// sull'intero budget DISEGNO_MS: l'effetto è un'onda di tratti che
-// attraversa la scena, non un singolo pennino continuo.
-// Fase 2, a disegno completato: il dipinto dissolve dentro esattamente come
-// sempre (stessa transizione di .zc-painting) mentre il contorno sparisce —
-// le due tele condividono le stesse linee, quindi il passaggio di consegne
-// non "salta".
-async function avviaIngressoLento() {
-  // Scaricato solo ora, solo per la scena davvero attiva — non più una
-  // mappa con tutte e 8 le tele già pronte in memoria (vedi contornoModuli
-  // sopra). Su una connessione lenta questo aggiunge un'attesa reale prima
-  // che il contorno inizi a disegnarsi (prima non c'era, il costo era già
-  // stato pagato tutto in anticipo dentro il bundle di HomeView) — ma è
-  // un'attesa piccola e localizzata (76-136KB, una sola tela) invece di
-  // 812KB scaricati sempre, per tutte le scene, solo per aprire la Home.
-  const raw = await caricaContorno(stagioneVisibile.value, luceVisibile.value)
-  if (!raw) { animare.value = true; return } // non dovrebbe succedere: tutte e 8 le scene hanno un tracciato
-  contornoSvg.value = raw
-  contornoVisibile.value = true
-  cameraAttiva.value = true
-  await nextTick()
-  const tratti = [...(contornoEl.value?.querySelectorAll('path') ?? [])]
-  if (tratti.length === 0) { animare.value = true; return } // asset mancante/malformato: fallback alla dissolvenza normale
-  // Ordine per lunghezza decrescente, non l'ordine di scansione grezzo di
-  // autotrace (arbitrario, non correlato alla dimensione visiva): senza
-  // questo, su alcune tele (estate-giorno, verificato dal vivo) i tanti
-  // trattini minuscoli dell'erba finivano sparsi per tutto il budget mentre
-  // le sagome grandi (fiori, cancello) restavano quasi invisibili — un
-  // effetto "scarabocchio confuso" invece di una forma che si compone. Le
-  // sagome grandi ora disegnano per prime, i dettagli piccoli riempiono
-  // dopo, come farebbe una mano vera.
-  tratti.sort((a, b) => Number(b.dataset.len) - Number(a.dataset.len))
-  const budgetRitardo = Math.max(DISEGNO_MS - DURATA_TRATTO_MS, 0)
-  // Web Animations API invece di stroke-dasharray/transition pilotata da CSS:
-  // con ~1000 elementi la sequenza "imposta stato pieno, forza un reflow,
-  // cambia valore in un rAF successivo" per far scattare una CSS Transition
-  // non si innescava in modo affidabile (verificato con getAnimations() su
-  // ogni sottopercorso: nessuna transizione risultava mai avviata, il
-  // dashoffset saltava a 0 da subito) — .animate() con keyframe espliciti
-  // non dipende da quel meccanismo e parte in modo deterministico.
-  tratti.forEach((tratto, i) => {
-    // Lunghezza precalcolata in fase di build (data-len, vedi
-    // scripts/hero-contorno o fonti/) invece di chiamare qui
-    // getTotalLength(): su ~1000 sottopercorsi la chiamata sincrona bloccava
-    // il thread principale per secondi al mount — verificato dal
-    // vero collo di bottiglia, non solo sospettato.
-    const lunghezza = Number(tratto.dataset.len) || tratto.getTotalLength()
-    const ritardo = tratti.length > 1 ? (i / (tratti.length - 1)) * budgetRitardo : 0
-    tratto.style.strokeDasharray = String(lunghezza)
-    tratto.animate(
-      [{ strokeDashoffset: lunghezza }, { strokeDashoffset: 0 }],
-      // fill:'both', non 'forwards': prima che il ritardo scada, 'forwards'
-      // NON tiene il primo keyframe (nascosto) — il tratto torna al valore
-      // di default (0 = visibile) per l'intera attesa, vanificando lo
-      // scaglionamento. Verificato con getAnimations()/effect.getTiming()
-      // su singoli sottopercorsi, non solo letto nella spec.
-      { duration: DURATA_TRATTO_MS, delay: ritardo, easing: 'linear', fill: 'both' }
-    )
-  })
-  disegnoTimer = setTimeout(() => {
-    animare.value = true
-    contornoVisibile.value = false
-  }, DISEGNO_MS)
 }
 
 // Copia interna effettivamente mostrata a schermo: il template non legge mai
@@ -368,6 +214,27 @@ const immagineCorrente = computed(() => immagini[stagioneVisibile.value][luceVis
 function ridottoMovimento() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
 }
+
+// Vento d'autunno (solo autunno/giorno, e mai con "riduci movimento"): al
+// posto delle nuvole, vedi composables/useFoglie.js. Parte quando il dipinto
+// è già visibile (animare), così le foglie non cadono su una scena vuota.
+const foglieEl = ref(null)
+const foglieAttive = computed(() =>
+  stagioneVisibile.value === 'autunno' && luceVisibile.value === 'giorno' && !ridottoMovimento())
+useFoglie({
+  canvasEl: foglieEl,
+  attivo: computed(() => foglieAttive.value && animare.value),
+  dim: () => ({ w: contenitoreW.value, h: contenitoreH.value }),
+  // Testa di Zorba: nel suo riquadro quadrato, a circa 27% dal bordo destro e
+  // 88% dal basso (misurato sull'SVG di ZorbaLogo).
+  testa: () => {
+    const z = props.zorba
+    if (!z) return null
+    const lato = typeof z.dim === 'function' ? z.dim(contenitoreH.value) : z.dim
+    return { x: contenitoreW.value - z.destra - 0.27 * lato, y: contenitoreH.value - z.basso - 0.88 * lato }
+  },
+  onAtterra: () => emit('foglia-su-zorba'),
+})
 
 let transizioneCorrente = null
 
@@ -427,7 +294,6 @@ onMounted(() => {
   }
 })
 onUnmounted(() => {
-  clearTimeout(disegnoTimer)
   transizioneCorrente?.skipTransition()
   smettiOsservazione?.()
 })
@@ -468,12 +334,12 @@ onUnmounted(() => {
    caricamento invece di un'icona tecnica fuori contesto. */
 .zc-painting--errore { opacity: 0 !important; }
 
-/* Ingresso lento (solo splash, solo scene tracciate): il colore non
-   dissolve a velo uniforme come nella dissolvenza rapida — "irrompe" da un
-   cerchio che si allarga a partire dal cancello (--fx/--fy, vedi
-   puntoFuoco), la soglia del giardino, coerente con "si apre il cancello".
-   clip-path invece di mask-image: interpola nativamente via transizione CSS
-   in ogni motore (Chromium, Firefox/LibreWolf, Safari) senza @property. */
+/* Ingresso lento (solo splash): "il cancello si apre". Il colore non
+   dissolve a velo uniforme: irrompe da un cerchio che si allarga a partire
+   dal cancello (--fx/--fy, vedi puntoFuoco), la soglia del giardino, con un
+   lampo di luce calda nel varco (.zc-bloom) e una spinta di camera da 1.08 a
+   1. clip-path invece di mask-image: interpola nativamente via transizione
+   CSS in ogni motore (Chromium, Firefox/LibreWolf, Safari) senza @property. */
 .zc-scene.ingresso-lento .zc-painting {
   opacity: 1; filter: none; transform: none;
   clip-path: circle(0% at var(--fx, 50%) var(--fy, 50%));
@@ -483,22 +349,21 @@ onUnmounted(() => {
      cerchio quasi subito invece di farlo crescere in modo percepibile
      — verificato congelando la transizione con getAnimations(), non a
      occhio sullo schermo. */
-  transition: clip-path 1.3s ease-in-out;
+  transition: clip-path 1.5s ease-in-out .25s;
 }
 .zc-scene.ingresso-lento.play .zc-painting {
   clip-path: circle(140% at var(--fx, 50%) var(--fy, 50%));
 }
 
-/* Spinta di camera lenta: uno zoom impercettibile (1 → 1.03) sincronizzato
-   sull'intera sequenza disegno+rivelazione, centrato sul cancello come il
-   bloom — un'unica spinta continua, non due fasi separate, per restare
-   "quieta" (nessun rimbalzo, resta su ease-out) invece che vistosa. */
+/* Spinta di camera: da 1.08 a 1 sul cancello, una sola spinta continua che
+   si assesta in ease-out, senza rimbalzi. Il riquadro resta sempre almeno
+   grande quanto lo schermo, quindi non scopre mai i bordi. */
 .zc-scene.ingresso-lento {
-  transform: scale(1);
+  transform: scale(1.08);
   transform-origin: var(--fx, 50%) var(--fy, 50%);
-  transition: transform 3.4s cubic-bezier(.22,1,.36,1);
+  transition: transform 2.6s cubic-bezier(.22,1,.36,1) .25s;
 }
-.zc-scene.ingresso-lento.zoom-in { transform: scale(1.03); }
+.zc-scene.ingresso-lento.zoom-in { transform: none; }
 
 .zc-bloom {
   position: absolute; left: var(--fx, 50%); top: var(--fy, 50%);
@@ -507,8 +372,8 @@ onUnmounted(() => {
   background: radial-gradient(circle, rgba(255,224,158,.9) 0%, rgba(255,224,158,0) 70%);
   opacity: 0; pointer-events: none; mix-blend-mode: screen;
 }
-.zc-scene.ingresso-lento.play .zc-bloom { animation: zc-bloom-in 1.6s cubic-bezier(.22,1,.36,1) forwards; }
-@keyframes zc-bloom-in { 0%{opacity:0;} 30%{opacity:.4;} 100%{opacity:0;} }
+.zc-scene.ingresso-lento.play .zc-bloom { animation: zc-bloom-in 1.8s ease-out .3s forwards; }
+@keyframes zc-bloom-in { 0%{opacity:0;} 30%{opacity:.9;} 100%{opacity:0;} }
 
 .zc-sky { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
@@ -538,31 +403,11 @@ onUnmounted(() => {
 .zc-twinkle { fill: var(--scn-ink); animation: zc-twinkle ease-in-out infinite alternate; }
 @keyframes zc-twinkle { 0%{opacity:.25;} 100%{opacity:.95;} }
 
-/* Prototipo "contorno che si compone" (ingressoLento, solo splash): il
-   tratteggio vero e proprio è pilotato da JS (avviaIngressoLento, lunghezza
-   reale del tracciato) — qui solo l'aspetto del tratto e la dissolvenza
-   finale, quando il dipinto a colori prende il sopravvento. */
-.zc-contorno {
-  position: absolute; inset: 0; pointer-events: none;
-  opacity: 0;
-  transition: opacity .9s cubic-bezier(.22,1,.36,1);
-}
-.zc-contorno.visibile { opacity: 1; transition: none; }
-.zc-contorno svg { width: 100%; height: 100%; }
-.zc-contorno :deep(path) {
-  fill: none;
-  /* Non var(--scn-ink) (#5a4e3e, pensato per nuvole/stelle decorative): il
-     nero caldo vero del dipinto è molto più scuro — con l'ink-mid il tratto
-     sembrava slavato e "scattava" più scuro al passaggio del colore invece
-     di restare lo stesso segno. Ricampionato dopo il rifacimento della tela
-     (nuova generazione con cielo azzurro/cancello aperto, 20/09/2026):
-     #0f1608, i pixel più scuri della nuova versione. */
-  stroke: #0f1608;
-  stroke-width: 2.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
+/* Vento d'autunno: il canvas copre tutto il riquadro, sopra il dipinto e
+   senza intercettare click (lo splash chiude al tocco sulla scena). Le
+   nuvole di giorno cedono il posto alle foglie. */
+.zc-foglie { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.zc-scene.con-foglie .zc-clouds { opacity: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .zc-painting { transition: none; opacity: 1; transform: none; filter: none; }

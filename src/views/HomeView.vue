@@ -38,7 +38,8 @@
          niente più testo sovrapposto al dipinto (vedi hero-info sotto). -->
     <div class="hero">
       <div class="hero__scene">
-        <HeroAiuola :stagione="stagioneEffettiva" :luce="luceEffettiva" @cambio-scena="zorbaLogo?.reagisci?.()" />
+        <HeroAiuola :stagione="stagioneEffettiva" :luce="luceEffettiva" :zorba="posizioneZorba"
+          @cambio-scena="zorbaLogo?.reagisci?.()" @foglia-su-zorba="zorbaLogo?.scodinzola?.()" />
       </div>
 
       <ZorbaLogo ref="zorbaLogo" class="hero__z"
@@ -267,6 +268,10 @@ const { utente, nomeUtente } = useAuth()
 // registrata con successo (frequente, "Zorba conferma" — resta leggero
 // anche alla decima cura della sessione).
 const zorbaLogo = ref(null)
+// Dove sta Zorba nella striscia (.hero__z in main.css: right 8, bottom 4,
+// altezza 70% con min 48 / max 110): serve a HeroAiuola per far posare sulla
+// sua testa la foglia del vento d'autunno.
+const posizioneZorba = { destra: 8, basso: 4, dim: (h) => Math.min(110, Math.max(48, h * 0.7)) }
 
 const oggi = new Date().toLocaleDateString('it-IT', { weekday:'long', day:'numeric', month:'long' })
 

@@ -233,7 +233,20 @@ function confermaCura() {
   battito('blink')
 }
 
-defineExpose({ reagisci, confermaCura })
+// HeroAiuola, quando una foglia del vento d'autunno si posa sulla sua testa:
+// una scodinzolata (la stessa animazione della coda al mount), che riparte
+// ogni volta rimuovendo e riaggiungendo la classe.
+function scodinzola() {
+  if (props.mini) return
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return
+  const coda = root.value?.querySelector('#tail')
+  if (!coda) return
+  coda.classList.remove('wag')
+  void coda.getBoundingClientRect()
+  coda.classList.add('wag')
+}
+
+defineExpose({ reagisci, confermaCura, scodinzola })
 </script>
 
 <style scoped>
