@@ -67,15 +67,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useFoglie } from '@/composables/useFoglie'
-import primaveraGiorno from '@/assets/hero/primavera-giorno.webp'
-import primaveraNotte from '@/assets/hero/primavera-notte.webp'
-import estateGiorno from '@/assets/hero/estate-giorno.webp'
-import estateNotte from '@/assets/hero/estate-notte.webp'
-import autunnoGiorno from '@/assets/hero/autunno-giorno.webp'
-import autunnoNotte from '@/assets/hero/autunno-notte.webp'
-import invernoGiorno from '@/assets/hero/inverno-giorno.webp'
-import invernoNotte from '@/assets/hero/inverno-notte.webp'
-import splashAutunnoGiorno from '@/assets/hero/splash-autunno-giorno.webp'
+import placeholderTela from '@/assets/hero/splash-autunno-giorno.webp'
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
 const props = defineProps({
@@ -99,42 +91,28 @@ const props = defineProps({
 // lento), invece di aggiungere un'animazione decorativa qui.
 const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 
-// Un dipinto ad acquerello/china per ogni combinazione stagione × luce
-// (generati una tantum, vedi src/assets/hero/): a differenza della vecchia
-// scena SVG, qui giorno e notte sono due dipinti distinti (sole/luna dipinti
-// dentro ciascuno), non lo stesso disegno con un velo di colore — il velo
-// provato in fase di bozza appiattiva troppo i fiori e lasciava intravedere
-// il sole anche di notte.
-const immagini = {
-  primavera: { giorno: primaveraGiorno, notte: primaveraNotte },
-  estate: { giorno: estateGiorno, notte: estateNotte },
-  autunno: { giorno: autunnoGiorno, notte: autunnoNotte },
-  inverno: { giorno: invernoGiorno, notte: invernoNotte },
+// Una tela per ogni combinazione stagione × luce. PLACEHOLDER: per ora tutte
+// e 8 puntano alla tela verticale 896×1216 di autunno/giorno (cancello rosso,
+// sentiero chiaro, da cui `SplashAiuola.vue` parte a schermo intero); man
+// mano che arrivano le tele vere basta sostituire la riga della combinazione
+// con la sua immagine e i suoi valori. Per ogni tela:
+// - src, dim: file e risoluzione nativa (serve a fuocoYRenderizzato per
+//   ritrovare il cancello dopo object-fit:cover);
+// - fuoco: il cancello, fulcro compositivo (la soglia del giardino) da cui
+//   partono il cerchio di colore, il bloom e la spinta di camera dello
+//   splash, in % dell'immagine (x anche del ritaglio, vedi sotto);
+// - striscia: posizione verticale (%, object-position-y) del ritaglio 4.5:1
+//   mostrato nella Home. Una tela verticale non entra intera in una striscia
+//   larga: qui si mostra la fascia del cancello e del sentiero, a ~39% (cioè
+//   circa dal pixel 400 al 600 su 1216).
+const telaPlaceholder = { src: placeholderTela, dim: [896, 1216], fuoco: { x: 53.5, y: 40 }, striscia: 39 }
+const tele = {
+  primavera: { giorno: telaPlaceholder, notte: telaPlaceholder },
+  estate: { giorno: telaPlaceholder, notte: telaPlaceholder },
+  autunno: { giorno: telaPlaceholder, notte: telaPlaceholder },
+  inverno: { giorno: telaPlaceholder, notte: telaPlaceholder },
 }
-
-// Risoluzione nativa di ciascuna tela: 3 delle 8 tele rigenerate sono uscite
-// da Gemini/ChatGPT a 1264×NNN invece di 1536×1024 come le altre 5. Serve a
-// fuocoYRenderizzato per ritrovare il cancello dopo object-fit:cover.
-const dimensioniTela = {
-  primavera: { giorno: [1264, 843], notte: [1264, 848] },
-  estate: { giorno: [1264, 842], notte: [1536, 1024] },
-  autunno: { giorno: [1536, 1024], notte: [1536, 1024] },
-  inverno: { giorno: [1536, 1024], notte: [1536, 1024] },
-}
-// Il cancello è il fulcro compositivo di ogni tela (la soglia del
-// giardino): il bloom di colore e la spinta di camera dell'ingresso lento
-// partono da lì, non dal centro geometrico dell'immagine. Coordinate in %
-// del riquadro renderizzato (object-fit:cover già applicato), calibrate a
-// occhio su ciascuna tela e verificate dal vivo solo su un sottoinsieme
-// (autunno/giorno, inverno/notte) — le altre sono una stima a occhio da
-// aggiustare se in prova risultano visibilmente sbagliate.
-const puntiFuoco = {
-  primavera: { giorno: { x: 58, y: 55 }, notte: { x: 63, y: 55 } },
-  estate: { giorno: { x: 63, y: 55 }, notte: { x: 73, y: 60 } },
-  autunno: { giorno: { x: 69, y: 62 }, notte: { x: 63, y: 55 } },
-  inverno: { giorno: { x: 77, y: 55 }, notte: { x: 73, y: 52 } },
-}
-const puntoFuoco = computed(() => telaSplash.value?.fuoco ?? puntiFuoco[stagioneVisibile.value]?.[luceVisibile.value] ?? { x: 50, y: 50 })
+const puntoFuoco = computed(() => tela.value.fuoco)
 
 // Le coordinate sopra sono state calibrate a occhio su schermate desktop
 // (rapporto vicino a quello nativo della tela, ~1.5): su un riquadro con un
@@ -174,6 +152,7 @@ const stileFuoco = computed(() => {
   return {
     '--fx': puntoFuoco.value.x + '%',
     '--fy': fy + '%',
+    '--oy': props.ingressoLento ? '100%' : tela.value.striscia + '%',
   }
 })
 
@@ -210,20 +189,11 @@ function onImgErrore() {
 const stagioneVisibile = ref(props.stagione)
 const luceVisibile = ref(props.luce)
 
-// Tela verticale dedicata allo splash a schermo intero (formato telefono,
-// 896×1216, fuoco sul cancello al 53,5% / 40%): oggi esiste solo per
-// autunno/giorno, le altre 7 combinazioni usano ancora le tele orizzontali.
-// Vale per `ingressoLento` (lo splash), non per la striscia della Home, dove
-// una tela verticale ritagliata a 4.5:1 non si leggerebbe.
-const telaSplashPerScena = {
-  'autunno-giorno': { src: splashAutunnoGiorno, dim: [896, 1216], fuoco: { x: 53.5, y: 40 } },
-}
-const telaSplash = computed(() =>
-  props.ingressoLento ? telaSplashPerScena[`${stagioneVisibile.value}-${luceVisibile.value}`] ?? null : null)
-const dimensioniCorrenti = computed(() =>
-  telaSplash.value?.dim ?? dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024])
-
-const immagineCorrente = computed(() => telaSplash.value?.src ?? immagini[stagioneVisibile.value][luceVisibile.value])
+// Tela attiva (src, dimensioni native, punto di fuoco, ritaglio striscia)
+// per la scena visibile: vedi `tele` sopra.
+const tela = computed(() => tele[stagioneVisibile.value][luceVisibile.value])
+const dimensioniCorrenti = computed(() => tela.value.dim)
+const immagineCorrente = computed(() => tela.value.src)
 
 function ridottoMovimento() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
@@ -335,7 +305,7 @@ onUnmounted(() => {
      object-position-x = --fx il punto a quella frazione dell'immagine
      finisce sempre alla stessa frazione del riquadro, qualunque il
      ritaglio — vedi commento esteso su stileFuoco nello script. */
-  object-position: var(--fx, 50%) bottom;
+  object-position: var(--fx, 50%) var(--oy, 100%);
   opacity: 0; transform: scale(1.045); filter: blur(7px);
   transition: opacity .9s cubic-bezier(.22,1,.36,1),
               transform .9s cubic-bezier(.22,1,.36,1),
