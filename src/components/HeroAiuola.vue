@@ -5,8 +5,8 @@
       :src="immagineCorrente"
       class="zc-painting"
       :class="{ 'zc-painting--errore': erroreImg }"
-      width="1536"
-      height="1024"
+      :width="dimensioniCorrenti[0]"
+      :height="dimensioniCorrenti[1]"
       decoding="async"
       fetchpriority="high"
       alt=""
@@ -75,6 +75,7 @@ import autunnoGiorno from '@/assets/hero/autunno-giorno.webp'
 import autunnoNotte from '@/assets/hero/autunno-notte.webp'
 import invernoGiorno from '@/assets/hero/inverno-giorno.webp'
 import invernoNotte from '@/assets/hero/inverno-notte.webp'
+import splashAutunnoGiorno from '@/assets/hero/splash-autunno-giorno.webp'
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
 const props = defineProps({
@@ -133,7 +134,7 @@ const puntiFuoco = {
   autunno: { giorno: { x: 69, y: 62 }, notte: { x: 63, y: 55 } },
   inverno: { giorno: { x: 77, y: 55 }, notte: { x: 73, y: 52 } },
 }
-const puntoFuoco = computed(() => puntiFuoco[stagioneVisibile.value]?.[luceVisibile.value] ?? { x: 50, y: 50 })
+const puntoFuoco = computed(() => telaSplash.value?.fuoco ?? puntiFuoco[stagioneVisibile.value]?.[luceVisibile.value] ?? { x: 50, y: 50 })
 
 // Le coordinate sopra sono state calibrate a occhio su schermate desktop
 // (rapporto vicino a quello nativo della tela, ~1.5): su un riquadro con un
@@ -168,7 +169,7 @@ function fuocoYRenderizzato(fyPercent, iw, ih, cw, ch) {
 }
 
 const stileFuoco = computed(() => {
-  const [iw, ih] = dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024]
+  const [iw, ih] = dimensioniCorrenti.value
   const fy = fuocoYRenderizzato(puntoFuoco.value.y, iw, ih, contenitoreW.value, contenitoreH.value)
   return {
     '--fx': puntoFuoco.value.x + '%',
@@ -209,7 +210,20 @@ function onImgErrore() {
 const stagioneVisibile = ref(props.stagione)
 const luceVisibile = ref(props.luce)
 
-const immagineCorrente = computed(() => immagini[stagioneVisibile.value][luceVisibile.value])
+// Tela verticale dedicata allo splash a schermo intero (formato telefono,
+// 896×1216, fuoco sul cancello al 53,5% / 40%): oggi esiste solo per
+// autunno/giorno, le altre 7 combinazioni usano ancora le tele orizzontali.
+// Vale per `ingressoLento` (lo splash), non per la striscia della Home, dove
+// una tela verticale ritagliata a 4.5:1 non si leggerebbe.
+const telaSplashPerScena = {
+  'autunno-giorno': { src: splashAutunnoGiorno, dim: [896, 1216], fuoco: { x: 53.5, y: 40 } },
+}
+const telaSplash = computed(() =>
+  props.ingressoLento ? telaSplashPerScena[`${stagioneVisibile.value}-${luceVisibile.value}`] ?? null : null)
+const dimensioniCorrenti = computed(() =>
+  telaSplash.value?.dim ?? dimensioniTela[stagioneVisibile.value]?.[luceVisibile.value] ?? [1536, 1024])
+
+const immagineCorrente = computed(() => telaSplash.value?.src ?? immagini[stagioneVisibile.value][luceVisibile.value])
 
 function ridottoMovimento() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
