@@ -101,7 +101,7 @@ const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 // Una tela per ogni combinazione stagione × luce (tutte e 8 sono tele vere).
 // Autunno/giorno è la tela verticale 896×1216 da cui `SplashAiuola.vue` parte
 // a schermo intero (cancello rosso, sentiero chiaro). Per ogni tela:
-// - src, dim: file e risoluzione nativa (serve a fuocoYRenderizzato per
+// - src, dim: file e risoluzione nativa (serve a geometriaVerticale per
 //   ritrovare il cancello dopo object-fit:cover);
 // - fuoco: il cancello, fulcro compositivo (la soglia del giardino) da cui
 //   partono il cerchio di colore, il bloom e la spinta di camera dello
@@ -147,22 +147,44 @@ const contenitoreW = ref(1536)
 const contenitoreH = ref(1024)
 let smettiOsservazione = null
 
-function fuocoYRenderizzato(fyPercent, iw, ih, cw, ch) {
-  if (!cw || !ch || !iw || !ih) return fyPercent
-  const scale = Math.max(cw / iw, ch / ih)
-  const alturaScalata = ih * scale
-  const offsetY = ch - alturaScalata // object-position-y fissa a "bottom" (100%)
-  const yPx = offsetY + (fyPercent / 100) * alturaScalata
-  return (yPx / ch) * 100
+// Altezza (in % del riquadro) a cui portare il cancello nello splash quando
+// la tela, ingrandita a coprire il riquadro, è più alta del riquadro stesso
+// (desktop/tablet larghi): un po' sopra il centro, così si vedono insieme gli
+// alberi dietro, il cancello e il sentiero. Con un riquadro verticale (telefono)
+// la tela entra quasi tutta e l'ancoraggio resta quello di sempre, in basso.
+const ALTEZZA_CANCELLO_SPLASH = 45
+
+// Posizione verticale dell'immagine (object-position-y, in %) e fuoco
+// risultante in % del riquadro. L'offset verticale dell'immagine scalata è
+// oy·(ch − altezzaScalata): oy=100 → ancorata in basso, oy=0 → in alto.
+function geometriaVerticale(fyPercent, oyPercent, iw, ih, cw, ch) {
+  if (!cw || !ch || !iw || !ih) return { oy: oyPercent, fy: fyPercent }
+  const altezzaScalata = ih * Math.max(cw / iw, ch / ih)
+  const eccesso = altezzaScalata - ch
+  let oy = oyPercent
+  if (oy == null) {
+    // Splash: porta il cancello a ALTEZZA_CANCELLO_SPLASH, senza uscire dalla tela.
+    if (eccesso < 1) oy = 100
+    else {
+      const offsetDesiderato = (ALTEZZA_CANCELLO_SPLASH / 100) * ch - (fyPercent / 100) * altezzaScalata
+      oy = Math.min(100, Math.max(0, (-offsetDesiderato / eccesso) * 100))
+    }
+  }
+  const offsetY = -(oy / 100) * eccesso
+  const yPx = offsetY + (fyPercent / 100) * altezzaScalata
+  return { oy, fy: (yPx / ch) * 100 }
 }
 
 const stileFuoco = computed(() => {
   const [iw, ih] = dimensioniCorrenti.value
-  const fy = fuocoYRenderizzato(puntoFuoco.value.y, iw, ih, contenitoreW.value, contenitoreH.value)
+  const { oy, fy } = geometriaVerticale(
+    puntoFuoco.value.y,
+    props.ingressoLento ? null : tela.value.striscia,
+    iw, ih, contenitoreW.value, contenitoreH.value)
   return {
     '--fx': puntoFuoco.value.x + '%',
     '--fy': fy + '%',
-    '--oy': props.ingressoLento ? '100%' : tela.value.striscia + '%',
+    '--oy': oy + '%',
   }
 })
 
@@ -265,7 +287,7 @@ onMounted(() => {
   // quindi va controllato .complete esplicitamente.
   if (imgEl.value?.complete) onImgCaricata()
 
-  // Misura reale del riquadro per fuocoYRenderizzato sopra: la striscia
+  // Misura reale del riquadro per geometriaVerticale sopra: la striscia
   // della Home e lo splash a schermo intero hanno rapporti larghezza/altezza
   // molto diversi, e possono cambiare (resize finestra, rotazione telefono,
   // .app-main che passa a due colonne da 640px) mentre il componente resta
