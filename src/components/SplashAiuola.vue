@@ -27,11 +27,12 @@
          quindi un click su di loro non attraversa mai .splash__scene e non
          chiude lo splash per sbaglio mentre si legge o si tocca "Salta". -->
     <div class="splash__scene" @click="salta">
-      <HeroAiuola :stagione="stagione" :luce="luce" ingresso-lento />
+      <HeroAiuola :stagione="stagione" :luce="luce" ingresso-lento :zorba="posizioneZorba"
+        @foglia-su-zorba="zorba?.scodinzola?.()" />
     </div>
     <div class="splash__scrim"></div>
 
-    <ZorbaLogo class="splash__z" :class="luce === 'notte' ? 'splash__z--notte' : 'splash__z--giorno'" />
+    <ZorbaLogo ref="zorba" class="splash__z" :class="luce === 'notte' ? 'splash__z--notte' : 'splash__z--giorno'" />
 
     <div class="splash__txt">
       <Transition name="splash-riga" appear>
@@ -75,8 +76,9 @@ import HeroAiuola from '@/components/HeroAiuola.vue'
 
 // Momento d'ingresso a schermo intero, una volta per fascia del saluto (vedi
 // HomeView.vue): riusa le stesse 8 tele stagione×luce di HeroAiuola.vue, qui
-// a piena pagina invece che ritagliate nella striscia della Home. Zorba non
-// riceve qui nessun battito manuale: la sua animazione d'ingresso (tratteggio
+// a piena pagina invece che ritagliate nella striscia della Home — "il
+// cancello si apre": un cerchio di colore dal cancello sullo sfondo carta,
+// senza contorno a china. Zorba non riceve qui nessun battito manuale: la sua animazione d'ingresso (tratteggio
 // del motivo, battito di ciglia, coda) parte già da sola al mount di
 // ZorbaLogo.vue, pensata esattamente per un momento come questo.
 const props = defineProps({
@@ -93,6 +95,10 @@ const props = defineProps({
 const emit = defineEmits(['fine'])
 
 const box = ref(null)
+const zorba = ref(null)
+// Stessi valori di .splash__z (right/bottom/lato): è lì che si posa la foglia
+// del vento d'autunno (HeroAiuola.vue).
+const posizioneZorba = { destra: 22, basso: 26, dim: 116 }
 // Controlla il v-if interno (vedi Transition nel template): salta() lo
 // mette a false per avviare l'uscita animata; onUscitaCompleta (@after-leave,
 // a transizione CSS finita) emette 'fine' verso HomeView, che solo allora
