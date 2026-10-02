@@ -68,6 +68,7 @@
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useFoglie } from '@/composables/useFoglie'
 import placeholderTela from '@/assets/hero/splash-autunno-giorno.webp'
+import telaAutunnoNotte from '@/assets/hero/splash-autunno-notte.webp'
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
 const props = defineProps({
@@ -106,10 +107,13 @@ const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 //   larga: qui si mostra la fascia del cancello e del sentiero, a ~39% (cioè
 //   circa dal pixel 400 al 600 su 1216).
 const telaPlaceholder = { src: placeholderTela, dim: [896, 1216], fuoco: { x: 53.5, y: 40 }, striscia: 39 }
+// Autunno/notte: tela vera (896×1200), stessa scena di autunno/giorno con
+// cancello nello stesso punto (~53,5% × 40%), quindi stesso fuoco e ritaglio.
+const telaAutunnoNotte_ = { src: telaAutunnoNotte, dim: [896, 1200], fuoco: { x: 53, y: 39 }, striscia: 39 }
 const tele = {
   primavera: { giorno: telaPlaceholder, notte: telaPlaceholder },
   estate: { giorno: telaPlaceholder, notte: telaPlaceholder },
-  autunno: { giorno: telaPlaceholder, notte: telaPlaceholder },
+  autunno: { giorno: telaPlaceholder, notte: telaAutunnoNotte_ },
   inverno: { giorno: telaPlaceholder, notte: telaPlaceholder },
 }
 const puntoFuoco = computed(() => tela.value.fuoco)
