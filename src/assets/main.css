@@ -539,14 +539,14 @@ body::before {
 @keyframes z-blink { 0%,90%,100%{transform:scaleY(1)} 95%{transform:scaleY(.08)} }
 
 /* ===== restyle: hero ===== */
-/* Striscia compatta (3.5:1, non più 1536:904): il dipinto è ora un
+/* Striscia compatta (3:1 dal 03/10/2026, prima 4.5:1: un dipinto largo 2:1 con chiome, sentiero e fiori non entra in 4.5:1): il dipinto è ora un
    riferimento, non lo spazio d'ingresso — quello vive in SplashAiuola.vue a
    schermo intero. aspect-ratio invece di un'altezza fissa in px scala con
    qualunque larghezza senza dover ritestare ogni breakpoint (stesso motivo
    della versione precedente). Niente più padding testuale: l'unico
    contenuto interno è Zorba, posizionato in assoluto per conto suo. */
 .hero { position:relative; overflow:hidden;
-  aspect-ratio: 4.5 / 1; min-height:70px;
+  aspect-ratio: 3 / 1; min-height:70px;
   background:var(--sage-bg); }
 .hero__scene { position:absolute; inset:0; }
 /* Unica sfumatura rimasta: gli ultimi px in basso, dove il bordo esatto del
