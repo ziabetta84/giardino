@@ -75,6 +75,14 @@ import telaEstateGiorno from '@/assets/hero/splash-estate-giorno.webp'
 import telaEstateNotte from '@/assets/hero/splash-estate-notte.webp'
 import telaInvernoGiorno from '@/assets/hero/splash-inverno-giorno.webp'
 import telaInvernoNotte from '@/assets/hero/splash-inverno-notte.webp'
+import heroAutunnoGiorno from '@/assets/hero/hero-autunno-giorno.webp'
+import heroAutunnoNotte from '@/assets/hero/hero-autunno-notte.webp'
+import heroPrimaveraGiorno from '@/assets/hero/hero-primavera-giorno.webp'
+import heroPrimaveraNotte from '@/assets/hero/hero-primavera-notte.webp'
+import heroEstateGiorno from '@/assets/hero/hero-estate-giorno.webp'
+import heroEstateNotte from '@/assets/hero/hero-estate-notte.webp'
+import heroInvernoGiorno from '@/assets/hero/hero-inverno-giorno.webp'
+import heroInvernoNotte from '@/assets/hero/hero-inverno-notte.webp'
 // stagione: 'primavera' | 'estate' | 'autunno' | 'inverno'
 // luce: 'giorno' | 'notte'
 const props = defineProps({
@@ -110,17 +118,24 @@ const emit = defineEmits(['cambio-scena', 'foglia-su-zorba'])
 //   mostrato nella Home. Una tela verticale non entra intera in una striscia
 //   larga: qui si mostra la fascia del cancello e del sentiero, a ~39% (cioè
 //   circa dal pixel 400 al 600 su 1216).
-const telaPlaceholder = { src: placeholderTela, dim: [896, 1216], fuoco: { x: 53.5, y: 40 }, striscia: 39 }
+const telaPlaceholder = { src: placeholderTela, dim: [896, 1216], fuoco: { x: 53.5, y: 40 }, striscia: 39,
+  // Dipinto largo (2:1) nato per la striscia della Home, senza cancello —
+  // Zorba è già dentro il giardino (03/10/2026). Sostituisce `src` solo
+  // fuori dallo splash; `oy` è la posizione verticale del ritaglio 3:1 (%):
+  // ~24% tiene insieme chiome, sentiero e fiori in primo piano. Le altre
+  // sette scene lo avranno man mano che i dipinti arrivano.
+  hero: { src: heroAutunnoGiorno, dim: [1536, 768], oy: 24 } }
 // Tele vere (896×1200) per le scene nuove: stesso scatto di autunno/giorno
 // per tutte (stesso cancello, stesso sentiero), quindi stesso fuoco
 // (~53% × 39%) e stesso ritaglio striscia. Il placeholder resta solo per
 // autunno/giorno, che ha la sua tela originale (896×1216).
-const telaVera = (src) => ({ src, dim: [896, 1200], fuoco: { x: 53, y: 39 }, striscia: 39 })
+// `hero` (opzionale): dipinto largo dedicato alla striscia, vedi telaPlaceholder.
+const telaVera = (src, hero = null) => ({ src, dim: [896, 1200], fuoco: { x: 53, y: 39 }, striscia: 39, ...(hero && { hero }) })
 const tele = {
-  primavera: { giorno: telaVera(telaPrimaveraGiorno), notte: telaVera(telaPrimaveraNotte) },
-  estate: { giorno: telaVera(telaEstateGiorno), notte: telaVera(telaEstateNotte) },
-  autunno: { giorno: telaPlaceholder, notte: telaVera(telaAutunnoNotte) },
-  inverno: { giorno: telaVera(telaInvernoGiorno), notte: telaVera(telaInvernoNotte) },
+  primavera: { giorno: telaVera(telaPrimaveraGiorno, { src: heroPrimaveraGiorno, dim: [1536, 768], oy: 24 }), notte: telaVera(telaPrimaveraNotte, { src: heroPrimaveraNotte, dim: [1376, 768], oy: 20 }) },
+  estate: { giorno: telaVera(telaEstateGiorno, { src: heroEstateGiorno, dim: [1536, 768], oy: 30 }), notte: telaVera(telaEstateNotte, { src: heroEstateNotte, dim: [1376, 768], oy: 30 }) },
+  autunno: { giorno: telaPlaceholder, notte: telaVera(telaAutunnoNotte, { src: heroAutunnoNotte, dim: [1584, 672], oy: 8 }) },
+  inverno: { giorno: telaVera(telaInvernoGiorno, { src: heroInvernoGiorno, dim: [1376, 768], oy: 34 }), notte: telaVera(telaInvernoNotte, { src: heroInvernoNotte, dim: [1376, 768], oy: 34 }) },
 }
 const puntoFuoco = computed(() => tela.value.fuoco)
 
@@ -179,7 +194,7 @@ const stileFuoco = computed(() => {
   const [iw, ih] = dimensioniCorrenti.value
   const { oy, fy } = geometriaVerticale(
     puntoFuoco.value.y,
-    props.ingressoLento ? null : tela.value.striscia,
+    props.ingressoLento ? null : (heroAttivo.value?.oy ?? tela.value.striscia),
     iw, ih, contenitoreW.value, contenitoreH.value)
   return {
     '--fx': puntoFuoco.value.x + '%',
@@ -224,8 +239,10 @@ const luceVisibile = ref(props.luce)
 // Tela attiva (src, dimensioni native, punto di fuoco, ritaglio striscia)
 // per la scena visibile: vedi `tele` sopra.
 const tela = computed(() => tele[stagioneVisibile.value][luceVisibile.value])
-const dimensioniCorrenti = computed(() => tela.value.dim)
-const immagineCorrente = computed(() => tela.value.src)
+// Dipinto dedicato alla striscia, se la scena ne ha uno (mai nello splash).
+const heroAttivo = computed(() => (props.ingressoLento ? null : tela.value.hero ?? null))
+const dimensioniCorrenti = computed(() => (heroAttivo.value ?? tela.value).dim)
+const immagineCorrente = computed(() => (heroAttivo.value ?? tela.value).src)
 
 function ridottoMovimento() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false
