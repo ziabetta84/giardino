@@ -68,10 +68,7 @@ def has_specific_content(d):
     ])
 
 
-def extract_numbers(s):
-    if not s:
-        return []
-    return [float(x.replace(",", ".")) for x in re.findall(r"\d+(?:[.,]\d+)?", s)]
+from rhs_dimensioni import extract_numbers, is_open, con_da
 
 
 def load_esistenti():
@@ -134,10 +131,13 @@ def main():
             continue
 
         heights, spreads = [], []
+        h_oltre = s_oltre = False
         hardiness_set, foliage_set, habit_set, cultivar_names = set(), set(), set(), []
         for e in entries:
             heights += extract_numbers(e.get("altezza_max"))
             spreads += extract_numbers(e.get("diffusione_max"))
+            h_oltre = h_oltre or is_open(e.get("altezza_max"))
+            s_oltre = s_oltre or is_open(e.get("diffusione_max"))
             if e.get("hardiness"):
                 hardiness_set.add(e["hardiness"])
             if e.get("fogliame"):
@@ -181,6 +181,8 @@ def main():
             "soil_types": ref.get("soil_types"),
             "altezza_min_max": [min(heights), max(heights)] if heights else None,
             "diffusione_min_max": [min(spreads), max(spreads)] if spreads else None,
+            "altezza_oltre": h_oltre,
+            "diffusione_oltre": s_oltre,
             "hardiness_set": sorted(hardiness_set),
             "cultivar_names": cultivar_names,
         })
@@ -237,14 +239,14 @@ def main():
         if d["kind"] == "incerto":
             desc_bits.append("Identificazione RHS non confermata (\"aff./cf.\": probabilmente questa specie, corrispondenza non certa) — dato da trattare con cautela.")
         if d["n_pagine"] > 1:
-            h = gs.fmt_range(d.get("altezza_min_max"))
-            s = gs.fmt_range(d.get("diffusione_min_max"))
+            h = gs.fmt_range(d.get("altezza_min_max"), oltre=d.get("altezza_oltre", False))
+            s = gs.fmt_range(d.get("diffusione_min_max"), oltre=d.get("diffusione_oltre", False))
             cvs = d.get("cultivar_names") or []
             sample = ", ".join(f"'{c}'" for c in cvs[:6])
             extra = f" (tra cui {sample}{'...' if len(cvs) > 6 else ''})" if sample else ""
-            size_bit = f" con altezze da {h}" if h else ""
+            size_bit = f" con altezze {con_da(h)}" if h else ""
             if s:
-                size_bit += f" e diffusione da {s}" if h else f" con diffusione da {s}"
+                size_bit += f" e diffusione {con_da(s)}" if h else f" con diffusione {con_da(s)}"
             desc_bits.append(f"RHS elenca {d['n_pagine']} pagine/cultivar coltivate{size_bit}{extra}.")
         descrizione = " ".join(desc_bits) if desc_bits else None
 
@@ -276,8 +278,8 @@ def main():
         if hset:
             alert_items.append(f"Rusticità RHS: {', '.join(hset)} (scala UK, vedi H1-H7 nella documentazione RHS)")
         if d.get("altezza_min_max") or d.get("diffusione_min_max"):
-            h = gs.fmt_range(d.get("altezza_min_max"))
-            s = gs.fmt_range(d.get("diffusione_min_max"))
+            h = gs.fmt_range(d.get("altezza_min_max"), oltre=d.get("altezza_oltre", False))
+            s = gs.fmt_range(d.get("diffusione_min_max"), oltre=d.get("diffusione_oltre", False))
             dims = [x for x in [f"altezza {h}" if h else None, f"diffusione {s}" if s else None] if x]
             if dims:
                 alert_items.append("Dimensioni RHS a maturità: " + ", ".join(dims))

@@ -58,20 +58,7 @@ def carica_record(slug):
     raise KeyError(slug)
 
 
-def extract_numbers(s):
-    """Come build_full_aggregate.extract_numbers, ma converte in metri se il
-    testo RHS usa i cm ("Up to 10 cm") invece delle metres di default -- bug
-    scoperto qui il 30/09/2026 (Aeonium tabuliforme: "Up to 10 cm" letto come
-    10 m). Non applicato al resto della pipeline (fuori scope, già in
-    produzione su migliaia di righe): qui serve solo a non inserire un dato
-    palesemente sbagliato nelle nuove righe."""
-    import re
-    if not s:
-        return []
-    nums = [float(x.replace(',', '.')) for x in re.findall(r'\d+(?:[.,]\d+)?', s)]
-    if 'cm' in s.lower() and 'metres' not in s.lower():
-        nums = [n / 100 for n in nums]
-    return nums
+from rhs_dimensioni import extract_numbers, is_open
 
 
 def main():
@@ -97,6 +84,8 @@ def main():
             "soil_types": r.get("soil_types"),
             "altezza_min_max": [min(heights), max(heights)] if heights else None,
             "diffusione_min_max": [min(spreads), max(spreads)] if spreads else None,
+            "altezza_oltre": is_open(r.get("altezza_max")),
+            "diffusione_oltre": is_open(r.get("diffusione_max")),
             "hardiness_set": [r["hardiness"]] if r.get("hardiness") else [],
             "cultivar_names": [],
         }
