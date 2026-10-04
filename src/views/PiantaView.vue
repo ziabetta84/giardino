@@ -45,6 +45,7 @@
           </span>
           <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
           <p v-if="nomeScientifico" class="pbino">{{ nomeScientifico }}</p>
+          <p v-if="nomiAlternativi" class="pbino">Detta anche {{ nomiAlternativi }}</p>
         </div>
         <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
           Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
@@ -62,6 +63,7 @@
             </span>
             <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
             <p v-if="nomeScientifico" class="phead-text__bino">{{ nomeScientifico }}</p>
+            <p v-if="nomiAlternativi" class="phead-text__bino">Detta anche {{ nomiAlternativi }}</p>
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
@@ -357,6 +359,13 @@ const specie = computed(() =>
 const nomeScientifico = computed(() => {
   const s = specie.value
   return s?.specie && s.specie.toLowerCase() !== (s.nome ?? '').toLowerCase() ? s.specie : ''
+})
+
+// Sinonimi e altri nomi comuni (specie.nomi_alternativi, separati da " | "),
+// limitati ai primi tre per non allungare il titolo
+const nomiAlternativi = computed(() => {
+  const alt = specie.value?.nomi_alternativi
+  return alt ? alt.split(' | ').slice(0, 3).join(', ') : ''
 })
 
 // Presente solo per le specie annuali/biennali curate dalla tab

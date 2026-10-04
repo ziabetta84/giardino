@@ -97,23 +97,28 @@ NORMALIZZAZIONI = {
     "zelkova-sicula": "Zelkova siciliana",
 }
 
-righe = [r.split("|") for r in (OUT / "abbinate.txt").read_text(encoding="utf-8").splitlines() if r.strip()]
-presenti = {s for s, _, _ in righe}
-assert ESCLUSI <= presenti, f"ESCLUSI non presenti: {sorted(ESCLUSI - presenti)}"
-assert set(NORMALIZZAZIONI) <= presenti - ESCLUSI, "NORMALIZZAZIONI su slug assenti o esclusi"
+def main():
+    righe = [r.split("|") for r in (OUT / "abbinate.txt").read_text(encoding="utf-8").splitlines() if r.strip()]
+    presenti = {s for s, _, _ in righe}
+    assert ESCLUSI <= presenti, f"ESCLUSI non presenti: {sorted(ESCLUSI - presenti)}"
+    assert set(NORMALIZZAZIONI) <= presenti - ESCLUSI, "NORMALIZZAZIONI su slug assenti o esclusi"
 
-coppie = sorted((s, NORMALIZZAZIONI.get(s, n)) for s, n, _ in righe if s not in ESCLUSI)
-chiavi = [n.lower() for _, n in coppie]
-doppi = sorted({n for n in chiavi if chiavi.count(n) > 1})
-assert not doppi, f"nomi duplicati (violerebbero specie_nome_key): {doppi}"
+    coppie = sorted((s, NORMALIZZAZIONI.get(s, n)) for s, n, _ in righe if s not in ESCLUSI)
+    chiavi = [n.lower() for _, n in coppie]
+    doppi = sorted({n for n in chiavi if chiavi.count(n) > 1})
+    assert not doppi, f"nomi duplicati (violerebbero specie_nome_key): {doppi}"
 
-up, down = genera_migration(coppie, "lotto2")
-intestazione = (
-    f"-- Lotto 2: {len(coppie)} nomi italiani da PlantNet (specie con un solo nome comune italiano).\n"
-    f"-- Abbinati per nome scientifico; {len(ESCLUSI)} abbinamenti scartati dopo revisione manuale\n"
-    "-- (altro taxon, cultivar, lingua straniera, refusi, troppo generici).\n"
-    "-- Controllato prima dell'apply: nessuna collisione con specie_nome_key.\n"
-)
-MIGRATION.write_text(intestazione + up.replace("(lotto2): sostituisce nome con il nome comune italiano da Wikidata", "(lotto2)"), encoding="utf-8")
-ROLLBACK.write_text(down, encoding="utf-8")
-print(len(righe), "abbinati,", len(ESCLUSI), "esclusi,", len(NORMALIZZAZIONI), "normalizzati ->", len(coppie), "coppie")
+    up, down = genera_migration(coppie, "lotto2")
+    intestazione = (
+        f"-- Lotto 2: {len(coppie)} nomi italiani da PlantNet (specie con un solo nome comune italiano).\n"
+        f"-- Abbinati per nome scientifico; {len(ESCLUSI)} abbinamenti scartati dopo revisione manuale\n"
+        "-- (altro taxon, cultivar, lingua straniera, refusi, troppo generici).\n"
+        "-- Controllato prima dell'apply: nessuna collisione con specie_nome_key.\n"
+    )
+    MIGRATION.write_text(intestazione + up.replace("(lotto2): sostituisce nome con il nome comune italiano da Wikidata", "(lotto2)"), encoding="utf-8")
+    ROLLBACK.write_text(down, encoding="utf-8")
+    print(len(righe), "abbinati,", len(ESCLUSI), "esclusi,", len(NORMALIZZAZIONI), "normalizzati ->", len(coppie), "coppie")
+
+
+if __name__ == "__main__":
+    main()

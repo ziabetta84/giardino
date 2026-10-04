@@ -26,6 +26,7 @@
               <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
             </span>
             <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
+            <span v-if="s.viaSinonimo" class="dd-sci">detta anche «{{ s.viaSinonimo }}»</span>
           </span>
         </div>
       </template>
@@ -179,6 +180,7 @@ const specieFiltrate = computed(() => {
       key,
       nome: s.nome ?? key,
       nomeScientifico: s.specie ?? '',
+      alternativi: s.nomi_alternativi ? s.nomi_alternativi.split(' | ') : [],
       verificata: s.stato_verifica === 'verificato',
       immagine: s.immagine ?? null,
       // un cultivar è una ricerca esplicita (digitando il nome del cultivar
@@ -187,8 +189,14 @@ const specieFiltrate = computed(() => {
     }))
   const q = normalizzaApici(specieQuery.value.trim().toLowerCase())
 
+  const contiene = testo => normalizzaApici(testo.toLowerCase()).includes(q)
   const base = q
-    ? tutte.filter(s => normalizzaApici(s.nome.toLowerCase()).includes(q) || normalizzaApici(s.nomeScientifico.toLowerCase()).includes(q))
+    ? tutte
+        .filter(s => contiene(s.nome) || contiene(s.nomeScientifico) || s.alternativi.some(contiene))
+        // se la specie si trova solo tramite un sinonimo, la riga lo mostra
+        .map(s => (contiene(s.nome) || contiene(s.nomeScientifico)
+          ? s
+          : { ...s, viaSinonimo: s.alternativi.find(contiene) }))
     : tutte.filter(s => s.verificata && !s.cultivarDi)
 
   return base
@@ -243,15 +251,17 @@ async function eseguiRicercaRemota(q) {
     // Niente filtro su specie_padre_id: la ricerca copre anche i cultivar
     // (un collezionista può cercare direttamente "Aureomarginatum" senza
     // passare dalla specie madre, vedi discussione issue #153, 2026-08-30).
-    const [porNome, porScientifico] = await Promise.all([
+    const [porNome, porScientifico, porSinonimo] = await Promise.all([
       supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).limit(50),
       supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('nomi_alternativi', pattern).limit(50),
     ])
     if (porNome.error) throw porNome.error
     if (porScientifico.error) throw porScientifico.error
+    if (porSinonimo.error) throw porSinonimo.error
     if (mioToken !== tokenRicerca) return  // superata da una ricerca più recente
 
-    const righe = [...(porNome.data ?? []), ...(porScientifico.data ?? [])]
+    const righe = [...(porNome.data ?? []), ...(porScientifico.data ?? []), ...(porSinonimo.data ?? [])]
     await risolviEMergeCultivar(righe)
     ricercaOffline.value = false
   } catch (e) {
