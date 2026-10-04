@@ -41,6 +41,21 @@ def scegli_nome(sci, candidati):
     return None, "ambiguo"
 
 
+def nomi_plantnet(sci, nomi_comuni):
+    """Nomi italiani distinti e normalizzati di una specie PlantNet (ordine di arrivo).
+
+    Scarta i nomi non validi (vedi normalizza_nome) e quelli uguali al nome scientifico.
+    """
+    visti, risultato = set(), []
+    for grezzo in nomi_comuni or []:
+        n = normalizza_nome(grezzo)
+        if n is None or n.lower() == sci.strip().lower() or n.lower() in visti:
+            continue
+        visti.add(n.lower())
+        risultato.append(n)
+    return risultato
+
+
 def abbina_slug(proposte, righe_db):
     """Abbina i nomi proposti alle righe del DB per nome scientifico.
 

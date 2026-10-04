@@ -1,5 +1,5 @@
 import unittest
-from nomi import normalizza_nome, scegli_nome, abbina_slug, sql_str, genera_migration
+from nomi import normalizza_nome, scegli_nome, abbina_slug, sql_str, genera_migration, nomi_plantnet
 
 
 def c(nome, rank="normal", itwiki=None):
@@ -94,6 +94,17 @@ class TestSql(unittest.TestCase):
     def test_rollback_apostrofo(self):
         _, down = genera_migration([("l-o'x", "Erba d'a")], "lotto1")
         self.assertIn("('l-o''x', 'Erba d''a')", down)
+
+
+class TestNomiPlantnet(unittest.TestCase):
+    def test_distinti_normalizzati_e_senza_scientifico(self):
+        self.assertEqual(
+            nomi_plantnet("Tanacetum coccineum", ["piretro", " Piretro ", "Tanacetum coccineum", "rosa 2000", ""]),
+            ["Piretro"],
+        )
+
+    def test_vuoto(self):
+        self.assertEqual(nomi_plantnet("Aloe vera", None), [])
 
 
 if __name__ == "__main__":
