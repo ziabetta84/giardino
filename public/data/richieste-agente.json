@@ -1024,8 +1024,11 @@
     "progetto": "8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c",
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-09-30T21:20:38.099Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Hai seminato tutto il 26/09, quindi carote, cipolle e piselli sono nel momento più delicato: la germinazione, dove la superficie del terreno non deve mai asciugarsi. Acqua leggera ogni 1-2 giorni, con rosetta fine per non spostare i semi — meglio bagnare poco e spesso che un getto forte ogni tanto.\n\nLa pacciamatura di foglie di gelsomino stesa il giorno dopo aiuta: trattiene umidità, quindi puoi allungare a ogni 2-3 giorni se, scostando un po' le foglie, il terreno sotto resta umido al tatto.\n\nIl cavolo nero è diviso in due: le 2 piantine già trapiantate hanno radici più sviluppate e vogliono annaffiature più profonde ma rade (ogni 4-5 giorni); i semi nuovi accanto seguono invece il ritmo di carote/cipolle finché non germinano.\n\nLo scalogno (i 3 bulbetti) va più moderato, ogni 7-10 giorni: sta radicando, non ha semi in superficie da tenere umidi.\n\nAppena vedi le prime foglioline — per i piselli ci siamo quasi — puoi diradare e passare ad annaffiature più profonde e distanziate: le radici cominceranno a scendere. 💧",
+      "elaborata": "2026-10-04T00:00:00.000Z"
+    }
   }
 }
