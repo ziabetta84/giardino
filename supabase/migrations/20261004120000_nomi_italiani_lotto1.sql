@@ -1,7 +1,8 @@
 -- Rollback: scripts/nomi-italiani/rollback_lotto1.sql (stessa lista VALUES, ripristina
 -- nome = nome_scientifico solo dove nome e' ancora quello impostato qui).
 -- Omonimi saltati (13), per nome scientifico: Acacia dealbata, Aquilegia vulgaris, Brassica oleracea, Calendula officinalis, Camellia japonica, Helleborus niger, Hyacinthus orientalis, Lythrum salicaria, Passiflora caerulea, Primula vulgaris, Solanum tuberosum, Thymus serpyllum, Zea mays.
--- Slug esclusi dopo la revisione (nomi sbagliati o dubbi): 32.
+-- Slug esclusi dopo la revisione (nomi sbagliati o dubbi) e per omonimia: 40.
+-- specie.nome e' UNIQUE: gli omonimi sono esclusi (il genere tiene il nome, le specie restano scientifiche).
 -- Nomi italiani (lotto1): sostituisce nome con il nome comune italiano da Wikidata.
 -- Solo righe ancora senza nome italiano (nome = nome_scientifico) e non cultivar.
 update specie s set nome = v.nome
@@ -11,7 +12,6 @@ from (values
   ('abutilon-theophrasti', 'Cencio molle'),
   ('acalypha-australis', 'Acalifa asiatica'),
   ('acanthus', 'Acanto'),
-  ('acanthus-mollis', 'Acanto'),
   ('acer-negundo', 'Acero americano'),
   ('acer-platanoides', 'Acero riccio'),
   ('achillea-macrophylla', 'Millefoglio delle radure'),
@@ -55,7 +55,6 @@ from (values
   ('ballota-nigra', 'Marrubio selvatico'),
   ('berberis-vulgaris', 'Crespino comune'),
   ('betula', 'Betulla'),
-  ('betula-pendula', 'Betulla'),
   ('bidens-frondosa', 'Forbicina peduncolata'),
   ('bromus-sterilis', 'Bromo sterile'),
   ('buphthalmum-salicifolium', 'Asteroide salicina'),
@@ -106,7 +105,6 @@ from (values
   ('crocus-sativus', 'Zafferano vero'),
   ('cupressus-macrocarpa', 'Cipresso di Monterey'),
   ('cupressus-sempervirens', 'Cipresso'),
-  ('curcuma-longa', 'Curcuma'),
   ('cynara-scolymus', 'Carciofo'),
   ('cyperus-esculentus', 'Zigolo dolce'),
   ('cyperus-papyrus', 'Papiro egiziano'),
@@ -140,7 +138,6 @@ from (values
   ('fagus-sylvatica', 'Faggio'),
   ('ferula-communis', 'Finocchiaccio'),
   ('ficaria-verna', 'Ranuncolo favagello'),
-  ('ficus-elastica', 'Albero della gomma'),
   ('filipendula-ulmaria', 'Olmaria'),
   ('fragaria-vesca', 'Fragola di bosco'),
   ('frangula-alnus', 'Frangola'),
@@ -164,7 +161,6 @@ from (values
   ('helichrysum-italicum', 'Elicriso'),
   ('helleborus-foetidus', 'Elleboro puzzolente'),
   ('helleborus-viridis', 'Elleboro verde'),
-  ('hevea-brasiliensis', 'Albero della gomma'),
   ('hippocrepis-comosa', 'Sferracavallo comune'),
   ('hovenia-dulcis', 'Albero dell''uva passa'),
   ('humulus-lupulus', 'Luppolo'),
@@ -326,9 +322,6 @@ from (values
   ('veratrum-album', 'Veratro'),
   ('veratrum-nigrum', 'Veratro nero'),
   ('viburnum', 'Viburno'),
-  ('viburnum-macrocephalum', 'Viburno'),
-  ('viburnum-odoratissimum', 'Viburno'),
-  ('viburnum-tinus', 'Viburno'),
   ('vicia-faba', 'Fava'),
   ('viola-odorata', 'Viola mammola'),
   ('viscum-album', 'Vischio'),

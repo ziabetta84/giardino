@@ -12,6 +12,9 @@ Nota: out/r*.txt e proposte.csv sono git-ignored; i dump r*.txt sono stati trasc
 da query SELECT sul DB, quindi l'artefatto riproducibile e' la migration SQL committata,
 non questo script.
 
+Il controllo contro i nomi GIA' presenti nella tabella (UNIQUE su specie.nome) va fatto
+dall'operatore con una SELECT: per il lotto 1 e' stato fatto, l'unico conflitto era curcuma.
+
 Output:
 - out/righe_db.json, out/righe_curate.json (intermedi)
 - supabase/migrations/20261004120000_nomi_italiani_lotto1.sql
@@ -46,6 +49,10 @@ ESCLUSI = {
     # acer-saccharinum si confonde con A. saccharum, "Banyan" e' un prestito inglese.
     "viburnum-opulus", "styrax-officinalis", "cirsium-heterophyllum", "galeopsis-ladanum",
     "galium-mollugo", "acer-saccharinum", "ficus-benghalensis",
+    # nome e' UNIQUE su specie: omonimi evitati; il genere tiene il nome, le specie in
+    # conflitto restano col nome scientifico (curcuma-longa: "Curcuma" e' gia' dello slug `curcuma`).
+    "acanthus-mollis", "betula-pendula", "viburnum-macrocephalum", "viburnum-odoratissimum",
+    "viburnum-tinus", "ficus-elastica", "hevea-brasiliensis", "curcuma-longa",
 }
 
 # Solo correzioni di formato del testo Wikidata (maiuscole, accenti, primo di "X o Y"),
@@ -93,6 +100,15 @@ for _slug, (_vecchio, _nuovo) in NORMALIZZAZIONI.items():
     assert _nomi[_slug] == _vecchio, f"normalizzazione obsoleta {_slug}: {_nomi[_slug]!r} != {_vecchio!r}"
 coppie = [(s, NORMALIZZAZIONI[s][1] if s in NORMALIZZAZIONI else n) for s, n in coppie]
 
+# specie.nome e' UNIQUE nel DB: i nomi finali devono essere distinti (senza distinguere maiuscole).
+_per_nome = {}
+for _s, _n in coppie:
+    _per_nome.setdefault(_n.lower(), []).append((_s, _n))
+_dup = {k: v for k, v in _per_nome.items() if len(v) > 1}
+if _dup:
+    sys.exit("Nomi duplicati (specie.nome e' UNIQUE), esclude gli slug in conflitto: " +
+             "; ".join(", ".join(f"{s} -> {n}" for s, n in v) for v in _dup.values()))
+
 print(f"righe DB: {len(righe)} (curate: {len(curate)})")
 print(f"coppie: {len(coppie)}; omonimi saltati: {len(saltati)}; scartate perche' curate: {scartate}")
 print("omonimi:", saltati)
@@ -105,7 +121,8 @@ intestazione = (
     "-- Rollback: scripts/nomi-italiani/rollback_lotto1.sql (stessa lista VALUES, ripristina\n"
     "-- nome = nome_scientifico solo dove nome e' ancora quello impostato qui).\n"
     f"-- Omonimi saltati ({len(saltati)}), per nome scientifico: {', '.join(saltati)}.\n"
-    f"-- Slug esclusi dopo la revisione (nomi sbagliati o dubbi): {len(ESCLUSI)}.\n"
+    f"-- Slug esclusi dopo la revisione (nomi sbagliati o dubbi) e per omonimia: {len(ESCLUSI)}.\n"
+    "-- specie.nome e' UNIQUE: gli omonimi sono esclusi (il genere tiene il nome, le specie restano scientifiche).\n"
 )
 up = intestazione + up
 open(MIGRATION, "w", encoding="utf-8").write(up)

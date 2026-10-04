@@ -42,7 +42,7 @@ Il valore precedente di `nome` coincide con `nome_scientifico`. La migration sal
 
 - Ovunque l'app mostra `nome` e il nome scientifico è disponibile e diverso, mostrare lo scientifico in corsivo come sottotitolo (selettore specie, pianta, attività, dossier). Nelle viste dense solo nel tooltip.
 - La ricerca del selettore specie deve cercare su `nome` e `nome_scientifico`.
-- I nomi italiani non sono univoci (specie diverse possono avere lo stesso nome): la chiave resta lo slug, il sottotitolo scientifico le distingue.
+- `specie.nome` ha un vincolo UNIQUE nel database (scoperto applicando il lotto 1): l'import salta i nomi che andrebbero in conflitto (il genere tiene il nome, le specie in conflitto restano col nome scientifico). La chiave resta lo slug.
 
 ## Controlli prima del batch
 
@@ -57,5 +57,6 @@ Alcuni file usano `nome` in confronti o testi: `GalleryView.vue`, `AgenteView.vu
 
 ## Rischi
 
+- `specie.nome` è UNIQUE: due specie non possono avere lo stesso nome italiano, quindi gli omonimi vanno esclusi dall'import (anche rispetto ai nomi già in tabella).
 - Il nome comune su Wikidata può riferirsi al genere o a un gruppo e non alla specie: la revisione a campione serve a questo.
 - Un nome mostrato diverso da quello atteso dai testi di `descrizione` già naturalizzati: verificare a campione.
