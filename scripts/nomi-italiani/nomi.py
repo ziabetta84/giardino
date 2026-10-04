@@ -1,5 +1,6 @@
 """Logica pura per importare i nomi comuni italiani da Wikidata in specie.nome."""
 import re
+from collections import defaultdict
 
 MAX_LUNGHEZZA = 60
 
@@ -38,3 +39,52 @@ def scegli_nome(sci, candidati):
         if len(scelti) == 1:
             return scelti[0]["nome"], criterio
     return None, "ambiguo"
+
+
+def abbina_slug(proposte, righe_db):
+    """Abbina i nomi proposti alle righe del DB per nome scientifico.
+
+    Ritorna (coppie, omonimi_saltati):
+    - coppie: list[(slug, nuovo_nome)] ordinata per slug
+    - omonimi_saltati: list[nome_scientifico] per cui ci sono più righe
+    """
+    per_sci = defaultdict(list)
+    for r in righe_db:
+        per_sci[r["nome_scientifico"].strip().lower()].append(r)
+    coppie, saltati = [], []
+    for chiave, righe in per_sci.items():
+        if chiave not in proposte:
+            continue
+        if len(righe) > 1:
+            saltati.append(righe[0]["nome_scientifico"])
+            continue
+        coppie.append((righe[0]["slug"], proposte[chiave]))
+    return sorted(coppie), sorted(saltati)
+
+
+def sql_str(s):
+    """Converte una stringa in letterale SQL con apici raddoppiati."""
+    return "'" + s.replace("'", "''") + "'"
+
+
+def genera_migration(coppie, lotto):
+    """Genera le migration SQL (up e rollback) per applicare i nomi italiani.
+
+    Ritorna (sql_applica, sql_rollback).
+    """
+    valori = ",\n  ".join(f"({sql_str(slug)}, {sql_str(nome)})" for slug, nome in coppie)
+    up = (
+        f"-- Nomi italiani ({lotto}): sostituisce nome con il nome comune italiano da Wikidata.\n"
+        "-- Solo righe ancora senza nome italiano (nome = nome_scientifico) e non cultivar.\n"
+        "update specie s set nome = v.nome\n"
+        f"from (values\n  {valori}\n) as v(slug, nome)\n"
+        "where s.slug = v.slug\n"
+        "  and s.nome = s.nome_scientifico\n"
+        "  and s.specie_padre_id is null;\n"
+    )
+    slugs = ", ".join(sql_str(slug) for slug, _ in coppie)
+    down = (
+        f"-- Rollback {lotto}: ripristina nome = nome_scientifico\n"
+        f"update specie set nome = nome_scientifico where slug in ({slugs});\n"
+    )
+    return up, down

@@ -1,5 +1,5 @@
 import unittest
-from nomi import normalizza_nome, scegli_nome
+from nomi import normalizza_nome, scegli_nome, abbina_slug, sql_str, genera_migration
 
 
 def c(nome, rank="normal", itwiki=None):
@@ -52,6 +52,43 @@ class TestScegli(unittest.TestCase):
 
     def test_duplicati_case_insensitive_sono_unico(self):
         self.assertEqual(scegli_nome("X y", [c("Teak"), c("teak")]), ("Teak", "unico"))
+
+
+class TestAbbina(unittest.TestCase):
+    def test_abbina_per_scientifico_case_insensitive(self):
+        righe = [{"slug": "taraxacum-officinale", "nome_scientifico": "Taraxacum officinale"}]
+        coppie, saltati = abbina_slug({"taraxacum officinale": "Tarassaco"}, righe)
+        self.assertEqual(coppie, [("taraxacum-officinale", "Tarassaco")])
+        self.assertEqual(saltati, [])
+
+    def test_omonimi_saltati(self):
+        righe = [
+            {"slug": "a-b", "nome_scientifico": "A b"},
+            {"slug": "a-b-2", "nome_scientifico": "A b"},
+        ]
+        coppie, saltati = abbina_slug({"a b": "Nome"}, righe)
+        self.assertEqual(coppie, [])
+        self.assertEqual(saltati, ["A b"])
+
+    def test_riga_senza_proposta_ignorata(self):
+        coppie, saltati = abbina_slug({}, [{"slug": "x", "nome_scientifico": "X y"}])
+        self.assertEqual((coppie, saltati), ([], []))
+
+
+class TestSql(unittest.TestCase):
+    def test_apici_raddoppiati(self):
+        self.assertEqual(sql_str("Erba dell'orso"), "'Erba dell''orso'")
+
+    def test_migration_e_rollback(self):
+        up, down = genera_migration([("rosmarino-x", "Rosmarino"), ("a-b", "Erba d'a")], "lotto1")
+        self.assertIn("update specie s set nome = v.nome", up)
+        self.assertIn("('rosmarino-x', 'Rosmarino')", up)
+        self.assertIn("('a-b', 'Erba d''a')", up)
+        self.assertIn("s.nome = s.nome_scientifico", up)
+        self.assertIn("s.specie_padre_id is null", up)
+        self.assertIn("set nome = nome_scientifico", down)
+        self.assertIn("'rosmarino-x'", down)
+        self.assertNotIn("Rosmarino", down)
 
 
 if __name__ == "__main__":
