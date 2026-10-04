@@ -1,3 +1,4 @@
+import { useApi } from '@/composables/useApi'
 // Richieste Zorba dice (richieste-agente.json): logica condivisa tra
 // AgenteView.vue (storico completo, nel Foglio) e ZorbaDiceSidebar.vue (le
 // ultime poche, su schermi larghi) — estratta da AgenteView.vue perché la
@@ -42,11 +43,21 @@ export function formatData(iso) {
 // fuori da un componente.
 const BASE = import.meta.env.BASE_URL
 
+// Prima da GitHub (sempre coerente con l'ultimo salvataggio, senza aspettare
+// build+deploy), poi fallback sulla copia statica pubblicata. Niente
+// `?t=${Date.now()}` sul fallback: quella query string disattiva la regola
+// NetworkFirst del service worker (vite.config.js), pensata per restare
+// consultabili offline/con rete debole.
 export async function caricaRichiesteAgente() {
+  const { loadJSON } = useApi()
   try {
-    const res = await fetch(`${BASE}data/richieste-agente.json?t=${Date.now()}`)
-    return res.ok ? await res.json() : {}
+    return await loadJSON('richieste-agente.json')
   } catch {
-    return {}
+    try {
+      const res = await fetch(`${BASE}data/richieste-agente.json`)
+      return res.ok ? await res.json() : {}
+    } catch {
+      return {}
+    }
   }
 }

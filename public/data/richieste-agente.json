@@ -1024,8 +1024,25 @@
     "progetto": "8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c",
     "titolo_progetto": null,
     "foto": null,
-    "stato": "in_attesa",
+    "stato": "completata",
     "creata": "2026-09-30T21:20:38.099Z",
-    "risposta": null
+    "risposta": {
+      "messaggio": "Hai seminato tutto il 26/09, quindi carote, cipolle e piselli sono nel momento più delicato: la germinazione, dove la superficie del terreno non deve mai asciugarsi. Acqua leggera ogni 1-2 giorni, con rosetta fine per non spostare i semi — meglio bagnare poco e spesso che un getto forte ogni tanto.\n\nLa pacciamatura di foglie di gelsomino stesa il giorno dopo aiuta: trattiene umidità, quindi puoi allungare a ogni 2-3 giorni se, scostando un po' le foglie, il terreno sotto resta umido al tatto.\n\nIl cavolo nero è diviso in due: le 2 piantine già trapiantate hanno radici più sviluppate e vogliono annaffiature più profonde ma rade (ogni 4-5 giorni); i semi nuovi accanto seguono invece il ritmo di carote/cipolle finché non germinano.\n\nLo scalogno (i 3 bulbetti) va più moderato, ogni 7-10 giorni: sta radicando, non ha semi in superficie da tenere umidi.\n\nAppena vedi le prime foglioline — per i piselli ci siamo quasi — puoi diradare e passare ad annaffiature più profonde e distanziate: le radici cominceranno a scendere. 💧",
+      "elaborata": "2026-10-04T00:00:00.000Z"
+    }
+  },
+  "r-1791113523675-m35w": {
+    "tipo": "identifica_specie",
+    "messaggio": "Questi sono i germogli dei piselli? Sono spuntati lungo la fila in cui li ho seminati nell'orto",
+    "specie": null,
+    "progetto": null,
+    "titolo_progetto": null,
+    "foto": null,
+    "stato": "completata",
+    "creata": "2026-10-04T11:32:04.873Z",
+    "risposta": {
+      "messaggio": "Hai riseminato i piselli nani in piena terra il 26 settembre, con germinazione attesa tra il 3 e l'8 ottobre: oggi sei proprio in quella finestra, e la canna che si vede in foto è il tutore leggero preparato apposta per loro — quasi certamente sono i tuoi piselli (Pisum sativum).\n\nL'aspetto torna: un getto singolo, appuntito, ancora ripiegato su se stesso, com'è normale prima che si apra la prima coppia di foglioline con viticci (arriveranno tra pochi giorni). Da una foto così giovane non posso escluderlo al 100% — a questo stadio tutte le dicotiledoni si somigliano — ma tempistica e posizione sulla fila coincidono.\n\nScosta un po' la pacciamatura di gelsomino intorno ai nuovi getti, come già fatto per cipolle e carote: a questo spessore rischia di soffocare le plantule più deboli. Quando saranno alti una decina di centimetri, avvicina i primi viticci alla canna per avviare la rampicata.\n\nNiente concimazione per ora: il fabbisogno NPK resta quello già in catalogo per il pisello, 5-10-10 in primavera-estate, assente in autunno-inverno — tornerà utile da marzo.",
+      "elaborata": "2026-10-04T11:40:10.000Z"
+    }
   }
 }

@@ -193,7 +193,6 @@ const store = useDatiStore()
 const route = useRoute()
 const router = useRouter()
 const { saveJSON, tokenPresente } = useApi()
-const BASE = import.meta.env.BASE_URL
 
 const raw          = ref({})
 const nuovoTipo    = ref('identifica_specie')

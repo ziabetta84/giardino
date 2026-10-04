@@ -35,10 +35,7 @@ def slugify(name):
     return s
 
 
-def extract_numbers(s):
-    if not s:
-        return []
-    return [float(x.replace(',', '.')) for x in re.findall(r'\d+(?:[.,]\d+)?', s)]
+from rhs_dimensioni import extract_numbers, is_open
 
 
 def main():
@@ -89,10 +86,13 @@ def main():
                 cultivar_names.append(m.group(1))
 
         heights, spreads = [], []
+        h_oltre = s_oltre = False
         hardiness_set, foliage_set, habit_set = set(), set(), set()
         for e in entries:
             heights += extract_numbers(e.get("altezza_max"))
             spreads += extract_numbers(e.get("diffusione_max"))
+            h_oltre = h_oltre or is_open(e.get("altezza_max"))
+            s_oltre = s_oltre or is_open(e.get("diffusione_max"))
             if e.get("hardiness"):
                 hardiness_set.add(e["hardiness"])
             if e.get("fogliame"):
@@ -122,6 +122,8 @@ def main():
             "soil_types": ref.get("soil_types"),
             "altezza_min_max": [min(heights), max(heights)] if heights else None,
             "diffusione_min_max": [min(spreads), max(spreads)] if spreads else None,
+            "altezza_oltre": h_oltre,
+            "diffusione_oltre": s_oltre,
             "hardiness_set": sorted(hardiness_set),
             "foliage_set": sorted(foliage_set),
             "habit_set": sorted(habit_set),

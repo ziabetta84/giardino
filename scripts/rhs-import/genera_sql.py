@@ -29,13 +29,8 @@ def translate_csv(value, table):
             seen.append(it)
     return ", ".join(seen)
 
-def fmt_range(minmax, unit="m"):
-    if not minmax:
-        return None
-    lo, hi = minmax
-    if lo == hi:
-        return f"{lo:g}{unit}"
-    return f"{lo:g}-{hi:g}{unit}"
+from rhs_dimensioni import fmt_range, con_da  # noqa: E402
+
 
 def esc(s):
     return s.replace("\n", " ").strip() if s else s
@@ -73,14 +68,14 @@ def gen_block(rhs_name, slug, note=None):
     elif d.get("genere_descrizione"):
         desc_bits.append(f"Da RHS, descrizione del genere (testo originale in inglese): \"{esc(d['genere_descrizione'])}\".")
     if d["n_pagine"] > 1:
-        h = fmt_range(d.get("altezza_min_max"))
-        s = fmt_range(d.get("diffusione_min_max"))
+        h = fmt_range(d.get("altezza_min_max"), oltre=d.get("altezza_oltre", False))
+        s = fmt_range(d.get("diffusione_min_max"), oltre=d.get("diffusione_oltre", False))
         cvs = d.get("cultivar_names") or []
         sample = ", ".join(f"'{c}'" for c in cvs[:6])
         extra = f" (tra cui {sample}{'...' if len(cvs) > 6 else ''})" if sample else ""
-        size_bit = f" con altezze da {h}" if h else ""
+        size_bit = f" con altezze {con_da(h)}" if h else ""
         if s:
-            size_bit += f" e diffusione da {s}" if h else f" con diffusione da {s}"
+            size_bit += f" e diffusione {con_da(s)}" if h else f" con diffusione {con_da(s)}"
         desc_bits.append(f"RHS elenca {d['n_pagine']} cultivar coltivate{size_bit}{extra}.")
     if note:
         desc_bits.append(note)
@@ -123,8 +118,8 @@ def gen_block(rhs_name, slug, note=None):
     if hset:
         alert_items.append(f"Rusticità RHS: {', '.join(hset)} (scala UK, vedi H1-H7 nella documentazione RHS)")
     if d.get("altezza_min_max") or d.get("diffusione_min_max"):
-        h = fmt_range(d.get("altezza_min_max"))
-        s = fmt_range(d.get("diffusione_min_max"))
+        h = fmt_range(d.get("altezza_min_max"), oltre=d.get("altezza_oltre", False))
+        s = fmt_range(d.get("diffusione_min_max"), oltre=d.get("diffusione_oltre", False))
         dims = []
         if h:
             dims.append(f"altezza {h}")
