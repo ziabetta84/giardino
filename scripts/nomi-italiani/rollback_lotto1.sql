@@ -1,10 +1,6 @@
--- Rollback: scripts/nomi-italiani/rollback_lotto1.sql (stessa lista VALUES, ripristina
--- nome = nome_scientifico solo dove nome e' ancora quello impostato qui).
--- Omonimi saltati (13), per nome scientifico: Acacia dealbata, Aquilegia vulgaris, Brassica oleracea, Calendula officinalis, Camellia japonica, Helleborus niger, Hyacinthus orientalis, Lythrum salicaria, Passiflora caerulea, Primula vulgaris, Solanum tuberosum, Thymus serpyllum, Zea mays.
--- Slug esclusi dopo la revisione (nomi sbagliati o dubbi): 32.
--- Nomi italiani (lotto1): sostituisce nome con il nome comune italiano da Wikidata.
--- Solo righe ancora senza nome italiano (nome = nome_scientifico) e non cultivar.
-update specie s set nome = v.nome
+-- Rollback lotto1: ripristina nome = nome_scientifico solo per le righe che portano
+-- ancora esattamente il nome impostato da questa migration.
+update specie s set nome = s.nome_scientifico
 from (values
   ('abies-alba', 'Abete bianco'),
   ('abies-nordmanniana', 'Abete del Caucaso'),
@@ -337,5 +333,4 @@ from (values
   ('ziziphus-jujuba', 'Giuggiolo')
 ) as v(slug, nome)
 where s.slug = v.slug
-  and s.nome = s.nome_scientifico
-  and s.specie_padre_id is null;
+  and s.nome = v.nome;

@@ -52,9 +52,9 @@ def main():
             proposte.append((sci, nome, criterio))
         elif criterio == "ambiguo":
             ambigui.append((sci, " | ".join(sorted({c["nome"] for c in cand}))))
-    with open(OUT / "proposte.csv", "w", newline="") as f:
+    with open(OUT / "proposte.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f); w.writerow(["nome_scientifico", "nuovo_nome", "criterio"]); w.writerows(proposte)
-    with open(OUT / "ambigui.csv", "w", newline="") as f:
+    with open(OUT / "ambigui.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f); w.writerow(["nome_scientifico", "candidati"]); w.writerows(ambigui)
     print(f"{len(proposte)} proposte, {len(ambigui)} ambigui (da {len(per_sci)} taxa)")
 

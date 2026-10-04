@@ -82,9 +82,12 @@ def genera_migration(coppie, lotto):
         "  and s.nome = s.nome_scientifico\n"
         "  and s.specie_padre_id is null;\n"
     )
-    slugs = ", ".join(sql_str(slug) for slug, _ in coppie)
     down = (
-        f"-- Rollback {lotto}: ripristina nome = nome_scientifico\n"
-        f"update specie set nome = nome_scientifico where slug in ({slugs});\n"
+        f"-- Rollback {lotto}: ripristina nome = nome_scientifico solo per le righe che portano\n"
+        "-- ancora esattamente il nome impostato da questa migration.\n"
+        "update specie s set nome = s.nome_scientifico\n"
+        f"from (values\n  {valori}\n) as v(slug, nome)\n"
+        "where s.slug = v.slug\n"
+        "  and s.nome = v.nome;\n"
     )
     return up, down

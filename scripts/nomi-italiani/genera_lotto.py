@@ -15,7 +15,7 @@ non questo script.
 Output:
 - out/righe_db.json, out/righe_curate.json (intermedi)
 - supabase/migrations/20261004120000_nomi_italiani_lotto1.sql
-- out/rollback_lotto1.sql
+- rollback_lotto1.sql (tracciato, con guardia sul nome)
 """
 import csv
 import glob
@@ -41,6 +41,26 @@ ESCLUSI = {
     "abies-bracteata", "chenopodium-opulifolium", "echinops-ritro", "rosa-canina",
     "acer-opalus", "geranium-phaeum", "geranium-pusillum", "campanula-medium",
     "carduus-nutans",
+    # Seconda revisione: "Oppio" e' Acer campestre (sarebbe "Viburno oppio"); "Mella bianca"
+    # e' un nome dialettale (standard "Storace"); gli ultimi cinque per prudenza (bassa fiducia):
+    # acer-saccharinum si confonde con A. saccharum, "Banyan" e' un prestito inglese.
+    "viburnum-opulus", "styrax-officinalis", "cirsium-heterophyllum", "galeopsis-ladanum",
+    "galium-mollugo", "acer-saccharinum", "ficus-benghalensis",
+}
+
+# Solo correzioni di formato del testo Wikidata (maiuscole, accenti, primo di "X o Y"),
+# mai nomi nuovi. slug -> (nome attuale della proposta, nome finale).
+NORMALIZZAZIONI = {
+    "arabidopsis-thaliana": ("Arabetta Comune", "Arabetta comune"),
+    "fagopyrum-esculentum": ("Grano Saraceno", "Grano saraceno"),
+    "mirabilis-jalapa": ("Bella di Notte", "Bella di notte"),
+    "euphorbia-amygdaloides": ("Euforbia delle Faggete", "Euforbia delle faggete"),
+    "echinocactus-grusonii": ("Cuscino della Suocera", "Cuscino della suocera"),
+    "ophrys-tenthredinifera": ("Ofride fior di Vespa", "Ofride fior di vespa"),
+    "carpinus": ("Càrpino", "Carpino"),
+    "lamium-purpureum": ("Làmio porporino", "Lamio porporino"),
+    "artemisia-dracunculus": ("Dragoncello o estragone", "Dragoncello"),
+    "carthamus-tinctorius": ("Cartamo o zafferanone", "Cartamo"),
 }
 
 proposte = {
@@ -67,6 +87,11 @@ scartate = len(coppie_tutte) - len(coppie)
 presenti = {s for s, _ in coppie}
 assert ESCLUSI <= presenti, f"ESCLUSI non presenti: {ESCLUSI - presenti}"
 coppie = [c for c in coppie if c[0] not in ESCLUSI]
+_nomi = dict(coppie)
+for _slug, (_vecchio, _nuovo) in NORMALIZZAZIONI.items():
+    assert _slug in _nomi, f"normalizzazione per slug assente: {_slug}"
+    assert _nomi[_slug] == _vecchio, f"normalizzazione obsoleta {_slug}: {_nomi[_slug]!r} != {_vecchio!r}"
+coppie = [(s, NORMALIZZAZIONI[s][1] if s in NORMALIZZAZIONI else n) for s, n in coppie]
 
 print(f"righe DB: {len(righe)} (curate: {len(curate)})")
 print(f"coppie: {len(coppie)}; omonimi saltati: {len(saltati)}; scartate perche' curate: {scartate}")
@@ -77,12 +102,12 @@ if not coppie:
 
 up, down = genera_migration(coppie, "lotto1")
 intestazione = (
-    "-- Rollback: update specie set nome = nome_scientifico where slug in (<gli slug di questa migration>);\n"
-    "-- (l'SQL esatto di rollback e' in scripts/nomi-italiani/out/rollback_lotto1.sql)\n"
+    "-- Rollback: scripts/nomi-italiani/rollback_lotto1.sql (stessa lista VALUES, ripristina\n"
+    "-- nome = nome_scientifico solo dove nome e' ancora quello impostato qui).\n"
     f"-- Omonimi saltati ({len(saltati)}), per nome scientifico: {', '.join(saltati)}.\n"
     f"-- Slug esclusi dopo la revisione (nomi sbagliati o dubbi): {len(ESCLUSI)}.\n"
 )
 up = intestazione + up
 open(MIGRATION, "w", encoding="utf-8").write(up)
-open(os.path.join(OUT, "rollback_lotto1.sql"), "w", encoding="utf-8").write(down)
+open(os.path.join(BASE, "rollback_lotto1.sql"), "w", encoding="utf-8").write(down)
 json.dump(coppie, open(os.path.join(OUT, "coppie_lotto1.json"), "w"), ensure_ascii=False)

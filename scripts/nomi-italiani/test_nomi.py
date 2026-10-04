@@ -86,9 +86,14 @@ class TestSql(unittest.TestCase):
         self.assertIn("('a-b', 'Erba d''a')", up)
         self.assertIn("s.nome = s.nome_scientifico", up)
         self.assertIn("s.specie_padre_id is null", up)
-        self.assertIn("set nome = nome_scientifico", down)
-        self.assertIn("'rosmarino-x'", down)
-        self.assertNotIn("Rosmarino", down)
+        self.assertIn("set nome = s.nome_scientifico", down)
+        self.assertIn("('rosmarino-x', 'Rosmarino')", down)
+        self.assertIn("s.nome = v.nome", down)
+        self.assertIn("s.slug = v.slug", down)
+
+    def test_rollback_apostrofo(self):
+        _, down = genera_migration([("l-o'x", "Erba d'a")], "lotto1")
+        self.assertIn("('l-o''x', 'Erba d''a')", down)
 
 
 if __name__ == "__main__":
