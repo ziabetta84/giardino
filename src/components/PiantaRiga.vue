@@ -9,7 +9,7 @@
         </div>
       </div>
       <div class="pr__body">
-        <div class="pr__name">
+        <div class="pr__name" :title="nomeScientifico || null">
           {{ specie?.nome ?? pianta.specie }}
         </div>
         <div v-if="pianta.varieta" class="pr__var">
@@ -48,6 +48,11 @@ defineEmits(['elimina'])
 
 const store = useDatiStore()
 const specie = computed(() => store.specie?.[props.pianta.specie] ?? null)
+// Nome scientifico, solo se diverso dal nome mostrato (tooltip nelle liste dense)
+const nomeScientifico = computed(() => {
+  const s = specie.value
+  return s?.specie && s.specie.toLowerCase() !== (s.nome ?? '').toLowerCase() ? s.specie : ''
+})
 const programmaAutomatico = computed(() =>
   programmaIrrigazioneEffettivo(props.pianta.id, props.pianta.zona, props.pianta.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
 )

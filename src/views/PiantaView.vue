@@ -44,7 +44,7 @@
             <span v-if="pianta.coltivato_in" class="chip chip--ic chip--on-photo" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
           </span>
           <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
-          <p class="pbino">{{ specie?.specie }}</p>
+          <p v-if="nomeScientifico" class="pbino">{{ nomeScientifico }}</p>
         </div>
         <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
           Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
@@ -61,7 +61,7 @@
               <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
             </span>
             <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
-            <p class="phead-text__bino">{{ specie?.specie }}</p>
+            <p v-if="nomeScientifico" class="phead-text__bino">{{ nomeScientifico }}</p>
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
@@ -352,6 +352,12 @@ const pianta = computed(() => {
 const specie = computed(() =>
   pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null
 )
+
+// Nome scientifico come sottotitolo, solo se diverso dal nome mostrato
+const nomeScientifico = computed(() => {
+  const s = specie.value
+  return s?.specie && s.specie.toLowerCase() !== (s.nome ?? '').toLowerCase() ? s.specie : ''
+})
 
 // Presente solo per le specie annuali/biennali curate dalla tab
 // Coltivazione del form specie (vedi SelettoreSpecie.vue) — assente per le
