@@ -13,3 +13,6 @@ backups/
 scripts/naturalizza-batch/*.json
 scripts/naturalizza-batch/*.sql
 scripts/naturalizza-batch/*_batch_id*.txt
+# SDD workspace e output intermedi import nomi italiani
+.superpowers/
+scripts/nomi-italiani/out/
