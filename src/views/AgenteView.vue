@@ -27,11 +27,11 @@
           <span class="reqgroup__label">{{ g.label }}</span>
           <div class="reqchips">
             <button v-for="v in g.tipi" :key="v" type="button" class="reqchip"
-              :class="{ on: nuovoTipo === v }" @click="selezionaTipo(v)">{{ TIPI_MAP[v].label }}</button>
+              :class="{ on: nuovoTipo === v }" @click="selezionaTipo(v)">{{ infoTipo(v).label }}</button>
           </div>
         </div>
       </div>
-      <p class="agente-hint">{{ TIPI_MAP[nuovoTipo]?.hint }}</p>
+      <p class="agente-hint">{{ infoTipo(nuovoTipo)?.hint }}</p>
 
       <!-- Revisione specie: indica quale specie, non serve una foto -->
       <div v-if="nuovoTipo === 'revisione_specie'" class="agente-extra">
@@ -186,8 +186,12 @@ import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
+import { useRoute, useRouter } from 'vue-router'
+import { infoTipo, titoloRichiesta as titoloRichiestaBase, formatData, caricaRichiesteAgente } from '@/composables/useRichiesteAgente'
 
 const store = useDatiStore()
+const route = useRoute()
+const router = useRouter()
 const { saveJSON, tokenPresente } = useApi()
 const BASE = import.meta.env.BASE_URL
 
@@ -206,20 +210,6 @@ const storicoAperto = ref(false)
 const richiestaSelezionataId = ref(null)
 const daEliminare = ref(null)
 const eliminando = ref(false)
-
-const TIPI_RICHIESTA = [
-  { value: 'identifica_specie',      label: 'Identifica da foto',        icon: 'foglia',       hint: 'Carica una foto: Zorba prova a riconoscere la specie.' },
-  { value: 'revisione_specie',       label: 'Revisiona/completa specie', icon: 'matita',        hint: 'Zorba controlla i campi mancanti o incompleti della scheda e li completa.' },
-  { value: 'consiglio_cura',         label: 'Consiglio per cura',        icon: 'goccia',        hint: 'Descrivi la pianta o il problema: Zorba consiglia come curarla.' },
-  { value: 'consiglio_concimazione', label: 'Consiglio concimazione',    icon: 'concimazione',  hint: 'Zorba suggerisce quale concime della dispensa usare e con che dose.' },
-  { value: 'diagnosi',               label: 'Diagnosi problema',         icon: 'cerca',         hint: 'Foto o descrizione di un problema: Zorba prova a capire cosa non va.' },
-  { value: 'pianifica_progetto',     label: 'Pianifica progetto',        icon: 'lampadina',     hint: 'Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.' },
-  { value: 'altro',                  label: 'Altro',                     icon: null,            hint: 'Qualcosa che non rientra nelle altre categorie.' },
-]
-const TIPI_MAP = Object.fromEntries(TIPI_RICHIESTA.map(t => [t.value, t]))
-function infoTipo(tipo) {
-  return TIPI_MAP[tipo] ?? { label: tipo?.replace(/_/g, ' ') ?? '', icon: null }
-}
 
 // Raggruppati per restare sotto la soglia di ~4 scelte visibili per decisione
 // (7 tipi piatti la superavano — vedi critica del 07/09/2026).
@@ -246,12 +236,7 @@ function selezionaTipo(v) {
 }
 
 function titoloRichiesta(r) {
-  if (r.tipo === 'revisione_specie' && r.specie) return store.specie?.[r.specie]?.nome ?? r.specie
-  if (r.tipo === 'pianifica_progetto') {
-    if (r.progetto) return store.progetti?.[r.progetto]?.titolo ?? infoTipo(r.tipo).label
-    if (r.titolo_progetto) return r.titolo_progetto
-  }
-  return r.messaggio || infoTipo(r.tipo).label
+  return titoloRichiestaBase(r, store)
 }
 
 const puoInviare = computed(() => {
@@ -361,10 +346,7 @@ async function confermaEliminazione() {
 }
 
 async function caricaRichieste() {
-  try {
-    const res = await fetch(`${BASE}data/richieste-agente.json?t=${Date.now()}`)
-    raw.value = res.ok ? await res.json() : {}
-  } catch { raw.value = {} }
+  raw.value = await caricaRichiesteAgente()
 }
 
 function avviaPolling() {
@@ -379,6 +361,17 @@ onMounted(async () => {
   await caricaRichieste()
   inizializzaViste()
   avviaPolling()
+
+  // Arrivo dalla sidebar "Zorba dice" (ZorbaDiceSidebar.vue, ?id=<richiesta>):
+  // apre direttamente quella risposta invece del form "Nuova richiesta".
+  // router.replace (non push) per non lasciare l'id in cronologia — un
+  // ritorno indietro da qui deve riportare alla pagina precedente, non a
+  // se stessa con lo stesso id.
+  const idDaAprire = route.query.id
+  if (idDaAprire && richieste.value.some(r => r.id === idDaAprire)) {
+    selezionaRichiesta(idDaAprire)
+    router.replace({ path: route.path })
+  }
 })
 
 onUnmounted(() => {
@@ -397,10 +390,6 @@ function classeBadge(stato) {
   return 'badge-gold'
 }
 
-function formatData(iso) {
-  if (!iso) return ''
-  return new Date(iso).toLocaleDateString('it-IT', { day:'numeric', month:'short', hour:'2-digit', minute:'2-digit' })
-}
 
 const MAX_FOTO_BYTES = 5 * 1024 * 1024
 

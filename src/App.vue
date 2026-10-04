@@ -16,6 +16,7 @@
     <BootLogo />
     <SideNav />
     <AppBar />
+    <ZorbaDiceSidebar />
 
     <!-- Banner token mancante (globale) -->
     <Transition name="page">
@@ -56,6 +57,7 @@ import SideNav   from '@/components/SideNav.vue'
 import AppBar    from '@/components/AppBar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
+import ZorbaDiceSidebar from '@/components/ZorbaDiceSidebar.vue'
 import Icon      from '@/components/Icon.vue'
 import { ref, onMounted, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
@@ -142,6 +144,19 @@ onMounted(async () => {
     margin-left: calc(200px + max(0px, (100vw - 1120px) / 2));
     margin-right: auto;
     padding-top: 20px;
+  }
+}
+
+/* Da 1440px in su c'è spazio anche per la colonna fissa a destra con lo
+   storico di Zorba dice (ZorbaDiceSidebar.vue, stesso breakpoint lì): il
+   blocco centrato non è più sidebar(200)+contenuto(920)=1120 ma
+   200+920+24(margine)+260(colonna)=1404, arrotondato a 1420 per un minimo
+   di respiro. Sotto 1440px la regola dei 640px sopra resta quella attiva
+   (nessuna colonna, nessun calcolo in più) — qui si sovrascrive solo il
+   margine sinistro, non l'intera regola. */
+@media (min-width: 1440px) {
+  .app-main {
+    margin-left: calc(200px + max(0px, (100vw - 1420px) / 2));
   }
 }
 </style>
