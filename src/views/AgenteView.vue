@@ -188,7 +188,7 @@ import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 
 const store = useDatiStore()
-const { saveJSON, tokenPresente } = useApi()
+const { saveJSON, loadJSON, tokenPresente } = useApi()
 const BASE = import.meta.env.BASE_URL
 
 const raw          = ref({})
@@ -360,11 +360,23 @@ async function confermaEliminazione() {
   }
 }
 
+// Stesso pattern di stores/dati.js → caricaJSON: prima da GitHub (sempre
+// coerente con l'ultimo salvataggio, senza aspettare build+deploy), poi
+// fallback sulla copia statica pubblicata. A differenza di un precedente
+// `?t=${Date.now()}` per forzare un fetch sempre fresco: quella query string
+// faceva sì che l'URL non terminasse più in ".json", disattivando la regola
+// NetworkFirst del service worker (vite.config.js) pensata apposta per
+// restare consultabili offline/con rete debole (es. in giardino) — qui il
+// fallback statico resta senza query string proprio per non romperla di nuovo.
 async function caricaRichieste() {
   try {
-    const res = await fetch(`${BASE}data/richieste-agente.json?t=${Date.now()}`)
-    raw.value = res.ok ? await res.json() : {}
-  } catch { raw.value = {} }
+    raw.value = await loadJSON('richieste-agente.json')
+  } catch {
+    try {
+      const res = await fetch(`${BASE}data/richieste-agente.json`)
+      raw.value = res.ok ? await res.json() : {}
+    } catch { raw.value = {} }
+  }
 }
 
 function avviaPolling() {
