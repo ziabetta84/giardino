@@ -26,7 +26,7 @@
               <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
             </span>
             <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
-            <span v-if="s.viaSinonimo" class="dd-sci">detta anche «{{ s.viaSinonimo }}»</span>
+            <span v-if="s.viaSinonimo" class="dd-sci">{{ s.viaBotanico ? 'sinonimo' : 'detta anche' }} «{{ s.viaSinonimo }}»</span>
           </span>
         </div>
       </template>
@@ -181,6 +181,7 @@ const specieFiltrate = computed(() => {
       nome: s.nome ?? key,
       nomeScientifico: s.specie ?? '',
       alternativi: s.nomi_alternativi ? s.nomi_alternativi.split(' | ') : [],
+      sinonimiBotanici: s.sinonimi_botanici ? s.sinonimi_botanici.split(' | ') : [],
       verificata: s.stato_verifica === 'verificato',
       immagine: s.immagine ?? null,
       // un cultivar è una ricerca esplicita (digitando il nome del cultivar
@@ -192,11 +193,16 @@ const specieFiltrate = computed(() => {
   const contiene = testo => normalizzaApici(testo.toLowerCase()).includes(q)
   const base = q
     ? tutte
-        .filter(s => contiene(s.nome) || contiene(s.nomeScientifico) || s.alternativi.some(contiene))
+        .filter(s => contiene(s.nome) || contiene(s.nomeScientifico)
+          || s.alternativi.some(contiene) || s.sinonimiBotanici.some(contiene))
         // se la specie si trova solo tramite un sinonimo, la riga lo mostra
-        .map(s => (contiene(s.nome) || contiene(s.nomeScientifico)
-          ? s
-          : { ...s, viaSinonimo: s.alternativi.find(contiene) }))
+        .map(s => {
+          if (contiene(s.nome) || contiene(s.nomeScientifico)) return s
+          const comune = s.alternativi.find(contiene)
+          return comune
+            ? { ...s, viaSinonimo: comune }
+            : { ...s, viaSinonimo: s.sinonimiBotanici.find(contiene), viaBotanico: true }
+        })
     : tutte.filter(s => s.verificata && !s.cultivarDi)
 
   return base
@@ -251,17 +257,19 @@ async function eseguiRicercaRemota(q) {
     // Niente filtro su specie_padre_id: la ricerca copre anche i cultivar
     // (un collezionista può cercare direttamente "Aureomarginatum" senza
     // passare dalla specie madre, vedi discussione issue #153, 2026-08-30).
-    const [porNome, porScientifico, porSinonimo] = await Promise.all([
+    const [porNome, porScientifico, porSinonimo, porBotanico] = await Promise.all([
       supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).limit(50),
       supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).limit(50),
       supabase.from('specie').select(COLONNE_SPECIE).ilike('nomi_alternativi', pattern).limit(50),
+      supabase.from('specie').select(COLONNE_SPECIE).ilike('sinonimi_botanici', pattern).limit(50),
     ])
     if (porNome.error) throw porNome.error
     if (porScientifico.error) throw porScientifico.error
     if (porSinonimo.error) throw porSinonimo.error
+    if (porBotanico.error) throw porBotanico.error
     if (mioToken !== tokenRicerca) return  // superata da una ricerca più recente
 
-    const righe = [...(porNome.data ?? []), ...(porScientifico.data ?? []), ...(porSinonimo.data ?? [])]
+    const righe = [...(porNome.data ?? []), ...(porScientifico.data ?? []), ...(porSinonimo.data ?? []), ...(porBotanico.data ?? [])]
     await risolviEMergeCultivar(righe)
     ricercaOffline.value = false
   } catch (e) {

@@ -36,7 +36,7 @@ async function caricaJSON(file) {
 // Se Supabase non risponde, ripiega sul JSON statico come le altre risorse.
 
 export const COLONNE_SPECIE =
-  'id, slug, nome, nome_scientifico, nomi_alternativi, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica, vaso, immagine, specie_padre_id'
+  'id, slug, nome, nome_scientifico, nomi_alternativi, sinonimi_botanici, nome_accettato, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica, vaso, immagine, specie_padre_id'
 
 // Riusata anche da SelettoreSpecie.vue per mappare i risultati della ricerca
 // live su Supabase, così le due fonti (caricamento iniziale e ricerca)
@@ -51,6 +51,8 @@ export function mappaSpecie(righe) {
         nome: riga.nome,
         specie: riga.nome_scientifico,
         nomi_alternativi: riga.nomi_alternativi,
+        sinonimi_botanici: riga.sinonimi_botanici,
+        nome_accettato: riga.nome_accettato,
         descrizione: riga.descrizione,
         esigenze: riga.esigenze,
         alert: riga.alert,
