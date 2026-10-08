@@ -24,18 +24,28 @@ def main():
         nome = inat.get(g, {}).get("nome_it")
         if nome and conta[n(nome)] > 1:
             nome = None
-        righe.append((g, gbif.get(g, {}).get("gbif_key"), gbif.get(g, {}).get("n_specie"), nome))
+        ns = gbif.get(g, {}).get("n_specie")
+        # la chiave GBIF vale solo con un conteggio da corrispondenza esatta (n_specie non nullo)
+        k = gbif.get(g, {}).get("gbif_key") if ns is not None else None
+        righe.append((g, k, ns, nome))
     vals = ",\n  ".join(
         f"({sql_str(g)}, {k if k else 'null'}, {ns if ns is not None else 'null'}, {sql_str(nome) if nome else 'null'})"
         for g, k, ns, nome in righe)
     MIGRATION.write_text(
         f"-- Dati dei generi usati: specie accettate GBIF (rilevate il {oggi}) e nome italiano iNaturalist.\n"
-        "-- Si applica solo ai generi ancora senza dati; il nome italiano solo se libero. Rollback: rollback_generi_dati.sql\n"
+        "-- Si applica solo ai generi ancora senza dati GBIF; il nome italiano solo se il nome e' ancora quello scientifico e libero.\n"
+        "-- I dati GBIF solo con conteggio valido (n_specie non nullo). Rollback: rollback_generi_dati.sql\n"
         "with v(genere, gbif_key, n_specie, nome) as (values\n  " + vals + "\n)\n"
-        "update generi g set gbif_key = v.gbif_key, specie_gbif = v.n_specie,\n"
-        f"  gbif_rilevato_il = date '{oggi}', nome = coalesce(v.nome, g.nome)\n"
-        "from v where g.nome_scientifico = v.genere and g.gbif_rilevato_il is null\n"
-        "  and (v.nome is null or not exists (select 1 from generi o where o.nome = v.nome and o.id <> g.id));\n",
+        "update generi g set\n"
+        "  gbif_key = case when g.gbif_rilevato_il is null and v.n_specie is not null then v.gbif_key else g.gbif_key end,\n"
+        "  specie_gbif = case when g.gbif_rilevato_il is null and v.n_specie is not null then v.n_specie else g.specie_gbif end,\n"
+        f"  gbif_rilevato_il = case when g.gbif_rilevato_il is null and v.n_specie is not null then date '{oggi}' else g.gbif_rilevato_il end,\n"
+        "  nome = case when v.nome is not null and g.nome = g.nome_scientifico\n"
+        "    and not exists (select 1 from generi o where o.nome = v.nome and o.id <> g.id) then v.nome else g.nome end\n"
+        "from v where g.nome_scientifico = v.genere and (\n"
+        "  (g.gbif_rilevato_il is null and v.n_specie is not null)\n"
+        "  or (v.nome is not null and g.nome = g.nome_scientifico\n"
+        "    and not exists (select 1 from generi o where o.nome = v.nome and o.id <> g.id)));\n",
         encoding="utf-8")
     ROLLBACK.write_text(
         "-- Rollback dati generi: azzera i dati GBIF e riporta il nome al nome scientifico.\n"
