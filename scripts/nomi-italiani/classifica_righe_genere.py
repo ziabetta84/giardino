@@ -3,7 +3,7 @@ import csv
 import subprocess
 
 from genera_lotto3 import OUT
-from generi_logica import genere_di, decisione, descrive_specie
+from generi_logica import genere_di, decisione, descrive_specie, riga_di_genere
 from scarica_gbif_generi import db_url
 
 Q = """
@@ -29,7 +29,7 @@ def main():
         slug, sci, nome, ngbif, nome_gen, ncult, npiante, descr = campi
         ns = int(ngbif) if ngbif else None
         out.append({"slug": slug, "nome_scientifico": sci, "nome": nome, "genere": genere_di(sci) or "",
-                    "n_specie_gbif": ngbif, "decisione": decisione(ns, sci),
+                    "n_specie_gbif": ngbif, "decisione": decisione(ns, sci) if riga_di_genere(slug, sci) else "specie_vera",
                     "descrive_specie": "sì" if descrive_specie(descr, sci) else "no",
                     "nome_genere_it": nome_gen if nome_gen != (genere_di(sci) or "") else "",
                     "n_cultivar": ncult, "n_piante": npiante})

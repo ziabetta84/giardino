@@ -58,3 +58,15 @@ def slug_di(nome_scientifico):
 def nome_libero(nome, in_uso):
     """True se il nome (normalizzato) non è già nell'insieme dei nomi in uso."""
     return n(nome) not in in_uso
+
+
+def riga_di_genere(slug, nome_scientifico):
+    """True se la riga rappresenta un genere: nome del solo genere, 'spp.'/'sp.' o slug uguale al genere."""
+    if not nome_scientifico:
+        return False
+    if re.search(r" (spp|sp)\.$", nome_scientifico):
+        return True
+    genere = genere_di(nome_scientifico)
+    if not genere:
+        return False
+    return " " not in nome_scientifico.strip() or slug == genere.lower()

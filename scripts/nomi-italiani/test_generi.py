@@ -2,7 +2,7 @@ import unittest
 from collections import Counter
 
 from generi_logica import (genere_di, conta_specie_gbif, decisione, nome_genere_inat,
-                           descrive_specie, slug_di, nome_libero)
+                           descrive_specie, slug_di, nome_libero, riga_di_genere)
 
 
 class TestGeneri(unittest.TestCase):
@@ -61,6 +61,18 @@ class TestGeneri(unittest.TestCase):
         self.assertTrue(nome_libero("Gerbera jamesonii", {"rosa"}))
         self.assertFalse(nome_libero("Rosa", {"rosa"}))
         self.assertFalse(nome_libero("Èrica", {"erica"}))
+
+
+    def test_riga_di_genere(self):
+        self.assertTrue(riga_di_genere("rhododendron", "Rhododendron simsii"))
+        self.assertTrue(riga_di_genere("agapanto", "Agapanthus"))
+        self.assertTrue(riga_di_genere("heuchera", "Heuchera spp."))
+        self.assertTrue(riga_di_genere("x", "Agave sp."))
+        self.assertFalse(riga_di_genere("aglio", "Allium sativum"))
+        self.assertFalse(riga_di_genere("peperoncino", "capsicum annuum"))
+        self.assertFalse(riga_di_genere("pomodoro", "Solanum lycopersicum"))
+        self.assertFalse(riga_di_genere("x", None))
+        self.assertFalse(riga_di_genere("x", ""))
 
 
 if __name__ == "__main__":
