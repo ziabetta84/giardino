@@ -1,0 +1,515 @@
+slug,nome_scientifico,nome,genere,n_specie_gbif,decisione,descrive_specie,nome_genere_it,n_cultivar,n_piante
+abelia,Abelia,Abelia,Abelia,7,spp,no,,13,0
+abies,Abies,Abies,Abies,93,spp,no,Abeti,8,0
+abutilon,Abutilon x hybridum,Abutilon,Abutilon,189,spp,no,,159,0
+acacia,Acacia dealbata,Acacia,Acacia,1149,spp,no,,16,0
+acaena,Acaena,Acaena,Acaena,60,spp,sì,,4,0
+acalypha,Acalypha,Acalypha,Acalypha,479,spp,no,,1,0
+acanthus,Acanthus,Acanto,Acanthus,37,spp,no,,6,0
+acer,Acer,Acer,Acer,291,spp,no,Aceri,25,0
+achillea,Achillea,Achillea,Achillea,241,spp,no,,135,0
+achimenes,Achimenes,Achimenes,Achimenes,42,spp,no,,370,0
+aconitum,Aconitum,Aconito,Aconitum,396,spp,no,Aconito,17,0
+actaea,Actaea,Actaea,Actaea,34,spp,no,,2,0
+adenophora,Adenophora,Adenophora,Adenophora,87,spp,no,,2,0
+adonis,Adonis,Adonis,Adonis,42,spp,no,,3,0
+aechmea,Aechmea,Aechmea,Aechmea,286,spp,no,,30,0
+aeonium,Aeonium arboreum,Aeonium,Aeonium,122,spp,no,,90,1
+aeschynanthus,Aeschynanthus,Aeschynanthus,Aeschynanthus,191,spp,no,,40,0
+aesculus,Aesculus,Aesculus,Aesculus,33,spp,no,Ippocastani,3,0
+aethionema,Aethionema,Aethionema,Aethionema,83,spp,no,,3,0
+agapanto,Agapanthus,Agapanto,Agapanthus,10,spp,no,Agapanto,761,1
+agapetes,Agapetes,Agapetes,Agapetes,116,spp,no,,1,0
+agastache,Agastache,Agastache,Agastache,23,spp,no,,84,0
+agave,Agave sp.,Agave,Agave,315,gia_spp,no,,52,0
+ageratum,Ageratum,Ageratum,Ageratum,56,spp,no,,16,0
+aglaonema,Aglaonema,Aglaonema,Aglaonema,28,spp,no,,90,0
+aglio,Allium sativum,Aglio,Allium,1168,specie_vera,no,Agli,95,0
+ajuga,Ajuga,Ajuga,Ajuga,91,spp,no,,12,0
+alchemilla,Alchemilla,Alchemilla,Alchemilla,770,spp,no,,1,0
+alisso,Lobularia maritima,Alisso,Lobularia,5,specie_vera,sì,,26,3
+allium,Allium,Allium,Allium,1168,spp,no,Agli,110,0
+alloro,Laurus nobilis,Alloro,Laurus,57,specie_vera,sì,,59,1
+alocasia,Alocasia,Alocasia,Alocasia,116,spp,no,,25,0
+aloe,Aloe,Aloe,Aloe,637,spp,no,,49,0
+alstroemeria,Alstroemeria,Alstroemeria,Alstroemeria,150,spp,no,,903,0
+alyssum,Alyssum,Alyssum,Alyssum,141,spp,no,Alisso,17,0
+amaranthus,Amaranthus,Amaranto,Amaranthus,147,spp,no,Amaranti,19,0
+amelanchier,Amelanchier,Amelanchier,Amelanchier,31,spp,no,,3,0
+amsonia,Amsonia,Amsonia,Amsonia,16,spp,no,,3,0
+anagallis,Anagallis,Anagallis,Anagallis,,rivedere,no,,6,0
+anemone,Anemone,Anemone,Anemone,127,spp,no,,31,0
+angelonia,Angelonia,Angelonia,Angelonia,31,spp,no,,43,0
+anigozanthos,Anigozanthos,Anigozanthos,Anigozanthos,13,spp,no,,52,0
+anisodontea,Anisodontea,Anisodontea,Anisodontea,22,spp,no,,9,0
+anthurium,Anthurium andraeanum,Anturio,Anthurium,1428,spp,sì,,780,1
+antirrhinum,Antirrhinum,Antirrhinum,Antirrhinum,58,spp,no,,215,0
+aphelandra,Aphelandra,Aphelandra,Aphelandra,219,spp,no,,2,0
+aquilegia,Aquilegia vulgaris,Aquilegia,Aquilegia,150,spp,sì,Aquilegie,292,3
+arbutus,Arbutus unedo,Corbezzolo,Arbutus,24,spp,no,,11,0
+ardisia,Ardisia,Ardisia,Ardisia,724,spp,no,,1,0
+argyranthemum,Argyranthemum,Argyranthemum,Argyranthemum,25,spp,no,,301,0
+armeria,Armeria,Spillone,Armeria,126,spp,no,,15,0
+artemisia,Artemisia,Artemisia,Artemisia,,rivedere,no,,10,0
+arum,Arum,Arum,Arum,49,spp,no,Gigaro,8,0
+aruncus,Aruncus,Aruncus,Aruncus,4,spp,no,,13,0
+asparago,Asparagus officinalis,Asparago,Asparagus,258,specie_vera,no,Asparagi,124,0
+asplenium,Asplenium,Asplenium,Asplenium,1041,spp,no,,3,0
+astelia,Astelia,Astelia,Astelia,35,spp,no,,8,0
+aster,Aster,Aster,Aster,269,spp,no,,142,0
+astilbe,Astilbe,Astilbe,Astilbe,30,spp,no,,277,0
+astrantia,Astrantia,Astranzia,Astrantia,12,spp,no,Astranzia,46,0
+athyrium,Athyrium,Athyrium,Athyrium,263,spp,no,,3,0
+aubrieta,Aubrieta,Aubrieta,Aubrieta,26,spp,no,,187,0
+avocado,Persea americana,Avocado,Persea,126,specie_vera,no,,12,2
+aylostera,Aylostera,Aylostera,Aylostera,9,spp,sì,,1,0
+baptisia,Baptisia,Baptisia,Baptisia,26,spp,no,,34,0
+basilico,Ocimum basilicum,Basilico,Ocimum,91,specie_vera,sì,,102,1
+begonia,Begonia,Begonia,Begonia,2288,spp,no,,1803,0
+berberis,Berberis,Berberis,Berberis,632,spp,no,,27,0
+bergenia,Bergenia,Bergenia,Bergenia,12,spp,no,,100,0
+betonica,Betonica,Betonica,Betonica,18,spp,no,,2,0
+betula,Betula,Betulla,Betula,175,spp,no,Betulle,22,0
+bidens,Bidens,Bidens,Bidens,265,spp,no,,25,0
+billbergia,Billbergia,Billbergia,Billbergia,95,spp,no,,14,0
+bistorta,Bistorta,Bistorta,Bistorta,46,spp,no,,2,0
+boehmeria,Boehmeria,Boehmeria,Boehmeria,61,spp,no,,2,0
+bougainvillea,Bougainvillea,Bougainvillea,Bougainvillea,20,spp,no,,134,0
+brachyglottis,Brachyglottis,Brachyglottis,Brachyglottis,38,spp,no,,12,0
+brachyscome,Brachyscome,Brachyscome,Brachyscome,99,spp,no,,35,0
+brassica,Brassica,Brassica,Brassica,79,spp,no,,4,0
+brodiaea,Brodiaea,Brodiaea,Brodiaea,21,spp,no,,2,0
+browallia,Browallia,Browallia,Browallia,24,spp,no,,7,0
+brugmansia,Brugmansia suaveolens,Brugmansia,Brugmansia,10,spp,no,,70,0
+buddleja,Buddleja,Buddleja,Buddleja,129,spp,no,,93,0
+buxus,Buxus,Buxus,Buxus,114,spp,no,,12,0
+caladium,Caladium,Caladium,Caladium,42,spp,no,,81,0
+calathea,Calathea,Calathea,Calathea,78,spp,no,,44,1
+calceolaria,Calceolaria,Calceolaria,Calceolaria,,rivedere,no,,29,0
+calendula,Calendula officinalis,Calendula,Calendula,20,spp,no,Calendola,101,0
+calibrachoa,Calibrachoa spp.,Calibrachoa,Calibrachoa,29,gia_spp,no,,585,1
+callicarpa,Callicarpa,Callicarpa,Callicarpa,188,spp,no,,4,0
+callisia,Callisia,Callisia,Callisia,,rivedere,no,,4,0
+callistemon,Callistemon,Callistemon,Callistemon,52,spp,no,,59,0
+calluna,Calluna,Calluna,Calluna,1,specie,no,,4,0
+calycanthus,Calycanthus,Calycanthus,Calycanthus,8,spp,no,,3,0
+camassia,Camassia,Camassia,Camassia,8,spp,no,,4,0
+camelia,Camellia japonica,Camelia,Camellia,257,specie_vera,sì,Camelie,957,1
+camellia,Camellia,Camellia,Camellia,257,spp,no,Camelie,264,0
+campanula,Campanula isophylla,Campanula,Campanula,546,spp,no,Campanule,170,0
+campsis,Campsis,Campsis,Campsis,4,spp,no,,2,0
+canna,Canna,Canna,Canna,46,spp,no,,532,0
+capsicum,Capsicum,Capsicum,Capsicum,49,spp,no,Peperoni e peperoncini,38,0
+carex,Carex oshimensis,Carex,Carex,2816,spp,sì,Carici,40,1
+carota,Daucus carota,Carota,Daucus,53,specie_vera,no,,250,0
+caryopteris,Caryopteris,Caryopteris,Caryopteris,12,spp,no,,2,0
+cassinia,Cassinia,Cassinia,Cassinia,50,spp,no,,1,0
+cassiope,Cassiope,Cassiope,Cassiope,19,spp,no,,14,0
+castanea,Castanea,Castagno,Castanea,32,spp,no,Castagni,13,0
+cavolo,Brassica oleracea,Cavolo,Brassica,79,specie_vera,no,,0,1
+ceanothus,Ceanothus,Ceanothus,Ceanothus,94,spp,no,,111,0
+celmisia,Celmisia,Celmisia,Celmisia,83,spp,no,,7,0
+celosia,Celosia argentea,Celosia,Celosia,62,spp,no,,155,0
+centaurea,Centaurea,Centaurea,Centaurea,1009,spp,no,Fiordalisi,15,0
+ceratostigma,Ceratostigma,Ceratostigma,Ceratostigma,7,spp,no,,2,0
+cereus,Cereus,Cereus,Cereus,90,spp,no,,1,0
+ceropegia,Ceropegia woodii,Ceropegia,Ceropegia,810,spp,sì,,0,1
+cestrum,Cestrum,Cestrum,Cestrum,216,spp,no,,2,0
+cetriolo,Cucumis sativus,Cetriolo,Cucumis,76,specie_vera,sì,,438,0
+chaenomeles,Chaenomeles,Chaenomeles,Chaenomeles,9,spp,no,,21,0
+choisya,Choisya,Choisya,Choisya,7,spp,no,,1,0
+chrysanthemum,Chrysanthemum,Chrysanthemum,Chrysanthemum,88,spp,no,Crisantemi,7091,0
+cipolla,Allium cepa,Cipolla,Allium,1168,specie_vera,no,Agli,359,1
+cirsium,Cirsium,Cirsium,Cirsium,646,spp,no,,3,0
+cistus,Cistus,Cisto,Cistus,92,spp,no,Cisto,23,0
+clematis,Clematis,Clematis,Clematis,425,spp,no,Clematidi,1715,0
+cleome,Cleome,Cleome,Cleome,58,spp,no,,8,0
+clerodendrum,Clerodendrum,Clerodendrum,Clerodendrum,294,spp,no,,1,0
+clivia,Clivia miniata,Clivia,Clivia,9,spp,no,,89,0
+colchicum,Colchicum,Colchico,Colchicum,193,spp,no,Colchici,51,0
+coleonema,Coleonema,Coleonema,Coleonema,9,spp,no,,2,0
+columnea,Columnea,Columnea,Columnea,224,spp,no,,30,0
+consolida,Consolida,Consolida,Consolida,,rivedere,no,,28,0
+coprosma,Coprosma,Coprosma,Coprosma,129,spp,no,,54,0
+cordyline,Cordyline,Cordyline,Cordyline,27,spp,no,,54,0
+coreopsis,Coreopsis grandiflora,Coreopsis,Coreopsis,114,spp,sì,,150,1
+coriandrum,Coriandrum,Coriandrum,Coriandrum,3,spp,no,,7,0
+cornus,Cornus,Cornus,Cornus,104,spp,no,Cornioli,30,0
+correa,Correa,Correa,Correa,25,spp,no,,32,0
+corydalis,Corydalis,Corydalis,Corydalis,551,spp,no,Colombine,32,0
+corylus,Corylus,Corylus,Corylus,34,spp,no,,8,0
+cosmos,Cosmos,Cosmos,Cosmos,45,spp,no,,17,0
+cotinus,Cotinus,Cotinus,Cotinus,7,spp,no,,7,0
+cotoneaster,Cotoneaster,Cotoneaster,Cotoneaster,270,spp,no,,22,0
+cotyledon,Cotyledon,Cotyledon,Cotyledon,34,spp,no,,3,0
+crassula,Crassula,Crassula,Crassula,246,spp,no,,17,0
+crinum,Crinum,Crinum,Crinum,146,spp,no,,14,0
+crocosmia,Crocosmia,Crocosmia,Crocosmia,11,spp,no,,204,0
+crocus,Crocus,Croco,Crocus,283,spp,no,Crochi,90,0
+cryptanthus,Cryptanthus,Cryptanthus,Cryptanthus,,rivedere,no,,7,0
+ctenanthe,Ctenanthe,Ctenanthe,Ctenanthe,15,spp,no,,3,0
+cucurbita,Cucurbita,Cucurbita,Cucurbita,27,spp,no,Zucche,16,0
+cuphea,Cuphea hyssopifolia,Cuphea,Cuphea,280,spp,sì,,15,1
+curcuma,Curcuma,Curcuma,Curcuma,172,spp,no,,53,0
+cyclamen,Cyclamen persicum,Ciclamino persiano,Cyclamen,36,spp,no,Ciclamini,100,0
+cymbidium,Cymbidium,Cymbidium,Cymbidium,131,spp,no,,35,0
+cypripedium,Cypripedium,Cypripedium,Cypripedium,192,spp,no,,6,0
+cytisus,Cytisus,Cytisus,Cytisus,49,spp,no,,70,0
+dahlia,Dahlia,Dahlia,Dahlia,55,spp,no,,6211,0
+daphne,Daphne,Daphne,Daphne,121,spp,no,,29,0
+delosperma,Delosperma cooperi,Delosperma,Delosperma,164,spp,sì,,55,1
+delphinium,Delphinium,Delphinium,Delphinium,558,spp,no,,905,0
+dendrobium,Dendrobium,Dendrobium,Dendrobium,1694,spp,no,,50,0
+deutzia,Deutzia,Deutzia,Deutzia,77,spp,no,,11,0
+dianella,Dianella,Dianella,Dianella,42,spp,no,,5,0
+dianthus,Dianthus,Dianthus,Dianthus,468,spp,no,Garofano,3275,0
+diascia,Diascia,Diascia,Diascia,68,spp,no,,237,0
+dicentra,Dicentra,Dicentra,Dicentra,9,spp,no,,41,0
+dieffenbachia,Dieffenbachia,Dieffenbachia,Dieffenbachia,91,spp,no,,45,0
+dierama,Dierama,Dierama,Dierama,44,spp,no,,77,0
+digitalis,Digitalis,Digitale,Digitalis,47,spp,no,,56,0
+dimorphotheca,Dimorphotheca,Dimorphotheca,Dimorphotheca,18,spp,no,Dimorfoteca,12,0
+dionysia,Dionysia,Dionysia,Dionysia,61,spp,no,,64,0
+distictis,Distictis,Distictis,Distictis,,rivedere,no,,1,0
+doronicum,Doronicum,Doronico,Doronicum,47,spp,no,,6,0
+draba,Draba,Draba,Draba,526,spp,no,,2,0
+dracaena,Dracaena,Dracaena,Dracaena,211,spp,no,Dracena,22,0
+duchesnea,Duchesnea indica,Duchesnea,Duchesnea,,rivedere,no,,5,0
+dyckia,Dyckia,Dyckia,Dyckia,196,spp,no,,8,0
+echeveria,Echeveria spp.,Echeveria,Echeveria,229,gia_spp,no,,426,3
+echinacea,Echinacea purpurea,Echinacea,Echinacea,13,spp,sì,,403,2
+echinocereus,Echinocereus,Echinocereus,Echinocereus,106,spp,no,,1,0
+echinops,Echinops,Echinops,Echinops,232,spp,no,Cardo pallottola,3,0
+echinopsis,Echinopsis,Echinopsis,Echinopsis,36,spp,no,,108,0
+echium,Echium,Echio,Echium,104,spp,no,,5,0
+elaeagnus,Elaeagnus,Elaeagnus,Elaeagnus,110,spp,no,Eleagno,2,0
+epimedium,Epimedium,Epimedium,Epimedium,79,spp,no,,143,0
+epiphyllum,Epiphyllum,Epiphyllum,Epiphyllum,18,spp,no,,513,0
+eremurus,Eremurus,Eremurus,Eremurus,69,spp,no,,44,0
+erica,Erica carnea,Erica,Erica,883,spp,sì,,192,1
+erigeron,Erigeron,Erigeron,Erigeron,587,spp,no,,55,0
+erodium,Erodium,Erodium,Erodium,128,spp,no,,86,0
+eryngium,Eryngium,Eryngium,Eryngium,282,spp,no,Calcatreppole,21,0
+erysimum,Erysimum,Erysimum,Erysimum,299,spp,no,,156,0
+erythronium,Erythronium,Erythronium,Erythronium,35,spp,no,,56,0
+escallonia,Escallonia,Escallonia,Escallonia,60,spp,no,,67,0
+eucalyptus,Eucalyptus,Eucalyptus,Eucalyptus,976,spp,no,Eucalipti,13,0
+eucomis,Eucomis,Eucomis,Eucomis,15,spp,no,,36,0
+euonymus,Euonymus,Euonymus,Euonymus,191,spp,no,Evonimo,8,0
+eupatorium,Eupatorium,Eupatorium,Eupatorium,190,spp,no,,2,0
+euphorbia,Euphorbia,Euforbia,Euphorbia,,rivedere,no,Euforbia,70,0
+eustoma,Eustoma grandiflorum,Eustoma,Eustoma,2,spp,no,,17,0
+exacum,Exacum affine,Violetta persiana,Exacum,79,spp,no,,13,0
+fagiolo,Phaseolus vulgaris,Fagiolo,Phaseolus,107,specie_vera,sì,,601,0
+fagus,Fagus,Fagus,Fagus,37,spp,no,Faggi,1,0
+fargesia,Fargesia,Fargesia,Fargesia,51,spp,no,,14,0
+felicia,Felicia,Felicia,Felicia,97,spp,no,,6,0
+ferocactus,Ferocactus sp.,Ferocactus,Ferocactus,23,gia_spp,no,,0,1
+festuca,Festuca,Festuca,Festuca,758,spp,no,,8,0
+ficus,Ficus,Ficus,Ficus,1218,spp,no,,13,0
+filipendula,Filipendula,Filipendula,Filipendula,18,spp,no,,3,0
+fittonia,Fittonia albivenis,Fittonia,Fittonia,,rivedere,no,,96,0
+forsythia,Forsythia,Forsythia,Forsythia,15,spp,no,,28,0
+fragaria,Fragaria,Fragaria,Fragaria,41,spp,no,Fragole,15,0
+freesia,Freesia,Fresia,Freesia,21,spp,no,Fresia,158,0
+fremontodendron,Fremontodendron,Fremontodendron,Fremontodendron,3,spp,no,,4,0
+fritillaria,Fritillaria,Fritillaria,Fritillaria,190,spp,no,,21,0
+fuchsia,Fuchsia,Fuchsia,Fuchsia,137,spp,no,,5251,0
+gaillardia,Gaillardia,Gaillardia,Gaillardia,25,spp,no,,35,0
+galanthus,Galanthus,Galanthus,Galanthus,34,spp,no,Bucaneve,455,0
+gardenia,Gardenia jasminoides,Gardenia,Gardenia,178,spp,no,,21,0
+garofano,Dianthus spp.,Garofano,Dianthus,468,gia_spp,no,Garofano,0,2
+gasteria,Gasteria spp.,Gasteria,Gasteria,33,gia_spp,no,,17,1
+gaultheria,Gaultheria,Gaultheria,Gaultheria,305,spp,no,,7,0
+gaura,Gaura lindheimeri,Gaura,Gaura,,rivedere,no,,0,1
+gazania,Gazania rigens,Gazania,Gazania,25,spp,no,,131,0
+genista,Genista,Genista,Genista,168,spp,no,Ginestre,1,0
+gentiana,Gentiana,Genziana,Gentiana,390,spp,no,Genziana,165,0
+geranium,Geranium,Geranium,Geranium,414,spp,no,Gerani,277,0
+gerbera,Gerbera jamesonii,Gerbera,Gerbera,31,spp,sì,,974,0
+geum,Geum,Geum,Geum,104,spp,no,,242,0
+gibasis,Gibasis,Gibasis,Gibasis,14,spp,no,,1,0
+girasole,Helianthus annuus,Girasole,Helianthus,96,specie_vera,no,,751,0
+gladiolus,Gladiolus,Gladiolo,Gladiolus,315,spp,no,Gladioli,1308,0
+glandora,Glandora,Glandora,Glandora,9,spp,no,,9,0
+glandularia,Glandularia,Glandularia,Glandularia,,rivedere,no,,641,0
+gloriosa,Gloriosa superba,Gloriosa,Gloriosa,13,spp,sì,,21,0
+goeppertia,Goeppertia,Goeppertia,Goeppertia,,rivedere,no,,6,0
+gomphrena,Gomphrena globosa,Gomphrena,Gomphrena,149,spp,no,,13,0
+grevillea,Grevillea,Grevillea,Grevillea,414,spp,no,,149,0
+guzmania,Guzmania,Guzmania,Guzmania,228,spp,no,,166,0
+gymnocalycium,Gymnocalycium,Gymnocalycium,Gymnocalycium,78,spp,no,,2,0
+gypsophila,Gypsophila,Gypsophila,Gypsophila,171,spp,no,,56,0
+hamamelis,Hamamelis,Hamamelis,Hamamelis,7,spp,no,,17,0
+haworthia,Haworthia,Haworthia,Haworthia,68,spp,no,,53,0
+haworthiopsis,Haworthiopsis,Haworthiopsis,Haworthiopsis,35,spp,no,,3,0
+hedera,Hedera,Hedera,Hedera,,rivedere,no,Edera,7,0
+hedychium,Hedychium,Hedychium,Hedychium,116,spp,no,,87,0
+helenium,Helenium,Helenium,Helenium,52,spp,no,,223,0
+helianthemum,Helianthemum,Helianthemum,Helianthemum,175,spp,no,Eliantemo,210,0
+helianthus,Helianthus,Helianthus,Helianthus,96,spp,no,,39,0
+helichrysum,Helichrysum,Helichrysum,Helichrysum,605,spp,no,Elicriso,15,0
+heliotropium,Heliotropium,Heliotropium,Heliotropium,267,spp,no,,7,0
+helleborus,Helleborus niger,Elleboro nero,Helleborus,,rivedere,no,Elleboro,178,0
+hemerocallis,Hemerocallis,Hemerocallis,Hemerocallis,29,spp,no,Emerocallide,4964,0
+hepatica,Hepatica,Hepatica,Hepatica,,rivedere,no,,45,0
+heuchera,Heuchera spp.,Heuchera,Heuchera,55,gia_spp,no,,612,1
+hibiscus,Hibiscus rosa-sinensis,Hibiscus,Hibiscus,476,spp,no,Ibisco,120,0
+hippeastrum,Hippeastrum,Hippeastrum,Hippeastrum,126,spp,no,,397,0
+hoheria,Hoheria,Hoheria,Hoheria,8,spp,no,,7,0
+hosta,Hosta,Hosta,Hosta,,rivedere,no,,2781,0
+hoya,Hoya carnosa,Hoya,Hoya,569,spp,no,Fiore di cera,24,0
+hyacinthus,Hyacinthus orientalis,Giacinto comune,Hyacinthus,26,spp,no,Giacinto,225,0
+hydrangea,Hydrangea macrophylla,Ortensia,Hydrangea,108,spp,no,,847,0
+hylotelephium,Hylotelephium,Hylotelephium,Hylotelephium,33,spp,no,,85,0
+hypericum,Hypericum,Iperico,Hypericum,577,spp,no,Iperico,119,0
+iberis,Iberis,Iberis,Iberis,33,spp,no,,14,0
+ilex,Ilex,Ilex,Ilex,685,spp,no,,56,0
+impatiens,Impatiens walleriana,Impatiens,Impatiens,1177,spp,no,,1409,0
+indigofera,Indigofera,Indigofera,Indigofera,771,spp,no,,3,0
+ipheion,Ipheion,Ipheion,Ipheion,3,spp,no,,9,0
+ipoeste,Hypoestes phyllostachya,Ipoeste,Hypoestes,147,specie_vera,sì,,11,1
+ipomoea,Ipomoea,Ipomoea,Ipomoea,681,spp,no,Ipomee,19,0
+iresine,Iresine,Iresine,Iresine,40,spp,no,,5,0
+iris,Iris,Iris,Iris,411,spp,no,,12850,0
+ismene,Ismene,Ismene,Ismene,14,spp,no,,2,0
+isotoma,Isotoma,Isotoma,Isotoma,10,spp,no,,4,0
+ixia,Ixia,Ixia,Ixia,138,spp,no,,20,0
+jatropha,Jatropha podagrica,Jatropha,Jatropha,191,spp,no,,1,0
+juniperus,Juniperus,Juniperus,Juniperus,103,spp,no,Ginepro,4,0
+justicia,Justicia carnea,Justicia,Justicia,994,spp,no,,5,0
+kalanchoe,Kalanchoe blossfeldiana,Kalanchoe,Kalanchoe,200,spp,no,,605,0
+kalimeris,Kalimeris,Kalimeris,Kalimeris,8,spp,no,,1,0
+kniphofia,Kniphofia,Kniphofia,Kniphofia,,rivedere,no,,741,0
+kohleria,Kohleria,Kohleria,Kohleria,34,spp,no,,27,0
+laburnum,Laburnum,Laburnum,Laburnum,6,spp,no,,1,0
+lachenalia,Lachenalia,Lachenalia,Lachenalia,147,spp,no,,24,0
+lagerstroemia,Lagerstroemia,Lagerstroemia,Lagerstroemia,59,spp,no,,47,0
+lampranthus,Lampranthus,Lampranthus,Lampranthus,209,spp,no,,10,0
+lantana,Lantana,Lantana,Lantana,159,spp,no,,48,0
+lathyrus,Lathyrus,Lathyrus,Lathyrus,191,spp,no,Cicerchie,20,0
+lattuga,Lactuca sativa,Lattuga,Lactuca,,specie_vera,sì,,2388,0
+lavanda,Lavandula angustifolia,Lavanda,Lavandula,54,specie_vera,no,Lavanda,214,0
+lavandula,Lavandula,Lavandula,Lavandula,54,spp,no,Lavanda,94,0
+leptospermum,Leptospermum,Leptospermum,Leptospermum,116,spp,no,,37,0
+leucadendron,Leucadendron,Leucadendron,Leucadendron,86,spp,no,,32,0
+leucanthemum,Leucanthemum,Leucanthemum,Leucanthemum,59,spp,no,,8,0
+leucocoryne,Leucocoryne,Leucocoryne,Leucocoryne,51,spp,no,,7,0
+leucothoe,Leucothoe,Leucothoe,Leucothoe,8,spp,no,,6,0
+lewisia,Lewisia cotyledon,Lewisia,Lewisia,19,spp,no,,60,0
+ligularia,Ligularia,Ligularia,Ligularia,160,spp,no,,22,0
+ligustrum,Ligustrum,Ligustrum,Ligustrum,68,spp,no,Ligustri,3,0
+lilium,Lilium,Lilium,Lilium,191,spp,no,Giglio,2591,0
+linaria,Linaria,Linaria,Linaria,219,spp,no,Linajola,21,0
+liriope,Liriope,Liriope,Liriope,8,spp,no,,11,0
+lobelia,Lobelia,Lobelia,Lobelia,566,spp,no,,92,0
+lonicera,Lonicera,Lonicera,Lonicera,219,spp,no,Caprifogli,18,0
+lotus,Lotus,Lotus,Lotus,146,spp,no,Ginestrini,3,0
+lupinus,Lupinus,Lupino,Lupinus,655,spp,no,Lupini,243,0
+lysimachia,Lysimachia,Lysimachia,Lysimachia,301,spp,no,,8,0
+magnolia,Magnolia,Magnolia,Magnolia,451,spp,no,,388,0
+mahonia,Mahonia,Mahonia,Mahonia,82,spp,no,,17,0
+mais,Zea mays,Mais,Zea,15,specie_vera,no,,289,0
+malus,Malus,Malus,Malus,64,spp,no,Meli,268,0
+malva,Malva,Malva,Malva,81,spp,no,,30,0
+mammillaria,Mammillaria spp.,Mammillaria,Mammillaria,203,gia_spp,no,,2,3
+mandevilla,Mandevilla splendens,Mandevilla,Mandevilla,195,spp,no,,71,0
+massonia,Massonia,Massonia,Massonia,38,spp,no,,2,0
+matthiola,Matthiola,Matthiola,Matthiola,67,spp,no,,36,0
+meconopsis,Meconopsis,Meconopsis,Meconopsis,106,spp,no,,60,0
+medinilla,Medinilla magnifica,Medinilla,Medinilla,384,spp,no,,24,0
+melanzana,Solanum melongena,Melanzana,Solanum,1376,specie_vera,sì,,110,1
+mentha,Mentha,Mentha,Mentha,187,spp,no,Menta,14,0
+mesembriantemo,Lampranthus spp.,Mesembriantemo,Lampranthus,209,gia_spp,no,,0,2
+mimulus,Mimulus,Mimulus,Mimulus,25,spp,no,,83,0
+miscanthus,Miscanthus,Miscanthus,Miscanthus,19,spp,no,,12,0
+monarda,Monarda,Monarda,Monarda,29,spp,no,,136,0
+monstera,Monstera,Monstera,Monstera,84,spp,no,,1,0
+morus,Morus,Morus,Morus,27,spp,no,Gelso,10,0
+muscari,Muscari,Muscari,Muscari,95,spp,no,,61,0
+myosotis,Myosotis,Myosotis,Myosotis,184,spp,no,Nontiscordardimè,36,0
+narciso,Narcissus spp.,Narciso,Narcissus,214,gia_spp,no,Narcisi,0,2
+narcissus,Narcissus,Narcissus,Narcissus,214,spp,no,Narcisi,7563,0
+nematanthus,Nematanthus,Nematanthus,Nematanthus,,rivedere,no,,10,0
+nemesia,Nemesia,Nemesia,Nemesia,72,spp,no,,286,0
+neoregelia,Neoregelia carolinae,Neoregelia,Neoregelia,127,spp,no,,101,0
+nepenthes,Nepenthes,Nepente,Nepenthes,210,spp,no,,21,0
+nepeta,Nepeta,Nepeta,Nepeta,335,spp,no,,37,0
+nephrolepis,Nephrolepis,Nephrolepis,Nephrolepis,40,spp,no,,2,0
+nerine,Nerine,Nerine,Nerine,37,spp,no,,882,0
+nicotiana,Nicotiana,Nicotiana,Nicotiana,122,spp,no,Tabacco,21,0
+nidularium,Nidularium,Nidularium,Nidularium,70,spp,no,,1,0
+nymphaea,Nymphaea,Ninfea,Nymphaea,91,spp,no,Ninfee,508,0
+ocimum,Ocimum,Ocimum,Ocimum,91,spp,no,,3,0
+odontoglossum,Odontoglossum,Odontoglossum,Odontoglossum,,rivedere,sì,,9,0
+oenothera,Oenothera,Oenothera,Oenothera,275,spp,no,Enagra,46,0
+olearia,Olearia,Olearia,Olearia,168,spp,no,,9,0
+oncidium,Oncidium,Oncidium,Oncidium,411,spp,no,,12,0
+ophiopogon,Ophiopogon,Ophiopogon,Ophiopogon,90,spp,no,,8,0
+opuntia,Opuntia,Opuntia,Opuntia,202,spp,no,Opunzie,6,0
+orchidea,Phalaenopsis,Orchidea,Phalaenopsis,98,spp,no,Falenopside,1210,2
+oreomecon,Oreomecon,Oreomecon,Oreomecon,,rivedere,no,,2,0
+origano,Origanum vulgare,Origano,Origanum,89,specie_vera,no,,32,0
+origanum,Origanum,Origanum,Origanum,89,spp,no,,42,0
+osteospermum,Osteospermum ecklonis,Osteospermum,Osteospermum,79,spp,no,,532,1
+ourisia,Ourisia,Ourisia,Ourisia,33,spp,no,,2,0
+oxalis,Oxalis,Oxalis,Oxalis,580,spp,no,Ossalidi,35,0
+ozothamnus,Ozothamnus,Ozothamnus,Ozothamnus,66,spp,no,,5,0
+paeonia,Paeonia,Peonia,Paeonia,63,spp,no,Peonia,617,0
+panicum,Panicum,Panicum,Panicum,495,spp,no,,6,0
+papaver,Papaver,Papaver,Papaver,155,spp,no,Papaveri,358,0
+paphiopedilum,Paphiopedilum,Paphiopedilum,Paphiopedilum,155,spp,no,,14,0
+parthenocissus,Parthenocissus,Parthenocissus,Parthenocissus,18,spp,no,Viti del Canadà,1,0
+passiflora,Passiflora caerulea,Passiflora,Passiflora,646,spp,no,,157,0
+patata,Solanum tuberosum,Patata,Solanum,1376,specie_vera,no,,1710,0
+paulownia,Paulownia,Paulownia,Paulownia,9,spp,no,,11,0
+pelargonium,Pelargonium,Pelargonium,Pelargonium,389,spp,no,Pelargonio,5955,0
+pennisetum,Pennisetum,Pennisetum,Pennisetum,,rivedere,no,,4,0
+penstemon,Penstemon,Penstemon,Penstemon,304,spp,no,,461,0
+peperomia,Peperomia,Peperomia,Peperomia,1553,spp,no,,35,0
+peperoncino,capsicum annuum,Peperoncino,,,specie_vera,no,,0,1
+peperone,Capsicum annuum,Peperone,Capsicum,49,specie_vera,no,Peperoni e peperoncini,832,0
+persicaria,Persicaria,Persicaria,Persicaria,162,spp,no,,2,0
+petunia,Petunia,Petunia,Petunia,22,spp,no,,1125,0
+philadelphus,Philadelphus,Filadelfo,Philadelphus,74,spp,no,,82,0
+philodendron,Philodendron,Philodendron,Philodendron,612,spp,no,Filodendro,39,0
+phlomis,Phlomis,Phlomis,Phlomis,142,spp,no,,9,0
+phlox,Phlox,Phlox,Phlox,82,spp,no,,128,0
+phormium,Phormium,Phormium,Phormium,3,spp,no,,85,0
+photinia,Photinia,Photinia,Photinia,30,spp,no,Fotinia,10,0
+phragmipedium,Phragmipedium,Phragmipedium,Phragmipedium,40,spp,sì,,2,0
+phygelius,Phygelius,Phygelius,Phygelius,2,spp,no,,20,0
+pieris,Pieris,Pieris,Pieris,12,spp,no,,12,0
+pilea,Pilea,Pilea,Pilea,625,spp,no,,5,0
+pinguicula,Pinguicula,Pinguicula,Pinguicula,131,spp,no,,18,0
+pinus,Pinus,Pino,Pinus,295,spp,no,Pini,12,0
+pisello,Pisum sativum,Pisello,Pisum,,specie_vera,sì,,877,1
+pittosporum,Pittosporum,Pittosporum,Pittosporum,233,spp,no,,20,0
+platanus,Platanus,Platanus,Platanus,45,spp,no,Platani,3,0
+plectranthus,Plectranthus,Plectranthus,Plectranthus,136,spp,no,,26,0
+pleroma,Pleroma,Pleroma,Pleroma,183,spp,no,,6,0
+plumbago,Plumbago auriculata,Plumbago,Plumbago,24,spp,sì,,5,1
+podocarpus,Podocarpus,Podocarpus,Podocarpus,159,spp,no,,19,0
+podophyllum,Podophyllum,Podophyllum,Podophyllum,3,spp,no,,1,0
+polemonium,Polemonium,Polemonium,Polemonium,41,spp,no,,34,0
+polygala,Polygala,Polygala,Polygala,720,spp,no,Poligala,6,0
+polypodium,Polypodium,Polypodium,Polypodium,152,spp,no,,4,0
+polystichum,Polystichum,Polystichum,Polystichum,503,spp,no,,1,0
+pomodoro,Solanum lycopersicum,Pomodoro,Solanum,1376,specie_vera,sì,,1423,0
+potentilla,Potentilla,Potentilla,Potentilla,720,spp,no,Cinquefoglie,52,0
+pothos,Epipremnum aureum,Pothos,Epipremnum,19,specie_vera,sì,,1,2
+prezzemolo,Petroselinum crispum,Prezzemolo,Petroselinum,4,specie_vera,no,,48,0
+primula,Primula vulgaris,Primula,Primula,612,spp,no,Primule,777,0
+prostanthera,Prostanthera,Prostanthera,Prostanthera,110,spp,no,,13,0
+protea,Protea,Protea,Protea,121,spp,no,,23,0
+prunella,Prunella,Prunella,Prunella,27,spp,no,,6,0
+prunus,Prunus,Prunus,Prunus,486,spp,no,Pruni,305,0
+pseudopanax,Pseudopanax,Pseudopanax,Pseudopanax,9,spp,no,,14,0
+pulmonaria,Pulmonaria,Pulmonaria,Pulmonaria,36,spp,no,,157,0
+pyracantha,Pyracantha,Pyracantha,Pyracantha,12,spp,no,,39,0
+quercus,Quercus,Quercia,Quercus,966,spp,no,Querce,16,0
+ranunculus,Ranunculus,Ranuncolo,Ranunculus,1873,spp,no,Ranuncoli,18,0
+rebutia,Rebutia,Rebutia,Rebutia,14,spp,no,,19,0
+rheum,Rheum,Rheum,Rheum,64,spp,no,,10,0
+rhodanthemum,Rhodanthemum,Rhodanthemum,Rhodanthemum,17,spp,no,,7,0
+rhododendron,Rhododendron simsii,Rhododendron,Rhododendron,1257,spp,no,Rododendri,6193,0
+rhodohypoxis,Rhodohypoxis,Rhodohypoxis,Rhodohypoxis,,rivedere,no,,111,0
+ribes,Ribes,Ribes,Ribes,248,spp,no,,13,0
+rodgersia,Rodgersia,Rodgersia,Rodgersia,6,spp,no,,26,0
+rosa,Rosa,Rosa,Rosa,742,spp,no,Rose,9518,0
+roscoea,Roscoea,Roscoea,Roscoea,,rivedere,no,,19,0
+rosmarino,Rosmarinus officinalis,Rosmarino,Rosmarinus,,specie_vera,no,,1,0
+rubus,Rubus,Rubus,Rubus,2570,spp,no,Rovo,74,0
+rudbeckia,Rudbeckia,Rudbeckia,Rudbeckia,48,spp,no,,39,0
+ruta,Ruta graveolens,Ruta,Ruta,14,spp,no,,5,0
+salcerella,Lythrum salicaria,Salcerella,Lythrum,42,specie_vera,sì,,29,1
+salix,Salix,Salix,Salix,1125,spp,no,Salici,89,0
+salvia,Salvia officinalis,Salvia,Salvia,1168,spp,no,Salvie,359,0
+sambucus,Sambucus,Sambuco,Sambucus,37,spp,no,Sambuchi,19,0
+sanguisorba,Sanguisorba,Sanguisorba,Sanguisorba,23,spp,no,,67,0
+sansevieria,Sansevieria trifasciata,Sansevieria,Sansevieria,5,spp,sì,,31,1
+santolina,Santolina,Santolina,Santolina,33,spp,no,,4,0
+saponaria,Saponaria ocymoides,Saponaria,Saponaria,52,spp,sì,,9,0
+sarcococca,Sarcococca,Sarcococca,Sarcococca,15,spp,no,,1,0
+sarracenia,Sarracenia,Sarracenia,Sarracenia,54,spp,no,,95,0
+saxifraga,Saxifraga,Saxifraga,Saxifraga,711,spp,no,Sassifraghe,1311,0
+scabiosa,Scabiosa,Scabiosa,Scabiosa,80,spp,no,,63,0
+scalogno,Allium ascalonicum,Scalogno,Allium,1168,specie_vera,no,Agli,0,1
+schefflera,Schefflera,Schefflera,Schefflera,53,spp,no,,1,0
+schlumbergera,Schlumbergera,Schlumbergera,Schlumbergera,,rivedere,no,,116,0
+scilla,Scilla,Scilla,Scilla,121,spp,no,,7,0
+sedum,Sedum,Sedum,Sedum,504,spp,no,,45,0
+semiaquilegia,Semiaquilegia,Semiaquilegia,Semiaquilegia,5,spp,no,,5,0
+sempervivum,Sempervivum,Sempervivum,Sempervivum,84,spp,no,,1313,0
+senecio,Senecio,Senecio,Senecio,1777,spp,no,,7,0
+sesleria,Sesleria,Sesleria,Sesleria,39,spp,no,,4,0
+sidalcea,Sidalcea,Sidalcea,Sidalcea,29,spp,no,,49,0
+silene,Silene,Silene,Silene,973,spp,no,,16,0
+sinningia,Sinningia speciosa,Sinningia,Sinningia,94,spp,no,,84,0
+solanum,Solanum,Solanum,Solanum,1376,spp,no,,28,0
+soldanella,Soldanella,Soldanella,Soldanella,36,spp,no,Soldanelle,3,0
+solidago,Solidago,Solidago,Solidago,213,spp,no,,83,0
+sophora,Sophora,Sophora,Sophora,82,spp,no,,2,0
+sorbus,Sorbus,Sorbo,Sorbus,215,spp,no,Sorbi,87,0
+spartina,Spartina,Spartina,Spartina,,rivedere,sì,,1,0
+spathiphyllum,Spathiphyllum wallisii,Spathiphyllum,Spathiphyllum,67,spp,no,Spatifillo,111,0
+sphaeralcea,Sphaeralcea,Sphaeralcea,Sphaeralcea,51,spp,no,,6,0
+spigelia,Spigelia,Spigelia,Spigelia,102,spp,no,,1,0
+spinacio,Spinacia oleracea,Spinacio,Spinacia,3,specie_vera,no,,224,0
+spiraea,Spiraea,Spiraea,Spiraea,195,spp,no,,13,0
+stachyurus,Stachyurus,Stachyurus,Stachyurus,11,spp,no,,2,0
+stephanotis,Stephanotis floribunda,Stephanotis,Stephanotis,18,spp,no,,1,0
+streptocarpus,Streptocarpus rexii,Streptocarpus,Streptocarpus,,rivedere,no,,903,0
+symphoricarpos,Symphoricarpos,Symphoricarpos,Symphoricarpos,17,spp,no,,14,0
+symphyotrichum,Symphyotrichum,Symphyotrichum,Symphyotrichum,133,spp,no,,64,0
+symphytum,Symphytum,Symphytum,Symphytum,50,spp,no,Consolide,19,0
+syngonium,Syngonium,Syngonium,Syngonium,44,spp,no,,8,0
+syringa,Syringa,Syringa,Syringa,33,spp,no,,38,0
+tagetes,Tagetes,Tagetes,Tagetes,67,spp,no,Tageti,33,0
+tamarix,Tamarix,Tamarix,Tamarix,85,spp,no,Tamerici,2,0
+taxodium,Taxodium,Taxodium,Taxodium,16,spp,no,,1,0
+telopea,Telopea,Telopea,Telopea,6,spp,no,,13,0
+teucrium,Teucrium,Teucrium,Teucrium,393,spp,no,,2,0
+thalictrum,Thalictrum,Thalictrum,Thalictrum,239,spp,no,,24,0
+thunbergia,Thunbergia alata,Thunbergia,Thunbergia,153,spp,no,,51,0
+thymus,Thymus,Timo,Thymus,432,spp,no,Timo,127,0
+tiarella,Tiarella,Tiarella,Tiarella,7,spp,no,,68,0
+tibouchina,Tibouchina,Tibouchina,Tibouchina,48,spp,no,,1,0
+tilia,Tilia,Tilia,Tilia,60,spp,no,Tigli,9,0
+tillandsia,Tillandsia,Tillandsia,Tillandsia,751,spp,no,,43,0
+tithonia,Tithonia,Tithonia,Tithonia,17,spp,no,,1,0
+torenia,Torenia,Torenia,Torenia,69,spp,no,,54,0
+trachelospermum,Trachelospermum,Trachelospermum,Trachelospermum,15,spp,no,,3,0
+tradescantia,Tradescantia zebrina,Tradescantia,Tradescantia,119,spp,sì,Tradescanzia,112,1
+tricyrtis,Tricyrtis,Tricyrtis,Tricyrtis,25,spp,no,,49,0
+trifolium,Trifolium,Trifoglio,Trifolium,315,spp,no,Trifogli,6,0
+trillium,Trillium,Trillium,Trillium,58,spp,no,,3,0
+triteleia,Triteleia,Triteleia,Triteleia,20,spp,no,,19,0
+trollius,Trollius,Trollius,Trollius,46,spp,no,,7,0
+tulbaghia,Tulbaghia,Tulbaghia,Tulbaghia,29,spp,no,,38,0
+tulipa,Tulipa,Tulipa,Tulipa,122,spp,sì,Tulipani,2442,0
+ulivo,Olea europaea,Ulivo,Olea,40,specie_vera,sì,,37,1
+ulmus,Ulmus,Olmo,Ulmus,95,spp,no,Olmi,38,0
+vaccinium,Vaccinium,Vaccinium,Vaccinium,510,spp,no,"Mirtilli, mirtilli rossi e alleati",64,0
+vanda,Vanda,Vanda,Vanda,102,spp,no,,132,0
+verbascum,Verbascum,Verbascum,Verbascum,794,spp,no,Verbasco,157,0
+verbena,Verbena hybrida,Verbena,Verbena,202,spp,no,,34,1
+veronica,Veronica,Veronica,Veronica,555,spp,no,Occhi di Maria,621,0
+veronicastrum,Veronicastrum,Veronicastrum,Veronicastrum,20,spp,no,,2,0
+viburnum,Viburnum,Viburno,Viburnum,279,spp,no,Viburno,15,0
+vicia,Vicia,Vicia,Vicia,268,spp,no,Veccie,1,0
+viola,Viola,Viola,Viola,994,spp,no,Viole,1174,0
+violaciocca,Matthiola incana,Violaciocca,Matthiola,67,specie_vera,sì,,34,1
+viscaria,Viscaria,Viscaria,Viscaria,6,spp,no,,2,0
+vitis,Vitis,Vitis,Vitis,183,spp,no,Viti,168,0
+vriesea,Vriesea splendens,Vriesea,Vriesea,,rivedere,no,,86,0
+watsonia,Watsonia,Watsonia,Watsonia,,rivedere,no,,39,0
+weigela,Weigela,Weigela,Weigela,15,spp,no,,93,0
+westringia,Westringia,Westringia,Westringia,36,spp,no,,3,0
+wisteria,Wisteria,Wisteria,Wisteria,8,spp,no,Glicine,4,0
+yucca,Yucca,Yucca,Yucca,77,spp,no,,6,0
+zantedeschia,Zantedeschia aethiopica,Zantedeschia,Zantedeschia,9,spp,no,,569,0
+zinnia,Zinnia elegans,Zinnia,Zinnia,33,spp,sì,,142,4
+zucca,Cucurbita moschata,Zucca,Cucurbita,27,specie_vera,sì,Zucche,46,3
+zucchina,Cucurbita pepo,Zucchina,Cucurbita,27,specie_vera,sì,Zucche,334,0
+zygopetalum,Zygopetalum,Zygopetalum,Zygopetalum,17,spp,no,,9,0
