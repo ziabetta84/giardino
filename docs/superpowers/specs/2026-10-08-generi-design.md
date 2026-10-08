@@ -19,6 +19,10 @@ Dare al genere botanico un posto suo nel modello dati, così che:
 - 127 madri hanno cultivar il cui nome non inizia col nome scientifico della madre (17.642 cultivar); 58 sono righe di genere (16.375 cultivar). I casi con "x" nello slug (ibridi) non sono stati analizzati.
 - Codice che usa la gerarchia: `src/stores/dati.js` (`fondiEredita`) e `src/components/SelettoreSpecie.vue`; più gli script in `scripts/`.
 
+## Verifica sulla fonte RHS (08/10/2026)
+
+Nelle pagine RHS locali (`fonti/rhs_from_sitemaps/`, campione casuale di 4.000) il `parentTaxon` di ogni pagina è il genere, mai una specie, e "Botanical Details" non ha un campo specie (solo famiglia, descrizione del genere, stato del nome, gruppo orticolo). Quindi RHS colloca le cultivar "Genere 'Epiteto'" al livello del genere: l'aggancio attuale al genere riflette la fonte, e riagganciarle alle specie non è necessario né ricavabile da RHS. Il difetto da correggere è solo il `nome_scientifico` delle righe di genere.
+
 ## Decisioni già prese
 
 1. Il genere è selezionabile come pianta: esiste una riga "Genere spp." in `specie`.
