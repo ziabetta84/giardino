@@ -1,0 +1,201 @@
+{
+ "Anagallis": {
+  "key": 8330627,
+  "status": "SYNONYM",
+  "family": "Primulaceae",
+  "accettato": "Lysimachia Tourn. ex L."
+ },
+ "Artemisia": {
+  "key": 3120641,
+  "status": "DOUBTFUL",
+  "family": "Asteraceae",
+  "n": 573
+ },
+ "Calceolaria": {
+  "key": 3172125,
+  "status": "ACCEPTED",
+  "family": "Calceolariaceae",
+  "n": 308
+ },
+ "Callisia": {
+  "key": 2763692,
+  "status": "ACCEPTED",
+  "family": "Commelinaceae",
+  "n": 42
+ },
+ "Consolida": {
+  "key": 3033827,
+  "status": "SYNONYM",
+  "family": "Ranunculaceae",
+  "accettato": "Delphinium L."
+ },
+ "Cryptanthus": {
+  "key": 2694346,
+  "status": "ACCEPTED",
+  "family": "Bromeliaceae",
+  "n": 76
+ },
+ "Distictis": {
+  "esito": "ambiguo",
+  "usi": [
+   [
+    3172513,
+    "SYNONYM",
+    "Bignoniaceae"
+   ],
+   [
+    7415483,
+    "SYNONYM",
+    "Bignoniaceae"
+   ]
+  ]
+ },
+ "Duchesnea": {
+  "esito": "ambiguo",
+  "usi": [
+   [
+    3031918,
+    "SYNONYM",
+    "Rosaceae"
+   ],
+   [
+    7690156,
+    "DOUBTFUL",
+    "Rosaceae"
+   ]
+  ]
+ },
+ "Euphorbia": {
+  "key": 11397237,
+  "status": "DOUBTFUL",
+  "family": "Euphorbiaceae",
+  "n": 2351
+ },
+ "Fittonia": {
+  "key": 3233835,
+  "status": "ACCEPTED",
+  "family": "Acanthaceae",
+  "n": 2
+ },
+ "Gaura": {
+  "key": 8613756,
+  "status": "SYNONYM",
+  "family": "Onagraceae",
+  "accettato": "Oenothera L."
+ },
+ "Glandularia": {
+  "key": 2925569,
+  "status": "SYNONYM",
+  "family": "Verbenaceae",
+  "accettato": "Verbena L."
+ },
+ "Goeppertia": {
+  "key": 7304686,
+  "status": "ACCEPTED",
+  "family": "Marantaceae",
+  "n": 247
+ },
+ "Hedera": {
+  "key": 3036021,
+  "status": "DOUBTFUL",
+  "family": "Araliaceae",
+  "n": 51
+ },
+ "Helleborus": {
+  "key": 2741682,
+  "status": "ACCEPTED",
+  "family": "Ranunculaceae",
+  "n": 28
+ },
+ "Hepatica": {
+  "key": 3033655,
+  "status": "ACCEPTED",
+  "n": 12
+ },
+ "Hosta": {
+  "key": 9342215,
+  "status": "ACCEPTED",
+  "family": "Asparagaceae",
+  "n": 27
+ },
+ "Kniphofia": {
+  "key": 2780618,
+  "status": "ACCEPTED",
+  "family": "Asphodelaceae",
+  "n": 79
+ },
+ "Nematanthus": {
+  "key": 3233474,
+  "status": "ACCEPTED",
+  "family": "Gesneriaceae",
+  "n": 34
+ },
+ "Odontoglossum": {
+  "key": 9361445,
+  "status": "SYNONYM",
+  "family": "Orchidaceae",
+  "accettato": "Oncidium Sw."
+ },
+ "Oreomecon": {
+  "key": 12384483,
+  "status": "DOUBTFUL",
+  "family": "Papaveraceae",
+  "n": 0
+ },
+ "Pennisetum": {
+  "esito": "ambiguo",
+  "usi": [
+   [
+    2706129,
+    "SYNONYM",
+    "Poaceae"
+   ],
+   [
+    7883446,
+    "DOUBTFUL",
+    "Poaceae"
+   ]
+  ]
+ },
+ "Rhodohypoxis": {
+  "key": 2852591,
+  "status": "SYNONYM",
+  "family": "Hypoxidaceae",
+  "accettato": "Hypoxis L."
+ },
+ "Roscoea": {
+  "key": 2757354,
+  "status": "ACCEPTED",
+  "family": "Zingiberaceae",
+  "n": 27
+ },
+ "Schlumbergera": {
+  "key": 3084040,
+  "status": "ACCEPTED",
+  "family": "Cactaceae",
+  "n": 11
+ },
+ "Spartina": {
+  "key": 12086863,
+  "status": "SYNONYM",
+  "family": "Poaceae",
+  "accettato": "Sporobolus R.Br."
+ },
+ "Streptocarpus": {
+  "key": 3233500,
+  "status": "ACCEPTED",
+  "family": "Gesneriaceae",
+  "n": 209
+ },
+ "Vriesea": {
+  "key": 2699764,
+  "status": "ACCEPTED",
+  "n": 308
+ },
+ "Watsonia": {
+  "key": 2747139,
+  "status": "ACCEPTED",
+  "family": "Iridaceae",
+  "n": 64
+ }
+}
