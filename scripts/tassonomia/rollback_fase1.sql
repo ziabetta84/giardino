@@ -5,10 +5,10 @@
 -- Comando: psql "$URL" -X -1 -v ON_ERROR_STOP=1 -f scripts/tassonomia/rollback_fase1.sql
 do $$
 begin
-  lock table public.taxa in access exclusive mode;
-  if exists (select 1 from public.taxa) then
+  lock table public.cultivar, public.nomi_comuni, public.taxa in access exclusive mode;
+  if exists (select 1 from public.taxa) or exists (select 1 from public.nomi_comuni) or exists (select 1 from public.cultivar) then
     raise exception 'Rollback fase 1 rifiutato: le tabelle nuove contengono dati';
   end if;
 
-  drop table public.taxa;
+  drop table public.cultivar, public.nomi_comuni, public.taxa;
 end $$;

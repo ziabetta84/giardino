@@ -51,3 +51,47 @@ create policy "taxa: lettura pubblica" on public.taxa for select using (true);
 revoke all on public.taxa from anon, authenticated, service_role;
 grant select, insert, update, delete on public.taxa to service_role;
 grant select (id, rango, nome_scientifico, autore, notho, ibrido, stato, accettato_id, padre_id) on public.taxa to anon, authenticated;
+
+-- ===== nomi_comuni: un nome per riga, con le fonti (interne) =====
+create table public.nomi_comuni (
+  id uuid primary key default gen_random_uuid(),
+  taxon_id uuid not null references public.taxa (id) on delete restrict,
+  lingua text not null check (lingua ~ '^[a-z]{2}$'),
+  nome text not null check (btrim(nome) <> ''),
+  preferito boolean not null default false,
+  fonti text[] not null check (cardinality(fonti) > 0),
+  nota text,
+  creato_il timestamptz not null default now(),
+  constraint nomi_comuni_unico unique (taxon_id, lingua, nome)
+);
+create unique index nomi_comuni_preferito_idx on public.nomi_comuni (taxon_id, lingua) where preferito;
+create index nomi_comuni_nome_trgm_idx on public.nomi_comuni using gin (nome extensions.gin_trgm_ops);
+
+alter table public.nomi_comuni enable row level security;
+create policy "nomi_comuni: lettura pubblica" on public.nomi_comuni for select using (true);
+revoke all on public.nomi_comuni from anon, authenticated, service_role;
+grant select, insert, update, delete on public.nomi_comuni to service_role;
+grant select (id, taxon_id, lingua, nome, preferito) on public.nomi_comuni to anon, authenticated;
+
+-- ===== cultivar: dati nostri (RHS), assegnate al taxon più basso noto (ICNCP) =====
+create table public.cultivar (
+  id uuid primary key default gen_random_uuid(),
+  slug text not null unique,
+  taxon_id uuid not null references public.taxa (id) on delete restrict,
+  categoria text not null default 'cultivar' check (categoria in ('cultivar', 'gruppo', 'grex')),
+  epiteto text not null check (btrim(epiteto) <> '' and left(epiteto, 1) <> '''' and right(epiteto, 1) <> ''''),
+  gruppo text,
+  nome_commerciale text,
+  fonti text[] not null check (cardinality(fonti) > 0),
+  vecchia_specie_id uuid unique,
+  creata_il timestamptz not null default now()
+);
+create index cultivar_taxon_id_idx on public.cultivar (taxon_id);
+create index cultivar_epiteto_trgm_idx on public.cultivar using gin (epiteto extensions.gin_trgm_ops);
+create index cultivar_nome_commerciale_trgm_idx on public.cultivar using gin (nome_commerciale extensions.gin_trgm_ops);
+
+alter table public.cultivar enable row level security;
+create policy "cultivar: lettura pubblica" on public.cultivar for select using (true);
+revoke all on public.cultivar from anon, authenticated, service_role;
+grant select, insert, update, delete on public.cultivar to service_role;
+grant select (id, slug, taxon_id, categoria, epiteto, gruppo, nome_commerciale) on public.cultivar to anon, authenticated;
