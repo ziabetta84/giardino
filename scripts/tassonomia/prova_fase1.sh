@@ -15,7 +15,8 @@ for prova in guardia doppia; do
   if out=$("${PSQL[@]}" -f "$file" 2>&1); then
     echo "PROVA $prova FALLITA: doveva dare errore"; exit 1
   fi
-  if ! grep -qF "$atteso" <<<"$out"; then
+  # il messaggio deve stare nella riga di errore, non in un NOTICE
+  if ! grep -qF "ERROR:  $atteso" <<<"$out"; then
     echo "PROVA $prova FALLITA: errore diverso da quello atteso"; echo "$out"; exit 1
   fi
   echo "PROVA $prova OK"
