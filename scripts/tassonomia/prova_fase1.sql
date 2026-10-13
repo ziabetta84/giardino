@@ -184,6 +184,100 @@ end $$;
 reset role;
 rollback to savepoint s_nomi_cultivar;
 
+-- ===== Sezione schede e mappa_specie =====
+savepoint s_schede_mappa;
+do $$
+declare t uuid; c uuid; sc uuid; prima timestamptz;
+begin
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'species', 'Hedera helix', 'accepted') returning id into t;
+  insert into public.cultivar (slug, taxon_id, epiteto, fonti) values ('prova-goldchild', t, 'Goldchild', array['RHS (rhs.org.uk)']) returning id into c;
+
+  insert into public.schede (taxon_id, fonti, descrizione, stato_verifica, mostrata, vecchia_specie_id, aggiornata_il)
+    values (t, array['RHS (rhs.org.uk) — Hedera helix', 'Il giardino di arbusti (Edicart, 1995)'], 'Rampicante sempreverde.', 'verificato', true, gen_random_uuid(), '2000-01-01')
+    returning id, aggiornata_il into sc, prima;
+  insert into public.schede (taxon_id, fonti, descrizione) values (t, array['Plants For A Future (pfaf.org)'], 'Seconda scheda, non mostrata.');
+  insert into public.schede (cultivar_id, fonti, descrizione, mostrata) values (c, array['RHS (rhs.org.uk)'], 'Foglie screziate.', true);
+
+  begin
+    insert into public.schede (taxon_id, fonti, mostrata) values (t, array['PFAF'], true);
+    raise exception 'ATTESO ERRORE: due schede mostrate per lo stesso taxon';
+  exception when unique_violation then null; end;
+  begin
+    insert into public.schede (taxon_id, cultivar_id, fonti) values (t, c, array['RHS']);
+    raise exception 'ATTESO ERRORE: scheda su taxon e cultivar insieme';
+  exception when check_violation then null; end;
+  begin
+    insert into public.schede (fonti) values (array['RHS']);
+    raise exception 'ATTESO ERRORE: scheda senza taxon né cultivar';
+  exception when check_violation then null; end;
+  begin
+    insert into public.schede (taxon_id, fonti, stato_verifica) values (t, array['RHS'], 'approvata');
+    raise exception 'ATTESO ERRORE: stato_verifica fuori elenco';
+  exception when check_violation then null; end;
+
+  update public.schede set descrizione = 'Rampicante sempreverde, rustico.' where id = sc;
+  assert (select aggiornata_il from public.schede where id = sc) > prima, 'aggiornata_il non gestita dal trigger';
+  assert exists (select 1 from pg_trigger where tgname = 'schede_set_aggiornata_il' and tgrelid = 'public.schede'::regclass),
+    'manca il trigger schede_set_aggiornata_il';
+
+  -- mappa_specie: righe ancora da elaborare, abbinate, e cancellate (senza FK verso specie)
+  insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico) values (gen_random_uuid(), 'prova-da-elaborare', 'Hedera helix');
+  insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico, taxon_id, esito)
+    values (gen_random_uuid(), 'prova-abbinata', 'Hedera helix', t, 'esatto');
+  insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico, origine, esito)
+    values (gen_random_uuid(), 'prova-cancellata', 'Daucus carota', 'rollback', 'non trovato');
+  begin
+    insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico, taxon_id, cultivar_id, esito)
+      values (gen_random_uuid(), 'prova-doppia', 'X', t, c, 'esatto');
+    raise exception 'ATTESO ERRORE: mappa con taxon e cultivar insieme';
+  exception when check_violation then null; end;
+  begin
+    insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico, taxon_id)
+      values (gen_random_uuid(), 'prova-senza-esito', 'X', t);
+    raise exception 'ATTESO ERRORE: abbinamento senza esito';
+  exception when check_violation then null; end;
+  begin
+    insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico, esito)
+      values (gen_random_uuid(), 'prova-esito', 'X', 'forse');
+    raise exception 'ATTESO ERRORE: esito fuori elenco';
+  exception when check_violation then null; end;
+  begin
+    insert into public.mappa_specie (vecchia_specie_id, vecchio_slug, vecchio_nome_scientifico) values (gen_random_uuid(), 'prova-abbinata', 'X');
+    raise exception 'ATTESO ERRORE: vecchio_slug duplicato';
+  exception when unique_violation then null; end;
+
+  -- permessi
+  assert has_column_privilege('anon', 'public.schede', 'descrizione', 'SELECT'), 'anon non legge schede.descrizione';
+  assert has_column_privilege('anon', 'public.schede', 'stato_verifica', 'SELECT'), 'anon non legge schede.stato_verifica';
+  assert not has_column_privilege('anon', 'public.schede', 'fonti', 'SELECT'), 'anon legge schede.fonti';
+  assert not has_column_privilege('anon', 'public.schede', 'descrizione_originale', 'SELECT'), 'anon legge schede.descrizione_originale';
+  assert not has_column_privilege('anon', 'public.schede', 'verificata_da', 'SELECT'), 'anon legge schede.verificata_da';
+  assert not has_column_privilege('anon', 'public.schede', 'vecchia_specie_id', 'SELECT'), 'anon legge schede.vecchia_specie_id';
+  assert not has_table_privilege('authenticated', 'public.schede', 'INSERT'), 'authenticated scrive schede';
+  assert not has_table_privilege('anon', 'public.mappa_specie', 'SELECT'), 'anon legge mappa_specie';
+  assert not has_table_privilege('authenticated', 'public.mappa_specie', 'SELECT'), 'authenticated legge mappa_specie';
+  assert not exists (select 1 from pg_policies where tablename = 'mappa_specie'), 'mappa_specie ha una policy';
+  assert (select relrowsecurity from pg_class where oid = 'public.schede'::regclass), 'schede: RLS non attiva';
+  assert (select relrowsecurity from pg_class where oid = 'public.mappa_specie'::regclass), 'mappa_specie: RLS non attiva';
+end $$;
+
+set local role anon;
+do $$
+begin
+  assert (select count(*) from (select descrizione, mostrata from public.schede) s) = 3, 'anon non vede le schede';
+  -- Review Focus 2: select * con la chiave pubblica non deve restituire le fonti
+  begin
+    perform * from public.schede limit 1;
+    raise exception 'ATTESO ERRORE: anon esegue select * su schede';
+  exception when insufficient_privilege then null; end;
+  begin
+    perform 1 from public.mappa_specie limit 1;
+    raise exception 'ATTESO ERRORE: anon legge mappa_specie';
+  exception when insufficient_privilege then null; end;
+end $$;
+reset role;
+rollback to savepoint s_schede_mappa;
+
 -- FINE SEZIONI
 
 \i scripts/tassonomia/rollback_fase1.sql
@@ -200,6 +294,12 @@ do $$
 begin
   assert to_regclass('public.nomi_comuni') is null, 'rollback: nomi_comuni esiste ancora';
   assert to_regclass('public.cultivar') is null, 'rollback: cultivar esiste ancora';
+end $$;
+
+do $$
+begin
+  assert to_regclass('public.schede') is null, 'rollback: schede esiste ancora';
+  assert to_regclass('public.mappa_specie') is null, 'rollback: mappa_specie esiste ancora';
 end $$;
 
 select 'PROVA PRINCIPALE OK' as esito;

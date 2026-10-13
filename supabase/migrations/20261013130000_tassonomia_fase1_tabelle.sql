@@ -95,3 +95,66 @@ create policy "cultivar: lettura pubblica" on public.cultivar for select using (
 revoke all on public.cultivar from anon, authenticated, service_role;
 grant select, insert, update, delete on public.cultivar to service_role;
 grant select (id, slug, taxon_id, categoria, epiteto, gruppo, nome_commerciale) on public.cultivar to anon, authenticated;
+
+-- ===== schede: il contenuto, una per fonte di origine, legata a un taxon o a una cultivar =====
+create table public.schede (
+  id uuid primary key default gen_random_uuid(),
+  taxon_id uuid references public.taxa (id) on delete restrict,
+  cultivar_id uuid references public.cultivar (id) on delete restrict,
+  fonti text[] not null check (cardinality(fonti) > 0),
+  descrizione text,
+  descrizione_originale text,
+  lingua_descrizione text check (lingua_descrizione in ('it', 'en', 'mixed', 'stub', 'nd')),
+  esigenze jsonb,
+  manutenzione jsonb,
+  ciclo_colturale jsonb,
+  ciclo_vitale text check (ciclo_vitale in ('annuale', 'biennale', 'perenne')),
+  vaso jsonb,
+  alert text[],
+  immagine jsonb,
+  stato_verifica text not null default 'bozza' check (stato_verifica in ('bozza', 'verificato')),
+  verificata_il timestamptz,
+  verificata_da text,
+  mostrata boolean not null default false,
+  vecchia_specie_id uuid unique,
+  creata_il timestamptz not null default now(),
+  aggiornata_il timestamptz not null default now(),
+  constraint schede_taxon_o_cultivar check (num_nonnulls(taxon_id, cultivar_id) = 1)
+);
+create index schede_taxon_id_idx on public.schede (taxon_id);
+create index schede_cultivar_id_idx on public.schede (cultivar_id);
+create unique index schede_mostrata_taxon_idx on public.schede (taxon_id) where mostrata and taxon_id is not null;
+create unique index schede_mostrata_cultivar_idx on public.schede (cultivar_id) where mostrata and cultivar_id is not null;
+create trigger schede_set_aggiornata_il before update on public.schede
+  for each row execute procedure extensions.moddatetime(aggiornata_il);
+
+alter table public.schede enable row level security;
+create policy "schede: lettura pubblica" on public.schede for select using (true);
+revoke all on public.schede from anon, authenticated, service_role;
+grant select, insert, update, delete on public.schede to service_role;
+grant select (id, taxon_id, cultivar_id, descrizione, lingua_descrizione, esigenze, manutenzione, ciclo_colturale,
+  ciclo_vitale, vaso, alert, immagine, stato_verifica, verificata_il, mostrata) on public.schede to anon, authenticated;
+
+-- ===== mappa_specie: da ogni riga della vecchia specie (anche cancellata) al nuovo modello. Solo uso interno. =====
+create table public.mappa_specie (
+  vecchia_specie_id uuid primary key,
+  vecchio_slug text not null unique,
+  vecchio_nome_scientifico text not null,
+  origine text not null default 'specie' check (origine in ('specie', 'rollback')),
+  taxon_id uuid references public.taxa (id) on delete restrict,
+  cultivar_id uuid references public.cultivar (id) on delete restrict,
+  esito text check (esito in ('esatto', 'variante', 'sinonimo', 'rango superiore', 'ambiguo', 'ibrido', 'non trovato', 'deciso dall''utente')),
+  nota text,
+  creata_il timestamptz not null default now(),
+  aggiornata_il timestamptz not null default now(),
+  constraint mappa_specie_al_piu_uno check (num_nonnulls(taxon_id, cultivar_id) <= 1),
+  constraint mappa_specie_abbinata_ha_esito check (num_nonnulls(taxon_id, cultivar_id) = 0 or esito is not null)
+);
+create index mappa_specie_taxon_id_idx on public.mappa_specie (taxon_id);
+create index mappa_specie_cultivar_id_idx on public.mappa_specie (cultivar_id);
+create trigger mappa_specie_set_aggiornata_il before update on public.mappa_specie
+  for each row execute procedure extensions.moddatetime(aggiornata_il);
+
+alter table public.mappa_specie enable row level security;
+revoke all on public.mappa_specie from anon, authenticated, service_role;
+grant select, insert, update, delete on public.mappa_specie to service_role;
