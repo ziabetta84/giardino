@@ -10,7 +10,7 @@ Scopi dell'app che il modello deve servire:
 
 1. l'utente trova la sua pianta col nome che conosce (italiano, scientifico, vecchio nome, nome della cultivar);
 2. l'utente gestisce le cure delle sue piante;
-3. l'agente AI ha una base di informazioni solida, con fonte e livello di ogni dato.
+3. l'agente AI ha una base di informazioni solida, con fonte e livello di ogni dato registrati nel database (la fonte non viene mai mostrata all'utente).
 
 ## Fonti e regole adottate (non scelte nostre)
 
@@ -58,7 +58,8 @@ Si aggiungono `taxon_id` e `cultivar_id` (esattamente uno, dopo la migrazione). 
 - **Nome mostrato di un taxon**: nome comune preferito in italiano; se manca, nome scientifico canonico.
 - **Nome mostrato di una cultivar** (Art. 21.1): nome comune preferito del suo taxon + `'Epiteto'`, ma solo se quel nome comune non è il preferito anche di un altro taxon (nome "non ambiguo"); altrimenti nome scientifico del taxon + `'Epiteto'`. L'epiteto non si traduce mai.
 - **Ricerca**: nomi comuni (tutti, non solo i preferiti), nomi canonici inclusi i sinonimi, epiteti e nomi commerciali delle cultivar. Indici trigram come oggi.
-- **Eredità delle schede**: se una cultivar non ha una scheda mostrata, si usa quella del suo taxon, poi del padre (sinonimo → accettato, specie → genere). L'app e l'agente indicano sempre fonte e livello ("cure del genere *Hedera*, fonte RHS").
+- **Eredità delle schede**: se una cultivar non ha una scheda mostrata, si usa quella del suo taxon, poi del padre (sinonimo → accettato, specie → genere). L'app indica solo il livello ("cure del genere *Hedera*").
+- **Fonti solo nel database**: nel frontend la fonte non si nomina mai (né nella pagina della pianta, né nel selettore, né nelle risposte dell'agente). Resta un dato interno, usato per tracciabilità, revisione e per pesare l'affidabilità delle informazioni.
 
 ## Migrazione dei contenuti
 
