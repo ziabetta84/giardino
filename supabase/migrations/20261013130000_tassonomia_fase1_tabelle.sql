@@ -29,7 +29,8 @@ create table public.taxa (
   nome_scientifico text not null check (btrim(nome_scientifico) <> ''),
   autore text,
   notho text check (notho in ('generic', 'infrageneric', 'specific', 'infraspecific')),
-  ibrido boolean generated always as (notho is not null or nome_scientifico like '%×%') stored,
+  -- ibrido: parte ibrida dichiarata da COL (notho), oppure segno × o x semplice isolata nel nome (ICN ammette entrambi)
+  ibrido boolean generated always as (notho is not null or nome_scientifico like '%×%' or nome_scientifico ~ '(^|\s)x\s') stored,
   stato text not null check (stato in ('accepted', 'provisionally accepted', 'synonym', 'ambiguous synonym', 'misapplied', 'bare name')),
   accettato_id uuid,
   padre_id uuid,

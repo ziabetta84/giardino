@@ -76,12 +76,13 @@ PSQL=(psql "$URL" -X -q -v ON_ERROR_STOP=1)
 
 for prova in guardia doppia; do
   file="scripts/tassonomia/prova_fase1_${prova}.sql"
-  [ -f "$file" ] || continue
+  [ -f "$file" ] || { echo "PROVA $prova FALLITA: manca $file"; exit 1; }
   atteso=$(head -1 "$file" | sed 's/^-- ATTESO: //')
   if out=$("${PSQL[@]}" -f "$file" 2>&1); then
     echo "PROVA $prova FALLITA: doveva dare errore"; exit 1
   fi
-  if ! grep -qF "$atteso" <<<"$out"; then
+  # il messaggio deve stare nella riga di errore, non in un NOTICE
+  if ! grep -qF "ERROR:  $atteso" <<<"$out"; then
     echo "PROVA $prova FALLITA: errore diverso da quello atteso"; echo "$out"; exit 1
   fi
   echo "PROVA $prova OK"
@@ -134,6 +135,13 @@ begin
     values ('col', 'PROVA5', '26.9 XR', 'genus', '× Chitalpa', 'accepted');
   assert (select ibrido from public.taxa where col_id = 'PROVA5'), 'ibrido non calcolato dal segno ×';
   assert not (select ibrido from public.taxa where col_id = 'PROVA2'), 'Hedera helix risulta ibrido';
+  -- ibridi scritti con la x semplice (ammessa dal codice ICN, 138 righe madri attuali): riconosciuti anche nei taxon locali
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'species', 'Abelia x grandiflora', 'accepted');
+  assert (select ibrido from public.taxa where nome_scientifico = 'Abelia x grandiflora'), 'ibrido con x semplice non riconosciuto';
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'genus', 'x Fatshedera', 'accepted');
+  assert (select ibrido from public.taxa where nome_scientifico = 'x Fatshedera'), 'notogenere con x semplice non riconosciuto';
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'species', 'Rosa xanthina', 'accepted');
+  assert not (select ibrido from public.taxa where nome_scientifico = 'Rosa xanthina'), 'epiteto che inizia per x scambiato per ibrido';
 
   -- ranghi presenti in COL XR nella catena dei padri (Rosa canina, Pinus mugo) e nei sinonimi (Rosa canina)
   insert into public.taxa (origine, col_id, versione_col, rango, nome_scientifico, stato)
@@ -265,7 +273,8 @@ create table public.taxa (
   nome_scientifico text not null check (btrim(nome_scientifico) <> ''),
   autore text,
   notho text check (notho in ('generic', 'infrageneric', 'specific', 'infraspecific')),
-  ibrido boolean generated always as (notho is not null or nome_scientifico like '%×%') stored,
+  -- ibrido: parte ibrida dichiarata da COL (notho), oppure segno × o x semplice isolata nel nome (ICN ammette entrambi)
+  ibrido boolean generated always as (notho is not null or nome_scientifico like '%×%' or nome_scientifico ~ '(^|\s)x\s') stored,
   stato text not null check (stato in ('accepted', 'provisionally accepted', 'synonym', 'ambiguous synonym', 'misapplied', 'bare name')),
   accettato_id uuid,
   padre_id uuid,
@@ -918,6 +927,8 @@ git commit -m "Tassonomia fase 1: colonne taxon_id e cultivar_id su piante (non 
 begin;
 \i supabase/migrations/20261013130000_tassonomia_fase1_tabelle.sql
 insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'genus', 'Prova guardia', 'accepted');
+-- come in autocommit: i controlli differiti delle FK vengono eseguiti subito, così il rollback non fallisce per altri motivi
+set constraints all immediate;
 \i scripts/tassonomia/rollback_fase1.sql
 select 'NON DOVEVA ARRIVARE QUI';
 rollback;
@@ -1035,7 +1046,10 @@ Messaggio da scrivere in chat (in italiano, senza gergo): cosa verrà creato (5 
 
 ```bash
 URL=$(grep '^DATABASE_URL=' .env.local | cut -d= -f2- | tr -d '"')
-[[ "$URL" == *ncuhhsvtjwcolhpdxbkt* ]] && /opt/homebrew/opt/postgresql@17/bin/pg_dump "$URL" -t public.piante --no-owner \
+# pg_dump sulla connessione diretta (porta 5432, come scripts/backup-db.sh): sul pooler 6543 le sue impostazioni di sessione
+# (search_path vuoto, row_security off) resterebbero sul backend condiviso per altri client
+DUMP_URL=$(grep '^SUPABASE_DB_URL=' .env.local | cut -d= -f2- | tr -d '"')
+[[ "$DUMP_URL" == *ncuhhsvtjwcolhpdxbkt*:5432/* ]] && /opt/homebrew/opt/postgresql@17/bin/pg_dump "$DUMP_URL" -t public.piante --no-owner \
   -f "backups/tassonomia_$(date +%Y%m%d_%H%M%S)_pre_fase1_piante.sql"
 ls -la backups | tail -1
 [[ "$URL" == *ncuhhsvtjwcolhpdxbkt* ]] && psql "$URL" -X -At -c "select (select count(*) from public.specie), (select count(*) from public.piante), (select count(*) from public.generi)"

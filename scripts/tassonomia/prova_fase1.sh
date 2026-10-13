@@ -10,7 +10,7 @@ PSQL=(psql "$URL" -X -q -v ON_ERROR_STOP=1)
 
 for prova in guardia doppia; do
   file="scripts/tassonomia/prova_fase1_${prova}.sql"
-  [ -f "$file" ] || continue
+  [ -f "$file" ] || { echo "PROVA $prova FALLITA: manca $file"; exit 1; }
   atteso=$(head -1 "$file" | sed 's/^-- ATTESO: //')
   if out=$("${PSQL[@]}" -f "$file" 2>&1); then
     echo "PROVA $prova FALLITA: doveva dare errore"; exit 1

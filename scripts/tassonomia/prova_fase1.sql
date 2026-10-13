@@ -38,6 +38,13 @@ begin
     values ('col', 'PROVA5', '26.9 XR', 'genus', '× Chitalpa', 'accepted');
   assert (select ibrido from public.taxa where col_id = 'PROVA5'), 'ibrido non calcolato dal segno ×';
   assert not (select ibrido from public.taxa where col_id = 'PROVA2'), 'Hedera helix risulta ibrido';
+  -- ibridi scritti con la x semplice (ammessa dal codice ICN, 138 righe madri attuali): riconosciuti anche nei taxon locali
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'species', 'Abelia x grandiflora', 'accepted');
+  assert (select ibrido from public.taxa where nome_scientifico = 'Abelia x grandiflora'), 'ibrido con x semplice non riconosciuto';
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'genus', 'x Fatshedera', 'accepted');
+  assert (select ibrido from public.taxa where nome_scientifico = 'x Fatshedera'), 'notogenere con x semplice non riconosciuto';
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'species', 'Rosa xanthina', 'accepted');
+  assert not (select ibrido from public.taxa where nome_scientifico = 'Rosa xanthina'), 'epiteto che inizia per x scambiato per ibrido';
 
   -- ranghi presenti in COL XR nella catena dei padri (Rosa canina, Pinus mugo) e nei sinonimi (Rosa canina)
   insert into public.taxa (origine, col_id, versione_col, rango, nome_scientifico, stato)
