@@ -278,6 +278,63 @@ end $$;
 reset role;
 rollback to savepoint s_schede_mappa;
 
+-- ===== Sezione piante =====
+savepoint s_piante;
+do $$
+declare t uuid; c uuid; p text;
+begin
+  assert (select is_nullable from information_schema.columns where table_schema = 'public' and table_name = 'piante' and column_name = 'taxon_id') = 'YES',
+    'piante.taxon_id manca o è obbligatoria';
+  assert (select is_nullable from information_schema.columns where table_schema = 'public' and table_name = 'piante' and column_name = 'cultivar_id') = 'YES',
+    'piante.cultivar_id manca o è obbligatoria';
+  assert not exists (select 1 from public.piante where taxon_id is not null or cultivar_id is not null), 'piante con colonne nuove già valorizzate';
+
+  insert into public.taxa (origine, rango, nome_scientifico, stato) values ('locale', 'species', 'Hedera helix', 'accepted') returning id into t;
+  insert into public.cultivar (slug, taxon_id, epiteto, fonti) values ('prova-goldchild', t, 'Goldchild', array['RHS (rhs.org.uk)']) returning id into c;
+  select id into p from public.piante order by id limit 1;
+
+  update public.piante set taxon_id = t where id = p;
+  begin
+    update public.piante set cultivar_id = c where id = p;
+    raise exception 'ATTESO ERRORE: pianta con taxon e cultivar insieme';
+  exception when check_violation then null; end;
+  begin
+    update public.piante set taxon_id = gen_random_uuid() where id = p;
+    raise exception 'ATTESO ERRORE: taxon inesistente';
+  exception when foreign_key_violation then null; end;
+  begin
+    delete from public.taxa where id = t;
+    raise exception 'ATTESO ERRORE: cancellato un taxon usato da una pianta';
+  exception when foreign_key_violation then null; end;
+end $$;
+rollback to savepoint s_piante;
+
+-- l'app, come utente proprietario, deve continuare a leggere, creare piante e registrare cure
+savepoint s_app;
+select set_config('request.jwt.claims', json_build_object('sub', :'proprietario', 'role', 'authenticated')::text, true);
+set local role authenticated;
+do $$
+declare z uuid; r record;
+begin
+  assert (select count(*) from public.piante) = current_setting('prova.piante_proprietario')::bigint, 'il proprietario non vede tutte le sue piante';
+  assert (select count(*) from public.piante where taxon_id is null and cultivar_id is null) = current_setting('prova.piante_proprietario')::bigint,
+    'il proprietario non legge le colonne nuove';
+
+  -- Review Focus 1: insert come salvaPianta (colonne esplicite, senza quelle nuove)
+  select zona_id into z from public.piante limit 1;
+  insert into public.piante (id, specie, zona_id, sottozona_id, varieta, impianto, impianto_circa, note, coltivato_in, ultima_cura)
+    values ('prova-fase1-1790000000000', 'hedera-helix', z, null, null, null, null, null, 'terra', '{}');
+
+  -- registra_cura_pianta restituisce il tipo riga di piante, che ora ha due colonne in più
+  select * into r from public.registra_cura_pianta('prova-fase1-1790000000000', 'irrigazione', current_date);
+  assert r.id = 'prova-fase1-1790000000000', 'registra_cura_pianta non funziona dopo l''aggiunta delle colonne';
+  assert r.ultima_cura ? 'irrigazione', 'registra_cura_pianta non ha registrato la cura';
+  assert (select (public.registra_cura_pianta('id-inesistente', 'irrigazione', current_date)).id) is null,
+    'registra_cura_pianta su id inesistente non restituisce null';
+end $$;
+reset role;
+rollback to savepoint s_app;
+
 -- FINE SEZIONI
 
 \i scripts/tassonomia/rollback_fase1.sql
@@ -300,6 +357,14 @@ do $$
 begin
   assert to_regclass('public.schede') is null, 'rollback: schede esiste ancora';
   assert to_regclass('public.mappa_specie') is null, 'rollback: mappa_specie esiste ancora';
+end $$;
+
+do $$
+begin
+  assert not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'piante'
+    and column_name in ('taxon_id', 'cultivar_id')), 'rollback: piante ha ancora le colonne nuove';
+  assert (select (public.registra_cura_pianta('id-inesistente', 'irrigazione', current_date)).id) is null,
+    'registra_cura_pianta non funziona dopo il rollback';
 end $$;
 
 select 'PROVA PRINCIPALE OK' as esito;

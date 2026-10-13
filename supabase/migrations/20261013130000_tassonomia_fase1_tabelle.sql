@@ -158,3 +158,11 @@ create trigger mappa_specie_set_aggiornata_il before update on public.mappa_spec
 alter table public.mappa_specie enable row level security;
 revoke all on public.mappa_specie from anon, authenticated, service_role;
 grant select, insert, update, delete on public.mappa_specie to service_role;
+
+-- ===== piante: collegamento al nuovo modello, facoltativo fino alla fase 6 (l'app attuale non lo compila) =====
+alter table public.piante
+  add column taxon_id uuid references public.taxa (id) on delete restrict,
+  add column cultivar_id uuid references public.cultivar (id) on delete restrict,
+  add constraint piante_taxon_o_cultivar check (num_nonnulls(taxon_id, cultivar_id) <= 1);
+create index piante_taxon_id_idx on public.piante (taxon_id);
+create index piante_cultivar_id_idx on public.piante (cultivar_id);
