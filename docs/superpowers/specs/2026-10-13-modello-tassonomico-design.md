@@ -56,7 +56,7 @@ Una riga per ogni riga della vecchia `specie`, comprese le 39 cancellate in ques
 Si aggiungono `taxon_id` e `cultivar_id`. Fino alla fase 6 sono facoltative (al più una delle due), perché l'app attuale non le compila; dalla fase 6 diventano obbligatorie (esattamente una). Puntare a un genere è legittimo quando la specie non è certa. La colonna `specie` resta finché l'app non è passata al nuovo modello.
 
 ### Permessi
-- Lettura pubblica (come oggi per `specie`) di `taxa`, `nomi_comuni`, `cultivar` e `schede`, **escluse le colonne interne**: fonti, note, identificatori e versioni COL, origine, `descrizione_originale`, `verificata_da`, `vecchia_specie_id`. La regola "la fonte non si mostra mai" vale quindi anche per chi interroga il database con la chiave pubblica, non solo per l'app.
+- Lettura pubblica (come oggi per `specie`) di `taxa`, `nomi_comuni`, `cultivar` e `schede`, **escluse le colonne interne**: fonti, note, identificatori e versioni COL, origine, `descrizione_originale`, `verificata_da`, `vecchia_specie_id`. La regola "la fonte non si mostra mai" vale quindi anche per chi interroga il database con la chiave pubblica, non solo per l'app, per le colonne dedicate; le fonti citate dentro i testi vanno tolte nella fase 4 (vedi "Decisioni dopo la verifica", punti 11 e 12).
 - Nessuna scrittura per i client (anon, authenticated): scrivono solo gli script e le migration con service-role o `postgres`.
 - `mappa_specie` non è leggibile dai client.
 - I permessi sono scritti in modo esplicito nella migration: da Supabase, dal 30/10/2026 le tabelle nuove non ricevono più i permessi automatici, e oggi ne ricevono troppi.
@@ -123,6 +123,8 @@ Prese durante la stesura del piano della fase 1, dopo la verifica tecnica; corre
 8. **Campi della vecchia tabella senza posto nel nuovo modello**: `famiglia_botanica` si ricava dalla catena dei padri; `sinonimi_botanici` e `nome_accettato` (da GBIF) sono sostituiti dai sinonimi di COL. Restano nell'archivio `specie` e l'inventario della fase 4 li conta a parte.
 9. **Scheda mostrata quando ce n'è più d'una**: quella verificata; per gli altri casi la regola si decide nel piano della fase 4 (le date attuali non servono: `aggiornata_il` ha 49 valori distinti su 15.723 righe, perché cambia a ogni aggiornamento a lotti). Le 4 cultivar cancellate non hanno contenuto e producono solo una riga di mappa.
 10. **Download**: il file ColDP (1,4 GB) riporta la fonte dei nomi comuni, il DwC-A no; il sito di download richiede la gestione dei cookie.
+11. **Fonti citate dentro i testi**: i permessi di colonna nascondono solo le colonne interne. Ma le fonti sono citate anche dentro i contenuti: negli avvisi (`alert`, 15.467 righe su 15.723, per esempio «Scheda in bozza, importata automaticamente da Plants For A Future»), nelle descrizioni (5.368) e nei dati delle immagini (7.722, «Wikimedia Commons»). Il piano della fase 4 deve togliere quelle citazioni dai testi, o spostarle in una colonna interna, prima di riempire `schede`.
+12. **Attribuzione delle foto (da decidere con l'utente prima della fase 4)**: le immagini vengono da Wikimedia Commons con licenze CC BY e CC BY-SA, che richiedono di citare autore e licenza dove la foto viene mostrata. Questo contrasta con la regola "la fonte non si mostra mai". Opzioni: mostrare solo l'attribuzione richiesta dalla licenza (autore e licenza, in piccolo), oppure usare solo immagini che non la richiedono.
 
 ## Rischi
 
