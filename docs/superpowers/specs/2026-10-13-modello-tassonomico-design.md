@@ -50,7 +50,7 @@ Rivisto il 13/10/2026 dopo la verifica tecnica (schema del database, convenzioni
 `id`, `taxon_id` **oppure** `cultivar_id` (esattamente uno), `fonti` (l'elenco della riga di origine, copiato così com'è: 5.037 righe attuali hanno da 2 a 4 fonti in un unico testo, e non si separano), `descrizione`, `descrizione_originale`, `lingua_descrizione`, `esigenze`, `manutenzione`, `ciclo_colturale`, `ciclo_vitale`, `vaso`, `alert`, `immagine`, `stato_verifica`, `verificata_il`, `verificata_da`, `mostrata` (al più una per taxon o cultivar), `vecchia_specie_id`, `creata_il`, `aggiornata_il`. Più schede per lo stesso taxon sono ammesse (es. enciclopedia e PFAF): nessuna fusione automatica di testi.
 
 ### `mappa_specie` — tracciabilità
-Una riga per ogni riga della vecchia `specie`, comprese le 39 cancellate in questa sessione e recuperate dai file di rollback (`origine = rollback`): `vecchia_specie_id` (senza vincolo verso `specie`, perché quelle righe non esistono più), `vecchio_slug`, `vecchio_nome_scientifico`, `taxon_id` o `cultivar_id` (al più uno), `esito` (esatto, variante, sinonimo, rango superiore, ambiguo, ibrido, non trovato, deciso dall'utente; vuoto finché la riga non è elaborata), `nota`. È l'elenco che l'utente rivede per i casi dubbi. Non è leggibile dall'app.
+Una riga per ogni riga **non cultivar** della vecchia `specie` (specie, generi, ibridi: circa 15.760), comprese le 35 madri cancellate in questa sessione e recuperate dai file di rollback (`origine = rollback`). Le cultivar non hanno una riga di mappa: restano rintracciabili da `cultivar.vecchia_specie_id` (deciso il 14/10/2026 per lo spazio, vedi "Decisioni sullo spazio"). Fanno eccezione le 4 cultivar doppie cancellate, che non hanno una riga di `cultivar`: hanno una riga di mappa che punta alla cultivar rimasta, inserita nella fase 4. Colonne: `vecchia_specie_id` (senza vincolo verso `specie`, perché alcune righe non esistono più), `vecchio_slug`, `vecchio_nome_scientifico`, `taxon_id` o `cultivar_id` (al più uno), `esito` (esatto, variante, sinonimo, rango superiore, ambiguo, ibrido, non trovato, deciso dall'utente), `nota`. Le righe si inseriscono già elaborate, con l'esito, in un solo passaggio: un aggiornamento di massa successivo raddoppierebbe lo spazio della tabella. È l'elenco che l'utente rivede per i casi dubbi. Non è leggibile dall'app.
 
 ### `piante`
 Si aggiungono `taxon_id` e `cultivar_id`. Fino alla fase 6 sono facoltative (al più una delle due), perché l'app attuale non le compila; dalla fase 6 diventano obbligatorie (esattamente una). Puntare a un genere è legittimo quando la specie non è certa. La colonna `specie` resta finché l'app non è passata al nuovo modello.
@@ -84,15 +84,16 @@ Regole:
 
 ## Fasi
 
-Ogni fase ha backup, prova in transazione annullata e verifica; l'app continua a funzionare fino alla fase 7.
+Ogni fase ha backup, prova e verifica; l'app continua a funzionare fino alla fase 7. I caricamenti in blocco delle fasi 2–4 si provano su una copia locale del database, non in una transazione annullata sul database reale, che occuperebbe lo stesso spazio e lo stesso WAL del caricamento vero (vedi "Decisioni sullo spazio").
 
 1. Creare le tabelle nuove, vuote (nessun effetto sull'app).
+   - **1b. Manutenzione di `specie`** (prima della fase 2): backup completo con prova di ripristino in locale, poi compattazione della tabella (`VACUUM FULL`) dopo aver tolto i 4 indici trigram, ricreati subito dopo. I dati non cambiano.
 2. Scaricare COL XR e importare in `taxa` solo il necessario.
-3. Abbinare le righe madri ai taxon e compilare `mappa_specie`; l'utente rivede solo l'elenco dei casi non esatti.
+3. Abbinare le righe madri ai taxon e compilare `mappa_specie` (solo righe non cultivar); l'utente rivede solo l'elenco dei casi non esatti.
 4. Popolare `cultivar`, `nomi_comuni`, `schede`; inventario di verifica.
 5. Abbinare le 122 piante (ogni pianta controllata con l'utente).
 6. Adattare l'app (store, selettore, pagina pianta, fallback offline, ricerca) e le istruzioni dell'agente (`/zorbadice`) leggendo dalle tabelle nuove; verifica nel browser.
-7. Passaggio definitivo: l'app usa solo le tabelle nuove; `specie` e `generi` restano in sola lettura come archivio.
+7. Passaggio definitivo: l'app usa solo le tabelle nuove; `specie` e `generi` restano in sola lettura come archivio. Si potranno allora togliere gli indici di ricerca dell'archivio (33,6 MB, reversibile), con l'approvazione dell'utente.
 
 Ogni fase avrà il suo piano; questa specifica copre il modello e l'ordine.
 
@@ -126,10 +127,23 @@ Prese durante la stesura del piano della fase 1, dopo la verifica tecnica; corre
 11. **Fonti citate dentro i testi**: i permessi di colonna nascondono solo le colonne interne. Ma le fonti sono citate anche dentro i contenuti: negli avvisi (`alert`, 15.467 righe su 15.723, per esempio «Scheda in bozza, importata automaticamente da Plants For A Future»), nelle descrizioni (5.368) e nei dati delle immagini (7.722, «Wikimedia Commons»). Il piano della fase 4 deve togliere quelle citazioni dai testi, o spostarle in una colonna interna, prima di riempire `schede`.
 12. **Attribuzione delle foto (decisa dall'utente il 13/10/2026)**: le immagini vengono da Wikimedia Commons con licenze CC BY e CC BY-SA, che richiedono di citare autore e licenza dove la foto viene mostrata. È l'unica eccezione alla regola "la fonte non si mostra mai": accanto alla foto si mostra l'attribuzione richiesta dalla licenza, e solo quella. I dati necessari (autore, licenza, link) restano quindi leggibili; il piano della fase 4 decide in quali colonne.
 
+## Decisioni sullo spazio (approvate il 14/10/2026)
+
+Dalla stima in `docs/ricerche/2026-10-14-stima-spazio.md`. Il limite del piano gratuito conta la somma di tutti i database, template compresi: oggi 384 MB su 500. Senza interventi le fasi 2–4 porterebbero a circa 675 MB.
+
+1. **Restare sul piano gratuito**, con una soglia di lavoro di 450 MB. Se dopo una fase la somma dei database supera 450 MB ci si ferma e si passa al piano Pro (25 $ al mese più IVA).
+2. **Manutenzione di `specie` prima della fase 2** (fase 1b): circa 198 MB recuperati. Il picco durante la compattazione è di circa 465 MB senza gli indici trigram, 537 MB con: per questo si tolgono prima e si ricreano subito dopo.
+3. **Nessuna modifica a lotti su `specie` fino alla fine della fase 4**: ogni lotto ricrea lo spazio sprecato (gli aggiornamenti sul posto sono solo il 3,8%).
+4. **`mappa_specie` solo per le righe non cultivar** (52 MB in meno): vedi la sezione della tabella.
+5. **Regole di caricamento per le fasi 2–4**: indici secondari costruiti dopo il caricamento; valori definitivi inseriti in un solo passaggio, senza aggiornamenti di massa; lotti da non più di circa 100 MB di WAL, con pause di almeno 10 minuti e controllo di `pg_ls_waldir()`; prove sulla copia locale.
+6. **Misura dopo ogni fase** (somma dei database, valori attesi): dopo la manutenzione circa 186 MB, dopo la fase 2 circa 262, dopo la fase 3 circa 266, dopo la fase 4 circa 387 (415 nel caso peggiore).
+7. **Le fonti delle cultivar restano complete** (non abbreviate): il risparmio sarebbe di 12,6 MB e non serve.
+8. **Righe cultivar tolte dall'archivio dopo la fase 7** (106 MB in meno): non decisa; cambierebbe la regola che tiene `specie` intera come archivio.
+
 ## Rischi
 
 - Abbinamento: omonimi tra regni, sinonimi, ibridi senza nome. Il match v2 con `checklistKey` e il controllo sul regno Plantae riducono il rischio; i casi non esatti vanno in `mappa_specie` per revisione.
 - Stabilità degli identificatori COL XR tra un rilascio e l'altro: da verificare prima della fase 2 (si salva `versione_col`).
 - Fase 6 è lavoro di codice non piccolo: va pianificata a parte.
-- **Spazio sul piano gratuito di Supabase**: il database occupa già 350 MB, di cui 335 MB la tabella `specie` (216 MB di dati per circa 83 MB di contenuto reale). Le fasi 2–4 aggiungono circa 200.000 cultivar, 212.000 righe di mappa e gli indici. Prima della fase 2 va stimato lo spazio contro il limite del piano gratuito (500 MB secondo la documentazione Supabase, da verificare) e decisa una strategia: compattare `specie`, alleggerire `mappa_specie`, oppure cambiare piano.
+- **Spazio sul piano gratuito di Supabase**: stimato e deciso il 14/10/2026 (vedi "Decisioni sullo spazio"). Restano due incertezze: il numero dei sinonimi COL (il caso peggiore vale circa 28 MB in più) e la durata della compattazione sul database reale, non misurabile in anticipo. Oltre 500 MB il database va in sola lettura.
 - **Cronologia delle migration**: le migration applicate con `psql` non vengono registrate da Supabase (vedi "Fuori da questa specifica").
