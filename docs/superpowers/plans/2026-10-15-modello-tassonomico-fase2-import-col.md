@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** caricare nella tabella `public.taxa` del database reale i taxon di Catalogue of Life Extended Release (COL26.9 XR) che servono ai nomi di `specie` e `generi`: 236.291 righe, circa 73 MB. Nessun'altra tabella cambia.
+**Goal:** caricare nella tabella `public.taxa` del database reale i taxon di Catalogue of Life Extended Release (COL26.9 XR) che servono ai nomi di `specie` e `generi`: 234.514 righe, circa 73 MB. Nessun'altra tabella cambia.
 
 **Architecture:** COL completo (8,5 milioni di nomi) si carica solo in una copia locale, nello schema `col`. Lì una selezione SQL sceglie i taxon necessari e assegna le chiavi uuid definitive:
 - le corrispondenze esatte dei nostri nomi in Plantae;
@@ -29,7 +29,8 @@ Tutto si prova sulla copia locale. Il database reale si tocca solo nell'ultimo t
   - gli accettati dei semi;
   - la catena dei padri fino alla radice *Eukaryota*;
   - i sinonimi (`synonym`, `ambiguous synonym`) degli accettati e dei generi della catena;
-  - i nomi `misapplied`, solo se sono proprio il nome di una nostra riga.
+  - i nomi `misapplied`, solo se sono proprio il nome di una nostra riga;
+  - mai i segnaposto di COL "Genere spp" (rango species, per esempio "Abies spp"), che non sono specie, né i sinonimi che portano solo a un segnaposto: quel nome resta non trovato (aggiunto dopo la revisione del 15/10).
   
   Nient'altro di COL entra. I nomi non trovati sono il lavoro della fase 3.
 - **Valori in `taxa`:**
@@ -44,7 +45,7 @@ Tutto si prova sulla copia locale. Il database reale si tocca solo nell'ultimo t
   - attesi circa 73 MB per `taxa` e una somma di circa 261 MB su 500 (oggi 187,8);
   - se dopo la fase la somma supera 450 MB ci si ferma e si passa al piano Pro (specifica, "Decisioni sullo spazio", punto 1).
 - **Caricamento:**
-  - un lotto per transazione: prima gli accettati (21.664 righe), poi i sinonimi in lotti da al massimo 110.000 righe (circa 40 MB di WAL ciascuno; il limite della specifica è circa 100 MB);
+  - un lotto per transazione: prima gli accettati (20.242 righe), poi i sinonimi in lotti da al massimo 110.000 righe (circa 40 MB di WAL ciascuno; il limite della specifica è circa 100 MB);
   - pause di 10 minuti tra un lotto e l'altro sul reale;
   - i 3 indici secondari di `taxa` (`taxa_padre_id_idx`, `taxa_accettato_id_idx`, `taxa_nome_scientifico_trgm_idx`) si tolgono prima e si ricreano dopo; nessun aggiornamento di massa.
 - **Connessione:**
@@ -334,7 +335,7 @@ begin
     raise exception 'col.chiave non normalizza come atteso';
   end if;
   select count(*) into n from col.selezione;
-  if n <> 236291 then raise exception 'selezione: % righe (attese 236291)', n; end if;
+  if n <> 234514 then raise exception 'selezione: % righe (attese 234514)', n; end if;
   -- chiusura: il padre di ogni accettato e l'accettato di ogni sinonimo sono nella selezione
   select count(*) into n from col.selezione s join col.nome_uso u on u.id = s.col_id
    where u.parent_id <> '' and not exists (select 1 from col.selezione p where p.col_id = u.parent_id);
@@ -441,8 +442,8 @@ $PG/psql "$COPIA" -X -q -v ON_ERROR_STOP=1 -f scripts/tassonomia/prova_col_selez
 ```
 
 Expected (circa 2 minuti):
-- `nomi 18023`, `nomi_trovati 16918`, `accettati 21664`, `sinonimi 214627`, `selezione 236291`, `uscita 0`;
-- poi `NOTICE:  SELEZIONE CORRETTA: 236291 righe` e `uscita 0`.
+- `nomi 18023`, `nomi_trovati 16918`, `accettati 20242`, `sinonimi 214272`, `selezione 234514`, `uscita 0`;
+- poi `NOTICE:  SELEZIONE CORRETTA: 234514 righe` e `uscita 0`.
 
 - [ ] **Step 5: Prova dell'esportazione prima che lo script esista**
 
@@ -529,12 +530,12 @@ PY
 ```
 
 Expected:
-- `lotto_01.csv 21664 …`, `lotto_02.csv 107314 …`, `lotto_03.csv 107313 …`; poi `non_trovati 1091` e `uscita 0`;
+- `lotto_01.csv 20242 …`, `lotto_02.csv 107136 …`, `lotto_03.csv 107136 …`; poi `non_trovati 1091` e `uscita 0`;
 - l'intestazione `id,origine,col_id,versione_col,rango,nome_scientifico,autore,notho,stato,accettato_id,padre_id`, poi `COL26.9 XR`;
 - dal controllo in Python:
-  - `lotto_01.csv 21664 accettati 21664 senza padre 1 sinonimi senza accettato 0` (l'unico senza padre è *Eukaryota*);
-  - `lotto_02.csv 107314 accettati 0 senza padre 0 sinonimi senza accettato 0`;
-  - `lotto_03.csv 107313 accettati 0 senza padre 0 sinonimi senza accettato 0`.
+  - `lotto_01.csv 20242 accettati 20242 senza padre 1 sinonimi senza accettato 0` (l'unico senza padre è *Eukaryota*);
+  - `lotto_02.csv 107136 accettati 0 senza padre 0 sinonimi senza accettato 0`;
+  - `lotto_03.csv 107136 accettati 0 senza padre 0 sinonimi senza accettato 0`.
 
 Rilanciando lo script sulla stessa cartella deve rifiutarsi con `La cartella … esiste già`, perché i lotti provati non si sovrascrivono.
 
@@ -929,7 +930,7 @@ Expected, per tutti e due i giri:
 
 In `r6/tempi.txt`:
 - `lotto_01.csv già caricato`;
-- `lotto_02.csv: caricate 107314 righe, WAL … MB` e `lotto_03.csv: caricate 107313 righe, WAL … MB`, ciascuno sotto 100 MB (attesi circa 40);
+- `lotto_02.csv: caricate 107136 righe, WAL … MB` e `lotto_03.csv: caricate 107136 righe, WAL … MB`, ciascuno sotto 100 MB (attesi circa 40);
 - `indici ricreati`.
 
 In `controlli_fine.txt`, `taxa_mb` circa 73.
@@ -982,6 +983,11 @@ git commit -m "Tassonomia fase 2: caricamento di taxa a lotti con controlli di s
 
 **Prima del Task 4:** revisione dei commit dei Task 1–3 da parte di revisori nuovi (vedi Global Constraints). Le correzioni importanti si fanno con una prova che fallisce prima; poi si rilancia `prova_fase2.sh`, dopo un rollback della copia.
 
+**Correzioni dopo la revisione del 15/10** (due revisori nuovi; il codice nel repository prevale sui blocchi qui sopra):
+- **Segnaposto "Genere spp" di COL.** `col.chiave` toglieva " spp" anche dai nomi di COL, e così 1.634 segnaposto (per esempio "Abies spp", "Rosa spp", accettati con rango species) e 140 sinonimi che puntano a loro diventavano corrispondenze dei nostri generi. Ora `col_selezione.sql` li esclude dalle corrispondenze, dagli accettati (un sinonimo che porta solo a un segnaposto, come un omonimo di *Rosa moschata*, resta non trovato) e dai sinonimi. `prova_col_selezione.sql` ha due controlli in più, visti fallire con 1.634 segnaposto. La selezione passa da 236.291 a 234.514 righe; i nomi trovati restano 16.918. I lotti sono stati rigenerati: i vecchi sono in `~/giardino-dati/col/lotti_fase2_scartati_spp`, da non usare.
+- **Rollback senza indici.** Dopo un caricamento interrotto mancano gli indici secondari, e le chiavi esterne di `taxa` verso se stessa facevano una scansione completa per ogni riga cancellata: il rollback andava in timeout dopo 10 minuti. Ora `rollback_fase2.sql` ricrea gli indici su `padre_id` e `accettato_id` prima della DELETE, e il trigram dopo, sulla tabella vuota. La nuova prova `rollback_senza_indici` in `prova_fase2.sh` è stata vista fallire sul codice precedente.
+- **Lotti provati.** Il manifesto si controlla solo con se stesso, quindi una cartella rigenerata o esportata a metà passerebbe. Il Task 4, Step 1 confronta lo sha256 di `manifest.tsv` con quello dei lotti provati, registrato qui sotto.
+
 ---
 
 ### Task 4: Caricamento sul database reale e documentazione
@@ -1004,10 +1010,12 @@ $PG/pg_restore -f /dev/null "$BK" && echo BACKUP LEGGIBILE
 diff backups/completo_20261015_062051_pre_manutenzione_specie.impronta.txt "${BK%.dump}.impronta.txt" && echo "SPECIE COME NEI LOTTI"
 $PG/psql "$SUPABASE_DB_URL" -X -q -f scripts/tassonomia/controlli_spazio.sql
 $PG/psql "$SUPABASE_DB_URL" -X -qAt -c "select 'taxa righe ' || count(*) from public.taxa"
+[ "$(shasum -a 256 "$LOTTI/manifest.tsv" | cut -d' ' -f1)" = 6f73a18b66965937925ce4b2da43209440038cc6b42818ad151394d4378708a7 ] && echo "LOTTI PROVATI"
 ```
 
 Expected:
 - `BACKUP LEGGIBILE`;
+- `LOTTI PROVATI`: sono i lotti dell'ultimo giro verde delle prove (sha256 del manifesto registrato il 15/10 dopo la rigenerazione). Se manca, fermarsi: la cartella non è quella provata;
 - `SPECIE COME NEI LOTTI`: `specie` è la stessa da cui sono stati preparati i lotti. Se no, fermarsi e riferire: i nomi da abbinare sono cambiati;
 - `somma_db_mb` circa 188, `wal_mb` sotto 300, `taxa_mb` sotto 1;
 - `taxa righe 0`.
@@ -1036,13 +1044,14 @@ CONFERMO_CARICAMENTO_REALE=si bash scripts/tassonomia/carica_taxa.sh "$SUPABASE_
 
 Expected:
 - `uscita 0`;
-- nel log la NOTICE `taxa: 236291 righe, circa 73 MB; somma dei database circa 261 MB`, poi `CARICAMENTO TAXA OK`;
+- nel log la NOTICE `taxa: 234514 righe, circa 73 MB; somma dei database circa 261 MB`, poi `CARICAMENTO TAXA OK`;
 - in `$OUT/tempi.txt` i tre lotti con WAL sotto 100 MB ciascuno, le tre pause e `indici ricreati`.
 
 Se l'uscita non è 0, prima di tutto (sola lettura) `$PG/psql "$SUPABASE_DB_URL" -X -q -f scripts/tassonomia/controlli_spazio.sql` e il conteggio delle righe di `taxa`. Poi:
 - **`FERMATO: spazio insufficiente`:** niente caricato in quel passo. Riferire all'utente con i valori: se il WAL è alto, aspettare e rilanciare lo stesso comando.
 - **Interrotto (log senza riga finale, terminale chiuso):** rilanciare lo stesso comando, che salta i lotti già caricati e ricrea gli indici.
 - **`RIFIUTATO`:** non è stato scritto niente; riferire.
+- **`duplicate key value violates unique constraint "taxa_col_id_key"` subito dopo un rilancio:** un `psql` del giro interrotto era ancora attivo e ha finito il suo lotto. Aspettare un minuto e rilanciare lo stesso comando, che salterà quel lotto.
 - **`FALLITO: specie è cambiata` o un errore di `verifica_fase2.sql`:** fermarsi, non rilanciare, e riferire all'utente con il messaggio. Il rollback si decide insieme.
 - **`somma dei database` sopra 450 MB:** fermarsi e riferire. È il punto 1 delle decisioni sullo spazio, cioè il passaggio a Pro.
 
@@ -1078,10 +1087,10 @@ In `CLAUDE.md` vanno fatte due modifiche:
 2. in fondo alla sezione va aggiunto questo paragrafo, con le misure reali al posto di quelle attese se sono diverse:
 
 ```markdown
-La fase 2 (piano `docs/superpowers/plans/2026-10-15-modello-tassonomico-fase2-import-col.md`) ha caricato in `taxa` 236.291 righe di Catalogue of Life, versione COL26.9 XR del 25/09/2026. Il file è in `~/giardino-dati/col/`, fuori dal repository, e non va riscaricato per questa fase.
+La fase 2 (piano `docs/superpowers/plans/2026-10-15-modello-tassonomico-fase2-import-col.md`) ha caricato in `taxa` 234.514 righe di Catalogue of Life, versione COL26.9 XR del 25/09/2026. Il file è in `~/giardino-dati/col/`, fuori dal repository, e non va riscaricato per questa fase.
 - **Che cosa c'è:**
-  - 21.664 taxon accettati: le corrispondenze esatte in Plantae dei nomi di `specie` (righe senza apici) e di `generi`, più la catena dei padri fino a *Eukaryota*;
-  - 214.627 sinonimi degli accettati e dei loro generi; i «misapplied» solo se sono il nome di una nostra riga.
+  - 20.242 taxon accettati: le corrispondenze esatte in Plantae dei nomi di `specie` (righe senza apici) e di `generi`, più la catena dei padri fino a *Eukaryota*;
+  - 214.272 sinonimi degli accettati e dei loro generi; i «misapplied» solo se sono il nome di una nostra riga.
 - **Chiavi:** uuid nostri, con `col_id` e `versione_col` come attributi.
 - **Copertura:** 14.587 delle 15.678 righe non cultivar di `specie` hanno una corrispondenza esatta, accettata o come sinonimo. Le 1.091 restanti sono il lavoro della fase 3 (elenco in `~/giardino-dati/col/lotti_fase2/non_trovati.tsv`).
 - **Spazio:** `taxa` circa 73 MB; somma dei database circa 261 MB su 500.
@@ -1099,7 +1108,7 @@ La fase 2 (piano `docs/superpowers/plans/2026-10-15-modello-tassonomico-fase2-im
 
 ```bash
 git add CLAUDE.md
-git commit -m "Tassonomia fase 2 applicata: taxa con 236.291 righe di COL26.9 XR, CLAUDE.md"
+git commit -m "Tassonomia fase 2 applicata: taxa con 234.514 righe di COL26.9 XR, CLAUDE.md"
 ```
 
 Nessun push senza richiesta dell'utente.

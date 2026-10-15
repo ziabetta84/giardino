@@ -4,6 +4,10 @@
 -- (Prunella è anche un genere di uccelli; per i sinonimi il regno è quello del loro accettato). Dai semi: i loro
 -- accettati, la catena dei padri fino alla radice (Eukaryota), i sinonimi degli accettati e dei generi della catena.
 -- I misapplied entrano solo se sono il nome stesso di una nostra riga. Il resto di COL non entra.
+-- COL contiene segnaposto "Genere spp" (rango species, es. "Abies spp" accettato sotto il genere): non sono specie.
+-- Non entrano da nessuna strada: non corrispondono ai nostri generi (" spp." si toglie solo dai nostri nomi), un
+-- sinonimo che in COL porta solo a un segnaposto (es. un omonimo di Rosa moschata → "Rosa spp") resta non trovato, e
+-- i sinonimi chiamati "X spp" non entrano (revisione del 15/10/2026).
 -- Si rilancia senza danni: ricrea le tabelle col.* e assegna chiavi nuove (i lotti vanno rigenerati).
 -- Uso: psql URL_COPIA -X -q -v ON_ERROR_STOP=1 -f scripts/tassonomia/col_selezione.sql
 set statement_timeout = 0;
@@ -28,7 +32,8 @@ create table col.corrispondenze as
     from col.nostri n
     join col.nome_uso u on col.chiave(u.nome) = n.chiave
     left join col.nome_uso p on p.id = u.parent_id and u.status in ('synonym', 'ambiguous synonym', 'misapplied')
-   where coalesce(nullif(u.regno, ''), p.regno) = 'Plantae';
+   where coalesce(nullif(u.regno, ''), p.regno) = 'Plantae'
+     and u.nome !~ '\sspp?\.?\s*$' and coalesce(p.nome, '') !~ '\sspp?\.?\s*$';
 create index corrispondenze_chiave_idx on col.corrispondenze (chiave);
 create table col.accettati as
   select distinct case when status in ('accepted', 'provisionally accepted') then id else parent_id end as id
@@ -41,7 +46,7 @@ create table col.catena as
   select id from c;
 create table col.sinonimi as
   select u.id from col.nome_uso u
-   where u.status in ('synonym', 'ambiguous synonym')
+   where u.status in ('synonym', 'ambiguous synonym') and u.nome !~ '\sspp?\.?\s*$'
      and u.parent_id in (select id from col.accettati
                          union
                          select c.id from col.catena c join col.nome_uso g on g.id = c.id where g.rango = 'genus');

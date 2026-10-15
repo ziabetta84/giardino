@@ -11,8 +11,15 @@ begin
      or col.chiave('Apium graveolens var. dulce') <> 'Apium graveolens var. dulce' then
     raise exception 'col.chiave non normalizza come atteso';
   end if;
+  -- i segnaposto di COL "Genere spp" (rango species, accettati sotto il genere) non sono specie: non entrano, e
+  -- nemmeno i sinonimi che puntano a loro
+  select count(*) into n from col.selezione s join col.nome_uso u on u.id = s.col_id where u.nome ~ '\sspp?\.?\s*$';
+  if n > 0 then raise exception 'segnaposto "spp" di COL nella selezione: %', n; end if;
+  select count(*) into n from col.selezione s join col.nome_uso u on u.id = s.col_id
+    join col.nome_uso p on p.id = u.parent_id where p.nome ~ '\sspp?\.?\s*$';
+  if n > 0 then raise exception 'righe della selezione che puntano a un segnaposto "spp": %', n; end if;
   select count(*) into n from col.selezione;
-  if n <> 236291 then raise exception 'selezione: % righe (attese 236291)', n; end if;
+  if n <> 234514 then raise exception 'selezione: % righe (attese 234514)', n; end if;
   -- chiusura: il padre di ogni accettato e l'accettato di ogni sinonimo sono nella selezione
   select count(*) into n from col.selezione s join col.nome_uso u on u.id = s.col_id
    where u.parent_id <> '' and not exists (select 1 from col.selezione p where p.col_id = u.parent_id);

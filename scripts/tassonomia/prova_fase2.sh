@@ -90,4 +90,19 @@ grep -qF 'Rollback fase 2 rifiutato' <<<"$out" || fallita rollback "$out"
 bash $D/carica_taxa.sh "$URL" "$LOTTI" "$OUT/r9" > "$OUT/r9.log" 2>&1 || fallita rollback "nuovo caricamento: $(cat "$OUT/r9.log")"
 [ "$(righe_col)" = "$ATTESE" ] || fallita rollback "$(righe_col) righe dopo il nuovo caricamento"
 echo "PROVA rollback OK"
+
+# 8. Rollback dopo un caricamento interrotto, con gli indici secondari già tolti da carica_taxa.sh: deve riuscire in
+#    pochi secondi (senza gli indici le chiavi esterne di taxa verso se stessa fanno una scansione completa per ogni
+#    riga cancellata e la DELETE va in timeout), poi un nuovo caricamento completo.
+"${PSQL[@]}" -c 'drop index public.taxa_padre_id_idx, public.taxa_accettato_id_idx, public.taxa_nome_scientifico_trgm_idx'
+inizio=$(date +%s)
+"${PSQL[@]}" -1 -f $D/rollback_fase2.sql || fallita rollback_senza_indici "rollback non riuscito"
+durata=$(( $(date +%s) - inizio ))
+[ "$durata" -lt 120 ] || fallita rollback_senza_indici "rollback durato $durata s"
+"${PSQL[@]}" -c 'vacuum full public.taxa'
+[ "$(righe_col)" = 0 ] || fallita rollback_senza_indici "righe rimaste"
+[ "$("${PSQL[@]}" -tAc "select count(*) from pg_indexes where schemaname = 'public' and tablename = 'taxa'")" = 5 ] \
+  || fallita rollback_senza_indici "dopo il rollback taxa non ha i suoi 5 indici"
+bash $D/carica_taxa.sh "$URL" "$LOTTI" "$OUT/r10" > "$OUT/r10.log" 2>&1 || fallita rollback_senza_indici "nuovo caricamento: $(cat "$OUT/r10.log")"
+echo "PROVA rollback_senza_indici OK"
 echo "PROVE FASE 2 OK"
