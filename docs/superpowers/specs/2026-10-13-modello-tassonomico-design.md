@@ -50,7 +50,7 @@ Rivisto il 13/10/2026 dopo la verifica tecnica (schema del database, convenzioni
 `id`, `taxon_id` **oppure** `cultivar_id` (esattamente uno), `fonti` (l'elenco della riga di origine, copiato così com'è: 5.037 righe attuali hanno da 2 a 4 fonti in un unico testo, e non si separano), `descrizione`, `descrizione_originale`, `lingua_descrizione`, `esigenze`, `manutenzione`, `ciclo_colturale`, `ciclo_vitale`, `vaso`, `alert`, `immagine`, `stato_verifica`, `verificata_il`, `verificata_da`, `mostrata` (al più una per taxon o cultivar), `vecchia_specie_id`, `creata_il`, `aggiornata_il`. Più schede per lo stesso taxon sono ammesse (es. enciclopedia e PFAF): nessuna fusione automatica di testi.
 
 ### `mappa_specie` — tracciabilità
-Una riga per ogni riga **non cultivar** della vecchia `specie` (specie, generi, ibridi: circa 15.760), comprese le 35 madri cancellate in questa sessione e recuperate dai file di rollback (`origine = rollback`). Le cultivar non hanno una riga di mappa: restano rintracciabili da `cultivar.vecchia_specie_id` (deciso il 14/10/2026 per lo spazio, vedi "Decisioni sullo spazio"). Fanno eccezione le 4 cultivar doppie cancellate, che non hanno una riga di `cultivar`: hanno una riga di mappa che punta alla cultivar rimasta, inserita nella fase 4. Colonne: `vecchia_specie_id` (senza vincolo verso `specie`, perché alcune righe non esistono più), `vecchio_slug`, `vecchio_nome_scientifico`, `taxon_id` o `cultivar_id` (al più uno), `esito` (esatto, variante, sinonimo, rango superiore, ambiguo, ibrido, non trovato, deciso dall'utente), `nota`. Le righe si inseriscono già elaborate, con l'esito, in un solo passaggio: un aggiornamento di massa successivo raddoppierebbe lo spazio della tabella. È l'elenco che l'utente rivede per i casi dubbi. Non è leggibile dall'app.
+Una riga per ogni riga **non cultivar** della vecchia `specie` (specie, generi, ibridi): 15.713 righe, cioè le 15.678 senza apici nel nome (tutte senza madre) più le 35 madri cancellate in questa sessione e recuperate dai file di rollback (`origine = rollback`). Le 45 righe con apici ma senza madre sono cultivar (decisione 6 dopo la verifica) e vanno nella tabella `cultivar`; il «circa 15.760» della prima stima le contava. Le cultivar non hanno una riga di mappa: restano rintracciabili da `cultivar.vecchia_specie_id` (deciso il 14/10/2026 per lo spazio, vedi "Decisioni sullo spazio"). Fanno eccezione le 4 cultivar doppie cancellate, che non hanno una riga di `cultivar`: hanno una riga di mappa che punta alla cultivar rimasta, inserita nella fase 4. Colonne: `vecchia_specie_id` (senza vincolo verso `specie`, perché alcune righe non esistono più), `vecchio_slug`, `vecchio_nome_scientifico`, `taxon_id` o `cultivar_id` (al più uno), `esito` (esatto, variante, sinonimo, rango superiore, ambiguo, ibrido, non trovato, deciso dall'utente), `nota`. Le righe si inseriscono già elaborate, con l'esito, in un solo passaggio: un aggiornamento di massa successivo raddoppierebbe lo spazio della tabella. È l'elenco che l'utente rivede per i casi dubbi. Non è leggibile dall'app.
 
 ### `piante`
 Si aggiungono `taxon_id` e `cultivar_id`. Fino alla fase 6 sono facoltative (al più una delle due), perché l'app attuale non le compila; dalla fase 6 diventano obbligatorie (esattamente una). Puntare a un genere è legittimo quando la specie non è certa. La colonna `specie` resta finché l'app non è passata al nuovo modello.
@@ -139,6 +139,27 @@ Dalla stima in `docs/ricerche/2026-10-14-stima-spazio.md`. Il limite del piano g
 6. **Misura dopo ogni fase** (somma dei database, valori attesi): dopo la manutenzione circa 186 MB, dopo la fase 2 circa 262, dopo la fase 3 circa 266, dopo la fase 4 circa 387 (415 nel caso peggiore).
 7. **Le fonti delle cultivar restano complete** (non abbreviate): il risparmio sarebbe di 12,6 MB e non serve.
 8. **Righe cultivar tolte dall'archivio dopo la fase 7** (106 MB in meno): non decisa; cambierebbe la regola che tiene `specie` intera come archivio.
+
+## Decisioni per la fase 3 (approvate il 15/10/2026)
+
+Prese dopo la ricerca sull'abbinamento (`~/giardino-dati/col/ricerca_fase3/`). Le regole automatiche seguono GBIF species match, il codice ICN e il codice ICNCP.
+
+1. **Sinonimi.** Quando il nostro nome è un sinonimo che in Catalogue of Life porta a un solo accettato, si segue COL. Sono circa 2.100 righe: nessuna revisione una per una, l'utente vede solo un riepilogo.
+2. **Ambigui** (lo stesso nome usato da autori diversi per piante diverse, circa 270 righe). Vale la regola sicura:
+   - se c'è un solo sinonimo omotipico, cioè con lo stesso tipo del suo accettato (ICN art. 49), si sceglie quello;
+   - altrimenti la riga va all'antenato comune delle destinazioni, come fa GBIF con HIGHERRANK.
+   
+   L'utente rivede solo le righe usate dalle sue piante.
+3. **Grex di orchidee senza apici** (per esempio "Vanda Doctor Anek", circa 220 righe). Per l'ICNCP (art. 23) sono grex, non specie: nella fase 3 si collegano al genere, nella fase 4 diventano cultivar di categoria `grex`.
+4. **Cosa registra la mappa.** `mappa_specie.taxon_id` è il nome trovato, accettato o sinonimo che sia. Dove attaccare la scheda si decide nella fase 4: di norma sull'accettato, e per un sinonimo di specie che porta a un autonimo (per esempio *Rosmarinus officinalis* → *Salvia rosmarinus* subsp. *rosmarinus*) sulla specie.
+5. **Revisione dell'utente.** Si rivedono solo i casi incerti, ciascuno con la proposta già pronta, e l'utente indica solo le eccezioni. Sono incerti:
+   - i possibili refusi;
+   - i generi scritti male;
+   - i generi che in COL sono solo sinonimi o hanno omonimi;
+   - i casi speciali;
+   - le righe non esatte usate dalle sue piante.
+6. **Notogeneri assenti da COL** (× *Angulocaste*, × *Mahoberberis*…): diventano taxon locali, sotto la famiglia scritta nella riga.
+7. **Righe recuperate dai rollback.** Si classificano per nome, come le altre. Fa eccezione *agapanthus*, che ha il nome di una specie ma la descrizione del genere: la proposta è il genere.
 
 ## Rischi
 
