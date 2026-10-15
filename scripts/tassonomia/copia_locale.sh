@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Copia locale di public.specie e public.generi presa da un backup completo (pg_dump -Fc), per provare le
-# operazioni in blocco del modello tassonomico senza toccare il database reale (specifica, "Decisioni sullo
+# Copia locale di public.specie, public.generi e delle tabelle del modello tassonomico (taxa, nomi_comuni, cultivar,
+# schede, mappa_specie) presa da un backup completo (pg_dump -Fc), per provare le operazioni in blocco del modello
+# tassonomico senza toccare il database reale (specifica, "Decisioni sullo
 # spazio", punto 5). Cluster Postgres 17 temporaneo su 127.0.0.1:55440, senza password: contiene solo il
 # catalogo, che è già pubblico. Stesso statement_timeout del pooler di Supabase (2 minuti) e messaggi in inglese.
 # Uso:
@@ -24,7 +25,7 @@ case "${1:-}" in
     "$BIN/createdb" -h 127.0.0.1 -p "$PORTA" -U postgres giardino
     "$BIN/psql" "$URL" -X -q -v ON_ERROR_STOP=1 -f scripts/tassonomia/copia_locale_prep.sql
     "$BIN/pg_restore" -l "$dump" \
-      | grep -E '^[0-9]+; [0-9]+ [0-9]+ (TABLE|TABLE DATA|CONSTRAINT|FK CONSTRAINT|INDEX|TRIGGER|POLICY|ROW SECURITY) public (specie|generi)[ _]' \
+      | grep -E '^[0-9]+; [0-9]+ [0-9]+ (TABLE|TABLE DATA|CONSTRAINT|FK CONSTRAINT|INDEX|TRIGGER|POLICY|ROW SECURITY) public (specie|generi|taxa|nomi_comuni|cultivar|schede|mappa_specie)[ _]' \
       > "$dir/elenco.txt"
     "$BIN/pg_restore" --exit-on-error --no-owner --no-privileges -d "$URL" -L "$dir/elenco.txt" "$dump"
     "$BIN/psql" "$URL" -X -q -v ON_ERROR_STOP=1 -c 'vacuum analyze public.specie, public.generi'
