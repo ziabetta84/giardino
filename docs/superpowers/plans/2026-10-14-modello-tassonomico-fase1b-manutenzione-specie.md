@@ -653,6 +653,19 @@ git commit -m "Tassonomia fase 1b: manutenzione di specie (togli trigram, VACUUM
 
 **Prima del Task 4:** revisione completa dei commit dei Task 1–3 da parte di un revisore nuovo (vedi Global Constraints); le correzioni importanti si fanno con una prova che fallisce prima, poi si rilancia `prova_manutenzione_specie.sh` su una copia locale nuova.
 
+**Correzioni dopo la revisione del 15/10** (due revisori nuovi; il codice nel repository prevale sui blocchi qui sopra). In `manutenzione_specie.sh` il ripristino:
+- si arma prima del passo 1, perché il COMMIT del passo 1 può essere in volo quando arriva un segnale;
+- non si ferma se stderr non è scrivibile: niente `set -e` e messaggi con `/bin/echo`, perché l'`echo` interno di bash 3.2 tiene in memoria il testo non scritto e lo riversa nella scrittura successiva;
+- ignora i segnali successivi e ricrea gli indici con un `psql` in un gruppo di processi suo;
+- scrive lo stato finale (`indici trigram ricreati: 4 su 4`, o il conteggio con il comando da rieseguire) anche in `tempi.txt`.
+
+Nuove prove, tutte viste fallire sul codice precedente con 0 indici trigram:
+- `interruzione_muta`: HUP con stderr aperto in sola lettura;
+- `interruzione_doppia`: secondo TERM durante il ripristino;
+- `interruzione_passo1`: TERM con il COMMIT del passo 1 trattenuto da una replica sincrona inesistente.
+
+Mutazioni in più scoperte: segnali non ignorati e `set +e` tolto.
+
 ---
 
 ### Task 4: Esecuzione sul database reale e documentazione
@@ -669,7 +682,7 @@ Chiedere in chat il via per la manutenzione sul database reale, dicendo: durata 
 
 - [ ] **Step 2: Eseguire la manutenzione**
 
-Va lanciata in background (strumento Bash con `run_in_background`), non in primo piano: un timeout dello strumento interromperebbe lo script. Lo script ricrea comunque gli indici se interrotto (prova `interruzione`), ma è meglio non arrivarci.
+Va lanciata dalla sessione principale in background (strumento Bash con `run_in_background`): continua tra un turno e l'altro e avvisa quando finisce. Non va lanciata da un subagente, perché i suoi comandi in background terminano quando chiude il turno. Non va fermata (niente TaskStop) e si aspetta l'avviso di fine prima di qualsiasi altra operazione sul database. Lo script ricrea comunque gli indici se interrotto (prove `interruzione*`), ma è meglio non arrivarci.
 
 ```bash
 set -a; source .env.local; set +a
@@ -679,9 +692,11 @@ CONFERMO_MANUTENZIONE_REALE=si bash scripts/tassonomia/manutenzione_specie.sh \
 tail -12 "$OUT.log"; cat "$OUT/tempi.txt"
 ```
 
-Expected: `uscita 0`; nel log `controlli_prima` con `somma_db_mb` circa 384, `specie_mb` circa 351 e `soglia_mb 400 soglia_wal_mb 300`; alla fine `specie_mb` circa 153, `somma_db_mb` circa 186, `orfani_mb` uguale a quello di partenza (±1), la NOTICE della verifica e `MANUTENZIONE SPECIE OK`.
+Expected: `uscita 0`; nel log `controlli_prima` con `somma_db_mb` circa 384, `specie_mb` circa 351 e `soglia_mb 400 soglia_wal_mb 300`; alla fine `specie_mb` circa 153, `somma_db_mb` circa 186, `orfani_mb` uguale a quello di partenza (±1), la NOTICE della verifica e `MANUTENZIONE SPECIE OK`. Poi, su una connessione nuova, `$PG/psql "$SUPABASE_DB_URL" -X -qAt -c 'show statement_timeout' -c 'show lock_timeout'` deve dare `2min` e `0`: nessuna impostazione della manutenzione è rimasta sul pooler (misurati il 15/10 prima della manutenzione: `statement_timeout` 2min, `lock_timeout` e `transaction_timeout` 0).
 
-Se l'uscita non è 0:
+Se l'uscita non è 0, per prima cosa (sola lettura) `$PG/psql "$SUPABASE_DB_URL" -X -q -f scripts/tassonomia/manutenzione_specie_controlli.sql` e `$PG/psql "$SUPABASE_DB_URL" -X -q -f scripts/tassonomia/verifica_manutenzione_specie.sql`: dicono dimensione, orfani e indici, qualunque sia il messaggio. Poi:
+- `connessione al server persa` o `Killed` durante il passo 2 → esito incerto: il server può aver finito la compattazione da solo. Decidono le misure appena prese; se `specie_mb` è ancora circa 351 e gli indici ci sono, riprovare una volta.
+- Il log non finisce con nessuna delle righe di esito → lo script è stato interrotto: controllare `tempi.txt` (riga `indici trigram ricreati: 4 su 4`) e la verifica.
 - `FERMATA: specie è cambiata dopo il backup` → rifare i passi 1 del Task 2 (nuovo backup e impronta) e rilanciare.
 - `FALLITA: compattazione non riuscita` con `lock timeout` → l'app stava leggendo; riprovare una volta dopo un minuto. Se fallisce ancora, fermarsi e riferire all'utente.
 - `FALLITA: l'impronta di specie è cambiata` → fermarsi, non toccare niente e riferire all'utente con il diff: un eventuale ripristino dal backup si decide insieme.
@@ -712,7 +727,7 @@ bash scripts/tassonomia/copia_locale.sh ferma "$SCRATCH/copia_fase1b"
 In `CLAUDE.md`, sezione "### Modello tassonomico (in corso, fase 1 di 7 applicata)": cambiare il titolo in "### Modello tassonomico (in corso, fasi 1 e 1b di 7 applicate)" e aggiungere, dopo la frase sul rollback della fase 1, questo paragrafo (con le misure reali al posto di quelle attese, se diverse):
 
 ```markdown
-La fase 1b (14/10/2026, piano `docs/superpowers/plans/2026-10-14-modello-tassonomico-fase1b-manutenzione-specie.md`) ha compattato `specie` con `VACUUM FULL` dopo aver tolto i 4 indici trigram, ricreati subito dopo identici: `specie` da 351 a circa 153 MB, somma dei database da 384 a circa 186 MB su 500 (piano gratuito; le decisioni sullo spazio sono nella specifica). I dati non sono cambiati: l'impronta (`scripts/tassonomia/impronta_specie.sql`) è identica prima e dopo. Fino alla fine della fase 4 niente modifiche a lotti su `specie`: ricreerebbero lo spazio sprecato. Le prove delle operazioni in blocco si fanno su una copia locale di `specie` e `generi` presa da un backup completo: `bash scripts/tassonomia/copia_locale.sh crea BACKUP.dump CARTELLA` (e `ferma CARTELLA`); prove della fase 1b: `bash scripts/tassonomia/prova_manutenzione_specie.sh URL_COPIA CARTELLA`. Se una manutenzione si interrompe dopo aver tolto gli indici: `psql "$SUPABASE_DB_URL" -X -1 -v ON_ERROR_STOP=1 -f scripts/tassonomia/manutenzione_specie_3_ricrea_indici.sql`.
+La fase 1b (15/10/2026, piano `docs/superpowers/plans/2026-10-14-modello-tassonomico-fase1b-manutenzione-specie.md`) ha compattato `specie` con `VACUUM FULL` dopo aver tolto i 4 indici trigram, ricreati subito dopo identici: `specie` da 351 a circa 153 MB, somma dei database da 384 a circa 186 MB su 500 (piano gratuito; le decisioni sullo spazio sono nella specifica). I dati non sono cambiati: l'impronta (`scripts/tassonomia/impronta_specie.sql`) è identica prima e dopo. Fino alla fine della fase 4 niente modifiche a lotti su `specie`: ricreerebbero lo spazio sprecato. Le prove delle operazioni in blocco si fanno su una copia locale di `specie` e `generi` presa da un backup completo: `bash scripts/tassonomia/copia_locale.sh crea BACKUP.dump CARTELLA` (e `ferma CARTELLA`); prove della fase 1b: `bash scripts/tassonomia/prova_manutenzione_specie.sh URL_COPIA CARTELLA`. Se una manutenzione si interrompe dopo aver tolto gli indici: `psql "$SUPABASE_DB_URL" -X -1 -v ON_ERROR_STOP=1 -f scripts/tassonomia/manutenzione_specie_3_ricrea_indici.sql`.
 ```
 
 - [ ] **Step 5: Commit**

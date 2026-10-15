@@ -36,6 +36,28 @@ sblocca() {
   "${PSQL[@]}" -tAc "select count(pg_terminate_backend(pid)) from pg_stat_activity where application_name = 'prova_blocco'" > /dev/null
   wait || true
 }
+# Lancia lo script in background in un gruppo di processi suo (per mandare segnali al gruppo, come un terminale chiuso o
+# un Ctrl-C) e aspetta che scriva $3 nei tempi. Argomenti: CARTELLA, redirezione di stderr ('log' o 'chiuso'), passo.
+avvia() {
+  set -m
+  if [ "$2" = chiuso ]; then
+    bash $D/manutenzione_specie.sh "$URL" "$OUT/$1" > "$OUT/$1.log" 2< /dev/null &
+  else
+    bash $D/manutenzione_specie.sh "$URL" "$OUT/$1" > "$OUT/$1.log" 2>&1 &
+  fi
+  pid=$!
+  set +m
+  local n=0
+  until grep -q "$3" "$OUT/$1/tempi.txt" 2>/dev/null; do
+    n=$((n + 1)); [ "$n" -lt 600 ] || fallita "$1" "$3 mai raggiunto"
+    sleep 0.05
+  done
+}
+# Il COMMIT del passo 1 viene trattenuto chiedendo una replica sincrona che non esiste; libera_commit lo lascia andare.
+libera_commit() {
+  "${PSQL[@]}" -c 'alter system reset synchronous_standby_names' -c 'select pg_reload_conf()' > /dev/null 2>&1 || true
+}
+trap libera_commit EXIT
 TOAST=$("${PSQL[@]}" -tAc "select reltoastrelid::regclass from pg_class where oid = 'public.specie'::regclass")
 
 "${PSQL[@]}" -f $D/impronta_specie.sql > "$OUT/impronta_iniziale.txt"
@@ -104,6 +126,47 @@ grep -qF 'ATTENZIONE: manutenzione interrotta' "$OUT/r6.log" || fallita interruz
 [ "$(indici_trgm)" = 4 ] || fallita interruzione "indici non ricreati"
 impronta_invariata interruzione
 echo "PROVA interruzione OK"
+
+# 6b. Terminale chiuso: HUP e uscita d'errore non più scrivibile. I messaggi falliscono, il ripristino no.
+avvia r6b chiuso 'passo 2'
+kill -HUP -- -"$pid"
+if wait "$pid"; then fallita interruzione_muta "uscita 0 dopo l'interruzione"; fi
+[ "$(indici_trgm)" = 4 ] || fallita interruzione_muta "indici non ricreati"
+grep -qF 'indici trigram ricreati: 4 su 4' "$OUT/r6b/tempi.txt" || fallita interruzione_muta "stato finale non scritto in tempi.txt"
+impronta_invariata interruzione_muta
+echo "PROVA interruzione_muta OK"
+
+# 6c. Secondo TERM mentre il ripristino ricrea gli indici: il passo 3 aspetta che la compattazione rimasta attiva sul
+#     server finisca, lo script sembra appeso e riceve un altro segnale. Il ripristino non deve interrompersi.
+avvia r6c log 'passo 2'
+kill -TERM -- -"$pid"
+n=0
+until grep -q 'manutenzione interrotta' "$OUT/r6c.log"; do
+  n=$((n + 1)); [ "$n" -lt 200 ] || fallita interruzione_doppia "ripristino mai partito"
+  sleep 0.01
+done
+sleep 0.3
+kill -TERM -- -"$pid" 2> /dev/null || fallita interruzione_doppia "script già finito al secondo TERM: prova non significativa"
+if wait "$pid"; then fallita interruzione_doppia "uscita 0 dopo l'interruzione"; fi
+[ "$(indici_trgm)" = 4 ] || fallita interruzione_doppia "indici non ricreati: $(cat "$OUT/r6c.log")"
+impronta_invariata interruzione_doppia
+echo "PROVA interruzione_doppia OK"
+
+# 6d. Interruzione mentre il COMMIT del passo 1 è in volo: sul server gli indici sono già tolti, lo script non lo sa.
+"${PSQL[@]}" -c "alter system set synchronous_standby_names = 'nessuna'" -c 'select pg_reload_conf()' > /dev/null
+avvia r6d log 'passo 1'
+n=0
+until [ "$("${PSQL[@]}" -tAc "select count(*) from pg_stat_activity where backend_type = 'client backend' and wait_event = 'SyncRep'")" -ge 1 ]; do
+  n=$((n + 1)); [ "$n" -lt 600 ] || fallita interruzione_passo1 "COMMIT del passo 1 mai trattenuto"
+  sleep 0.05
+done
+kill -TERM -- -"$pid"
+sleep 0.5
+libera_commit
+if wait "$pid"; then fallita interruzione_passo1 "uscita 0 dopo l'interruzione"; fi
+[ "$(indici_trgm)" = 4 ] || fallita interruzione_passo1 "indici non ricreati: $(cat "$OUT/r6d.log")"
+impronta_invariata interruzione_passo1
+echo "PROVA interruzione_passo1 OK"
 
 # 7. Compattazione riuscita: impronta identica, soglie applicate, verifica superata.
 bash $D/manutenzione_specie.sh "$URL" "$OUT/r7" "$OUT/impronta_iniziale.txt" > "$OUT/r7.log" 2>&1 \
