@@ -4,7 +4,8 @@
 Uno strumento interno di revisione: per ogni caso mostra il nome della riga, la proposta e l'alternativa; l'utente
 risponde in chat con le sole eccezioni. Scrive solo il contenuto della pagina (titolo, stile, testo): lo scheletro
 HTML lo aggiunge la pubblicazione. Colori e caratteri del progetto (CLAUDE.md, "Palette e design").
-Uso: python3 scripts/tassonomia/mappa_revisione_pagina.py revisione.tsv > revisione.html
+Uso: python3 scripts/tassonomia/mappa_revisione_pagina.py revisione.tsv [INTRODUZIONE] > revisione.html
+  INTRODUZIONE (facoltativa) sostituisce la prima frase dell'introduzione, per esempio per un elenco di sole correzioni.
 """
 import csv
 import html
@@ -13,6 +14,8 @@ from itertools import groupby
 
 righe = list(csv.DictReader(open(sys.argv[1], encoding='utf-8'), delimiter='\t'))
 e = html.escape
+apertura = e(sys.argv[2]) if len(sys.argv) > 2 else (
+    f'{len(righe)} nomi del catalogo del giardino non coincidono esattamente con quelli di Catalogue of Life.')
 sezioni = []
 for gruppo, casi in groupby(righe, key=lambda r: r['gruppo']):
     casi = list(casi)
@@ -64,7 +67,7 @@ ol.casi li {{ display: grid; grid-template-columns: 2.75rem 1fr; gap: .25rem .75
 </style>
 <main>
 <h1>Revisione degli abbinamenti</h1>
-<p class="intro">{len(righe)} nomi del catalogo del giardino non coincidono esattamente con quelli di Catalogue of Life.
+<p class="intro">{apertura}
 Per ognuno c'è già una proposta e, sotto, l'alternativa che vale se la respingi. Rispondi in chat <b>solo con le
 eccezioni</b>: «12 no» per l'alternativa, «12 è Celosia cristata» per indicare il nome giusto, oppure «tutte ok».</p>
 {''.join(sezioni)}

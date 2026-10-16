@@ -19,6 +19,14 @@ begin
   select count(*) into n from decisioni d where d.decisione like 'col:%'
      and not exists (select 1 from col.nome_uso u where u.id = substr(d.decisione, 5));
   if n > 0 then raise exception 'col_id indicati che non esistono in COL: %', n; end if;
+  -- il nome indicato deve essere utilizzabile: in Plantae (per un sinonimo vale il regno dell'accettato), accettato o
+  -- sinonimo, mai un segnaposto "Genere spp"
+  select count(*) into n from decisioni d join col.nome_uso u on u.id = substr(d.decisione, 5)
+    left join col.nome_uso a on a.id = u.parent_id and u.status in ('synonym', 'ambiguous synonym')
+   where d.decisione like 'col:%'
+     and (coalesce(nullif(u.regno, ''), a.regno) is distinct from 'Plantae' or u.nome ~ '\sspp?\.?\s*$'
+          or u.status not in ('accepted', 'provisionally accepted', 'synonym', 'ambiguous synonym'));
+  if n > 0 then raise exception 'col_id indicati fuori da Plantae, segnaposto o non utilizzabili: %', n; end if;
 end $$;
 update col.mappa_proposte p set
   nota = p.nota || ' — confermato dall''utente il ' || to_char(current_date, 'DD/MM/YYYY'), da_rivedere = false,

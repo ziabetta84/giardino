@@ -3,8 +3,13 @@
 -- - un accettato con il nostro nome vince sugli omonimi sinonimi di altri autori;
 -- - sinonimi che portano tutti allo stesso accettato = sinonimo;
 -- - generi omonimi in altri generi: decide la famiglia della riga (ICN art. 18.5 per i nomi alternativi);
--- - altrimenti ambiguo: il sinonimo omotipico (ICN art. 49) se è uno solo, se no l'antenato comune (GBIF HIGHERRANK).
+-- - altrimenti ambiguo: il sinonimo omotipico (ICN art. 49) se è uno solo, se no l'antenato comune (GBIF HIGHERRANK);
+-- - un nome con il segno d'ibrido preferisce i candidati ibridi; un ibrido con nome (Genere × epiteto) non va mai su un
+--   sinonimo non ibrido di un accettato non ibrido (omonimo di un'altra pianta): va al genere della riga.
 set statement_timeout = 0;
+do $$ begin
+  if to_regclass('col.basionimi') is null then raise exception 'manca col.basionimi: prima col_carica_basionimi.sh'; end if;
+end $$;
 drop table if exists col.mappa_esatti;
 create or replace function col.segno(n text) returns text language sql immutable parallel safe as $$
   select btrim(regexp_replace(regexp_replace(regexp_replace(n, '\s+', ' ', 'g'),
@@ -14,6 +19,17 @@ $$;
 create or replace function col.autore_base(a text) returns text language sql immutable parallel safe as $$
   select btrim(regexp_replace(coalesce(substring(coalesce(a, '') from '^\(([^)]*)\)'), coalesce(a, '')), '\s+', ' ', 'g'))
 $$;
+-- tipo nominale di un nome di COL: il suo basionimo registrato (o il nome stesso), come nome e autore senza spazi e punti.
+-- Confronto per testo e non per id: in COL XR lo stesso nome può comparire con id diversi.
+create or replace function col.tipo(x text) returns text language sql stable parallel safe as $$
+  select lower(regexp_replace(t.nome || ' ' || coalesce(t.autore, ''), '[\s.]+', '', 'g'))
+    from col.nome_uso t where t.id = coalesce((select b.basionimo from col.basionimi b where b.id = x), x)
+$$;
+-- stessa radice dell'epiteto finale, a meno della desinenza del genere grammaticale (saxatile/saxatilis, minus/minor)
+create or replace function col.stessa_radice(a text, b text) returns boolean language sql immutable parallel safe as $$
+  select left(x, greatest(3, least(length(x), length(y)) - 3)) = left(y, greatest(3, least(length(x), length(y)) - 3))
+    from (select lower(substring(a from '(\S+)$')) as x, lower(substring(b from '(\S+)$')) as y) e
+$$;
 
 create temp table cand as
 select r.id as sid, t.id as tid, t.col_id, t.nome_scientifico as tnome, t.autore, t.rango, t.stato,
@@ -21,7 +37,9 @@ select r.id as sid, t.id as tid, t.col_id, t.nome_scientifico as tnome, t.autore
        (t.stato in ('accepted', 'provisionally accepted')) as e_acc,
        (t.nome_scientifico = r.nome) as identico,
        (col.segno(t.nome_scientifico) = col.segno(regexp_replace(r.nome, '\s+spp\.?$', ''))) as stesso_segno,
-       ((t.nome_scientifico ~ '×') = (r.nome ~ '×|(^|\s)x\s')) as stesso_ibrido
+       ((t.nome_scientifico ~ '×') = (r.nome ~ '×|(^|\s)x\s')) as stesso_ibrido,
+       (t.nome_scientifico ~ '×' or coalesce(t.notho, '') <> '') as ibrido_t,
+       (r.nome ~ '×|(^|\s)x\s') as riga_ibrido
   from col.mappa_righe r
   join col.corrispondenze c on c.chiave = r.chiave
   join public.taxa t on t.col_id = c.id;
@@ -73,6 +91,8 @@ update c2 set livello = case when rango_ok and stato <> 'misapplied' then 1
                              when stato = 'misapplied' then 3 else 4 end;
 create temp table u as select c2.* from c2 where c2.livello = (select min(x.livello) from c2 x where x.sid = c2.sid);
 create index on u (sid);
+-- un nome scritto con il segno d'ibrido preferisce i candidati ibridi (Erysimum × allionii, non E. allionii (DC.) Kuntze)
+delete from u where u.riga_ibrido and not u.ibrido_t and exists (select 1 from u x where x.sid = u.sid and x.ibrido_t);
 
 create temp table m as
 select u.sid, min(u.livello) as livello,
@@ -115,15 +135,24 @@ select distinct on (k.sid) k.sid, u.tid, u.col_id, u.tnome, u.autore, u.stato, u
          else false end
  order by k.sid, u.identico desc, (u.stato = 'synonym') desc, u.col_id;
 
--- ambigui: sinonimo omotipico (stesso autore del basionimo del suo accettato; per gli autonimi senza autore vale la specie)
+-- ambigui: sinonimo omotipico, cioè con lo stesso tipo del suo accettato (ICN art. 49; per gli autonimi senza autore vale
+-- la specie). Decide il basionimo registrato da COL. Se l'accettato non ha il basionimo registrato, lo si ricava dal nome:
+-- stesso epiteto e l'autore tra parentesi di una combinazione uguale all'autore dell'altro nome. Lo stesso autore da solo
+-- non basta (Rubus fruticosus L. non è il basionimo di Dasiphora fruticosa (L.) Rydb., che è Potentilla fruticosa L.).
 create temp table omotipici as
 select u.sid, u.tid, u.col_id, u.tnome, u.autore, u.stato, u.rango, u.acc_id
   from u
   join classe k on k.sid = u.sid
+  join public.taxa ta on ta.id = u.acc_id
   left join public.taxa sp on sp.id = u.acc_padre and u.acc_rango in ('subspecies', 'variety', 'form') and coalesce(u.acc_autore, '') = ''
+  cross join lateral (select coalesce(sp.col_id, ta.col_id) as col_id, coalesce(sp.nome_scientifico, ta.nome_scientifico) as nome,
+                             coalesce(sp.autore, ta.autore, '') as autore) e
  where k.classe in ('sinonimi verso più accettati', 'più accettati omonimi', 'solo misapplied') and not u.e_acc
-   and col.autore_base(u.autore) <> ''
-   and col.autore_base(u.autore) = col.autore_base(coalesce(nullif(u.acc_autore, ''), sp.autore));
+   and (col.tipo(u.col_id) = col.tipo(e.col_id)
+        or (not exists (select 1 from col.basionimi b where b.id = e.col_id)
+            and col.stessa_radice(u.tnome, e.nome)
+            and ((e.autore ~ '^\(' and col.autore_base(e.autore) = col.autore_base(u.autore) and col.autore_base(u.autore) <> '')
+                 or (coalesce(u.autore, '') ~ '^\(' and col.autore_base(u.autore) = btrim(e.autore) and btrim(e.autore) <> ''))));
 create temp table omotipico as
 select sid, min(tid::text)::uuid as tid from omotipici
  where sid in (select sid from omotipici group by sid having count(distinct acc_id) = 1)
@@ -139,7 +168,17 @@ select x.sid, x.id as tid from (
   join m on m.sid = x.sid
  where x.rn = 1 and x.n = m.n_dest;
 
-create table col.mappa_esatti as
+-- genere della riga per gli ibridi con nome (Genere × epiteto): l'accettato del genere scritto
+create temp table genere_riga as
+select distinct on (r.id) r.id as sid,
+       case when g.stato in ('accepted', 'provisionally accepted') then g.id else g.accettato_id end as tid
+  from col.mappa_righe r
+  join public.taxa g on g.nome_scientifico = split_part(r.nome, ' ', 1) and g.rango = 'genus'
+ where r.nome ~ '^[A-Z][a-z-]+\s+(×\s*|x\s+)[a-z]'
+   and (g.stato in ('accepted', 'provisionally accepted') or g.accettato_id is not null)
+ order by r.id, (g.stato = 'accepted') desc, g.id;
+
+create temp table esiti as
 select k.sid, k.classe,
   case
     when k.classe in ('accettato', 'accettato tra omonimi', 'accettato e provvisorio omonimo', 'genere omonimo: decide la famiglia')
@@ -169,6 +208,30 @@ select k.sid, k.classe,
   left join scelto s on s.sid = k.sid
   left join omotipico o on o.sid = k.sid and s.tid is null
   left join lca l on l.sid = k.sid;
+
+-- ibridi con nome (Genere × epiteto) finiti su un sinonimo il cui accettato non è un ibrido e non è la stessa pianta (stesso
+-- genere e stesso epiteto, come Dryopteris × remota -> Dryopteris remota): per COL non è l'ibrido della riga (omonimo di
+-- un'altra pianta, o ibrido ricondotto a uno dei genitori). Collegati al genere della riga, antenato comune sicuro.
+create table col.mappa_esatti as
+select e.sid, e.classe,
+       case when ib.sid is not null then 'rango superiore' else e.esito end as esito,
+       case when ib.sid is not null then ib.genere else e.taxon_id end as taxon_id,
+       case when ib.sid is not null then 'ibrido con nome: in COL porta a una pianta che non è un ibrido e non è la stessa '
+                                         || '(omonimo di un''altra pianta o ibrido ricondotto a un genitore): collegato al genere'
+            else e.nota end as nota,
+       e.n_cand
+  from esiti e
+  left join (
+    select e2.sid, g.tid as genere
+      from esiti e2
+      join col.mappa_righe r on r.id = e2.sid
+      join genere_riga g on g.sid = e2.sid
+      join public.taxa t on t.id = e2.taxon_id
+      join public.taxa a on a.id = t.accettato_id
+     where e2.esito in ('sinonimo', 'ambiguo') and t.rango not in ('genus', 'subtribe', 'tribe', 'subfamily', 'family')
+       and a.nome_scientifico !~ '×' and coalesce(a.notho, '') = ''
+       and not (split_part(a.nome_scientifico, ' ', 1) = split_part(r.nome, ' ', 1)
+                and col.stessa_radice(r.nome, a.nome_scientifico))) ib on ib.sid = e.sid;
 alter table col.mappa_esatti add primary key (sid);
 
 \pset tuples_only on

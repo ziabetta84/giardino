@@ -7,14 +7,15 @@ create extension if not exists fuzzystrmatch schema extensions;
 drop table if exists col.mappa_altri, col.mappa_plantae;
 
 -- parole del nome in forma normalizzata: senza trattino morbido, segni d'ibrido (× ovunque, x solo isolata o davanti
--- a una maiuscola: la X di Xanthoceras resta), parentesi, quello che segue una barra, marcatori di rango, " sp./spp.";
+-- a una maiuscola: la X di Xanthoceras resta), parentesi, quello che segue una barra, marcatori di rango (anche "spp" in
+-- mezzo al nome, scritto per "subsp."), " sp./spp." finale;
 -- minuscolo
 create or replace function col.parole(n text) returns text[] language sql immutable parallel safe as $$
   select regexp_split_to_array(btrim(regexp_replace(regexp_replace(regexp_replace(regexp_replace(regexp_replace(
            lower(regexp_replace(replace(replace(n, chr(173), ''), '×', ' '), '(^|\s)x(\s+|(?=[A-Z]))', ' ', 'g')),
            '\([^)]*\)', ' ', 'g'),
            '/.*$', ''),
-           '(^|\s)(subsp|ssp|var|f|forma|subvar|nothosubsp|nothovar|convar)\.?(?=\s)', ' ', 'g'),
+           '(^|\s)(subsp|ssp|spp|var|f|forma|subvar|nothosubsp|nothovar|convar)\.?(?=\s)', ' ', 'g'),
            '\s+spp?\.?\s*$', ''),
            '\s+', ' ', 'g')), ' ')
 $$;
@@ -33,8 +34,8 @@ $$;
 create temp table nt as
 select r.*, col.parole(r.nome) as parole,
   case
-    when r.nome ~ '^(×\s*|x\s+)?[A-Z][a-z-]+(\s+[A-Z0-9(][^\s]*)+$' then 'grex'
     when r.nome ~* '\s(hybrids?|species|group|mix)\s*$' or r.nome ~* '\shybrids?\s' then 'ibridi o gruppo'
+    when r.nome ~ '^(×\s*|x\s+)?[A-Z][a-z-]+(\s+[A-Z0-9(][^\s]*)+$' then 'grex'
     when r.nome ~ '\s(aff|cf)\.\s' then 'aff.'
   end as forma,
   (r.nome ~ '×|(^|\s)x\s') as ibrido
@@ -93,13 +94,39 @@ select distinct on (c.sid) c.sid, c.metodo, c.id as col_id, c.status
  where (m.n_acc = 1 and c.status in ('accepted', 'provisionally accepted')) or (m.n_acc = 0 and m.n_dest = 1)
  order by c.sid, (c.status = 'accepted') desc, (c.status = 'synonym') desc, c.id;
 
--- 4. rango superiore: la specie per i nomi di tre o più parole, poi il genere (accettato; preferito quello già in taxa)
+-- 4. rango superiore: la specie per i nomi di tre o più parole (l'accettata se è una sola; se no un sinonimo, se le specie
+--    con quel nome portano tutte allo stesso accettato: Chrysanthemum coronarium -> Glebionis coronaria), poi l'antenato
+--    comune delle destinazioni dei candidati (come GBIF HIGHERRANK), poi il genere (accettato; preferito quello già in taxa)
+create temp table sup_cand as
+select n.id as sid, c.id, c.status, c.acc_id
+  from nt n join col.mappa_plantae c on c.k1 = col.k1(n.parole[1:2]) and c.rango = 'species' and c.status <> 'misapplied'
+ where n.forma is null and array_length(n.parole, 1) >= 3 and n.id not in (select sid from scelta);
 create temp table specie_sup as
-select distinct on (n.id) n.id as sid, c.id as col_id, c.status
-  from nt n join col.mappa_plantae c on c.k1 = col.k1(n.parole[1:2]) and c.rango = 'species'
- where n.forma is null and array_length(n.parole, 1) >= 3 and n.id not in (select sid from scelta)
-   and c.status in ('accepted', 'provisionally accepted')
- order by n.id, (c.status = 'accepted') desc, c.id;
+select distinct on (c.sid) c.sid, c.id as col_id, c.status
+  from sup_cand c
+  join (select sid, count(*) filter (where status in ('accepted', 'provisionally accepted')) as n_acc,
+               count(distinct acc_id) as n_dest from sup_cand group by sid) m using (sid)
+ where (m.n_acc = 1 and c.status in ('accepted', 'provisionally accepted')) or (m.n_acc = 0 and m.n_dest = 1)
+ order by c.sid, (c.status = 'accepted') desc, (c.status = 'synonym') desc, c.id;
+create temp table destinazioni as
+select distinct sid, acc_id from candidati
+ where sid not in (select sid from scelta) and status <> 'misapplied' and metodo <> 'refuso'
+union
+select distinct sid, acc_id from sup_cand where sid not in (select sid from specie_sup)
+                                           and sid not in (select sid from candidati);
+create temp table antenati as
+with recursive a(sid, acc_id, id, dist) as (
+  select sid, acc_id, acc_id, 0 from destinazioni
+  union all
+  select a.sid, a.acc_id, u.parent_id, a.dist + 1 from a join col.nome_uso u on u.id = a.id
+   where u.parent_id <> '' and a.dist < 60)
+select * from a;
+create temp table antenato_comune as
+select distinct on (x.sid) x.sid, x.id as col_id
+  from (select sid, id, count(distinct acc_id) as n, max(dist) as dist from antenati group by sid, id) x
+  join (select sid, count(distinct acc_id) as n_dest from destinazioni group by sid) d on d.sid = x.sid
+ where x.n = d.n_dest and d.n_dest > 1
+ order by x.sid, x.dist, x.id;
 create temp table genere_sup as
 select distinct on (n.id) n.id as sid, c.id as col_id, c.status,
        count(*) filter (where c.status in ('accepted', 'provisionally accepted')) over (partition by n.id) as n_generi
@@ -118,14 +145,17 @@ select distinct on (n.id) n.id as sid, u.id as col_id, u.status,
   from nt n
   join col.nome_uso u on lower(split_part(col.chiave(u.nome), ' ', 2)) = n.parole[2]
   left join col.nome_uso p on p.id = u.parent_id and u.status in ('synonym', 'ambiguous synonym')
+  cross join lateral (select col.parole(u.nome) as parole) w
  where n.forma is null and array_length(n.parole, 1) >= 2
+   and (array_length(w.parole, 1) = 2 or array_to_string(w.parole[2:], ' ') = array_to_string(n.parole[2:], ' '))
    and not exists (select 1 from col.mappa_plantae g where g.genere = n.genere and g.rango = 'genus'
                                                    and g.status in ('accepted', 'provisionally accepted'))
    and coalesce(nullif(u.regno, ''), p.regno) = 'Plantae'
    and u.nome !~ '\sspp?\.?\s*$'
    and extensions.levenshtein(lower(split_part(col.chiave(u.nome), ' ', 1)), n.genere)
        between 1 and case when length(n.genere) > 8 then 2 else 1 end
- order by n.id, (array_length(col.parole(u.nome), 1) = array_length(n.parole, 1)) desc, (u.status = 'accepted') desc, u.id;
+ order by n.id, (array_to_string(w.parole[2:], ' ') = array_to_string(n.parole[2:], ' ')) desc,
+          (array_length(w.parole, 1) = array_length(n.parole, 1)) desc, (u.status = 'accepted') desc, u.id;
 
 -- 6. notogeneri assenti da COL (× Angulocaste, × Mahoberberis...): taxon locale sotto la famiglia della riga
 --    (specifica, "taxa": i taxon locali servono per i notogeneri non riconosciuti)
@@ -170,14 +200,15 @@ select n.id as sid, n.forma,
     when n.forma is not null and g.sid is not null then n.forma
     when gr.sid is not null then 'genere scritto male'
     when sp.sid is not null then 'specie superiore'
+    when n.forma is null and ac.sid is not null then 'antenato comune'
     when g.sid is not null then 'genere superiore'
     when fp.sid is not null then 'fuori da Plantae'
     when gs.sid is not null then 'genere simile'
     when fr.sid is not null then 'famiglia della riga'
     else 'nessuno' end as metodo,
   case when ng.genere is null then
-    coalesce(s.col_id, case when n.forma is null then gr.col_id end, case when n.forma is null then sp.col_id end, g.col_id, fp.col_id,
-             gs.col_id, fr.col_id)
+    coalesce(s.col_id, case when n.forma is null then gr.col_id end, case when n.forma is null then sp.col_id end,
+             case when n.forma is null then ac.col_id end, g.col_id, fp.col_id, gs.col_id, fr.col_id)
   end as col_id,
   ng.nome as taxon_locale, ng.famiglia as famiglia_locale,
   case
@@ -185,6 +216,7 @@ select n.id as sid, n.forma,
     when ng.genere is not null then 'ibrido'
     when n.forma is null and gr.sid is not null then 'variante'
     when n.forma is null and sp.sid is not null then 'rango superiore'
+    when n.forma is null and ac.sid is not null then 'rango superiore'
     when g.sid is not null then 'rango superiore'
     when fp.sid is null and gs.sid is not null then 'variante'
     when fp.sid is null and fr.sid is not null then 'rango superiore'
@@ -193,6 +225,7 @@ select n.id as sid, n.forma,
     when s.metodo = 'refuso' then true
     when ng.genere is not null then false
     when n.forma is null and gr.sid is not null and s.sid is null then not gr.sicuro
+    when n.forma is null and gr.sid is null and sp.sid is null and ac.sid is not null then false
     when s.sid is null and sp.sid is null and g.sid is null then true
     when s.sid is null and sp.sid is null and g.status not in ('accepted', 'provisionally accepted') then true
     when g.n_generi > 1 and s.sid is null and sp.sid is null then true
@@ -208,6 +241,7 @@ select n.id as sid, n.forma,
     when gr.sid is not null and gr.sicuro then 'genere scritto in una variante registrata da COL come sinonimo'
     when gr.sid is not null then 'genere scritto male: da confermare'
     when sp.sid is not null then 'la sottospecie o varietà non è in COL: collegato alla specie'
+    when ac.sid is not null then 'più candidati senza una scelta sicura: collegato all''antenato comune delle destinazioni (come GBIF HIGHERRANK)'
     when g.n_generi > 1 then 'più generi omonimi in Plantae: da confermare'
     when g.sid is not null and g.status not in ('accepted', 'provisionally accepted') then 'il genere in COL è solo un sinonimo: da confermare'
     when g.sid is not null and exists (select 1 from candidati c where c.sid = n.id) then 'più candidati senza una scelta sicura: collegato al genere'
@@ -219,6 +253,7 @@ select n.id as sid, n.forma,
   from nt n
   left join scelta s on s.sid = n.id
   left join specie_sup sp on sp.sid = n.id
+  left join antenato_comune ac on ac.sid = n.id
   left join genere_sup g on g.sid = n.id
   left join genere_refuso gr on gr.sid = n.id
   left join notogeneri ng on ng.genere = n.genere and s.sid is null
