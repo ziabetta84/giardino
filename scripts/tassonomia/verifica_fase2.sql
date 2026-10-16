@@ -1,11 +1,18 @@
 -- Fase 2: controllo di public.taxa dopo il caricamento di COL XR. Sola lettura.
--- Variabili psql: righe_attese (somma delle righe del manifesto dei lotti) e versione (es. COL26.9 XR).
+-- Variabili psql: righe_attese (righe di COL attese in taxa) e versione (es. COL26.9 XR); facoltativa regni_ammessi,
+-- regni separati da virgole (predefinito Plantae; nella fase 3 anche Fungi se l'utente ha accettato Cetraria islandica).
 -- Uso: psql URL -X -q -v ON_ERROR_STOP=1 -v righe_attese=N -v versione='COL26.9 XR' -f scripts/tassonomia/verifica_fase2.sql
-select set_config('fase2.righe_attese', :'righe_attese', false), set_config('fase2.versione', :'versione', false) \g /dev/null
+\if :{?regni_ammessi}
+\else
+  \set regni_ammessi Plantae
+\endif
+select set_config('fase2.righe_attese', :'righe_attese', false), set_config('fase2.versione', :'versione', false),
+       set_config('fase2.regni', :'regni_ammessi', false) \g /dev/null
 do $$
 declare
   attese bigint := current_setting('fase2.righe_attese')::bigint;
   versione text := current_setting('fase2.versione');
+  regni text[] := string_to_array(current_setting('fase2.regni'), ',');
   n bigint;
 begin
   select count(*) into n from public.taxa where origine = 'col';
@@ -23,20 +30,20 @@ begin
    where s.stato in ('synonym', 'ambiguous synonym', 'misapplied')
      and (s.padre_id is not null or a.id is null or a.stato not in ('accepted', 'provisionally accepted'));
   if n > 0 then raise exception 'sinonimi senza un accettato valido: %', n; end if;
-  -- un solo regno, Plantae, e ogni accettato sotto il regno ci arriva risalendo i padri
-  select count(*) into n from public.taxa where rango = 'kingdom';
-  if n <> 1 or not exists (select 1 from public.taxa where rango = 'kingdom' and nome_scientifico = 'Plantae') then
-    raise exception 'regni in taxa: % (atteso solo Plantae)', n;
+  -- solo i regni ammessi, Plantae compreso, e ogni accettato sotto il regno ci arriva risalendo i padri
+  select count(*) into n from public.taxa where rango = 'kingdom' and nome_scientifico <> all (regni);
+  if n > 0 or not exists (select 1 from public.taxa where rango = 'kingdom' and nome_scientifico = 'Plantae') then
+    raise exception 'regni in taxa fuori da quelli ammessi (%): %', array_to_string(regni, ', '), n;
   end if;
   with recursive su(id, partenza, nome, rango) as (
     select id, id, nome_scientifico, rango from public.taxa where stato in ('accepted', 'provisionally accepted')
     union all
     select p.id, su.partenza, p.nome_scientifico, p.rango
       from su join public.taxa t on t.id = su.id join public.taxa p on p.id = t.padre_id),
-  in_plantae as (select distinct partenza from su where rango = 'kingdom' and nome = 'Plantae')
+  in_plantae as (select distinct partenza from su where rango = 'kingdom' and nome = any (regni))
   select count(*) into n from public.taxa t left join in_plantae b on b.partenza = t.id
    where t.stato in ('accepted', 'provisionally accepted') and t.rango not in ('domain', 'kingdom') and b.partenza is null;
-  if n > 0 then raise exception 'taxon accettati fuori da Plantae: %', n; end if;
+  if n > 0 then raise exception 'taxon accettati fuori dai regni ammessi: %', n; end if;
   -- i 5 indici, validi
   select count(*) into n from pg_index i join pg_class c on c.oid = i.indexrelid
    where i.indrelid = 'public.taxa'::regclass and i.indisvalid and i.indisready

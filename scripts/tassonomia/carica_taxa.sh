@@ -6,6 +6,10 @@
 # - i 3 indici secondari di taxa si tolgono prima e si ricreano dopo.
 # Si può rilanciare dopo un'interruzione: ogni lotto è una transazione (c'è tutto o niente) e quelli già caricati
 # vengono saltati. Le altre tabelle non cambiano: l'impronta di specie si confronta prima e dopo.
+# Facoltativi nella cartella dei lotti (fase 3, lotti che si aggiungono a taxa già caricata): base.txt = righe di COL già
+# in taxa che restano (la verifica attende base + righe dei lotti; con base > 0 gli indici restano, per poche righe
+# costa meno tenerli che ricrearli); regni.txt = regni ammessi dalla verifica, separati da virgole (predefinito Plantae).
+# Le colonne del COPY sono quelle dell'intestazione del lotto.
 # Uso: bash scripts/tassonomia/carica_taxa.sh URL CARTELLA_LOTTI CARTELLA_MISURE
 #   Sul database reale serve CONFERMO_CARICAMENTO_REALE=si; soglie fisse: 400 MB di database, 300 MB di WAL.
 #   Sulla copia locale: PAUSA_S (secondi, predefinito 0), SOGLIA_MB e SOGLIA_WAL_MB (predefiniti 100000).
@@ -44,7 +48,13 @@ while IFS=$'\t' read -r file righe sha primo <&3; do
   [ "$(shasum -a 256 "$LOTTI/$file" | cut -d' ' -f1)" = "$sha" ] \
     || { echo "RIFIUTATO: $file diverso da quello del manifesto" >&2; exit 1; }
 done 3< "$LOTTI/manifest.tsv"
-ATTESE=$(awk -F'\t' '{ s += $2 } END { print s }' "$LOTTI/manifest.tsv")
+BASE=0
+[ ! -f "$LOTTI/base.txt" ] || BASE=$(cat "$LOTTI/base.txt")
+[[ $BASE =~ ^[0-9]+$ ]] || { echo "RIFIUTATO: base.txt non valido" >&2; exit 1; }
+REGNI=Plantae
+[ ! -f "$LOTTI/regni.txt" ] || REGNI=$(cat "$LOTTI/regni.txt")
+[[ $REGNI =~ ^[A-Z][a-z]+(,[A-Z][a-z]+)*$ ]] || { echo "RIFIUTATO: regni.txt non valido" >&2; exit 1; }
+ATTESE=$(( BASE + $(awk -F'\t' '{ s += $2 } END { print s }' "$LOTTI/manifest.tsv") ))
 altre=$("${PSQL[@]}" -tAc "select count(*) from public.taxa where origine = 'col' and versione_col <> '$VERSIONE'")
 [ "$altre" = 0 ] || { echo "RIFIUTATO: taxa contiene $altre righe di un'altra versione di COL" >&2; exit 1; }
 controlla inizio
@@ -56,7 +66,7 @@ da_caricare=0
 while IFS=$'\t' read -r file righe sha primo <&3; do
   caricato "$primo" || da_caricare=$((da_caricare + 1))
 done 3< "$LOTTI/manifest.tsv"
-if [ "$da_caricare" -gt 0 ]; then
+if [ "$da_caricare" -gt 0 ] && [ "$BASE" = 0 ]; then
   tempo "tolgo gli indici secondari di taxa ($da_caricare lotti da caricare)"
   "${PSQL[@]}" -c 'drop index if exists public.taxa_padre_id_idx, public.taxa_accettato_id_idx, public.taxa_nome_scientifico_trgm_idx'
 fi
@@ -66,11 +76,14 @@ while IFS=$'\t' read -r file righe sha primo <&3; do
   if caricato "$primo"; then tempo "$file già caricato"; continue; fi
   pausa
   controlla "$file"
+  colonne=$(head -1 "$LOTTI/$file")
+  [[ ,$colonne, =~ ^(,(id|origine|col_id|versione_col|rango|nome_scientifico|autore|notho|stato|accettato_id|padre_id|nota))+,$ ]] \
+    || { echo "RIFIUTATO: colonne inattese in $file" >&2; exit 1; }
   prima=$("${PSQL[@]}" -tAc 'select count(*) from public.taxa')
   lsn=$("${PSQL[@]}" -tAc 'select pg_current_wal_lsn()')
   tempo "$file: carico $righe righe"
   "${PSQL[@]}" -1 -c "set local statement_timeout = '10min'" \
-    -c "copy public.taxa (id, origine, col_id, versione_col, rango, nome_scientifico, autore, notho, stato, accettato_id, padre_id) from stdin with (format csv, header)" \
+    -c "copy public.taxa ($colonne) from stdin with (format csv, header)" \
     -c "do \$\$ begin if (select count(*) from public.taxa) <> $((prima + righe)) then raise exception 'lotto $file incompleto'; end if; end \$\$" \
     < "$LOTTI/$file"
   wal=$("${PSQL[@]}" -tAc "select round(pg_wal_lsn_diff(pg_current_wal_lsn(), '$lsn') / 1e6, 1)")
@@ -95,7 +108,7 @@ tempo "impronta di specie dopo"
 "${PSQL[@]}" -f $D/impronta_specie.sql > "$OUT/impronta_specie_dopo.txt"
 diff "$OUT/impronta_specie_prima.txt" "$OUT/impronta_specie_dopo.txt" >&2 \
   || { echo "FALLITO: specie è cambiata durante il caricamento" >&2; exit 1; }
-"${PSQL[@]}" -v righe_attese="$ATTESE" -v versione="$VERSIONE" -f $D/verifica_fase2.sql
+"${PSQL[@]}" -v righe_attese="$ATTESE" -v versione="$VERSIONE" -v regni_ammessi="$REGNI" -f $D/verifica_fase2.sql
 "${PSQL[@]}" -f $D/controlli_spazio.sql | tee "$OUT/controlli_fine.txt"
 tempo "fine"
 echo "CARICAMENTO TAXA OK"
