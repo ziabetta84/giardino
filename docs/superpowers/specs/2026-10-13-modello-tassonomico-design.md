@@ -66,7 +66,7 @@ Si aggiungono `taxon_id` e `cultivar_id`. Fino alla fase 6 sono facoltative (al 
 - **Nome mostrato di un taxon**: nome comune preferito in italiano; se manca, nome scientifico canonico.
 - **Nome mostrato di una cultivar** (Art. 21.1): nome comune preferito del suo taxon + `'Epiteto'`, ma solo se quel nome comune non è il preferito anche di un altro taxon (nome "non ambiguo"); altrimenti nome scientifico del taxon + `'Epiteto'`. L'epiteto non si traduce mai.
 - **Ricerca**: nomi comuni (tutti, non solo i preferiti), nomi canonici inclusi i sinonimi, epiteti e nomi commerciali delle cultivar. Indici trigram come oggi.
-- **Eredità delle schede**: se una cultivar non ha una scheda mostrata, si usa quella del suo taxon, poi del padre (sinonimo → accettato, specie → genere). L'app indica solo il livello ("cure del genere *Hedera*").
+- **Eredità delle schede**: se una cultivar non ha una scheda mostrata, si usa quella del suo taxon, poi del padre (sinonimo → accettato, specie → genere). L'app indica solo il livello ("cure del genere *Hedera*"). L'eredità vale campo per campo, non per scheda intera (decisione 4 della fase 4).
 - **Fonti solo nel database**: nel frontend la fonte non si nomina mai (né nella pagina della pianta, né nel selettore, né nelle risposte dell'agente). Resta un dato interno, usato per tracciabilità, revisione e per pesare l'affidabilità delle informazioni.
 
 ## Migrazione dei contenuti
@@ -75,10 +75,10 @@ Inventario attuale (13/10/2026, sola lettura): 15.723 righe madri (15.632 con de
 
 Regole:
 
-- Ogni riga madre con contenuto genera una scheda, attaccata al taxon della sua corrispondenza. Le righe "Genere spp." classificate come contenuto di specie (`scripts/nomi-italiani/dati/`, classificazione già approvata) generano la scheda sulla specie, le altre sul genere.
-- Le righe doppione (stesso taxon) generano più schede sullo stesso taxon; la scheda mostrata è quella verificata, altrimenti la più recente; l'utente può cambiarla.
+- Ogni riga madre con contenuto genera una scheda, attaccata al taxon della sua corrispondenza (all'accettato: decisione 1 della fase 4). Le righe "Genere spp." generano la scheda sul genere, anche le 16 con cure di specie (decisione 6 della fase 4: la frase precedente, che le voleva sulla specie, è superata).
+- Le righe doppione (stesso taxon) generano più schede sullo stesso taxon; la scheda mostrata segue la regola della decisione 3 della fase 4 (le date non servono); l'utente può cambiarla.
 - I nomi italiani attuali (`nome` ≠ `nome_scientifico`) e i `nomi_alternativi` diventano righe di `nomi_comuni`; il nome attuale è il preferito.
-- Le cultivar diventano righe di `cultivar` con l'epiteto estratto dal nome scientifico; il nome italiano salvato dai lotti non si copia (si calcola).
+- Le cultivar diventano righe di `cultivar` con l'epiteto riletto dai titoli RHS già scaricati, e dal nome scientifico solo dove il titolo manca (decisione 11 della fase 4); il nome italiano salvato dai lotti non si copia (si calcola).
 - Le righe cancellate in questa sessione (32 doppioni bozza, `agapanthus`, `jasminum-officinale`, `daucus-carota`, 4 cultivar doppie) vengono lette dai file di rollback e non reinserite in `specie`: le 35 madri entrano come schede, le 4 cultivar (senza contenuto) solo come righe di `mappa_specie`.
 - **Verifica**: lo stesso inventario, per fonte e per campo, ricalcolato sulle tabelle nuove deve dare gli stessi numeri (o differenze spiegate una per una).
 
@@ -160,6 +160,45 @@ Prese dopo la ricerca sull'abbinamento (`~/giardino-dati/col/ricerca_fase3/`). L
    - le righe non esatte usate dalle sue piante.
 6. **Notogeneri assenti da COL** (× *Angulocaste*, × *Mahoberberis*…): diventano taxon locali, sotto la famiglia scritta nella riga.
 7. **Righe recuperate dai rollback.** Si classificano per nome, come le altre. Fa eccezione *agapanthus*, che ha il nome di una specie ma la descrizione del genere: la proposta è il genere.
+
+## Decisioni per la fase 4 (approvate il 16/10/2026)
+
+Prese dopo la ricerca sui dati (`~/giardino-dati/col/ricerca_fase4/`, con le misure e gli script). Spazio misurato: circa 125 MB in più (schede 38, cultivar 82, nomi comuni 6), cioè circa 396 MB su 500.
+
+**Schede**
+1. **Aggancio:** sull'accettato del nome trovato in `mappa_specie`; per un sinonimo di specie che porta a un autonimo, sulla specie (ICN art. 26, decisione 4 della fase 3).
+2. **Schede di specie finite su un taxon superiore** (370: specie assenti da COL, ambigui, ibridi con nome portati al genere, notogeneri, «aff.»): restano collegate al taxon della mappa, ma non sono mai mostrate né ereditate (come GBIF HIGHERRANK: il dato su un rango superiore non descrive quel taxon). Taxon locali per i nomi veri assenti da COL: lavoro successivo, con revisione una per una.
+3. **Scheda mostrata** (decisione 9 dopo la verifica): idonea, poi verificata, poi usata dalle piante dell'utente, poi genere accettato prima di un genere sinonimo, poi completezza sui valori reali (i jsonb di PFAF con tutti i valori a null non contano), poi qualità della descrizione, nome esatto, lunghezza, slug. Le schede delle piante dell'utente restano quelle di oggi.
+4. **Eredità campo per campo** (cultivar → grex → taxon → padre), come fa oggi l'app, non per scheda intera.
+5. **Grex di orchidee** (213 righe più 7 su notogeneri locali): cultivar di categoria `grex` con la loro scheda (ICNCP art. 4.1 e 23). Le cultivar di orchidea sono legate al loro grex con una colonna nuova `cultivar.grex_id` (ICNCP art. 6.5); *Brachyglottis* Dunedin Hybrids diventa il gruppo Dunedin.
+6. **Righe «Genere spp.»:** scheda sul genere, anche le 16 con cure di specie (servono a 18 piante dell'utente e a 3.220 cultivar); *Sansevieria* resta sul genere (scelta dell'utente), anche se COL la include in *Dracaena*.
+7. **Copia dei jsonb** (esigenze, manutenzione, vaso, ciclo colturale) così come sono, compresi gli scheletri a null: l'inventario deve tornare uguale.
+8. **Doppioni che sono Gruppi colturali** (peperone/peperoncino, cavolo/cavolo ornamentale, arancio/pompelmo…): nella fase 4 restano schede non mostrate dello stesso taxon; i Gruppi (ICNCP art. 22) sono lavoro successivo.
+
+**Fonti dentro i testi** (decisioni 11 e 12 dopo la verifica). Le trasformazioni si fanno nella SELECT che alimenta l'inserimento, mai con un aggiornamento dopo (decisione sullo spazio 5).
+
+9. Tolto l'avviso «Scheda in bozza, importata automaticamente da Plants For A Future» (8.460 righe: lo stato è in `stato_verifica`, la fonte in `fonti`); tolte le etichette «Da RHS (testo originale in inglese):»; i rischi PFAF diventano «Rischi (testo in inglese):» senza i rimandi numerici, e «None known» diventa «Rischi: nessuno noto»; i dati di coltivazione negli avvisi restano lì con prefissi fissi (Dimensioni a maturità, Rusticità, Propagazione, Potatura, Parassiti).
+10. **Rusticità:** il codice RHS (H1a–H7) diventa la frase in gradi della sua fascia ufficiale, «minime fino a -15 °C»; con più codici si prende la fascia meno rustica.
+11. **Testi in inglese:** restano in inglese e marcati; la traduzione è sospesa fino alla fine della fase 4. «Descrizione del genere:» resta davanti alle descrizioni di genere. La coda inglese delle 199 descrizioni di enciclopedia si taglia (resta in `descrizione_originale`).
+12. **Nomi inglesi di PFAF** (8.144): righe di `nomi_comuni` in lingua `en`, mai preferite e mai nome mostrato.
+13. **Note di lavorazione** trovate nei testi e in `fonti`: nella colonna interna nuova `schede.nota`, non leggibile dai client.
+14. **Foto:** il jsonb `immagine` resta leggibile (url, attribuzione, licenza, licenza_url, fonte_pagina) senza la chiave costante `fonte` e senza i parametri `utm` negli indirizzi. Credito da mostrare nella fase 6, secondo Creative Commons (TASL): «Foto: Autore, licenza» con il link alla pagina del file e alla licenza, e il titolo per le licenze fino alla 3.0. Dei 79 autori sbagliati, 5 si correggono nell'inserimento e 74 dopo, rileggendo Commons (aggiornamento di poche righe). `esigenze`: tolto «Non specificato dalla fonte».
+
+**Cultivar**
+
+15. **Epiteto:** dai titoli RHS già scaricati, che correggono 1.854 epiteti troncati dallo script d'import (ICNCP art. 14.1, 21.4, 32.1); le 65 correzioni non a prefisso si controllano a mano.
+16. **taxon_id:** il taxon più basso noto (ICNCP art. 21.1-21.2): il nome trovato della madre, anche se sinonimo (l'app risale all'accettato). Le 3.330 cultivar di specie agganciate per errore alla riga del genere passano alla loro specie, dopo aver importato in `taxa` le 23 specie che mancano (regole della fase 2). Varietà e sottospecie dai titoli RHS: lavoro successivo.
+17. **Righe fuse da più cultivar o illeggibili** (200, senza contenuto né piante): una cultivar solo per le 37 con un epiteto vero; per le altre 163 solo una riga di `mappa_specie` (taxon della madre, esito «ambiguo», nota con i titoli). `mappa_specie` ha quindi anche queste righe di cultivar, oltre alle 4 doppie.
+18. **Doppioni** (stesso taxon o genere e stesso epiteto): nessuna fusione automatica e nessun vincolo unico (ICNCP art. 6.5, 21.7, 30.5); i 41 gruppi probabili vanno all'utente.
+19. **Gruppo e nome commerciale** dai titoli RHS (3.969 gruppi, 14.169 nomi commerciali; ICNCP art. 13.1, 22): valori multipli uniti con « | », gruppo non tradotto, Serie non salvate.
+
+**Nomi comuni**
+
+20. **Taxon:** l'accettato; per un autonimo, la specie (come i nomi comuni di COL). I nomi delle righe «Genere spp.» dati a una specie restano sulla specie del vecchio nome se è in `taxa`, altrimenti vanno al genere non preferiti; i nomi di righe salite di rango sono non preferiti sulla destinazione.
+21. **Preferito** (uno per taxon e lingua): `generi.nome`, poi scelta esplicita dell'utente, poi riga del nome accettato, poi riga di un sinonimo, poi nome trasferito; spareggio: riga verificata, poi più fonti. Un elenco breve dei casi dubbi va all'utente. *Capsicum annuum*: «Peperone» (scelta dell'utente).
+22. **Nome mostrato delle cultivar** (ICNCP art. 21.1): nome comune preferito della specie o, se manca, del genere, più l'epiteto; il nome è ambiguo solo se è preferito di taxon di linee diverse (un genere e una sua specie con lo stesso nome non lo sono).
+23. **Fonti:** ricostruite dalle migration e dagli script dei lotti; i nomi del catalogo iniziale che nessun lotto ha impostato hanno fonte `catalogo`, distinta da `curatore`. I nomi di sola fonte PlantNet entrano tutti tranne un elenco di esclusione rivisto dall'utente (volgari, non-nomi, testo rotto).
+24. **Nomi di COL:** fonte in più sui nomi uguali e nomi non preferiti per i nuovi (decisione 7 dopo la verifica). Confronto senza maiuscole: si tiene la nostra grafia.
 
 ## Rischi
 
