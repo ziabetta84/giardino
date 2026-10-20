@@ -18,7 +18,11 @@ begin
        'Propagazione (testo in inglese): Propagate by seed, layering or semi- hardwood cuttings'),
       ('Da RHS (testo originale in inglese) — Parassiti: "Generally pest-free"; Malattie: "Generally disease-free"',
        'Parassiti (testo in inglese): Generally pest-free; Malattie: Generally disease-free'),
-      ('nota tassonomica: famiglia classificata oggi come Primulaceae (APG); tradizionalmente/in molte fonti più datate inclusa in Myrsinaceae', null)
+      ('nota tassonomica: famiglia classificata oggi come Primulaceae (APG); tradizionalmente/in molte fonti più datate inclusa in Myrsinaceae', null),
+      -- revisione dei Task 1-3: nota di nomenclatura nella nota interna; senza etichetta, i parassiti prendono «Parassiti:»
+      ('Nomenclatura botanica aggiornata (checklist 2018): il nome accettato è ora Squilla maritima (L.) Steinh., con Urginea maritima tra i sinonimi', null),
+      ('Da RHS — in genere privo di problemi; Malattie: in genere privo di problemi', 'Parassiti: in genere privo di problemi; Malattie: in genere privo di problemi'),
+      ('Da RHS — Parassiti: può essere soggetto ad afidi', 'Parassiti: può essere soggetto ad afidi')
     ) v(prima, dopo) loop
     if col.alert_elemento(c.prima) is distinct from c.dopo then
       raise exception 'avviso «%»: atteso «%», ottenuto «%»', left(c.prima, 60), c.dopo, col.alert_elemento(c.prima);

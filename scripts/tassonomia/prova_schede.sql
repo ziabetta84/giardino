@@ -18,14 +18,26 @@ begin
   if n > 0 then raise exception 'schede mostrate sopra il genere: %', n; end if;
   select count(*) into n from col.schede_proposte where mostrata and not idonea;
   if n > 0 then raise exception 'schede non idonee mostrate: %', n; end if;
-  -- le righe usate dalle piante dell'utente sono tutte mostrate
-  select count(*) into n from col.schede_proposte where usata_piante and not mostrata;
-  if n > 0 then raise exception 'schede delle piante dell''utente non mostrate: %', n; end if;
+  -- le piante dell'utente non decidono quale scheda si vede (scelta dell'utente del 20/10/2026), ma ognuna trova una
+  -- scheda mostrata sul suo aggancio
+  select count(*) into n from (select chiave from col.schede_proposte group by chiave
+                                having bool_or(usata_piante) and not bool_or(mostrata)) x;
+  if n > 0 then raise exception 'agganci delle piante dell''utente senza scheda mostrata: %', n; end if;
+  -- descrizioni italiane con la coda inglese tagliata: lingua it
+  select count(*) into n from col.schede_proposte p join public.specie s on s.id = p.vecchia_specie_id
+   where s.descrizione ~ '.Da RHS(, descrizione del genere)? \(testo originale in inglese\): ' and p.lingua_descrizione <> 'it';
+  if n > 0 then raise exception 'descrizioni con la coda inglese tagliata e lingua diversa da it: %', n; end if;
+  -- una correzione a mano non lascia spazi o righe vuote ai bordi
+  select count(*) into n from col.schede_proposte
+   where (vecchio_slug = 'araucaria-bidwillii' and descrizione ~ '\s$') or (vecchio_slug = 'canarium-schweinfurtii' and descrizione !~ '^Albero');
+  if n > 0 then raise exception 'correzioni a mano con spazi ai bordi: %', n; end if;
   -- casi (slug, nome del taxon o della cultivar, mostrata)
   for atteso in select * from (values
       ('pomodoro', 'Solanum lycopersicum', true),
       ('rosmarino', 'Salvia rosmarinus', true),           -- sinonimo verso un autonimo: sulla specie
       ('rosmarinus-officinalis', 'Salvia rosmarinus', false), -- madre dai rollback, doppione
+      ('dracaena', 'Dracaena', true),                      -- genere accettato prima del genere sinonimo
+      ('sansevieria', 'Dracaena', false),                  -- anche se la usa una pianta dell'utente
       ('hydrangea', 'Hydrangea', true),                    -- riga "Genere spp." sul genere
       ('brassia-rex', 'Rex', true),                        -- grex: sulla sua cultivar
       ('brachyglottis-dunedin-hybrids', 'Dunedin Group', true),
@@ -41,8 +53,9 @@ begin
   select count(*) into n from col.schede_proposte p
     cross join lateral (select regexp_replace(concat_ws(' ¦ ', p.descrizione, array_to_string(p.alert, ' ¦ '), p.esigenze::text),
              '(zone?|zona) di rusticità USDA|President of the RHS|la fonte (della|dell)|le fonti naturali', '', 'gi') as t) x
-   where x.t ~ '\mRHS\M|\mPFAF\M|Plants For A Future|pfaf\.org|rhs\.org|Royal Horticultural|Wisley|\mKew\M|\mUSDA\M|Wikipedia|\mIPNI\M|\mPOWO\M|Missouri|iNaturalist|PlantNet|Pl@ntNet|Edicart|Demetra|De Vecchi|\mGiunti\M'
-      or x.t ~* '\m(la|le) fonti? (segnala|riporta|consiglia|sconsiglia|descrive|specifica|non)|dalla fonte|fonti consultate|testo originale|\mlibro\M|\menciclopedia\M|\[[0-9]{1,4}';
+   where x.t ~ '\mRHS\M|\mPFAF\M|Plants For A Future|pfaf\.org|rhs\.org|Royal Horticultural|Wisley|\mKew\M|\mUSDA\M|Wikipedia|\mIPNI\M|\mPOWO\M|Missouri|iNaturalist|PlantNet|Pl@ntNet|Edicart|Demetra|De Vecchi|\mGiunti\M|theplantlist|\mReference:? |\mUniversity\M|J\. Food Safety'
+      or x.t ~* '\m(la|le) fonti? (segnala|riporta|consiglia|sconsiglia|descrive|specifica|non)|dalla fonte|fonti consultate|testo originale|\mlibro\M|\menciclopedia\M|\[[0-9]{1,4}'
+      or x.t ~* '\m(della|nella|alla|una sola) font[ei]\M|\(fonte\)|\m(nel|in the) database\M|nota aggiornata al|checklist 20[0-9]{2}|scheda in bozza';
   if n > 0 then raise exception 'schede con una fonte nominata nei testi leggibili: %', n; end if;
   select count(*) into n from col.schede_a_mano where not applicata;
   if n > 0 then raise exception 'correzioni a mano non applicate (testo non trovato): %', n; end if;

@@ -32,7 +32,8 @@ create or replace function col.alert_tipo(a text) returns text language sql immu
   select case
     when a ~ '^Scheda in bozza, importata automaticamente da Plants For A Future' then 'X'
     when a ~ '^Nome comune \(' then 'X'
-    when a ~* '^la fonte non riporta il simbolo di tossicit' or a ~* 'il libro riporta' or a ~* '^nota tassonomica' then 'N'
+    when a ~* '^la fonte non riporta il simbolo di tossicit' or a ~* 'il libro riporta' or a ~* '^nota tassonomica'
+         or a ~* '^nomenclatura botanica aggiornata' then 'N'
     else 'A' end
 $$;
 
@@ -63,7 +64,8 @@ create or replace function col.alert_elemento(a text) returns text language sql 
     when a ~ '^Da RHS \(testo originale in inglese\)' then
       col.togli_virgolette(regexp_replace(a, '^Da RHS \(testo originale in inglese\) — (Parassiti|Malattie): ', '\1 (testo in inglese): '))
     when a ~ '^Da RHS' or a ~ '^Parassiti \(RHS' then
-      col.togli_virgolette(regexp_replace(regexp_replace(a, '^Da RHS — ', ''), '(Parassiti|Malattie) \(RHS\): ', '\1: ', 'g'))
+      col.togli_virgolette(regexp_replace(regexp_replace(regexp_replace(a, '^Da RHS — (?=Parassiti|Malattie)', ''), '^Da RHS — ', 'Parassiti: '),
+                                          '(Parassiti|Malattie) \(RHS\): ', '\1: ', 'g'))
     when a ~ '^(Parassiti|Malattie)' then col.togli_virgolette(a)
     when a ~* 'simbolo[^)]*nel libro' and a ~* 'velenos|tossic' and a !~* 'non specificamente' then regexp_replace(a, ' \(simbolo[^)]*nel libro\)', '')
     else a end

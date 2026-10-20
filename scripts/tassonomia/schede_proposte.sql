@@ -8,9 +8,10 @@
 -- - idonea (punto 2): una scheda di specie finita su un genere o più in alto non è idonea: non è mai mostrata. Sono
 --   idonee sul genere le righe con un nome di genere ("Genere spp." comprese, punto 6), i contenuti di gruppo del
 --   genere e agapanthus (descrizione del genere sotto un nome di specie);
--- - mostrata (punto 3): per ogni aggancio la prima per idonea, verificata, usata dalle piante dell'utente, genere
---   accettato prima di un genere sinonimo, completezza sui valori utili (i jsonb tutti a null non contano), qualità
---   della descrizione, nome accettato esatto, lunghezza della descrizione, slug;
+-- - mostrata (punto 3): per ogni aggancio la prima per idonea, verificata, genere accettato prima di un genere
+--   sinonimo, completezza sui valori utili (i jsonb tutti a null non contano), qualità della descrizione, nome
+--   accettato esatto, lunghezza della descrizione, slug. Le piante dell'utente non contano (scelta dell'utente del
+--   20/10/2026: avere una pianta non deve influire sull'affidabilità delle informazioni);
 -- - testi (punti 9-14): funzioni di schede_testi.sql, poi le correzioni a mano di dati/fase4_schede_a_mano.tsv; le
 --   note di lavorazione e la nota «Correzione…» delle fonti vanno nella colonna interna nota. I jsonb di coltivazione
 --   si copiano così come sono (punto 7).
@@ -35,12 +36,14 @@ create or replace function col.utile(j jsonb) returns boolean language sql immut
 $$;
 create or replace function col.pieno(t text) returns boolean language sql immutable parallel safe as $$ select t is not null and btrim(t) <> '' $$;
 create or replace function col.applica_a_mano(t text, slug text, campo text) returns text language plpgsql stable as $$
-declare r record;
+declare r record; t0 text := t;
 begin
   if t is null then return null; end if;
   for r in select x.da, x.a from col.schede_a_mano x where x.vecchio_slug = slug and x.campo = applica_a_mano.campo order by x.da loop
     t := replace(t, r.da, r.a);
   end loop;
+  -- una frase tolta all'inizio o alla fine non lascia spazi o righe vuote ai bordi
+  if t is distinct from t0 then t := btrim(t, E' \n\t'); end if;
   return t;
 end $$;
 
@@ -92,7 +95,7 @@ select d.*, m.stato_verifica,
        length(coalesce(m.descrizione, '')) as ld
   from d join m on m.id = d.id;
 create temp table rk as
-select k.*, row_number() over (partition by chiave order by idonea desc, (stato_verifica = 'verificato') desc, usata_piante desc,
+select k.*, row_number() over (partition by chiave order by idonea desc, (stato_verifica = 'verificato') desc,
           (dest_rango = 'genus' and t_rango = 'genus' and t_stato not in ('accepted', 'provisionally accepted')) asc,
           n_utili desc, q_descr desc, nome_accettato desc, ld desc, slug) as pos
   from k;
@@ -115,7 +118,7 @@ select gen_random_uuid() as id,
        coalesce((select array_agg(f order by o) from unnest(m.fonti) with ordinality u(f, o) where f !~ '^Correzione'), m.fonti) as fonti,
        col.applica_a_mano(t.descrizione, m.slug, 'descrizione') as descrizione,
        m.descrizione_originale,
-       case when t.coda_inglese and m.lingua_descrizione = 'mixed' then 'it' else m.lingua_descrizione end as lingua_descrizione,
+       case when t.coda_inglese then 'it' else m.lingua_descrizione end as lingua_descrizione,
        col.esigenze_pulite(m.esigenze) as esigenze, m.manutenzione, m.ciclo_colturale, m.ciclo_vitale, m.vaso,
        case when t.alert is null then null
             else coalesce((select array_agg(col.applica_a_mano(e, m.slug, 'alert') order by o) from unnest(t.alert) with ordinality u(e, o)), '{}') end as alert,

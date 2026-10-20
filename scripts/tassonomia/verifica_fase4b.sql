@@ -51,8 +51,9 @@ begin
   select count(*) into n from public.schede h
     cross join lateral (select regexp_replace(concat_ws(' ¦ ', h.descrizione, array_to_string(h.alert, ' ¦ '), h.esigenze::text),
              '(zone?|zona) di rusticità USDA|President of the RHS|la fonte (della|dell)|le fonti naturali', '', 'gi') as t) x
-   where x.t ~ '\mRHS\M|\mPFAF\M|Plants For A Future|pfaf\.org|rhs\.org|Royal Horticultural|Wisley|\mKew\M|\mUSDA\M|Wikipedia|\mIPNI\M|\mPOWO\M|Missouri|iNaturalist|PlantNet|Pl@ntNet|Edicart|Demetra|De Vecchi|\mGiunti\M'
-      or x.t ~* '\m(la|le) fonti? (segnala|riporta|consiglia|sconsiglia|descrive|specifica|non)|dalla fonte|fonti consultate|testo originale|\mlibro\M|\menciclopedia\M|\[[0-9]{1,4}';
+   where x.t ~ '\mRHS\M|\mPFAF\M|Plants For A Future|pfaf\.org|rhs\.org|Royal Horticultural|Wisley|\mKew\M|\mUSDA\M|Wikipedia|\mIPNI\M|\mPOWO\M|Missouri|iNaturalist|PlantNet|Pl@ntNet|Edicart|Demetra|De Vecchi|\mGiunti\M|theplantlist|\mReference:? |\mUniversity\M|J\. Food Safety'
+      or x.t ~* '\m(la|le) fonti? (segnala|riporta|consiglia|sconsiglia|descrive|specifica|non)|dalla fonte|fonti consultate|testo originale|\mlibro\M|\menciclopedia\M|\[[0-9]{1,4}'
+      or x.t ~* '\m(della|nella|alla|una sola) font[ei]\M|\(fonte\)|\m(nel|in the) database\M|nota aggiornata al|checklist 20[0-9]{2}|scheda in bozza';
   if n > 0 then raise exception 'schede con una fonte nominata nei testi leggibili: %', n; end if;
   -- indici e permessi
   select count(*) into n from unnest(array['schede_taxon_id_idx', 'schede_cultivar_id_idx', 'schede_mostrata_taxon_idx', 'schede_mostrata_cultivar_idx']) i

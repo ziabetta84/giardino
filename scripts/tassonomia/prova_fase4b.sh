@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Prove della fase 4b (schede) sulla copia locale: rifiuti, file alterato, ripresa dopo un lotto fallito, caricamento,
 # rilancio, rollback della 4a rifiutato con le schede presenti, rollback della 4b rifiutato se una scheda è stata
-# modificata, rollback eseguito, nuovo caricamento.
+# modificata o aggiunta, rollback eseguito, nuovo caricamento.
 # Uso: bash scripts/tassonomia/prova_fase4b.sh URL_COPIA CARTELLA_ESPORTA CARTELLA      (CARTELLA nuova a ogni giro)
 #   CARTELLA_ESPORTA = cartella scritta da schede_esporta.sh. La copia deve avere la fase 4a applicata e schede vuota.
 # Uscita 0 = tutte le prove passate; alla fine la copia contiene il caricamento completo.
@@ -70,10 +70,14 @@ grep -qF 'Rollback fase 4a rifiutato' <<<"$out" || fallita rollback_4a "$out"
 [ "$(conta)" = "$PIENO" ] || fallita rollback_4a "stato cambiato: $(conta)"
 echo "PROVA rollback_4a OK"
 
-# 6. Rollback della 4b: rifiutato se una scheda è stata modificata dopo il caricamento (in una transazione mai
+# 6. Rollback della 4b: rifiutato se una scheda è stata modificata o aggiunta dopo il caricamento (in una transazione mai
 #    confermata), poi eseguito e seguito da un nuovo caricamento completo.
 out=$("${PSQL[@]}" -c 'begin' -c "update public.schede set descrizione = descrizione || ' ' where id = (select min(id::text)::uuid from public.schede)" \
         -f $D/rollback_fase4b.sql 2>&1) && fallita rollback "rollback accettato con una scheda modificata"
+grep -qF 'Rollback fase 4b rifiutato' <<<"$out" || fallita rollback "$out"
+[ "$(conta)" = "$PIENO" ] || fallita rollback "un rollback rifiutato ha tolto righe: $(conta)"
+out=$("${PSQL[@]}" -c 'begin' -c "insert into public.schede (taxon_id, fonti) select taxon_id, '{prova}' from public.schede where taxon_id is not null limit 1" \
+        -f $D/rollback_fase4b.sql 2>&1) && fallita rollback "rollback accettato con una scheda aggiunta dopo il caricamento"
 grep -qF 'Rollback fase 4b rifiutato' <<<"$out" || fallita rollback "$out"
 [ "$(conta)" = "$PIENO" ] || fallita rollback "un rollback rifiutato ha tolto righe: $(conta)"
 "${PSQL[@]}" -1 -f $D/rollback_fase4b.sql
