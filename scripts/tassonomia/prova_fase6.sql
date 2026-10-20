@@ -99,6 +99,20 @@ begin
      where e ->> 'specie' = r.specie and left(e ->> 'chiave', 1) = r.tipo and (r.via is null or e ->> 'via' = r.via);
     if n <> 1 then raise exception 'ricerca «%»: % risultati per %', r.q, n, r.specie; end if;
   end loop;
+  -- revisione: i nomi esatti dei generi grandi e i nomi con l'apostrofo si trovano, la ricerca su due parole è veloce
+  for r in select * from (values
+      ('rosa', 'specie', 'Rosa'), ('acer', 'specie', 'Acer'), ('salvia', 'specie', 'Salvia'), ('ribes', 'specie', 'Ribes'),
+      ('pino', 'nome', 'Pino'), ('Lavanda dell''Egitto', 'nome', 'Lavanda dell''Egitto'),
+      ('lavanda dell’egitto', 'nome', 'Lavanda dell''Egitto'), ('edera glacier', 'specie', 'Hedera helix ''Glacier''')
+    ) x(q, campo, valore) loop
+    select count(*) into n from jsonb_array_elements(public.cerca_catalogo(r.q)) e where e ->> r.campo = r.valore;
+    if n < 1 then raise exception 'ricerca «%»: manca %', r.q, r.valore; end if;
+  end loop;
+  foreach k in array array['qx a', 'rosmarino b', 'basilico g'] loop
+    t0 := clock_timestamp();
+    perform public.cerca_catalogo(k);
+    if clock_timestamp() - t0 > interval '700 milliseconds' then raise exception 'ricerca «%» lenta: %', k, clock_timestamp() - t0; end if;
+  end loop;
   if jsonb_array_length(public.cerca_catalogo('%')) <> 0 or jsonb_array_length(public.cerca_catalogo('a')) <> 0
      or jsonb_array_length(public.cerca_catalogo('')) <> 0 or jsonb_array_length(public.cerca_catalogo(null)) <> 0 then
     raise exception 'ricerca troppo corta o con soli caratteri speciali: risultati non vuoti';

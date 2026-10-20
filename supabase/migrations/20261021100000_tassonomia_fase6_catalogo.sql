@@ -194,44 +194,59 @@ create function public.catalogo_mie_piante() returns jsonb language sql stable s
 $$;
 
 -- Ricerca: nomi comuni italiani, nomi scientifici dal genere in giù (sinonimi verso l'accettato), epiteti e nomi
--- commerciali delle cultivar, «nome epiteto». Apici ignorati; meno di 2 caratteri utili: nessun risultato.
+-- commerciali delle cultivar, «nome epiteto» (il primo termine trova i taxon, il resto l'epiteto delle loro cultivar).
+-- Apici curvi resi dritti, tolti solo a inizio e fine parola («'Evergold'»), tenuti dentro le parole («dell'Egitto»).
+-- Ogni ramo ordina prima del limite (nome uguale, poi che comincia così, poi più corto): «rosa» trova Rosa tra
+-- migliaia di nomi che contengono «rosa». Meno di 2 caratteri utili: nessun risultato.
 create function public.cerca_catalogo(q text) returns jsonb language plpgsql stable set search_path = '' as $$
 declare
-  testo text := btrim(regexp_replace(regexp_replace(coalesce(q, ''), '[''‘’‛`´"“”]', '', 'g'), '\s+', ' ', 'g'));
-  pat text; primo text; resto text;
+  testo text := btrim(regexp_replace(regexp_replace(regexp_replace(translate(coalesce(q, ''), '‘’‛`´', ''''''''''),
+                  '["“”]', '', 'g'), '(^|\s)''+|''+(\s|$)', '\1\2', 'g'), '\s+', ' ', 'g'));
+  pat text; inizio text; primo text; resto text;
 begin
-  if length(regexp_replace(testo, '[%_\\\s]', '', 'g')) < 2 then return '[]'; end if;
+  if length(regexp_replace(testo, '[%_\\\s'']', '', 'g')) < 2 then return '[]'; end if;
   pat := '%' || regexp_replace(testo, '([\\%_])', '\\\1', 'g') || '%';
-  if position(' ' in testo) > 0 then
+  inizio := regexp_replace(testo, '([\\%_])', '\\\1', 'g') || '%';
+  if position(' ' in testo) > 0 and length(split_part(testo, ' ', 1)) >= 2 then
     primo := regexp_replace(split_part(testo, ' ', 1), '([\\%_])', '\\\1', 'g') || '%';
     resto := '%' || regexp_replace(substr(testo, position(' ' in testo) + 1), '([\\%_])', '\\\1', 'g') || '%';
   end if;
   return (
     with
-    nc as (select n.taxon_id, n.nome, n.preferito from public.nomi_comuni n where n.lingua = 'it' and n.nome ilike pat limit 60),
+    nc as (select n.taxon_id, n.nome, n.preferito from public.nomi_comuni n where n.lingua = 'it' and n.nome ilike pat
+            order by lower(n.nome) = lower(testo) desc, n.nome ilike inizio desc, n.preferito desc, length(n.nome) limit 60),
     tx as (select t.nome_scientifico, t.stato, catalogo.destinazione(t.id) acc from public.taxa t
-            where t.nome_scientifico ilike pat and catalogo.sotto_genere(t.rango) limit 60),
-    cv as (select c.id from public.cultivar c where c.epiteto ilike pat or c.nome_commerciale ilike pat limit 60),
-    cv2 as (select c.id from public.cultivar c
-             where resto is not null and c.epiteto ilike resto
-               and exists (select 1 from catalogo.catena(c.taxon_id) k
-                            where k.nome_scientifico ilike primo
-                               or exists (select 1 from public.nomi_comuni n where n.taxon_id = k.id and n.lingua = 'it' and n.nome ilike primo))
-             limit 60),
+            where t.nome_scientifico ilike pat and catalogo.sotto_genere(t.rango)
+            order by lower(t.nome_scientifico) = lower(testo) desc, t.nome_scientifico ilike inizio desc, t.stato = 'accepted' desc,
+                     length(t.nome_scientifico) limit 60),
+    cv as (select c.id, c.epiteto testo_cv from public.cultivar c where c.epiteto ilike pat or c.nome_commerciale ilike pat
+            order by lower(c.epiteto) = lower(testo) desc, c.epiteto ilike inizio desc, length(c.epiteto) limit 60),
+    -- due parole: i taxon del primo termine (nome scientifico o nome italiano), i loro figli e nipoti e i sinonimi
+    t0 as (select catalogo.destinazione(x.id) id from (
+             (select t.id from public.taxa t where primo is not null and t.nome_scientifico ilike primo and catalogo.sotto_genere(t.rango)
+               order by length(t.nome_scientifico) limit 20)
+             union (select n.taxon_id from public.nomi_comuni n where primo is not null and n.lingua = 'it' and n.nome ilike primo
+               order by length(n.nome) limit 20)) x),
+    t1 as (select t.id from public.taxa t where t.padre_id in (select id from t0)),
+    t2 as (select t.id from public.taxa t where t.padre_id in (select id from t1)),
+    tutti as (select id from t0 union select id from t1 union select id from t2),
+    tsin as (select id from tutti union select t.id from public.taxa t where t.accettato_id in (select id from tutti)),
+    cv2 as (select c.id from public.cultivar c where c.taxon_id in (select id from tsin) and c.epiteto ilike resto
+             order by c.epiteto ilike substr(resto, 2) desc, length(c.epiteto) limit 60),
     cand as (
       select 't:' || nc.taxon_id k, case when not nc.preferito then nc.nome end via, false via_botanico, 0 gruppo,
-             lower(nc.nome) = lower(testo) esatto from nc
+             lower(nc.nome) = lower(testo) esatto, nc.nome ilike inizio prefisso, length(nc.nome) lung from nc
       union all
       select 't:' || tx.acc, case when tx.stato <> 'accepted' then tx.nome_scientifico end, tx.stato <> 'accepted', 0,
-             lower(tx.nome_scientifico) = lower(testo) from tx
-      union all select 'c:' || cv.id, null, false, 1, false from cv
-      union all select 'c:' || cv2.id, null, false, 1, false from cv2
+             lower(tx.nome_scientifico) = lower(testo), tx.nome_scientifico ilike inizio, length(tx.nome_scientifico) from tx
+      union all select 'c:' || cv.id, null, false, 1, false, cv.testo_cv ilike inizio, length(cv.testo_cv) from cv
+      union all select 'c:' || cv2.id, null, false, 1, true, true, 0 from cv2
     ),
-    uniche as (select distinct on (k) * from cand order by k, (via is null) desc, esatto desc),
-    prime as (select * from uniche order by esatto desc, gruppo, (via is null) desc, k limit 30),
+    uniche as (select distinct on (k) * from cand order by k, esatto desc, (via is null) desc, prefisso desc, lung),
+    prime as (select * from uniche order by esatto desc, prefisso desc, gruppo, (via is null) desc, lung, k limit 30),
     voci as (select p.*, catalogo.voce(p.k) v from prime p)
     select coalesce(jsonb_agg(v || jsonb_strip_nulls(jsonb_build_object('via', via, 'via_botanico', case when via is not null then via_botanico end))
-                    order by esatto desc, gruppo, (v ->> 'stato_verifica' = 'verificato') desc nulls last, v ->> 'nome'), '[]')
+                    order by esatto desc, prefisso desc, gruppo, (v ->> 'stato_verifica' = 'verificato') desc nulls last, lung, v ->> 'nome'), '[]')
       from voci where v is not null
   );
 end $$;

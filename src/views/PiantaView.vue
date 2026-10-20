@@ -51,7 +51,7 @@
           <p v-if="specie?.nome_commerciale" class="pbino">In commercio come {{ specie.nome_commerciale }}</p>
         </div>
         <span v-if="soloHero && credito" class="phead-credit" @click.stop>
-          Foto<template v-if="credito.titolo"> «{{ credito.titolo }}»</template>:
+          <a v-if="!credito.autore && credito.pagina" :href="credito.pagina" target="_blank" rel="noopener">Foto</a><template v-else>Foto</template><template v-if="credito.titolo"> «{{ credito.titolo }}»</template>:
           <a v-if="credito.autore" :href="credito.pagina" target="_blank" rel="noopener">{{ credito.autore }}</a><template v-if="credito.autore && credito.licenza">, </template>
           <a v-if="credito.licenza && credito.licenzaUrl" :href="credito.licenzaUrl" target="_blank" rel="noopener">{{ credito.licenza }}</a>
           <template v-else-if="credito.licenza">{{ credito.licenza }}</template>

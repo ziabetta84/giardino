@@ -68,7 +68,7 @@
             <p v-if="specieSelezionata.specie" class="dh-sci">{{ specieSelezionata.specie }}</p>
           </div>
           <span v-if="hero.credito" class="dh-credit" @click.stop>
-            Foto<template v-if="hero.credito.titolo"> «{{ hero.credito.titolo }}»</template>:
+            <a v-if="!hero.credito.autore && hero.credito.pagina" :href="hero.credito.pagina" target="_blank" rel="noopener">Foto</a><template v-else>Foto</template><template v-if="hero.credito.titolo"> «{{ hero.credito.titolo }}»</template>:
             <a v-if="hero.credito.autore" :href="hero.credito.pagina" target="_blank" rel="noopener">{{ hero.credito.autore }}</a><template v-if="hero.credito.autore && hero.credito.licenza">, </template>
             <a v-if="hero.credito.licenza && hero.credito.licenzaUrl" :href="hero.credito.licenzaUrl" target="_blank" rel="noopener">{{ hero.credito.licenza }}</a>
             <template v-else-if="hero.credito.licenza">{{ hero.credito.licenza }}</template>
@@ -141,7 +141,7 @@
 import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { creditoFoto, etichettaLivello } from '@/utils/catalogo'
+import { creditoFoto, etichettaLivello, separaVia } from '@/utils/catalogo'
 import { parseGiorni, stagione } from '@/composables/useCure'
 import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
@@ -175,10 +175,10 @@ const dossierAperto  = ref(false)
 // caratteri cerca in tutto il catalogo con cerca_catalogo (una POST, mai in cache), che restituisce voci complete:
 // finiscono nello store, così la scheda della voce scelta non richiede un'altra richiesta. Finché la ricerca non
 // risponde, o senza rete, filtra le voci già nello store.
-function riga(v) {
+function riga(v, trovata = null) {
   return {
     key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
-    viaSinonimo: v.via ?? null, viaBotanico: !!v.via_botanico,
+    viaSinonimo: trovata?.via ?? null, viaBotanico: !!trovata?.via_botanico,
     verificata: v.stato_verifica === 'verificato', immagine: v.immagine ?? null,
     cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
   }
@@ -188,21 +188,22 @@ const chiaviPossedute = computed(() =>
   new Set(Object.values(store.piante ?? {}).map(p => p.voce).filter(Boolean))
 )
 const risultatiRemoti = ref([])  // chiavi nell'ordine dato dal database
+const viaRemoti = ref({})        // per chiave: il nome o il sinonimo con cui la ricerca l'ha trovata
 
 const specieFiltrate = computed(() => {
   const voci = store.catalogo ?? {}
   const q = normalizzaApici(specieQuery.value.trim().toLowerCase())
   if (q.length < 2) {
-    return [...chiaviPossedute.value].map(k => voci[k]).filter(Boolean).map(riga)
+    return [...chiaviPossedute.value].map(k => voci[k]).filter(Boolean).map(v => riga(v))
       .sort((a, b) => a.nome.localeCompare(b.nome))
   }
   if (risultatiRemoti.value.length) {
-    return risultatiRemoti.value.map(k => voci[k]).filter(Boolean).map(riga)
+    return risultatiRemoti.value.filter(k => voci[k]).map(k => riga(voci[k], viaRemoti.value[k]))
   }
   const contiene = testo => normalizzaApici(String(testo ?? '').toLowerCase()).includes(q)
   return Object.values(voci)
     .filter(v => contiene(v.nome) || contiene(v.specie) || (v.nomi_alternativi ?? []).some(contiene))
-    .map(riga)
+    .map(v => riga(v))
     .sort((a, b) => (!!a.cultivarDi - !!b.cultivarDi) || a.nome.localeCompare(b.nome))
     .slice(0, 30)
 })
@@ -235,9 +236,10 @@ async function eseguiRicercaRemota(q) {
     const { data, error } = await supabase.rpc('cerca_catalogo', { q })
     if (error) throw error
     if (mioToken !== tokenRicerca) return  // superata da una ricerca più recente
-    const voci = data ?? []
-    store.aggiungiVoci(Object.fromEntries(voci.map(v => [v.chiave, v])))
-    risultatiRemoti.value = voci.map(v => v.chiave)
+    const { voci, via } = separaVia(data)
+    store.aggiungiVoci(voci)
+    viaRemoti.value = via
+    risultatiRemoti.value = (data ?? []).map(v => v.chiave)
     ricercaOffline.value = false
   } catch (e) {
     if (mioToken !== tokenRicerca) return

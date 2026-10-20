@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { chiavePianta, colonneDaChiave, slugDaNome, creditoFoto, etichettaLivello, varietaNelTitolo } from './catalogo.js'
+import { chiavePianta, colonneDaChiave, slugDaNome, creditoFoto, etichettaLivello, varietaNelTitolo, separaVia } from './catalogo.js'
 
 const U = '0b6c2f4e-1f2a-4c3b-9d8e-7f6a5b4c3d2e'
 
@@ -39,6 +39,17 @@ test('credito della foto secondo la licenza', () => {
   assert.equal(creditoFoto({}), null)
 })
 
+test('autore della foto: mai il nome del sito, niente HTML né paragrafi', () => {
+  const img = { url: 'u', licenza: 'CC BY 4.0', fonte_pagina: 'https://commons.wikimedia.org/wiki/File:A.jpg' }
+  assert.equal(creditoFoto({ ...img, attribuzione: 'Wikimedia Commons' }).autore, null)
+  assert.equal(creditoFoto({ ...img, attribuzione: 'Foto di X, credit me as author, Wikimedia Commons as site and the license' }).autore, null)
+  assert.equal(creditoFoto({ ...img, attribuzione: 'Uploaded from Flickr by Y' }).autore, null)
+  assert.equal(creditoFoto({ ...img, attribuzione: '<a href="//x">Anna Bianchi</a>' }).autore, 'Anna Bianchi')
+  assert.equal(creditoFoto({ ...img, attribuzione: 'Tom &amp; Jerry' }).autore, 'Tom & Jerry')
+  assert.equal(creditoFoto({ ...img, attribuzione: 'x'.repeat(81) }).autore, null)
+  assert.equal(creditoFoto({ ...img, attribuzione: 'Mario Rossi' }).pagina, img.fonte_pagina)
+})
+
 test('etichetta del livello', () => {
   assert.equal(etichettaLivello({ rango: 'genus', nome: 'Hedera' }), 'del genere Hedera')
   assert.equal(etichettaLivello({ rango: 'species', nome: 'Carex oshimensis' }), 'della specie Carex oshimensis')
@@ -53,4 +64,14 @@ test('varietà nel titolo', () => {
   assert.equal(varietaNelTitolo({ tipo: 'taxon' }, 'nano'), 'nano')
   assert.equal(varietaNelTitolo(null, 'nano'), 'nano')
   assert.equal(varietaNelTitolo({ tipo: 'taxon' }, null), '')
+})
+
+test('la ricerca separa «via» dalla voce, che va nello store senza', () => {
+  const { voci, via } = separaVia([
+    { chiave: 't:1', nome: 'Rosmarino', via: 'Rosmarinus officinalis', via_botanico: true },
+    { chiave: 't:2', nome: 'Pino' },
+  ])
+  assert.deepEqual(voci, { 't:1': { chiave: 't:1', nome: 'Rosmarino' }, 't:2': { chiave: 't:2', nome: 'Pino' } })
+  assert.deepEqual(via, { 't:1': { via: 'Rosmarinus officinalis', via_botanico: true } })
+  assert.deepEqual(separaVia(null), { voci: {}, via: {} })
 })

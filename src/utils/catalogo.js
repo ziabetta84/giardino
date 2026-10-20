@@ -34,7 +34,18 @@ export function creditoFoto(immagine) {
     const file = decodeURIComponent(immagine.fonte_pagina.split('/').pop() ?? '').replace(/^File:/, '')
     titolo = file.replace(/\.[a-z0-9]+$/i, '').replace(/_/g, ' ') || null
   }
-  return { titolo, autore: immagine.attribuzione ?? null, licenza, pagina: immagine.fonte_pagina ?? null, licenzaUrl: immagine.licenza_url ?? null }
+  return { titolo, autore: autoreFoto(immagine.attribuzione), licenza, pagina: immagine.fonte_pagina ?? null, licenzaUrl: immagine.licenza_url ?? null }
+}
+
+// Alcune attribuzioni importate sono il nome del sito, un paragrafo di istruzioni o HTML: l'autore si mostra solo se
+// è un nome leggibile, mai una fonte (la pagina del file resta comunque collegata al credito).
+const ENTITA = { '&amp;': '&', '&quot;': '"', '&#39;': "'", '&apos;': "'", '&lt;': '<', '&gt;': '>', '&nbsp;': ' ' }
+function autoreFoto(testo) {
+  if (!testo) return null
+  const pulito = String(testo).replace(/<[^>]*>/g, '').replace(/&(amp|quot|#39|apos|lt|gt|nbsp);/g, m => ENTITA[m])
+    .replace(/\s+/g, ' ').trim()
+  if (!pulito || pulito.length > 80 || /wiki|commons|flickr/i.test(pulito)) return null
+  return pulito
 }
 
 const PREPOSIZIONI = {
@@ -52,4 +63,15 @@ export function etichettaLivello(livello) {
 // Una pianta collegata a una cultivar ha già la varietà nel nome: non si ripete quella scritta a mano
 export function varietaNelTitolo(voce, varieta) {
   return voce?.tipo === 'cultivar' ? '' : (varieta || '')
+}
+
+// I risultati di cerca_catalogo portano «via» (il nome o il sinonimo con cui la voce è stata trovata): vale solo per
+// quella ricerca, quindi nello store le voci entrano senza, e «via» resta accanto, per chiave.
+export function separaVia(risultati) {
+  const voci = {}, via = {}
+  for (const { via: v, via_botanico, ...voce } of risultati ?? []) {
+    voci[voce.chiave] = voce
+    if (v) via[voce.chiave] = { via: v, via_botanico: !!via_botanico }
+  }
+  return { voci, via }
 }
