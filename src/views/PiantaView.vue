@@ -43,14 +43,19 @@
             <span class="chip chip--on-photo"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
             <span v-if="pianta.coltivato_in" class="chip chip--ic chip--on-photo" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
           </span>
-          <h1 class="pname">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
+          <h1 class="pname">{{ store.nomePianta(pianta) }}<i v-if="varietaTitolo">&nbsp;{{ varietaTitolo }}</i></h1>
           <p v-if="nomeScientifico" class="pbino">{{ nomeScientifico }}</p>
           <p v-if="nomiAlternativi" class="pbino">Detta anche {{ nomiAlternativi }}</p>
-          <p v-if="nomeAccettato" class="pbino">Oggi accettata come {{ nomeAccettato }}</p>
+          <p v-if="nomeNoto" class="pbino">Già nota come {{ nomeNoto }}</p>
+          <p v-if="specie?.gruppo" class="pbino">Gruppo {{ specie.gruppo }}</p>
+          <p v-if="specie?.nome_commerciale" class="pbino">In commercio come {{ specie.nome_commerciale }}</p>
         </div>
-        <a v-if="soloHero && fotoHero?.fallback" :href="fotoHero.fonte_pagina" target="_blank" rel="noopener" class="phead-credit" @click.stop>
-          Foto: {{ fotoHero.attribuzione }} / Wikimedia Commons
-        </a>
+        <span v-if="soloHero && credito" class="phead-credit" @click.stop>
+          Foto<template v-if="credito.titolo"> «{{ credito.titolo }}»</template>:
+          <a v-if="credito.autore" :href="credito.pagina" target="_blank" rel="noopener">{{ credito.autore }}</a><template v-if="credito.autore && credito.licenza">, </template>
+          <a v-if="credito.licenza && credito.licenzaUrl" :href="credito.licenzaUrl" target="_blank" rel="noopener">{{ credito.licenza }}</a>
+          <template v-else-if="credito.licenza">{{ credito.licenza }}</template>
+        </span>
       </div>
 
       <!-- Header testuale ridotto: nessuna foto disponibile -->
@@ -62,10 +67,12 @@
               <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
               <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
             </span>
-            <h1 class="phead-text__name">{{ specie?.nome ?? pianta.specie }}<i v-if="pianta.varieta">&nbsp;{{ pianta.varieta }}</i></h1>
+            <h1 class="phead-text__name">{{ store.nomePianta(pianta) }}<i v-if="varietaTitolo">&nbsp;{{ varietaTitolo }}</i></h1>
             <p v-if="nomeScientifico" class="phead-text__bino">{{ nomeScientifico }}</p>
             <p v-if="nomiAlternativi" class="phead-text__bino">Detta anche {{ nomiAlternativi }}</p>
-            <p v-if="nomeAccettato" class="phead-text__bino">Oggi accettata come {{ nomeAccettato }}</p>
+            <p v-if="nomeNoto" class="phead-text__bino">Già nota come {{ nomeNoto }}</p>
+            <p v-if="specie?.gruppo" class="phead-text__bino">Gruppo {{ specie.gruppo }}</p>
+            <p v-if="specie?.nome_commerciale" class="phead-text__bino">In commercio come {{ specie.nome_commerciale }}</p>
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
@@ -75,6 +82,7 @@
            invece di duplicare il controllo in un alert separato più in alto —
            stesso comando "registra questa cura", un solo posto dove trovarlo. -->
       <div class="slabel">Stato cure</div>
+      <p v-if="livelloCure" class="livello">Cure {{ livelloCure }}</p>
       <div class="care">
         <div v-for="tipo in tipiCura" :key="tipo" class="care__row">
           <span class="care__ic" :class="`care__ic--${tipo}`"><Icon :name="iconaCura(tipo)" /></span>
@@ -109,6 +117,7 @@
       <div v-if="specie && (specie.descrizione || coltivazione)" class="specie">
         <svg class="specie-ghost" viewBox="0 0 512 512" aria-hidden="true"><g transform="translate(0 512) scale(0.1 -0.1)"><path class="sg" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34 -95 -78 -115 -32 -15 -72 -17 -282 -16 -135 0 -297 6 -360 12 -213 22 -501 26 -660 8 -148 -16 -171 -21 -345 -74 -119 -36 -187 -64 -405 -169 -160 -77 -376 -157 -452 -168 l-38 -6 0 -196 0 -196 68 6 c38 4 114 16 171 28 56 11 104 19 106 17 3 -2 9 -84 15 -182 6 -99 13 -183 16 -187 2 -5 5 -41 6 -82 0 -63 -4 -81 -31 -135 -17 -34 -35 -62 -39 -62 -9 0 -131 -99 -177 -143 -20 -19 -40 -50 -45 -68 -5 -18 -14 -114 -20 -213 -6 -100 -18 -241 -27 -314 -18 -150 -12 -190 34 -237 51 -51 79 -59 211 -63 129 -4 167 3 210 41 16 15 22 31 22 64 0 54 -29 87 -91 103 -24 6 -50 13 -56 15 -21 7 -15 65 17 155 16 47 30 94 30 105 1 11 9 35 18 54 14 29 26 37 67 48 65 16 330 60 419 68 38 4 75 9 83 12 22 8 15 -14 -22 -72 -20 -30 -38 -68 -41 -84 -14 -70 74 -165 281 -302 182 -120 202 -132 275 -162 90 -37 140 -46 251 -47 82 0 102 3 145 25 80 40 95 96 41 150 -36 36 -89 55 -151 55 -38 0 -126 34 -126 49 0 4 -40 42 -90 84 -49 43 -90 83 -90 90 0 18 204 143 315 193 142 64 572 204 649 211 76 7 72 11 122 -142 18 -55 56 -163 84 -240 29 -77 65 -178 81 -225 39 -112 77 -180 116 -206 52 -35 137 -47 300 -42 201 6 263 33 263 115 0 16 -7 39 -16 52 -20 28 -88 60 -126 61 -26 0 -28 3 -28 38 0 21 4 73 9 117 6 44 13 116 16 160 3 44 10 100 15 125 6 25 21 117 35 205 28 171 62 307 126 500 112 334 130 413 155 668 17 183 12 251 -38 502 -91 465 -355 899 -680 1117 -53 36 -104 45 -137 26 -23 -13 -26 -20 -24 -61 2 -26 -1 -47 -6 -47 -5 0 -28 21 -51 47 -64 73 -139 133 -166 133 -13 0 -33 -9 -45 -21z m661 -3244 c0 -17 9 -29 31 -41 31 -16 32 -17 26 -74 -9 -84 -37 -154 -64 -158 -17 -3 -24 3 -29 24 -8 30 2 231 12 257 9 25 24 20 24 -8z"/><path class="sg" d="M124 3636 c-52 -23 -68 -73 -60 -187 26 -406 211 -760 516 -990 108 -82 230 -139 390 -184 66 -19 315 -31 424 -20 l77 7 -3 198 c-2 109 -6 201 -9 204 -3 4 -17 2 -31 -3 -14 -5 -77 -15 -140 -22 -99 -11 -132 -10 -224 2 -60 9 -127 24 -149 34 -161 74 -273 169 -363 308 -86 132 -116 202 -162 377 -48 180 -68 227 -112 260 -38 28 -110 36 -154 16z"/></g></svg>
         <div class="slabel">La specie</div>
+        <p v-if="livelloDescrizione" class="livello">Descrizione {{ livelloDescrizione }}</p>
         <p v-if="specie.descrizione" class="prose">{{ specie.descrizione }}</p>
         <!-- Fino a 10 fatti in un'unica griglia diventavano un muro di dati:
              raggruppati per categoria (≤3 per gruppo) invece di un unico
@@ -223,6 +232,7 @@ import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
+import { creditoFoto, etichettaLivello, varietaNelTitolo } from '@/utils/catalogo'
 import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
@@ -254,14 +264,16 @@ const erroreEliminazioneFoto = ref(null)
 const indiceFotoCorrente = ref(0)
 
 // La galleria in cima alla scheda: le foto personali se ci sono, altrimenti
-// come ripiego l'immagine della specie (Wikimedia Commons, licenze
+// come ripiego l'immagine della voce del catalogo (licenze
 // CC0/CC BY/CC BY-SA — mai selezionata visivamente una per una, va citata
 // l'attribuzione richiesta dalla licenza). Solo header testuale se manca
 // anche quella.
 const fotoHero = computed(() => {
   const img = specie.value?.immagine
-  return img ? { url: img.url, thumbUrl: urlMiniatura(img.url, 800), fallback: true, attribuzione: img.attribuzione, fonte_pagina: img.fonte_pagina } : null
+  return img ? { url: img.url, thumbUrl: urlMiniatura(img.url, 800), fallback: true, immagine: img } : null
 })
+// Attribuzione richiesta dalla licenza (TASL), senza nominare il sito da cui viene la foto
+const credito = computed(() => creditoFoto(fotoHero.value?.immagine))
 const hasPhotos = computed(() => fotoPianta.value.length > 0)
 const soloHero  = computed(() => !hasPhotos.value && !!fotoHero.value)
 const slides    = computed(() => (hasPhotos.value ? fotoPianta.value : (fotoHero.value ? [fotoHero.value] : [])))
@@ -270,7 +282,7 @@ const slides    = computed(() => (hasPhotos.value ? fotoPianta.value : (fotoHero
 // uno screen reader sentiva testo identico per ogni slide. Con più di una
 // foto si numera; con una sola il nome basta.
 function altFoto(i) {
-  const nome = specie.value?.nome ?? pianta.value?.specie ?? ''
+  const nome = pianta.value ? store.nomePianta(pianta.value) : ''
   return slides.value.length > 1 ? `${nome} — foto ${i + 1}` : nome
 }
 
@@ -367,12 +379,15 @@ const nomeScientifico = computed(() => {
 // limitati ai primi tre per non allungare il titolo
 const nomiAlternativi = computed(() => {
   const alt = specie.value?.nomi_alternativi
-  return alt ? alt.split(' | ').slice(0, 3).join(', ') : ''
+  return Array.isArray(alt) ? alt.slice(0, 3).join(', ') : ''
 })
 
-// Nome scientifico oggi valido (specie.nome_accettato, da GBIF), presente solo
-// se la riga è un sinonimo di un altro nome
-const nomeAccettato = computed(() => specie.value?.nome_accettato ?? '')
+// Il nome con cui la pianta era conosciuta, quando è collegata a un sinonimo: la pagina mostra il nome accettato
+const nomeNoto = computed(() => specie.value?.nome_noto ?? '')
+const varietaTitolo = computed(() => varietaNelTitolo(specie.value, pianta.value?.varieta))
+// Da quale livello vengono descrizione e cure, quando non sono della voce stessa («del genere Hedera»)
+const livelloDescrizione = computed(() => etichettaLivello(specie.value?.livelli?.descrizione))
+const livelloCure = computed(() => etichettaLivello(specie.value?.livelli?.manutenzione))
 
 // Presente solo per le specie annuali/biennali curate dalla tab
 // Coltivazione del form specie (vedi SelettoreSpecie.vue) — assente per le
@@ -462,6 +477,8 @@ async function eliminaPianta() {
   padding: 2px 7px; border-radius: 999px;
 }
 .phead-credit:hover { color: #fdf8ee; }
+.phead-credit a { color: inherit; }
+.livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 
 /* Header testuale ridotto (nessuna foto disponibile). */
 .phead-text { margin: -8px 0 4px; }

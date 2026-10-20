@@ -3,10 +3,11 @@
     <template v-if="pianta">
     <p class="dossier-pianta__zona">
       <Icon :name="store.iconaZona(pianta.zona)" /> {{ pianta.zona }}<span v-if="pianta.sottozona"> · {{ pianta.sottozona }}</span>
-      <span v-if="pianta.varieta"> — {{ pianta.varieta }}</span>
+      <span v-if="varietaNelTitolo(specie, pianta.varieta)"> — {{ pianta.varieta }}</span>
     </p>
 
     <div class="slabel">Stato cure</div>
+    <p v-if="livelloCure" class="dossier-pianta__livello">Cure {{ livelloCure }}</p>
     <div class="care">
       <div v-for="tipo in tipiCura" :key="tipo" class="care__row">
         <span class="care__ic" :class="`care__ic--${tipo}`"><Icon :name="iconaCura(tipo)" /></span>
@@ -67,6 +68,7 @@ import { valutaCura, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { classificaConcimiPerFabbisogno } from '@/composables/useConcimi'
 import { iconaCura, LABEL_CURA, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
+import { etichettaLivello, varietaNelTitolo } from '@/utils/catalogo'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 import ToastCura from '@/components/ToastCura.vue'
@@ -77,6 +79,7 @@ const pianteApi = usePianteApi()
 
 const pianta = computed(() => store.piante?.[props.piantaId] ?? null)
 const specie = computed(() => pianta.value ? store.vocePianta(pianta.value) : null)
+const livelloCure = computed(() => etichettaLivello(specie.value?.livelli?.manutenzione))
 
 const tipiCura = computed(() => tipiCuraPianta(pianta.value, specie.value))
 const contestoCura = computed(() => ({
@@ -105,6 +108,7 @@ async function registraCuraTipo(tipo) {
 </script>
 
 <style scoped>
+.dossier-pianta__livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 .dossier-pianta { padding: 4px 16px 24px; }
 .dossier-pianta__zona {
   display: flex; align-items: center; gap: 6px;
