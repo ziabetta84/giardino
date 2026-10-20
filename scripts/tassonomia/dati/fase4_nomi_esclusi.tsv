@@ -1,0 +1,914 @@
+vecchio_slug	nome	motivo
+abelia-chinensis	CIRUZZO	non_nome: Testo senza senso in maiuscolo.
+abelia-chinensis	Malva	pianta_sbagliata: Malva è un genere di Malvaceae, non Abelia.
+abelia-chinensis	Sarracenia velvet	lingua_straniera: Inglese e per di più nome di una pianta carnivora.
+abelia-x-grandiflora	Begonia	pianta_sbagliata: Begonia è un altro genere e un'altra famiglia.
+abelia-x-grandiflora	Licis	non_nome: Parola senza significato botanico.
+abeliophyllum-distichum	Aeonium	pianta_sbagliata: Genere di succulente Crassulaceae.
+abeliophyllum-distichum	Bardana	pianta_sbagliata: Bardana è Arctium, Asteraceae.
+abeliophyllum-distichum	Crassula	pianta_sbagliata: Genere di succulente Crassulaceae.
+abeliophyllum-distichum	Giovanna	non_nome: Nome di persona.
+abelmoschus-esculentus	QUIABO	lingua_straniera: Nome portoghese, in maiuscolo.
+abelmoschus-manihot	Primula	pianta_sbagliata: Primula è un'altra famiglia.
+abelmoschus-moschatus	Acero	pianta_sbagliata: Acero è Acer, altra famiglia.
+abies-alba	Abete commune	testo_rotto: Refuso di 'comune', già presente corretto.
+abies-veitchii	Abete de Veitch	testo_rotto: 'de' al posto di 'di', doppione di 'Abete di Veitch'.
+acacia-pycnantha	Mimosa dorato	testo_rotto: Errore di concordanza (dorata).
+acca-sellowiana	Goyava	lingua_straniera: Forma portoghese/spagnola, non italiana.
+acca-sellowiana	Ocalipseae	non_nome: Parola inesistente.
+acer-monspessulanum	Acero picolo	testo_rotto: Refuso di 'Acero piccolo', già presente.
+acer-negundo	Palla di neve	pianta_sbagliata: Nome del Viburnum opulus.
+acer-palmatum	Acer Ariadne	non_nome: Genere latino più nome di una cultivar.
+acer-platanoides	Crimson king	lingua_straniera: Nome inglese di una cultivar.
+acer-pseudoplatanus	Giorgio	non_nome: Nome di persona.
+acer-pseudoplatanus	Ik	non_nome: Testo senza senso.
+acer-pseudoplatanus	Kmonm	non_nome: Testo senza senso.
+acer-pseudoplatanus	Ontano	pianta_sbagliata: Ontano è Alnus, Betulaceae.
+acer-saccharinum	Acer saccharinum Vieri laciniata	nome_scientifico: Nome latino di una cultivar, non un nome comune.
+achillea-crithmifolia	Millefoglie con foglie simili al finocchio marino	non_nome: Frase descrittiva.
+achillea-filipendulina	Tanaceto	pianta_sbagliata: Tanaceto è Tanacetum, altro genere.
+actaea-spicata	Barba di-capra	testo_rotto: Trattino spurio.
+adenium-obesum	Adenium arabicum	nome_scientifico: Nome latino di un altro taxon.
+adenium-obesum	Pitosforo dello Zaire	pianta_sbagliata: Pitosforo è Pittosporum, altra famiglia.
+adenium-obesum	Sabie star	lingua_straniera: Nome inglese.
+aegopodium-podagraria	Lin	non_nome: Frammento senza senso.
+aeonium-haworthii	Aeomio delle canarie	testo_rotto: Refuso di Aeonium.
+aeonium-haworthii	Aeomium Decorum Tricolor	nome_scientifico: Nome latino storpiato di un altro taxon.
+aeschynanthus-radicans	Aescantus radicante	testo_rotto: Latino storpiato.
+aesculus-flava	Castagno americano	pianta_sbagliata: Nome di Castanea dentata.
+aesculus-glabra	Kiwi	pianta_sbagliata: Kiwi è Actinidia.
+aesculus-hippocastanum	Ipposcastano	testo_rotto: Refuso di ippocastano.
+aesculus-sylvatica	Ippocastano delle Carolina	testo_rotto: Refuso, doppione del nome principale.
+agave-filifera	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+agave-parryi	AGAVE	testo_rotto: Tutto in maiuscolo.
+agave-victoriae-reginae	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+agave-vivipara	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+ageratina-altissima	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+ageratina-altissima	Gipsofila	pianta_sbagliata: Gipsofila è Gypsophila, Caryophyllaceae.
+ageratina-altissima	Velo da sposa	pianta_sbagliata: Nome della Gypsophila.
+ajuga-chamaepitys	Iva artitica	testo_rotto: Refuso di 'Iva artetica'.
+ajuga-pyramidalis	FIORELLINO VIOLA A FORMA DI PIRAMIDE	non_nome: Frase descrittiva in maiuscolo.
+albizia-julibrissin	Albero de la seta	lingua_straniera: Forma spagnoleggiante.
+albizia-julibrissin	Gaggia di Constaninopoli	testo_rotto: Refuso di Costantinopoli.
+alkanna-tinctoria	Lingua di-cane giallastra	testo_rotto: Trattino spurio.
+allamanda-cathartica	Dipladenia	pianta_sbagliata: Dipladenia è Mandevilla, altro genere.
+allium-triquetrum	Agilo Selvatico	testo_rotto: Refuso di 'Aglio selvatico'.
+allium-vineale	Lampascione	pianta_sbagliata: Il lampascione è Leopoldia comosa.
+alocasia-macrorrhizos	Come mai la pianta a le macchie gialle	non_nome: Domanda dell'utente, non un nome.
+aloe-arborescens	Aloe x delaetii	nome_scientifico: Nome latino di un altro taxon.
+aloe-arborescens	Jenkins	non_nome: Nome di persona.
+aloe-juvenna	"Aloe Nana o ""Dente di Tigre"""	testo_rotto: Virgolette spurie e due nomi in uno.
+aloe-maculata	Aloe christmas carol	lingua_straniera: Nome inglese di una cultivar.
+aloe-maculata	Aloe saponaria	nome_scientifico: Sinonimo latino, non un nome comune.
+aloe-vera	Aloe barbadensis ( nome scientifico )	nome_scientifico: Nome latino con annotazione.
+alstroemeria-ligtu	Lilia degli Inca	testo_rotto: 'Lilia' non è italiano (giglio).
+althaea-officinalis	L’Altea comune	testo_rotto: Articolo incluso nel nome.
+amaranthus-hypochondriacus	Code rosso	testo_rotto: Frammento sgrammaticato.
+amaranthus-spinosus	Amanranto spinoso	testo_rotto: Refuso di amaranto.
+amelanchier-spicata	Nespolino a foglie ronde	testo_rotto: 'ronde' non è italiano.
+amorpha-fruticosa	Caty	non_nome: Nome di persona o testo senza senso.
+anacamptis-pyramidalis	Orchidea pyramidale	testo_rotto: Refuso di piramidale.
+anacardium-occidentale	Acajou	lingua_straniera: Forma francese (it. acagiù).
+ananas-comosus	Puya raimondii	nome_scientifico: Nome latino di un'altra bromeliacea.
+anaphalis-margaritacea	Anaphalis simile alla margherita	non_nome: Frase descrittiva.
+angelica-sylvestris	È compatibile?	non_nome: Domanda dell'utente.
+annona-muricata	Guanabana	lingua_straniera: Nome spagnolo.
+annona-squamosa	Anona scaliosa	testo_rotto: Refuso di squamosa.
+annona-squamosa	Papaia	pianta_sbagliata: La papaia è Carica papaya.
+antennaria-dioica	Bambagia selvetica	testo_rotto: Refuso di selvatica.
+antennaria-parvifolia	Bambagia selvetica	testo_rotto: Refuso di selvatica.
+anthemis-cotula	Tribolo	pianta_sbagliata: Il tribolo è Tribulus terrestris.
+anthriscus-sylvestris	Hierba cicutaria	lingua_straniera: Nome spagnolo.
+anthurium	Calla	pianta_sbagliata: Calla è Zantedeschia, altro genere.
+anthurium-scherzerianum	Amore del uomo	testo_rotto: Errore grammaticale (dell'uomo).
+aquilegia-canadensis	Aquiliegia Canadese	testo_rotto: Refuso di aquilegia.
+arabidopsis-thaliana	Pelosella	pianta_sbagliata: Nome di Pilosella officinarum.
+aralia-elata	Evodia danielli	nome_scientifico: Nome latino di un altro taxon (Tetradium).
+araucaria-bidwillii	Pino del Queenland	testo_rotto: Refuso di Queensland.
+arenaria-montana	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+aristolochia-baetica	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+artemisia-annua	Assenzeio annuale	testo_rotto: Refuso di assenzio.
+artemisia-dracunculus	Dragoncello o estragone	testo_rotto: Due nomi in uno.
+artemisia-dracunculus	Estragon	lingua_straniera: Forma francese/tedesca (it. estragone).
+artemisia-glacialis	Assenzio genep√¨ nero	testo_rotto: Errore di codifica dei caratteri.
+artemisia-pontica	Assenzeio pontico	testo_rotto: Refuso di assenzio.
+artemisia-umbelliformis	Assenzio genep√¨ bianco	testo_rotto: Errore di codifica dei caratteri.
+artocarpus-heterophyllus	Jack	lingua_straniera: Frammento inglese.
+arum-italicum	Clitoridus	volgare: Pseudolatino osceno usato come scherzo.
+arum-italicum	Flor de la primavera	lingua_straniera: Nome spagnolo.
+aruncus-dioicus	Barba di-capra	testo_rotto: Trattino spurio.
+arundo-donax	Canna commune	testo_rotto: Refuso di comune.
+asclepias-curassavica	Ipecauana delle Antille	testo_rotto: Refuso di ipecacuana.
+asimina-triloba	Paw paw	lingua_straniera: Nome inglese.
+aspalathus-linearis	Tè rosso de Sudafrica	testo_rotto: 'de' al posto di 'del', doppione del principale.
+aspidistra-elatior	Ispidistria	testo_rotto: Storpiatura di aspidistra.
+asplenium-nidus	Felce?	testo_rotto: Punto interrogativo, termine generico.
+aubrieta-deltoidea	Duce	non_nome: Riferimento politico, non un nome di pianta.
+aucuba-japonica	Acuba giapponese	testo_rotto: Refuso di aucuba.
+bactris-gasipaes	Chontaduro	lingua_straniera: Nome spagnolo.
+bactris-gasipaes	Chotaduro	lingua_straniera: Nome spagnolo storpiato.
+bactris-gasipaes	Pijuayo	lingua_straniera: Nome spagnolo.
+bactris-gasipaes	Pupunha	lingua_straniera: Nome portoghese.
+banksia-integrifolia	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+banksia-integrifolia	Proteacea	non_nome: Nome di famiglia, generico.
+bauhinia-forficata	Baunia fortificata	testo_rotto: Storpiatura del nome latino.
+bauhinia-forficata	Falsa caoba	lingua_straniera: Nome spagnolo.
+bauhinia-forficata	Pata de vaca	lingua_straniera: Nome spagnolo.
+bauhinia-variegata	Bunia palmata	testo_rotto: Storpiatura senza senso.
+begonia-boliviensis	Susapeta boliviana	non_nome: Parola inesistente.
+berberis-darwinii	???????	testo_rotto: Solo punti interrogativi.
+berberis-darwinii	Maonia?	testo_rotto: Punto interrogativo, ipotesi dell'utente.
+beschorneria-yuccoides	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+beta-vulgaris	Barba	testo_rotto: Frammento (di barbabietola).
+beta-vulgaris	Salice	pianta_sbagliata: Il salice è Salix.
+betula-pendula	Betulla commune	testo_rotto: Refuso di comune.
+betula-populifolia	Betulla grigio	testo_rotto: Errore di concordanza.
+bidens-aurea	Goldener Zweizahn	lingua_straniera: Nome tedesco.
+bistorta-amplexicaulis	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+bixa-orellana	Roucou	lingua_straniera: Nome francese.
+bletilla-striata	Blentia	testo_rotto: Storpiatura di Bletia/Bletilla.
+bolboschoenus-maritimus	Mosca	non_nome: Parola non riferita a una pianta.
+bougainvillea-glabra	Buganvil	testo_rotto: Nome troncato.
+bougainvillea-glabra	Piero	non_nome: Nome di persona.
+bougainvillea-glabra	Rosta Chiara	non_nome: Nome di persona.
+bougainvillea-spectabilis	È una rosa, non una buganvillea	non_nome: Commento dell'utente.
+bougainvillea-x-buttiana	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+brachychiton-populneus	No populus nigra	non_nome: Commento dell'utente.
+bromus-erectus	Forasacco erretto	testo_rotto: Refuso di eretto.
+brugmansia	Belladonna	pianta_sbagliata: Nome di Atropa belladonna.
+brunnera-macrophylla	Bardana	pianta_sbagliata: Bardana è Arctium.
+buddleja-davidii	Lillà	pianta_sbagliata: Il lillà è Syringa.
+buddleja-davidii	Martello	non_nome: Parola non riferita a una pianta.
+cactus-ago-di-eva-monstroso	Eufolia Triangolare	testo_rotto: Refuso di euforbia.
+caesalpinia-pulcherrima	Flamboyant	pianta_sbagliata: Nome di Delonix regia.
+calamagrostis-epigejos	Cannella dele paludi	testo_rotto: Refuso (delle).
+calendula-stellata	Fioraccio stellato	testo_rotto: Refuso di fiorrancio.
+calendula-suffruticosa	Fioraccio fulgida	testo_rotto: Refuso di 'Fiorrancio fulgido'.
+calliandra-surinamensis	Acacia di Costantinopoli	pianta_sbagliata: Nome di Albizia julibrissin.
+callistemon-citrinus	Limpia tubo	lingua_straniera: Nome spagnolo.
+callistemon-citrinus	Malaleuca citrina	nome_scientifico: Nome latino storpiato, non un nome comune.
+callistemon-citrinus	Spazzolinol	testo_rotto: Refuso di spazzolino.
+callistemon-viminalis	Mirtacea	non_nome: Nome di famiglia, generico.
+callitriche-stagnalis	Callitriche delle stagni	testo_rotto: Errore grammaticale (degli stagni).
+calluna-vulgaris	Ginestra	pianta_sbagliata: La ginestra è una Fabacea.
+camelina-sativa	Sesam di Germania	testo_rotto: 'Sesam' non è italiano.
+campanula-medium	Giulietta	non_nome: Nome di persona.
+campanula-patula	Campanule bienne	testo_rotto: Errore di numero/concordanza.
+camphorosma-monspeliaca	Canforata de Montpellier	testo_rotto: 'de' al posto di 'di'.
+campsis-grandiflora	Vite americana	pianta_sbagliata: Nome di Vitis/Parthenocissus.
+cannabis-sativa	Azz mo chiamo le guardie	volgare: Battuta sulla droga.
+cannabis-sativa	Basilico speciale	volgare: Battuta sulla droga.
+cannabis-sativa	Bobmarlia	volgare: Battuta sulla droga.
+cannabis-sativa	Canapa coltivada	testo_rotto: Refuso di coltivata.
+cannabis-sativa	Canna	volgare: Gergo della droga; Canna è anche un altro genere.
+cannabis-sativa	Erba Spinella	volgare: Gioco di parole su 'spinello'.
+cannabis-sativa	Erba buona	volgare: Gergo della droga (ed è anche nome della menta).
+cannabis-sativa	Gangia	volgare: Gergo della droga.
+cannabis-sativa	Ganja	volgare: Gergo della droga, straniero.
+cannabis-sativa	La Maria giuvanna	volgare: Battuta sulla droga.
+cannabis-sativa	Me ne daresti un po'?	volgare: Battuta sulla droga.
+cannabis-sativa	Mota	volgare: Gergo spagnolo della droga.
+cannabis-sativa	Origano dei Beatles	volgare: Battuta sulla droga.
+cannabis-sativa	Sigaretta dei drogati	volgare: Battuta sulla droga.
+capsicum-chinense	Bhut jolokia	non_nome: Nome di una cultivar.
+capsicum-chinense	Burundi	non_nome: Nome di uno stato.
+capsicum-chinense	Carolina reaper	non_nome: Nome inglese di una cultivar.
+capsicum-chinense	Habanero orange	lingua_straniera: Nome inglese di una cultivar.
+capsicum-chinense	Habanero type pepper	lingua_straniera: Frase inglese.
+capsicum-frutescens	Pepe d'uccelo	testo_rotto: Refuso di uccello.
+capsicum-frutescens	Peperoneino	testo_rotto: Refuso di peperoncino.
+carpinus-betulus	Ojaranza	lingua_straniera: Forma spagnola (ojaranzo).
+carpobrotus-acinaciformis	Amanti del sole a Riccione	non_nome: Frase scherzosa.
+carpobrotus-acinaciformis	Barba di Giove in Sicilia	non_nome: Nome con annotazione geografica (ed è il nome di Anthyllis barba-jovis).
+carpobrotus-acinaciformis	Fico degli Ottentoti commune	testo_rotto: Due refusi.
+carthamus-tinctorius	Cartamo o zafferanone	testo_rotto: Due nomi in uno.
+carum-carvi	Kummel	lingua_straniera: Nome tedesco.
+caryota-mitis	Fishtail palm	lingua_straniera: Nome inglese.
+casuarina-equisetifolia	Casurina	testo_rotto: Refuso di casuarina.
+catharanthus-roseus	Calicantus	pianta_sbagliata: Il calicanto è Chimonanthus.
+ceanothus-impressus	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+cedrela-odorata	Calocedro delle matite (C. Decurrens)	pianta_sbagliata: Indica Calocedrus decurrens, altra pianta.
+celosia	Celosia immortal	lingua_straniera: 'immortal' non è italiano.
+celosia	Sciamito cresta di-gallo	testo_rotto: Trattino spurio.
+centaurea-pullata	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+centaurium-erythraea	Erythraea centaurium	nome_scientifico: Sinonimo latino, non un nome comune.
+centaurium-erythraea	Erythrea centaurium	nome_scientifico: Sinonimo latino storpiato.
+centranthus-ruber	Centrathus ruber alba Valeriana bianca	testo_rotto: Latino storpiato misto a nome comune.
+cephalaria-syriaca	Vedovina syriana	testo_rotto: Refuso di siriana, già presente.
+ceratostigma-plumbaginoides	Ceratostigma simile alla caprinella	non_nome: Frase descrittiva.
+ceratostigma-willmottianum	Fiore della Patagonia	non_nome: Nome spazzatura ripetuto su molte piante non correlate.
+cercis-canadensis	Red bud orientale	lingua_straniera: Inglese misto a italiano.
+cercis-siliquastrum	Carrubbo	pianta_sbagliata: Il carrubo è Ceratonia siliqua.
+cestrum-nocturnum	Galante de notte	lingua_straniera: Calco spagnolo (galán de noche).
+chaenomeles-cathayensis	Pirus	nome_scientifico: Genere latino di un'altra pianta (Pyrus).
+chaenomeles-japonica	Alleluia	pianta_sbagliata: Nome dell'Oxalis.
+chaenomeles-japonica	Cydonia	nome_scientifico: Genere latino del cotogno.
+chaenomeles-japonica	Nespolo del Giappone	pianta_sbagliata: Nome di Eriobotrya japonica.
+chaenomeles-speciosa	Cydonia	nome_scientifico: Genere latino del cotogno.
+chaenomeles-speciosa	Valterinox	non_nome: Testo senza senso.
+chamaecyparis-lawsoniana	Tunia	testo_rotto: Probabile refuso di tuia.
+chelidonium-majus	Ceinerognola	testo_rotto: Refuso di cenerognola.
+chenopodium-album	Farfaraccio	pianta_sbagliata: Farfaraccio è Petasites.
+chenopodium-murale	Pie de anserino	testo_rotto: Forma spagnoleggiante.
+chlorophytum-comosum	Spider plant	lingua_straniera: Nome inglese.
+chrysanthemum-x-morifolium	Zinnia	pianta_sbagliata: Zinnia è un altro genere.
+chrysosplenium-oppositifolium	Erba milza con fiore opposte	testo_rotto: Errore di concordanza.
+cicer-arietinum	Cicerchia	pianta_sbagliata: La cicerchia è Lathyrus sativus.
+cichorium-intybus	Cicoria de taglia	testo_rotto: 'de taglia' al posto di 'da taglio'.
+cinnamomum-camphora	Albero confora	testo_rotto: Refuso di canfora.
+cinnamomum-camphora	Albero della confora	testo_rotto: Refuso di canfora.
+cistus-albidus	Cisto a fogle sessili	testo_rotto: Refuso di foglie, già presente.
+cistus-monspeliensis	Muschio	pianta_sbagliata: Il muschio è una briofita.
+citrus-x-aurantium	Arancio pladicio del nord	testo_rotto: Parola storpiata senza senso.
+clarkia-amoena	Pazalea metà papavero e metà azalea!!	non_nome: Frase scherzosa.
+clematis-flammula	Madreselva	pianta_sbagliata: La madreselva è Lonicera.
+clematis-flammula	Vitticio oloroso	testo_rotto: Refuso e spagnolo (oloroso).
+clematis-vitalba	Bruscandolo	pianta_sbagliata: I bruscandoli sono i germogli del luppolo.
+clerodendrum-bungei	Lillà	pianta_sbagliata: Lillà è Syringa (Oleaceae), non un Clerodendrum.
+clerodendrum-thomsoniae	La cascata di notre dam de Parî	non_nome: Frase scherzosa e sgrammaticata, non un nome di pianta.
+clerodendrum-thomsoniae	Scroto fiammeggiante	volgare: Nome scherzoso a sfondo anatomico, non in uso.
+codiaeum-variegatum	Carta coda	non_nome: Espressione senza senso, non un nome della pianta.
+codiaeum-variegatum	Croton gold dust	lingua_straniera: Nome di cultivar in inglese.
+codiaeum-variegatum	Inter merda	volgare: Insulto calcistico volgare.
+codiaeum-variegatum	Rosa di campagna	pianta_sbagliata: Indica una rosa selvatica, non il croton.
+codiaeum-variegatum	Scroton	testo_rotto: Storpiatura di Croton.
+colchicum-autumnale	Colchichum autumnale	testo_rotto: Nome scientifico scritto male, non un nome comune.
+commelina-erecta	Genziana	pianta_sbagliata: Genziana è Gentiana, un'altra famiglia.
+consolida-ajacis	Sprone di-cavaliere	testo_rotto: Trattino spurio.
+conyza-canadensis	Contratto bonariensis	testo_rotto: Correzione automatica di Conyza bonariensis.
+cordyline-australis	Jucca	pianta_sbagliata: Yucca è un altro genere.
+cordyline-australis	Palma	non_nome: Parola generica, e la pianta non è una palma.
+cordyline-australis	Tronchetto della felicità	pianta_sbagliata: È il nome di Dracaena fragrans.
+coreopsis	Coreopsis grandiflora 'early sun rise'	nome_scientifico: Nome latino di una specie con cultivar, non un nome comune.
+cornus-capitata	Cornilo de Bentham	lingua_straniera: Forma spagnoleggiante, non italiana.
+cornus-florida	Chiuduno	non_nome: Nome di un paese, non della pianta.
+cornus-sanguinea	Sanguinsinissusiniello	testo_rotto: Parola senza senso.
+coronilla-varia	Erba cinestrina	testo_rotto: Refuso di Erba ginestrina.
+cotinus-coggygria	Scrotano	testo_rotto: Storpiatura di Scotano.
+crambe-maritima	Ortensia	pianta_sbagliata: Ortensia è Hydrangea.
+crassothonna-capensis	Delosperma	nome_scientifico: Nome latino di un altro genere (Aizoaceae).
+crassula-capitella	Crassula capitelli campfire	testo_rotto: Nome latino e cultivar inglese storpiati.
+crassula-ovata	Crasa ovo	testo_rotto: Storpiatura del nome latino.
+crassula-ovata	Crassula ovata variegata	nome_scientifico: Nome latino, non un nome comune.
+crassula-ovata	Crassulavatar	testo_rotto: Parola inventata.
+crassula-ovata	La Pimpa Verde	non_nome: Personaggio dei fumetti, non un nome di pianta.
+crassula-ovata	Porcacchia	pianta_sbagliata: Porcacchia è Portulaca oleracea.
+crassula-ovata	Relitizia	non_nome: Parola senza senso.
+crassula-perfoliata	Crassula Perfoliata Falcata	nome_scientifico: Nome latino di una varietà, non un nome comune.
+crassula-perfoliata	Crassula perfoliata var. falcata	nome_scientifico: Nome latino di una varietà, non un nome comune.
+crassula-perfoliata	Lotus	pianta_sbagliata: Lotus è un genere di leguminose.
+crassula-rupestris	Crassula marnieriana	nome_scientifico: Nome latino di un altro taxon.
+crassula-rupestris	Crassula springtime	lingua_straniera: Nome di cultivar in inglese.
+crataegus-azarolus	Azzardo	testo_rotto: Refuso di Azzarolo, cambia il significato.
+crataegus-laciniata	Bianospino di Sicilia	testo_rotto: Refuso di Biancospino.
+crepis-bursifolia	Borsa di pastore	pianta_sbagliata: È Capsella bursa-pastoris (Brassicaceae).
+crepis-bursifolia	Tarassaco	pianta_sbagliata: Tarassaco è Taraxacum, un altro genere.
+crepis-sancta	Tarassaco	pianta_sbagliata: Tarassaco è Taraxacum, un altro genere.
+crithmum-maritimum	Varechina Loredana	non_nome: Scherzo con nome di persona.
+crocus-biflorus	Zaferrano selvatico	testo_rotto: Refuso di Zafferano.
+ctenanthe-burle-marxii	Calathea	pianta_sbagliata: Calathea è un altro genere.
+ctenanthe-setosa	Calathea	pianta_sbagliata: Calathea è un altro genere.
+cucumis-anguria	Anguria	pianta_sbagliata: In italiano l'anguria è Citrullus lanatus.
+cucumis-anguria	Cocomero	pianta_sbagliata: Il cocomero è Citrullus lanatus.
+cucurbita-maxima	Anguria	pianta_sbagliata: L'anguria è Citrullus lanatus.
+cucurbita-maxima	Cetriolo	pianta_sbagliata: Il cetriolo è Cucumis sativus.
+cucurbita-maxima	Popone	pianta_sbagliata: Il popone è Cucumis melo.
+cupressus-sempervirens	Servi	non_nome: Parola senza relazione con la pianta.
+cycas-revoluta	Rivoluzione cetts	testo_rotto: Traduzione storpiata e senza senso.
+cyclamen-hederifolium	Aiton	non_nome: Nome dell'autore botanico, non un nome comune.
+cycloloma-atriplicifolium	Cicloma comune	testo_rotto: Refuso di Cicloloma.
+cymbidium-devonianum	Orchidea	non_nome: Nome generico di famiglia, non della specie.
+cynosurus-cristatus	Lentolana crestata	testo_rotto: Refuso di Ventolana.
+cyperus-eragrostis	Zigolo false panicella	testo_rotto: Refuso di falsa.
+cyperus-esculentus	Doldichini	testo_rotto: Refuso di Dolcichini.
+cyperus-longus	Quqdrillo	testo_rotto: Refuso evidente.
+dactylis-glomerata	W	testo_rotto: Una lettera sola.
+daphne-laureola	Dafne laureila	testo_rotto: Refuso di laureola.
+datura-inoxia	Il fiore di Marina	non_nome: Frase personale con nome di persona.
+delairea-odorata	Edera	pianta_sbagliata: Edera è Hedera, un'altra famiglia.
+delosperma	Ice Plant	lingua_straniera: Nome inglese.
+delosperma	Pink Carpet	lingua_straniera: Nome inglese.
+dendrobium-kingianum	Fiore della Patagonia	non_nome: Orchidea australiana: nome inventato e ripetuto su piante diverse.
+dennstaedtia-punctilobula	Felce	non_nome: Parola generica per tutte le felci.
+desmodium-intortum	Belladonna	pianta_sbagliata: Belladonna è Atropa belladonna.
+deutzia-scabra	,	testo_rotto: Solo punteggiatura.
+dianthus-caryophyllus	"Garofano nano ""Pink kisses"""	testo_rotto: Virgolette spurie e nome di cultivar inglese.
+digitalis-grandiflora	Digitale gialle grande	testo_rotto: Errore di concordanza (gialle).
+digitalis-grandiflora	Digitale gialle maggiore	testo_rotto: Errore di concordanza (gialle).
+dimorphotheca-pluvialis	Dimorphiteca barberae	nome_scientifico: Nome latino storpiato di un'altra specie.
+dionaea-muscipula	Carnivora	non_nome: Aggettivo generico.
+diplotaxis-tenuifolia	Perennial wild mustard	lingua_straniera: Nome inglese.
+diplotaxis-tenuifolia	Rucola mata	testo_rotto: Refuso probabile di matta.
+dittrichia-viscosa	Inula viscosa	nome_scientifico: Sinonimo latino, non un nome comune.
+dracunculus-vulgaris	Erba seprentaria	testo_rotto: Refuso di serpentaria.
+dracunculus-vulgaris	Napuzzola!!	testo_rotto: Punteggiatura spuria.
+dryas-octopetala	Thé svizero	testo_rotto: Refuso di svizzero.
+dryopteris-erythrosora	Felce	non_nome: Parola generica per tutte le felci.
+dryopteris-intermedia	Felce	non_nome: Parola generica per tutte le felci.
+echeveria	Echeveria Black Prince	nome_scientifico: Nome di cultivar, non un nome comune del genere.
+echeveria-derenbergii	Piante Succulente	non_nome: Categoria generica.
+echeveria-runyonii	Echeveria elegans crestata	nome_scientifico: Nome latino di un'altra specie.
+echeveria-runyonii	Rosa del deserto	pianta_sbagliata: Rosa del deserto è Adenium obesum.
+echeveria-setosa	Eceveria Setosa	testo_rotto: Nome latino scritto male.
+echinocactus-grusonii	Echinocactus grusonii brevispinus	nome_scientifico: Nome latino, non un nome comune.
+echinocereus-pectinatus	Cuscino della suocera	pianta_sbagliata: È il nome di Echinocactus grusonii.
+echinocystis-lobata	Echinocistis lobata	nome_scientifico: Nome latino storpiato, non un nome comune.
+echinocystis-lobata	Sicios lobata	nome_scientifico: Sinonimo latino storpiato.
+echinops-ritro	Cardo pallotolla coccodrillo	testo_rotto: Refuso e parola spuria.
+echinopsis-oxygona	Giglio di Pasqua	pianta_sbagliata: Giglio di Pasqua è Lilium longiflorum.
+echinopsis-oxygona	Splendida caducità	non_nome: Frase descrittiva.
+eichhornia-crassipes	Aichornia	testo_rotto: Storpiatura del nome latino.
+eichhornia-crassipes	Giglio del Nilo	pianta_sbagliata: Di solito indica Agapanthus.
+elaeagnus-angustifolia	Olivastro	pianta_sbagliata: Olivastro è l'olivo selvatico (Olea).
+elaeagnus-multiflora	Bacco	non_nome: Nome di una divinità, non della pianta.
+elaeagnus-x-submacrophylla	Eugenia	pianta_sbagliata: Eugenia è un genere delle Myrtaceae.
+elodea-canadensis	Peste d’aqua comune	testo_rotto: Refuso di acqua.
+epipactis-helleborine	Elleborine commune	testo_rotto: Refuso di comune.
+epipremnum-pinnatum	Giant pothos	lingua_straniera: Nome inglese.
+epipremnum-pinnatum	Pothos Happy Leaf	lingua_straniera: Nome commerciale in inglese.
+erica-arborea	Ulice	pianta_sbagliata: Ulice è Ulex (Fabaceae).
+erigeron-acris	Amello	pianta_sbagliata: Amello è Aster amellus.
+erodium-cicutarium	Becco di-grù comune	testo_rotto: Trattino spurio.
+erophila-verna	Pelosella	pianta_sbagliata: Pelosella è Pilosella officinarum (Asteraceae).
+eryngium-bourgatii	Stella Maris cielo	non_nome: Espressione senza senso come nome.
+erythrostemon-gilliesii	Acacia giapponese	pianta_sbagliata: Indica un'altra leguminosa (Albizia o Acacia).
+erythrostemon-gilliesii	Uccello del paradiso	pianta_sbagliata: In italiano indica Strelitzia.
+eucalyptus-cinerea	EUCALIPTO	testo_rotto: Tutto maiuscolo.
+eucalyptus-globulus	Albero della febre	testo_rotto: Refuso di febbre.
+eucalyptus-globulus	Eucalitto globolo	testo_rotto: Doppio refuso.
+eucalyptus-parvula	Trifoglio	pianta_sbagliata: Trifoglio è Trifolium.
+eugenia-uniflora	Eugenia giambolana	pianta_sbagliata: Indica Syzygium cumini.
+eugenia-uniflora	Mirto	pianta_sbagliata: Mirto è Myrtus communis.
+euphorbia-flanaganii	Euphorbia Pugniformis	nome_scientifico: Nome latino di un'altra specie.
+euphorbia-hypericifolia	"Euphorbia Hybrid ""Diamond Frost"""	testo_rotto: Virgolette spurie, nome commerciale inglese.
+euphorbia-lactea	Euforbia candeladro	testo_rotto: Refuso di candelabro.
+euphorbia-lactea	Lina	non_nome: Nome di persona.
+euphorbia-pulcherrima	Stanna di natale Bianca	testo_rotto: Refuso di Stella.
+euphorbia-x-martini	Oleandro	pianta_sbagliata: Oleandro è Nerium oleander.
+fagopyrum-esculentum	Sarasin	lingua_straniera: Forma francese (sarrasin).
+feijoa-sellowiana	Ciapa rat	non_nome: Espressione dialettale senza relazione con la pianta.
+fenestraria-rhopalophylla	Crassula ovata gollum	nome_scientifico: Nome latino di un'altra pianta.
+fenestraria-rhopalophylla	Orecchie di Shrek	pianta_sbagliata: Soprannome di Crassula ovata 'Gollum'.
+ficus-benjamina	Foglius vegetalus	non_nome: Latino maccheronico per scherzo.
+ficus-ginseng	Salvo	non_nome: Nome di persona.
+ficus-macrophylla	Ficus magnoiloide	testo_rotto: Refuso di magnolioide.
+ficus-retusa	Bonsai	non_nome: Tecnica di coltivazione, non il nome della specie.
+ficus-retusa	Ginseng	pianta_sbagliata: Il ginseng è Panax ginseng.
+foeniculum-vulgare	Finocchio commune	testo_rotto: Refuso di comune.
+fraxinus-americana	Albero di giuda	pianta_sbagliata: Albero di Giuda è Cercis siliquastrum.
+fraxinus-ornus	Frassiono da manna	testo_rotto: Refuso di Frassino.
+fraxinus-pennsylvanica	Franus	testo_rotto: Frammento senza senso.
+furcraea-foetida	Fiore della paragonia	testo_rotto: Parola inesistente.
+galatella-sedifolia	Sttembrina	testo_rotto: Refuso di Settembrina.
+galega-officinalis	Galega oficinale	testo_rotto: Refuso di officinale.
+galium-aparine	Speronella	pianta_sbagliata: Speronella è Consolida o Delphinium.
+galium-mollugo	Pergolato	non_nome: Struttura da giardino, non il nome di una pianta.
+galium-palustre	Gaglio palustre	testo_rotto: Refuso di Caglio.
+gaura	Gaura lindemery	testo_rotto: Nome latino storpiato.
+genista-sagittalis	Chamaespartium	nome_scientifico: Nome latino di genere, non un nome comune.
+ginkgo-biloba	Ginkobiloba	testo_rotto: Parole unite e refuso.
+glaucium-flavum	Papavero delle sabie	testo_rotto: Refuso di sabbie.
+gleditsia-triacanthos	Gleditsia a tre pine	testo_rotto: Refuso di spine.
+glycine-max	Glicine	pianta_sbagliata: In italiano il glicine è Wisteria.
+goeppertia-makoyana	Foglia comune	non_nome: Espressione generica.
+goeppertia-picturata	Fiore della Patagonia	non_nome: Nome inventato e ripetuto su piante diverse.
+goeppertia-rufibarba	Calatgea	testo_rotto: Refuso di Calathea.
+gomphrena	Salvo a cucculste	testo_rotto: Testo senza senso.
+gonialoe-variegata	Aloe variegata.	testo_rotto: Punto finale spurio, ed è un nome latino.
+graptopetalum-paraguayense	Echeveria colorata Tapalpa	nome_scientifico: Nome latino e cultivar di un altro genere.
+graptopetalum-paraguayense	Ghost plant	lingua_straniera: Nome inglese.
+grevillea-rosmarinifolia	Ellera comune	pianta_sbagliata: Ellera è Hedera helix.
+guaiacum-officinale	Guaiule	pianta_sbagliata: Il guayule è Parthenium argentatum.
+gymnocladus-dioicus	Fiore della Patagonia	non_nome: Nome inventato e ripetuto su piante diverse.
+gynostemma-pentaphyllum	Jiogulan	testo_rotto: Storpiatura di jiaogulan.
+hamamelis-virginiana	Parrozia della Virginia	pianta_sbagliata: Parrozia è il genere Parrotia.
+hardenbergia-violacea	Cineraria	pianta_sbagliata: Cineraria è una Asteracea.
+hatiora-rosea	Cactus de Pascua	lingua_straniera: Spagnolo.
+haworthiopsis-fasciata	Aloe	pianta_sbagliata: Aloe è un altro genere.
+hedera-helix	Pianta arrampicante	non_nome: Descrizione generica.
+helianthus-giganteus	Girasole bulb	testo_rotto: Parola inglese spuria.
+helianthus-tuberosus	Rapa tedesca o Carciofo di Gerusalemme	testo_rotto: Due nomi uniti in una frase.
+hemerocallis-minor	Giglio Rosso o Giglio di San giovanni	testo_rotto: Due nomi uniti in una frase.
+hepatica-nobilis	Erba trinit√†	testo_rotto: Codifica dei caratteri rotta.
+heptapleurum-actinophyllum	Schefflera arboricolq	testo_rotto: Refuso, ed è il nome latino di un'altra specie.
+heracleum-mantegazzianum	Berce de Mantegazzi	lingua_straniera: Francese.
+heracleum-sphondylium	Sedano sei prati	testo_rotto: Refuso di dei.
+heuchera-sanguinea	Geranio selvatico	pianta_sbagliata: Indica Geranium, un'altra famiglia.
+hevea-brasiliensis	Zucca iron cup	non_nome: Testo senza senso.
+hibiscus-moscheutos	Hibiscus moscheutos disco belle rosy red	nome_scientifico: Nome latino con cultivar inglese.
+hibiscus-schizopetalus	Pianta segona	non_nome: Espressione non riconoscibile, forse scherzosa.
+hibiscus-syriacus	Ibisco arborero	testo_rotto: Refuso di arboreo.
+hirschfeldia-incana	Cavoso peloso	testo_rotto: Refuso probabile.
+hosta-sieboldiana	Hosta jurassic park	lingua_straniera: Nome di cultivar in inglese.
+houttuynia-cordata	Hottuynia	testo_rotto: Nome latino scritto male.
+hoya	Hoya Carnosa Krimson Queen	nome_scientifico: Nome latino con cultivar.
+hoya	Koya carnosa	testo_rotto: Refuso di Hoya.
+hoya-kerrii	Cuore Ikea	non_nome: Contiene un marchio.
+humulus-scandens	Luoppolo del Giappone	testo_rotto: Refuso di Luppolo.
+hyacinthoides-hispanica	Jacinto de bosque	lingua_straniera: Spagnolo.
+hyacinthoides-hispanica	Jacinto de campo	lingua_straniera: Spagnolo.
+hydrangea-paniculata	Nastruzio	pianta_sbagliata: Storpiatura di nasturzio (Tropaeolum).
+hyoscyamus-niger	Guisquiamo nero	testo_rotto: Refuso di Giusquiamo.
+hypericum-androsaemum	Iperico totto sano	testo_rotto: Refuso di tutto.
+hypericum-androsaemum	Ruta selvatica	pianta_sbagliata: Indica Ruta, un'altra famiglia.
+hypericum-androsaemum	Siciliana	non_nome: Aggettivo da solo, non un nome.
+hypochaeris-radicata	Dente di Leone	pianta_sbagliata: Indica Taraxacum, un altro genere.
+hypochaeris-radicata	Tarasacco	pianta_sbagliata: Indica Taraxacum, un altro genere, ed è scritto male.
+iberis-sempervirens	Porcellana	pianta_sbagliata: Porcellana è Portulaca oleracea.
+ilex-aquifolium	Pungitopo	pianta_sbagliata: Pungitopo è Ruscus aculeatus.
+ilex-cornuta	NATALINA	testo_rotto: Tutto maiuscolo e non è un nome della pianta.
+ilex-opaca	Qwerty	non_nome: Sequenza di tasti.
+impatiens	Ciclamino	pianta_sbagliata: Ciclamino è Cyclamen.
+ipoeste	Fittonia	pianta_sbagliata: Fittonia è un altro genere.
+ipoeste	Ipostea violacea maculata	testo_rotto: Nome latino storpiato.
+ipomoea-purpurea	Vernacolo di campanelle purpuree	testo_rotto: Frase con una parola spuria.
+iris-germanica	Gladiolo celestre	testo_rotto: Refuso di celeste.
+iris-germanica	Siaggiolo	testo_rotto: Refuso di Giaggiolo.
+iris-japonica	Iris frangiato o Fiore farfalla	testo_rotto: Due nomi uniti in una frase.
+iris-tuberosa	Bocca di-lupo	testo_rotto: Trattino spurio.
+iris-variegata	Glaggiolo ungerese	testo_rotto: Doppio refuso.
+ixora	Buvardia	pianta_sbagliata: Bouvardia è un altro genere.
+jacaranda-mimosifolia	Borracho	lingua_straniera: Spagnolo, e indica Ceiba.
+jacobaea-vulgaris	Senecio jacobea	nome_scientifico: Sinonimo latino storpiato.
+jasione-montana	Vedovella annuali	testo_rotto: Errore di concordanza.
+jasminum-nudiflorum	Gelsomino a giori nudi	testo_rotto: Refuso di fiori.
+jasminum-sambac	Gesimino d'Arabia	testo_rotto: Refuso di Gelsomino.
+jatropha	Melograno	pianta_sbagliata: Melograno è Punica granatum.
+jatropha-curcas	Giatrofa catarcita	testo_rotto: Refuso di catartica.
+jubaea-chilensis	Piede di elefante	pianta_sbagliata: È il nome di Beaucarnea recurvata.
+juniperus-oxycedrus	Dio cane	volgare: Bestemmia.
+juniperus-oxycedrus	Lakaka	non_nome: Parola senza senso.
+juniperus-virginiana	Cedro della Virginiana	testo_rotto: Refuso di Virginia.
+kalanchoe-delagoensis	Ciclamino	pianta_sbagliata: Ciclamino è Cyclamen.
+kalanchoe-delagoensis	Crassula prostrata	nome_scientifico: Nome latino di un altro genere.
+kerria-japonica	Pioggia d'oro	pianta_sbagliata: Di solito indica Laburnum o Forsythia.
+lagerstroemia-indica	Albero di giuda	pianta_sbagliata: È Cercis siliquastrum, altra famiglia.
+lagerstroemia-indica	Fiore del mannaggiaccristo	volgare: Bestemmia usata come scherzo.
+lagerstroemia-indica	Gestroemia	testo_rotto: Frammento troncato di Lagerstroemia.
+lagerstroemia-indica	Melograno	pianta_sbagliata: È Punica granatum, altro genere.
+lagoecia-cuminoides	Cumino piomoso	testo_rotto: Refuso di Cumino piumoso.
+lamium-maculatum	Falsa ortica machiata	testo_rotto: Refuso di macchiata.
+lamium-purpureum	I ginocchi di Shrek	non_nome: Scherzo con un personaggio di cartoni animati.
+lantana-camara	Deserto di luce	non_nome: Non è un nome comune noto della Lantana.
+lantana-camara	Pianta	non_nome: Parola generica.
+lantana-camara	Sucamillo donevai	non_nome: Frase senza senso, non è un nome noto della pianta.
+lathyrus-sativus	Circercula	testo_rotto: Refuso di Cicercula.
+lathyrus-tingitanus	Cicerchia sanguinia	testo_rotto: Refuso di sanguigna.
+lathyrus-tuberosus	Ghiandia di terra	testo_rotto: Refuso di Ghianda di terra.
+lathyrus-vernus	Cicrchia gracile	testo_rotto: Refuso di Cicerchia gracile.
+lavandula-dentata	Tua mamma	non_nome: Scherzo, non è un nome di pianta.
+lavandula-latifolia	Lavando spigo	testo_rotto: Refuso di Lavanda spigo.
+leontodon-hispidus	Tarassaco	pianta_sbagliata: È Taraxacum, altro genere.
+lepidium-latifolium	Ideride	testo_rotto: Refuso di Iberide.
+lepidium-latifolium	Paperella	testo_rotto: Refuso di Peperella, presente nella riga seguente.
+lepidium-sativum	Masturzio ortense	testo_rotto: Refuso di Nasturzio ortense.
+leucojum-vernum	Bucaneve	pianta_sbagliata: È Galanthus, altro genere.
+leymus-arenarius	Orzo	pianta_sbagliata: È Hordeum, altro genere.
+ligustrum-vulgare	Levistico	pianta_sbagliata: È Levisticum officinale, altra famiglia.
+ligustrum-vulgare	Ligustro comun	testo_rotto: Parola troncata.
+lilium-candidum	Белоснежна лилия	lingua_straniera: Bulgaro.
+lilium-lancifolium	Scorfano	non_nome: Nome di un pesce, non della pianta.
+linaria-purpurea	Scrivete i nomi scimmie	non_nome: Frase di insulto, non un nome.
+lindernia-dubia	Vandellia delle risie	testo_rotto: Refuso di risaie.
+liquidambar-formosana	Liquirizia	pianta_sbagliata: È Glycyrrhiza glabra, altra famiglia.
+lobelia-erinus	Dentinus leonida	non_nome: Falso latino senza senso.
+lolium-temulentum	Loglio ubricante	testo_rotto: Refuso di ubriacante.
+lonicera-alpigena	Conieceraso	testo_rotto: Storpiatura di Camecèraso.
+lonicera-etrusca	H	testo_rotto: Una sola lettera.
+lonicera-ligustrina	Mirto	pianta_sbagliata: È Myrtus communis, altra famiglia.
+lonicera-xylosteum	Ciliegia d. volpe	testo_rotto: Abbreviazione al posto di di.
+lunaria-annua	Cicerbita	pianta_sbagliata: Nome di Asteraceae (Sonchus/Cicerbita), altra famiglia.
+lysimachia-punctata	Netdd ed nnno	testo_rotto: Testo senza senso.
+maclura-pomifera	Bodarc	lingua_straniera: Nome inglese/francese (bois d'arc).
+maclura-tinctoria	Fustik	lingua_straniera: Nome inglese/tedesco del legno.
+magnolia-denudata	Germogli!?	non_nome: Parola generica con punteggiatura, non un nome.
+magnolia-kobus	Fiore della Patagonia	non_nome: Etichetta ricorrente attribuita a piante diverse, non è un nome di questa specie asiatica.
+malus-baccata	Perro compacto	lingua_straniera: Spagnolo senza senso (perro = cane).
+malus-baccata	Però selvatico	pianta_sbagliata: Il pero selvatico è Pyrus, altro genere; accento spurio.
+malva-olbia	Malvia oblia	testo_rotto: Refuso di Malva olbia.
+malva-olbia	Olbia	non_nome: Solo l'epiteto/nome di città, non un nome comune.
+malva-sylvestris	Malva splendens	nome_scientifico: Nome in latino, non un nome comune.
+mammillaria-allungata	Microhelia	nome_scientifico: Epiteto di un'altra specie (Mammillaria microhelia).
+mammillaria-compressa	Cuscino della suocera	pianta_sbagliata: Nome di Echinocactus grusonii, altro genere.
+mammillaria-hahniana	Puntaspilli vecchia Lady	lingua_straniera: Traduzione parziale con parola inglese.
+mammillaria-spinosissima	Mammillaria spinosissima cv. un pico	nome_scientifico: Nome scientifico con cultivar.
+mandarino-cinese	Citronella giapponese	pianta_sbagliata: Citronella indica Cymbopogon o Melissa, non un agrume.
+mandarino-cinese	Mandarino cinese (Kumquat)	testo_rotto: Vedi le decisioni sui preferiti.
+mandevilla-laxa	Bengiamin	non_nome: Nome di persona, non della pianta.
+mandevilla-laxa	Franklin	non_nome: Nome di persona, non della pianta.
+mandevilla-laxa	Mandavilea	testo_rotto: Storpiatura di Mandevilla.
+mandevilla-laxa	Sundevilla	non_nome: Storpiatura di un marchio commerciale (Sundaville) di un'altra Mandevilla.
+manihot-esculenta	Iucca	pianta_sbagliata: In italiano iucca è Yucca, altra famiglia.
+marsilea-quadrifolia	Quadifoglio acquatico	testo_rotto: Refuso di Quadrifoglio.
+marsilea-quadrifolia	Quadifoglio d'acqua comune	testo_rotto: Refuso di Quadrifoglio.
+maytenus-boaria	Ulivo	pianta_sbagliata: È Olea europaea, altra famiglia.
+meconopsis-grandis	Papavero azzurro Dell himalaya	testo_rotto: Maiuscole e apostrofo sbagliati.
+medicago-arborea	Sicily citiso	lingua_straniera: Mescolanza di inglese e italiano.
+medicago-sativa	Erba medica erba-Spagna	testo_rotto: Due nomi fusi.
+medicago-sativa	Клевер	lingua_straniera: Russo (trifoglio).
+megaskepasma-erythrochlamys	Fiore della Patagonia	non_nome: Etichetta ricorrente attribuita a piante diverse; la specie è sudamericana tropicale.
+melia-azedarach	Bagolaro	pianta_sbagliata: È Celtis australis, altra famiglia.
+melia-azedarach	Paraiso	lingua_straniera: Nome spagnolo della pianta.
+melia-azedarach	Pino	pianta_sbagliata: È Pinus, una conifera.
+melilotus-indicus	Meliloto a fioro piccolo	testo_rotto: Refuso di fiore.
+mesembryanthemum-cordifolium	Portulaca	pianta_sbagliata: È Portulaca, altra famiglia.
+metasequoia-glyptostroboides	Cipresso calvo	pianta_sbagliata: È Taxodium distichum, altro genere.
+metrosideros-excelsa	Valpi	non_nome: Parola senza senso, non è un nome noto.
+mirabilis-jalapa	Bella di-notte comune	testo_rotto: Trattino spurio.
+mirabilis-jalapa	Maravilla de Indias	lingua_straniera: Spagnolo.
+moluccella-laevis	Сampanella d'Irlanda	testo_rotto: La prima lettera è una C cirillica, non latina.
+monstera-deliciosa	Albero del pane	pianta_sbagliata: È Artocarpus altilis, altra famiglia.
+morus-alba	Gelso sburra	volgare: Termine osceno aggiunto al nome.
+morus-nigra	Olmo	pianta_sbagliata: È Ulmus, altra famiglia.
+morus-nigra	Scoreggia di orco	volgare: Nome scherzoso volgare, non è un nome popolare.
+musa-x-paradisiaca	Bananano comune	testo_rotto: Refuso di Banano.
+musanga-cecropioides	Parasolero	lingua_straniera: Spagnolo.
+myoporum-insulare	Mirioporum delle isole	testo_rotto: Storpiatura mista latino-italiano di Mioporo.
+myoporum-tenuifolium	Bello figo totti	non_nome: Scherzo con nome di persona.
+myosotis-arvensis	Nontiscordardim√© minore	testo_rotto: Codifica dei caratteri rotta.
+myosotis-scorpioides	Nontiscordardim√© delle paludi	testo_rotto: Codifica dei caratteri rotta.
+myrica-rubra	Miricetina	non_nome: Nome di una sostanza chimica, non della pianta.
+myrica-rubra	Yangmei	lingua_straniera: Cinese traslitterato.
+myrtus-communis	Mirtillo	pianta_sbagliata: È Vaccinium, altra famiglia.
+nandina-domestica	Tu	non_nome: Parola senza senso come nome.
+nepeta-racemosa	Menta	pianta_sbagliata: È Mentha, altro genere.
+nephrolepis-exaltata	Nexana	non_nome: Parola senza senso, non un nome noto.
+nephrolepis-exaltata	Ripsalis	pianta_sbagliata: È Rhipsalis, un cactus.
+nerium-oleander	Oleandro papà gambetta	non_nome: Aggiunta scherzosa di un soprannome di persona.
+nicandra-physalodes	Nicandra faloso alchechengi	testo_rotto: Refuso di falso.
+nigella-arvensis	Fiore di passione	pianta_sbagliata: Indica la Passiflora, altra famiglia.
+nigella-damascena	Scapigilate	testo_rotto: Refuso di Scapigliate.
+nothoscordum-gracile	Alho fragrante	lingua_straniera: Portoghese.
+nothoscordum-gracile	Ficus umbellata	nome_scientifico: Nome latino di un altro taxon.
+nuphar-lutea	Ninfea Gialli	testo_rotto: Concordanza sbagliata e maiuscola spuria.
+ocimum-tenuiflorum	Basilisco Sburinio	non_nome: Scherzo senza senso.
+oenanthe-fistulosa	Finocchio selvatico	pianta_sbagliata: È Foeniculum vulgare, altro genere.
+oenothera-fruticosa	Erba	non_nome: Parola generica.
+omphalodes-verna	Borrana	pianta_sbagliata: È Borago officinalis, altro genere.
+onosma-echioides	Viperina comune	pianta_sbagliata: È Echium vulgare, altro genere.
+ophiopogon-planiscapus	Pianta	non_nome: Parola generica.
+opuntia-microdasys	Septira	non_nome: Parola senza senso.
+orbea-variegata	Pianta degli zombie	non_nome: Probabile scherzo, non un nome popolare noto.
+osmanthus-heterophyllus	Goshiky in Giappone	testo_rotto: Nome giapponese con una nota.
+osmanthus-heterophyllus	Ocio che punse	non_nome: Frase dialettale (attento che punge), non un nome.
+osmanthus-heterophyllus	Pungitopo	pianta_sbagliata: È Ruscus aculeatus, altra famiglia.
+osteospermum	Gazania?	pianta_sbagliata: Gazania è un altro genere; con punto interrogativo.
+ostrya-virginiana	Olmo de Virginia	pianta_sbagliata: Olmo è Ulmus, altra famiglia.
+oxalis-acetosella	Trifoglio comune	pianta_sbagliata: È Trifolium, altra famiglia.
+oxalis-corniculata	Arnatilo farnfro	testo_rotto: Testo senza senso.
+oxalis-corniculata	Trifoglio	pianta_sbagliata: È Trifolium, altra famiglia.
+pachysandra-terminalis	Fiore della Patagonia	non_nome: Etichetta ricorrente attribuita a piante diverse; la specie è asiatica.
+paeonia-officinalis	Peoonia selvatica	testo_rotto: Refuso di Peonia.
+panicum-miliaceum	Panico coltivado	testo_rotto: Refuso di coltivato.
+papaver-somniferum	Droga	non_nome: Parola generica riferita a droghe.
+papaver-somniferum	Papavero da opio	testo_rotto: Refuso di oppio.
+parkinsonia-aculeata	Spina di Jerusalem	lingua_straniera: Toponimo in inglese al posto di Gerusalemme.
+parthenium-hysterophorus	Cicutilla	lingua_straniera: Spagnolo.
+parthenocissus-quinquefolia	Vite	pianta_sbagliata: Da solo indica Vitis vinifera, altro genere.
+parthenocissus-tricuspidata	Vita vergine del Giappone	testo_rotto: Refuso di Vite.
+passiflora-edulis	Scatta il gioco della bottiglia	non_nome: Frase scherzosa.
+passiflora-ligularis	"Passiflora edule "" maracuia """	testo_rotto: Virgolette spurie e nome di un'altra specie.
+pastinaca-sativa	Pastinacá	testo_rotto: Accento spurio.
+pelargonium-grandiflorum	Geranei macranta	testo_rotto: Storpiatura senza senso.
+pelargonium-grandiflorum	Geranio edera dippio	testo_rotto: Refuso di doppio; il geranio edera è un'altra specie.
+peperomia-argyreia	Watermelon	lingua_straniera: Inglese.
+peperomia-caperata	"Peperomia Caperata ""Napoli Nights"""	testo_rotto: Virgolette spurie e nome di cultivar.
+peperomia-ferreyrae	Peperomia mix	non_nome: Etichetta commerciale generica.
+peperomia-ferreyrae	Peperomia sp.	non_nome: Indicazione generica di specie non determinata.
+peperomia-obtusifolia	Dada	non_nome: Parola senza senso.
+peperomia-obtusifolia	Peperonia	testo_rotto: Refuso di Peperomia.
+perilla-frutescens	Coleus	pianta_sbagliata: È un altro genere di Lamiaceae.
+peucedanum-ostruthium	Elafobosco erba renna	testo_rotto: Due nomi fusi.
+phalaris-arundinacea	Falangio o nastrino o clorofito	pianta_sbagliata: Indica Chlorophytum, altra famiglia; più nomi uniti.
+phaseolus-coccineus	Fagiolo die Spagna	testo_rotto: Refuso di di.
+philadelphus-coronarius	Filadelfia	testo_rotto: Nome di città al posto di Filadelfo.
+phillyrea-latifolia	Olivastro	pianta_sbagliata: È l'olivo selvatico (Olea), altro genere.
+philodendron-erubescens	Antirio	testo_rotto: Probabile refuso di Anturio, che è un altro genere.
+philodendron-erubescens	Imperial green	lingua_straniera: Inglese, nome di cultivar.
+philodendron-erubescens	Philodendron prince of orange	lingua_straniera: Nome di cultivar in inglese.
+phleum-pratense	Fleole bulboso	testo_rotto: Refuso di Fleolo.
+phlomis-fruticosa	Flomide arbustive	testo_rotto: Concordanza sbagliata (arbustiva).
+phlomis-purpurea	Salvia	pianta_sbagliata: È Salvia, altro genere.
+phlox-drummondii	Gasteropode.	non_nome: Nome di un animale (lumaca), con punto finale.
+phlox-drummondii	Surfina	pianta_sbagliata: Storpiatura di Surfinia, che è una petunia.
+phoenix-dactylifera	Palmo da datteri	testo_rotto: Refuso di Palma.
+phormium-tenax	Lino della Nuova Zelande	testo_rotto: Refuso di Zelanda.
+photinia-glabra	Red robin	lingua_straniera: Inglese, nome di cultivar di un'altra fotinia.
+photinia-serratifolia	Alloro lauro	pianta_sbagliata: È Laurus nobilis, altra famiglia.
+photinia-serratifolia	Photinia Fraseri Red Robin	nome_scientifico: Nome scientifico di un altro taxon con cultivar.
+phragmites-australis	Giuuco	testo_rotto: Refuso di Giunco.
+physalis-peruviana	Alchechengi del Per√π	testo_rotto: Codifica dei caratteri rotta.
+phytolacca-acinosa	Cremesina uva turca esculenta	testo_rotto: Più nomi fusi con un epiteto.
+phytolacca-acinosa	Portulaca acinosa	pianta_sbagliata: Portulaca è un altro genere.
+phytolacca-americana	Amaranto	pianta_sbagliata: È Amaranthus, altra famiglia.
+phytolacca-americana	Chubanga	non_nome: Parola senza senso, non un nome noto.
+phytolacca-americana	Il Vegetale	non_nome: Espressione generica.
+phytolacca-americana	Tossico pianta del tossico	testo_rotto: Due nomi fusi con ripetizione.
+pianta-delle-monete	Paperella di San Daniele	non_nome: Probabile scherzo, non un nome noto della Pilea.
+pianta-panda	Palanche vellutata	testo_rotto: Storpiatura di Kalanchoe.
+picea-glauca	Piante alofite	non_nome: Categoria ecologica generica, non un nome.
+picea-glauca	Picea glauca (Conica)	nome_scientifico: Nome scientifico con cultivar tra parentesi.
+pilularia-minuta	Pilularia menore	testo_rotto: Refuso di minore.
+pimpinella-saxifraga	Scolaresca	non_nome: Parola comune senza relazione con la pianta.
+pinus-albicaulis	Pino a corbeccia bianco	testo_rotto: Refuso di corteccia.
+pinus-halepensis	Cianpierozzi	non_nome: Parola senza senso, sembra un nome di persona.
+pinus-halepensis	Pino di Geruzalemme	testo_rotto: Refuso di Gerusalemme.
+pinus-pinaster	Pigna	non_nome: Nome del cono, non dell'albero.
+pinus-pinea	Italienische Steinkiefer	lingua_straniera: Tedesco.
+pinus-pinea	Pino Daniele	non_nome: Nome di un cantante.
+pinus-pinea	Pino del dio cane	volgare: Contiene una bestemmia.
+pistacia-atlantica	Sorgo	pianta_sbagliata: È Sorghum, una graminacea.
+pistacia-lentiscus	Concimone	non_nome: Parola senza relazione con la pianta.
+pistacia-lentiscus	Giuggiole	pianta_sbagliata: Frutti di Ziziphus jujuba, altra famiglia.
+pistacia-terebinthus	Schinus terebinthifolius	nome_scientifico: Nome latino di un'altra specie.
+pittosporum-tobira	Fitoasporo	testo_rotto: Storpiatura di Pittosporo.
+pittosporum-tobira	Fitosforo	testo_rotto: Storpiatura di Pittosporo.
+pittosporum-tobira	Pifitoforeastroporo	testo_rotto: Testo senza senso.
+pittosporum-tobira	Piuttosto Fuori	non_nome: Gioco di parole su Pittosporo.
+plantago-coronopus	Piantiaggine barbatella	testo_rotto: Refuso di Piantaggine.
+plantago-coronopus	Piantiaggine piede di corvo	testo_rotto: Refuso di Piantaggine.
+plantago-maritima	Piantiaggine delle argile	testo_rotto: Refuso di Piantaggine.
+plantago-maritima	Piantiaggine marittima	testo_rotto: Refuso di Piantaggine.
+platanus-occidentalis	Carpino	pianta_sbagliata: È Carpinus, altra famiglia.
+platanus-occidentalis	Fico	pianta_sbagliata: È Ficus carica, altra famiglia.
+platycodon-grandiflorus	Astra	non_nome: Probabile nome di serie commerciale, non un nome comune.
+plectranthus-purpuratus	Petunia	pianta_sbagliata: È Petunia, altra famiglia.
+pleroma-urvilleanum	Fiore della Patagonia	non_nome: Etichetta ricorrente attribuita a piante diverse; la specie è brasiliana.
+plumbago	Plumbago o gelsomino azzurro	testo_rotto: Due nomi uniti con o.
+plumeria-rubra	Plumeia rubia	testo_rotto: Storpiatura del nome scientifico.
+podranea-ricasoliana	Bignonia ricasoliana Contessa Sara	nome_scientifico: Sinonimo latino con nome di cultivar.
+polygala-myrtifolia	Poligola	testo_rotto: Refuso di Poligala.
+polygala-x-dalmaisiana	Veronica	pianta_sbagliata: È Veronica, altra famiglia.
+polygonum-lapathifolium	Salcerella	pianta_sbagliata: È Lythrum salicaria, altra famiglia.
+polyscias-scutellaria	Fiore della Patagonia	non_nome: Etichetta ricorrente attribuita a piante diverse; la specie è del Pacifico.
+populus-nigra	Pioppo immigrato clandestino	non_nome: Frase scherzosa.
+portulacaria-afra	Gerry	non_nome: Nome di persona.
+pothos	Phothos	testo_rotto: Refuso di Pothos.
+pothos	Pothos Njoy	non_nome: Nome di una cultivar commerciale, non un nome comune.
+pothos-talea	pothos-talea	testo_rotto: Testo che non è un nome (regole di forma).
+primula-veris	Primula odoosa	testo_rotto: Refuso di odorosa.
+prunus-brigantina	Marmottier	lingua_straniera: Francese.
+prunus-cerasifera	Miravo l'Ano	volgare: Gioco di parole osceno su Mirabolano.
+prunus-cerasifera	Pissardii	nome_scientifico: Epiteto latino di una varietà, non un nome comune.
+prunus-cerasifera	Pruneto miracoloso	non_nome: Probabile scherzo, non un nome noto.
+prunus-dulcis	Mandorio	testo_rotto: Refuso di Mandorlo.
+prunus-japonica	Albicocca selvatda nocciolo	testo_rotto: Testo troncato e fuso.
+prunus-japonica	Fiore della Patagonia	non_nome: Etichetta ricorrente attribuita a piante diverse; la specie è asiatica.
+prunus-laurocerasus	Gabriele	non_nome: Nome di persona.
+prunus-padus	Ligustro	pianta_sbagliata: È Ligustrum, altra famiglia.
+prunus-persica	Platicaroa	testo_rotto: Refuso di platicarpa (tipo di frutto).
+prunus-persica	Sakura	lingua_straniera: Giapponese, indica i ciliegi da fiore, non il pesco.
+prunus-serotina	Pruno autumnale	testo_rotto: Refuso di autunnale.
+prunus-spinosa	Ciliegio Ferrovia	non_nome: Nome di una varietà di ciliegio dolce, non del prugnolo.
+prunus-spinosa	Pianta scema (secondo mio zio)	non_nome: Frase scherzosa.
+prunus-spinosa	Sgancio	non_nome: Parola senza relazione con la pianta.
+prunus-subhirtella	Albero di Giuda	pianta_sbagliata: È Cercis siliquastrum, altra famiglia.
+prunus-subhirtella	Durone di Vignola	non_nome: Varietà di ciliegio dolce (Prunus avium), non di questa specie.
+psammophiliella-muralis	Gissofila dei muri	testo_rotto: Refuso di Gipsofila.
+psidium-guajava	Guaia giallo	testo_rotto: Parola troncata (Guaiava).
+pulicaria-dysenterica	Grosses Flohkraut	lingua_straniera: Nome tedesco.
+pulicaria-dysenterica	Mentastro	pianta_sbagliata: Il mentastro è una Mentha, altra famiglia.
+pulmonaria-longifolia	Borragine	pianta_sbagliata: Borragine è il genere Borago, non Pulmonaria.
+pulmonaria-longifolia	Narrow leaved Lungwort	lingua_straniera: Nome inglese.
+punica-granatum	Il frutto del melograno	non_nome: Frase descrittiva, non un nome.
+punica-granatum	Melogano	testo_rotto: Refuso di melograno.
+punica-granatum	Nome comune	non_nome: Etichetta di campo, non un nome.
+puschkinia-scilloides	Mela cotogna	pianta_sbagliata: Mela cotogna è Cydonia oblonga.
+pyracantha-coccinea	Biancospino dele Perù	testo_rotto: Segnaposto «del Perù» di PlantNet, con refuso.
+pyrostegia-venusta	Pyrostegia venusta=Fiore dei nanetti	testo_rotto: Nome scientifico e nome uniti da un segno di uguale.
+pyrus-salicifolia	Però a foglie di salice	testo_rotto: Accento sbagliato su Pero.
+quercus-acutissima	Olmo	pianta_sbagliata: Olmo è il genere Ulmus.
+quercus-castaneifolia	Noce	pianta_sbagliata: Noce è il genere Juglans.
+quercus-cerris	Fagus sylvatica 'Asplendifolia'	nome_scientifico: Nome scientifico di una cultivar di faggio.
+quercus-coccifera	Cocciniglia	non_nome: Cocciniglia è l'insetto, non la pianta.
+quercus-nigra	Quercia nero	testo_rotto: Errore di concordanza.
+quercus-robur	Olmo	pianta_sbagliata: Olmo è il genere Ulmus.
+quercus-suber	Quercia da suguero	testo_rotto: Refuso o ibrido con lo spagnolo per «sughero».
+radermachera-sinica	Fiore della Patagonia	non_nome: Nome inventato, ripetuto su piante diverse.
+radermachera-sinica	Radermachera Daniëlle	non_nome: Nome commerciale di una cultivar.
+ranunculus-acris	Pié di-gallina	testo_rotto: Trattino spurio.
+ranunculus-acris	Pié di-nibbio	testo_rotto: Trattino spurio.
+ranunculus-seguieri	Ranuncolo di S√©guier	testo_rotto: Codifica dei caratteri rotta.
+raphanus-sativus	Radice	non_nome: Parola generica.
+ravenala-madagascariensis	Sterlizia Nicolai	pianta_sbagliata: Strelitzia nicolai è un altro genere.
+reseda-odorata	Miglionet	testo_rotto: Storpiatura del francese mignonette.
+rhamnus-alaternus	Ligustro	pianta_sbagliata: Ligustro è Ligustrum, un'altra famiglia.
+rhamnus-lycioides	Olivello spinoso europeo	pianta_sbagliata: Olivello spinoso è Hippophae, di un'altra famiglia.
+rhapis-excelsa	Palma	non_nome: Termine generico per tutta la famiglia delle palme.
+rhinanthus-minor	Crest di gallo minore	testo_rotto: Refuso di cresta.
+rhododendron	Pino di Paranà	pianta_sbagliata: Pino del Paranà è Araucaria angustifolia.
+rhododendron-calendulaceum	Rododendeo	testo_rotto: Refuso di Rododendro.
+rhododendron-maximum	Alpenrose	lingua_straniera: Nome tedesco.
+rhododendron-ponticum	Rhododendro pontico	testo_rotto: Grafia che mescola latino e italiano.
+rhus-glabra	Buoncazzone	volgare: Termine osceno.
+robinia-pseudoacacia	Pseudoacacia del Turkmenistan Centro settentrionale	non_nome: Frase inventata.
+robinia-pseudoacacia	Robinie	testo_rotto: Plurale al posto del nome.
+rodgersia-aesculifolia	Fiore della Patagonia	non_nome: Nome inventato, ripetuto su piante diverse.
+rorippa-palustris	Crescioni delle paludi	testo_rotto: Plurale errato.
+rosa-chinensis	Black baccara	non_nome: Nome commerciale di una cultivar, in inglese.
+rosa-chinensis	Botticelli	non_nome: Nome di persona o di cultivar.
+rosa-chinensis	Francia merda	volgare: Insulto volgare.
+rosa-chinensis	Laddove of Shalott	testo_rotto: Storpiatura della cultivar 'Lady of Shalott'.
+rosa-chinensis	Lady of Shalott	non_nome: Nome inglese di una cultivar.
+rosa-chinensis	Laetitia Casta	non_nome: Nome di persona o di cultivar.
+rosa-chinensis	Pierre De Ronsard Variété Meiviolin - Création Meilland	non_nome: Cultivar e marchio, in francese.
+rosa-chinensis	Rosa Corionazza	non_nome: Nome senza senso, non attestato.
+rosa-chinensis	Rosa Interisita	testo_rotto: Parola senza senso.
+rosa-chinensis	Rosa marvelle	non_nome: Nome di cultivar.
+rosa-chinensis	Rosa pighementata	testo_rotto: Refuso evidente.
+rosa-chinensis	Roselline Rosse	non_nome: Descrizione generica.
+rosa-chinensis	Seviliana	non_nome: Nome di cultivar ('Sevillana').
+rosa-foetida	Rosa Tempi Moderni	non_nome: Nome di cultivar.
+rosa-gallica	Rosa Kordes Jubileè	non_nome: Marchio e cultivar.
+rosa-sempervirens	Uovo sodo	non_nome: Non è un nome di pianta.
+rosa-tomentosa	Rosa tometosa	testo_rotto: Refuso di tomentosa.
+rosa-xanthina	Iperico	pianta_sbagliata: Iperico è il genere Hypericum.
+rubus-occidentalis	Amora silvestre	lingua_straniera: Nome portoghese.
+rubus-ulmifolius	Fiore stupendo di cespuglio di more	non_nome: Frase descrittiva.
+rudbeckia-hirta	Rudbcekia scabra	testo_rotto: Refuso di Rudbeckia.
+rudbeckia-nitida	Girasoli che non ci hanno creduto e depressi	non_nome: Frase scherzosa.
+rudbeckia-triloba	Rudbeckia triloba Prairie Glodw	testo_rotto: Nome scientifico con una cultivar storpiata.
+rumex-alpinus	Lav√†zzi	testo_rotto: Codifica dei caratteri rotta.
+ruscus-aculeatus	Pungitoporagno	testo_rotto: Parola storpiata.
+ruscus-hypoglossum	Ruscolo maggiore: Erba Bonifica	testo_rotto: Due nomi uniti dai due punti.
+sabal-palmetto	Palma nana	pianta_sbagliata: Palma nana è Chamaerops humilis; Sabal palmetto è una palma alta.
+sagittaria-latifolia	Palline	non_nome: Parola generica.
+saintpaulia	Viola d 'Africa	testo_rotto: Apostrofo e spazio sbagliati.
+salix-acutifolia	Salice a foglie agurre	testo_rotto: Refuso di aguzze.
+salix-alba	Pie	testo_rotto: Frammento.
+salix-helvetica	Salix glaucosericea	nome_scientifico: Nome latino di un altro taxon.
+salvia-fruticosa	Salvia Caradonna	non_nome: Cultivar di Salvia nemorosa.
+salvia-glutinosa	Candelas rubras	lingua_straniera: Non italiano.
+salvia-glutinosa	Cetro de Júpiter	lingua_straniera: Nome spagnolo.
+salvia-microphylla	I r	testo_rotto: Testo senza senso.
+salvia-rosmarinus	Felice	non_nome: Nome di persona.
+sambucus-nigra	Sambucus migra Black Lace	testo_rotto: Nome scientifico storpiato con una cultivar inglese.
+sanicula-epipactis	Hacquetia elleborina	nome_scientifico: Nome latino storpiato, non un nome comune.
+sapindus-saponaria	Descrizione	non_nome: Etichetta di campo.
+satureja-montana	Santascoreggia	volgare: Storpiatura scherzosa e volgare di santoreggia.
+scabiosa-atropurpurea	Vedocina maritima	testo_rotto: Refusi (vedovina marittima).
+scabiosa-columbaria	Rustica	non_nome: Aggettivo generico.
+scabiosa-lucida	Vedovine alpestre	testo_rotto: Errore di concordanza.
+schefflera-arboricola	Regan giallo	non_nome: Non è un nome riconoscibile.
+schlumbergera-truncata	Christmas Cactus	lingua_straniera: Nome inglese.
+schoenoplectiella-mucronata	Lancia	non_nome: Parola generica.
+scilla-luciliae	Gloria della neve di Bossier o Gloria della neve di Lucile	testo_rotto: Due nomi uniti in una frase.
+scindapsus-pictus	Photos d argento	testo_rotto: Refuso di Pothos e apostrofo mancante.
+scutellaria-galericulata	Scutellaia comune	testo_rotto: Refuso di Scutellaria.
+securigera-varia	Erba cinestrina	testo_rotto: Refuso di ginestrina.
+sedum-monregalense	Borracina di Mondov√¨	testo_rotto: Codifica dei caratteri rotta.
+sedum-rupestre	Erba grassa	non_nome: Termine generico per le succulente.
+senecio-candidans	Angel wings	lingua_straniera: Nome inglese.
+senecio-macroglossus	Edera	pianta_sbagliata: Edera è il genere Hedera.
+sequoia-sempervirens	Sequoia di Cali	testo_rotto: Nome troncato.
+sequoia-sempervirens	Sequoia rosso	testo_rotto: Errore di concordanza.
+sequoiadendron-giganteum	Grande albero	non_nome: Descrizione generica.
+sesleria-caerulea	Codino azurro	testo_rotto: Refuso di azzurro.
+sesuvium-portulacastrum	Portulaca	pianta_sbagliata: Portulaca è un altro genere e un'altra famiglia.
+sinapis-alba	Colza	pianta_sbagliata: Colza è Brassica napus.
+sinapis-alba	Senape biancha	testo_rotto: Refuso di bianca.
+sinningia	Viola santa paula	pianta_sbagliata: Storpiatura di Saintpaulia, un altro genere.
+sisymbrium-officinale	Sysimbrium officinale	testo_rotto: Nome scientifico scritto male.
+skimmia-japonica	Dicondra	pianta_sbagliata: Dicondra è il genere Dichondra.
+smilax-aspera	Schisandra	pianta_sbagliata: Schisandra è un altro genere e un'altra famiglia.
+smyrnium-olusatrum	Simrnio	testo_rotto: Refuso di Smirnio.
+solanum-americanum	Peperoncino	pianta_sbagliata: Peperoncino è il genere Capsicum.
+solanum-dulcamara	Ucamara	testo_rotto: Frammento di dulcamara.
+solanum-laxum	Anna D'Andrea	non_nome: Nome di persona.
+solanum-nigrum	Ballerina	non_nome: Non è un nome noto della pianta.
+solanum-pseudocapsicum	Ciliegio di Borgaro Torinese	non_nome: Indicazione di un luogo, non un nome.
+solanum-pseudocapsicum	Marinella	non_nome: Nome di persona.
+solanum-pseudocapsicum	Peperoncimo	testo_rotto: Refuso.
+solanum-pseudocapsicum	Questo frutto è commestibile	non_nome: Frase, per giunta falsa (bacche tossiche).
+solanum-pseudocapsicum	Solanum da bacca	testo_rotto: Mescola latino e italiano.
+sonchus-tenerrimus	Sonchus tenerrimus L	nome_scientifico: Nome scientifico con l'autore.
+sorbus-aria	Rialto	non_nome: Nome di luogo.
+sorbus-aucuparia	Sorbo degli ucellatori	testo_rotto: Refuso di uccellatori.
+sorbus-intermedia	Sorbo svedense	testo_rotto: Refuso di svedese.
+sorghum-bicolor	Elica	testo_rotto: Frammento di Melica.
+spartium-junceum	Ginstra	testo_rotto: Refuso di Ginestra.
+spiraea-cantoniensis	Biancospino	pianta_sbagliata: Biancospino è il genere Crataegus.
+spiraea-nipponica	Biancospino	pianta_sbagliata: Biancospino è il genere Crataegus.
+spiranthes-spiralis	Viticcini autonnali	testo_rotto: Refuso di autunnali.
+stachys-germanica	Madriselva	pianta_sbagliata: Madreselva è Lonicera, un'altra famiglia.
+stachys-palustris	Stregonia palostre	testo_rotto: Refuso di palustre.
+stachys-sylvatica	Matricale	pianta_sbagliata: Matricale è Tanacetum parthenium, un'altra famiglia.
+staphylea-pinnata	Lacrime di-Giobbe	testo_rotto: Trattino spurio.
+sternbergia-lutea	Zaferranastro giallo	testo_rotto: Refuso di zafferanastro.
+syagrus-romanzoffiana	Papiro	pianta_sbagliata: Papiro è Cyperus papyrus.
+symphoricarpos-orbiculatus	Coralberry	lingua_straniera: Nome inglese.
+symphoricarpos-orbiculatus	Piantasborra	volgare: Termine osceno.
+symphytum-officinale	Consolda maggiore	testo_rotto: Refuso di Consolida.
+syngonium-podophyllum	Scotta dilatata	testo_rotto: Non è un nome riconoscibile.
+syngonium-podophyllum	Singongo podolio	testo_rotto: Storpiatura del nome scientifico.
+syringa-vulgaris	Fior di-maggio	testo_rotto: Trattino spurio.
+syringa-vulgaris	Lill√†	testo_rotto: Codifica dei caratteri rotta.
+syzygium-aromaticum	Chioda di garofano	testo_rotto: Refuso di Chiodo.
+tagetes-erecta	Cimpachiuntli	lingua_straniera: Storpiatura del nome nahuatl.
+tagetes-patula	Garofalo turcho	testo_rotto: Refuso di turco.
+tamarix-africana	Tamerici africano	testo_rotto: Errore di concordanza.
+tamarix-africana	Tamerici maggiore	testo_rotto: Plurale con aggettivo singolare.
+tanacetum-coccineum	Fiore della Patagonia	non_nome: Nome inventato, ripetuto su piante diverse.
+tanacetum-coccineum	Pieto	testo_rotto: Frammento di Piretro.
+tanacetum-coccineum	Tenacio roseo	testo_rotto: Refuso di Tanaceto.
+tanacetum-coccineum	Tenacio violetto	testo_rotto: Refuso di Tanaceto.
+tanacetum-vulgare	Aniceto	non_nome: Nome di persona o storpiatura di tanaceto.
+taxus-baccata	Villavallelonga	non_nome: Nome di un paese.
+tecoma-stans	Hibiscus	pianta_sbagliata: Hibiscus è un altro genere e un'altra famiglia.
+terminalia-catappa	Badam	lingua_straniera: Nome non italiano.
+tetragonia-tetragonoides	Spinaccio della Nuova Zelande	testo_rotto: Refusi.
+tetragonia-tetragonoides	Spinacio della Nouva Zelanda	testo_rotto: Refuso di Nuova.
+tetrapanax-papyrifer	Fico	pianta_sbagliata: Fico è il genere Ficus.
+tetrapanax-papyrifer	Papiro	pianta_sbagliata: Papiro è Cyperus papyrus.
+teucrium-fruticans	Azureum	non_nome: Epiteto latino di una cultivar.
+thalictrum-simplex	Pigamo arba scopaia	testo_rotto: Refuso di erba.
+thalictrum-tuberosum	Bucaneve	pianta_sbagliata: Bucaneve è il genere Galanthus.
+thelypteris-noveboracensis	Felce	non_nome: Termine generico per tutte le felci.
+thlaspi-arvense	Iberis campestre	pianta_sbagliata: Iberis è un altro genere.
+tilia-cordata	Tiglia selvatico	testo_rotto: Refuso di Tiglio.
+tillandsia-ionantha	Ciuffo di naturale	testo_rotto: Frase senza senso.
+tillandsia-usneoides	Pianta femminista	non_nome: Nome scherzoso.
+tillandsia-usneoides	Tillandia	testo_rotto: Refuso di Tillandsia.
+tolpis-barbata	Radicchio	pianta_sbagliata: Radicchio è Cichorium, un altro genere.
+torenia-fournieri	Campanula	pianta_sbagliata: Campanula è un altro genere e un'altra famiglia.
+trachelium-caeruleum	Alfileres	lingua_straniera: Nome spagnolo.
+trachelium-caeruleum	Flor de la viuda	lingua_straniera: Nome spagnolo.
+trachelium-caeruleum	Hierba de la viuda	lingua_straniera: Nome spagnolo.
+trachelospermum-asiaticum	Ringosperma	testo_rotto: Storpiatura di Rhynchospermum.
+trachycarpus-fortunei	Pamlma di Fortune	testo_rotto: Refuso di Palma.
+tradescantia-cerinthoides	Foglie rosse	non_nome: Descrizione generica.
+tradescantia-cerinthoides	Tradescadenzia nostrana	testo_rotto: Refuso di Tradescanzia.
+tradescantia-fluminensis	Tradescanzia Nanouk	non_nome: Nome di cultivar.
+tradescantia-pallida	Povera pianta	non_nome: Espressione, non un nome.
+tradescantia-spathacea	Tradescantia spartana	testo_rotto: Epiteto storpiato.
+tragopogon-porrifolius	Raperonzolo selvatico	pianta_sbagliata: Raperonzolo è Campanula rapunculus.
+tragopogon-pratensis	Barba di-becco comune	testo_rotto: Trattino spurio.
+tragopogon-pratensis	Barba di-becco pratense	testo_rotto: Trattino spurio.
+trifolium-incarnatum	Erba rosso	testo_rotto: Errore di concordanza.
+trifolium-micranthum	Trifoglio a fiori piccolo	testo_rotto: Errore di concordanza.
+trifolium-pratense	Sulla	pianta_sbagliata: Sulla è Hedysarum coronarium.
+trifolium-pratense	Trifoglioi dei prati	testo_rotto: Refuso.
+trifolium-repens	Trigolio ladino	testo_rotto: Refuso di Trifoglio.
+trifolium-subterraneum	Trifoglio sotteraneo	testo_rotto: Refuso di sotterraneo.
+triglochin-maritima	Giucastrello Marino	testo_rotto: Refuso di Giuncastrello.
+triglochin-palustris	Giucastrello Alpino	testo_rotto: Refuso di Giuncastrello.
+trigonella-foenum-graecum	Trigonella foenum graecum	nome_scientifico: È il nome scientifico, non un nome comune.
+triticum-turgidum	Frumento tugido	testo_rotto: Refuso di turgido.
+tropaeolum-majus	Cappucina	testo_rotto: Refuso di Cappuccina.
+tropaeolum-majus	Fior	testo_rotto: Frammento.
+tropaeolum-majus	Gasteropode	non_nome: Nome di un animale.
+tropaeolum-majus	Girasole	pianta_sbagliata: Girasole è Helianthus annuus.
+tropaeolum-majus	Nastuzio	testo_rotto: Refuso di Nasturzio.
+tsuga-mertensiana	Abete rosso hemlock	lingua_straniera: Mescola italiano e inglese.
+tsuga-mertensiana	Cicuta di montagna	pianta_sbagliata: Calco dall'inglese hemlock; la cicuta è Conium.
+tulbaghia-violacea	Agapanto rosa	pianta_sbagliata: Agapanto è il genere Agapanthus.
+tussilago-farfara	Farfaraccio	pianta_sbagliata: Farfaraccio è il genere Petasites.
+ulmus-parvifolia	Zelkova nire	pianta_sbagliata: Zelkova è un altro genere; nome storpiato.
+urospermum-dalechampii	Tarassaco	pianta_sbagliata: Tarassaco è il genere Taraxacum.
+utricularia-vulgaris	Erba vescia	testo_rotto: Refuso di vescica.
+utricularia-vulgaris	Utricularia macrorhiza	nome_scientifico: Nome latino di un altro taxon.
+vachellia-caven	Churqui	lingua_straniera: Nome sudamericano, non italiano.
+valerianella-locusta	Agnello azurro	testo_rotto: Nome storpiato.
+verbascum-blattaria	Polline	non_nome: Parola generica.
+verbascum-blattaria	Vena	non_nome: Parola generica.
+verbascum-phlomoides	Barbarasco	testo_rotto: Refuso di Barbasco.
+verbascum-pulverulentum	Paolo	non_nome: Nome di persona.
+verbascum-thapsus	Sommacco selvatico	pianta_sbagliata: Sommacco è il genere Rhus.
+veronica-filiformis	Non ti scordar di me	pianta_sbagliata: Non ti scordar di me è il genere Myosotis.
+veronica-persica	Nontiscordardimé	pianta_sbagliata: Non ti scordar di me è il genere Myosotis.
+viburnum-carlesii	Viburno di Carlo Magno	non_nome: Traduzione sbagliata dell'epiteto (dedicato a W. R. Carles).
+viburnum-davidii	Ulivo	pianta_sbagliata: Ulivo è Olea europaea.
+viburnum-davidii	Viburnk	testo_rotto: Refuso di Viburno.
+viburnum-davidii	Viburno daviddi	testo_rotto: Refuso.
+viburnum-lantana	Antana	testo_rotto: Frammento di Lantana.
+viburnum-lantana	Metallo	non_nome: Non è un nome di pianta.
+viburnum-macrocephalum	Margherita	pianta_sbagliata: Margherita indica Asteracee, non un viburno.
+viburnum-opulus	Sambuco rosso	pianta_sbagliata: Sambuco rosso è Sambucus racemosa, un altro genere.
+viburnum-rhytidophyllum	Viburnio	testo_rotto: Refuso di Viburno.
+viburnum-tinus	Cocaina blu	volgare: Riferimento scherzoso a una droga.
+viburnum-tinus	Timo	pianta_sbagliata: Timo è il genere Thymus.
+viburnum-trilobum	Cranberrybush	lingua_straniera: Nome inglese.
+viburnum-trilobum	Gemmalia	non_nome: Parola senza senso, non attestata.
+viburnum-trilobum	Palla di neve?	testo_rotto: Punto interrogativo nel nome.
+vicia-ervilia	Vesce ervilia	testo_rotto: Mescola francese, italiano e latino.
+vigna-unguiculata	Faggiolino piccolo	testo_rotto: Refuso di Fagiolino.
+vinca-minor	Centocchio	pianta_sbagliata: Centocchio è Stellaria, un'altra famiglia.
+vincetoxicum-hirundinaria	Cynanchum vincetoxicum	nome_scientifico: Nome scientifico (sinonimo), non un nome comune.
+viola-arvensis	Coglione	volgare: Insulto volgare.
+viola-tricolor	Erba Trinit√†	testo_rotto: Codifica dei caratteri rotta.
+viola-tricolor	Suora e nuora	testo_rotto: Refuso di Suocera e nuora.
+visnaga-daucoides	Annetta denti	testo_rotto: Storpiatura di nettadenti.
+vitis-vinifera	Moscato d'amburgo	non_nome: Nome di un vitigno, non della specie.
+vitis-vinifera	Tavernello	non_nome: Marchio di vino.
+vitis-vinifera	UVA Matilde	non_nome: Nome di una varietà, con maiuscole spurie.
+vitis-vinifera	Vitigno imperatrice	non_nome: Nome di un vitigno, non della specie.
+washingtonia-robusta	Detta Palma	testo_rotto: Frammento di frase.
+washingtonia-robusta	Palma europea	pianta_sbagliata: Palma europea è Chamaerops humilis.
+wisteria-floribunda	Bellissima	non_nome: Aggettivo, non un nome.
+wollemia-nobilis	WOLLEMI PINE	lingua_straniera: Nome inglese tutto in maiuscolo.
+woodwardia-radicans	Felche bulbifera	testo_rotto: Refuso di Felce.
+x-chitalpa-tashkentensis	Bignonia Contessa Clara	non_nome: Nome commerciale.
+xerochrysum-bracteatum	Immortale a bratte	testo_rotto: Refuso di brattee.
+yucca-aloifolia	Tronchetto della felicità	pianta_sbagliata: Tronchetto della felicità è Dracaena fragrans.
+yucca-gloriosa	Agavacea	non_nome: Nome di famiglia, non della pianta.
+ziziphus-jujuba	Jujube	lingua_straniera: Nome inglese o francese.
