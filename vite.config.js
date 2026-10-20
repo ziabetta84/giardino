@@ -74,12 +74,15 @@ export default defineConfig({
             // non per-utente (il JWT viaggia nell'header, non nell'URL) —
             // svuotata al logout in useAuth.js per non mostrare offline i
             // dati dell'utente precedente su un device condiviso.
+            // Le voci del catalogo delle piante (rpc/catalogo_mie_piante, GET) stanno
+            // qui e restano consultabili offline; la ricerca (rpc/cerca_catalogo) è
+            // una POST e non entra mai in cache, così non scaccia i dati delle piante.
             urlPattern: /^https:\/\/ncuhhsvtjwcolhpdxbkt\.supabase\.co\/rest\/v1\/.*/,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'giardino-dati-supabase',
               networkTimeoutSeconds: 3,
-              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 30 },
             },
           },
           {
