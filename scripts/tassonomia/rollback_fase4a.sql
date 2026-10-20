@@ -1,14 +1,16 @@
 -- Rollback della fase 4a: toglie le righe di mappa_specie delle cultivar, tutte le cultivar e i taxon di COL aggiunti
 -- per le cultivar (riconoscibili dalla nota). Le righe di mappa della fase 3 e i taxon delle fasi 2 e 3 restano.
--- Si rifiuta se una scheda punta a una cultivar (fase 4b) o una pianta punta a una cultivar (fase 5).
+-- Si rifiuta se le fasi successive sono cominciate: qualsiasi riga in schede (fase 4b) o in nomi_comuni (fase 4c), o una
+-- pianta che punta a una cultivar (fase 5); prima vanno annullate quelle.
 -- Non TRUNCATE: schede, piante e mappa_specie hanno chiavi esterne verso cultivar.
 -- Comando: psql "$URL" -X -1 -v ON_ERROR_STOP=1 -f scripts/tassonomia/rollback_fase4a.sql
 -- Poi, per restituire lo spazio: psql "$URL" -X -c 'vacuum full public.mappa_specie' -c 'vacuum full public.cultivar' -c 'vacuum full public.taxa'
 set local statement_timeout = '10min';
 do $$
 begin
-  if exists (select 1 from public.schede where cultivar_id is not null) or exists (select 1 from public.piante where cultivar_id is not null) then
-    raise exception 'Rollback fase 4a rifiutato: schede o piante puntano già a una cultivar';
+  if exists (select 1 from public.schede) or exists (select 1 from public.nomi_comuni)
+     or exists (select 1 from public.piante where cultivar_id is not null) then
+    raise exception 'Rollback fase 4a rifiutato: le fasi 4b, 4c o 5 hanno già dati (schede, nomi comuni o piante sulle cultivar)';
   end if;
 end $$;
 -- gli indici sulle chiavi esterne servono alla DELETE (vedi rollback_fase2.sql)
