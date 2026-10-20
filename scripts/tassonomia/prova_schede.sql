@@ -38,6 +38,8 @@ begin
       ('rosmarinus-officinalis', 'Salvia rosmarinus', false), -- madre dai rollback, doppione
       ('dracaena', 'Dracaena', true),                      -- genere accettato prima del genere sinonimo
       ('sansevieria', 'Dracaena', false),                  -- anche se la usa una pianta dell'utente
+      ('cavolo', 'Brassica oleracea', true),               -- scelta esplicita dell'utente
+      ('cavolo-ornamentale', 'Brassica oleracea', false),
       ('hydrangea', 'Hydrangea', true),                    -- riga "Genere spp." sul genere
       ('brassia-rex', 'Rex', true),                        -- grex: sulla sua cultivar
       ('brachyglottis-dunedin-hybrids', 'Dunedin Group', true),

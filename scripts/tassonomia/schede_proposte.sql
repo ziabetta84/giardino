@@ -11,7 +11,8 @@
 -- - mostrata (punto 3): per ogni aggancio la prima per idonea, verificata, genere accettato prima di un genere
 --   sinonimo, completezza sui valori utili (i jsonb tutti a null non contano), qualità della descrizione, nome
 --   accettato esatto, lunghezza della descrizione, slug. Le piante dell'utente non contano (scelta dell'utente del
---   20/10/2026: avere una pianta non deve influire sull'affidabilità delle informazioni);
+--   20/10/2026: avere una pianta non deve influire sull'affidabilità delle informazioni). Prima di tutto, dopo idonea,
+--   le scelte esplicite dell'utente: Brassica oleracea mostra cavolo (20/10/2026);
 -- - testi (punti 9-14): funzioni di schede_testi.sql, poi le correzioni a mano di dati/fase4_schede_a_mano.tsv; le
 --   note di lavorazione e la nota «Correzione…» delle fonti vanno nella colonna interna nota. I jsonb di coltivazione
 --   si copiano così come sono (punto 7).
@@ -95,7 +96,7 @@ select d.*, m.stato_verifica,
        length(coalesce(m.descrizione, '')) as ld
   from d join m on m.id = d.id;
 create temp table rk as
-select k.*, row_number() over (partition by chiave order by idonea desc, (stato_verifica = 'verificato') desc,
+select k.*, row_number() over (partition by chiave order by idonea desc, (slug = any (array['cavolo'])) desc, (stato_verifica = 'verificato') desc,
           (dest_rango = 'genus' and t_rango = 'genus' and t_stato not in ('accepted', 'provisionally accepted')) asc,
           n_utili desc, q_descr desc, nome_accettato desc, ld desc, slug) as pos
   from k;
