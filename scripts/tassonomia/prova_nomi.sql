@@ -8,9 +8,9 @@ declare
 begin
   -- righe per lingua e origine, preferiti
   for c in select * from (values
-      ('tutte', (select count(*) from col.nomi_proposte), 18595::bigint),
+      ('tutte', (select count(*) from col.nomi_proposte), 18594::bigint),
       ('italiane dei nostri dati', (select count(*) from col.nomi_proposte where lingua = 'it' and origine = 'nostri'), 9600),
-      ('italiane solo di COL', (select count(*) from col.nomi_proposte where lingua = 'it' and origine = 'col'), 953),
+      ('italiane solo di COL', (select count(*) from col.nomi_proposte where lingua = 'it' and origine = 'col'), 952),
       ('inglesi', (select count(*) from col.nomi_proposte where lingua = 'en'), 8042),
       ('preferiti', (select count(*) from col.nomi_proposte where preferito), 2777)
     ) v(voce, trovate, attese) loop
@@ -66,12 +66,16 @@ begin
       ('Howea forsteriana', 'Kenzia', true),
       ('Howea forsteriana', 'Kentia', false),           -- corretto: senza la parentesi
       ('Prunus', 'Mandorlo', false),                    -- riga di specie salita al genere: mai preferito
-      ('Acacia', 'Mimosa', false)                       -- riga «Genere spp.» con più destinazioni: al genere, mai preferito
+      ('Acacia dealbata', 'Mimosa', false),             -- riga «Genere spp.»: alla specie del vecchio binomio, l'accettato vince
+      ('Plumbago auriculata', 'Piombaggine', false)     -- sugli omonimi di altri autori (revisione della 4c)
     ) v(taxon, nome, preferito) loop
     select count(*) into n from col.nomi_proposte p join public.taxa t on t.id = p.taxon_id
      where t.nome_scientifico = c.taxon and p.lingua = 'it' and p.nome = c.nome and p.preferito = c.preferito;
     if n <> 1 then raise exception 'caso %: atteso «%» (preferito %)', c.taxon, c.nome, c.preferito; end if;
   end loop;
+  select count(*) into n from col.nomi_proposte p join public.taxa t on t.id = p.taxon_id
+   where t.rango = 'genus' and (t.nome_scientifico, p.nome) in (('Acacia', 'Mimosa'), ('Aquilegia', 'Aquilegia comune'), ('Plumbago', 'Piombaggine'), ('Plumbago', 'Gelsomino azzurro'));
+  if n > 0 then raise exception 'nomi di una specie finiti sul genere: %', n; end if;
   select count(*) into n from col.nomi_proposte p join public.taxa t on t.id = p.taxon_id
    where t.nome_scientifico in ('Zamioculcas zamiifolia', 'Euphorbia trigona', 'Lampranthus') and p.preferito;
   if n > 0 then raise exception 'preferiti dove l''utente ha scelto nessun preferito: %', n; end if;

@@ -65,10 +65,13 @@ analyze dest;
 create temp table old_bin as
 select slug, sci_old from col.nomi_righe_genere
  where decisione in ('spp', 'rivedere', 'gia_spp') and btrim(sci_old) ~ '^[A-Z][a-z-]+ (× )?[a-z-]+$';
+-- un accettato vince sugli omonimi di altri autori (come nella fase 3): se c'è, conta solo lui
 create temp table old_res as
 select g.slug, min(d.d::text)::uuid as d_old, count(distinct d.d) as n
   from old_bin g join public.taxa t on t.nome_scientifico = regexp_replace(btrim(g.sci_old), ' x ', ' × ')
   join dest d on d.t_id = t.id
+ where t.stato in ('accepted', 'provisionally accepted')
+    or not exists (select 1 from public.taxa a where a.nome_scientifico = t.nome_scientifico and a.stato in ('accepted', 'provisionally accepted'))
  group by 1;
 
 create temp table gnome as
