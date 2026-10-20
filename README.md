@@ -28,7 +28,6 @@ giardino/
 ### Dati principali (`public/data/`)
 
 - `piante.json` — tutte le piante con zona, sottozona e storico cure
-- `specie.json` — profili di cura per specie (fallback offline; la lettura primaria è da Supabase, vedi CLAUDE.md)
 - `zone.json` / `sottozone.json` — metadati delle zone del giardino
 - `concimi.json` — dispensa concimi posseduti
 - `progetti.json` — progetti del giardino con tappe
@@ -37,7 +36,7 @@ giardino/
 
 ### Assistente AI (`AgenteView.vue`)
 
-Le richieste inviate dall'utente vengono accodate in `richieste-agente.json`. Claude Code elabora la coda (comando `/zorbadice`), genera le risposte, aggiorna il JSON (ed eventualmente `specie.json`/`progetti.json`) e fa il commit.
+Le richieste inviate dall'utente vengono accodate in `richieste-agente.json`. Claude Code elabora la coda (comando `/zorbadice`), genera le risposte, aggiorna il JSON (ed eventualmente le schede del catalogo e i progetti su Supabase) e fa il commit.
 
 ---
 
