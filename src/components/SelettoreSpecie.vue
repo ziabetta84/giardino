@@ -34,7 +34,7 @@
       <p v-if="ricercaInCorso" class="dd-nota"><Spinner style="width:12px;height:12px;" />Ricerca nel catalogo…</p>
       <p v-if="ricercaOffline" class="dd-nota">Ricerca nel catalogo non disponibile offline — solo le specie già caricate.</p>
       <p v-if="!specieFiltrate.length && specieQuery.trim() && !ricercaInCorso" class="dd-nota">Nessuna specie trovata</p>
-      <p v-if="!specieQuery.trim()" class="dd-nota">Specie verificate — digita per cercare in tutto il catalogo, cultivar inclusi</p>
+      <p v-if="!specieQuery.trim()" class="dd-nota">Le tue piante — digita per cercare in tutto il catalogo, cultivar inclusi</p>
 
       <RouterLink to="/agente" class="dd-foot" @mousedown.prevent>
         <span>Non la trovi?</span><span class="dd-foot-cta">Chiedi a Zorba di aggiungerla →</span>
@@ -67,8 +67,12 @@
             <p class="dh-name">{{ specieSelezionata.nome }}</p>
             <p v-if="specieSelezionata.specie" class="dh-sci">{{ specieSelezionata.specie }}</p>
           </div>
-          <a v-if="hero.attribuzione && hero.fontePagina" :href="hero.fontePagina" target="_blank" rel="noopener"
-            class="dh-credit" @click.stop>Foto: {{ hero.attribuzione }} / Wikimedia Commons</a>
+          <span v-if="hero.credito" class="dh-credit" @click.stop>
+            Foto<template v-if="hero.credito.titolo"> «{{ hero.credito.titolo }}»</template>:
+            <a v-if="hero.credito.autore" :href="hero.credito.pagina" target="_blank" rel="noopener">{{ hero.credito.autore }}</a><template v-if="hero.credito.autore && hero.credito.licenza">, </template>
+            <a v-if="hero.credito.licenza && hero.credito.licenzaUrl" :href="hero.credito.licenzaUrl" target="_blank" rel="noopener">{{ hero.credito.licenza }}</a>
+            <template v-else-if="hero.credito.licenza">{{ hero.credito.licenza }}</template>
+          </span>
         </div>
         <div v-else class="dh-np">
           <div class="np-name">{{ specieSelezionata.nome }}</div>
@@ -78,6 +82,7 @@
 
         <div class="dossier-body">
           <div class="slabel">La specie</div>
+          <p v-if="livelloDescrizione" class="dossier-livello">Descrizione {{ livelloDescrizione }}</p>
           <p v-if="specieSelezionata.descrizione" class="prose">{{ specieSelezionata.descrizione }}</p>
           <p v-else class="prose dossier-vuoto">Nessuna descrizione per questa specie.</p>
 
@@ -92,6 +97,7 @@
 
           <template v-if="cureRighe.length">
             <div class="slabel">Calendario cure</div>
+            <p v-if="livelloCure" class="dossier-livello">Cure {{ livelloCure }}</p>
             <div class="dossier-stagioni">
               <button v-for="s in STAGIONI_CAL" :key="s.val" type="button" class="pill"
                 :class="{ active: stagioneCal === s.val }" @click="stagioneCal = s.val">{{ s.label }}</button>
@@ -135,7 +141,7 @@
 import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { mappaSpecie, COLONNE_SPECIE, fondiEredita } from '@/stores/dati'
+import { creditoFoto, etichettaLivello } from '@/utils/catalogo'
 import { parseGiorni, stagione } from '@/composables/useCure'
 import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
@@ -164,70 +170,49 @@ const specieQuery    = ref('')
 const dropdownAperto = ref(false)
 const dossierAperto  = ref(false)
 
-// Con il catalogo esteso da PFAF (~8.700 voci e in crescita), non ha più
-// senso caricarlo tutto in anticipo (issue #142): lo store all'avvio
-// contiene solo le specie delle piante possedute e quelle verificate
-// (i suggerimenti a campo vuoto, sotto). Da 2 caratteri in su la ricerca
-// unisce il filtro immediato su ciò che è già in store a una ricerca live
-// su Supabase (debounced, vedi avviaRicercaRemota), i cui risultati vengono
-// fusi nello store così restano disponibili senza rifetch.
+// Le voci del catalogo (fase 6 del modello tassonomico) arrivano già calcolate dal database: nome mostrato, nome
+// scientifico, campi della scheda ereditati. A campo vuoto la tendina propone le voci delle piante dell'utente; da 2
+// caratteri cerca in tutto il catalogo con cerca_catalogo (una POST, mai in cache), che restituisce voci complete:
+// finiscono nello store, così la scheda della voce scelta non richiede un'altra richiesta. Finché la ricerca non
+// risponde, o senza rete, filtra le voci già nello store.
+function riga(v) {
+  return {
+    key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
+    viaSinonimo: v.via ?? null, viaBotanico: !!v.via_botanico,
+    verificata: v.stato_verifica === 'verificato', immagine: v.immagine ?? null,
+    cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
+  }
+}
+
+const chiaviPossedute = computed(() =>
+  new Set(Object.values(store.piante ?? {}).map(p => p.voce).filter(Boolean))
+)
+const risultatiRemoti = ref([])  // chiavi nell'ordine dato dal database
+
 const specieFiltrate = computed(() => {
-  const tuttiValori = Object.values(store.specie ?? {})
-  const nomePerId = Object.fromEntries(tuttiValori.filter(s => s.id).map(s => [s.id, s.nome]))
-
-  const tutte = Object.entries(store.specie ?? {})
-    .map(([key, s]) => ({
-      key,
-      nome: s.nome ?? key,
-      nomeScientifico: s.specie ?? '',
-      alternativi: s.nomi_alternativi ? s.nomi_alternativi.split(' | ') : [],
-      sinonimiBotanici: s.sinonimi_botanici ? s.sinonimi_botanici.split(' | ') : [],
-      verificata: s.stato_verifica === 'verificato',
-      immagine: s.immagine ?? null,
-      // un cultivar è una ricerca esplicita (digitando il nome del cultivar
-      // stesso), mai un suggerimento a campo vuoto — vedi filtro sotto
-      cultivarDi: s.specie_padre_id ? (nomePerId[s.specie_padre_id] ?? '') : null,
-    }))
+  const voci = store.catalogo ?? {}
   const q = normalizzaApici(specieQuery.value.trim().toLowerCase())
-
-  const contiene = testo => normalizzaApici(testo.toLowerCase()).includes(q)
-  const base = q
-    ? tutte
-        .filter(s => contiene(s.nome) || contiene(s.nomeScientifico)
-          || s.alternativi.some(contiene) || s.sinonimiBotanici.some(contiene))
-        // se la specie si trova solo tramite un sinonimo, la riga lo mostra
-        .map(s => {
-          if (contiene(s.nome) || contiene(s.nomeScientifico)) return s
-          const comune = s.alternativi.find(contiene)
-          return comune
-            ? { ...s, viaSinonimo: comune }
-            : { ...s, viaSinonimo: s.sinonimiBotanici.find(contiene), viaBotanico: true }
-        })
-    : tutte.filter(s => s.verificata && !s.cultivarDi)
-
-  return base
-    // specie "vere" prima dei cultivar (es. "Rosa" ha 9.500+ cultivar: non
-    // devono seppellire la specie stessa in una ricerca larga), poi
-    // verificate, poi alfabetico
-    .sort((a, b) => (!!a.cultivarDi - !!b.cultivarDi) || (b.verificata - a.verificata) || a.nome.localeCompare(b.nome))
-    .slice(0, 50)
+  if (q.length < 2) {
+    return [...chiaviPossedute.value].map(k => voci[k]).filter(Boolean).map(riga)
+      .sort((a, b) => a.nome.localeCompare(b.nome))
+  }
+  if (risultatiRemoti.value.length) {
+    return risultatiRemoti.value.map(k => voci[k]).filter(Boolean).map(riga)
+  }
+  const contiene = testo => normalizzaApici(String(testo ?? '').toLowerCase()).includes(q)
+  return Object.values(voci)
+    .filter(v => contiene(v.nome) || contiene(v.specie) || (v.nomi_alternativi ?? []).some(contiene))
+    .map(riga)
+    .sort((a, b) => (!!a.cultivarDi - !!b.cultivarDi) || a.nome.localeCompare(b.nome))
+    .slice(0, 30)
 })
 
-// Tendina raggruppata: "Nel tuo giardino" (specie di cui l'utente ha almeno
-// una pianta) vs "Nel catalogo" (il resto). Il possesso si legge da
-// store.piante (p.specie è lo slug della specie, cioè s.key), non da
-// s.verificata (che è un flag di curatela sul catalogo condiviso, non
-// possesso). Le due intestazioni compaiono solo quando entrambi i gruppi
-// hanno voci; altrimenti la lista è piatta.
-const slugPossedute = computed(() =>
-  new Set(Object.values(store.piante ?? {}).map(p => p.specie).filter(Boolean))
-)
-const speciePossedute = computed(() => specieFiltrate.value.filter(s => slugPossedute.value.has(s.key)))
-const specieCatalogo  = computed(() => specieFiltrate.value.filter(s => !slugPossedute.value.has(s.key)))
+// Tendina raggruppata: "Nel tuo giardino" (voci di cui l'utente ha almeno una pianta) vs "Nel catalogo" (il resto).
+// Le due intestazioni compaiono solo quando entrambi i gruppi hanno voci; altrimenti la lista è piatta.
+const speciePossedute = computed(() => specieFiltrate.value.filter(s => chiaviPossedute.value.has(s.key)))
+const specieCatalogo  = computed(() => specieFiltrate.value.filter(s => !chiaviPossedute.value.has(s.key)))
 const mostraGruppi    = computed(() => speciePossedute.value.length > 0 && specieCatalogo.value.length > 0)
 
-// Righe della tendina, raggruppate o piatte, con un'unica forma per il
-// template (prima il markup di riga era ripetuto 3 volte).
 const gruppiDropdown = computed(() =>
   mostraGruppi.value
     ? [
@@ -237,44 +222,26 @@ const gruppiDropdown = computed(() =>
     : [{ label: null, voci: specieFiltrate.value }]
 )
 
-// Ricerca live: parte da 2 caratteri (stessa soglia del filtro locale sopra),
-// con un debounce per non fare una query ad ogni tasto. Un token incrementale
-// scarta le risposte arrivate fuori ordine (query più vecchia risolta dopo
-// una più recente).
+// Ricerca live: da 2 caratteri, con un debounce per non fare una query ad ogni tasto. Un token incrementale
+// scarta le risposte arrivate fuori ordine (query più vecchia risolta dopo una più recente).
 const ricercaInCorso = ref(false)
 const ricercaOffline = ref(false)
 let timerRicerca = null
 let tokenRicerca = 0
 
-function escapeIlike(testo) {
-  return testo.replace(/[\\%_]/g, m => '\\' + m)
-}
-
 async function eseguiRicercaRemota(q) {
   const mioToken = ++tokenRicerca
-  const pattern = `%${escapeIlike(q)}%`
   try {
-    // Niente filtro su specie_padre_id: la ricerca copre anche i cultivar
-    // (un collezionista può cercare direttamente "Aureomarginatum" senza
-    // passare dalla specie madre, vedi discussione issue #153, 2026-08-30).
-    const [porNome, porScientifico, porSinonimo, porBotanico] = await Promise.all([
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome', pattern).limit(50),
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nome_scientifico', pattern).limit(50),
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('nomi_alternativi', pattern).limit(50),
-      supabase.from('specie').select(COLONNE_SPECIE).ilike('sinonimi_botanici', pattern).limit(50),
-    ])
-    if (porNome.error) throw porNome.error
-    if (porScientifico.error) throw porScientifico.error
-    if (porSinonimo.error) throw porSinonimo.error
-    if (porBotanico.error) throw porBotanico.error
+    const { data, error } = await supabase.rpc('cerca_catalogo', { q })
+    if (error) throw error
     if (mioToken !== tokenRicerca) return  // superata da una ricerca più recente
-
-    const righe = [...(porNome.data ?? []), ...(porScientifico.data ?? []), ...(porSinonimo.data ?? []), ...(porBotanico.data ?? [])]
-    await risolviEMergeCultivar(righe)
+    const voci = data ?? []
+    store.aggiungiVoci(Object.fromEntries(voci.map(v => [v.chiave, v])))
+    risultatiRemoti.value = voci.map(v => v.chiave)
     ricercaOffline.value = false
   } catch (e) {
     if (mioToken !== tokenRicerca) return
-    console.error('Ricerca specie non disponibile', e)
+    console.error('Ricerca nel catalogo non disponibile', e)
     ricercaOffline.value = true
   } finally {
     if (mioToken === tokenRicerca) ricercaInCorso.value = false
@@ -283,6 +250,7 @@ async function eseguiRicercaRemota(q) {
 
 watch(specieQuery, (val) => {
   clearTimeout(timerRicerca)
+  risultatiRemoti.value = []
   const q = val.trim()
   if (q.length < 2) {
     tokenRicerca++  // scarta un'eventuale ricerca ancora in volo
@@ -297,53 +265,13 @@ watch(specieQuery, (val) => {
 
 onUnmounted(() => clearTimeout(timerRicerca))
 
-// Risolve l'eredità dei cultivar presenti tra le righe appena arrivate da
-// Supabase (ricerca o lookup diretto) prima di fonderle nello store: un
-// cultivar senza dato proprio (quasi tutti, vedi issue #153) deve mostrare
-// i campi di cura della specie madre a tutti i ~9 punti dell'app che
-// leggono store.specie[…], non solo a questo componente. La madre di un
-// cultivar già scelto altrove potrebbe non essere ancora tra le righe
-// caricate: in quel caso va recuperata a parte (una query in più, rara:
-// capita solo aprendo una pianta la cui specie è già un cultivar).
-async function risolviEMergeCultivar(righe) {
-  const mappate = mappaSpecie(righe)
-  const perIdBatch = Object.fromEntries(Object.values(mappate).filter(s => s.id).map(s => [s.id, s]))
-  const idMadriMancanti = [...new Set(
-    Object.values(mappate)
-      .filter(s => s.specie_padre_id && !perIdBatch[s.specie_padre_id] && !Object.values(store.specie ?? {}).some(m => m.id === s.specie_padre_id))
-      .map(s => s.specie_padre_id)
-  )]
-  let perIdStore = {}
-  if (idMadriMancanti.length) {
-    const { data } = await supabase.from('specie').select(COLONNE_SPECIE).in('id', idMadriMancanti)
-    if (data) {
-      const madriMappate = mappaSpecie(data)
-      store.specie = { ...(store.specie ?? {}), ...madriMappate }
-      perIdStore = Object.fromEntries(Object.values(madriMappate).map(s => [s.id, s]))
-    }
-  }
-  for (const slug of Object.keys(mappate)) {
-    const s = mappate[slug]
-    if (!s.specie_padre_id) continue
-    const madre = perIdBatch[s.specie_padre_id] ?? perIdStore[s.specie_padre_id]
-      ?? Object.values(store.specie ?? {}).find(m => m.id === s.specie_padre_id)
-    mappate[slug] = fondiEredita(s, madre)
-  }
-  store.specie = { ...(store.specie ?? {}), ...mappate }
-}
-
-// Tiene il testo visualizzato allineato alla specie effettivamente selezionata
-// (v-model esterno), sia al primo render sia quando cambia da fuori (es. il
-// form padre la popola dopo un caricamento asincrono). Se il valore arriva
-// da fuori e non è ancora nello store (non era né tra le verificate né tra
-// le referenziate al bootstrap — capita editando una pianta la cui specie è
-// un cultivar), va recuperato per risolvere l'eredità prima di mostrarlo.
+// Tiene il testo visualizzato allineato alla voce selezionata (v-model esterno), al primo render e quando cambia da
+// fuori. Una voce non ancora nello store (per esempio quella di una richiesta) si scarica prima di mostrarla.
 watch(() => props.modelValue, async (val) => {
-  if (val && !store.specie?.[val]) {
-    const { data } = await supabase.from('specie').select(COLONNE_SPECIE).eq('slug', val).maybeSingle()
-    if (data) await risolviEMergeCultivar([data])
+  if (val && !store.catalogo?.[val]) {
+    try { await store.caricaVoci([val]) } catch (e) { console.error('Voce del catalogo non disponibile', e) }
   }
-  if (!dropdownAperto.value) specieQuery.value = store.specie?.[val]?.nome ?? ''
+  if (!dropdownAperto.value) specieQuery.value = store.catalogo?.[val]?.nome ?? ''
 }, { immediate: true })
 
 function selezionaSpecie(s) {
@@ -366,26 +294,23 @@ function chiudiDropdown() {
   setTimeout(() => {
     dropdownAperto.value = false
     // Se l'utente ha digitato senza selezionare nulla dall'elenco, ripristina
-    // il testo sul nome della specie effettivamente selezionata (o vuoto).
-    specieQuery.value = store.specie?.[props.modelValue]?.nome ?? ''
+    // il testo sul nome della voce effettivamente selezionata (o vuoto).
+    specieQuery.value = store.catalogo?.[props.modelValue]?.nome ?? ''
   }, 150)
 }
 
-// --- Dossier in sola lettura della specie selezionata ---
-// Il record nello store ha già descrizione/esigenze/alert/manutenzione/
-// coltivazione/vaso: sia la ricerca live sia il watch su modelValue caricano
-// con COLONNE_SPECIE.
+// --- Scheda in sola lettura della voce selezionata ---
 const ALERT_PREVIEW = 3
 const alertTuttiAperti = ref(false)
 
 const specieSelezionata = computed(() =>
-  props.modelValue ? (store.specie?.[props.modelValue] ?? null) : null
+  props.modelValue ? (store.catalogo?.[props.modelValue] ?? null) : null
 )
 
 const statoBadge = computed(() => {
   const s = specieSelezionata.value
   if (!s) return ''
-  if (s.specie_padre_id) return 'cultivar'
+  if (s.tipo === 'cultivar') return s.categoria ?? 'cultivar'
   return s.stato_verifica === 'verificato' ? 'verificata' : 'bozza'
 })
 
@@ -394,19 +319,21 @@ const statoBadge = computed(() => {
 const statoBadgeClasse = computed(() => {
   const s = specieSelezionata.value
   if (!s) return ''
-  if (s.specie_padre_id) return 'cv'
+  if (s.tipo === 'cultivar') return 'cv'
   return s.stato_verifica === 'verificato' ? '' : 'bz'
 })
 
-// Immagine hero della specie (Wikimedia): propria o, per i cultivar, ereditata
-// dalla madre via fondiEredita nello store. urlMiniatura ridimensiona alla
-// larghezza della scheda.
+// Immagine della voce (propria o ereditata dal livello sopra) con il credito richiesto dalla licenza.
 const hero = computed(() => {
   const img = specieSelezionata.value?.immagine
   return img?.url
-    ? { thumbUrl: urlMiniatura(img.url, 480), miniUrl: urlMiniatura(img.url, 96), attribuzione: img.attribuzione, fontePagina: img.fonte_pagina }
+    ? { thumbUrl: urlMiniatura(img.url, 480), miniUrl: urlMiniatura(img.url, 96), credito: creditoFoto(img) }
     : null
 })
+
+// Da quale livello vengono descrizione e cure, quando non sono della voce stessa («del genere Hedera»)
+const livelloDescrizione = computed(() => etichettaLivello(specieSelezionata.value?.livelli?.descrizione))
+const livelloCure = computed(() => etichettaLivello(specieSelezionata.value?.livelli?.manutenzione))
 
 const esigenzeVoci = computed(() => {
   const e = specieSelezionata.value?.esigenze
@@ -754,6 +681,8 @@ watch(() => props.modelValue, () => {
   border-radius: 999px;
 }
 .dh-credit:hover { color: #fdf8ee; }
+.dh-credit a { color: inherit; }
+.dossier-livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 .dh-np {
   padding: 18px 52px 4px 16px;
 }

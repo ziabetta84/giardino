@@ -10,7 +10,7 @@ export const SOGLIA_DIVERGENZA_IRRIGAZIONE = 3
 // un intero giardino è quasi sempre troppo eterogeneo per un numero solo,
 // vedi IrrigazioneView.vue). `piante` è l'elenco delle piante fisicamente
 // coperte dal livello in esame (per una pianta, un array di una sola);
-// `specie` è store.specie. Ritorna null quando non c'è abbastanza dato
+// `catalogo` è store.catalogo. Ritorna null quando non c'è abbastanza dato
 // per un consiglio (nessuna pianta, o nessuna con manutenzione.irrigazione
 // documentata per la stagione corrente).
 // Frasi che indicano un riposo vegetativo vero e proprio (non solo "nessun
@@ -34,14 +34,14 @@ const RIPOSO_REGEX = /nessun|sospes|non necessari|ridott|dirad/i
 // "ridotta" che scarta un "ogni 15-20 giorni" vero lì accanto.
 const CADENZA_REGEX = /ogni\s+\d/i
 
-export function suggerimentoIrrigazione(piante, specie) {
+export function suggerimentoIrrigazione(piante, catalogo) {
   const stagCorrente = stagione()
   const voci = piante
     .map(p => {
-      const sp = specie?.[p.specie]
+      const sp = catalogo?.[p.voce]
       const testo = sp?.manutenzione?.irrigazione?.[stagCorrente]
       if (!testo) return null
-      const nomeSpecie = sp?.nome ?? p.specie
+      const nomeSpecie = sp?.nome ?? p.specie ?? 'Pianta'
       if (CADENZA_REGEX.test(testo)) {
         const intervallo = parseGiorni(testo)
         if (intervallo) return { nomeSpecie, intervallo, riposo: false }

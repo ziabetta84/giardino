@@ -5,6 +5,7 @@ import { useApi } from '@/composables/useApi'
 import { useSupabase } from '@/composables/useSupabase'
 import { irrigazioneDaRegistrareOggi } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
+import { chiavePianta } from '@/utils/catalogo'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -27,130 +28,16 @@ async function caricaJSON(file) {
     return caricaStatico(file)
   }
 }
-// Pilota Fase 2: le specie vengono da Supabase (sola lettura), non più dal
-// JSON statico — ma la forma dell'oggetto resta identica a prima (stessa
-// chiave slug, stessi nomi di campo "specie" e "coltivazione") perché tutto
-// il resto dell'app si aspetta ancora quella forma. Le scritture (creare o
-// modificare una specie da SelettoreSpecie) restano su GitHub per ora: la
-// migrazione delle scritture è compito di una fase successiva, non di questa.
-// Se Supabase non risponde, ripiega sul JSON statico come le altre risorse.
-
-export const COLONNE_SPECIE =
-  'id, slug, nome, nome_scientifico, nomi_alternativi, sinonimi_botanici, nome_accettato, descrizione, esigenze, alert, manutenzione, ciclo_colturale, ciclo_vitale, stato_verifica, vaso, immagine, specie_padre_id'
-
-// Riusata anche da SelettoreSpecie.vue per mappare i risultati della ricerca
-// live su Supabase, così le due fonti (caricamento iniziale e ricerca)
-// producono record identici nello store.
-export function mappaSpecie(righe) {
-  return Object.fromEntries(
-    righe.map(riga => [
-      riga.slug,
-      {
-        id: riga.id,
-        slug: riga.slug,
-        nome: riga.nome,
-        specie: riga.nome_scientifico,
-        nomi_alternativi: riga.nomi_alternativi,
-        sinonimi_botanici: riga.sinonimi_botanici,
-        nome_accettato: riga.nome_accettato,
-        descrizione: riga.descrizione,
-        esigenze: riga.esigenze,
-        alert: riga.alert,
-        manutenzione: riga.manutenzione,
-        coltivazione: riga.ciclo_colturale,
-        ciclo_vitale: riga.ciclo_vitale,
-        stato_verifica: riga.stato_verifica,
-        vaso: riga.vaso,
-        immagine: riga.immagine,
-        specie_padre_id: riga.specie_padre_id,
-      }
-    ])
-  )
-}
-
-// Campi di "cura/conoscenza" (+ immagine hero) che un cultivar eredita
-// dalla specie madre quando non ha un proprio dato (la stragrande
-// maggioranza: i ~196k cultivar importati da RHS hanno solo il nome,
-// vedi issue #153) — non i campi identitari (nome, slug, nome_scientifico,
-// famiglia), quelli restano sempre del cultivar stesso anche quando
-// eredita tutto il resto.
-const CAMPI_EREDITABILI = ['descrizione', 'esigenze', 'alert', 'manutenzione', 'coltivazione', 'vaso', 'ciclo_vitale', 'immagine']
-
-function campoVuoto(v) {
-  if (v == null) return true
-  if (Array.isArray(v)) return v.length === 0
-  if (typeof v === 'object') return Object.keys(v).length === 0
-  return false
-}
-
-// Risolve i campi mancanti di un cultivar con quelli della specie madre.
-// Va richiamata ovunque un cultivar venga aggiunto allo store (qui e in
-// SelettoreSpecie.vue) così i ~9 punti dell'app che leggono store.specie[…]
-// (PiantaRiga, PiantaView, AttivitaView, GalleryView, ecc.) vedono già il
-// dato "effettivo" senza doverlo risolvere ciascuno per conto proprio.
-export function fondiEredita(record, madre) {
-  if (!record.specie_padre_id || !madre) return record
-  const risultato = { ...record }
-  for (const campo of CAMPI_EREDITABILI) {
-    if (campoVuoto(record[campo])) risultato[campo] = madre[campo]
-  }
-  return risultato
-}
-
-// Il catalogo specie cresce continuamente (import da PFAF, ~8700 righe e
-// oltre) e caricarlo tutto ad ogni avvio — anche paginando oltre il limite
-// di 1000 righe di PostgREST — non scala (issue #142). Il resto dell'app fa
-// solo lookup per slug delle specie delle piante possedute, quindi basta
-// caricare in anticipo: quelle referenziate (piante + richieste di revisione
-// in coda) e le poche specie verificate (i suggerimenti a campo vuoto nel
-// selettore). Il resto del catalogo si carica su richiesta con la ricerca
-// live in SelettoreSpecie.vue, che unisce i risultati allo store.
-async function caricaSpecie(slugReferenziati = []) {
-  try {
-    const supabase = useSupabase()
-
-    const query = [
-      // i cultivar (specie_padre_id valorizzato) non vanno mai nel bootstrap:
-      // sono ~196k righe quasi tutte 'bozza' (nessun dato di cura proprio),
-      // vanno cercati solo sotto la specie madre già scelta, mai in anticipo
-      supabase.from('specie').select(COLONNE_SPECIE).eq('stato_verifica', 'verificato').is('specie_padre_id', null),
-    ]
-    if (slugReferenziati.length) {
-      query.push(supabase.from('specie').select(COLONNE_SPECIE).in('slug', slugReferenziati))
-    }
-
-    const risultati = await Promise.all(query)
-    const tutte = []
-    for (const { data, error } of risultati) {
-      if (error) throw error
-      if (data) tutte.push(...data)
-    }
-
-    // Se tra le referenziate c'è un cultivar, la specie madre serve per
-    // l'eredità dei campi di cura (fondiEredita sotto) ma potrebbe non
-    // essere già tra le righe prese (non è detto sia lei stessa referenziata
-    // o verificata) — va recuperata a parte in quel caso.
-    const idPresenti = new Set(tutte.map(r => r.id))
-    const idMadriMancanti = [...new Set(
-      tutte.filter(r => r.specie_padre_id && !idPresenti.has(r.specie_padre_id)).map(r => r.specie_padre_id)
-    )]
-    if (idMadriMancanti.length) {
-      const { data: madri, error } = await supabase.from('specie').select(COLONNE_SPECIE).in('id', idMadriMancanti)
-      if (error) throw error
-      if (madri) tutte.push(...madri)
-    }
-
-    const mappate = mappaSpecie(tutte)
-    const perId = Object.fromEntries(Object.values(mappate).map(s => [s.id, s]))
-    for (const slug of Object.keys(mappate)) {
-      if (mappate[slug].specie_padre_id) mappate[slug] = fondiEredita(mappate[slug], perId[mappate[slug].specie_padre_id])
-    }
-    return mappate
-
-  } catch (e) {
-    console.error('Supabase non risponde, uso il fallback specie.json', e)
-    return caricaStatico('specie.json')
-  }
+// Catalogo (fase 6 del modello tassonomico): le piante puntano a un taxon o a una cultivar, e il database calcola per
+// ognuno una «voce» (nome mostrato, nome scientifico, campi della scheda ereditati campo per campo dal livello sopra,
+// vedi la migration 20261021100000_tassonomia_fase6_catalogo.sql). I campi hanno gli stessi nomi di prima (nome,
+// specie, descrizione, esigenze, manutenzione, coltivazione…), quindi le viste cambiano solo il modo di trovarla:
+// store.vocePianta(p) invece della vecchia ricerca per slug. Le voci delle piante si chiedono con una GET (in cache nel
+// service worker: restano consultabili offline); specie.json non si usa più.
+async function rpcGet(supabase, funzione, argomenti) {
+  const { data, error } = await supabase.rpc(funzione, argomenti, { get: true })
+  if (error) throw error
+  return data ?? {}
 }
 
 
@@ -198,6 +85,7 @@ export function mappaSottozone(righeSottozone, zonaNomePerId) {
 export function mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId) {
   return Object.fromEntries(righePiante.map(p => [p.id, {
     specie: p.specie,
+    voce: chiavePianta(p),
     zona: zonaNomePerId[p.zona_id] ?? null,
     sottozona: p.sottozona_id ? (sottozonaNomePerId[p.sottozona_id] ?? null) : null,
     varieta: p.varieta,
@@ -271,7 +159,7 @@ export function mappaSettings(rigaSettings) {
 
 export const useDatiStore = defineStore('dati', () => {
   const piante    = ref(null)
-  const specie    = ref(null)
+  const catalogo  = ref(null)
   const zone      = ref(null)
   const sottozone = ref(null)
   const progetti  = ref(null)
@@ -338,16 +226,17 @@ export const useDatiStore = defineStore('dati', () => {
       programmiIrrigazione.value = mappaProgrammiIrrigazione(righeProgrammiIrrigazione, zonaNomePerId, sottozonaInfoPerId)
       settings.value  = mappaSettings(righeSettings[0] ?? null)
 
-      // Slug delle specie da caricare subito: quelle delle piante possedute
-      // più quelle citate da richieste di revisione ancora in coda (mostrate
-      // per nome nello storico di AgenteView).
-      const slugPiante = Object.values(piante.value ?? {}).map(p => p.specie).filter(Boolean)
-      const slugRichieste = Object.values(richiesteData ?? {})
-        .filter(r => r.tipo === 'revisione_specie' && r.specie)
-        .map(r => r.specie)
-      const slugReferenziati = [...new Set([...slugPiante, ...slugRichieste])]
-
-      specie.value = await caricaSpecie(slugReferenziati)
+      // Voci del catalogo: quelle delle piante (una richiesta, filtrata dall'RLS) più quelle delle richieste di
+      // revisione ancora mostrate nello storico di AgenteView. Senza rete e senza cache: catalogo vuoto, le viste
+      // mostrano il nome di riserva (nomePianta) invece di rompersi.
+      try {
+        catalogo.value = await rpcGet(supabase, 'catalogo_mie_piante')
+        const chiaviRichieste = Object.values(richiesteData ?? {}).map(r => r.voce).filter(Boolean)
+        await caricaVoci(chiaviRichieste)
+      } catch (e) {
+        console.error('Catalogo non disponibile', e)
+        catalogo.value = catalogo.value ?? {}
+      }
 
       // Previsioni meteo (solo oggi/domani): usate da useCure per sospendere
       // l'irrigazione delle piante esterne quando è prevista pioggia
@@ -412,6 +301,27 @@ export const useDatiStore = defineStore('dati', () => {
     }
   }
 
+  function aggiungiVoci(voci) {
+    catalogo.value = { ...(catalogo.value ?? {}), ...voci }
+  }
+
+  // Scarica le voci che mancano (al più 200 per richiesta, il limite di catalogo_voci)
+  async function caricaVoci(chiavi) {
+    const mancanti = [...new Set(chiavi.filter(k => k && !catalogo.value?.[k]))]
+    for (let i = 0; i < mancanti.length; i += 200) {
+      aggiungiVoci(await rpcGet(useSupabase(), 'catalogo_voci', { chiavi: mancanti.slice(i, i + 200) }))
+    }
+  }
+
+  function vocePianta(pianta) {
+    return pianta?.voce ? (catalogo.value?.[pianta.voce] ?? null) : null
+  }
+
+  // Nome da mostrare per una pianta; senza voce (offline alla prima apertura) la vecchia specie o «Pianta»
+  function nomePianta(pianta) {
+    return vocePianta(pianta)?.nome ?? pianta?.specie ?? 'Pianta'
+  }
+
   async function aggiorna() {
     piante.value = null
     await caricaTutto()
@@ -431,5 +341,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, specie, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, iconaZona, iconaSottozona }
+  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaVoci, aggiungiVoci, vocePianta, nomePianta, iconaZona, iconaSottozona }
 })

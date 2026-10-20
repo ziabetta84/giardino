@@ -277,10 +277,9 @@ const piantaPerZona = computed(() => {
   if (!store.piante) return {}
   const gruppi = {}
   for (const [id, p] of Object.entries(store.piante)) {
-    const sp = store.specie?.[p.specie]
     const zona = p.zona ?? 'Altro'
     if (!gruppi[zona]) gruppi[zona] = []
-    const nomeSpecie = sp?.nome ?? p.specie
+    const nomeSpecie = store.nomePianta(p)
     gruppi[zona].push({ id, nomeSpecie, etichetta: p.varieta ? `${nomeSpecie} — ${p.varieta}` : nomeSpecie })
   }
   return gruppi
@@ -299,12 +298,11 @@ const gruppi = computed(() => {
   }
   return Object.entries(byFolder).map(([piantaId, fotoList]) => {
     const pianta  = store.piante?.[piantaId]
-    const specie  = pianta ? (store.specie?.[pianta.specie] ?? null) : null
     const foto    = fotoList.sort((a, b) => b.nome.localeCompare(a.nome))
     return {
       piantaId,
       isGenerale:  piantaId === 'generale',
-      nomeSpecie:  specie?.nome ?? pianta?.specie ?? piantaId,
+      nomeSpecie:  pianta ? store.nomePianta(pianta) : piantaId,
       zona:        pianta?.zona ?? null,
       sottozona:   pianta?.sottozona ?? null,
       coltivatoIn: pianta?.coltivato_in ?? null,

@@ -10,7 +10,7 @@
 
     <div style="display:flex;flex-direction:column;gap:10px;">
       <!-- Specie -->
-      <SelettoreSpecie v-model="form.specie" />
+      <SelettoreSpecie v-model="form.voce" />
 
       <!-- Zona: pillole con icona invece di <select> nativo, come ogni altra
            superficie che mostra una zona nell'app (righe pianta, filtri
@@ -75,7 +75,7 @@
 
       <!-- Salva -->
       <p v-if="erroreSalvataggio" class="ep-errore" role="alert">{{ erroreSalvataggio }}</p>
-      <button @click="salva" :disabled="!form.specie || !form.zona || salvando" class="btn btn-sage">
+      <button @click="salva" :disabled="!form.voce || !form.zona || salvando" class="btn btn-sage">
         <Spinner v-if="salvando" />{{ salvando ? 'Salvataggio…' : (isNuova ? 'Aggiungi pianta' : 'Salva modifiche') }}
       </button>
     </div>
@@ -88,6 +88,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
+import { slugDaNome } from '@/utils/catalogo'
 import Spinner from '@/components/Spinner.vue'
 import Icon from '@/components/Icon.vue'
 
@@ -101,7 +102,7 @@ const salvando = ref(false)
 const erroreSalvataggio = ref(null)
 
 const form = ref({
-  specie: '', zona: '', sottozona: '', coltivatoIn: '', varieta: '', impianto: '', impianto_circa: '', note: ''
+  voce: '', zona: '', sottozona: '', coltivatoIn: '', varieta: '', impianto: '', impianto_circa: '', note: ''
 })
 
 const sottozoneZona = computed(() => {
@@ -126,7 +127,7 @@ onMounted(async () => {
   if (!isNuova.value && store.piante?.[route.params.id]) {
     const p = store.piante[route.params.id]
     form.value = {
-      specie:    p.specie    ?? '',
+      voce:      p.voce      ?? '',
       zona:      p.zona      ?? '',
       sottozona: p.sottozona ?? '',
       coltivatoIn: p.coltivato_in ?? '',
@@ -139,15 +140,15 @@ onMounted(async () => {
 })
 
 async function salva() {
-  if (!form.value.specie || !form.value.zona || salvando.value) return
+  if (!form.value.voce || !form.value.zona || salvando.value) return
   salvando.value = true
   erroreSalvataggio.value = null
-  const id = isNuova.value ? `${form.value.specie}-${Date.now()}` : route.params.id
+  const id = isNuova.value ? `${slugDaNome(store.catalogo?.[form.value.voce]?.specie)}-${Date.now()}` : route.params.id
   try {
     await pianteApi.salvaPianta({
       id,
       isNuova: isNuova.value,
-      specie: form.value.specie,
+      voce: form.value.voce,
       zona: form.value.zona,
       sottozona: form.value.sottozona || null,
       coltivato_in: form.value.coltivatoIn || null,

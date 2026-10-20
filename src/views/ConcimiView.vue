@@ -175,19 +175,19 @@ const concimiFiltrati = computed(() => {
 // terminato.
 const abbinamentiPerConcime = computed(() => {
   const mappa = {}
-  if (!store.piante || !store.specie || !store.concimi) return mappa
+  if (!store.piante || !store.catalogo || !store.concimi) return mappa
   const concimiDisponibili = Object.fromEntries(
     Object.entries(store.concimi).filter(([, c]) => c.disponibile !== false)
   )
   const s = stagione()
   for (const pianta of Object.values(store.piante)) {
-    const specie = store.specie[pianta.specie]
+    const specie = store.vocePianta(pianta)
     const fabbisogno = specie?.manutenzione?.npk?.[s]
     if (!fabbisogno) continue
     const classifica = classificaConcimiPerFabbisogno(fabbisogno, concimiDisponibili)
       .filter(c => c.distanza <= SOGLIA_DISTANZA)
     if (!classifica.length) continue
-    const nome = specie?.nome ?? pianta.specie
+    const nome = store.nomePianta(pianta)
     classifica.forEach((c, rango) => {
       const voce = mappa[c.id] ?? (mappa[c.id] = { migliori: [], altri: [] })
       const gruppo = rango === 0 ? voce.migliori : voce.altri

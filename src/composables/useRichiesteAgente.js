@@ -25,7 +25,7 @@ export function infoTipo(tipo) {
 // qui dentro — questo composable resta puro, senza un proprio accoppiamento
 // nascosto al Pinia store.
 export function titoloRichiesta(r, store) {
-  if (r.tipo === 'revisione_specie' && r.specie) return store.specie?.[r.specie]?.nome ?? r.specie
+  if (r.tipo === 'revisione_specie' && (r.voce || r.specie)) return r.nome_voce ?? store.catalogo?.[r.voce]?.nome ?? r.specie
   if (r.tipo === 'pianifica_progetto') {
     if (r.progetto) return store.progetti?.[r.progetto]?.titolo ?? infoTipo(r.tipo).label
     if (r.titolo_progetto) return r.titolo_progetto

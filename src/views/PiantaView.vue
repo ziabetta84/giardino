@@ -354,7 +354,7 @@ const pianta = computed(() => {
 })
 
 const specie = computed(() =>
-  pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null
+  pianta.value ? store.vocePianta(pianta.value) : null
 )
 
 // Nome scientifico come sottotitolo, solo se diverso dal nome mostrato

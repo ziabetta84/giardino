@@ -6,6 +6,7 @@
 
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
+import { colonneDaChiave } from '@/utils/catalogo'
 
 function oggi() {
   return new Date().toISOString().split('T')[0]
@@ -17,12 +18,19 @@ export function usePianteApi() {
 
   // isNuova: se true, id è generato dal chiamante (stesso formato
   // "slug-timestamp" di sempre) e la riga viene creata; altrimenti id
-  // identifica una riga esistente da aggiornare.
-  async function salvaPianta({ id, isNuova, specie, zona, sottozona, coltivato_in, varieta, impianto, impianto_circa, note }) {
+  // identifica una riga esistente da aggiornare. voce è la chiave del catalogo
+  // ("t:<uuid>" o "c:<uuid>", fase 6 del modello tassonomico): la pianta punta
+  // a un taxon o a una cultivar. La vecchia colonna specie resta solo sulle
+  // piante che non cambiano voce; una pianta nuova o cambiata non ce l'ha.
+  async function salvaPianta({ id, isNuova, voce, zona, sottozona, coltivato_in, varieta, impianto, impianto_circa, note }) {
+    const colonne = colonneDaChiave(voce)
+    if (!colonne) throw new Error('voce del catalogo mancante')
     const zonaId = store.zone?.[zona]?.id ?? null
     const sottozonaId = sottozona ? (store.sottozone?.[zona]?.[sottozona]?.id ?? null) : null
+    const precedente = store.piante?.[id]
+    const specie = isNuova || voce !== precedente?.voce ? null : (precedente?.specie ?? null)
     const riga = {
-      specie, zona_id: zonaId, sottozona_id: sottozonaId,
+      ...colonne, specie, zona_id: zonaId, sottozona_id: sottozonaId,
       varieta: varieta || '', impianto: impianto || '', impianto_circa: impianto_circa || '',
       note: note || '', coltivato_in: coltivato_in || null,
     }
@@ -38,10 +46,10 @@ export function usePianteApi() {
     store.piante = {
       ...store.piante,
       [id]: {
-        specie, zona, sottozona: sottozona || null,
+        specie, voce, zona, sottozona: sottozona || null,
         varieta: riga.varieta, impianto: riga.impianto, impianto_circa: riga.impianto_circa,
         note: riga.note, coltivato_in: riga.coltivato_in,
-        ultima_cura: isNuova ? {} : (store.piante?.[id]?.ultima_cura ?? {}),
+        ultima_cura: isNuova ? {} : (precedente?.ultima_cura ?? {}),
       },
     }
   }
@@ -94,20 +102,5 @@ export function usePianteApi() {
     }))
   }
 
-  // Non scrive più su piante: la FK piante.specie ha "on update cascade"
-  // (vedi supabase/migrations/20260830030000_fase5_specie_fk_on_update_cascade.sql),
-  // quindi è il database stesso a propagare il rename quando SelettoreSpecie.vue
-  // aggiorna specie.slug. Qui resta solo l'aggiornamento locale dello store:
-  // il cascade lato DB non arriva a questo client via realtime, quindi senza
-  // questo fix-up la UI mostrerebbe ancora lo slug vecchio finché non si
-  // ricarica la pagina.
-  function rinominaSpecieInPiante(vecchioSlug, nuovoSlug) {
-    const nuove = { ...store.piante }
-    for (const id of Object.keys(nuove)) {
-      if (nuove[id].specie === vecchioSlug) nuove[id] = { ...nuove[id], specie: nuovoSlug }
-    }
-    store.piante = nuove
-  }
-
-  return { salvaPianta, eliminaPianta, registraCura, annullaCura, registraCuraMultipla, rinominaSpecieInPiante }
+  return { salvaPianta, eliminaPianta, registraCura, annullaCura, registraCuraMultipla }
 }

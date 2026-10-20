@@ -162,7 +162,7 @@ function pianteDellaZona(nomeZona, nomeSottozona) {
   return piante.value.filter(p => p.zona === nomeZona && (p.sottozona ?? null) === nomeSottozona)
 }
 function nomeSpecie(p) {
-  return store.specie?.[p.specie]?.nome ?? p.specie
+  return store.nomePianta(p)
 }
 
 const programmaGiardino = computed(() => store.programmiIrrigazione?.giardino ?? null)
@@ -229,7 +229,7 @@ function apriModifica(target, titolo, valoreAttuale) {
   titoloForm.value = titolo
   giorniForm.value = valoreAttuale ?? null
   errore.value = null
-  suggerimento.value = target === 'giardino' ? null : suggerimentoIrrigazione(pianteCoperte(target), store.specie)
+  suggerimento.value = target === 'giardino' ? null : suggerimentoIrrigazione(pianteCoperte(target), store.catalogo)
   mostraForm.value = true
 }
 function chiudiForm() {

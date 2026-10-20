@@ -10,7 +10,7 @@
       </div>
       <div class="pr__body">
         <div class="pr__name" :title="nomeScientifico || null">
-          {{ specie?.nome ?? pianta.specie }}
+          {{ store.nomePianta(pianta) }}
         </div>
         <div v-if="pianta.varieta" class="pr__var">
           {{ pianta.varieta }}
@@ -47,7 +47,7 @@ const props = defineProps({
 defineEmits(['elimina'])
 
 const store = useDatiStore()
-const specie = computed(() => store.specie?.[props.pianta.specie] ?? null)
+const specie = computed(() => store.vocePianta(props.pianta))
 // Nome scientifico, solo se diverso dal nome mostrato (tooltip nelle liste dense)
 const nomeScientifico = computed(() => {
   const s = specie.value

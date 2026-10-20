@@ -108,8 +108,8 @@
       <p class="agente-dettaglio-data">{{ formatData(richiestaSelezionata.creata) }}</p>
 
       <!-- Specie coinvolta (solo revisione_specie) -->
-      <p v-if="richiestaSelezionata.specie" class="agente-dettaglio-specie">
-        {{ store.specie?.[richiestaSelezionata.specie]?.nome ?? richiestaSelezionata.specie }}
+      <p v-if="richiestaSelezionata.voce || richiestaSelezionata.specie" class="agente-dettaglio-specie">
+        {{ richiestaSelezionata.nome_voce ?? store.catalogo?.[richiestaSelezionata.voce]?.nome ?? richiestaSelezionata.specie }}
       </p>
 
       <!-- Messaggio utente -->
@@ -428,7 +428,8 @@ async function aggiungiRichiesta() {
       [id]: {
         tipo: nuovoTipo.value,
         messaggio: nuovoMessaggio.value.trim(),
-        specie: nuovoTipo.value === 'revisione_specie' ? specieSelezionata.value : null,
+        voce: nuovoTipo.value === 'revisione_specie' ? specieSelezionata.value : null,
+        nome_voce: nuovoTipo.value === 'revisione_specie' ? (store.catalogo?.[specieSelezionata.value]?.nome ?? null) : null,
         progetto: nuovoTipo.value === 'pianifica_progetto' ? (progettoSelezionato.value || null) : null,
         titolo_progetto: nuovoTipo.value === 'pianifica_progetto' && !progettoSelezionato.value ? nuovoProgettoTitolo.value.trim() : null,
         foto: fotoBase64.value ?? null,

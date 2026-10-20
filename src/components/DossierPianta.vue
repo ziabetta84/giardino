@@ -76,7 +76,7 @@ const store = useDatiStore()
 const pianteApi = usePianteApi()
 
 const pianta = computed(() => store.piante?.[props.piantaId] ?? null)
-const specie = computed(() => pianta.value ? (store.specie?.[pianta.value.specie] ?? null) : null)
+const specie = computed(() => pianta.value ? store.vocePianta(pianta.value) : null)
 
 const tipiCura = computed(() => tipiCuraPianta(pianta.value, specie.value))
 const contestoCura = computed(() => ({

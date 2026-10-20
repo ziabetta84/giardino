@@ -174,7 +174,7 @@ function selezionaZona(key) {
 const piante = computed(() => {
   if (!store.piante) return []
   return Object.entries(store.piante).map(([id, p]) => {
-    const sp = store.specie?.[p.specie] ?? null
+    const sp = store.vocePianta(p)
     const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
     const urgenti = cureUrgentiPianta(p, sp, { programmaAutomatico })
     return { id, ...p, urgente: urgenti.length > 0 }
@@ -204,13 +204,14 @@ const pianteFiltrate = computed(() => {
     lista = lista.filter(p => p.sottozona === filtroSottozona.value)
   if (cerca.value.trim()) {
     const q = normalizzaApici(cerca.value.toLowerCase())
-    // Anche su varietà e nome specie (non solo lo slug in p.specie): sono i
+    // Anche su varietà, nome e nome scientifico della voce del catalogo: sono i
     // dati che la riga mostra in evidenza, quelli con cui un utente con più
     // piante della stessa specie le distingue.
     lista = lista.filter(p => {
-      const nomeSpecie = store.specie?.[p.specie]?.nome ?? ''
+      const nomeSpecie = store.nomePianta(p)
+      const scientifico = store.vocePianta(p)?.specie ?? p.specie ?? ''
       return p.id.includes(q) ||
-        normalizzaApici((p.specie ?? '').toLowerCase()).includes(q) ||
+        normalizzaApici(scientifico.toLowerCase()).includes(q) ||
         normalizzaApici((p.varieta ?? '').toLowerCase()).includes(q) ||
         normalizzaApici(nomeSpecie.toLowerCase()).includes(q)
     })

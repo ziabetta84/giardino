@@ -388,7 +388,7 @@ const numUrgenti = computed(() => {
   if (!store.piante) return null
   let count = 0
   for (const [id, p] of Object.entries(store.piante)) {
-    const sp = store.specie?.[p.specie] ?? null
+    const sp = store.vocePianta(p)
     if (cureUrgentiPianta(p, sp, contestoPianta(p, id)).length > 0) count++
   }
   return count
@@ -435,8 +435,8 @@ const daFareOggi = computed(() => {
   if (!store.piante) return []
   const items = []
   for (const [id, p] of Object.entries(store.piante)) {
-    const sp = store.specie?.[p.specie] ?? null
-    const nomeSpecie = sp?.nome ?? p.specie
+    const sp = store.vocePianta(p)
+    const nomeSpecie = store.nomePianta(p)
     const contesto = contestoPianta(p, id)
     // Potatura non è più una cura a urgenza (resta registrabile nella scheda
     // pianta): il feed valuta solo i tipi con cadenza (vedi tipiCuraPianta).

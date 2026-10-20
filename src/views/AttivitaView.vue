@@ -162,8 +162,8 @@ const attivita = computed(() => {
   const items = []
   const contestoMeteo = { meteo: store.meteo }
   for (const [id, p] of Object.entries(store.piante)) {
-    const sp = store.specie?.[p.specie] ?? null
-    const nomeSpecie = sp?.nome ?? p.specie
+    const sp = store.vocePianta(p)
+    const nomeSpecie = store.nomePianta(p)
     const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
     const contesto = { ...contestoMeteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
     // La potatura non ha cadenza temporale: è un'etichetta testuale,
