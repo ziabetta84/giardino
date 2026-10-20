@@ -13,7 +13,8 @@ begin
   select count(*) into n from pg_proc where pronamespace = 'public'::regnamespace
      and proname in ('catalogo_voci', 'catalogo_mie_piante', 'cerca_catalogo');
   if n <> 3 then raise exception 'funzioni del catalogo: % invece di 3', n; end if;
-  if (select is_nullable from information_schema.columns where table_schema = 'public' and table_name = 'piante' and column_name = 'specie') <> 'YES' then
+  -- dopo la fase 7 la colonna non c'è più: va bene anche così
+  if (select is_nullable from information_schema.columns where table_schema = 'public' and table_name = 'piante' and column_name = 'specie') = 'NO' then
     raise exception 'piante.specie è ancora obbligatoria';
   end if;
   if (select pg_get_constraintdef(oid) from pg_constraint where conname = 'piante_taxon_o_cultivar') not like '%= 1%' then

@@ -4,6 +4,9 @@
 do $$
 declare n bigint;
 begin
+  if not exists (select 1 from information_schema.columns where table_schema = 'public' and table_name = 'piante' and column_name = 'specie') then
+    raise exception 'Rollback fase 6 rifiutato: piante.specie non c''è (fase 7 applicata), prima rollback_fase7.sql';
+  end if;
   select count(*) into n from public.piante where specie is null;
   if n > 0 then raise exception 'Rollback fase 6 rifiutato: % piante senza la vecchia specie', n; end if;
 end $$;
