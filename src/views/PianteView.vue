@@ -209,7 +209,7 @@ const pianteFiltrate = computed(() => {
     // piante della stessa specie le distingue.
     lista = lista.filter(p => {
       const nomeSpecie = store.nomePianta(p)
-      const scientifico = store.vocePianta(p)?.specie ?? p.specie ?? ''
+      const scientifico = store.vocePianta(p)?.specie ?? ''
       return p.id.includes(q) ||
         normalizzaApici(scientifico.toLowerCase()).includes(q) ||
         normalizzaApici((p.varieta ?? '').toLowerCase()).includes(q) ||

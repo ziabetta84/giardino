@@ -20,17 +20,16 @@ export function usePianteApi() {
   // "slug-timestamp" di sempre) e la riga viene creata; altrimenti id
   // identifica una riga esistente da aggiornare. voce è la chiave del catalogo
   // ("t:<uuid>" o "c:<uuid>", fase 6 del modello tassonomico): la pianta punta
-  // a un taxon o a una cultivar. La vecchia colonna specie resta solo sulle
-  // piante che non cambiano voce; una pianta nuova o cambiata non ce l'ha.
+  // a un taxon o a una cultivar (la vecchia colonna specie è stata tolta nella
+  // fase 7).
   async function salvaPianta({ id, isNuova, voce, zona, sottozona, coltivato_in, varieta, impianto, impianto_circa, note }) {
     const colonne = colonneDaChiave(voce)
     if (!colonne) throw new Error('voce del catalogo mancante')
     const zonaId = store.zone?.[zona]?.id ?? null
     const sottozonaId = sottozona ? (store.sottozone?.[zona]?.[sottozona]?.id ?? null) : null
     const precedente = store.piante?.[id]
-    const specie = isNuova || voce !== precedente?.voce ? null : (precedente?.specie ?? null)
     const riga = {
-      ...colonne, specie, zona_id: zonaId, sottozona_id: sottozonaId,
+      ...colonne, zona_id: zonaId, sottozona_id: sottozonaId,
       varieta: varieta || '', impianto: impianto || '', impianto_circa: impianto_circa || '',
       note: note || '', coltivato_in: coltivato_in || null,
     }
@@ -46,7 +45,7 @@ export function usePianteApi() {
     store.piante = {
       ...store.piante,
       [id]: {
-        specie, voce, zona, sottozona: sottozona || null,
+        voce, zona, sottozona: sottozona || null,
         varieta: riga.varieta, impianto: riga.impianto, impianto_circa: riga.impianto_circa,
         note: riga.note, coltivato_in: riga.coltivato_in,
         ultima_cura: isNuova ? {} : (precedente?.ultima_cura ?? {}),

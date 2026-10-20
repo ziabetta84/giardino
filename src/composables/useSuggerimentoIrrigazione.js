@@ -41,7 +41,7 @@ export function suggerimentoIrrigazione(piante, catalogo) {
       const sp = catalogo?.[p.voce]
       const testo = sp?.manutenzione?.irrigazione?.[stagCorrente]
       if (!testo) return null
-      const nomeSpecie = sp?.nome ?? p.specie ?? 'Pianta'
+      const nomeSpecie = sp?.nome ?? 'Pianta'
       if (CADENZA_REGEX.test(testo)) {
         const intervallo = parseGiorni(testo)
         if (intervallo) return { nomeSpecie, intervallo, riposo: false }

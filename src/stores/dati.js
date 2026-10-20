@@ -33,7 +33,7 @@ async function caricaJSON(file) {
 // vedi la migration 20261021100000_tassonomia_fase6_catalogo.sql). I campi hanno gli stessi nomi di prima (nome,
 // specie, descrizione, esigenze, manutenzione, coltivazione…), quindi le viste cambiano solo il modo di trovarla:
 // store.vocePianta(p) invece della vecchia ricerca per slug. Le voci delle piante si chiedono con una GET (in cache nel
-// service worker: restano consultabili offline); specie.json non si usa più.
+// service worker: restano consultabili offline). La vecchia tabella specie è solo un archivio (fase 7).
 async function rpcGet(supabase, funzione, argomenti) {
   const { data, error } = await supabase.rpc(funzione, argomenti, { get: true })
   if (error) throw error
@@ -84,7 +84,6 @@ export function mappaSottozone(righeSottozone, zonaNomePerId) {
 
 export function mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId) {
   return Object.fromEntries(righePiante.map(p => [p.id, {
-    specie: p.specie,
     voce: chiavePianta(p),
     zona: zonaNomePerId[p.zona_id] ?? null,
     sottozona: p.sottozona_id ? (sottozonaNomePerId[p.sottozona_id] ?? null) : null,
@@ -317,9 +316,9 @@ export const useDatiStore = defineStore('dati', () => {
     return pianta?.voce ? (catalogo.value?.[pianta.voce] ?? null) : null
   }
 
-  // Nome da mostrare per una pianta; senza voce (offline alla prima apertura) la vecchia specie o «Pianta»
+  // Nome da mostrare per una pianta; senza voce (offline alla prima apertura) «Pianta»
   function nomePianta(pianta) {
-    return vocePianta(pianta)?.nome ?? pianta?.specie ?? 'Pianta'
+    return vocePianta(pianta)?.nome ?? 'Pianta'
   }
 
   async function aggiorna() {

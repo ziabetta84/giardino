@@ -201,7 +201,7 @@
 
     <LightboxFoto
       :foto="luce"
-      :titolo="specie?.nome ?? pianta?.specie ?? ''"
+      :titolo="pianta ? store.nomePianta(pianta) : ''"
       :ha-precedente="indiceLuce > 0"
       :ha-successivo="indiceLuce < fotoPianta.length - 1"
       :indice="indiceLuce"

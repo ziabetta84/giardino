@@ -20,6 +20,8 @@
 
 ## Decisioni da approvare
 
+**Esito (20/10/2026):** approvate la 1 (togliere `piante.specie`), la 4 (indici) e la 5 (`specie.json`); la 2 (archivio chiuso ai client) e la 3 (trigger di sola lettura) non sono state scelte e restano fuori da questa fase: `specie` e `generi` mantengono permessi e policy di oggi. Il Task 2 si riduce quindi alla colonna di `piante`.
+
 1. **`piante.specie` si toglie** (colonna e chiave esterna verso `specie`). Il vecchio slug di ogni pianta resta in `scripts/tassonomia/dati/fase5_piante.tsv` e il collegamento vecchio→nuovo in `mappa_specie`; il rollback rimette la colonna e la riempie da quel file.
 2. **Archivio chiuso ai client:** revocati tutti i permessi di `anon` e `authenticated` su `specie` e `generi` (oggi hanno perfino TRUNCATE) e tolte le policy di lettura pubblica: l'app non le legge più e così la colonna `fonti` dell'archivio non è più leggibile con la chiave pubblica. `service_role` mantiene solo la lettura.
 3. **Sola lettura anche per gli script:** un trigger su `specie` e `generi` rifiuta inserimenti, modifiche, cancellazioni e TRUNCATE, anche da `postgres`, salvo `set local giardino.archivio_scrivibile = 'si'` nella stessa transazione (per un rollback o una correzione voluta). Così un vecchio script dei lotti o una vecchia istruzione di `/zorbadice` non può più scriverci per sbaglio.
