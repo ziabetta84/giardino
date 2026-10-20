@@ -28,4 +28,14 @@ out=$("${PSQL[@]}" -1 -f $M 2>&1) || fallita rilancio "$out"
 "${PSQL[@]}" -1 -f $D/rollback_fase7.sql
 "${PSQL[@]}" -c 'drop table public.prima_fase7'
 echo "PROVA rollback OK"
+# Indici dell'archivio: tolti, poi ricreati identici con lo script di manutenzione.
+I=supabase/migrations/20261021130000_tassonomia_fase7_indici_archivio.sql
+indici() { "${PSQL[@]}" -tAc "select coalesce(string_agg(pg_get_indexdef(indexrelid), ';' order by pg_get_indexdef(indexrelid)), '') from pg_index where indrelid = 'public.specie'::regclass and pg_get_indexdef(indexrelid) like '%trgm%'"; }
+IPRIMA=$(indici)
+[ "$(grep -o 'trgm_idx ON' <<<"$IPRIMA" | wc -l | tr -d ' ')" = 4 ] || fallita indici "la copia non ha i 4 indici trigram"
+"${PSQL[@]}" -1 -f $I
+[ -z "$(indici)" ] || fallita indici "indici ancora presenti"
+"${PSQL[@]}" -1 -f $D/manutenzione_specie_3_ricrea_indici.sql
+[ "$(indici)" = "$IPRIMA" ] || fallita indici "indici ricreati diversi"
+echo "PROVA indici OK"
 echo "PROVE FASE 7 OK"
