@@ -222,11 +222,15 @@ begin
     cv as (select c.id, c.epiteto testo_cv from public.cultivar c where c.epiteto ilike pat or c.nome_commerciale ilike pat
             order by lower(c.epiteto) = lower(testo) desc, c.epiteto ilike inizio desc, length(c.epiteto) limit 60),
     -- due parole: i taxon del primo termine (nome scientifico o nome italiano), i loro figli e nipoti e i sinonimi
-    t0 as (select catalogo.destinazione(x.id) id from (
-             (select t.id from public.taxa t where primo is not null and t.nome_scientifico ilike primo and catalogo.sotto_genere(t.rango)
+    -- se il primo termine è il nome esatto di qualcosa («rosmarino»), solo quei taxon: i nomi che cominciano così
+    -- («Rosmarino selvatico»…) porterebbero migliaia di cultivar da filtrare
+    t00 as (select x.id, x.esatto from (
+             (select t.id, lower(t.nome_scientifico) = lower(rtrim(primo, '%')) esatto from public.taxa t
+               where primo is not null and t.nome_scientifico ilike primo and catalogo.sotto_genere(t.rango)
                order by length(t.nome_scientifico) limit 20)
-             union (select n.taxon_id from public.nomi_comuni n where primo is not null and n.lingua = 'it' and n.nome ilike primo
-               order by length(n.nome) limit 20)) x),
+             union (select n.taxon_id, lower(n.nome) = lower(rtrim(primo, '%')) from public.nomi_comuni n
+               where primo is not null and n.lingua = 'it' and n.nome ilike primo order by length(n.nome) limit 20)) x),
+    t0 as (select catalogo.destinazione(id) id from t00 where esatto or not exists (select 1 from t00 where esatto)),
     t1 as (select t.id from public.taxa t where t.padre_id in (select id from t0)),
     t2 as (select t.id from public.taxa t where t.padre_id in (select id from t1)),
     tutti as (select id from t0 union select id from t1 union select id from t2),

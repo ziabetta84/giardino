@@ -103,7 +103,8 @@ begin
   for r in select * from (values
       ('rosa', 'specie', 'Rosa'), ('acer', 'specie', 'Acer'), ('salvia', 'specie', 'Salvia'), ('ribes', 'specie', 'Ribes'),
       ('pino', 'nome', 'Pino'), ('Lavanda dell''Egitto', 'nome', 'Lavanda dell''Egitto'),
-      ('lavanda dell’egitto', 'nome', 'Lavanda dell''Egitto'), ('edera glacier', 'specie', 'Hedera helix ''Glacier''')
+      ('lavanda dell’egitto', 'nome', 'Lavanda dell''Egitto'), ('edera glacier', 'specie', 'Hedera helix ''Glacier'''),
+      ('carex evergold', 'specie', 'Carex oshimensis ''Evergold''')
     ) x(q, campo, valore) loop
     select count(*) into n from jsonb_array_elements(public.cerca_catalogo(r.q)) e where e ->> r.campo = r.valore;
     if n < 1 then raise exception 'ricerca «%»: manca %', r.q, r.valore; end if;
