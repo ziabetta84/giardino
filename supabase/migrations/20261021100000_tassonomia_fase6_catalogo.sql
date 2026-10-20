@@ -248,10 +248,15 @@ begin
     ),
     uniche as (select distinct on (k) * from cand order by k, esatto desc, (via is null) desc, prefisso desc, lung),
     prime as (select * from uniche order by esatto desc, prefisso desc, gruppo, (via is null) desc, lung, k limit 30),
-    voci as (select p.*, catalogo.voce(p.k) v from prime p)
+    voci as (select p.*, catalogo.voce(p.k) v from prime p),
+    -- prima le voci con contenuto verificato, poi in bozza, poi senza nessun contenuto (scelta dell'utente del 20/10/2026)
+    classi as (select voci.*, case when not (v ?| array['descrizione', 'esigenze', 'manutenzione', 'coltivazione', 'ciclo_vitale',
+                                                    'vaso', 'alert', 'immagine']) then 2
+                                   when v ->> 'stato_verifica' = 'verificato' then 0 else 1 end classe
+                 from voci where v is not null)
     select coalesce(jsonb_agg(v || jsonb_strip_nulls(jsonb_build_object('via', via, 'via_botanico', case when via is not null then via_botanico end))
-                    order by esatto desc, prefisso desc, gruppo, (v ->> 'stato_verifica' = 'verificato') desc nulls last, lung, v ->> 'nome'), '[]')
-      from voci where v is not null
+                    order by classe, esatto desc, prefisso desc, gruppo, lung, v ->> 'nome'), '[]')
+      from classi
   );
 end $$;
 

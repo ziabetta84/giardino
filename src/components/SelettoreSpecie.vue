@@ -22,8 +22,9 @@
           <span class="dd-m">
             <span class="dd-name">
               {{ s.nome }}
-              <span v-if="s.cultivarDi" class="badge-mini cv">cultivar</span>
-              <span v-else-if="!s.verificata" class="badge-mini bz">bozza</span>
+              <span v-if="s.cultivarDi" class="badge-mini cv">{{ s.cultivarDi }}</span>
+              <span v-else-if="s.stato === 'bozza'" class="badge-mini bz">bozza</span>
+              <span v-else-if="s.stato === 'senza scheda'" class="badge-mini ns">senza scheda</span>
             </span>
             <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
             <span v-if="s.viaSinonimo" class="dd-sci">{{ s.viaBotanico ? 'sinonimo' : 'detta anche' }} «{{ s.viaSinonimo }}»</span>
@@ -141,7 +142,7 @@
 import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { creditoFoto, etichettaLivello, separaVia } from '@/utils/catalogo'
+import { creditoFoto, etichettaLivello, separaVia, statoVoce } from '@/utils/catalogo'
 import { parseGiorni, stagione } from '@/composables/useCure'
 import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
@@ -179,7 +180,7 @@ function riga(v, trovata = null) {
   return {
     key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
     viaSinonimo: trovata?.via ?? null, viaBotanico: !!trovata?.via_botanico,
-    verificata: v.stato_verifica === 'verificato', immagine: v.immagine ?? null,
+    stato: statoVoce(v), immagine: v.immagine ?? null,
     cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
   }
 }
@@ -313,16 +314,16 @@ const statoBadge = computed(() => {
   const s = specieSelezionata.value
   if (!s) return ''
   if (s.tipo === 'cultivar') return s.categoria ?? 'cultivar'
-  return s.stato_verifica === 'verificato' ? 'verificata' : 'bozza'
+  return statoVoce(s)
 })
 
 // Colore del chip nell'header senza foto, coerente con la tendina:
-// 'cv' (sage, cultivar) / 'bz' (gold, bozza) / '' (neutro, verificata).
+// 'cv' (sage, cultivar) / 'bz' (gold, bozza) / 'ns' e '' (neutro: senza scheda, verificata).
 const statoBadgeClasse = computed(() => {
   const s = specieSelezionata.value
   if (!s) return ''
   if (s.tipo === 'cultivar') return 'cv'
-  return s.stato_verifica === 'verificato' ? '' : 'bz'
+  return { verificata: '', bozza: 'bz', 'senza scheda': 'ns' }[statoVoce(s)]
 })
 
 // Immagine della voce (propria o ereditata dal livello sopra) con il credito richiesto dalla licenza.

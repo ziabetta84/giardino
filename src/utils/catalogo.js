@@ -75,3 +75,11 @@ export function separaVia(risultati) {
   }
   return { voci, via }
 }
+
+// Stato da mostrare nel badge: una voce senza nessun campo di scheda (nemmeno ereditato) non è una bozza, è «senza
+// scheda»; lo stesso criterio ordina i risultati della ricerca nel database (cerca_catalogo).
+const CAMPI_SCHEDA = ['descrizione', 'esigenze', 'manutenzione', 'coltivazione', 'ciclo_vitale', 'vaso', 'alert', 'immagine']
+export function statoVoce(voce) {
+  if (!voce || !CAMPI_SCHEDA.some(c => c in voce)) return 'senza scheda'
+  return voce.stato_verifica === 'verificato' ? 'verificata' : 'bozza'
+}

@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { chiavePianta, colonneDaChiave, slugDaNome, creditoFoto, etichettaLivello, varietaNelTitolo, separaVia } from './catalogo.js'
+import { chiavePianta, colonneDaChiave, slugDaNome, creditoFoto, etichettaLivello, varietaNelTitolo, separaVia, statoVoce } from './catalogo.js'
 
 const U = '0b6c2f4e-1f2a-4c3b-9d8e-7f6a5b4c3d2e'
 
@@ -74,4 +74,12 @@ test('la ricerca separa «via» dalla voce, che va nello store senza', () => {
   assert.deepEqual(voci, { 't:1': { chiave: 't:1', nome: 'Rosmarino' }, 't:2': { chiave: 't:2', nome: 'Pino' } })
   assert.deepEqual(via, { 't:1': { via: 'Rosmarinus officinalis', via_botanico: true } })
   assert.deepEqual(separaVia(null), { voci: {}, via: {} })
+})
+
+test('stato della voce per il badge', () => {
+  assert.equal(statoVoce({ descrizione: 'x', stato_verifica: 'verificato' }), 'verificata')
+  assert.equal(statoVoce({ manutenzione: {}, stato_verifica: 'bozza' }), 'bozza')
+  assert.equal(statoVoce({ esigenze: { luce: 'sole' } }), 'bozza')
+  assert.equal(statoVoce({ nome: 'Lechea', nomi_alternativi: [], livelli: {} }), 'senza scheda')
+  assert.equal(statoVoce(null), 'senza scheda')
 })

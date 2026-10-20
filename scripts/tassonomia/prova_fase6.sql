@@ -109,6 +109,19 @@ begin
     select count(*) into n from jsonb_array_elements(public.cerca_catalogo(r.q)) e where e ->> r.campo = r.valore;
     if n < 1 then raise exception 'ricerca «%»: manca %', r.q, r.valore; end if;
   end loop;
+  -- ordine (scelta dell'utente del 20/10/2026): prima le voci con contenuto verificato, poi in bozza, poi senza contenuto
+  for k in select q from (values ('gaura'), ('rosa'), ('pino'), ('salvia')) x(q) loop
+    select count(*) into n from (
+      select e, o, case when not (e ?| array['descrizione', 'esigenze', 'manutenzione', 'coltivazione', 'ciclo_vitale', 'vaso', 'alert', 'immagine']) then 2
+                        when e ->> 'stato_verifica' = 'verificato' then 0 else 1 end classe
+        from jsonb_array_elements(public.cerca_catalogo(k)) with ordinality r(e, o)) x
+     where exists (select 1 from jsonb_array_elements(public.cerca_catalogo(k)) with ordinality r2(e2, o2)
+                    where o2 > x.o and case when not (e2 ?| array['descrizione', 'esigenze', 'manutenzione', 'coltivazione', 'ciclo_vitale', 'vaso', 'alert', 'immagine']) then 2
+                                            when e2 ->> 'stato_verifica' = 'verificato' then 0 else 1 end < x.classe);
+    if n > 0 then raise exception 'ricerca «%»: % voci prima di altre con contenuto migliore', k, n; end if;
+  end loop;
+  select count(*) into n from jsonb_array_elements(public.cerca_catalogo('gaura')) e where e ->> 'specie' in ('Lechea', 'Clarkia');
+  if n <> 2 then raise exception 'ricerca «gaura»: Lechea e Clarkia devono restare, in fondo (%)', n; end if;
   foreach k in array array['qx a', 'rosmarino b', 'basilico g'] loop
     t0 := clock_timestamp();
     perform public.cerca_catalogo(k);
