@@ -18,6 +18,16 @@ begin
     raise exception 'piante_vecchie_specie leggibile con il ruolo pubblico';
   exception when insufficient_privilege then null;
   end;
+  execute 'reset role';
+  execute 'set local role authenticated';
+  begin
+    perform 1 from public.piante_vecchie_specie limit 1;
+    raise exception 'piante_vecchie_specie leggibile con il ruolo authenticated';
+  exception when insufficient_privilege then null;
+  end;
+  execute 'reset role';
+  if not (select relrowsecurity from pg_class where oid = 'public.piante_vecchie_specie'::regclass) then raise exception 'RLS non attiva su piante_vecchie_specie'; end if;
+  execute 'set local role anon';
   if not exists (select 1 from jsonb_array_elements(public.cerca_catalogo('rosmarino')) e where e ->> 'specie' = 'Salvia rosmarinus') then
     raise exception 'ricerca pubblica non funziona';
   end if;

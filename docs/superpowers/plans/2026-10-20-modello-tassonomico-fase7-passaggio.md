@@ -101,7 +101,7 @@ CLAUDE.md (architettura dello store, sezione «Migrazione specie → Supabase» 
 
 ### Task 6: applicazione (solo con il via dell'utente, in quest'ordine)
 
-1. Push (richiesta dell'utente) e deploy dell'app del Task 1; l'utente aggiorna l'app sul telefono.
+1. Push (richiesta dell'utente) e deploy dell'app del Task 1 (workflow Pages verde); l'utente aggiorna l'app con il banner su ogni dispositivo: un'app rimasta alla fase 6 non riesce più a creare né modificare piante dopo la migration.
 2. Backup completo e impronta di `specie`.
 3. Migration del Task 2, `verifica_fase7.sql`, impronta identica.
 4. Migration del Task 3, spazio prima e dopo.

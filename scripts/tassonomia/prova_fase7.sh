@@ -20,6 +20,11 @@ out=$("${PSQL[@]}" -f $D/prova_fase7.sql 2>&1) || fallita fase7 "$out"
 grep -qF 'PROVA FASE 7 OK' <<<"$out" || fallita fase7 "$out"
 out=$("${PSQL[@]}" -c 'begin' -f $D/rollback_fase6.sql 2>&1) && fallita rollback6 "rollback della fase 6 accettato dopo la fase 7"
 grep -qF 'prima rollback_fase7.sql' <<<"$out" || fallita rollback6 "$out"
+out=$("${PSQL[@]}" -c 'begin' -f $D/rollback_fase5.sql 2>&1) && fallita rollback5 "rollback della fase 5 accettato dopo la fase 7"
+grep -qF 'prima rollback_fase7.sql' <<<"$out" || fallita rollback5 "$out"
+out=$("${PSQL[@]}" -c 'begin' -c "update public.piante_vecchie_specie set specie = 'non-esiste' where pianta_id = (select min(pianta_id) from public.piante_vecchie_specie)" \
+      -f $D/rollback_fase7.sql 2>&1) && fallita rollback7 "rollback accettato con uno slug che non è nell'archivio"
+grep -qF 'Rollback fase 7 rifiutato' <<<"$out" || fallita rollback7 "$out"
 echo "PROVA fase 7 OK"
 "${PSQL[@]}" -1 -f $D/rollback_fase7.sql
 [ "$(foto)" = "$PRIMA" ] || fallita rollback "slug diversi dopo il rollback"
