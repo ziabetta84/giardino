@@ -33,6 +33,14 @@ class LeggiTitolo(unittest.TestCase):
         r = leggi_titolo("Rosa [Memento] ('Dicbar') (F)")
         self.assertEqual((r['epiteto'], r['commerciale'], r['codici']), ('Dicbar', ['Memento'], ['F']))
 
+    def test_descrittore_con_apostrofo_dopo_l_epiteto(self):
+        r = leggi_titolo("Picea omorika 'Berliner's Weeper' witches' broom")
+        self.assertEqual(r['epiteto'], "Berliner's Weeper")
+
+    def test_apostrofo_seguito_da_spazio_dentro_l_epiteto(self):
+        r = leggi_titolo("Rhododendron 'Rubens' Palette'")
+        self.assertEqual(r['epiteto'], "Rubens' Palette")
+
     def test_apostrofo_finale_doppio(self):
         r = leggi_titolo("Musa acuminata 'Iholena Ula'ula'' (AAA Group) (F)")
         self.assertEqual((r['epiteto'], r['gruppo']), ("Iholena Ula'ula", 'AAA Group'))

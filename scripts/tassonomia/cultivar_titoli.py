@@ -67,7 +67,9 @@ def leggi_titolo(titolo):
         i = m.end() - 1
         chiusure = [k for k in range(i + 1, len(s)) if s[k] == "'" and (k == len(s) - 1 or s[k + 1] == ' ')]
         if chiusure:
-            k = chiusure[-1]
+            # l'apice di fine titolo chiude l'epiteto ('Rubens' Palette'); se il titolo continua con un descrittore,
+            # chiude il primo apice seguito da uno spazio ('Berliner's Weeper' witches' broom)
+            k = chiusure[-1] if chiusure[-1] == len(s) - 1 else chiusure[0]
             # un apostrofo prima dell'apice di chiusura fa parte della parola (Musa 'Iholena Ula'ula''), ma
             # l'epiteto non finisce mai con un apice
             r['epiteto'] = s[i + 1:k].strip().rstrip("'").strip()
