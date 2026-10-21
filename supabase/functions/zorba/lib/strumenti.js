@@ -137,9 +137,9 @@ const ESEGUI = {
     return ids.filter(id => perId.has(id)).map(id => {
       const f = perId.get(id)
       const msg = [...(f.zorba_messaggi ?? [])].sort((x, y) => String(x.creato).localeCompare(String(y.creato)))
-      const domanda = msg.find(m => m.ruolo === 'utente')
+      const domanda = msg.find(m => m.ruolo === 'utente' && m.testo)
       const risposta = msg.find(m => m.ruolo === 'zorba' && m.esito === 'completata')
-      return { filo_id: id, data: String(f.creato ?? '').slice(0, 10), tipo: f.tipo, domanda: domanda ? domanda.testo.slice(0, 300) : null, risposta: risposta ? risposta.testo.slice(0, 300) : null }
+      return { filo_id: id, data: String(f.creato ?? '').slice(0, 10), tipo: f.tipo, domanda: domanda?.testo?.slice(0, 300) ?? null, risposta: risposta?.testo?.slice(0, 300) ?? null }
     })
   },
   async salva_piano({ descrizione, zona, tappe, esiti }, ctx) {

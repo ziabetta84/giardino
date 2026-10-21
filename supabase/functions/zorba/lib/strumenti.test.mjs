@@ -99,6 +99,20 @@ test('conversazioni precedenti esclude il filo corrente e dà domanda e risposta
   assert.deepEqual(qm.map(c => c[1]), ['zorba_messaggi', 'zorba_fili'])
 })
 
+test('conversazioni precedenti: messaggio di sola foto (testo null) non dà errore', async () => {
+  const db = dbFinto({
+    zorba_messaggi: [{ filo_id: 'f0', creato: '2026-09-01' }],
+    zorba_fili: [{ id: 'f0', tipo: 'diagnosi', creato: '2026-09-01T08:00:00Z', zorba_messaggi: [
+      { ruolo: 'utente', testo: null, esito: null, creato: '2026-09-01T08:00:00Z' },
+      { ruolo: 'zorba', testo: 'Sembra oidio', esito: 'completata', creato: '2026-09-01T08:01:00Z' }] }],
+  })
+  const r = await eseguiStrumento('conversazioni_precedenti', { testo: 'oidio' }, ctxBase(db))
+  assert.equal(r.errore, false)
+  const j = JSON.parse(r.contenuto)
+  assert.equal(j[0].domanda, null)
+  assert.equal(j[0].risposta, 'Sembra oidio')
+})
+
 test('pulisciHtml: nessun tag non ammesso sopravvive a nidificazioni e tag non chiusi', () => {
   for (const x of ['<<x>img src=x onerror=alert(1)>', '<img src=x onerror=alert(1)', '<scr<script>x</script>ipt>alert(1)</script>']) {
     const out = pulisciHtml(x)
