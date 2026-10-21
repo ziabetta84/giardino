@@ -95,10 +95,14 @@ async function scegliFoto(e) {
 }
 
 function invia() {
+  // Il testo resta nel campo finché il genitore non conferma l'invio (svuota): se l'invio fallisce non si perde nulla
   emit('rispondi', { testo: testo.value.trim(), foto: foto.value?.base64 ?? null })
+}
+function svuota() {
   testo.value = ''
   foto.value = null
 }
+defineExpose({ svuota })
 </script>
 
 <style scoped>

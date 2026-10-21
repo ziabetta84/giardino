@@ -107,7 +107,7 @@
       </div>
       <p class="agente-dettaglio-data">{{ formatData(filo.creato) }}</p>
       <p v-if="filo.voce" class="agente-dettaglio-specie">{{ titoloFilo(filo, store) }}</p>
-      <ZorbaFilo :filo="filo" :messaggi="messaggi" :in-corso="inCorso" :progetto="progettoDelFilo" :bloccato="bloccato"
+      <ZorbaFilo ref="filoRef" :filo="filo" :messaggi="messaggi" :in-corso="inCorso" :progetto="progettoDelFilo" :bloccato="bloccato"
         @rispondi="rispondi" @riprova="riprova" @vota="vota" @nuova="tornaANuova" />
       <div v-if="errore" class="agente-errore"><Icon name="campanella" />{{ errore }}</div>
     </div>
@@ -194,6 +194,7 @@ const foto = ref(null)             // { base64, anteprima }
 const aggiungendo = ref(false)
 const errore = ref(null)
 const storicoAperto = ref(false)
+const filoRef = ref(null)
 const daEliminare = ref(null)
 const eliminando = ref(false)
 
@@ -220,7 +221,7 @@ const rigaRimaste = computed(() => {
   const s = statoZorba.value
   if (!s || s.curatore || s.rimaste == null) return null
   if (s.tipo_tetto === 'prova') return `Prova Zorba: ti restano ${s.rimaste} ${s.rimaste === 1 ? 'risposta gratuita' : 'risposte gratuite'}`
-  return `Questo mese ti restano ${s.rimaste} risposte di Zorba`
+  return s.rimaste === 1 ? 'Questo mese ti resta 1 risposta di Zorba' : `Questo mese ti restano ${s.rimaste} risposte di Zorba`
 })
 const esaurite = computed(() => statoZorba.value && !statoZorba.value.curatore && statoZorba.value.rimaste === 0)
 const inPausa = computed(() => statoZorba.value && !statoZorba.value.attivo)
@@ -265,16 +266,23 @@ async function apriFilo(id) {
   filoId.value = id
   storicoAperto.value = false
   progettoCreato.value = null
-  messaggi.value = await zorba.caricaMessaggi(id)
-  const f = fili.value.find(x => x.id === id)
-  if (f?.nuova_risposta) {
-    await zorba.segnaLetto(id)
-    f.nuova_risposta = false
+  errore.value = null
+  messaggi.value = []
+  try {
+    messaggi.value = await zorba.caricaMessaggi(id)
+    const f = fili.value.find(x => x.id === id)
+    if (f?.nuova_risposta) {
+      await zorba.segnaLetto(id)
+      f.nuova_risposta = false
+    }
+  } catch (e) {
+    errore.value = e.message || 'Non riesco a caricare la conversazione: riprova tra poco.'
   }
 }
 
 function tornaANuova(tipo) {
   filoId.value = null
+  errore.value = null
   if (typeof tipo === 'string') selezionaTipo(tipo)
 }
 
@@ -284,7 +292,9 @@ async function aggiornaStato() {
 
 // Un invio (richiesta nuova, replica o riprova): segue lo streaming e alla fine ricarica il filo dal database,
 // che resta la fonte di verità (testo salvato, esito, chiusura del filo).
+// Ritorna true se l'invio è partito (il filo esiste o la replica è stata accettata), false se è fallito prima.
 async function esegui(corpo) {
+  let inviato = false
   errore.value = null
   let idFilo = corpo.filo_id ?? null
   const mio = { id: 'mio', ruolo: 'utente', testo: corpo.testo, foto_url: corpo.foto ? `data:image/jpeg;base64,${corpo.foto}` : null }
@@ -298,6 +308,7 @@ async function esegui(corpo) {
   }
   try {
     await zorba.invia(corpo, (nome, dati) => {
+      inviato = true
       if (nome === 'filo' && !idFilo) {
         idFilo = dati.id
         // Filo provvisorio finché caricaFili() non lo rilegge dal database
@@ -318,14 +329,21 @@ async function esegui(corpo) {
     errore.value = e.message
   } finally {
     inCorso.value = null
-    await Promise.all([caricaFili(), aggiornaStato()])
-    if (idFilo) {
-      filoId.value = idFilo
-      messaggi.value = await zorba.caricaMessaggi(idFilo)
-      await zorba.segnaLetto(idFilo)
+    try {
+      await Promise.all([caricaFili(), aggiornaStato()])
+      if (idFilo) {
+        filoId.value = idFilo
+        messaggi.value = await zorba.caricaMessaggi(idFilo)
+        await zorba.segnaLetto(idFilo)
+      }
+    } catch (e) {
+      // Ricarica fallita (es. connessione persa): la risposta provvisoria diventa un errore con Riprova
+      if (idFilo) messaggi.value = messaggi.value.map(m => m.id === 'in-corso' ? { id: 'in-corso', ruolo: 'zorba', esito: 'errore' } : m)
+      if (!errore.value) errore.value = 'Connessione interrotta: non riesco ad aggiornare la conversazione.'
     }
-    if (progettoCreato.value) store.aggiorna()
+    if (progettoCreato.value) Promise.resolve(store.aggiorna()).catch(() => {})
   }
+  return inviato
 }
 
 async function aggiungiRichiesta() {
@@ -343,12 +361,28 @@ async function aggiungiRichiesta() {
     testo: nuovoMessaggio.value.trim(),
     foto: SENZA_FOTO.includes(tipo) ? null : (foto.value?.base64 ?? null),
   }
+  // Copia del form: se l'invio fallisce prima che il filo esista, l'utente ritrova tutto com'era
+  const salvato = { m: nuovoMessaggio.value, s: specieSelezionata.value, p: progettoSelezionato.value, t: nuovoProgettoTitolo.value, f: foto.value }
   nuovoMessaggio.value = ''; specieSelezionata.value = ''; progettoSelezionato.value = ''; nuovoProgettoTitolo.value = ''; foto.value = null
-  try { await esegui(corpo) } finally { aggiungendo.value = false }
+  try {
+    const inviato = await esegui(corpo)
+    if (!inviato && nuovoTipo.value === tipo) {
+      nuovoMessaggio.value = salvato.m; specieSelezionata.value = salvato.s; progettoSelezionato.value = salvato.p
+      nuovoProgettoTitolo.value = salvato.t; foto.value = salvato.f
+    }
+  } catch (e) {
+    errore.value = e.message
+  } finally { aggiungendo.value = false }
 }
 
-const rispondi = ({ testo, foto: f }) => esegui({ filo_id: filoId.value, testo, foto: f })
-const riprova = () => esegui({ filo_id: filoId.value, riprova: true })
+const rispondi = async ({ testo, foto: f }) => {
+  try {
+    if (await esegui({ filo_id: filoId.value, testo, foto: f })) filoRef.value?.svuota()
+  } catch (e) { errore.value = e.message }
+}
+const riprova = async () => {
+  try { await esegui({ filo_id: filoId.value, riprova: true }) } catch (e) { errore.value = e.message }
+}
 
 async function vota(id, voto, motivo, commento) {
   try {

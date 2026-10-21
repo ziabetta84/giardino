@@ -7,27 +7,6 @@ import { irrigazioneDaRegistrareOggi } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { chiavePianta } from '@/utils/catalogo'
 
-const BASE = import.meta.env.BASE_URL
-
-async function caricaStatico(file) {
-  const res = await fetch(`${BASE}data/${file}`)
-  if (!res.ok) throw new Error(`Errore caricamento ${file}`)
-  return res.json()
-}
-
-// Legge sempre prima da GitHub (stessa fonte usata dai salvataggi, senza
-// cache): così le modifiche sono visibili subito, senza aspettare che build
-// e deploy pubblichino una nuova copia statica su GitHub Pages. Se GitHub
-// non è raggiungibile (offline, in giardino senza campo) ripiega sull'ultima
-// copia statica pubblicata, che il service worker può servire da cache.
-async function caricaJSON(file) {
-  const { loadJSON } = useApi()
-  try {
-    return await loadJSON(file)
-  } catch {
-    return caricaStatico(file)
-  }
-}
 // Catalogo (fase 6 del modello tassonomico): le piante puntano a un taxon o a una cultivar, e il database calcola per
 // ognuno una «voce» (nome mostrato, nome scientifico, campi della scheda ereditati campo per campo dal livello sopra,
 // vedi la migration 20261021100000_tassonomia_fase6_catalogo.sql). I campi hanno gli stessi nomi di prima (nome,
@@ -201,12 +180,11 @@ export const useDatiStore = defineStore('dati', () => {
         return data ?? []
       }
 
-      const [righeZone, righeSottozone, righePiante, richiesteData, righeProgetti, righeTappe, righeSettings, righeConcimi, righeProgrammiIrrigazione] =
+      const [righeZone, righeSottozone, righePiante, righeProgetti, righeTappe, righeSettings, righeConcimi, righeProgrammiIrrigazione] =
         await Promise.all([
           query(supabase.from('zone').select('*')),
           query(supabase.from('sottozone').select('*')),
           query(supabase.from('piante').select('*')),
-          caricaJSON('richieste-agente.json'),
           query(supabase.from('progetti').select('*')),
           query(supabase.from('tappe').select('*')),
           query(supabase.from('settings').select('*')),
@@ -225,13 +203,10 @@ export const useDatiStore = defineStore('dati', () => {
       programmiIrrigazione.value = mappaProgrammiIrrigazione(righeProgrammiIrrigazione, zonaNomePerId, sottozonaInfoPerId)
       settings.value  = mappaSettings(righeSettings[0] ?? null)
 
-      // Voci del catalogo: quelle delle piante (una richiesta, filtrata dall'RLS) più quelle delle richieste di
-      // revisione ancora mostrate nello storico di AgenteView. Senza rete e senza cache: catalogo vuoto, le viste
+      // Voci del catalogo: quelle delle piante (una richiesta, filtrata dall'RLS). Senza rete e senza cache: catalogo vuoto, le viste
       // mostrano il nome di riserva (nomePianta) invece di rompersi.
       try {
         catalogo.value = await rpcGet(supabase, 'catalogo_mie_piante')
-        const chiaviRichieste = Object.values(richiesteData ?? {}).map(r => r.voce).filter(Boolean)
-        await caricaVoci(chiaviRichieste)
       } catch (e) {
         console.error('Catalogo non disponibile', e)
         catalogo.value = catalogo.value ?? {}

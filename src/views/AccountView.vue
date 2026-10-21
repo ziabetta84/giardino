@@ -59,7 +59,7 @@
 
       <!-- Assente (aggiunta senza attriti), o pannello "Gestisci" aperto -->
       <template v-else>
-        <p class="token-hint">Serve per inviare richieste a Zorba e salvare modifiche ai dati del giardino (permesso <code>contents:write</code> sul repo).</p>
+        <p class="token-hint">Serve solo per caricare foto nella galleria (permesso <code>contents:write</code> sul repo).</p>
         <div style="display:flex;gap:8px;">
           <input v-model="tokenInput" type="password"
             :placeholder="tokenPresente ? 'ghp_… (nuovo token)' : 'ghp_…'"
