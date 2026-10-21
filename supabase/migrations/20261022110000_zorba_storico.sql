@@ -1,0 +1,488 @@
+-- Generato da scripts/zorba/genera_storico.mjs: i fili storici di richieste-agente.json (spec, "Storico").
+-- Rollback: delete from public.zorba_fili where importato;
+-- progetti: 8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c
+begin;
+-- richiesta-1784197711073-va9vf
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-16T10:28:32.707Z', '2026-07-16T12:06:42.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Identifica questa pianta dalla foto allegata e proponi una bozza di scheda per il candidato più probabile.', null, '2026-07-16T10:28:32.707Z'), ('zorba', 'La foto allegata non è leggibile: risulta un''immagine di rumore/pattern (a righe/puntinato), non una fotografia reale della pianta. Impossibile procedere con l''identificazione. Si consiglia di ricaricare una foto nitida e ben illuminata della pianta.', 'errore', '2026-07-16T12:06:42.001Z')) as m (ruolo, testo, esito, creato);
+-- richiesta-1784198586438-ba9m4
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-16T10:43:08.058Z', '2026-07-16T12:06:42.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Identifica questa pianta dalla foto allegata e proponi una bozza di scheda per il candidato più probabile.', null, '2026-07-16T10:43:08.058Z'), ('zorba', 'Candidati più probabili:
+- Aglio (Allium sativum), confidenza media: Il germoglio singolo, appuntito e ancora ripiegato su se stesso che emerge dal terreno è tipico della ricrescita di uno spicchio d''aglio piantato in vaso.
+- Cipolla (Allium cepa), confidenza bassa: Germoglio molto simile a quello dell''aglio nella prima fase di crescita; senza vedere il bulbo è difficile distinguere le due specie con certezza.
+- Narciso (Narcissus sp.), confidenza bassa: I bulbi di narciso producono foglie a lama simili, ma di solito emergono in gruppi di più foglie e non come germoglio singolo.
+- Giacinto (Hyacinthus orientalis), confidenza bassa: Possibile bulbo ornamentale in fase di ricrescita; l''identificazione andrà confermata quando le foglie saranno più sviluppate.', 'completata', '2026-07-16T12:06:42.001Z')) as m (ruolo, testo, esito, creato);
+-- richiesta-1784205784227-jzyam
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-16T12:43:06.769Z', '2026-07-16T13:42:29.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Identifica questa pianta dalla foto allegata e proponi una bozza di scheda per il candidato più probabile.', null, '2026-07-16T12:43:06.769Z'), ('zorba', 'Candidati più probabili:
+- Aloe (Aloe vera), confidenza media: Getto singolo, carnoso e appuntito con margine leggermente arrossato, tipico di un pollone di aloe appena rinvasato e stressato dal sole diretto.
+- Agave (Agave americana), confidenza media: Forma e portamento della foglia molto simili a un giovane pollone di agave; senza denti/spine sui margini o il colore più glauco tipico dell''agave adulta non si può escludere.
+- Yucca (Yucca gloriosa), confidenza bassa: Le foglie a lancia rigida della yucca possono sembrare simili in fase iniziale, ma di solito sono più grigio-verdi e meno carnose.
+- Furcraea (Furcraea foetida), confidenza bassa: Succulenta a rosetta con foglia a lama simile nelle primissime fasi di crescita, meno comune nei giardini domestici.', 'completata', '2026-07-16T13:42:29.001Z')) as m (ruolo, testo, esito, creato);
+-- richiesta-1784205796462-bbyn9
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-16T12:43:18.082Z', '2026-07-16T13:42:29.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Identifica questa pianta dalla foto allegata e proponi una bozza di scheda per il candidato più probabile.', null, '2026-07-16T12:43:18.082Z'), ('zorba', 'Candidati più probabili:
+- Aloe (Aloe vera), confidenza media: Getto singolo, carnoso e appuntito con margine leggermente arrossato, tipico di un pollone di aloe appena rinvasato e stressato dal sole diretto.
+- Agave (Agave americana), confidenza media: Forma e portamento della foglia molto simili a un giovane pollone di agave; senza denti/spine sui margini o il colore più glauco tipico dell''agave adulta non si può escludere.
+- Yucca (Yucca gloriosa), confidenza bassa: Le foglie a lancia rigida della yucca possono sembrare simili in fase iniziale, ma di solito sono più grigio-verdi e meno carnose.
+- Furcraea (Furcraea foetida), confidenza bassa: Succulenta a rosetta con foglia a lama simile nelle primissime fasi di crescita, meno comune nei giardini domestici.', 'completata', '2026-07-16T13:42:29.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784538941550-4cn7
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-20T09:15:42.112Z', '2026-07-20T09:30:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Identifica queste piante in zona Casa soggiorno', null, '2026-07-20T09:15:42.112Z'), ('zorba', 'Sembra una composizione di cactus misti in un''unica ciotola, tipica dei centri giardinaggio. Riconosco probabilmente:
+- Cactus verde a tubercoli spiralati (centro): Mammillaria sp., come la tua Mammillaria già schedata.
+- Cactus colonnare bianco e piumoso (in alto a destra): Mammillaria plumosa, spine bianche setose su tutto il fusto — corrisponde alla tua Mammillaria piumosa.
+- Cactus colonnare più sottile con spine dorate accanto: Mammillaria elongata, la tua Mammillaria allungata.
+- Pallina grigio-verde più piccola (in alto): probabile giovane Mammillaria, difficile distinguere la specie a questo stadio.
+- Cactus stellato con spine radiali (in basso a destra): sembra un giovane Ferocactus/Echinocactus (cactus a botte), non ancora nel tuo catalogo.
+- Piccola rosetta succulenta verde-gialla (in basso): Echeveria sp., già schedata.
+
+Essendo in soggiorno, assicurati che riceva comunque diverse ore di luce diretta o molto luminosa: al buio queste specie si allungano (etiolano) rapidamente. Irrigazione scarsa, lasciando asciugare bene il terreno tra un''annaffiatura e l''altra.', 'completata', '2026-07-20T09:30:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784539667885-0q1w
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-20T09:27:48.351Z', '2026-07-20T09:30:30.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Piante in zona Casa soggiorno', null, '2026-07-20T09:27:48.351Z'), ('zorba', 'Nella foto si vedono 4 vasetti decorativi sul davanzale del soggiorno, ciascuno con una pianta grassa diversa:
+
+1. Vaso a forma di gatto (giallo): rosetta compatta blu-verde a foglie carnose spesse — Echeveria sp. (probabile E. elegans o E. secunda), stessa specie già in catalogo.
+2. Vaso coniglio bianco: succulenta ricadente con foglioline tonde a grappolo — Sedum morganianum o S. burrito ("coda d''asino"), pianta da appendere, non ancora schedata.
+3. Vaso coniglio crema: piccola rosetta giovane grigio-verde — probabile Echeveria o Graptopetalum paraguayense (pianta di giada fantasma), specie da confermare a maturità.
+4. Vaso in terracotta: cactus globoso con spine bianche raggiate a stella — Mammillaria sp. (tipo M. gracilis), coerente con le mammillarie già schedate.
+
+Sono tutte succulente amanti della luce: il davanzale va bene se riceve alcune ore di sole diretto al giorno, altrimenti tendono a etiolare (allungarsi). In questo periodo a Centinarola annaffia solo a terriccio completamente asciutto (ogni 10-15 giorni) ed evita ristagni nei sottovasi, causa più comune di marciume in queste composizioni. Nessuna concimazione necessaria fino a fine estate.', 'completata', '2026-07-20T09:30:30.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784540438196-x8ml
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-20T09:40:38.674Z', '2026-07-20T09:49:29.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Pianta in zona Casa Soggiorno', null, '2026-07-20T09:40:38.674Z'), ('zorba', 'Buona osservazione — rivedendo la foto è più probabile una Gasteria che una Sansevieria.
+
+Le foglie sono spesse e carnose (non sottili e rigide come la sansevieria), disposte a ventaglio da una base comune, con leggera curvatura verso il basso: portamento tipico del genere Gasteria (es. G. bicolor o G. batesiana). Anche il colore bruno-violaceo intenso con puntini chiari sparsi è coerente: molte Gasteria sviluppano questa pigmentazione bronzata/porpora come risposta protettiva a sole intenso o freddo, senza che sia necessariamente un sintomo di malattia — a differenza della sansevieria, dove lo stesso colore indicherebbe quasi certamente marciume.
+
+Da tenere sotto controllo comunque: verifica che la base delle foglie, a contatto con i ciottoli decorativi, sia soda e non molle o scura — i ciottoli trattengono umidità e possono favorire marciume al colletto anche nelle piante grasse. Se la base è soda, va tutto bene: riduci solo l''irrigazione (la Gasteria tollera bene la siccità, annaffia ogni 3-4 settimane) e dalle più luce indiretta possibile per mantenere i colori senza scottature.
+
+Correggo quindi l''identificazione precedente: non sansevieria in sofferenza, ma probabile Gasteria in salute con colorazione naturale.', 'completata', '2026-07-20T09:49:29.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784541661199-kzcu
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'diagnosi', 'chiuso', true, null, null, null, null, null, '2026-07-20T10:01:03.275Z', '2026-07-20T10:02:31.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'È una foto notturna scattata alla pianta di agave, quindi considera la luminosità e la scarsa qualità della foto. Mi sembra sia visibilmente in sofferenza. Cosa ne pensi?', null, '2026-07-20T10:01:03.275Z'), ('zorba', 'Diagnosi: considerando che il pollone è stato invasato proprio oggi e che la foto è notturna con luce artificiale (che altera i colori facendoli sembrare più spenti/malati), quello che si vede è quasi certamente normale stress da trapianto recente, non una malattia in corso.
+
+La base bruna e "cartacea" attorno al fusto è tipica del punto di distacco dalla pianta madre: si dissecca formando una guaina protettiva marrone mentre il pollone emette nuove radici — diverso dal marciume, che sarebbe invece molle, umido e maleodorante.
+
+Rimedio immediato:
+1) Tocca la base con le dita: se è soda e asciutta va tutto bene. Se cede sotto pressione o è viscida, taglia la parte marcia con lama pulita e lascia asciugare 2-3 giorni prima di richiudere il vaso.
+2) Sospendi l''irrigazione per almeno 7-10 giorni: il pollone deve prima radicare nel substrato drenante già predisposto, e l''acqua in eccesso ora è il rischio maggiore, non la siccità.
+3) Tienilo nel punto più luminoso del soggiorno, evitando però sole diretto sui vetri nelle ore più calde nei primi giorni di ambientamento.
+Rifotografalo in pieno giorno tra una settimana per verificare nuove radici o foglie.', 'completata', '2026-07-20T10:02:31.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784629222127-okx1
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-21T10:20:23.192Z', '2026-07-21T10:22:01.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Aggiungi questa pianta in Casa - ingresso', null, '2026-07-21T10:20:23.192Z'), ('zorba', 'Identificazione: quasi certamente una Calathea rattlesnake (Goeppertia insignis, già nota come Calathea lancifolia) — il genere Calathea è già in catalogo, ma questa varietà è ben riconoscibile.
+
+Caratteristiche distintive: foglie lunghe e strette con margini ondulati, macchie ovali verde scuro alternate su fondo verde chiaro lucido, pagina inferiore rosso-violacea (visibile qui alla base dei piccioli). Come tutte le calathee, di notte solleva le foglie (movimento nictinastico).
+
+Nella foto i bordi delle foglie sono seccati e imbruniti: sintomo tipico di aria troppo secca o acqua ricca di calcare/cloro, già segnalato nella scheda generale della specie. Nell''ingresso, ambiente spesso poco umido e soggetto a correnti daria dal passaggio tra le stanze, verifica che non prenda spifferi diretti e valuta un sottovaso con ghiaia e acqua (senza toccare le radici) o un piccolo umidificatore. Annaffia con acqua decalcificata o piovana, terreno sempre leggermente umido ma mai fradicio.
+
+Fammi sapere se vuoi che la aggiunga al catalogo in Casa/Ingresso.', 'completata', '2026-07-21T10:22:01.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784720595496-8ma9
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-22T11:43:16.197Z', '2026-07-22T12:06:43.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Indica la varietà esatta di zinnia', null, '2026-07-22T11:43:16.197Z'), ('zorba', 'Nome comune: Zinnia nana a fiore piccolo semi-doppio. Nome scientifico: quasi certamente Zinnia elegans, cultivar compatta da bordura (tipo serie Zahara/Profusion Double o simili) — non è possibile stabilire con certezza la varietà commerciale esatta dalla sola foto, perché diverse serie condividono portamento e colori identici.
+
+Caratteristiche distintive: cespo basso e ramificato, foglie lanceolate strette e opposte, fiori piccoli (3-4 cm) semi-doppi su più file di petali, con mix di toni pesca/crema, giallo, arancio e arancio intenso nella stessa aiuola — tipico di una bustina di semi "mix", non di una singola varietà.
+
+Fabbisogno NPK (già presente in catalogo per "zinnia", riuso invariato per coerenza):
+- Primavera: 5-10-10
+- Estate: 5-10-10
+- Autunno: (vuoto, fioritura in esaurimento)
+- Inverno: (vuoto, pianta annua a riposo)
+
+Per il nome esatto della varietà, se hai conservato la bustina dei semi o il cartellino del vivaio è la fonte più affidabile: da foto posso confermare solo genere/specie e gruppo di cultivar.', 'completata', '2026-07-22T12:06:43.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784721861417-vt4x
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-22T12:04:32.780Z', '2026-07-22T12:15:24.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Identifica anche questa varietà di zinnia', null, '2026-07-22T12:04:32.780Z'), ('zorba', 'Grazie per il confronto con la foto reale — mi ero sbagliato: la "Fiore rosa" già in catalogo è in realtà una zinnia completamente doppia a pompon, con petali fitti e arrotondati che nascondono del tutto il disco centrale, colore rosa tenue uniforme. È chiaramente diversa dalla foto che avevo analizzato, che mostra un fiore semi-doppio con ampio disco centrale giallo-arancio ben visibile e petali striati rosa/magenta e crema, su una pianta dalle foglie più strette.
+
+Correggo quindi l''identificazione: non è lo stesso esemplare, ma una terza varietà di Zinnia elegans, distinta sia dalla nana da bordura sia dalla "Fiore rosa" a pompon — probabilmente un gruppo a fiore semi-doppio/singolo tipo "Cactus" o misto da giardino. Come per le altre, il nome commerciale esatto non è determinabile dalla sola foto.
+
+Il fabbisogno NPK resta invariato, essendo la stessa specie già in catalogo: primavera 5-10-10, estate 5-10-10, autunno e inverno vuoti (pianta annua a riposo).', 'completata', '2026-07-22T12:15:24.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784793575996-2x12
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-23T07:59:36.800Z', '2026-07-23T08:02:47.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Puoi aggiungere questa pianta in zona vialetto - fioriere. Nelle note, aggiungi che sono talee ricevute in regalo da mia madre ad aprile', null, '2026-07-23T07:59:36.800Z'), ('zorba', 'Nome comune: Aeonium (talvolta chiamato "albero della fortuna" nei vivai). Nome scientifico: Aeonium arboreum.
+
+Caratteristiche distintive: fusti sottili e legnosi che si ramificano, portando all''apice rosette compatte di foglie carnose, lucide, a spatola — esattamente come queste talee, ciascuna radicata separatamente nello stesso vaso. A differenza di molte succulente estive, l''Aeonium cresce attivamente in autunno-primavera e va in semi-riposo nella calura estiva, perdendo qualche foglia basale: è normale, non un segnale di sofferenza.
+
+Fabbisogno NPK: primavera 2-7-7, estate vuoto (riposo vegetativo tipico della specie nel clima marchigiano, troppo caldo/secco), autunno 2-7-7 (ripresa), inverno vuoto (temperature basse, crescita minima). Proteggi dal gelo intenso e prolungato.
+
+Ho aggiunto la pianta in Vialetto/Fioriere con la nota richiesta (talee ricevute in regalo da tua madre ad aprile) e creato la scheda specie "Aeonium" in catalogo con questi valori.', 'completata', '2026-07-23T08:02:47.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784818818495-85au
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'segnalazione_scheda', 'chiuso', true, 't:12a40c77-38f2-4981-a1a1-8c44cb170701', 'Calibrachoa', null, null, 'accolta', '2026-07-23T15:00:19.276Z', '2026-07-23T15:03:18.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', null, null, '2026-07-23T15:00:19.276Z'), ('zorba', 'Scheda "Calibrachoa" completata (era interamente vuota). Ecco cosa ho aggiunto, per categoria "fiorite/perenni ornamentali" (stessa logica già usata per geranio parigino e verbena):
+
+- Descrizione: pianta annuale ricadente simile a una piccola petunia, ideale in fioriere e vasi sospesi.
+- Esigenze: sole pieno, acqua regolare, terreno fertile e leggermente acido.
+- Alert: sensibilità al gelo, ristagni da evitare, essiccazione più rapida in vaso sospeso, e in particolare rischio di clorosi fogliare da carenza di ferro se il terreno/acqua è troppo calcareo (specie sensibile al pH alto, diversamente da geranio e verbena).
+- Irrigazione: ogni 5-7gg in primavera, 3-5gg in estate, 7-10gg in autunno, nessuna in inverno (pianta annuale).
+- Concimazione: ogni 2 settimane primavera/estate, mensile in autunno, sospesa in inverno.
+- Potatura: cimatura in primavera, taglio leggero in estate/autunno per rifiorire.
+- NPK: 5-10-10 primavera/estate/autunno, vuoto in inverno.
+
+Il campo "calcio" (per carenze da marciume apicale) è rimasto vuoto: riguarda solo ortaggi da frutto (pomodoro, peperoncino...), non pertinente per una fiorita ornamentale come la calibrachoa.', 'completata', '2026-07-23T15:03:18.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784819421165-7yh2
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'diagnosi', 'chiuso', true, null, null, null, null, null, '2026-07-23T15:10:22.047Z', '2026-07-23T15:12:58.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Le piante di sedum acre hanno subito prima caldo estremo poi temporali e grandine. Come valuti il loro stato di salute?', null, '2026-07-23T15:10:22.047Z'), ('zorba', 'Diagnosi: la gran parte del tappeto appare secca e sbiancata/paglierina — è la tipica reazione del Sedum acre a un caldo estremo prolungato (scotta e disidrata gli steli più esposti), probabilmente aggravata dalla grandine che ha lesionato meccanicamente le punte tenere. Non è però un danno fatale: si vedono chiaramente nuovi getti verdi e rosati che spuntano dalla base tra il materiale secco, segno che la corona e le radici sono vive e la pianta sta già ricacciando da sola — comportamento normale per questa specie xerofila molto rustica.
+
+Rimedio immediato: non serve intervenire con annaffiature extra né concimazioni — il sedum acre non le tollera bene (già segnalato in scheda) e con terreno ancora bagnato dai temporali rischieresti marciumi. Rimuovi a mano solo la parte secca e sfilacciata in superficie, senza strappare gli steli vivi, per far arrivare aria e luce ai nuovi getti e ridurre il rischio di muffe sul materiale morto umido. Se trovi punti localizzati marci o maleodoranti (danno da grandine più serio), asporta solo quelle porzioni. Ricontrolla tra 1-2 settimane: se il ricaccio verde continua a espandersi, la ripresa è in corso senza bisogno di altro.', 'completata', '2026-07-23T15:12:58.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784819751781-ebew
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-23T15:15:52.509Z', '2026-07-23T21:18:17.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Questa è la pianta con i fiori gialli a palla che ho ma che non so identificare. I fiori si sono seccati tutti a causa del caldo intenso dei giorni scorsi', null, '2026-07-23T15:15:52.509Z'), ('zorba', 'Identificazione finale: Coreopsis grandiflora, cultivar a fioritura doppia ("flore pleno", es. tipo Sunray/Early Sunrise) — non la forma comune a margherita piatta, ma una varietà dove le file di petali si moltiplicano formando una testa densa e arrotondata a palla.
+
+Tutti gli indizi raccolti tornano: foglie semplici, lanceolate, leggermente pelose ✓; steli fiorali lunghi e sottili ✓; petali veri e numerosi (non brattee) che seccano e possono cadere singolarmente ✓; sfera gialla di circa 3 cm ✓. I capolini bruno-arancio con petali ben visibili scartati a terra nella foto sono coerenti con questa pianta (non con una specie vicina).
+
+Cura: pianta perenne rustica, pieno sole, resistente alla siccità, simile per esigenze a gazania e calendula già in catalogo. Non è ancora presente come specie: propongo lo stesso profilo NPK delle altre fiorite ornamentali, 5-10-10 in primavera/estate, vuoto in autunno/inverno. Il deadheading dei fiori secchi favorisce nuova fioritura quando il caldo calerà.', 'completata', '2026-07-23T21:18:17.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784842020465-ovt7
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-23T21:27:01.325Z', '2026-07-23T21:28:42.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Aggiungi questa Zinnia in zona Est, specificando la varietà giusta e il colore', null, '2026-07-23T21:27:01.325Z'), ('zorba', 'Nome comune: Zinnia a fiore singolo, serie Profusion. Nome scientifico: Zinnia hybrida — quasi certamente la cultivar "Profusion Apricot", molto diffusa nei vivai italiani.
+
+Caratteristiche distintive: fiore singolo (una sola fila di petali), disco centrale arancio acceso, cespo compatto e foglie lanceolate opposte grigio-verdi — coerente con la zinnia nana già in catalogo. Il tratto più riconoscibile: i petali cambiano colore con l''età, da arancio-salmone intenso appena sbocciati a crema/pesca pallido a fiore maturo, esattamente come si vede nella foto (più fiori in stadi di colore diversi sulla stessa pianta, non piante diverse).
+
+Colore: albicocca/pesca che sfuma in crema, tipico di questa varietà.
+
+Fabbisogno NPK (già presente in catalogo per "zinnia", riuso invariato): primavera 5-10-10, estate 5-10-10, autunno vuoto, inverno vuoto.
+
+Aggiunta al catalogo in zona Est con varietà "Profusion Apricot".', 'completata', '2026-07-23T21:28:42.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784842312080-tgs9
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-23T21:31:52.716Z', '2026-07-23T21:34:23.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Aggiungi anche quest''altra Zinnia a "est" specificando varietà e colore', null, '2026-07-23T21:31:52.716Z'), ('zorba', 'Nome comune: Zinnia a fiore semi-doppio arancio acceso. Nome scientifico: Zinnia hybrida (marylandica) — quasi certamente cultivar "Profusion Fire" (o Zahara Fire), stessa serie e portamento della "Profusion Apricot" appena aggiunta.
+
+Caratteristiche distintive: fiori semi-doppi (due file di petali), colore arancio-rosso acceso e uniforme — a differenza della Apricot non cambia tonalità con l''età — disco centrale arancio/bruno, cespo compatto con foglie lanceolate opposte, identico alla pianta già fotografata in questa zona.
+
+Questa corrisponde alla pianta già in catalogo come "Fiore arancione" (zona Est, varietà finora non specificata): aggiorno quella scheda con la varietà "Profusion Fire" invece di creare un duplicato.
+
+Fabbisogno NPK (già presente in catalogo per "zinnia", invariato): primavera 5-10-10, estate 5-10-10, autunno vuoto, inverno vuoto.', 'completata', '2026-07-23T21:34:23.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784842689149-mgs8
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-23T21:38:09.919Z', '2026-07-24T01:44:38.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Altra Zinnia ad est da identificare', null, '2026-07-23T21:38:09.919Z'), ('zorba', 'Nome comune: Zinnia a fiore singolo giallo acceso. Nome scientifico: Zinnia hybrida (marylandica) — quasi certamente cultivar "Profusion Yellow", terza variante della stessa serie delle due già aggiunte in questa zona (Profusion Apricot e Profusion Fire): stesso cespo compatto, foglie lanceolate opposte, fiore singolo a una fila di petali.
+
+Caratteristiche distintive: petali giallo pieno e uniforme (non sfuma con l''età come la Apricot), disco centrale bruno-arancio ben distinto, dimensioni e portamento identici alle altre due varietà della zona Est.
+
+Non è ancora in catalogo come pianta a sé: la aggiungo in zona Est con varietà "Profusion Yellow".
+
+Fabbisogno NPK (già presente in catalogo per "zinnia", invariato): primavera 5-10-10, estate 5-10-10, autunno vuoto, inverno vuoto.', 'completata', '2026-07-24T01:44:38.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784858031914-1w0c
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-24T01:53:52.686Z', '2026-07-24T01:55:22.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Altra Zinnia da identificare, è diversa dalla Lilliput rosa già presente', null, '2026-07-24T01:53:52.686Z'), ('zorba', 'Nome comune: Zinnia a fiore singolo rosa/magenta acceso. Nome scientifico: Zinnia marylandica — quasi certamente cultivar "Profusion Cherry" (o Zahara Cherry): stesso cespo compatto e foglie ovato-lanceolate larghe delle Profusion Apricot/Fire già in zona Est, con petali larghi e sovrapposti in un''unica fila — diversa sia dalla Lilliput rosa (fiore completamente doppio a pompon) sia dalla zinnia angustifolia a petali stretti appena identificata.
+
+Caratteristiche distintive: petali rosa/magenta intenso, disco centrale arancio acceso ben visibile, portamento identico alle altre Profusion della zona.
+
+Non è ancora in catalogo come pianta a sé: la aggiungo in zona Est, specie "zinnia", varietà "Profusion Cherry".
+
+Fabbisogno NPK (già presente in catalogo per "zinnia", invariato): primavera 5-10-10, estate 5-10-10, autunno vuoto, inverno vuoto.', 'completata', '2026-07-24T01:55:22.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784860142088-lwvo
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-07-24T02:29:03.021Z', '2026-07-24T02:31:29.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Valuta lo stato di salute', null, '2026-07-24T02:29:03.021Z'), ('zorba', 'Stato di salute: buono. È un Agapanthus (agapanto) a fiore bianco, in piena fioritura estiva — lo scapo è robusto ed eretto, l''infiorescenza a ombrello è ricca di boccioli ancora chiusi. I fiori bianchi appassiti e penduli che vedi sono semplicemente i primi fiorellini dell''ombrello già sfioriti: nell''agapanto i fiori si aprono in sequenza nell''arco di 2-3 settimane, quindi convivono normalmente boccioli, fiori freschi e fiori appassiti sulla stessa infiorescenza. Non è un segnale di sofferenza.
+
+Azioni consigliate: continua l''irrigazione regolare (ogni 4-6 giorni) finché dura questo caldo intenso, l''agapanto in fioritura ha bisogno di acqua costante. Non tagliare ora lo scapo: aspetta che TUTTI i fiori dell''ombrello siano sfioriti (di solito fine luglio/agosto), poi taglialo alla base per favorire l''accumulo di energia nel rizoma per il prossimo anno. A fioritura conclusa, riduci gradualmente le annaffiature. Una leggera concimazione post-fioritura (concime per fiorite) aiuta la ripresa.', 'completata', '2026-07-24T02:31:29.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784860761408-ypn4
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-07-24T02:39:22.037Z', '2026-07-24T02:40:29.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Qual è il momento in cui raccogliere le melanzane?', null, '2026-07-24T02:39:22.037Z'), ('zorba', 'Le tue melanzane a frutto grosso (impiantate il 18/5) in genere sono pronte 70-85 giorni dopo il trapianto: indicativamente da inizio-metà agosto, ma il momento giusto va valutato frutto per frutto, non a calendario.
+
+Come riconoscerlo: la buccia deve essere lucida e ben tesa, di colore viola uniforme e intenso — quando diventa opaca è già oltre, i semi si induriscono e la polpa amareggia. Fai la prova del dito: premi leggermente la buccia, se torna subito indietro (elastica) è pronta; se resta il segno (troppo molle) è passata; se è durissima e non cede per niente, aspetta ancora qualche giorno. Il calice (la parte verde sopra il picciolo) deve essere ancora fresco e turgido.
+
+Raccolta: taglia con forbici o coltello lasciando 2-3 cm di picciolo, non tirare a mano (rischi di spezzare il ramo). Una volta iniziata la produzione, controlla ogni 4-6 giorni: raccogliere regolarmente stimola la pianta a produrre altri frutti invece di esaurire le energie su pochi frutti grossi.', 'completata', '2026-07-24T02:40:29.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784868179867-oh65
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-07-24T04:43:00.380Z', '2026-07-24T10:32:15.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Aggiungi in casa soggiorno', null, '2026-07-24T04:43:00.380Z'), ('zorba', 'Correzione: non è Scindapsus pictus, come avevo detto inizialmente. Su tua segnalazione (chiazze rosa chiaro, non bianche/argentate, e foglie più piccole), l''identificazione corretta è Fittonia (Fittonia albivenis) — pianta da interno bassa e tappezzante con foglie piccole ovali e una fitta trama di chiazze/venature rosa chiaro su fondo verde scuro. Il portamento che sembrava rampicante nella foto è più probabilmente uno stiramento (etiolazione) per luce insufficiente, tipico della Fittonia quando non riceve abbastanza luce indiretta.
+
+Attenzione: a differenza dello scindapsus, la Fittonia è molto più esigente in fatto di umidità — appassisce vistosamente al primo terreno asciutto (di solito recupera in poche ore se annaffiata subito) e soffre l''aria secca dei riscaldamenti/climatizzatori.
+
+Ho corretto la scheda specie (rimossa quella errata "Scindapsus", creata "Fittonia" con NPK 20-10-10 primavera/estate) e aggiornato la pianta in Casa/Soggiorno di conseguenza.', 'completata', '2026-07-24T10:32:15.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1784869831308-sbkh
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-07-24T05:10:31.948Z', '2026-07-24T05:12:34.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Controlla tutte le foto che ho caricato oggi pe la Passiflora e valuta accuratamente lo stato di salute. Non inventare nulla, dai solo le informazioni che riesci a dedurre', null, '2026-07-24T05:10:31.948Z'), ('zorba', 'Ho controllato tutte e tre le foto caricate oggi (due piantine di Passiflora caerulea su balcone/terrazzo, aggrappate alla rete). Stato di salute: buono, nessun segno di sofferenza in nessuna delle foto — foglie verdi, turgide, lucide, senza ingiallimenti, macchie, buchi o ragnatele; viticci attivi che si stanno avvolgendo saldamente alla rete, segno di crescita vigorosa.
+
+Un dettaglio che noto e che NON è un problema: alla base degli steli le foglie sono semplici e ovali, mentre più in alto diventano trilobate — è l''eterofillia tipica della passiflora giovane, che cambia forma della foglia crescendo. Del tutto normale, non serve intervenire.
+
+Non riesco a valutare da foto lo stato delle radici o l''umidità del terreno in profondità: se vuoi un giudizio completo su quello, servirebbe controllare a mano.
+
+Azione consigliata ora: continua l''irrigazione regolare (ogni 3-5 giorni con questo caldo) e guida delicatamente i nuovi getti sulla rete quando serve. In autunno, se resta in vaso, prevedi un riparo per l''inverno: la caerulea tollera il freddo di Fano ma i primi anni conviene proteggerla.', 'completata', '2026-07-24T05:12:34.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1785214938392-aywg
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, null, 'progetto-1785205019885', null, '2026-07-28T05:02:19.071Z', '2026-07-28T05:06:11.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Pianifica tutti i passaggi per fare crescere un albero di albicocca a partire dal seme', null, '2026-07-28T05:02:19.071Z'), ('zorba', 'Ho pianificato le tappe nel progetto "Albicocco" già creato (Casa/cucina), con date realistiche per il ciclo del nocciolo:
+
+1. Ora-inizio agosto: estrai il nocciolo da un''albicocca matura, pulisci e lascia asciugare qualche giorno.
+2. Metà agosto-metà ottobre (~10 settimane): stratificazione a freddo in frigo, avvolto in panno umido dentro un sacchetto forato — l''albicocco ne ha bisogno per rompere la dormienza.
+3. Metà ottobre: semina in vaso con terriccio drenante, luogo riparato e luminoso.
+4. Dicembre: verifica germinazione (4-8 settimane dalla semina).
+5. Primavera 2027: prima crescita in vaso, protetta dalle gelate tardive.
+6. Autunno 2027: trapianto in vaso più grande o in piena terra (zona Est/Crinale, soleggiata e riparata dal vento).
+7. Non prima di 3-5 anni: prime fioriture/frutti — attenzione, un albicocco da seme non è detto dia frutti come la pianta madre; per garanzia valuta l''innesto.
+
+Ho impostato lo stato del progetto su "in corso" e la prossima scadenza al 20/10 (fine stratificazione e semina).', 'completata', '2026-07-28T05:06:11.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1785414617650-d7k1
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, null, 'Arancio da pollone', null, '2026-07-30T12:30:18.213Z', '2026-07-30T12:34:59.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'L''albero di arancio navel presente in giardino ha prodotto dei germogli dalla base del tronco, uno di questi l''ho messo in acqua aspettando che possa radicare. Credi sia possibile? Se sì, pianifica le varie tappe da monitorare', null, '2026-07-30T12:30:18.213Z'), ('zorba', 'È possibile, ma con una premessa importante: gli agrumi da vivaio (compreso il tuo arancio navel) sono quasi sempre innestati su un portainnesto diverso (spesso arancio trifogliato), scelto per vigore e resistenza, non per la qualità del frutto. Un pollone che nasce dalla base del tronco, sotto il punto d''innesto, appartiene di solito al portainnesto, non alla varietà navel: se radica, potrebbe non dare gli stessi frutti. Controlla sul tronco se c''è un rigonfiamento/cicatrice (il punto d''innesto, di solito vicino al colletto) e se il pollone è nato sopra o sotto: sopra è probabilmente navel vero, sotto è quasi certamente portainnesto.
+
+Sulla radicazione in sé: gli agrumi radicano con difficoltà in sola acqua e rischiano marciumi se restano sommersi troppo a lungo — meglio come tentativo iniziale, da convertire presto in substrato drenante con ormone radicante se non spunta nulla.
+
+Ho creato il progetto "Arancio da pollone" (zona Crinale) con 5 tappe: messa in acqua (fatto), controllo/cambio acqua a 1 settimana, eventuale passaggio a substrato radicante a 3 settimane, verifica finale a 8 settimane, messa a dimora in primavera 2027 se tutto va bene.', 'completata', '2026-07-30T12:34:59.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1785421232252-lrw0
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, null, 'Rhyncospermum tricolore da talea', null, '2026-07-30T14:20:32.907Z', '2026-07-30T14:23:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Ho messo in acqua un rametto di gelsomino tricolore, potrà fare le radici? Se sì, pianifica le tappe successive da monitorare', null, '2026-07-30T14:20:32.907Z'), ('zorba', 'Sì, buone probabilità: il falso gelsomino (Trachelospermum jasminoides, di cui il "tricolore" è una cultivar variegata) radica con relativa facilità da talea, anche in acqua — a differenza degli agrumi, qui il tentativo ha senso così com''è.
+
+Ho creato il progetto "Rhyncospermum tricolore da talea" (Casa/Terrazzo soggiorno, stessa zona del falso gelsomino già in catalogo) con 5 tappe:
+
+1. 30/7 (fatto): rametto messo in acqua.
+2. 6/8: cambiare l''acqua ogni 3-4 giorni, luogo luminoso senza sole diretto, rimuovere foglie sommerse.
+3. 13/8: primo controllo — le prime radichette bianche possono comparire già dopo 2-3 settimane.
+4. 27/8: se ci sono radici di 2-3 cm, travasare in terriccio drenante; altrimenti valutare un taglio fresco e ormone radicante.
+5. 24/9: verifica ripresa dopo il travaso (nuove foglioline = attecchito).', 'completata', '2026-07-30T14:23:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1785499415515-isux
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'segnalazione_scheda', 'chiuso', true, 't:2b63e2eb-85ea-4d7f-916f-5f5543df4435', 'Zamioculcas zamiifolia', null, null, 'accolta', '2026-07-31T12:03:35.894Z', '2026-07-31T12:05:50.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', null, null, '2026-07-31T12:03:35.894Z'), ('zorba', 'Scheda "ZZ Plant" completata (era interamente vuota). Ecco cosa ho aggiunto, categoria "fogliame da interno" (coerente con pothos, scindapsus e fittonia già in catalogo):
+
+- Nome scientifico corretto: Zamioculcas zamiifolia (era genericamente "Zamioculcas").
+- Descrizione: pianta con rizomi carnosi sotterranei che immagazzinano acqua, foglie pinnate lucide, molto resistente alla trascuratezza.
+- Esigenze: tollera bene poca luce, acqua scarsa, terreno molto drenante.
+- Alert: il rischio principale sono i ristagni idrici (marciume dei rizomi, causa di morte più comune), crescita lenta senza bisogno di rinvasi frequenti, e tossicità se ingerita (attenzione con animali/bambini).
+- Irrigazione: molto diradata tutto l''anno (ogni 10-14gg estate, fino a 30gg in inverno).
+- Concimazione: leggera, una volta al mese in primavera/estate, sospesa nel resto dell''anno.
+- NPK: 20-10-10 primavera/estate, vuoto in autunno/inverno.
+
+Il campo "calcio" è rimasto vuoto: riguarda solo ortaggi da frutto, non pertinente per questa pianta da interno.', 'completata', '2026-07-31T12:05:50.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1786691906428-2bb9
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-08-14T07:18:27.401Z', '2026-08-14T07:21:24.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Questa pianta vive nell''androne di una scalinata a Bologna. In questi giorni di caldo estremo è in queste condizioni. Come si può curarla?', null, '2026-08-14T07:18:27.401Z'), ('zorba', 'È un''aroide a foglia grande (tipo Alocasia/Colocasia, "orecchie d''elefante"): specie molto assetata e amante dell''umidità, tra le prime a soffrire visibilmente in un''ondata di caldo estremo se l''irrigazione non tiene il passo — frequente in un androne condominiale dove le cure sono irregolari. L''ingiallimento diffuso tra le nervature e i bordi secchi/bruniti sono tipici di stress combinato caldo+sete, non necessariamente una malattia.
+
+Azioni immediate:
+1. Annaffia più spesso in questi giorni: controlla il terreno ogni giorno, bagna a fondo quando i primi 2-3 cm sono asciutti (mai lasciare acqua ferma nel sottovaso).
+2. Aumenta l''umidità intorno alla pianta: nebulizza le foglie o metti il vaso su un sottovaso con ciottoli e acqua (senza toccare le radici).
+3. Taglia alla base la foglia ormai compromessa in foto: non recupera e toglie energie alla pianta.
+4. Sospendi la concimazione finché non si stabilizza: una pianta stressata non la assorbe bene.
+5. I nuovi getti che vedi alla base sono un buon segno: concentra le cure lì, dovrebbero sostituire la foglia persa nelle prossime settimane.', 'completata', '2026-08-14T07:21:24.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1787920044024-xi4o
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-08-28T12:27:24.522Z', '2026-08-28T13:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'riconosci questa pianta?', null, '2026-08-28T12:27:24.522Z'), ('zorba', 'Identificata con alta confidenza: **Ceropegia woodii** (Collana di cuori, fam. Apocynaceae) — pianta succulenta ricadente da interno, nota per le foglie a forma di cuore, variegate grigio-verde marmorizzato, con pagina inferiore violacea, portate su steli filiformi molto lunghi. PlantNet conferma con un punteggio del 97%, pienamente in linea con il giudizio visivo.
+
+È già presente in catalogo (scheda "Ceropegia") con fabbisogno NPK 5-5-5 in primavera ed estate, nessun apporto in autunno e inverno (riposo vegetativo) — nessuna proposta nuova da fare, il dato esistente è già coerente con questa pianta.
+
+Nota pratica: nella foto si notano alcune foglie disidratate e un tratto di stelo secco vicino al vaso. La Ceropegia woodii è una succulenta e tollera bene la siccità: lascia asciugare completamente il terreno tra un''annaffiatura e l''altra (ogni 2-3 settimane in questa stagione) ed evitala in posizioni con correnti d''aria dirette, che accelerano la disidratazione delle foglie più giovani. Predilige luce intensa ma filtrata: la posizione elevata vicino alla finestra in cucina va bene, purché non riceva sole diretto nelle ore più calde.', 'completata', '2026-08-28T13:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1788768233187-u4xc
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-09-07T08:03:53.716Z', '2026-09-07T09:45:24.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'La mia stipa tenuissima ha sempre un portamento basso e ricadente, fa fatica a stare su. Cosa può essere?', null, '2026-09-07T08:03:53.716Z'), ('zorba', 'La Stipa tenuissima (Nassella tenuissima) ha per natura un portamento a cascata, arcuato: è la caratteristica che la rende ornamentale. Ma se il ciuffo è eccessivamente basso e fa fatica a stare eretto, le cause più comuni sono legate al fatto che questa specie vuole terreno povero e acqua scarsa, e teme i ristagni più del freddo:
+
+1. Troppa acqua o fertilità: se annaffiata più spesso di ogni 7-10 giorni in estate, o se il terreno vicino al muro trattiene umidità, le foglie crescono più tenere e flosce. Sospendi ogni concimazione (basta un apporto leggerissimo in primavera) e innaffia solo in caso di siccità prolungata.
+
+2. Accumulo di foglie secche vecchie non rimosse, che appesantisce il ciuffo dal centro verso l''esterno. Non va mai tagliata a raso: a fine febbraio/inizio marzo, quando riparte la vegetazione, pettinala a mano (o con un rastrello sottile) per togliere solo le foglie secche, lasciando quelle vive.
+
+Controlla anche l''esposizione: vuole pieno sole; se il muro alle spalle fa ombra per buona parte della giornata, i fusti si allungano cercando luce e si afflosciano (eziolamento).', 'completata', '2026-09-07T09:45:24.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1788783825277-ieif
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-09-07T12:23:45.711Z', '2026-09-07T14:04:56.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', null, null, '2026-09-07T12:23:45.711Z'), ('zorba', '**Iresine herbstii** (pianta del sangue), Amaranthaceae — PlantNet la indica come *Iresine diffusa* (sinonimo/nome accettato dello stesso taxon) con il 93% di confidenza; il giudizio visivo conferma pienamente, senza divergenze.
+
+Caratteristiche in foto: fogliame ovale magenta-viola intenso con nervature centrali rosa acceso, disposizione opposta, portamento erbaceo-cespuglioso — sembra una talea appena messa a dimora (tutore di bambù di sostegno), non ancora radicata stabilmente.
+
+**Attenzione**: è una pianta tenera, non tollera il gelo — nel clima di Centinarola va protetta o ritirata in inverno se non in posizione molto riparata, altrimenti trattata come annuale.
+
+La specie è già nel catalogo (`iresine-herbstii`) ma senza NPK compilato. Proposta, categoria fogliame ornamentale (azoto prevalente per mantenere colore e vigore):
+- Primavera: **15-10-10**
+- Estate: **15-10-10**
+- Autunno: (vuoto — rallentamento vegetativo)
+- Inverno: (vuoto — riposo/pianta tenera)
+
+Cure nelle prime settimane: terreno sempre umido non inzuppato, posizione luminosa ma non sole diretto nelle ore centrali, evitare correnti fredde vicino al muro.
+', 'completata', '2026-09-07T14:04:56.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1788814095749-hx7m
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-09-07T20:48:16.233Z', '2026-09-07T21:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Su un ramo dell''albero di arancio navel c''è un ramo pieno di cocciniglie e formiche, cos''è meglio fare?', null, '2026-09-07T20:48:16.233Z'), ('zorba', 'Cocciniglie e formiche insieme sono un''associazione classica: le formiche "allevano" le cocciniglie proteggendole dai predatori naturali in cambio della melata zuccherina che producono — è già l''alert noto in scheda per il tuo arancio ("controllare eventuali cocciniglie in estate"), ora manifestato.
+
+Azione concreta:
+1. Interrompi il percorso delle formiche verso il ramo: applica una fascia collosa (banda adesiva per tronchi) o terra di diatomee alla base del ramo/tronco — senza allontanare le formiche, ogni trattamento sulle cocciniglie sarà meno efficace.
+2. Rimuovi meccanicamente le cocciniglie: passa un batuffolo con alcol denaturato o acqua e sapone di Marsiglia sulle placchette visibili, oppure se il ramo è piccolo e molto infestato, tallialo ed eliminalo (non compostarlo).
+3. Tratta poi con olio minerale bianco o olio di neem, spruzzato la sera o presto al mattino per evitare ustioni fogliari (a inizio settembre a Fano fa ancora caldo nelle ore centrali).
+4. Ripeti il trattamento dopo 7-10 giorni per colpire le nuove nascite sfuggite al primo passaggio.
+
+Controlla anche le piante vicine: le formiche spesso spostano l''infestazione da un ramo all''altro.', 'completata', '2026-09-07T21:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1788989026781-sl05
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, null, 'Semina Allium sphaerocephalon', null, '2026-09-09T21:23:47.231Z', '2026-09-12T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'ho raccolto i semi dell''allium sph. che ho in giardino nel lato sinistro dello scivolo. Quando potrei seminarlo? E come? In quale zona mi converrebbe piantarlo? Considera che la terra delle zone nello scivolo è leggermente più ricca e meno sabbiosa di altre zone come Est e Crinale.', null, '2026-09-09T21:23:47.231Z'), ('zorba', 'Nuovo progetto creato: "Semina Allium sphaerocephalon".
+
+Zona consigliata: proseguire in Scivolo, idealmente Lato Sinistro accanto alla pianta madre — il terreno lì più ricco e meno sabbioso rispetto a Est e Crinale ha già favorito la fioritura di quest''anno, meglio non cambiare le condizioni che hanno funzionato.
+
+Tecnica: i semi di Allium sphaerocephalon germinano meglio dopo una stratificazione a freddo naturale. Seminali in autunno in contenitori con substrato drenante (terriccio + sabbia), tenuti all''aperto o in un angolo riparato esposto al freddo invernale — non serve un cold frame vero e proprio nel nostro clima. La germinazione arriva spesso solo a fine inverno/inizio primavera, e i bulbi giovani impiegano 2-3 anni dalla semina per raggiungere la taglia da fiore.
+
+Tappe generate:
+- 09/09/2026 (riuscito): raccolta semi dai capolini fioriti.
+- 20/09/2026: semina in contenitori con substrato drenante.
+- 15/11/2026: controllo umidità substrato, evitare ristagni.
+- 15/02/2027: prime germinazioni attese dopo il freddo invernale.
+- 15/04/2027: crescita plantule, irrigazione regolare, protezione da gelate tardive.
+- 15/09/2027: trapianto in piena terra dei bulbilli più sviluppati.
+- 15/06/2028: prima possibile fioritura dei nuovi bulbi (indicativa).', 'completata', '2026-09-12T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1789296656876-l4s3
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, null, 'beeaf4ef-49a3-4898-9521-f7c2947a130d', null, '2026-09-13T10:50:57.525Z', '2026-09-13T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Il seme non è ammuffito, ma non ha nemmeno fatto né radichetta né germoglio. Cosa ne pensi?', null, '2026-09-13T10:50:57.525Z'), ('zorba', 'Buon segno che il seme non sia ammuffito: è ancora vitale, semplicemente in dormienza. Dopo circa 7 settimane a temperatura ambiente senza radichetta né germoglio, il nocciolo di albicocco ha probabilmente bisogno di un periodo di freddo per rompere la dormienza (comune nei semi di drupacee) — è esattamente lo scenario già previsto nel piano del progetto.
+
+Consiglio: sposta subito il sacchetto (tovagliolo umido, non zuppo) nello scomparto verdure del frigorifero, 3-5°C, per 6-8 settimane. Controlla ogni 1-2 settimane che l''umidità sia mantenuta e che non compaia muffa. La radichetta dovrebbe comparire tra inizio e metà novembre; a quel punto va seminato subito in vaso con terriccio drenante (radichetta verso il basso, 2-3 cm di profondità).
+
+Ho aggiornato il progetto "Albicocco": registrato questo controllo come tappa e spostate di conseguenza in avanti le tappe di fine stratificazione (8/11) e verifica generale (24/12).', 'completata', '2026-09-13T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1789296741686-me3j
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, '8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c', null, null, '2026-09-13T10:52:22.469Z', '2026-09-13T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Dei semi dei piselli che ho messo in semenzaio nessuno ha germogliato. Delle piantine di cavolo nero invece, ne sono sopravvissute solo 3. Cosa mi consigli?', null, '2026-09-13T10:52:22.469Z'), ('zorba', 'Piselli: la germinazione a zero è quasi certamente dovuta al caldo intenso di agosto — i piselli germinano male (o marciscono) sopra i 20-25°C, e la semina del 10/08 è caduta in piena fascia calda estiva. Risemina ora in semenzaio: con le temperature più miti di metà settembre la germinazione dovrebbe riuscire, in genere 7-12 giorni.
+
+Cavolo nero: perdere 5 piantine su 8 dopo il travaso è un tasso di mortalità alto ma non insolito da stress da trapianto/caldo; controlla comunque le 3 superstiti per altiche o afidi sulla pagina inferiore delle foglie. Semina altri 5-6 semi ora per completare la fila Nord-Centro: il cavolo nero tollera bene semine scalari anche a metà settembre.
+
+Ho aggiornato il progetto "Orto Autunno-Inverno": registrate le due mancate riuscite, aggiunte le tappe di risemina (16/09) e posticipato il trapianto in campo dal 6/10 al 20/10 per dare tempo alle nuove piante di raggiungere una taglia adeguata (di conseguenza slitta al 5/12 anche la prima raccolta di cavolo nero).', 'completata', '2026-09-13T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1789297654576-v422
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, '8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c', null, null, '2026-09-13T11:07:35.267Z', '2026-09-13T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Ho acquistato lo stallatico, posso usarlo in fase di semina? In che modo?', null, '2026-09-13T11:07:35.267Z'), ('zorba', 'Sì, ma non a contatto diretto con i semi: lo stallatico (anche se maturo) va sempre lavorato nel terreno con un certo anticipo, mai messo nel solco di semina — rischio di bruciature da eccesso di sali/ammoniaca e, per le carote in particolare, radici forcute/pelose da azoto in eccesso troppo vicino alla semina.
+
+Per le semine dirette imminenti (carote 22/09, spinaci 30/09 in Sud-Ovest): distribuisci 2-3 kg/m² di stallatico maturo e interralo a 15-20 cm mescolandolo bene al terreno, con almeno una settimana di anticipo sulla semina — meglio se due. Ho aggiornato la tappa "Preparazione del terreno in Sud-Ovest" spostandola al 15/09 e aggiungendo lo stallatico come opzione al posto/in aggiunta al compost.
+
+Per cavolo nero e piselli in risemina (16/09): niente stallatico nel semenzaio, è troppo "forte" per radichette appena germinate in un vassoio alveolato — lì serve solo terriccio universale per semine. Puoi però incorporarlo nelle file Nord-Rete/Nord-Centro in vista del trapianto del 20/10, dove il margine è maggiore trattandosi di piantine già sviluppate: ho aggiunto una tappa apposita all''1/10.', 'completata', '2026-09-13T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1789900842543-hzyo
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-09-20T10:40:43.192Z', '2026-09-20T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', null, null, '2026-09-20T10:40:43.192Z'), ('zorba', 'PlantNet suggerisce Sedum × rubrotinctum (confidenza 24%) e Sedum adolphi (22%), ma le caratteristiche nella foto sembrano più coerenti con Crassula ovata (albero di giada): foglie ovali-lanceolate appuntite, lucide, disposte in coppie nettamente opposte a croce lungo il fusto, senza i tipici "chicchi" tondeggianti dalle punte rossastre di S. rubrotinctum. È una giovane pianta/talea appena radicata, coerente con l''aspetto delle Crassula ovata comuni nei vivai.
+
+Cura: pieno sole (tollera anche mezz''ombra), annaffiature scarse lasciando asciugare bene il terreno tra un turno e l''altro, substrato molto drenante come quello già usato per i cactus vicini. Non tollera gelate: se resta in vaso all''aperto a Centinarola, ritirala o proteggila sotto i 5°C.
+
+Fabbisogno NPK proposto (Crassula ovata è già in catalogo ma senza valori NPK): primavera "5-5-5", estate/autunno/inverno vuoto — succulenta a fabbisogno minimo, concimazione solo nella fase di crescita attiva primaverile.', 'completata', '2026-09-20T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1790489275084-o7bz
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, '8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c', null, null, '2026-09-27T06:07:55.704Z', '2026-09-27T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Ho modificato il progetto, ho inserito le ultime cose fatte. Cosa ne pensi? Inoltre, puoi valutare eventualmente se modificare le tappe successive?', null, '2026-09-27T06:07:55.704Z'), ('zorba', 'Buona la scelta di seminare piselli e cavolo nero direttamente in piena terra invece di trapiantarli: per i piselli in particolare eviti proprio lo stress da trapianto a cui sono più sensibili, e con lo stallatico incorporato in anticipo il terreno era pronto.
+
+Ho aggiornato due tappe successive per allinearle alle date reali:
+- "Diradamento cipolle" spostato dal 5/10 al 31/10: la semina è avvenuta il 26/09 (non il 25/08 originariamente previsto), e le cipolline hanno bisogno di circa 5 settimane per raggiungere una taglia diradabile.
+- "Raccolta carote" spostata dal 20/12 al 24/12 (+4 giorni per l''effettivo ritardo di semina) e la stima aggiornata da ~180 a ~70-80 piantine, coerente con le 2 file effettivamente seminate invece delle 5 previste.
+
+Due cose da segnalarti, senza aver toccato nulla:
+1. Anche scalogno e carote sono stati ridimensionati parecchio (scalogno: 3 bulbetti in 1 fila invece di ~36 in 3 file) — se è voluto per motivi di disponibilità bulbi/semi tutto ok, altrimenti nella Sud-Ovest resta ora spazio libero che potresti sfruttare con un''altra coltura invernale.
+2. La tappa "Reimpianto scalogno" (19/09) risulta ancora "atteso" pur essendo passata da una settimana: se l''hai già fatto segnala l''esito in app, altrimenti fammi sapere e aggiorno anche le tappe legate allo scalogno.', 'completata', '2026-09-27T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1790505490095-hrp0
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'altro', 'chiuso', true, null, null, null, null, null, '2026-09-27T10:38:10.877Z', '2026-09-28T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Conoscendo le varie zone, dove potrei piantare questi che vedi in foto? ricorda che a est e nella zona crinale il terreno è più secco e sabbioso, e ad est un lato è riparato dalla pioggia. Nello scivolo il terreno è migliore', null, '2026-09-27T10:38:10.877Z'), ('zorba', 'Ecco la proposta completa, specie per specie — con zona/sottozona esatta dove disponibile (Est e Crinale non hanno sottozone registrate in app, quindi per quelle indico la collocazione descrittiva).
+
+Tulipa ''Happy Generation'' (8 bulbi) -> Zona Est, nel lato riparato dalla pioggia indicato dall''utente (da annotare nelle note della pianta, non è una sottozona a sé). Esposizione: pieno sole (Est prende luce tutta la mattina, come già verificato con la Stipa tenuissima spostata lì). Terreno: sabbioso e ben drenato; ma qui conta soprattutto il riparo dalla pioggia, perché i tulipani temono il marciume del bulbo dormiente in estate più del freddo invernale.
+
+Allium ampeloprasum (25 bulbi) -> Zona Est, resto della zona (non serve il riparo dalla pioggia, l''allium la tollera bene). Esposizione: pieno sole. Terreno: sabbioso/drenante ideale; gruppo numeroso che vuole spazio aperto, ed Est ha già dimostrato di adattarsi bene a piante con queste esigenze.
+
+Muscari ''Manon'' (20 bulbi) -> Zona Crinale. Esposizione: pieno sole. Terreno: secco/sabbioso, nessun problema — è il bulbo più tollerante del lotto e un ottimo naturalizzante; può riempire gli spazi tra timo serpillo, sedum e alloro già presenti senza competere per risorse.
+
+Narcissus recurvus (8 bulbi) -> Zona Scivolo, sottozona Lato Sinistro. Esposizione: sole o mezz''ombra. Terreno: qui serve più ricchezza e ritenzione idrica rispetto a Est/Crinale — il Lato Sinistro la offre ed è già una sottozona testata per bulbose (c''è già un narciso e l''Allium sphaerocephalon, quest''anno fiorito bene). Suggerimento: piantalo vicino al narciso già presente, per un effetto di fioritura scalare tra le due varietà.
+
+Piretro a grande fiore (da seme, non bulbo) -> Zona Scivolo, sottozona Lato Sinistro. Esposizione: pieno sole, tollera mezz''ombra leggera. Terreno: fertile con irrigazione regolare, stessa logica del narciso; si accompagna bene alle altre perenni da bordura già lì (echinacea, aquilegia, heuchera, centaurea ragusina). Suggerimento: è da seme, va seminato ora (fine settembre/ottobre) in semenzaio/vassoio, poi trapiantato in Lato Sinistro in primavera quando le plantule sono robuste.
+
+Suggerimenti generali: rispetta le distanze indicate sulle bustine (soprattutto per i 25 bulbi di Allium, da non ammassare); quando li metti a dimora, aggiungi una nota sulla scheda pianta con la collocazione esatta (es. "lato riparato dalla pioggia") come già fatto per la Stipa, utile perché Est e Crinale non hanno sottozone che la registrino automaticamente.', 'completata', '2026-09-28T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1790670613599-fn0b
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'consiglio_cura', 'chiuso', true, null, null, null, null, null, '2026-09-29T08:30:14.230Z', '2026-09-29T08:32:44.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Il mio lucky Bamboo è cresciuto moltissimo, quanto potrà crescere ancora? C''è un modo per spingerlo a fare un secondo ramo di foglie? Hai altri consigli specifici?', null, '2026-09-29T08:30:14.230Z'), ('zorba', 'L''ultima volta che è stata cambiata l''acqua nel vaso risale al 15 luglio — oltre due mesi fa, contro l''1-2 settimane che gli servirebbe. È il primo punto da sistemare: il cloro del rubinetto lo danneggia nel tempo, meglio lasciarla decantare 24 ore o usare acqua filtrata.
+
+Sulla crescita non c''è un''altezza fissa: in acqua resta comunque contenuta dai pochi nutrienti disponibili — restare sotto il metro è la norma. In vaso con terra drenante crescerebbe più rigoglioso, anche se meno scenografico.
+
+Per un secondo ramo, il punto giusto non è il fusto sotto le foglie: è quasi certamente già stato tagliato e sigillato con la cera dal vivaista, ed è da lì che è partito il ciuffo che vedi — tagliare lì non farebbe spuntare nulla. Cerca invece un nodo sul ramo con le foglie stesso: se c''è, taglia appena sopra e in poche settimane dovrebbe spuntare un nuovo getto. Se non vedi nodi utilizzabili, non tagliare — mandami una foto ravvicinata e ci ripensiamo.
+
+In primavera ed estate va bene un concime sbilanciato sull''azoto (20-10-10); in autunno e inverno puoi saltarlo tranquillamente 🌿', 'completata', '2026-09-29T08:32:44.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1790803237282-hf87
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'pianifica_progetto', 'chiuso', true, null, null, '8edc4fc8-1e5a-46f2-ae9e-e1ef04f8dc5c', null, null, '2026-09-30T21:20:38.099Z', '2026-10-04T00:00:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Ora che ho seminato con quale frequenza devo innaffiare?', null, '2026-09-30T21:20:38.099Z'), ('zorba', 'Hai seminato tutto il 26/09, quindi carote, cipolle e piselli sono nel momento più delicato: la germinazione, dove la superficie del terreno non deve mai asciugarsi. Acqua leggera ogni 1-2 giorni, con rosetta fine per non spostare i semi — meglio bagnare poco e spesso che un getto forte ogni tanto.
+
+La pacciamatura di foglie di gelsomino stesa il giorno dopo aiuta: trattiene umidità, quindi puoi allungare a ogni 2-3 giorni se, scostando un po'' le foglie, il terreno sotto resta umido al tatto.
+
+Il cavolo nero è diviso in due: le 2 piantine già trapiantate hanno radici più sviluppate e vogliono annaffiature più profonde ma rade (ogni 4-5 giorni); i semi nuovi accanto seguono invece il ritmo di carote/cipolle finché non germinano.
+
+Lo scalogno (i 3 bulbetti) va più moderato, ogni 7-10 giorni: sta radicando, non ha semi in superficie da tenere umidi.
+
+Appena vedi le prime foglioline — per i piselli ci siamo quasi — puoi diradare e passare ad annaffiature più profonde e distanziate: le radici cominceranno a scendere. 💧', 'completata', '2026-10-04T00:00:00.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1791113523675-m35w
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-10-04T11:32:04.873Z', '2026-10-04T11:40:10.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Questi sono i germogli dei piselli? Sono spuntati lungo la fila in cui li ho seminati nell''orto', null, '2026-10-04T11:32:04.873Z'), ('zorba', 'Hai riseminato i piselli nani in piena terra il 26 settembre, con germinazione attesa tra il 3 e l''8 ottobre: oggi sei proprio in quella finestra, e la canna che si vede in foto è il tutore leggero preparato apposta per loro — quasi certamente sono i tuoi piselli (Pisum sativum).
+
+L''aspetto torna: un getto singolo, appuntito, ancora ripiegato su se stesso, com''è normale prima che si apra la prima coppia di foglioline con viticci (arriveranno tra pochi giorni). Da una foto così giovane non posso escluderlo al 100% — a questo stadio tutte le dicotiledoni si somigliano — ma tempistica e posizione sulla fila coincidono.
+
+Scosta un po'' la pacciamatura di gelsomino intorno ai nuovi getti, come già fatto per cipolle e carote: a questo spessore rischia di soffocare le plantule più deboli. Quando saranno alti una decina di centimetri, avvicina i primi viticci alla canna per avviare la rampicata.
+
+Niente concimazione per ora: il fabbisogno NPK resta quello già in catalogo per il pisello, 5-10-10 in primavera-estate, assente in autunno-inverno — tornerà utile da marzo.', 'completata', '2026-10-04T11:40:10.001Z')) as m (ruolo, testo, esito, creato);
+-- r-1791850230170-r56z
+with f as (insert into public.zorba_fili (owner_id, tipo, stato, importato, voce, nome_voce, progetto_id, titolo_progetto, segnalazione_stato, creato, aggiornato, ultima_lettura)
+  values ('fc227422-ece8-4dca-b706-956ec7ca9e6e', 'identifica_specie', 'chiuso', true, null, null, null, null, null, '2026-10-13T00:10:30.694Z', '2026-10-13T00:30:00.000Z', now()) returning id)
+insert into public.zorba_messaggi (filo_id, owner_id, ruolo, testo, esito, creato)
+select f.id, 'fc227422-ece8-4dca-b706-956ec7ca9e6e', m.ruolo, m.testo, m.esito, m.creato::timestamptz from f, (values ('utente', 'Dove ho seminato i piselli sono spuntate queste piante. Speravo fossero piselli, ma temo siano gigari. Cosa ne pensi? I piselli quindi non germoglieranno più?', null, '2026-10-13T00:10:30.694Z'), ('zorba', 'Hai visto giusto: è un gigaro chiaro (Arum italicum), non un pisello. Lo riconosci dalla foglia unica a punta di freccia, lucida, con le nervature marmorizzate di chiaro, che esce direttamente da terra senza fusto: nasce da un tubero sotterraneo, non da un seme, e ributta proprio in autunno. Il pisello appena nato è tutt''altro: uno stelo sottile con foglioline tonde a coppie e spesso un viticcio.
+
+Va tolto con il tubero intero, scavando con la paletta: se ne resta un pezzo, ricaccia. Usa i guanti: tutta la pianta contiene cristalli di ossalato di calcio — aghi microscopici che irritano pelle e bocca — e le bacche rosse estive sono tossiche, anche per cani e gatti. Niente concime: in catalogo non ha un fabbisogno NPK, e qui non servirebbe comunque.
+
+Il 4/10 avevi segnato la germinazione dei piselli: se erano queste foglie, quella tappa va rivista. I piselli seminati il 26/09 non sono per forza persi: scava piano in un punto della fila. Se il seme è gonfio e sodo, magari con una radichetta, sta solo andando lento; se è molle o puzza, è marcito e conviene riseminare ora — ottobre va ancora benissimo.', 'completata', '2026-10-13T00:30:00.001Z')) as m (ruolo, testo, esito, creato);
+commit;
