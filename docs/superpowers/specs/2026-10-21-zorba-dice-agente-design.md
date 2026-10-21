@@ -13,7 +13,7 @@ Criteri di successo:
 - i dati di un utente non sono mai visibili né modificabili da altri; l'utente non può alterare risposte, costi, stati; il catalogo condiviso (`schede`) non è mai scritto dall'app;
 - l'app resta presentabile a terzi (obiettivo di diffusione in `CLAUDE.md`): nessun elemento abbozzato, errori spiegati con garbo.
 
-Fuori ambito (progetti a parte): **pagamenti** (Stripe o simili, rinnovi, disdette) e **aspetti fiscali e legali** della vendita (regime fiscale, IVA, termini di servizio, informativa privacy su dati e foto inviati a terzi), da chiarire con un commercialista prima di incassare; ricerca vettoriale (RAG con embedding); apprendimento automatico dai voti; chat libera senza tipi; rimozione del token GitHub per la galleria.
+Fuori ambito (progetti a parte): **pagamenti** (Stripe o simili, rinnovi, disdette) e **aspetti fiscali e legali** della vendita (regime fiscale, IVA, termini di servizio, informativa privacy su dati e foto inviati a terzi), da chiarire con un commercialista prima di incassare; ricerca vettoriale (RAG con embedding); apprendimento automatico dai voti; chat libera senza tipi; rimozione del token GitHub per la galleria. **Consigli d'acquisto** (catalogo prodotti curato, lista acquisti, registro dei consigli con la regola del momento): progettati con l'utente e rimandati a un'implementazione futura; l'elenco fisso degli strumenti e le regole in file separati permettono di aggiungerli senza cambiare l'architettura.
 
 ## Decisioni prese con l'utente
 
