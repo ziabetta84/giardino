@@ -49,6 +49,7 @@ async function rpc<T>(nome: string, args: Record<string, unknown>): Promise<T> {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS })
   const jwt = req.headers.get('Authorization')?.replace(/^Bearer /, '') ?? ''
+  try {
   const { data: { user } } = await servizio.auth.getUser(jwt)
   if (!user) return errore('richiesta_non_valida', 401)
   const curatore = user.id === CURATORE
@@ -56,19 +57,25 @@ Deno.serve(async (req) => {
     global: { headers: { Authorization: `Bearer ${jwt}` } }, auth: { persistSession: false } })
   const percorso = new URL(req.url).pathname.replace(/^.*\/zorba/, '')
 
-  try {
     if (req.method === 'GET' && percorso === '/stato') {
       const l = await rpc<Record<string, unknown>>('zorba_limiti', { p_owner: user.id, p_curatore: curatore, ...LIMITI() })
       return json({ attivo: attivo() || curatore, curatore, abbonato: l.abbonato, attivo_fino: l.attivo_fino, tipo_tetto: l.tipo_tetto, rimaste: l.rimaste })
     }
     const del = /^\/filo\/([0-9a-f-]{36})$/.exec(percorso)
     if (req.method === 'DELETE' && del) {
-      const { data: f } = await servizio.from('zorba_fili').select('id').eq('id', del[1]).eq('owner_id', user.id).maybeSingle()
+      const { data: f } = await servizio.from('zorba_fili').select('id, in_elaborazione_dal').eq('id', del[1]).eq('owner_id', user.id).maybeSingle()
       if (!f) return errore('filo_inesistente', 404)
+      // Con una risposta in corso la cancellazione farebbe perdere il consumo (zorba_concludi non troverebbe il messaggio)
+      if (f.in_elaborazione_dal && Date.now() - new Date(f.in_elaborazione_dal).getTime() < 180_000) return errore('in_elaborazione', 409)
       const cartella = `${user.id}/${f.id}`
-      const { data: file } = await servizio.storage.from('zorba-foto').list(cartella)
-      if (file?.length) await servizio.storage.from('zorba-foto').remove(file.map((x) => `${cartella}/${x.name}`))
-      await servizio.from('zorba_fili').delete().eq('id', f.id)
+      const { data: file, error: eList } = await servizio.storage.from('zorba-foto').list(cartella)
+      if (eList) { console.error('zorba', 'list', eList.message); return errore('interno', 500) }
+      if (file?.length) {
+        const { error: eRem } = await servizio.storage.from('zorba-foto').remove(file.map((x) => `${cartella}/${x.name}`))
+        if (eRem) { console.error('zorba', 'remove', eRem.message); return errore('interno', 500) }
+      }
+      const { error: eDel } = await servizio.from('zorba_fili').delete().eq('id', f.id)
+      if (eDel) { console.error('zorba', 'delete', eDel.message); return errore('interno', 500) }
       return new Response(null, { status: 204, headers: CORS })
     }
     if (req.method !== 'POST' || percorso !== '') return errore('richiesta_non_valida', 404)
@@ -95,7 +102,9 @@ Deno.serve(async (req) => {
         p_testo: testo, p_messaggio_utente: riprova ? null : idMessaggio, p_con_foto: !!foto, p_riprova: riprova })
     } catch (e) {
       const c = codiceDa(e)
-      return errore(c, ['tetto_mese', 'abbonamento_richiesto', 'in_pausa_mese'].includes(c) ? 402 : 409)
+      const stato = c === 'richiesta_non_valida' ? 400 : c === 'filo_inesistente' ? 404
+        : ['tetto_mese', 'abbonamento_richiesto', 'in_pausa_mese'].includes(c) ? 402 : 409
+      return errore(c, stato)
     }
     const filo = prenotazione.filo
     const messaggioZorba = prenotazione.messaggio_zorba
@@ -110,6 +119,8 @@ Deno.serve(async (req) => {
 
     async function lavora(e: ReturnType<typeof creaEmettitore>) {
       const risposte: Anthropic.Messages.Message[] = []
+      const scadenza = AbortSignal.timeout(120_000) // 120 s in tutto, dall'inizio del lavoro
+      let concluso = false
       try {
         if (foto && prenotazione.foto_path) {
           const { error } = await servizio.storage.from('zorba-foto').upload(prenotazione.foto_path, decodeBase64(foto), { contentType: 'image/jpeg' })
@@ -140,7 +151,6 @@ Deno.serve(async (req) => {
         const messages = [...messaggiDalFilo(storia), { role: 'system', content: contestoSistema({ tipo: filo.tipo, nomeVoce: filo.nome_voce,
           voce: filo.voce, progetto, titoloProgetto: filo.titolo_progetto, plantnet }) }]
 
-        const scadenza = AbortSignal.timeout(120_000)
         const richiesta = {
           model: filo.modello, max_tokens: 8000, betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default',
           thinking: { type: 'adaptive' }, output_config: { effort: 'medium' }, cache_control: { type: 'ephemeral' },
@@ -159,7 +169,15 @@ Deno.serve(async (req) => {
             stream.on('text', (t: string) => hooks.onTesto(t))
             // deno-lint-ignore no-explicit-any
             stream.on('streamEvent', (ev: any) => { if (ev.type === 'content_block_start' && ev.content_block?.type === 'fallback') hooks.onRipiego() })
-            const msg = await stream.finalMessage()
+            let msg
+            try {
+              msg = await stream.finalMessage()
+            } catch (err) {
+              // Passaggio interrotto a metà: si conta l'uso parziale visto finora (BetaMessageStream.currentMessage)
+              const parziale = stream.currentMessage
+              if (parziale?.usage) risposte.push(parziale as unknown as Anthropic.Messages.Message)
+              throw err
+            }
             risposte.push(msg as Anthropic.Messages.Message)
             return msg
           },
@@ -169,15 +187,20 @@ Deno.serve(async (req) => {
         const fine = await rpc<{ stato_filo: string }>('zorba_concludi', { p_messaggio: messaggioZorba, p_esito: esito.esito,
           p_testo: esito.testo, p_strumenti: esito.strumenti, p_modello: c.modello, p_input: c.input, p_output: c.output,
           p_cache_lettura: c.cacheLettura, p_cache_scrittura: c.cacheScrittura, p_costo: c.costo })
+        concluso = true
         if (esito.esito !== 'completata') {
           e.emetti('errore', { codice: esito.codice, messaggio: MESSAGGI_ERRORE[esito.codice] })
           return
         }
-        const l = await rpc<Record<string, unknown>>('zorba_limiti', { p_owner: user.id, p_curatore: curatore, ...LIMITI() })
-        e.emetti('fine', { messaggio_id: messaggioZorba, rimaste: l.rimaste, stato_filo: fine.stato_filo })
+        let rimaste: unknown = null
+        try {
+          rimaste = (await rpc<Record<string, unknown>>('zorba_limiti', { p_owner: user.id, p_curatore: curatore, ...LIMITI() })).rimaste
+        } catch (errL) { console.error('zorba', filo.id, 'limiti', String(errL)) }
+        e.emetti('fine', { messaggio_id: messaggioZorba, rimaste, stato_filo: fine.stato_filo })
       } catch (err) {
         const testoErr = String((err as Error)?.message ?? err)
         console.error('zorba', filo.id, testoErr)
+        if (concluso) return // risposta già salvata e conteggiata: niente secondo consumo né errore
         let codice = 'claude_non_disponibile'
         if ((err as Error)?.name === 'AbortError' || /aborted|timeout/i.test(testoErr)) codice = 'tempo_scaduto'
         else if (/credit|spend|billing|usage limit/i.test(testoErr)) codice = 'in_pausa_mese'
