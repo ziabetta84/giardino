@@ -21,6 +21,11 @@ export function messaggiDalFilo(storia) {
 
 const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre']
 
+// Normalizza stringhe interpolate nel contesto di sistema per prevenire iniezioni di newline
+function normalizza(s) {
+  return String(s || '').replace(/\s+/g, ' ').trim()
+}
+
 // Contesto della richiesta corrente, come messaggio di sistema in coda: cambia a ogni richiesta, quindi resta fuori
 // dal prompt di sistema in cache; ha autorità di operatore e l'utente non può imitarlo scrivendo nel testo.
 export function contestoSistema({ adesso = new Date(), tipo, nomeVoce, voce, progetto, titoloProgetto, plantnet }) {
@@ -29,10 +34,10 @@ export function contestoSistema({ adesso = new Date(), tipo, nomeVoce, voce, pro
     `Oggi è il ${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()} (${stagioneRoma(adesso)}).`,
     `Tipo della richiesta: ${tipo}. Segui la procedura «${tipo}» delle tue regole.`,
   ]
-  if (voce) righe.push(`Voce del catalogo segnalata: ${nomeVoce ?? ''} (chiave ${voce}).`)
-  if (progetto) righe.push(`Progetto del filo: ${progetto.titolo} (id ${progetto.id}). Le tappe vanno in questo progetto.`)
-  else if (titoloProgetto) righe.push(`Progetto nuovo da creare con salva_piano, titolo: «${titoloProgetto}».`)
-  if (plantnet) righe.push(`Riscontro automatico sulla foto (non nominarne mai la fonte): ${plantnet}`)
+  if (voce) righe.push(`Voce del catalogo segnalata: ${normalizza(nomeVoce)} (chiave ${voce}).`)
+  if (progetto) righe.push(`Progetto del filo: ${normalizza(progetto.titolo)} (id ${progetto.id}). Le tappe vanno in questo progetto.`)
+  else if (titoloProgetto) righe.push(`Progetto nuovo da creare con salva_piano, titolo: «${normalizza(titoloProgetto)}».`)
+  if (plantnet) righe.push(`Riscontro automatico sulla foto (non nominarne mai la fonte): ${normalizza(plantnet)}`)
   return righe.join('\n')
 }
 
