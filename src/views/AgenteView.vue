@@ -9,18 +9,19 @@
         <span v-if="nonVisti" class="badge badge-gold">{{ nonVisti }}</span>
       </button>
     </div>
-    <p class="agente-sub">Zorba controlla la coda quando può</p>
-
-    <!-- Token mancante -->
-    <div v-if="!tokenPresente" class="agente-tokenbox">
-      <p class="slabel">Token GitHub richiesto</p>
-      <p class="prose">Serve un token con permesso <code>contents:write</code> per inviare richieste.</p>
-      <RouterLink to="/account" class="btn btn-sage" style="display:inline-block;min-height:36px;padding:6px 14px;font-size:13px;">Vai su Account</RouterLink>
-    </div>
+    <p class="agente-sub">Chiedi a Zorba: risponde subito, e puoi continuare la conversazione.</p>
 
     <!-- Nuova richiesta: contenuto centrale finché non si apre una risposta dallo storico -->
-    <div v-if="!richiestaSelezionata" class="agente-nuova">
+    <div v-if="!filo" class="agente-nuova">
       <p class="slabel">Nuova richiesta</p>
+      <div v-if="!online" class="agente-avviso">Sei offline: lo storico resta consultabile, per scrivere a Zorba serve la connessione.</div>
+      <div v-else-if="inPausa" class="agente-avviso">Zorba è in pausa in questo momento: riprova più tardi.</div>
+      <div v-else-if="esaurite && statoZorba.tipo_tetto === 'prova'" class="agente-avviso">
+        <b>Hai usato le risposte di prova.</b> Zorba è riservato agli abbonati: chiedi l'abbonamento a chi gestisce l'app.
+      </div>
+      <div v-else-if="esaurite" class="agente-avviso">Hai usato tutte le risposte di questo mese: si riparte il {{ ripartenza }}.</div>
+
+      <template v-if="!bloccato">
 
       <div class="reqgroups">
         <div v-for="g in GRUPPI_TIPO" :key="g.label" class="reqgroup">
@@ -33,8 +34,8 @@
       </div>
       <p class="agente-hint">{{ infoTipo(nuovoTipo)?.hint }}</p>
 
-      <!-- Revisione specie: indica quale specie, non serve una foto -->
-      <div v-if="nuovoTipo === 'revisione_specie'" class="agente-extra">
+      <!-- Segnalazione scheda: indica quale specie, non serve una foto -->
+      <div v-if="nuovoTipo === 'segnalazione_scheda'" class="agente-extra">
         <SelettoreSpecie v-model="specieSelezionata" />
       </div>
 
@@ -53,10 +54,9 @@
         <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio" rows="3"></textarea>
 
         <!-- Anteprima della foto selezionata -->
-        <div v-if="fotoPreview && nuovoTipo !== 'revisione_specie' && nuovoTipo !== 'pianifica_progetto'" class="agente-foto-preview">
-          <img :src="fotoPreview" alt="Anteprima della foto selezionata">
-          <span class="agente-foto-nome">{{ nomeFile }}</span>
-          <button type="button" @click="rimuoviFoto" aria-label="Rimuovi foto">×</button>
+        <div v-if="foto && !SENZA_FOTO.includes(nuovoTipo)" class="agente-foto-preview">
+          <img :src="foto.anteprima" alt="Anteprima della foto selezionata">
+          <button type="button" @click="foto = null" aria-label="Rimuovi foto">×</button>
         </div>
 
         <div class="reqbar">
@@ -64,7 +64,7 @@
                Android un input "accept=image/*" senza capture viene comunque
                risolto verso la fotocamera, saltando la scelta della libreria.
                Un input dedicato a ciascuna sorgente evita l'ambiguità. -->
-          <span v-if="!fotoPreview && nuovoTipo !== 'revisione_specie' && nuovoTipo !== 'pianifica_progetto'" class="ph">
+          <span v-if="!foto && !SENZA_FOTO.includes(nuovoTipo)" class="ph">
             <Icon name="fotocamera" />
             <label class="agente-foto-btn">Libreria
               <input type="file" accept="image/*" @change="selezionaFoto" hidden>
@@ -76,15 +76,18 @@
           <span v-else></span>
 
           <button type="button" class="reqsend" @click="aggiungiRichiesta"
-            :disabled="!puoInviare || aggiungendo || !tokenPresente">
+            :disabled="!puoInviare || aggiungendo || bloccato">
             <Spinner v-if="aggiungendo" />{{ aggiungendo ? 'Invio…' : 'Invia' }}
           </button>
         </div>
       </div>
 
-      <p v-if="!fotoPreview && nuovoTipo !== 'revisione_specie' && nuovoTipo !== 'pianifica_progetto'" class="agente-hint">
-        JPG, PNG — max 5 MB<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
+      <p v-if="!foto && !SENZA_FOTO.includes(nuovoTipo)" class="agente-hint">
+        JPG, PNG o HEIC: la foto viene ridotta prima dell'invio<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
       </p>
+
+      <p v-if="rigaRimaste" class="agente-hint">{{ rigaRimaste }}</p>
+      </template>
 
       <div v-if="errore" class="agente-errore">
         <Icon name="campanella" />{{ errore }}
@@ -99,63 +102,34 @@
         <Icon name="back" />Nuova richiesta
       </button>
       <div class="agente-dettaglio-hd">
-        <span class="areq__ic">
-          <Icon v-if="infoTipo(richiestaSelezionata.tipo).icon" :name="infoTipo(richiestaSelezionata.tipo).icon" />
-        </span>
-        <p class="agente-dettaglio-tipo">{{ infoTipo(richiestaSelezionata.tipo).label }}</p>
-        <span class="badge" :class="classeBadge(richiestaSelezionata.stato)">{{ labelStato(richiestaSelezionata.stato) }}</span>
+        <span class="areq__ic"><Icon v-if="infoTipo(filo.tipo).icon" :name="infoTipo(filo.tipo).icon" /></span>
+        <p class="agente-dettaglio-tipo">{{ infoTipo(filo.tipo).label }}</p>
       </div>
-      <p class="agente-dettaglio-data">{{ formatData(richiestaSelezionata.creata) }}</p>
-
-      <!-- Specie coinvolta (solo revisione_specie) -->
-      <p v-if="richiestaSelezionata.voce || richiestaSelezionata.specie" class="agente-dettaglio-specie">
-        {{ richiestaSelezionata.nome_voce ?? store.catalogo?.[richiestaSelezionata.voce]?.nome ?? richiestaSelezionata.specie }}
-      </p>
-
-      <!-- Messaggio utente -->
-      <p v-if="richiestaSelezionata.messaggio" class="agente-dettaglio-msg">{{ richiestaSelezionata.messaggio }}</p>
-
-      <!-- Foto allegata -->
-      <div v-if="richiestaSelezionata.foto" class="agente-dettaglio-foto">
-        <img :src="`data:image/jpeg;base64,${richiestaSelezionata.foto}`" alt="Foto allegata alla richiesta">
-      </div>
-
-      <!-- Risposta -->
-      <div v-if="richiestaSelezionata.risposta?.messaggio" class="answer">
-        <div class="answer__hd">
-          <Icon name="lampadina" />
-          Risposta · {{ infoTipo(richiestaSelezionata.tipo).label }} · {{ formatData(richiestaSelezionata.risposta?.completata ?? richiestaSelezionata.creata) }}
-        </div>
-        <div class="answer__body">
-          <p class="answer__pre">{{ richiestaSelezionata.risposta.messaggio }}</p>
-        </div>
-      </div>
-
-      <!-- In attesa -->
-      <div v-else-if="richiestaSelezionata.stato === 'in_attesa'" class="agente-attesa">
-        <span class="adot"></span>
-        <p>In attesa che Zorba risponda…</p>
-      </div>
+      <p class="agente-dettaglio-data">{{ formatData(filo.creato) }}</p>
+      <p v-if="filo.voce" class="agente-dettaglio-specie">{{ titoloFilo(filo, store) }}</p>
+      <ZorbaFilo :filo="filo" :messaggi="messaggi" :in-corso="inCorso" :progetto="progettoDelFilo" :bloccato="bloccato"
+        @rispondi="rispondi" @riprova="riprova" @vota="vota" @nuova="tornaANuova" />
+      <div v-if="errore" class="agente-errore"><Icon name="campanella" />{{ errore }}</div>
     </div>
 
     <!-- Il Foglio: storico richieste, righe a filetti come nel resto dell'app -->
     <FoglioLaterale v-model="storicoAperto" titolo="Storico">
       <div class="foglio-form">
-        <div v-if="richieste.length" class="feedlist">
-          <div v-for="r in richieste" :key="r.id" class="feed feed--tap"
+        <div v-if="fili.length" class="feedlist">
+          <div v-for="f in fili" :key="f.id" class="feed feed--tap"
             role="button" tabindex="0"
-            @click="selezionaRichiesta(r.id)" @keydown.enter="selezionaRichiesta(r.id)" @keydown.space.prevent="selezionaRichiesta(r.id)">
+            @click="apriFilo(f.id)" @keydown.enter="apriFilo(f.id)" @keydown.space.prevent="apriFilo(f.id)">
             <span class="areq__ic">
-              <Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" />
+              <Icon v-if="infoTipo(f.tipo).icon" :name="infoTipo(f.tipo).icon" />
             </span>
             <div class="feed__m">
               <div class="feed__n">
-                {{ titoloRichiesta(r) }}
-                <span v-if="statoRiga(r)" class="badge" :class="statoRiga(r).classe">{{ statoRiga(r).testo }}</span>
+                {{ titoloFilo(f, store) }}
+                <span v-if="f.nuova_risposta" class="badge badge-gold">Nuovo</span><span v-else-if="f.segnalazione_stato === 'in_attesa'" class="badge badge-gold">In attesa</span>
               </div>
-              <div class="feed__d">{{ formatData(r.creata) }}</div>
+              <div class="feed__d">{{ formatData(f.aggiornato) }}</div>
             </div>
-            <button type="button" class="feed__del" aria-label="Elimina richiesta" @click.stop="apriEliminazione(r.id)">×</button>
+            <button type="button" class="feed__del" aria-label="Elimina conversazione" @click.stop="daEliminare = f.id">×</button>
           </div>
         </div>
         <div v-else class="empty">
@@ -167,8 +141,8 @@
 
     <ModalConferma
       :aperto="daEliminare !== null"
-      titolo="Eliminare questa richiesta?"
-      messaggio="Questa azione non può essere annullata."
+      titolo="Eliminare questa conversazione?"
+      messaggio="Le foto vengono cancellate. Le risposte già ricevute restano contate nel mese."
       :caricamento="eliminando"
       @conferma="confermaEliminazione"
       @annulla="daEliminare = null"
@@ -178,50 +152,84 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useApi } from '@/composables/useApi'
+import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
+import { useZorba } from '@/composables/useZorba'
+import { ridimensionaFoto } from '@/utils/foto'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
-import { useRoute, useRouter } from 'vue-router'
-import { infoTipo, titoloRichiesta as titoloRichiestaBase, formatData, caricaRichiesteAgente } from '@/composables/useRichiesteAgente'
+import ZorbaFilo from '@/components/ZorbaFilo.vue'
+import { infoTipo, titoloFilo, formatData } from '@/composables/useRichiesteAgente'
 
 const store = useDatiStore()
 const route = useRoute()
 const router = useRouter()
-const { saveJSON, tokenPresente } = useApi()
+const zorba = useZorba()
 
-const raw          = ref({})
-const nuovoTipo    = ref('identifica_specie')
+const fili = ref([])
+const filoId = ref(null)
+const messaggi = ref([])
+const statoZorba = ref(null)
+const inCorso = ref(null)          // { id, stati: [], testo: '' } mentre Zorba scrive
+const progettoCreato = ref(null)
+const online = ref(navigator.onLine)
+const aggiornaRete = () => { online.value = navigator.onLine }
+window.addEventListener('online', aggiornaRete)
+window.addEventListener('offline', aggiornaRete)
+onUnmounted(() => {
+  window.removeEventListener('online', aggiornaRete)
+  window.removeEventListener('offline', aggiornaRete)
+})
+
+const nuovoTipo = ref('identifica_specie')
 const nuovoMessaggio = ref('')
 const specieSelezionata = ref('')
 const progettoSelezionato = ref('')
 const nuovoProgettoTitolo = ref('')
-const aggiungendo  = ref(false)
-const fotoBase64   = ref(null)
-const fotoPreview  = ref(null)
-const nomeFile     = ref('')
-const errore       = ref(null)
+const foto = ref(null)             // { base64, anteprima }
+const aggiungendo = ref(false)
+const errore = ref(null)
 const storicoAperto = ref(false)
-const richiestaSelezionataId = ref(null)
 const daEliminare = ref(null)
 const eliminando = ref(false)
 
-// Raggruppati per restare sotto la soglia di ~4 scelte visibili per decisione
-// (7 tipi piatti la superavano — vedi critica del 07/09/2026).
+// Raggruppati per restare sotto la soglia di ~4 scelte visibili per decisione (critica del 07/09/2026)
 const GRUPPI_TIPO = [
-  { label: 'Specie',      tipi: ['identifica_specie', 'revisione_specie'] },
-  { label: 'Cura',        tipi: ['consiglio_cura', 'consiglio_concimazione', 'diagnosi'] },
-  { label: 'Varie',       tipi: ['pianifica_progetto', 'altro'] },
+  { label: 'Specie', tipi: ['identifica_specie', 'segnalazione_scheda'] },
+  { label: 'Cura', tipi: ['consiglio_cura', 'consiglio_concimazione', 'diagnosi'] },
+  { label: 'Varie', tipi: ['pianifica_progetto', 'altro'] },
 ]
+const SENZA_FOTO = ['segnalazione_scheda', 'pianifica_progetto']
 
-// Ogni tipo mostra campi diversi (foto, testo, specie, progetto): passare da
-// uno all'altro azzera i campi del form precedente, altrimenti un valore
-// nascosto dal tipo corrente (es. una foto allegata sotto "diagnosi") può
-// finire silenziosamente in un invio di tipo diverso che non la mostra più.
+const filo = computed(() => fili.value.find(f => f.id === filoId.value) ?? null)
+const nonVisti = computed(() => fili.value.filter(f => f.nuova_risposta).length)
+const progettiEsistenti = computed(() => Object.entries(store.progetti ?? {})
+  .map(([id, p]) => ({ id, titolo: p.titolo })).sort((a, b) => a.titolo.localeCompare(b.titolo)))
+const progettoDelFilo = computed(() => {
+  if (progettoCreato.value) return progettoCreato.value
+  const id = filo.value?.progetto_id
+  return id && store.progetti?.[id] ? { id, titolo: store.progetti[id].titolo } : null
+})
+
+// Riga sotto il form: assente per il curatore; per gli altri dice quante risposte restano
+const rigaRimaste = computed(() => {
+  const s = statoZorba.value
+  if (!s || s.curatore || s.rimaste == null) return null
+  if (s.tipo_tetto === 'prova') return `Prova Zorba: ti restano ${s.rimaste} ${s.rimaste === 1 ? 'risposta gratuita' : 'risposte gratuite'}`
+  return `Questo mese ti restano ${s.rimaste} risposte di Zorba`
+})
+const esaurite = computed(() => statoZorba.value && !statoZorba.value.curatore && statoZorba.value.rimaste === 0)
+const inPausa = computed(() => statoZorba.value && !statoZorba.value.attivo)
+const ripartenza = computed(() => {
+  const d = new Date(); d.setMonth(d.getMonth() + 1, 1)
+  return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' })
+})
+const bloccato = computed(() => !online.value || inPausa.value || esaurite.value)
+
 function selezionaTipo(v) {
   if (nuovoTipo.value === v) return
   nuovoTipo.value = v
@@ -229,230 +237,157 @@ function selezionaTipo(v) {
   specieSelezionata.value = ''
   progettoSelezionato.value = ''
   nuovoProgettoTitolo.value = ''
-  fotoBase64.value = null
-  fotoPreview.value = null
-  nomeFile.value = ''
-}
-
-function titoloRichiesta(r) {
-  return titoloRichiestaBase(r, store)
+  foto.value = null
 }
 
 const puoInviare = computed(() => {
-  if (nuovoTipo.value === 'revisione_specie') return !!specieSelezionata.value
-  if (nuovoTipo.value === 'pianifica_progetto') {
-    return !!nuovoMessaggio.value.trim() && (!!progettoSelezionato.value || !!nuovoProgettoTitolo.value.trim())
-  }
-  // Con una foto allegata, la descrizione testuale è facoltativa: identifica_specie
-  // richiede comunque sempre la foto, diagnosi accetta foto oppure testo.
-  if (nuovoTipo.value === 'identifica_specie') return !!fotoBase64.value
-  if (nuovoTipo.value === 'diagnosi') return !!fotoBase64.value || !!nuovoMessaggio.value.trim()
-  return !!nuovoMessaggio.value.trim()
-})
-
-const progettiEsistenti = computed(() => {
-  if (!store.progetti) return []
-  return Object.entries(store.progetti)
-    .map(([id, p]) => ({ id, titolo: p.titolo }))
-    .sort((a, b) => a.titolo.localeCompare(b.titolo))
+  const t = nuovoMessaggio.value.trim()
+  if (nuovoTipo.value === 'segnalazione_scheda') return !!specieSelezionata.value && !!t
+  if (nuovoTipo.value === 'pianifica_progetto') return !!t && (!!progettoSelezionato.value || !!nuovoProgettoTitolo.value.trim())
+  if (nuovoTipo.value === 'identifica_specie') return !!foto.value
+  if (nuovoTipo.value === 'diagnosi') return !!foto.value || !!t
+  return !!t
 })
 
 const PLACEHOLDER_MESSAGGIO = {
-  revisione_specie: 'Note aggiuntive (opzionale)…',
+  segnalazione_scheda: 'Cosa non ti torna in questa scheda?',
   pianifica_progetto: 'Descrivi il progetto: cosa vuoi fare, dove, entro quando…',
   identifica_specie: 'Note aggiuntive (opzionale)…',
   diagnosi: 'Descrivi il problema (opzionale se alleghi una foto)…',
 }
 const placeholderMessaggio = computed(() => PLACEHOLDER_MESSAGGIO[nuovoTipo.value] ?? 'Descrivi la richiesta…')
 
-let pollTimer = null
-
-const richieste = computed(() =>
-  Object.entries(raw.value)
-    .map(([id, r]) => ({ id, ...r }))
-    .sort((a, b) => new Date(b.creata) - new Date(a.creata))
-)
-
-const inAttesa = computed(() => richieste.value.filter(r => r.stato === 'in_attesa').length)
-
-const richiestaSelezionata = computed(() =>
-  richieste.value.find(r => r.id === richiestaSelezionataId.value) ?? null
-)
-
-// --- "Nuovo": una risposta arrivata che l'utente non ha ancora aperto.
-// Salvato solo in localStorage (come il token GitHub): richieste-agente.json
-// resta senza scoping per utente, quindi il "letto" è per-browser, non condiviso.
-const CHIAVE_VISTE = 'agente_risposte_viste'
-function caricaViste() {
-  try { return new Set(JSON.parse(localStorage.getItem(CHIAVE_VISTE) ?? '[]')) } catch { return new Set() }
-}
-const viste = ref(caricaViste())
-function segnaVisto(id) {
-  if (viste.value.has(id)) return
-  viste.value = new Set(viste.value).add(id)
-  try { localStorage.setItem(CHIAVE_VISTE, JSON.stringify([...viste.value])) } catch { /* localStorage non disponibile */ }
-}
-// Prima apertura in assoluto (chiave mai scritta): le richieste già risposte
-// non contano come "nuove" solo perché questa funzionalità non esisteva prima.
-function inizializzaViste() {
-  if (localStorage.getItem(CHIAVE_VISTE) !== null) return
-  const risposte = richieste.value.filter(r => r.stato !== 'in_attesa').map(r => r.id)
-  viste.value = new Set(risposte)
-  try { localStorage.setItem(CHIAVE_VISTE, JSON.stringify(risposte)) } catch { /* localStorage non disponibile */ }
-}
-const nonVisti = computed(() => richieste.value.filter(r => r.stato !== 'in_attesa' && !viste.value.has(r.id)).length)
-
-function statoRiga(r) {
-  if (r.stato === 'in_attesa') return { classe: 'badge-gold', testo: 'In attesa' }
-  if (!viste.value.has(r.id)) return { classe: 'badge-gold', testo: 'Nuovo' }
-  if (r.stato === 'errore') return { classe: 'badge-warn', testo: 'Errore' }
-  return null
+async function caricaFili() {
+  fili.value = await zorba.caricaFili()
 }
 
-function selezionaRichiesta(id) {
-  richiestaSelezionataId.value = id
+async function apriFilo(id) {
+  filoId.value = id
   storicoAperto.value = false
-  const r = richieste.value.find(x => x.id === id)
-  if (r && r.stato !== 'in_attesa') segnaVisto(id)
+  progettoCreato.value = null
+  messaggi.value = await zorba.caricaMessaggi(id)
+  const f = fili.value.find(x => x.id === id)
+  if (f?.nuova_risposta) {
+    await zorba.segnaLetto(id)
+    f.nuova_risposta = false
+  }
 }
 
-function tornaANuova() {
-  richiestaSelezionataId.value = null
+function tornaANuova(tipo) {
+  filoId.value = null
+  if (typeof tipo === 'string') selezionaTipo(tipo)
 }
 
-function apriEliminazione(id) {
-  daEliminare.value = id
+async function aggiornaStato() {
+  try { statoZorba.value = await zorba.stato() } catch { statoZorba.value = null }
+}
+
+// Un invio (richiesta nuova, replica o riprova): segue lo streaming e alla fine ricarica il filo dal database,
+// che resta la fonte di verità (testo salvato, esito, chiusura del filo).
+async function esegui(corpo) {
+  errore.value = null
+  let idFilo = corpo.filo_id ?? null
+  const mio = { id: 'mio', ruolo: 'utente', testo: corpo.testo, foto_url: corpo.foto ? `data:image/jpeg;base64,${corpo.foto}` : null }
+  const attesa = { id: 'in-corso', ruolo: 'zorba', esito: 'in_corso' }
+  const segnaposto = { id: 'in-corso', stati: [], testo: '' }
+  inCorso.value = { ...segnaposto }
+  if (idFilo) {
+    // Riprova: la risposta in errore (l'ultima) lascia il posto a quella in corso; replica: il messaggio dell'utente in coda
+    const base = corpo.riprova ? messaggi.value.slice(0, -1) : [...messaggi.value, mio]
+    messaggi.value = [...base, attesa]
+  }
+  try {
+    await zorba.invia(corpo, (nome, dati) => {
+      if (nome === 'filo' && !idFilo) {
+        idFilo = dati.id
+        // Filo provvisorio finché caricaFili() non lo rilegge dal database
+        fili.value = [{ id: dati.id, tipo: corpo.nuovo.tipo, stato: 'aperto', importato: false, creato: new Date().toISOString(),
+          aggiornato: new Date().toISOString(), voce: corpo.nuovo.voce, nome_voce: corpo.nuovo.nome_voce,
+          progetto_id: corpo.nuovo.progetto_id, titolo_progetto: corpo.nuovo.titolo_progetto,
+          segnalazione_stato: corpo.nuovo.tipo === 'segnalazione_scheda' ? 'in_attesa' : null, primo_testo: corpo.testo }, ...fili.value]
+        filoId.value = dati.id
+        messaggi.value = [mio, attesa]
+      } else if (nome === 'stato') segnaposto.stati = [...segnaposto.stati, dati.t]
+      else if (nome === 'testo') segnaposto.testo += dati.t
+      else if (nome === 'annulla_testo') segnaposto.testo = ''
+      else if (nome === 'progetto') progettoCreato.value = dati
+      else if (nome === 'errore') errore.value = dati.messaggio
+      inCorso.value = { ...segnaposto }
+    })
+  } catch (e) {
+    errore.value = e.message
+  } finally {
+    inCorso.value = null
+    await Promise.all([caricaFili(), aggiornaStato()])
+    if (idFilo) {
+      filoId.value = idFilo
+      messaggi.value = await zorba.caricaMessaggi(idFilo)
+      await zorba.segnaLetto(idFilo)
+    }
+    if (progettoCreato.value) store.aggiorna()
+  }
+}
+
+async function aggiungiRichiesta() {
+  if (!puoInviare.value || aggiungendo.value || bloccato.value) return
+  aggiungendo.value = true
+  const tipo = nuovoTipo.value
+  const corpo = {
+    nuovo: {
+      tipo,
+      voce: tipo === 'segnalazione_scheda' ? specieSelezionata.value : null,
+      nome_voce: tipo === 'segnalazione_scheda' ? (store.catalogo?.[specieSelezionata.value]?.nome ?? null) : null,
+      progetto_id: tipo === 'pianifica_progetto' ? (progettoSelezionato.value || null) : null,
+      titolo_progetto: tipo === 'pianifica_progetto' && !progettoSelezionato.value ? nuovoProgettoTitolo.value.trim() : null,
+    },
+    testo: nuovoMessaggio.value.trim(),
+    foto: SENZA_FOTO.includes(tipo) ? null : (foto.value?.base64 ?? null),
+  }
+  nuovoMessaggio.value = ''; specieSelezionata.value = ''; progettoSelezionato.value = ''; nuovoProgettoTitolo.value = ''; foto.value = null
+  try { await esegui(corpo) } finally { aggiungendo.value = false }
+}
+
+const rispondi = ({ testo, foto: f }) => esegui({ filo_id: filoId.value, testo, foto: f })
+const riprova = () => esegui({ filo_id: filoId.value, riprova: true })
+
+async function vota(id, voto, motivo, commento) {
+  try {
+    await zorba.vota(id, voto, motivo, commento)
+    messaggi.value = messaggi.value.map(m => m.id === id ? { ...m, voto, voto_motivo: voto === -1 ? motivo : null, voto_commento: voto === -1 ? commento : null } : m)
+  } catch (e) { errore.value = e.message }
+}
+
+async function selezionaFoto(e) {
+  const file = e.target.files?.[0]
+  e.target.value = ''
+  if (!file) return
+  errore.value = null
+  try { foto.value = await ridimensionaFoto(file) } catch { errore.value = 'Questa foto non si riesce a leggere: prova con un\'altra.' }
 }
 
 async function confermaEliminazione() {
   if (!daEliminare.value) return
   eliminando.value = true
   try {
-    const id = daEliminare.value
-    const nuove = await saveJSON('richieste-agente.json', (correnti) => {
-      const copia = { ...(correnti ?? raw.value) }
-      delete copia[id]
-      return copia
-    })
-    raw.value = nuove
-    if (richiestaSelezionataId.value === id) richiestaSelezionataId.value = null
+    await zorba.elimina(daEliminare.value)
+    if (filoId.value === daEliminare.value) filoId.value = null
     daEliminare.value = null
+    await caricaFili()
   } catch (e) {
-    errore.value = e.message || 'Errore durante l\'eliminazione'
+    errore.value = e.message
   } finally {
     eliminando.value = false
   }
 }
 
-async function caricaRichieste() {
-  raw.value = await caricaRichiesteAgente()
-}
-
-function avviaPolling() {
-  if (pollTimer) return
-  pollTimer = setInterval(async () => {
-    if (inAttesa.value > 0) await caricaRichieste()
-  }, 30000)
-}
-
 onMounted(async () => {
-  await store.caricaTutto()
-  await caricaRichieste()
-  inizializzaViste()
-  avviaPolling()
-
-  // Arrivo dalla sidebar "Zorba dice" (ZorbaDiceSidebar.vue, ?id=<richiesta>):
-  // apre direttamente quella risposta invece del form "Nuova richiesta".
-  // router.replace (non push) per non lasciare l'id in cronologia — un
-  // ritorno indietro da qui deve riportare alla pagina precedente, non a
-  // se stessa con lo stesso id.
-  const idDaAprire = route.query.id
-  if (idDaAprire && richieste.value.some(r => r.id === idDaAprire)) {
-    selezionaRichiesta(idDaAprire)
-    router.replace({ path: route.path })
-  }
+  await Promise.all([store.caricaTutto(), caricaFili(), aggiornaStato()])
+  // Arrivo dalla colonna laterale (ZorbaDiceSidebar.vue, ?filo=<id>): apre quel filo. replace per non lasciare
+  // l'id in cronologia. I vecchi link ?id=richiesta-… non trovano nulla e lasciano la pagina com'è.
+  const id = route.query.filo
+  if (id && fili.value.some(f => f.id === id)) await apriFilo(id)
+  if (route.query.filo || route.query.id) router.replace({ path: route.path })
 })
-
-onUnmounted(() => {
-  if (pollTimer) clearInterval(pollTimer)
-})
-
-function labelStato(stato) {
-  if (stato === 'completata') return 'Completata'
-  if (stato === 'errore') return 'Errore'
-  return 'In attesa'
-}
-
-function classeBadge(stato) {
-  if (stato === 'completata') return 'badge-ok'
-  if (stato === 'errore') return 'badge-warn'
-  return 'badge-gold'
-}
-
-
-const MAX_FOTO_BYTES = 5 * 1024 * 1024
-
-function selezionaFoto(e) {
-  const file = e.target.files?.[0]
-  if (!file) return
-  if (file.size > MAX_FOTO_BYTES) {
-    errore.value = 'La foto è troppo grande (limite 5 MB).'
-    e.target.value = ''
-    return
-  }
-  errore.value = null
-  nomeFile.value = file.name
-  const reader = new FileReader()
-  reader.onload = () => {
-    fotoPreview.value = reader.result
-    fotoBase64.value  = reader.result.split(',')[1]
-  }
-  reader.readAsDataURL(file)
-  e.target.value = ''
-}
-
-function rimuoviFoto() {
-  fotoBase64.value  = null
-  fotoPreview.value = null
-  nomeFile.value    = ''
-}
-
-async function aggiungiRichiesta() {
-  if (!puoInviare.value || aggiungendo.value) return
-  aggiungendo.value = true
-  errore.value = null
-  try {
-    const id = `r-${Date.now()}-${Math.random().toString(36).slice(2,6)}`
-    const nuove = await saveJSON('richieste-agente.json', (correnti) => ({
-      ...(correnti ?? raw.value),
-      [id]: {
-        tipo: nuovoTipo.value,
-        messaggio: nuovoMessaggio.value.trim(),
-        voce: nuovoTipo.value === 'revisione_specie' ? specieSelezionata.value : null,
-        nome_voce: nuovoTipo.value === 'revisione_specie' ? (store.catalogo?.[specieSelezionata.value]?.nome ?? null) : null,
-        progetto: nuovoTipo.value === 'pianifica_progetto' ? (progettoSelezionato.value || null) : null,
-        titolo_progetto: nuovoTipo.value === 'pianifica_progetto' && !progettoSelezionato.value ? nuovoProgettoTitolo.value.trim() : null,
-        foto: fotoBase64.value ?? null,
-        stato: 'in_attesa',
-        creata: new Date().toISOString(),
-        risposta: null,
-      }
-    }))
-    raw.value = nuove
-    richiestaSelezionataId.value = id
-    nuovoMessaggio.value = ''
-    specieSelezionata.value = ''
-    progettoSelezionato.value = ''
-    nuovoProgettoTitolo.value = ''
-    fotoBase64.value  = null
-    fotoPreview.value = null
-    nomeFile.value    = ''
-  } catch (e) {
-    errore.value = e.message || 'Errore durante l\'invio'
-  } finally {
-    aggiungendo.value = false
-  }
-}
 </script>
 
 <style scoped>
@@ -478,16 +413,10 @@ async function aggiungiRichiesta() {
 .agente-storico-btn svg { width: 14px; height: 14px; }
 .agente-storico-btn .badge { margin-left: 2px; }
 
-/* --- banner token mancante: card leggera, niente decorazione pesante --- */
-.agente-tokenbox {
-  border: 1px solid var(--gold-light);
-  background: var(--gold-pale);
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 18px;
+.agente-avviso {
+  border: 1px solid var(--gold-light); background: var(--gold-pale); border-radius: 12px;
+  padding: 12px 14px; margin-bottom: 14px; font: 400 12.5px/1.5 var(--font-sans); color: var(--gold-dark);
 }
-.agente-tokenbox .slabel { margin-bottom: 8px; }
-.agente-tokenbox .prose { margin: 0 0 10px; }
 
 /* --- blocco nuova richiesta --- */
 .agente-nuova { margin-bottom: 26px; }
@@ -508,12 +437,6 @@ async function aggiungiRichiesta() {
 .agente-foto-preview img {
   width: 40px; height: 40px; object-fit: cover;
   border-radius: 11px; flex-shrink: 0;
-}
-.agente-foto-nome {
-  flex: 1; min-width: 0;
-  font: 600 12px/1.3 var(--font-sans);
-  color: var(--ink-mid);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .agente-foto-preview button {
   background: none; border: none; cursor: pointer;
@@ -598,16 +521,4 @@ async function aggiungiRichiesta() {
 }
 .answer__body .answer__pre { white-space: pre-wrap; }
 
-.agente-attesa {
-  display: flex; align-items: center; gap: 8px;
-  margin-top: 16px;
-  padding: 12px 14px;
-  background: var(--gold-pale);
-  border: 1px solid var(--gold-light);
-  border-radius: 12px;
-}
-.agente-attesa p {
-  font: 400 12px/1.4 var(--font-sans);
-  color: var(--gold-dark);
-}
 </style>

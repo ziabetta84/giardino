@@ -4,15 +4,14 @@
 
     <p v-if="caricamento" class="zds__stato">Carico lo storico…</p>
 
-    <div v-else-if="richieste.length" class="feedlist">
-      <RouterLink v-for="r in richieste" :key="r.id" class="feed zds__feed" :to="`/agente?id=${r.id}`">
-        <span class="zds__ic"><Icon v-if="infoTipo(r.tipo).icon" :name="infoTipo(r.tipo).icon" /></span>
+    <div v-else-if="fili.length" class="feedlist">
+      <RouterLink v-for="f in fili" :key="f.id" class="feed zds__feed" :to="`/agente?filo=${f.id}`">
+        <span class="zds__ic"><Icon v-if="infoTipo(f.tipo).icon" :name="infoTipo(f.tipo).icon" /></span>
         <div class="feed__m">
-          <div class="feed__n zds__titolo">{{ titoloRichiesta(r, store) }}</div>
+          <div class="feed__n zds__titolo">{{ titoloFilo(f, store) }}</div>
           <div class="feed__d">
-            <span v-if="r.stato === 'in_attesa'" class="badge badge-gold zds__badge">In attesa</span>
-            <span v-else-if="r.stato === 'errore'" class="badge badge-warn zds__badge">Errore</span>
-            {{ formatData(r.creata) }}
+            <span v-if="f.nuova_risposta" class="badge badge-gold zds__badge">Nuovo</span>
+            {{ formatData(f.aggiornato) }}
           </div>
         </div>
       </RouterLink>
@@ -25,10 +24,11 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useAuth } from '@/composables/useAuth'
-import { infoTipo, titoloRichiesta, formatData, caricaRichiesteAgente } from '@/composables/useRichiesteAgente'
+import { useZorba } from '@/composables/useZorba'
+import { infoTipo, titoloFilo, formatData } from '@/composables/useRichiesteAgente'
 import Icon from '@/components/Icon.vue'
 
 // Colonna fissa a destra, visibile solo quando c'è davvero spazio residuo
@@ -38,36 +38,22 @@ import Icon from '@/components/Icon.vue'
 // principale (deciso in chat: "scegli l'approccio migliore").
 const store = useDatiStore()
 const { utente } = useAuth()
+const zorba = useZorba()
 
-const raw = ref({})
+const fili = ref([])
 const caricamento = ref(true)
 let pollTimer = null
 
 async function carica() {
-  raw.value = await caricaRichiesteAgente()
+  try { fili.value = (await zorba.caricaFili()).slice(0, 4) } catch { /* offline: resta l'ultimo elenco */ }
   caricamento.value = false
 }
 
-// Le ultime 4, più recenti in cima — stesso ordinamento dello storico
-// completo in AgenteView.vue, solo troncato. Non filtra per stato: una
-// richiesta ancora "in_attesa" è un'informazione reale quanto una già
-// risposta (badge dedicato, vedi template), nasconderla sarebbe un falso
-// "tutto fatto".
-const richieste = computed(() =>
-  Object.entries(raw.value)
-    .map(([id, r]) => ({ id, ...r }))
-    .sort((a, b) => new Date(b.creata) - new Date(a.creata))
-    .slice(0, 4)
-)
-
 onMounted(() => {
   carica()
-  // Stesso intervallo di polling di AgenteView.vue: la sidebar può restare
-  // montata per tutta la sessione (non ricompare ad ogni navigazione come la
-  // view), quindi ha bisogno di un refresh proprio per non mostrare una
-  // richiesta "in attesa" che altrove (AgenteView aperta in un'altra scheda,
-  // o /zorbadice eseguito nel frattempo) è già stata risposta.
-  pollTimer = setInterval(carica, 30000)
+  // La sidebar può restare montata per tutta la sessione: il polling serve a mostrare
+  // le risposte arrivate in un'altra scheda o su un altro dispositivo.
+  pollTimer = setInterval(carica, 60000)
 })
 onUnmounted(() => { if (pollTimer) clearInterval(pollTimer) })
 </script>

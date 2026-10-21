@@ -20,11 +20,11 @@
 
     <!-- Banner token mancante (globale) -->
     <Transition name="page">
-      <div v-if="!tokenOk && mostraBanner"
+      <div v-if="!tokenOk && mostraBanner && route.name === 'gallery'"
         style="position:sticky;top:0;z-index:100;background:var(--gold-pale);border-bottom:1px solid var(--gold-light);padding:10px 16px;display:flex;align-items:center;gap:10px;">
         <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;" />
-        <p style="font-size:12px;color:var(--gold-dark);flex:1;">Token GitHub non configurato — le modifiche non verranno salvate.</p>
-        <RouterLink to="/agente" style="font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;">Configura →</RouterLink>
+        <p style="font-size:12px;color:var(--gold-dark);flex:1;">Token GitHub non configurato: serve per caricare foto nella galleria.</p>
+        <RouterLink to="/account" style="font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;">Configura →</RouterLink>
         <button @click="mostraBanner = false" style="background:none;border:none;color:var(--gold-dark);cursor:pointer;font-size:16px;line-height:1;">×</button>
       </div>
     </Transition>
@@ -60,12 +60,14 @@ import StatusBar from '@/components/StatusBar.vue'
 import ZorbaDiceSidebar from '@/components/ZorbaDiceSidebar.vue'
 import Icon      from '@/components/Icon.vue'
 import { ref, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useApi } from '@/composables/useApi'
 import { useAuth } from '@/composables/useAuth'
 import { useTema } from '@/composables/useTema'
 
 const store = useDatiStore()
+const route = useRoute()
 const { isAutenticato } = useApi()
 const { utente, caricamento, recuperoInCorso } = useAuth()
 const { riconciliaConSettings } = useTema()
