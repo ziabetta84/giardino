@@ -18,10 +18,12 @@ export async function eseguiCiclo({ chiama, richiesta, eseguiStrumento, emetti, 
     })
     risposte.push(msg)
     if (msg.stop_reason === 'tool_use' && passo < maxPassaggi) {
+      const toolBlocks = msg.content.filter(b => b.type === 'tool_use')
+      if (toolBlocks.length === 0) return { esito: 'errore', codice: 'interno', testo: null, risposte, strumenti }
       if (testoMostrato) emetti('annulla_testo', {})
       messages.push({ role: 'assistant', content: msg.content })
       const risultati = []
-      for (const b of msg.content.filter(b => b.type === 'tool_use')) {
+      for (const b of toolBlocks) {
         emetti('stato', { t: ETICHETTE_STATO[b.name] ?? 'ci penso…' })
         const r = await eseguiStrumento(b.name, b.input, b)
         strumenti.push({ nome: b.name, errore: r.errore })
@@ -31,6 +33,8 @@ export async function eseguiCiclo({ chiama, richiesta, eseguiStrumento, emetti, 
       continue
     }
     if (msg.stop_reason === 'pause_turn') {
+      if (!msg.content || msg.content.length === 0) return { esito: 'errore', codice: 'interno', testo: null, risposte, strumenti }
+      if (passo >= maxPassaggi) return { esito: 'errore', codice: 'interno', testo: null, risposte, strumenti }
       messages.push({ role: 'assistant', content: msg.content })
       continue
     }

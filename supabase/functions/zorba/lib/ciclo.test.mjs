@@ -52,7 +52,7 @@ test('all\'ultimo passaggio tool_choice none', async () => {
 })
 
 test('pause_turn riprende, refusal e max_tokens sono errori', async () => {
-  let c = chiamaDa([msg('pause_turn', []), msg('end_turn', [testo('ok')])])
+  let c = chiamaDa([msg('pause_turn', [testo('…')]), msg('end_turn', [testo('ok')])])
   assert.equal((await eseguiCiclo({ chiama: c.chiama, richiesta: { messages: [] }, eseguiStrumento: null, emetti: () => {} })).testo, 'ok')
   c = chiamaDa([msg('refusal', [])])
   const rif = await eseguiCiclo({ chiama: c.chiama, richiesta: { messages: [] }, eseguiStrumento: null, emetti: () => {} })
@@ -64,4 +64,24 @@ test('pause_turn riprende, refusal e max_tokens sono errori', async () => {
 test('risposta finale vuota: errore', async () => {
   const c = chiamaDa([msg('end_turn', [])])
   assert.equal((await eseguiCiclo({ chiama: c.chiama, richiesta: { messages: [] }, eseguiStrumento: null, emetti: () => {} })).esito, 'errore')
+})
+
+test('pause_turn oltre maxPassaggi: errore', async () => {
+  const risposte = Array.from({ length: 4 }, () => msg('pause_turn', [testo('…')]))
+  const { chiama, ricevute } = chiamaDa(risposte)
+  const r = await eseguiCiclo({ chiama, richiesta: { messages: [] }, eseguiStrumento: null, emetti: () => {}, maxPassaggi: 3 })
+  assert.deepEqual([r.esito, r.codice], ['errore', 'interno'])
+  assert.equal(ricevute.length, 4, 'deve fare al massimo 4 chiamate (passi 0-3)')
+})
+
+test('pause_turn vuota: errore', async () => {
+  const c = chiamaDa([msg('pause_turn', [])])
+  const r = await eseguiCiclo({ chiama: c.chiama, richiesta: { messages: [] }, eseguiStrumento: null, emetti: () => {} })
+  assert.deepEqual([r.esito, r.codice], ['errore', 'interno'])
+})
+
+test('tool_use senza blocchi strumenti: errore', async () => {
+  const c = chiamaDa([msg('tool_use', [testo('Vediamo…')])])
+  const r = await eseguiCiclo({ chiama: c.chiama, richiesta: { messages: [] }, eseguiStrumento: null, emetti: () => {} })
+  assert.deepEqual([r.esito, r.codice], ['errore', 'interno'])
 })
