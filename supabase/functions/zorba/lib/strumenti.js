@@ -39,12 +39,12 @@ const TAG_AMMESSI = new Set(['p', 'b', 'strong', 'i', 'em'])
 // script e style tolto insieme ai tag.
 export function pulisciHtml(html) {
   return String(html ?? '')
-    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, (m) => m.replace(/<[^>]*>/g, ''))
-    .replace(/<\/?([a-z0-9]+)\b[^>]*>/gi, (tag, nome) => {
-      const n = nome.toLowerCase()
-      if (!TAG_AMMESSI.has(n)) return ''
-      return tag.startsWith('</') ? `</${n}>` : `<${n}>`
-    })
+    .replace(/[\uE000\uE001]/g, '')
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+    // tag ammessi: via gli attributi, minuscolo
+    .replace(/<(\/?)(p|b|strong|i|em)\b[^<>]*>/gi, (_, c, n) => `\uE000${c}${n.toLowerCase()}\uE001`)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/(\/?)(p|b|strong|i|em)/g, '<$1$2>')
 }
 
 // Stessa precedenza di useIrrigazioneAuto.js: pianta, poi sottozona, poi zona, poi giardino.
@@ -81,7 +81,7 @@ const ESEGUI = {
     const programma = programmaPerPianta(programmi, p)
     const cure = [...tipiCuraPianta(p, voce), 'potatura'].map(tipo => {
       const v = valutaCura(p, voce, tipo, { programmaAutomatico: tipo === 'irrigazione' ? programma : null })
-      return { tipo, ultima: p.ultima_cura?.[tipo] ?? null, in_ritardo: v.urgente, stato: v.label }
+      return { tipo, ultima: p.ultima_cura?.[tipo] ?? null, giorni_trascorsi: Number.isFinite(v.trascorsi) ? v.trascorsi : null, in_ritardo: v.urgente, stato: v.label }
     })
     return { id: p.id, nome: voce.nome ?? null, nome_scientifico: voce.specie ?? null, zona: p.zone?.nome ?? null, sottozona: p.sottozone?.nome ?? null,
       coltivato_in: p.coltivato_in, varieta: p.varieta, impianto: p.impianto ?? p.impianto_circa, note: p.note,
@@ -122,15 +122,25 @@ const ESEGUI = {
   async conversazioni_precedenti({ testo }, { db, filo }) {
     const parole = String(testo).replace(/[%_\\]/g, ' ').trim().slice(0, 100)
     if (parole.length < 3) return []
-    const righe = controlla(await db.from('zorba_messaggi').select('filo_id, ruolo, testo, creato')
-      .ilike('testo', `%${parole}%`).neq('filo_id', filo.id ?? '').order('creato', { ascending: false }).limit(20))
-    const visti = new Map()
+    let q = db.from('zorba_messaggi').select('filo_id, creato').ilike('testo', `%${parole}%`)
+    if (filo.id) q = q.neq('filo_id', filo.id)
+    const righe = controlla(await q.order('creato', { ascending: false }).limit(20))
+    const ids = []
     for (const r of righe) {
-      if (r.filo_id === filo.id || visti.has(r.filo_id)) continue
-      visti.set(r.filo_id, { filo_id: r.filo_id, data: r.creato.slice(0, 10), chi: r.ruolo, estratto: r.testo.slice(0, 300) })
-      if (visti.size === 5) break
+      if (r.filo_id === filo.id || ids.includes(r.filo_id)) continue
+      ids.push(r.filo_id)
+      if (ids.length === 5) break
     }
-    return [...visti.values()]
+    if (!ids.length) return []
+    const fili = controlla(await db.from('zorba_fili').select('id, tipo, creato, zorba_messaggi(ruolo, testo, esito, creato)').in('id', ids))
+    const perId = new Map(fili.map(f => [f.id, f]))
+    return ids.filter(id => perId.has(id)).map(id => {
+      const f = perId.get(id)
+      const msg = [...(f.zorba_messaggi ?? [])].sort((x, y) => String(x.creato).localeCompare(String(y.creato)))
+      const domanda = msg.find(m => m.ruolo === 'utente')
+      const risposta = msg.find(m => m.ruolo === 'zorba' && m.esito === 'completata')
+      return { filo_id: id, data: String(f.creato ?? '').slice(0, 10), tipo: f.tipo, domanda: domanda ? domanda.testo.slice(0, 300) : null, risposta: risposta ? risposta.testo.slice(0, 300) : null }
+    })
   },
   async salva_piano({ descrizione, zona, tappe, esiti }, ctx) {
     if (ctx.filo.tipo !== 'pianifica_progetto') throw new Error('salva_piano si usa solo nei fili pianifica_progetto')

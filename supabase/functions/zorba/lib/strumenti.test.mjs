@@ -33,8 +33,8 @@ test('definizioni: ordine fisso, strict, nessuno strumento che cancella', () => 
 
 test('pulisciHtml lascia solo p, b, strong, i, em senza attributi', () => {
   assert.equal(pulisciHtml('<p class="x">Ciao <b>forte</b> <img src=x onerror=alert(1)><script>alert(1)</script></p>'),
-    '<p>Ciao <b>forte</b> alert(1)</p>')
-  assert.equal(pulisciHtml('<P><EM>a</EM></P><a href="javascript:x">b</a>'), '<p><em>a</em></p>b')
+    '<p>Ciao <b>forte</b> &lt;img src=x onerror=alert(1)&gt;</p>') // i tag non ammessi diventano testo escapato, non si perdono
+  assert.equal(pulisciHtml('<P><EM>a</EM></P><a href="javascript:x">b</a>'), '<p><em>a</em></p>&lt;a href="javascript:x"&gt;b&lt;/a&gt;')
 })
 
 test('programma di irrigazione: pianta, poi sottozona, poi zona, poi giardino', () => {
@@ -82,13 +82,41 @@ test('salva_piano: progetto del filo, HTML pulito, collegamento del progetto nuo
   assert.deepEqual(eventi[0], ['progetto', { id: 'P9', titolo: 'Talee' }])
 })
 
-test('conversazioni precedenti esclude il filo corrente', async () => {
-  const db = dbFinto({ zorba_messaggi: [
-    { filo_id: 'f1', ruolo: 'utente', testo: 'foglie gialle', creato: '2026-10-01' },
-    { filo_id: 'f0', ruolo: 'utente', testo: 'foglie gialle sul limone', creato: '2026-09-01' }] })
+test('conversazioni precedenti esclude il filo corrente e dà domanda e risposta', async () => {
+  const db = dbFinto({
+    zorba_messaggi: [
+      { filo_id: 'f1', creato: '2026-10-01' },
+      { filo_id: 'f0', creato: '2026-09-01' }],
+    zorba_fili: [{ id: 'f0', tipo: 'diagnosi', creato: '2026-09-01T08:00:00Z', zorba_messaggi: [
+      { ruolo: 'zorba', testo: 'Carenza di ferro', esito: 'completata', creato: '2026-09-01T08:01:00Z' },
+      { ruolo: 'utente', testo: 'foglie gialle sul limone', esito: null, creato: '2026-09-01T08:00:00Z' }] }],
+  })
   const r = await eseguiStrumento('conversazioni_precedenti', { testo: 'foglie gialle' }, ctxBase(db))
   const j = JSON.parse(r.contenuto)
-  assert.deepEqual(j.map(x => x.filo_id), ['f0'])
+  assert.equal(j.length, 1)
+  assert.deepEqual(j[0], { filo_id: 'f0', data: '2026-09-01', tipo: 'diagnosi', domanda: 'foglie gialle sul limone', risposta: 'Carenza di ferro' })
+  const qm = db.chiamate.filter(c => c[0] === 'from')
+  assert.deepEqual(qm.map(c => c[1]), ['zorba_messaggi', 'zorba_fili'])
+})
+
+test('pulisciHtml: nessun tag non ammesso sopravvive a nidificazioni e tag non chiusi', () => {
+  for (const x of ['<<x>img src=x onerror=alert(1)>', '<img src=x onerror=alert(1)', '<scr<script>x</script>ipt>alert(1)</script>']) {
+    const out = pulisciHtml(x)
+    assert.ok(!/<img/i.test(out) && !/<script/i.test(out), out)
+    assert.ok(!/<(?!\/?(p|b|strong|i|em)>)/i.test(out), out)
+  }
+})
+
+test('pianta: giorni trascorsi per ogni cura', async () => {
+  const stag = { primavera: 'ogni 10 giorni', estate: 'ogni 10 giorni', autunno: 'ogni 10 giorni', inverno: 'ogni 10 giorni' }
+  const db = dbFinto({
+    piante: [{ id: 'p1', taxon_id: 'T', cultivar_id: null, coltivato_in: 'vaso', ultima_cura: { concimazione: '2026-04-01' } }],
+    'rpc:catalogo_voci': { data: { 't:T': { nome: 'Rosa', manutenzione: { concimazione: stag, irrigazione: stag } } }, error: null },
+    programmi_irrigazione: [],
+  })
+  const j = JSON.parse((await eseguiStrumento('pianta', { id: 'p1' }, ctxBase(db))).contenuto)
+  const c = j.cure.find(x => x.tipo === 'concimazione')
+  assert.equal(typeof c.giorni_trascorsi, 'number')
 })
 
 test('strumento sconosciuto o errore del database: risultato di errore, non eccezione', async () => {
