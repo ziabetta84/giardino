@@ -454,6 +454,13 @@
         <path fill="var(--acqua)" d="M240,192h-8V98.67a16,16,0,0,0-7.12-13.31l-88-58.67a16,16,0,0,0-17.75,0l-88,58.67A16,16,0,0,0,24,98.67V192H16a8,8,0,0,0,0,16H240a8,8,0,0,0,0-16ZM136,128h56v24H136Zm-16,24H64V128h56ZM64,168h56v24H64Zm72,0h56v24H136Z"/>
         <g clip-path="url(#clip-zona-garage)"><ellipse cx="128" cy="160" rx="72" ry="38" fill="var(--acqua-dark)" opacity="0.3"/></g>
       </symbol>
+      <!-- Pollici (Zorba dice): icone al tratto, colore del testo. -->
+      <symbol id="i-pollice-su" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M7 11v9H4v-9h3Zm0 0 4-7c1.5 0 2.5 1 2.2 2.6L12.8 10H18a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 17 20H7"/>
+      </symbol>
+      <symbol id="i-pollice-giu" viewBox="0 0 24 24">
+        <path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 12 12)" d="M7 11v9H4v-9h3Zm0 0 4-7c1.5 0 2.5 1 2.2 2.6L12.8 10H18a2 2 0 0 1 2 2.3l-1 6A2 2 0 0 1 17 20H7"/>
+      </symbol>
     </defs>
   </svg>
 </template>
