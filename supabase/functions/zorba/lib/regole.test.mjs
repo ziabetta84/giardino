@@ -11,7 +11,7 @@ test('il prompt contiene tono, ambito e una procedura per ogni tipo, senza istru
   const procedure = Object.fromEntries(TIPI.map(t => [t, leggi(`${t}.md`)]))
   const s = componiSistema({ tono: leggi('tono.md'), ambito: leggi('ambito.md'), procedure })
   for (const t of TIPI) assert.match(s, new RegExp(`Procedura \`${t}\``))
-  for (const vietato of ['execute_sql', 'apply_migration', 'richieste-agente.json', 'PlantNet', 'PLANTNET_API_KEY', 'commit', 'risposta.messaggio']) {
+  for (const vietato of ['execute_sql', 'apply_migration', 'richieste-agente.json', 'PlantNet', 'PLANTNET_API_KEY', 'commit', 'risposta.messaggio', 'Open-Meteo', 'nel form']) {
     assert.equal(s.includes(vietato), false, `il prompt contiene «${vietato}»`)
   }
   assert.deepEqual(FILE_REGOLE.sort(), ['ambito.md', 'tono.md', ...TIPI.map(t => `${t}.md`)].sort())

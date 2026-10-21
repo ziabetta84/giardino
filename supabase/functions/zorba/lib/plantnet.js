@@ -10,7 +10,7 @@ export async function riscontroPlantNet({ tipo, fotoBytes, chiave, fetch }) {
     const foto = new Blob([fotoBytes], { type: 'image/jpeg' })
     let url
     if (tipo === 'identifica_specie') {
-      url = `https://my-api.plantnet.org/v2/identify/all?api-key=${encodeURIComponent(chiave)}&lang=it&nb-results=5`
+      url = `https://my-api.plantnet.org/v2/identify/all?api-key=${encodeURIComponent(chiave)}&lang=it&nb-results=5&type=kt`
       form.append('images', foto, 'foto.jpg')
     } else {
       url = `https://my-api.plantnet.org/v2/diseases/identify?api-key=${encodeURIComponent(chiave)}&lang=it`
