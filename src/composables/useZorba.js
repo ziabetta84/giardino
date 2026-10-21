@@ -31,10 +31,10 @@ export function useZorba() {
       .order('aggiornato', { ascending: false })
     if (error) throw error
     return data.map(({ zorba_messaggi: m, ...f }) => {
-      const ordinati = [...m].sort((a, b) => a.creato.localeCompare(b.creato))
+      const ordinati = [...m].sort((a, b) => new Date(a.creato) - new Date(b.creato))
       const ultimaZorba = ordinati.filter(x => x.ruolo === 'zorba' && x.esito === 'completata').at(-1)
       return { ...f, primo_testo: ordinati.find(x => x.ruolo === 'utente')?.testo ?? null,
-        nuova_risposta: !!ultimaZorba && (!f.ultima_lettura || ultimaZorba.creato > f.ultima_lettura) }
+        nuova_risposta: !!ultimaZorba && (!f.ultima_lettura || new Date(ultimaZorba.creato) > new Date(f.ultima_lettura)) }
     })
   }
 
@@ -56,11 +56,31 @@ export function useZorba() {
     const r = await chiamata('POST', '', corpo)
     const lettore = r.body.getReader()
     const decodifica = new TextDecoder()
-    const leggi = creaLettoreSSE(onEvento)
-    for (;;) {
-      const { value, done } = await lettore.read()
-      if (done) break
-      leggi(decodifica.decode(value, { stream: true }))
+    let concluso = false
+    const leggi = creaLettoreSSE((nome, dati) => {
+      if (nome === 'fine' || nome === 'errore') concluso = true
+      onEvento(nome, dati)
+    })
+    let finito = false
+    try {
+      for (;;) {
+        const { value, done } = await lettore.read()
+        if (done) break
+        leggi(decodifica.decode(value, { stream: true }))
+      }
+      finito = true
+    } catch (err) {
+      if (err?.codice) throw err
+      const e = new Error('La risposta si è interrotta: riprova.')
+      e.codice = 'interrotto'
+      throw e
+    } finally {
+      if (!finito) lettore.cancel().catch(() => {})
+    }
+    if (!concluso) {
+      const e = new Error('La risposta si è interrotta: riprova.')
+      e.codice = 'interrotto'
+      throw e
     }
   }
 

@@ -38,6 +38,7 @@
       <div v-if="foto" class="agente-foto-preview">
         <img :src="foto.anteprima" alt="Anteprima"><button type="button" aria-label="Rimuovi foto" @click="foto = null">×</button>
       </div>
+      <p v-if="erroreFoto" class="zf__errore">{{ erroreFoto }}</p>
       <div class="reqbar">
         <span class="ph">
           <Icon name="fotocamera" />
@@ -72,6 +73,7 @@ const CLASSI_SEGN = { in_attesa: 'badge-gold', accolta: 'badge-ok', non_accolta:
 
 const testo = ref('')
 const foto = ref(null)
+const erroreFoto = ref('')
 
 // Una risposta rimasta "in corso" da più di 3 minuti (funzione interrotta) vale come errore, come per il server
 const scaduto = (m) => m.esito === 'in_corso' && m.id !== props.inCorso?.id && Date.now() - new Date(m.creato).getTime() > 180_000
@@ -83,7 +85,13 @@ const puoRispondere = computed(() => !props.filo.importato && !props.bloccato &&
 async function scegliFoto(e) {
   const f = e.target.files?.[0]
   e.target.value = ''
-  if (f) foto.value = await ridimensionaFoto(f)
+  erroreFoto.value = ''
+  if (!f) return
+  try {
+    foto.value = await ridimensionaFoto(f)
+  } catch {
+    erroreFoto.value = 'Non riesco a leggere questa foto: prova con un\'altra.'
+  }
 }
 
 function invia() {
