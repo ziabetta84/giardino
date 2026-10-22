@@ -46,4 +46,4 @@ select f.tipo, m.modello_effettivo, count(*) risposte, sum(m.costo_usd) spesa, a
 select owner_id, count(*) from zorba_consumi where creato >= date_trunc('month', now() at time zone 'Europe/Rome') at time zone 'Europe/Rome' group by 1 order by 2 desc;
 ```
 
-Segnala: utenti al tetto, prove gratuite esaurite, errori ripetuti (leggi i log della funzione con MCP `get_logs` servizio `edge-function`), spesa vicina al tetto globale.
+Segnala: utenti al tetto, prove gratuite esaurite, errori ripetuti (leggi i log della funzione con MCP `query_logs` servizio `edge-function`), spesa vicina al tetto globale.
