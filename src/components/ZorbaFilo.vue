@@ -10,13 +10,14 @@
       <div class="zf__bolla" :ref="(el) => { if (m.id === inCorso?.id) bollaInCorso = el }">
         <img v-if="m.foto_url" :src="m.foto_url" class="zf__foto" alt="Foto allegata">
         <template v-if="m.ruolo === 'zorba' && m.id === inCorso?.id">
-          <p v-if="inCorso.testo" class="zf__testo">{{ inCorso.testo }}<span class="zf__cursore" aria-hidden="true"></span></p>
+          <p v-if="inCorso.testo" class="zf__testo"><template v-for="(p, i) in pezziGrassetto(inCorso.testo)" :key="i"><b v-if="p.b">{{ p.t }}</b><template v-else>{{ p.t }}</template></template><span class="zf__cursore" aria-hidden="true"></span></p>
           <ZorbaPensa v-else :stato="inCorso.stati.at(-1) ?? null" />
         </template>
         <template v-else-if="m.ruolo === 'zorba' && (m.esito === 'errore' || scaduto(m))">
           <p class="zf__errore">Questa risposta non è riuscita.</p>
           <button v-if="!filo.importato" type="button" class="btn btn-ghost zf__riprova" @click="emit('riprova')">Riprova</button>
         </template>
+        <p v-else-if="m.testo && m.ruolo === 'zorba'" class="zf__testo"><template v-for="(p, i) in pezziGrassetto(m.testo)" :key="i"><b v-if="p.b">{{ p.t }}</b><template v-else>{{ p.t }}</template></template></p>
         <p v-else-if="m.testo" class="zf__testo">{{ m.testo }}</p>
         <p v-else-if="m.ruolo === 'utente' && !m.foto_url" class="zf__testo zf__vuoto">(nessun testo)</p>
         <ZorbaPollici v-if="m.ruolo === 'zorba' && m.esito === 'completata' && !filo.importato" :messaggio="m"
@@ -57,6 +58,7 @@ import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ZorbaPollici from '@/components/ZorbaPollici.vue'
 import ZorbaAvviso from '@/components/ZorbaAvviso.vue'
 import ZorbaFotoScelta from '@/components/ZorbaFotoScelta.vue'
+import { pezziGrassetto } from '@/utils/grassetto'
 
 const props = defineProps({
   filo: { type: Object, required: true },
@@ -127,6 +129,7 @@ defineExpose({ svuota })
 .zf__m--utente .zf__bolla { background: var(--sage-pale); }
 .zf__m--zorba .zf__bolla { background: var(--cream); border: 1px solid var(--cream-dark); }
 .zf__testo { font: 400 13.5px/1.6 var(--font-sans); color: var(--ink); white-space: pre-wrap; margin: 0; }
+.zf__testo b { font-weight: 600; }
 .zf__vuoto { color: var(--ink-soft); }
 .zf__cursore { display: inline-block; width: 7px; height: 7px; margin-left: 4px; border-radius: 50%; background: var(--sage); vertical-align: middle; animation: zf-cursore 1.1s ease-in-out infinite; }
 @keyframes zf-cursore { 0%, 100% { opacity: .25; transform: scale(.7); } 50% { opacity: 1; transform: scale(1); } }
