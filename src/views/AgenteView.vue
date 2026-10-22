@@ -130,7 +130,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useZorba } from '@/composables/useZorba'
@@ -405,13 +405,23 @@ async function confermaEliminazione() {
   }
 }
 
-onMounted(async () => {
-  await Promise.all([store.caricaTutto(), caricaFili(), aggiornaStato()])
-  // Arrivo dalla colonna laterale (ZorbaDiceSidebar.vue, ?filo=<id>): apre quel filo. replace per non lasciare
-  // l'id in cronologia. I vecchi link ?id=richiesta-… non trovano nulla e lasciano la pagina com'è.
+// Arrivo dalla colonna laterale (ZorbaDiceSidebar.vue, ?filo=<id>): apre quel filo, anche quando la pagina è già
+// aperta (il router la riusa e cambia solo la query, quindi onMounted non basta). replace per non lasciare l'id in
+// cronologia. I vecchi link ?id=richiesta-… non trovano nulla e lasciano la pagina com'è.
+let caricata = false
+async function apriDaQuery() {
+  if (!caricata) return
   const id = route.query.filo
+  if (id && !fili.value.some(f => f.id === id)) await caricaFili() // filo nato dopo l'ultimo caricamento
   if (id && fili.value.some(f => f.id === id)) await apriFilo(id)
   if (route.query.filo || route.query.id) router.replace({ path: route.path })
+}
+watch(() => route.query.filo, apriDaQuery)
+
+onMounted(async () => {
+  await Promise.all([store.caricaTutto(), caricaFili(), aggiornaStato()])
+  caricata = true
+  await apriDaQuery()
 })
 </script>
 
