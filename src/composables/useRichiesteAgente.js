@@ -12,7 +12,7 @@ export const TIPI_RICHIESTA = [
   { value: 'consiglio_concimazione', label: 'Consiglio concimazione',    icon: 'concimazione',  hint: 'Zorba suggerisce quale concime della dispensa usare e con che dose.' },
   { value: 'diagnosi',               label: 'Diagnosi problema',         icon: 'cerca',         hint: 'Foto o descrizione di un problema: Zorba prova a capire cosa non va.' },
   { value: 'pianifica_progetto',     label: 'Pianifica progetto',        icon: 'lampadina',     hint: 'Descrivi cosa vuoi fare: Zorba genera le tappe con le date attese.' },
-  { value: 'altro',                  label: 'Altro',                     icon: null,            hint: 'Qualcosa che non rientra nelle altre categorie.' },
+  { value: 'altro',                  label: 'Altro',                     icon: null,            hint: 'Qualsiasi altra domanda sul tuo giardino: per esempio cosa seminare questo mese, o come proteggere i vasi dal gelo.' },
 ]
 const TIPI_MAP = Object.fromEntries(TIPI_RICHIESTA.map(t => [t.value, t]))
 

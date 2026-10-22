@@ -259,8 +259,8 @@ defineExpose({ reagisci, confermaCura, scodinzola })
   stroke-width: 5;
   stroke-linejoin: round;
   stroke-linecap: round;
-  stroke: #d4b23c;
-  fill: #d4b23c;
+  stroke: var(--gold);
+  fill: var(--gold);
   fill-opacity: 0;
 }
 .zorba-logo :deep(#tail) { transform-origin: 131px 267px; }

@@ -19,7 +19,7 @@ Gestire un giardino reale nel tempo: sapere cosa c'è, dove si trova, di cosa ha
 Il valore è nella combinazione di due cose che raramente stanno insieme in un'app di giardinaggio generica:
 
 1. **Cure automatiche da catalogo specie** — un catalogo condiviso di migliaia di specie con profili di manutenzione stagionale (irrigazione, concimazione, potatura) che, incrociato con le piante reali del giardino dell'utente e la stagione corrente, calcola in automatico le urgenze di cura (`useCure.js`), invece di lasciare all'utente il calcolo a memoria.
-2. **Assistente AI integrato nel flusso di cura reale** — una coda di richieste (identificazione specie da foto, diagnosi, consigli di cura/concimazione, pianificazione progetti) elaborata da un agente AI che scrive risposte e aggiornamenti strutturati (specie, progetti/tappe) direttamente nei dati del giardino dell'utente, non un chatbot separato scollegato dai dati.
+2. **Assistente AI integrato nel flusso di cura reale** — Zorba dice: richieste per tipo (identificazione specie da foto, diagnosi, consigli di cura/concimazione, pianificazione progetti, segnalazioni sulle schede) a cui Zorba risponde in app, in streaming, leggendo le piante, le cure registrate, la dispensa e il meteo dell'utente, e scrivendo le tappe direttamente nei suoi progetti: non un chatbot separato scollegato dai dati.
 
 Non è un quaderno di appunti né un'app di identificazione piante generica: è uno strumento operativo legato a un giardino specifico, con dati e intelligenza applicati sopra quel giardino.
 
@@ -36,7 +36,7 @@ Non è un quaderno di appunti né un'app di identificazione piante generica: è 
 - Progetti con tappe (milestones) che calcolano una scadenza dal progresso reale, non solo date fisse.
 - Dispensa concimi con abbinamento concime↔pianta per distanza NPK normalizzata.
 - Galleria foto per pianta, organizzata per cartelle.
-- Coda di richieste AI (`richieste-agente.json`) ancora su GitHub/JSON, elaborata manualmente via comando `/zorbadice`, non in tempo reale: le risposte non sono istantanee.
+- Zorba dice risponde subito (Edge Function Supabase), in conversazioni di al più 3 repliche; risposte limitate: 3 di prova per chi non è abbonato, 30 al mese per gli abbonati. Le segnalazioni sulle schede le decide il curatore con `/zorbadice`.
 - Catalogo specie è condiviso fra tutti gli utenti in sola lettura (nessuna scrittura pubblica); zone/sottozone/piante/progetti/tappe/concimi/impostazioni sono privati per utente (RLS).
 - Contenuti e interfaccia interamente in italiano.
 - Deploy statico su GitHub Pages (routing hash-based): nessun backend proprio oltre Supabase.

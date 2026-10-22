@@ -14,12 +14,7 @@
     <!-- Nuova richiesta: contenuto centrale finché non si apre una risposta dallo storico -->
     <div v-if="!filo" class="agente-nuova">
       <p class="slabel">Nuova richiesta</p>
-      <div v-if="!online" class="agente-avviso">Sei offline: lo storico resta consultabile, per scrivere a Zorba serve la connessione.</div>
-      <div v-else-if="inPausa" class="agente-avviso">Zorba è in pausa in questo momento: riprova più tardi.</div>
-      <div v-else-if="esaurite && statoZorba.tipo_tetto === 'prova'" class="agente-avviso">
-        <b>Hai usato le risposte di prova.</b> Zorba è riservato agli abbonati: chiedi l'abbonamento a chi gestisce l'app.
-      </div>
-      <div v-else-if="esaurite" class="agente-avviso">Hai usato tutte le risposte di questo mese: si riparte il {{ ripartenza }}.</div>
+      <ZorbaAvviso :motivo="blocco" :ripartenza="ripartenza" :con-storico="fili.length > 0" @storico="storicoAperto = true" />
 
       <template v-if="!bloccato">
 
@@ -44,35 +39,18 @@
            anche qui non serve una foto. -->
       <div v-else-if="nuovoTipo === 'pianifica_progetto'" class="agente-extra">
         <select v-model="progettoSelezionato" class="form-input" style="margin-bottom:8px;">
-          <option value="">➕ Nuovo progetto</option>
+          <option value="">Nuovo progetto…</option>
           <option v-for="p in progettiEsistenti" :key="p.id" :value="p.id">{{ p.titolo }}</option>
         </select>
         <input v-if="!progettoSelezionato" v-model="nuovoProgettoTitolo" placeholder="Titolo del nuovo progetto" class="form-input">
       </div>
 
       <div class="reqbox">
-        <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio" rows="3"></textarea>
+        <textarea v-model="nuovoMessaggio" :placeholder="placeholderMessaggio" rows="3" maxlength="4000"
+          aria-label="Messaggio per Zorba" @keydown.enter.meta.prevent="aggiungiRichiesta" @keydown.enter.ctrl.prevent="aggiungiRichiesta"></textarea>
 
-        <!-- Anteprima della foto selezionata -->
-        <div v-if="foto && !SENZA_FOTO.includes(nuovoTipo)" class="agente-foto-preview">
-          <img :src="foto.anteprima" alt="Anteprima della foto selezionata">
-          <button type="button" @click="foto = null" aria-label="Rimuovi foto">×</button>
-        </div>
-
-        <div class="reqbar">
-          <!-- Due input separati (libreria / fotocamera): su alcuni telefoni
-               Android un input "accept=image/*" senza capture viene comunque
-               risolto verso la fotocamera, saltando la scelta della libreria.
-               Un input dedicato a ciascuna sorgente evita l'ambiguità. -->
-          <span v-if="!foto && !SENZA_FOTO.includes(nuovoTipo)" class="ph">
-            <Icon name="fotocamera" />
-            <label class="agente-foto-btn">Libreria
-              <input type="file" accept="image/*" @change="selezionaFoto" hidden>
-            </label>
-            <label class="agente-foto-btn">Fotocamera
-              <input type="file" accept="image/*" capture="environment" @change="selezionaFoto" hidden>
-            </label>
-          </span>
+        <div class="reqbar agente-bar">
+          <ZorbaFotoScelta v-if="!SENZA_FOTO.includes(nuovoTipo)" v-model:foto="foto" @errore="(m) => errore = m" />
           <span v-else></span>
 
           <button type="button" class="reqsend" @click="aggiungiRichiesta"
@@ -82,9 +60,9 @@
         </div>
       </div>
 
-      <p v-if="!foto && !SENZA_FOTO.includes(nuovoTipo)" class="agente-hint">
-        JPG, PNG o HEIC: la foto viene ridotta prima dell'invio<span v-if="nuovoTipo === 'identifica_specie'"> · obbligatoria per identificare la specie</span>
-      </p>
+      <!-- Cosa manca per inviare (Invia disattivato non lo dice da solo); altrimenti com'è trattata la foto -->
+      <p v-if="mancaPerInviare" class="agente-hint agente-hint--manca">{{ mancaPerInviare }}</p>
+      <p v-else-if="!foto && !SENZA_FOTO.includes(nuovoTipo)" class="agente-hint">JPG, PNG o HEIC: la foto viene ridotta prima dell'invio.</p>
 
       <p v-if="rigaRimaste" class="agente-hint">{{ rigaRimaste }}</p>
       </template>
@@ -107,8 +85,9 @@
       </div>
       <p class="agente-dettaglio-data">{{ formatData(filo.creato) }}</p>
       <p v-if="filo.voce" class="agente-dettaglio-specie">{{ titoloFilo(filo, store) }}</p>
-      <ZorbaFilo ref="filoRef" :filo="filo" :messaggi="messaggi" :in-corso="inCorso" :progetto="progettoDelFilo" :bloccato="bloccato"
-        @rispondi="rispondi" @riprova="riprova" @vota="vota" @nuova="tornaANuova" />
+      <ZorbaFilo ref="filoRef" :filo="filo" :messaggi="messaggi" :in-corso="inCorso" :progetto="progettoDelFilo"
+        :blocco="blocco" :ripartenza="ripartenza" :consumo="rigaConsumo"
+        @rispondi="rispondi" @riprova="riprova" @vota="vota" @nuova="tornaANuova" @storico="storicoAperto = true" />
       <div v-if="errore" class="agente-errore"><Icon name="campanella" />{{ errore }}</div>
     </div>
 
@@ -129,7 +108,7 @@
               </div>
               <div class="feed__d">{{ formatData(f.aggiornato) }}</div>
             </div>
-            <button type="button" class="feed__del" aria-label="Elimina conversazione" @click.stop="daEliminare = f.id">×</button>
+            <button type="button" class="feed__del" aria-label="Elimina conversazione" @click.stop="daEliminare = f.id"><Icon name="cestino" /></button>
           </div>
         </div>
         <div v-else class="empty">
@@ -155,7 +134,6 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useZorba } from '@/composables/useZorba'
-import { ridimensionaFoto } from '@/utils/foto'
 import SelettoreSpecie from '@/components/SelettoreSpecie.vue'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
@@ -163,6 +141,8 @@ import Spinner from '@/components/Spinner.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import ZorbaFilo from '@/components/ZorbaFilo.vue'
+import ZorbaAvviso from '@/components/ZorbaAvviso.vue'
+import ZorbaFotoScelta from '@/components/ZorbaFotoScelta.vue'
 import { infoTipo, titoloFilo, formatData } from '@/composables/useRichiesteAgente'
 
 const store = useDatiStore()
@@ -202,7 +182,7 @@ const eliminando = ref(false)
 const GRUPPI_TIPO = [
   { label: 'Specie', tipi: ['identifica_specie', 'segnalazione_scheda'] },
   { label: 'Cura', tipi: ['consiglio_cura', 'consiglio_concimazione', 'diagnosi'] },
-  { label: 'Varie', tipi: ['pianifica_progetto', 'altro'] },
+  { label: 'Progetti e altro', tipi: ['pianifica_progetto', 'altro'] },
 ]
 const SENZA_FOTO = ['segnalazione_scheda', 'pianifica_progetto']
 
@@ -229,16 +209,26 @@ const ripartenza = computed(() => {
   const d = new Date(); d.setMonth(d.getMonth() + 1, 1)
   return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'long' })
 })
-const bloccato = computed(() => !online.value || inPausa.value || esaurite.value)
+// Perché ora non si può scrivere (ZorbaAvviso, anche al posto del riquadro di risposta nel filo)
+const blocco = computed(() => {
+  if (!online.value) return 'offline'
+  if (inPausa.value) return 'pausa'
+  if (esaurite.value) return statoZorba.value.tipo_tetto === 'prova' ? 'prova' : 'mese'
+  return null
+})
+const bloccato = computed(() => blocco.value !== null)
+// Nel filo: ogni risposta di Zorba consuma la stessa quota della richiesta nuova, va detto prima di rispondere
+const rigaConsumo = computed(() => {
+  const s = statoZorba.value
+  if (!s || s.curatore || s.rimaste == null) return null
+  const quali = s.tipo_tetto === 'prova' ? 'di prova' : 'questo mese'
+  return `Ogni risposta di Zorba conta: ${s.rimaste === 1 ? 'te ne resta 1' : `te ne restano ${s.rimaste}`} ${quali}.`
+})
 
+// Cambiare tipo non cancella niente: testo, foto, pianta e progetto restano e si usano solo se il tipo li prevede
+// (in giardino capita di scrivere e solo dopo accorgersi del tipo giusto).
 function selezionaTipo(v) {
-  if (nuovoTipo.value === v) return
   nuovoTipo.value = v
-  nuovoMessaggio.value = ''
-  specieSelezionata.value = ''
-  progettoSelezionato.value = ''
-  nuovoProgettoTitolo.value = ''
-  foto.value = null
 }
 
 const puoInviare = computed(() => {
@@ -248,6 +238,15 @@ const puoInviare = computed(() => {
   if (nuovoTipo.value === 'identifica_specie') return !!foto.value
   if (nuovoTipo.value === 'diagnosi') return !!foto.value || !!t
   return !!t
+})
+
+const mancaPerInviare = computed(() => {
+  if (puoInviare.value || bloccato.value) return null
+  const t = nuovoMessaggio.value.trim()
+  if (nuovoTipo.value === 'identifica_specie') return 'Per identificare una pianta serve una foto: scattala o sceglila dalla libreria.'
+  if (nuovoTipo.value === 'segnalazione_scheda' && !specieSelezionata.value) return 'Scegli la pianta del catalogo a cui si riferisce la segnalazione.'
+  if (nuovoTipo.value === 'pianifica_progetto' && t && !progettoSelezionato.value && !nuovoProgettoTitolo.value.trim()) return 'Dai un titolo al nuovo progetto.'
+  return null
 })
 
 const PLACEHOLDER_MESSAGGIO = {
@@ -391,14 +390,6 @@ async function vota(id, voto, motivo, commento) {
   } catch (e) { errore.value = e.message }
 }
 
-async function selezionaFoto(e) {
-  const file = e.target.files?.[0]
-  e.target.value = ''
-  if (!file) return
-  errore.value = null
-  try { foto.value = await ridimensionaFoto(file) } catch { errore.value = 'Questa foto non si riesce a leggere: prova con un\'altra.' }
-}
-
 async function confermaEliminazione() {
   if (!daEliminare.value) return
   eliminando.value = true
@@ -447,11 +438,6 @@ onMounted(async () => {
 .agente-storico-btn svg { width: 14px; height: 14px; }
 .agente-storico-btn .badge { margin-left: 2px; }
 
-.agente-avviso {
-  border: 1px solid var(--gold-light); background: var(--gold-pale); border-radius: 12px;
-  padding: 12px 14px; margin-bottom: 14px; font: 400 12.5px/1.5 var(--font-sans); color: var(--gold-dark);
-}
-
 /* --- blocco nuova richiesta --- */
 .agente-nuova { margin-bottom: 26px; }
 .agente-nuova .slabel { margin-bottom: 12px; }
@@ -464,27 +450,8 @@ onMounted(async () => {
 .reqchip { appearance: none; font-family: var(--font-sans); }
 .reqbox textarea { font-family: var(--font-sans); }
 
-.agente-foto-preview {
-  display: flex; align-items: center; gap: 10px;
-  margin-top: 10px;
-}
-.agente-foto-preview img {
-  width: 40px; height: 40px; object-fit: cover;
-  border-radius: 11px; flex-shrink: 0;
-}
-.agente-foto-preview button {
-  background: none; border: none; cursor: pointer;
-  color: var(--ink-soft); font-size: 20px; line-height: 1;
-  flex-shrink: 0;
-}
-.reqbar .ph { flex-wrap: wrap; }
-.agente-foto-btn {
-  cursor: pointer;
-  font: 600 11px/1 var(--font-sans);
-  color: var(--sage-ink);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
+.agente-bar { gap: 8px; flex-wrap: wrap; }
+.agente-hint--manca { color: var(--ink-mid); }
 .reqsend { display: inline-flex; align-items: center; gap: 6px; }
 .reqsend:disabled { opacity: .5; cursor: not-allowed; }
 
@@ -507,15 +474,16 @@ onMounted(async () => {
 .feedlist .feed__n { display: flex; align-items: center; gap: 8px; }
 .feedlist .feed__del {
   flex: none;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
   background: none;
   border: none;
+  border-radius: 999px;
   color: var(--ink-faint);
-  font-size: 20px;
-  line-height: 1;
   cursor: pointer;
-  padding: 4px;
 }
-.feedlist .feed__del:hover { color: var(--rose-dark); }
+.feedlist .feed__del svg { width: 16px; height: 16px; }
+.feedlist .feed__del:hover { color: var(--rose-dark); background: var(--rose-pale); }
 
 /* --- dettaglio richiesta: contenuto centrale al posto del compose form --- */
 .agente-torna {
@@ -537,22 +505,9 @@ onMounted(async () => {
   margin: 6px 0 0;
 }
 .agente-dettaglio-specie {
-  font: 600 13px/1.4 var(--font-display);
-  color: var(--sage-dark);
+  font: 600 18px/1.25 var(--font-display);
+  color: var(--ink);
   margin: 12px 0 0;
 }
-.agente-dettaglio-msg {
-  font: 400 13px/1.6 var(--font-sans);
-  color: var(--ink-mid);
-  white-space: pre-wrap;
-  margin: 12px 0 0;
-}
-.agente-dettaglio-foto { margin-top: 12px; }
-.agente-dettaglio-foto img {
-  max-width: 200px;
-  border-radius: 12px;
-  border: 1px solid var(--cream-dark);
-}
-.answer__body .answer__pre { white-space: pre-wrap; }
 
 </style>

@@ -11,6 +11,7 @@
           <div class="feed__n zds__titolo">{{ titoloFilo(f, store) }}</div>
           <div class="feed__d">
             <span v-if="f.nuova_risposta" class="badge badge-gold zds__badge">Nuovo</span>
+            <span v-else-if="f.segnalazione_stato === 'in_attesa'" class="badge badge-gold zds__badge">In attesa</span>
             {{ formatData(f.aggiornato) }}
           </div>
         </div>

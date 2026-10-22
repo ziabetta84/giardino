@@ -7,7 +7,7 @@
 
     <div v-for="m in messaggi" :key="m.id" class="zf__m" :class="m.ruolo === 'utente' ? 'zf__m--utente' : 'zf__m--zorba'">
       <ZorbaLogo v-if="m.ruolo === 'zorba'" class="zf__logo" :pensa="m.id === inCorso?.id && !inCorso.testo" />
-      <div class="zf__bolla">
+      <div class="zf__bolla" :ref="(el) => { if (m.id === inCorso?.id) bollaInCorso = el }">
         <img v-if="m.foto_url" :src="m.foto_url" class="zf__foto" alt="Foto allegata">
         <template v-if="m.ruolo === 'zorba' && m.id === inCorso?.id">
           <p v-if="inCorso.testo" class="zf__testo">{{ inCorso.testo }}<span class="zf__cursore" aria-hidden="true"></span></p>
@@ -20,7 +20,7 @@
         <p v-else-if="m.testo" class="zf__testo">{{ m.testo }}</p>
         <p v-else-if="m.ruolo === 'utente' && !m.foto_url" class="zf__testo zf__vuoto">(nessun testo)</p>
         <ZorbaPollici v-if="m.ruolo === 'zorba' && m.esito === 'completata' && !filo.importato" :messaggio="m"
-          @vota="(v, mo, co) => emit('vota', m.id, v, mo, co)" />
+          :nota="m.id === ultimaZorba?.id" @vota="(v, mo, co) => emit('vota', m.id, v, mo, co)" />
       </div>
     </div>
 
@@ -29,34 +29,34 @@
     </RouterLink>
 
     <div v-if="filo.stato === 'chiuso'" class="zf__chiuso">
-      <p>Questo filo è concluso: per continuare apri una nuova richiesta.</p>
+      <p>Questa conversazione è conclusa: per continuare apri una nuova richiesta.</p>
       <button v-if="!filo.importato" type="button" class="btn btn-sage" @click="emit('nuova', filo.tipo)">Nuova richiesta</button>
     </div>
-    <div v-else-if="puoRispondere" class="reqbox zf__risposta">
-      <textarea v-model="testo" rows="2" placeholder="Rispondi a Zorba…" maxlength="4000"></textarea>
-      <div v-if="foto" class="agente-foto-preview">
-        <img :src="foto.anteprima" alt="Anteprima"><button type="button" aria-label="Rimuovi foto" @click="foto = null">×</button>
+    <!-- Il riquadro non sparisce mai in silenzio: se ora non si può rispondere, al suo posto c'è il perché -->
+    <ZorbaAvviso v-else-if="aperta && blocco" :motivo="blocco" :ripartenza="ripartenza" con-storico @storico="emit('storico')" />
+    <div v-else-if="puoRispondere" class="zf__risposta">
+      <div class="reqbox">
+        <textarea v-model="testo" rows="2" placeholder="Rispondi a Zorba…" maxlength="4000" aria-label="Risposta per Zorba"
+          @keydown.enter.meta.prevent="invia" @keydown.enter.ctrl.prevent="invia"></textarea>
+        <p v-if="erroreFoto" class="zf__errore">{{ erroreFoto }}</p>
+        <div class="reqbar zf__bar">
+          <ZorbaFotoScelta v-model:foto="foto" compatta @errore="(m) => erroreFoto = m" />
+          <button type="button" class="reqsend" :disabled="!testo.trim() && !foto" @click="invia">Invia</button>
+        </div>
       </div>
-      <p v-if="erroreFoto" class="zf__errore">{{ erroreFoto }}</p>
-      <div class="reqbar">
-        <span class="ph">
-          <Icon name="fotocamera" />
-          <label class="agente-foto-btn">Foto<input type="file" accept="image/*" hidden @change="scegliFoto"></label>
-        </span>
-        <span class="zf__rimaste">Puoi rispondere ancora {{ rimasteRepliche }} {{ rimasteRepliche === 1 ? 'volta' : 'volte' }}</span>
-        <button type="button" class="reqsend" :disabled="!testo.trim() && !foto" @click="invia">Invia</button>
-      </div>
+      <p class="zf__rimaste">Puoi rispondere ancora {{ rimasteRepliche }} {{ rimasteRepliche === 1 ? 'volta' : 'volte' }} in questa conversazione.{{ consumo ? ` ${consumo}` : '' }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick } from 'vue'
 import Icon from '@/components/Icon.vue'
 import ZorbaPensa from '@/components/ZorbaPensa.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ZorbaPollici from '@/components/ZorbaPollici.vue'
-import { ridimensionaFoto } from '@/utils/foto'
+import ZorbaAvviso from '@/components/ZorbaAvviso.vue'
+import ZorbaFotoScelta from '@/components/ZorbaFotoScelta.vue'
 
 const props = defineProps({
   filo: { type: Object, required: true },
@@ -64,9 +64,13 @@ const props = defineProps({
   // { id, stati: string[], testo: string } mentre Zorba scrive, altrimenti null
   inCorso: { type: Object, default: null },
   progetto: { type: Object, default: null },
-  bloccato: { type: Boolean, default: false },
+  // Perché ora non si può scrivere a Zorba ('offline' | 'pausa' | 'prova' | 'mese'), vedi ZorbaAvviso
+  blocco: { type: String, default: null },
+  ripartenza: { type: String, default: '' },
+  // Quanto consuma una risposta (null per il curatore): «Ogni risposta di Zorba conta: te ne restano 2 di prova.»
+  consumo: { type: String, default: null },
 })
-const emit = defineEmits(['rispondi', 'riprova', 'vota', 'nuova'])
+const emit = defineEmits(['rispondi', 'riprova', 'vota', 'nuova', 'storico'])
 const ETICHETTE_SEGN = { in_attesa: 'In attesa del curatore', accolta: 'Accolta', non_accolta: 'Non accolta' }
 const CLASSI_SEGN = { in_attesa: 'badge-gold', accolta: 'badge-ok', non_accolta: 'badge-warn' }
 
@@ -78,20 +82,28 @@ const erroreFoto = ref('')
 const scaduto = (m) => m.esito === 'in_corso' && m.id !== props.inCorso?.id && Date.now() - new Date(m.creato).getTime() > 180_000
 const rimasteRepliche = computed(() => 4 - props.messaggi.filter(m => m.ruolo === 'utente').length)
 const ultimaZorba = computed(() => props.messaggi.filter(m => m.ruolo === 'zorba').at(-1))
-const puoRispondere = computed(() => !props.filo.importato && !props.bloccato && !props.inCorso && rimasteRepliche.value > 0
+// Conversazione in cui si potrebbe rispondere, a parte i limiti (offline, pausa, risposte finite)
+const aperta = computed(() => !props.filo.importato && !props.inCorso && rimasteRepliche.value > 0
   && ultimaZorba.value?.esito === 'completata')
+const puoRispondere = computed(() => aperta.value && !props.blocco)
 
-async function scegliFoto(e) {
-  const f = e.target.files?.[0]
-  e.target.value = ''
-  erroreFoto.value = ''
-  if (!f) return
-  try {
-    foto.value = await ridimensionaFoto(f)
-  } catch {
-    erroreFoto.value = 'Non riesco a leggere questa foto: prova con un\'altra.'
-  }
-}
+// Mentre Zorba scrive la risposta resta in vista (sul telefono finirebbe sotto il bordo), finché chi legge non
+// scorre per conto suo: da lì in poi la pagina resta dove l'ha messa.
+let bollaInCorso = null
+let seguo = false
+const smetti = () => { seguo = false }
+watch(() => props.inCorso?.id, (id) => {
+  seguo = !!id
+  for (const ev of ['wheel', 'touchmove']) window[id ? 'addEventListener' : 'removeEventListener'](ev, smetti, { passive: true })
+})
+watch(() => [props.inCorso?.testo, props.inCorso?.stati?.length], async () => {
+  if (!seguo) return
+  await nextTick()
+  const r = bollaInCorso?.getBoundingClientRect()
+  if (!r || r.bottom <= window.innerHeight - 16) return
+  const lento = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  window.scrollBy({ top: r.bottom - window.innerHeight + 24, behavior: lento ? 'smooth' : 'auto' })
+})
 
 function invia() {
   // Il testo resta nel campo finché il genitore non conferma l'invio (svuota): se l'invio fallisce non si perde nulla
@@ -119,17 +131,14 @@ defineExpose({ svuota })
 .zf__cursore { display: inline-block; width: 7px; height: 7px; margin-left: 4px; border-radius: 50%; background: var(--sage); vertical-align: middle; animation: zf-cursore 1.1s ease-in-out infinite; }
 @keyframes zf-cursore { 0%, 100% { opacity: .25; transform: scale(.7); } 50% { opacity: 1; transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .zf__cursore { animation: none; opacity: .6; } }
-.zf__foto { max-width: 200px; border-radius: 10px; display: block; margin-bottom: 6px; }
+.zf__foto { max-width: 200px; border-radius: 12px; display: block; margin-bottom: 6px; }
 .zf__errore { font: 400 12.5px/1.5 var(--font-sans); color: var(--rose-dark); margin: 0 0 6px; }
 .zf__riprova { min-height: 32px; padding: 4px 12px; font-size: 12px; }
 .zf__progetto { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--ink); }
 .zf__progetto svg { width: 16px; height: 16px; }
 .zf__progetto b { margin-left: auto; color: var(--sage-dark); font-size: 12px; }
 .zf__chiuso { font: 400 12.5px/1.5 var(--font-sans); color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; align-items: flex-start; }
-.zf__rimaste { font: 400 11px/1.3 var(--font-sans); color: var(--ink-soft); }
-.agente-foto-preview { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-.agente-foto-preview img { width: 40px; height: 40px; object-fit: cover; border-radius: 11px; }
-.agente-foto-preview button { background: none; border: none; cursor: pointer; color: var(--ink-soft); font-size: 20px; }
-.agente-foto-btn { cursor: pointer; font: 600 11px/1 var(--font-sans); color: var(--sage-ink); text-decoration: underline; }
+.zf__rimaste { font: 400 11.5px/1.5 var(--font-sans); color: var(--ink-soft); margin: 6px 0 0; }
+.zf__bar { gap: 8px; flex-wrap: wrap; }
 .reqsend:disabled { opacity: .5; cursor: not-allowed; }
 </style>
