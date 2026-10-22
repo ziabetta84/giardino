@@ -33,7 +33,7 @@ select m.votato_il, f.tipo, m.modello_effettivo, m.voto_motivo, m.voto_commento,
   from zorba_messaggi m join zorba_fili f on f.id = m.filo_id where m.voto = -1 order by m.votato_il desc limit 30;
 ```
 
-Per ognuno leggi il filo e proponi, se serve, una correzione ai file `supabase/functions/zorba/regole/` (poi deploy della funzione).
+Per ognuno leggi il filo e proponi, se serve, una correzione ai file `supabase/functions/zorba/regole/` (poi `node scripts/zorba/genera_regole.mjs`, `npm test` e deploy della funzione con `regole/testi.js`: i `.md` non arrivano a runtime).
 
 ### 4. Spesa e salute
 

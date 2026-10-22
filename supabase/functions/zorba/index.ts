@@ -11,7 +11,8 @@ import { creaEmettitore } from './lib/sse.js'
 import { DEFINIZIONI_STRUMENTI, eseguiStrumento } from './lib/strumenti.js'
 import { eseguiCiclo } from './lib/ciclo.js'
 import { riscontroPlantNet } from './lib/plantnet.js'
-import { componiSistema, FILE_REGOLE } from './lib/regole.js'
+import { componiSistema } from './lib/regole.js'
+import { TESTI } from './regole/testi.js'
 
 const env = (k: string) => Deno.env.get(k) ?? ''
 const CURATORE = env('CURATORE_ID')
@@ -31,14 +32,9 @@ const codiceDa = (e: unknown) => /zorba:([a-z_]+)/.exec(String((e as Error)?.mes
 const servizio = createClient(env('SUPABASE_URL'), env('SUPABASE_SERVICE_ROLE_KEY'), { auth: { persistSession: false } })
 const anthropic = new Anthropic({ apiKey: env('ANTHROPIC_API_KEY') })
 
-let sistema: string | null = null
-async function promptSistema() {
-  if (sistema) return sistema
-  const testi: Record<string, string> = {}
-  for (const f of FILE_REGOLE) testi[f] = await Deno.readTextFile(new URL(`./regole/${f}`, import.meta.url))
-  sistema = componiSistema({ tono: testi['tono.md'], ambito: testi['ambito.md'], procedure: Object.fromEntries(TIPI.map(t => [t, testi[`${t}.md`]])) })
-  return sistema
-}
+// I .md non arrivano a runtime con il deploy: i testi sono in un modulo generato (scripts/zorba/genera_regole.mjs)
+const SISTEMA = componiSistema({ tono: TESTI['tono.md'], ambito: TESTI['ambito.md'],
+  procedure: Object.fromEntries(TIPI.map(t => [t, TESTI[`${t}.md`]])) })
 
 async function rpc<T>(nome: string, args: Record<string, unknown>): Promise<T> {
   const { data, error } = await servizio.rpc(nome, args)
@@ -154,7 +150,7 @@ Deno.serve(async (req) => {
         const richiesta = {
           model: filo.modello, max_tokens: 8000, betas: ['server-side-fallback-2026-07-01'], fallbacks: 'default',
           thinking: { type: 'adaptive' }, output_config: { effort: 'medium' }, cache_control: { type: 'ephemeral' },
-          system: [{ type: 'text', text: await promptSistema(), cache_control: { type: 'ephemeral' } }],
+          system: [{ type: 'text', text: SISTEMA, cache_control: { type: 'ephemeral' } }],
           tools: DEFINIZIONI_STRUMENTI, messages,
         }
         const ctx = { db, filo: { ...filo }, adesso: new Date(), fetch,

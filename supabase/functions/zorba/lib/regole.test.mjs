@@ -17,6 +17,12 @@ test('il prompt contiene tono, ambito e una procedura per ogni tipo, senza istru
   assert.deepEqual(FILE_REGOLE.sort(), ['ambito.md', 'tono.md', ...TIPI.map(t => `${t}.md`)].sort())
 })
 
+test('regole/testi.js è allineato ai .md (rigenerare con node scripts/zorba/genera_regole.mjs)', async () => {
+  const { TESTI } = await import('../regole/testi.js')
+  assert.deepEqual(Object.keys(TESTI).sort(), [...FILE_REGOLE].sort())
+  for (const f of FILE_REGOLE) assert.equal(TESTI[f], leggi(f), `${f} diverso da testi.js`)
+})
+
 test('PlantNet: candidati sopra 0,2, nessuna fonte nominata, errori silenziosi', async () => {
   const fetchOk = async (url, opz) => {
     assert.match(url, /identify\/all/)
