@@ -10,9 +10,8 @@
       <div class="zf__bolla">
         <img v-if="m.foto_url" :src="m.foto_url" class="zf__foto" alt="Foto allegata">
         <template v-if="m.ruolo === 'zorba' && m.id === inCorso?.id">
-          <p v-for="(s, i) in inCorso.stati" v-show="!inCorso.testo" :key="i" class="zf__stato">{{ s }}</p>
-          <p v-if="inCorso.testo" class="zf__testo">{{ inCorso.testo }}</p>
-          <Spinner v-else-if="!inCorso.stati.length" />
+          <p v-if="inCorso.testo" class="zf__testo">{{ inCorso.testo }}<span class="zf__cursore" aria-hidden="true"></span></p>
+          <ZorbaPensa v-else :stato="inCorso.stati.at(-1) ?? null" />
         </template>
         <template v-else-if="m.ruolo === 'zorba' && (m.esito === 'errore' || scaduto(m))">
           <p class="zf__errore">Questa risposta non è riuscita.</p>
@@ -54,7 +53,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import Icon from '@/components/Icon.vue'
-import Spinner from '@/components/Spinner.vue'
+import ZorbaPensa from '@/components/ZorbaPensa.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ZorbaPollici from '@/components/ZorbaPollici.vue'
 import { ridimensionaFoto } from '@/utils/foto'
@@ -117,7 +116,9 @@ defineExpose({ svuota })
 .zf__m--zorba .zf__bolla { background: var(--cream); border: 1px solid var(--cream-dark); }
 .zf__testo { font: 400 13.5px/1.6 var(--font-sans); color: var(--ink); white-space: pre-wrap; margin: 0; }
 .zf__vuoto { color: var(--ink-soft); }
-.zf__stato { font: italic 400 12.5px/1.5 var(--font-sans); color: var(--ink-soft); margin: 0; }
+.zf__cursore { display: inline-block; width: 7px; height: 7px; margin-left: 4px; border-radius: 50%; background: var(--sage); vertical-align: middle; animation: zf-cursore 1.1s ease-in-out infinite; }
+@keyframes zf-cursore { 0%, 100% { opacity: .25; transform: scale(.7); } 50% { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .zf__cursore { animation: none; opacity: .6; } }
 .zf__foto { max-width: 200px; border-radius: 10px; display: block; margin-bottom: 6px; }
 .zf__errore { font: 400 12.5px/1.5 var(--font-sans); color: var(--rose-dark); margin: 0 0 6px; }
 .zf__riprova { min-height: 32px; padding: 4px 12px; font-size: 12px; }
