@@ -27,7 +27,7 @@ src/
 ├── main.js                  ← bootstrap Vue + Pinia + Router
 ├── App.vue                  ← layout globale (NavBar, BottomNav, StatusBar, banner token)
 ├── router/index.js          ← route con createWebHashHistory (necessario per gh-pages)
-├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase e richieste-agente.json (unico residuo JSON) una volta sola
+├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase una volta sola
 ├── utils/catalogo.js        ← chiavi delle voci del catalogo, credito delle foto, livelli dell'eredità (test: node --test 'src/utils/*.test.mjs')
 ├── composables/
 │   ├── useApi.js            ← GitHub API: saveJSON(), uploadFile(), token management
@@ -37,6 +37,7 @@ src/
 │   ├── useProgetti.js       ← logica progetti/tappe (scadenzaCalcolata da ultima tappa, ecc.)
 │   ├── useGalleria.js       ← listing/upload foto via Contents API (usato da GalleryView)
 │   ├── useRepoStatus.js / useAppUpdate.js ← confronto build corrente vs ultimo commit main + banner update PWA (StatusBar.vue)
+│   ├── useZorba.js          ← Zorba dice: fili e messaggi da Supabase, invio in streaming alla Edge Function zorba
 │   ├── useSupabase.js       ← client Supabase (catalogo, zone/sottozone/piante e le altre tabelle dell'utente)
 │   ├── usePianteApi.js      ← CRUD piante su Supabase (creazione/modifica/eliminazione, cure, rinomina specie a cascata; Fase 5)
 │   ├── useProgettiApi.js    ← CRUD progetti/tappe su Supabase (salvaProgetto riconcilia l'intero form, registraTappa aggiorna una singola tappa; completamento Fase 5)
@@ -47,6 +48,7 @@ src/
 │   ├── PiantaRiga.vue       ← riga pianta riutilizzabile (usata in PianteView)
 │   └── ModalConferma.vue    ← dialog eliminazione generico
 └── views/                   ← una view per route (incl. AccountView.vue, login/registrazione; SettingsView.vue per `/impostazioni`)
+supabase/functions/zorba/     ← Edge Function di Zorba (lib/ provati con npm test, regole/ = prompt, condivisi/ = logica cure/concimi usata anche dall'app)
 public/data/                 ← JSON letti a runtime dal frontend
 docs/                        ← vecchio sito Jekyll (non più attivo)
 docs/gallery/piante/         ← foto piante organizzate per {id-pianta}/
@@ -55,13 +57,9 @@ supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardin
 
 ## Dati e persistenza
 
-I dati residui (richieste-agente) vivono in `public/data/` come JSON. Le scritture avvengono tramite la **GitHub Contents API** (`useApi.js → saveJSON`), che richiede un Personal Access Token con scope `contents:write` salvato in `localStorage.github_token`.
+Non ci sono più dati applicativi in JSON: `public/data/richieste-agente.json` è stato sostituito dalle tabelle di Zorba (vedi «Zorba dice in app»). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
 
 Specie, piante, zone, sottozone, progetti, tappe, concimi e settings sono tabelle Supabase (`specie`/`piante`/`zone`/`sottozone`/`progetti`/`tappe`/`concimi`/`settings`), con RLS per utente su piante/zone/sottozone/progetti/tappe/concimi/settings — vedi "Migrazione specie → Supabase", "Migrazione zone/sottozone/piante → Supabase" e "Completamento Fase 5" più sotto.
-
-| File | Contenuto |
-|------|-----------|
-| `richieste-agente.json` | Coda richieste AI (stato: in_attesa → completata/errore) |
 
 ### Migrazione specie → Supabase (storia: dalla fase 6 del modello tassonomico l'app non legge più `specie`, ora archivio)
 
@@ -72,7 +70,7 @@ Le **specie** sono ora gestite su **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`,
 - **Lettura**: `useDatiStore` (`stores/dati.js → caricaSpecie()`) legge le specie da Supabase via `useSupabase.js` (client con URL + chiave anon in `.env`, sicuri da versionare perché protetti dalle policy RLS). L'oggetto risultante mantiene la stessa forma usata da tutta l'app (stessa chiave `slug`, stessi campi `specie`, `coltivazione`, ecc. — mappati da `nome_scientifico`/`ciclo_colturale`, vedi `mappaSpecie()`).
 - **Fallback** (fino alla fase 6): se Supabase non rispondeva si ripiegava su `specie.json` statico; il file è stato tolto nella fase 7 (resta nella storia di git).
 - **Scrittura**: nessun client pubblico scrive più su `specie`. La modale crea/modifica di `SelettoreSpecie.vue` è stata rimossa nel redesign del selettore (il componente è ora in sola lettura); `SelettoreSpecie.vue` e `stores/dati.js` fanno solo `.select()`. Le policy RLS di scrittura "temporanee" (`specie: scrittura pubblica temporanea (insert|update)`, `true`) sono state **rimosse** — migration `supabase/migrations/20260904120000_specie_rls_solo_curatore.sql`. Ora per `anon`/`authenticated`: `SELECT` pubblico (policy `specie: lettura pubblica`), `INSERT` negato (42501), `UPDATE` = no-op su 0 righe, `DELETE` negato. Le scritture legittime (`/zorbadice` per `revisione_specie`, import da `fonti/`, migration) passano da **service-role / `postgres`**, che bypassano l'RLS e non sono toccate.
-- Il comando `/zorbadice` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json`.
+- Il comando `/zorbadice` per `revisione_specie` scrive anch'esso direttamente su Supabase (via MCP `execute_sql`/`apply_migration`), non più su `specie.json` (dal 22/10/2026 le revisioni arrivano come segnalazioni da Zorba dice e le applica il curatore con `/zorbadice`).
 - Le migration schema/dati vivono in `supabase/migrations/` (es. `..._aggiunge_colonna_immagine.sql`, batch di popolamento `pfaf_bozza`/`immagini_hero`, import da fonti esterne — vedi `fonti/criterio-importazione.md`).
 - **Sinonimi (`nomi_alternativi`)**: testo con altri nomi comuni separati da " | " (nome principale sempre in `nome`), cercato con `ilike` da `SelettoreSpecie.vue` (la riga mostra «detta anche …») e mostrato in `PiantaView.vue`. Popolato da PlantNet (`scripts/nomi-italiani/genera_sinonimi.py`, ~2.660 specie); i nomi "… del Perù" di PlantNet sono segnaposto e vanno scartati. Non è un'anagrafica di sinonimi botanici (es. nomi scientifici obsoleti): quelli richiederebbero un'altra fonte (POWO/GBIF).
 - **Sinonimi botanici (`sinonimi_botanici`, `nome_accettato`)**: nomi scientifici obsoleti/alternativi da GBIF (`scripts/nomi-italiani/scarica_gbif.py` → `out/gbif.jsonl`, `genera_sinonimi_botanici.py` → migration; solo corrispondenze EXACT, tetto 15 per specie), testo separato da " | ", cercati dal selettore (riga «sinonimo …»). `nome_accettato` è valorizzato solo se GBIF considera la riga un sinonimo di un altro nome (mostrato in `PiantaView.vue`); `nome_scientifico` non viene mai modificato. Le righe cultivar non hanno sinonimi. POWO (Kew) risponde 403 alle chiamate non autenticate: non usabile.
@@ -181,7 +179,7 @@ Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con 
 
 `cure_log` come tabella a parte e uno script di importazione per `coltivazione` erano nello scope originale della issue #122 ma sono stati chiusi come già soddisfatti: `piante.ultima_cura` (jsonb, solo l'ultima cura per tipo) copre l'unico uso reale oggi (calcolo urgenze), e `piante.coltivato_in` (vaso/terra/acqua) è lo stesso campo già descritto con un altro nome.
 
-`richieste-agente.json` resta l'unico dato ancora su GitHub/JSON senza scoping per utente — legato al comando `/zorbadice`, eseguito manualmente, va ridiscusso a parte in un round futuro.
+`richieste-agente.json` è stato sostituito il 22/10/2026 dalle tabelle di Zorba (vedi «Zorba dice in app»).
 
 ### Autenticazione utente (Fase 4 migrazione Supabase, avviata)
 
@@ -189,29 +187,13 @@ Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con 
 
 Il router (`router/index.js`) ha una guardia globale: senza sessione attiva, ogni rotta diversa da `/account` reindirizza lì (`App.vue` nasconde anche NavBar/BottomNav/StatusBar in quello stato, mostrando solo il form centrato). Il client Supabase usa `flowType: 'pkce'` (`useSupabase.js`) invece del default `implicit`: coi token nel fragment dell'URL, `createWebHashHistory` (che vive anch'esso nel fragment) romperebbe il parsing del link di recupero password — con PKCE il codice arriva in query string, prima del `#`, senza conflitti. **Il redirect URL di reset (origine + `/giardino/`) va aggiunto tra le "Redirect URLs" del progetto Supabase (dashboard → Authentication → URL Configuration), altrimenti Supabase lo rifiuta.**
 
-**Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` resta necessario per richieste-agente (unico dato su GitHub/JSON rimasto).
+**Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
 
-## Coda richieste agente AI
+## Zorba dice in app
 
-Le richieste create da `AgenteView.vue` vengono scritte in `richieste-agente.json` con stato `in_attesa`. Il comando `/zorbadice` (`.claude/commands/zorbadice.md`) contiene la procedura completa, tipo per tipo — è la fonte di verità, da consultare invece di indovinare il formato risposta; in sintesi: legge la coda, elabora ogni richiesta (può includere foto in base64), aggiorna il JSON con `stato: completata` e `risposta.messaggio`, azzera `foto` (per non far crescere il file oltre la soglia di ~1MB della Contents API), e fa commit.
+Dal 22/10/2026 Zorba risponde in app (implementato, da rilasciare: restano i passi di rilascio; spec `docs/superpowers/specs/2026-10-21-zorba-dice-agente-design.md`, piano `docs/superpowers/plans/2026-10-22-zorba-dice-agente.md`). Edge Function `zorba` (Deno): `GET /zorba/stato`, `POST /zorba` con risposta SSE (eventi `filo`, `stato`, `testo`, `annulla_testo`, `progetto`, `fine`, `errore`), `DELETE /zorba/filo/<id>` (rifiutata con 409 finché Zorba sta rispondendo). Prima dello stream gli errori sono JSON con HTTP 400/402/404/409/500/503. Claude: `claude-opus-5-5` per `identifica_specie`/`diagnosi`, `claude-sonnet-5-5` per gli altri tipi, fissato per filo; ragionamento adattivo, effort medium, ripiego `fallbacks: "default"`; al più 8 passaggi con strumenti (`lib/strumenti.js`: piante, catalogo, concimi con la logica di `condivisi/concimi.js`, meteo, progetti, conversazioni precedenti, `salva_piano`). PlantNet è chiamato prima di Claude per identificazioni e diagnosi con foto.
 
-Alcuni tipi scrivono anche altrove, non solo la risposta testuale:
-- `revisione_specie` → aggiorna anche la scheda corrispondente nella tabella `schede` su Supabase (via MCP `execute_sql`/`apply_migration`); `specie` è l'archivio e non si scrive più
-- `pianifica_progetto` → crea/aggiorna anche le righe corrispondenti nelle tabelle `progetti`/`tappe` su Supabase (via MCP `execute_sql`/`apply_migration`)
-- `consiglio_concimazione` → usa lo stesso criterio di match NPK di `useConcimi.js` (distanza euclidea su rapporti normalizzati, soglia 0.15), per coerenza con quanto l'utente vede già in app
-- `identifica_specie` → prima dell'analisi visiva, interroga l'API di identificazione PlantNet (`PLANTNET_API_KEY` in `.env.local`) come riscontro oggettivo; il giudizio finale resta comunque quello visivo di Claude, non un pass-through automatico dei risultati PlantNet
-
-Schema richiesta:
-```json
-{
-  "tipo": "identifica_specie | revisione_specie | consiglio_cura | consiglio_concimazione | diagnosi | pianifica_progetto | altro",
-  "messaggio": "...",
-  "foto": "<base64 opzionale>",
-  "stato": "in_attesa",
-  "creata": "<ISO>",
-  "risposta": null
-}
-```
+Tabelle: `zorba_fili` (un filo per richiesta, 3 repliche poi chiuso), `zorba_messaggi` (testo, foto in Storage `zorba-foto/{owner}/{filo}/{messaggio}.jpg`, token e costo, voti), `zorba_consumi` (una riga per risposta con costo: conta anche dopo l'eliminazione del filo), `abbonamenti` (compilata dal curatore con `/zorbadice`). Permessi: l'utente legge i propri fili e messaggi e scrive solo `ultima_lettura` e i voti; tutto il resto lo scrive la funzione con funzioni SQL riservate a `service_role` (`zorba_limiti`, `zorba_prenota`, `zorba_concludi`); `zorba_salva_piano` gira con il JWT dell'utente. Limiti: abbonati 30 risposte al mese, gli altri 3 di prova in tutto, curatore (`CURATORE_ID`) senza tetto; tetto globale abbonati × 6 + 10 $ (+5 per il curatore); limite di spesa della console da tenere allineato. Interruttore `ZORBA_ATTIVO` (segreto della funzione). Prove: `npm test` (logica JS) e `bash scripts/zorba/prova_db.sh` (permessi e limiti su un database usa e getta nel server locale). Lo storico delle 43 richieste di `richieste-agente.json` è importato come fili chiusi (`importato = true`, rollback `delete from zorba_fili where importato`); l'importazione di alcune righe attende l'approvazione dell'utente. `revisione_specie` è diventato `segnalazione_scheda`: Zorba dà un primo parere, il curatore decide con `/zorbadice`, che è ora lo strumento del curatore (segnalazioni, abbonamenti, voti negativi, spesa). Le regole di voce di Zorba sono in `supabase/functions/zorba/regole/` (fonte unica). Consigli d'acquisto: progettati e rimandati.
 
 ## Logica cure (`useCure.js`)
 
