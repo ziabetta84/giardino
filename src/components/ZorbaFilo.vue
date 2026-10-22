@@ -6,7 +6,7 @@
     </div>
 
     <div v-for="m in messaggi" :key="m.id" class="zf__m" :class="m.ruolo === 'utente' ? 'zf__m--utente' : 'zf__m--zorba'">
-      <ZorbaLogo v-if="m.ruolo === 'zorba'" class="zf__logo" />
+      <ZorbaLogo v-if="m.ruolo === 'zorba'" class="zf__logo" :pensa="m.id === inCorso?.id && !inCorso.testo" />
       <div class="zf__bolla">
         <img v-if="m.foto_url" :src="m.foto_url" class="zf__foto" alt="Foto allegata">
         <template v-if="m.ruolo === 'zorba' && m.id === inCorso?.id">

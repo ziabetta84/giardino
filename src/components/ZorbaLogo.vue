@@ -1,5 +1,5 @@
 <template>
-  <svg viewBox="0 0 512 512" :class="mini ? 'zorba-mini' : 'zorba-logo'" ref="root">
+  <svg viewBox="0 0 512 512" :class="[mini ? 'zorba-mini' : 'zorba-logo', { 'zorba-pensa': pensa }]" ref="root">
     <g id="body"><g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"><path fill="#000000" d="M3759 4349 c-27 -27 -22 -60 25 -164 55 -122 49 -157 -45 -277 -45
 -57 -74 -132 -84 -213 -10 -75 -29 -130 -59 -169 -13 -17 -26 -41 -30 -54 -17
 -52 50 -169 115 -202 25 -13 70 -23 120 -27 96 -7 129 -27 129 -76 0 -45 -34
@@ -162,7 +162,8 @@ c-27 -7 -59 -14 -71 -14 -11 0 -42 -14 -68 -30 -37 -24 -47 -35 -44 -53 3 -25
 <script setup>
 import { onMounted, ref } from 'vue'
 
-const props = defineProps({ mini: { type: Boolean, default: false } })
+// pensa: Zorba sta preparando una risposta (Zorba dice): coda che ondeggia e occhio che sbatte finché dura l'attesa
+const props = defineProps({ mini: { type: Boolean, default: false }, pensa: { type: Boolean, default: false } })
 
 const root = ref(null)
 
@@ -280,4 +281,11 @@ defineExpose({ reagisci, confermaCura, scodinzola })
 .zorba-logo :deep(#tail.wag) { animation: zorba-tail-wag 1s ease-in-out 1; }
 .zorba-logo :deep(#eye.blink) { animation: zorba-eye-blink 0.4s ease-in-out 1; }
 .zorba-logo :deep(#eye.blink-lento) { animation: zorba-eye-blink 0.9s ease-in-out 1; }
+/* Zorba pensa: stessa coda e stesso battito del logo piccolo (z-tail, z-blink in main.css), con un ritmo più vivo
+   finché la risposta non arriva. Ha la precedenza sulle animazioni una tantum del mount. */
+.zorba-pensa :deep(#tail), .zorba-pensa :deep(#tail.wag) { transform-box: view-box; animation: z-tail 1.8s ease-in-out infinite; }
+.zorba-pensa :deep(#eye), .zorba-pensa :deep(#eye.blink), .zorba-pensa :deep(#eye.blink-lento) { transform-box: view-box; animation: z-blink 3.2s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .zorba-pensa :deep(#tail), .zorba-pensa :deep(#tail.wag), .zorba-pensa :deep(#eye), .zorba-pensa :deep(#eye.blink) { animation: none; }
+}
 </style>
