@@ -45,6 +45,17 @@ jobs:
         env:
           VITE_BASE: /
 
+      # Crea il progetto la prima volta; se esiste già il comando fallisce
+      # e si va avanti.
+      - name: Crea il progetto Cloudflare Pages
+        if: env.CF_TOKEN != ''
+        continue-on-error: true
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages project create zorba-in-giardino --production-branch=main
+
       - name: Carica su Cloudflare Pages
         if: env.CF_TOKEN != ''
         uses: cloudflare/wrangler-action@v3
