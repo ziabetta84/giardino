@@ -98,10 +98,18 @@ function traduci(error) {
   return new Error(MESSAGGI_ERRORE[grezzo] ?? grezzo)
 }
 
+// Indirizzo a cui portano i link delle mail di Supabase (conferma e reset).
+// Passato in modo esplicito: senza, Supabase ripiega sul Site URL del
+// progetto, e la mail di conferma portava alla radice del dominio invece che
+// all'app sotto /giardino/. Deve rientrare tra le Redirect URLs del progetto.
+function indirizzoRitorno() {
+  return window.location.origin + import.meta.env.BASE_URL
+}
+
 export function useAuth() {
   async function registrati(email, password, nome) {
     const { data, error } = await supabase.auth.signUp({
-      email, password, options: { data: { nome } },
+      email, password, options: { data: { nome }, emailRedirectTo: indirizzoRitorno() },
     })
     if (error) throw traduci(error)
     return data
@@ -124,7 +132,9 @@ export function useAuth() {
   // chiude la scheda dopo la registrazione resta bloccato ("Email non
   // confermata" al login, nessun modo di farsela reinviare dall'app).
   async function reinviaConferma(email) {
-    const { error } = await supabase.auth.resend({ type: 'signup', email })
+    const { error } = await supabase.auth.resend({
+      type: 'signup', email, options: { emailRedirectTo: indirizzoRitorno() },
+    })
     if (error) throw traduci(error)
   }
 
@@ -134,8 +144,7 @@ export function useAuth() {
   }
 
   async function richiediResetPassword(email) {
-    const redirectTo = window.location.origin + import.meta.env.BASE_URL
-    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo })
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: indirizzoRitorno() })
     if (error) throw traduci(error)
   }
 
