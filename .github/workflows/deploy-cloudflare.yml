@@ -1,0 +1,58 @@
+name: Deploy su Cloudflare Pages
+
+# Build in GitHub Actions e caricamento diretto su Cloudflare Pages: il
+# collegamento Git di Cloudflare clonerebbe tutto il repository, fonti/
+# (~2,6GB) compresa, mentre qui il checkout parziale la salta come in
+# deploy.yml. Finché i segreti CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID
+# non sono impostati la build gira ma il caricamento viene saltato.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            /*
+            !/fonti
+            !/docs
+          sparse-checkout-cone-mode: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Installa dipendenze
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_BASE: /
+
+      - name: Carica su Cloudflare Pages
+        if: env.CF_TOKEN != ''
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=zorba-in-giardino --branch=main
+
+      - name: Segreti mancanti
+        if: env.CF_TOKEN == ''
+        run: echo "::notice::CLOUDFLARE_API_TOKEN non impostato, caricamento su Cloudflare saltato"
