@@ -8,10 +8,9 @@ import { execSync } from 'node:child_process'
 // Commit su cui è basata questa build: confrontato a runtime con l'ultimo
 // commit su main per capire se la versione caricata è quella pubblicata
 // più di recente (vedi useRepoStatus.js / StatusBar.vue).
-// Percorso da cui l'app è servita: '/giardino/' su GitHub Pages
-// (ziabetta84.github.io/giardino/), '/' su Cloudflare Pages, dove il
-// workflow deploy-cloudflare.yml imposta VITE_BASE=/.
-const BASE = process.env.VITE_BASE || '/giardino/'
+// Percorso da cui l'app è servita: '/' su Cloudflare Pages
+// (zorbaingiardino.app). VITE_BASE permette di servirla da una sottocartella.
+const BASE = process.env.VITE_BASE || '/'
 
 function commitBuild() {
   try {

@@ -18,9 +18,7 @@ npm run build    # build produzione → dist/
 npm run preview  # anteprima build locale
 ```
 
-Il deploy su GitHub Pages avviene automaticamente tramite GitHub Actions (`.github/workflows/deploy.yml`) ad ogni push su `main`: pubblica `dist/` sul branch `gh-pages`. La sorgente di GitHub Pages va impostata sul branch `gh-pages`.
-
-Passaggio a Cloudflare Pages (avviato il 27/10/2026, per il dominio `zorbaingiardino.app`, comprato su Cloudflare il 27/10 e perché i termini di GitHub Pages escludono i servizi commerciali come gli abbonamenti a Zorba): `.github/workflows/deploy-cloudflare.yml` fa la stessa build con `VITE_BASE=/` e la carica con wrangler sul progetto Cloudflare `zorba-in-giardino` (caricamento diretto, non il collegamento Git di Cloudflare, che clonerebbe anche `fonti/`). Il caricamento parte solo con i segreti del repository `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID`. Il percorso di base viene da `VITE_BASE` (predefinito `/giardino/` per GitHub Pages): non scrivere `/giardino/` a mano, usare `import.meta.env.BASE_URL` o `%BASE_URL%` in `index.html`. `public/_headers` dà gli header di sicurezza e di cache su Cloudflare (GitHub Pages lo ignora). Finché il nuovo indirizzo non è verificato i due deploy convivono.
+L'app è pubblicata su Cloudflare Pages, all'indirizzo https://zorbaingiardino.app (dominio comprato su Cloudflare il 27/10/2026; anche https://zorba-in-giardino.pages.dev). Fino al 27/10/2026 era su GitHub Pages (`ziabetta84.github.io/giardino/`), lasciato perché i termini di GitHub Pages escludono i servizi commerciali come gli abbonamenti a Zorba. Il deploy è `.github/workflows/deploy-cloudflare.yml`: a ogni push su `main` fa la build con il checkout parziale (senza `fonti/` e `docs/`) e la carica con wrangler sul progetto Cloudflare `zorba-in-giardino` (caricamento diretto, non il collegamento Git di Cloudflare, che clonerebbe anche `fonti/`; crea il progetto se manca). Servono i segreti del repository `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID`. Il percorso di base è `/` (si cambia con `VITE_BASE`): non scrivere percorsi assoluti a mano, usare `import.meta.env.BASE_URL` o `%BASE_URL%` in `index.html`. `public/_headers` dà gli header di sicurezza e di cache.
 
 ## Architettura
 
@@ -28,7 +26,7 @@ Passaggio a Cloudflare Pages (avviato il 27/10/2026, per il dominio `zorbaingiar
 src/
 ├── main.js                  ← bootstrap Vue + Pinia + Router
 ├── App.vue                  ← layout globale (NavBar, BottomNav, StatusBar, banner token)
-├── router/index.js          ← route con createWebHashHistory (necessario per gh-pages)
+├── router/index.js          ← route con createWebHashHistory (URL con #, nessun fallback lato server)
 ├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase una volta sola
 ├── utils/catalogo.js        ← chiavi delle voci del catalogo, credito delle foto, livelli dell'eredità (test: node --test 'src/utils/*.test.mjs')
 ├── composables/
@@ -187,7 +185,7 @@ Anche `progetti`, `tappe`, `settings` e `concimi` sono ora tabelle Supabase con 
 
 `useAuth.js` gestisce la sessione via **Supabase Auth**, solo email/password per ora (Google rimandato: richiede creare un OAuth client su Google Cloud Console e configurarlo nel dashboard Supabase, passaggio manuale non ancora fatto). Stato reattivo condiviso a livello di modulo (`utente`, `caricamento`, `recuperoInCorso`), aggiornato via `onAuthStateChange`. `AccountView.vue` (route `/account`, link in `NavBar`/icona in `StatusBar`) espone login/registrazione/logout/recupero password. Il progetto Supabase richiede la conferma email di default (`signUp` non ritorna una sessione finché l'utente non clicca il link ricevuto via mail) — gestito in UI con un messaggio esplicito, non è un bug.
 
-Il router (`router/index.js`) ha una guardia globale: senza sessione attiva, ogni rotta diversa da `/account` reindirizza lì (`App.vue` nasconde anche NavBar/BottomNav/StatusBar in quello stato, mostrando solo il form centrato). Il client Supabase usa `flowType: 'pkce'` (`useSupabase.js`) invece del default `implicit`: coi token nel fragment dell'URL, `createWebHashHistory` (che vive anch'esso nel fragment) romperebbe il parsing del link di recupero password — con PKCE il codice arriva in query string, prima del `#`, senza conflitti. **Il redirect URL di reset (origine + `/giardino/`) va aggiunto tra le "Redirect URLs" del progetto Supabase (dashboard → Authentication → URL Configuration), altrimenti Supabase lo rifiuta.**
+Il router (`router/index.js`) ha una guardia globale: senza sessione attiva, ogni rotta diversa da `/account` reindirizza lì (`App.vue` nasconde anche NavBar/BottomNav/StatusBar in quello stato, mostrando solo il form centrato). Il client Supabase usa `flowType: 'pkce'` (`useSupabase.js`) invece del default `implicit`: coi token nel fragment dell'URL, `createWebHashHistory` (che vive anch'esso nel fragment) romperebbe il parsing del link di recupero password — con PKCE il codice arriva in query string, prima del `#`, senza conflitti. **Il redirect URL di reset (origine + percorso di base, oggi `https://zorbaingiardino.app/`) va aggiunto tra le "Redirect URLs" del progetto Supabase (dashboard → Authentication → URL Configuration), altrimenti Supabase lo rifiuta.**
 
 **Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
 
