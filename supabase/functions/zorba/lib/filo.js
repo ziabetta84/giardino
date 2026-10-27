@@ -58,7 +58,7 @@ export const MESSAGGI_ERRORE = {
   progetto_non_trovato: 'Quel progetto non esiste più.',
   voce_non_trovata: 'Quella pianta non è nel catalogo.',
   filo_inesistente: 'Questa conversazione non esiste più.',
-  filo_chiuso: 'Questo filo è concluso: apri una nuova richiesta per continuare.',
+  filo_chiuso: 'Questa conversazione è conclusa: apri una nuova richiesta per continuare.',
   in_elaborazione: 'Zorba sta già rispondendo in questo filo.',
   riprova_prima: 'L\'ultima risposta non è riuscita: usa Riprova prima di scrivere ancora.',
   niente_da_ritentare: 'Non c\'è nessuna risposta da ritentare.',
