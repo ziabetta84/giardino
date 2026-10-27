@@ -135,7 +135,8 @@
       </p>
       <p v-if="messaggio" role="status" style="font-size:12px;color:var(--sage-dark);">{{ messaggio }}</p>
       <p v-if="errore" role="alert" style="font-size:12px;color:var(--rose-dark);">{{ errore }}</p>
-      <button type="button" class="btn btn-ghost" :disabled="inviando" @click="onReinviaConferma">
+      <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
+      <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha" @click="onReinviaConferma">
         {{ inviando ? 'Un momento…' : 'Non è arrivata? Invia di nuovo' }}
       </button>
       <button type="button" class="link-reset" style="align-self:center;" @click="tornaAlLogin">Torna al login</button>
@@ -168,15 +169,20 @@
             required class="form-input" style="width:100%;">
         </div>
 
-        <button v-if="modalita === 'accedi'" type="button" class="link-reset" :disabled="inviando" @click="onRichiediReset">
+        <button v-if="modalita === 'accedi'" type="button" class="link-reset" :disabled="inviando || attesaCaptcha" @click="onRichiediReset">
           Password dimenticata?
         </button>
+
+        <!-- Verifica anti-robot di Cloudflare: di solito si completa da sola
+             in un attimo; il suo token accompagna accesso, registrazione e
+             recupero password. -->
+        <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
 
         <p v-if="errore" role="alert" style="font-size:13px;color:var(--rose-dark);">{{ errore }}</p>
         <p v-if="messaggio" role="status" style="font-size:13px;color:var(--sage-dark);">{{ messaggio }}</p>
 
-        <button type="submit" class="btn btn-sage" :disabled="inviando" style="margin-top:4px;">
-          {{ inviando ? 'Un momento…' : (modalita === 'accedi' ? 'Accedi' : 'Crea account') }}
+        <button type="submit" class="btn btn-sage" :disabled="inviando || attesaCaptcha" style="margin-top:4px;">
+          {{ inviando ? 'Un momento…' : attesaCaptcha && !captchaFallito ? 'Verifica in corso…' : (modalita === 'accedi' ? 'Accedi' : 'Crea account') }}
         </button>
       </form>
     </template>
@@ -184,11 +190,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
+import TurnstileWidget from '@/components/TurnstileWidget.vue'
 import { useAuth } from '@/composables/useAuth'
 import { useApi } from '@/composables/useApi'
 import { richiediSplash } from '@/composables/useBootSequence'
@@ -218,6 +225,30 @@ const messaggio = ref(null)
 // c'è una conferma in attesa: sostituisce il form con un pannello dedicato
 // invece di lasciarlo invariato (vedi template).
 const emailConferma = ref(null)
+
+// Token Turnstile: obbligatorio solo se la site key è configurata (vedi
+// TurnstileWidget.vue). Un token vale una volta: dopo ogni chiamata ad Auth
+// il widget viene azzerato e ne produce uno nuovo.
+const turnstile    = ref(null)
+const captchaToken = ref(null)
+const attesaCaptcha = computed(() => !!import.meta.env.VITE_TURNSTILE_SITE_KEY && !captchaToken.value)
+// Widget non caricato (rete, blocco dei contenuti): il pulsante resta
+// disabilitato ma non dice più "Verifica in corso…", c'è il messaggio d'errore.
+const captchaFallito = ref(false)
+
+function onToken(t) {
+  captchaToken.value = t
+  if (t) captchaFallito.value = false
+}
+
+function onErroreCaptcha() {
+  captchaFallito.value = true
+  errore.value = 'Non riesco a caricare la verifica anti-robot: controlla la connessione e ricarica la pagina.'
+}
+
+function nuovoCaptcha() {
+  turnstile.value?.reset()
+}
 
 const tokenInput       = ref('')
 const modificandoToken = ref(false)
@@ -277,10 +308,10 @@ async function onInvia() {
   inviando.value = true
   try {
     if (modalita.value === 'accedi') {
-      await accedi(email.value, password.value)
+      await accedi(email.value, password.value, captchaToken.value)
       router.push('/')
     } else {
-      await registrati(email.value, password.value, nome.value)
+      await registrati(email.value, password.value, nome.value, captchaToken.value)
       emailConferma.value = email.value
       // Battito lento: evento raro (una tantum per account), non la conferma
       // quotidiana di confermaCura() — vedi "Regola dei Due Battiti" in ZorbaLogo.vue.
@@ -290,6 +321,7 @@ async function onInvia() {
     errore.value = e.message || 'Errore durante l\'operazione.'
   } finally {
     inviando.value = false
+    nuovoCaptcha()
   }
 }
 
@@ -299,12 +331,13 @@ async function onReinviaConferma() {
   messaggio.value = null
   inviando.value = true
   try {
-    await reinviaConferma(emailConferma.value)
+    await reinviaConferma(emailConferma.value, captchaToken.value)
     messaggio.value = 'Email di conferma inviata di nuovo.'
   } catch (e) {
     errore.value = e.message || 'Errore durante l\'invio.'
   } finally {
     inviando.value = false
+    nuovoCaptcha()
   }
 }
 
@@ -318,13 +351,14 @@ async function onRichiediReset() {
   }
   inviando.value = true
   try {
-    await richiediResetPassword(email.value)
+    await richiediResetPassword(email.value, captchaToken.value)
     messaggio.value = `Ti abbiamo inviato un'email a ${email.value} con il link per reimpostare la password.`
     zorba.value?.reagisci()
   } catch (e) {
     errore.value = e.message || 'Errore durante la richiesta.'
   } finally {
     inviando.value = false
+    nuovoCaptcha()
   }
 }
 
