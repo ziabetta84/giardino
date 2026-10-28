@@ -1,0 +1,10 @@
+{
+  "confirmation": "Conferma la tua email e si entra in giardino 🌱",
+  "recovery": "Una password nuova per Zorba in giardino",
+  "magic_link": "Il tuo link per entrare in giardino",
+  "email_change": "Conferma il nuovo indirizzo email",
+  "invite": "Ti aspetto in giardino",
+  "reauthentication": "{{ .Token }} è il tuo codice per Zorba in giardino",
+  "password_changed_notification": "La password di Zorba in giardino è cambiata",
+  "email_changed_notification": "L'indirizzo del tuo account è cambiato"
+}
