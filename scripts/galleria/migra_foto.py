@@ -89,16 +89,24 @@ def main():
             radice = os.path.splitext(nome)[0]
             base = f'{a.owner}/{dest}/{radice}'
             percorso = f'{base}.webp'
-            if percorso in esistenti:
-                saltate += 1
-                continue
             sorgente = os.path.join(dir_, nome)
             img = ImageOps.exif_transpose(Image.open(sorgente)).convert('RGB')
+            originale = webp(img, a.lato, 80)
+            # Una foto già ben compressa e non più grande di LATO può pesare di più in WebP: si tiene il file com'è.
+            con_jpeg = (len(originale) >= os.path.getsize(sorgente) and max(img.size) <= (a.lato or max(img.size))
+                        and nome.lower().endswith(('.jpg', '.jpeg')))
+            if con_jpeg:
+                percorso = f'{base}.jpg'
+                with open(sorgente, 'rb') as f:
+                    originale = f.read()
             versioni = {
-                percorso: webp(img, a.lato, 80),
+                percorso: originale,
                 f'{base}_medium.webp': webp(img, 640, 75),
                 f'{base}_thumb.webp': webp(img, 120, 70),
             }
+            if percorso in esistenti:
+                saltate += 1
+                continue
             prima += os.path.getsize(sorgente)
             dopo += sum(len(v) for v in versioni.values())
             print(f'{cartella}/{nome} → {percorso} ({os.path.getsize(sorgente) // 1024} → {len(versioni[percorso]) // 1024} KB)')
@@ -106,7 +114,7 @@ def main():
                 continue
             for p, dati in versioni.items():
                 richiesta('POST', f'{url}/storage/v1/object/galleria/{urllib.parse.quote(p)}', chiave, dati,
-                          'image/webp', {'x-upsert': 'true', 'cache-control': 'max-age=31536000'})
+                          'image/jpeg' if p.endswith('.jpg') else 'image/webp', {'x-upsert': 'true', 'cache-control': 'max-age=31536000'})
             richiesta('POST', f'{url}/rest/v1/foto', chiave, {
                 'owner_id': a.owner, 'pianta_id': pianta_id,
                 'scattata_il': datetime.fromtimestamp(ts / 1000, timezone.utc).isoformat(),
