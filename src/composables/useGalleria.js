@@ -154,11 +154,20 @@ export function useGalleria() {
     }
     originale.close()
 
-    const bitmap = await createImageBitmap(file, { resizeWidth: width, resizeHeight: height, resizeQuality: 'high' })
+    // Se il browser rifiuta il resize in decodifica (la miniatura mancava su
+    // LibreWolf/Firefox) si ripiega sul ridimensionamento del canvas.
+    let bitmap
+    try {
+      bitmap = await createImageBitmap(file, { resizeWidth: width, resizeHeight: height, resizeQuality: 'high' })
+    } catch {
+      bitmap = await createImageBitmap(file)
+    }
     const canvas = document.createElement('canvas')
     canvas.width = width
     canvas.height = height
-    canvas.getContext('2d').drawImage(bitmap, 0, 0)
+    const ctx = canvas.getContext('2d')
+    ctx.imageSmoothingQuality = 'high'
+    ctx.drawImage(bitmap, 0, 0, width, height)
     bitmap.close()
     return comeBlob(canvas, scriveWebp() ? 'image/webp' : 'image/jpeg', qualita)
   }
@@ -210,9 +219,12 @@ export function useGalleria() {
     const base = `${session.user.id}/${cartella}/${ts}_${Math.random().toString(36).slice(2, 8)}`
 
     const percorso = await caricaFile(base, await ridimensiona(file, 1600, 0.80))
+    // La miniatura parte dalla versione media: un salto 640 → 120 è più
+    // leggero da gestire per il browser di uno dall'originale della fotocamera.
+    const blobMedia = await ridimensiona(file, 640, 0.75).catch(() => null)
     const [media, miniatura] = await Promise.all([
-      ridimensiona(file, 640, 0.75).then(b => caricaFile(`${base}_medium`, b)).catch(() => null),
-      ridimensiona(file, 120, 0.70).then(b => caricaFile(`${base}_thumb`, b)).catch(() => null),
+      blobMedia ? caricaFile(`${base}_medium`, blobMedia).catch(() => null) : null,
+      ridimensiona(blobMedia ?? file, 120, 0.70).then(b => caricaFile(`${base}_thumb`, b)).catch(() => null),
     ])
 
     const { data, error } = await supabase.from('foto').insert({
