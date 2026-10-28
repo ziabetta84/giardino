@@ -84,18 +84,17 @@
     <section v-if="linkContributo" class="form-card contributo" aria-labelledby="contributo-titolo" style="margin-top:16px;">
       <div class="contributo__hd">
         <ZorbaLogo mini />
-        <h2 id="contributo-titolo" class="contributo__titolo">Un caffè per Zorba</h2>
+        <h2 id="contributo-titolo" class="contributo__titolo">Erba gatta per Zorba</h2>
         <span class="contributo__beta" aria-hidden="true">lavori in corso</span>
       </div>
       <p class="contributo__testo">
-        Sto ancora prendendo le misure a questo giardino: la galleria è da sistemare
-        e qualche aiuola è appena seminata. Se ti sono utile, puoi darmi una mano
-        a crescere con un contributo libero.
+        Questo giardino è un lavoro in corso e cresce un po' alla volta.
+        Se ti piace vederlo crescere, puoi sostenerlo con un contributo libero.
       </p>
       <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="contributo__btn"
-        aria-label="Offrimi un caffè su Ko-fi (si apre in una nuova scheda)">
-        <Icon name="tazza" class="contributo__tazza" />
-        Offrimi un caffè
+        aria-label="Regalami un po' d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)">
+        <Icon name="erba-gatta" class="contributo__icona" />
+        Regalami un po' d'erba gatta
       </a>
       <p class="contributo__nota">
         <span>Su Ko-fi, con carta o PayPal: l'importo lo scegli tu.</span>
@@ -506,7 +505,7 @@ async function onEsci() {
 .contributo__btn:hover { background: var(--sage-pale); border-color: var(--sage); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(42,34,24,0.09); }
 .contributo__btn:active { transform: scale(0.97); }
 .contributo__btn:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.25); }
-.contributo__tazza { width: 20px; height: 20px; flex: none; }
+.contributo__icona { width: 24px; height: 24px; flex: none; }
 .contributo__nota { font-size: 12px; color: var(--ink-mid); line-height: 1.5; margin-top: 10px; text-align: center; }
 .contributo__nota span { display: block; }
 </style>
