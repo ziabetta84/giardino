@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { useMeteo, LOCATION_FALLBACK } from '@/composables/useMeteo'
-import { useApi } from '@/composables/useApi'
 import { useSupabase } from '@/composables/useSupabase'
 import { irrigazioneDaRegistrareOggi } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
