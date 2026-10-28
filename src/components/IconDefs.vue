@@ -97,6 +97,16 @@
         <path fill="var(--gold)" fill-rule="evenodd" d="M176,232a8,8,0,0,1-8,8H88a8,8,0,0,1,0-16h80A8,8,0,0,1,176,232Zm40-128a87.55,87.55,0,0,1-33.64,69.21A16.24,16.24,0,0,0,176,186v6a16,16,0,0,1-16,16H96a16,16,0,0,1-16-16v-6a16,16,0,0,0-6.23-12.66A87.59,87.59,0,0,1,40,104.49C39.74,56.83,78.26,17.14,125.88,16A88,88,0,0,1,216,104Zm-32.11-9.34a57.6,57.6,0,0,0-46.56-46.55,8,8,0,0,0-2.66,15.78c16.57,2.79,30.63,16.85,33.44,33.45A8,8,0,0,0,176,104a9,9,0,0,0,1.35-.11A8,8,0,0,0,183.89,94.66Z"/>
         <g clip-path="url(#clip-lampadina)"><ellipse cx="118" cy="148" rx="30" ry="22" fill="var(--gold-dark)" opacity=".4"/></g>
       </symbol>
+      <!-- Tazza (contributo su Ko-fi in Account): disegnata qui nello stile
+           a macchia di pigmento delle altre — tazza piena in oro, il colore
+           che si raccoglie sul fondo, vapore al 45%. -->
+      <symbol id="i-tazza" viewBox="0 0 256 256">
+        <path fill="none" stroke="var(--gold-dark)" stroke-width="12" stroke-linecap="round" opacity=".45" d="M96,74c-14-14,14-24,0-46M144,74c-14-14,14-24,0-46"/>
+        <path fill="none" stroke="var(--gold)" stroke-width="16" d="M190,112h10a30,30,0,0,1,0,60H186"/>
+        <path fill="var(--gold)" d="M40,96H196v60a60,60,0,0,1-60,60H100a60,60,0,0,1-60-60Z"/>
+        <ellipse cx="120" cy="178" rx="52" ry="24" fill="var(--gold-dark)" opacity=".35"/>
+        <rect x="28" y="222" width="184" height="16" rx="8" fill="var(--gold-dark)"/>
+      </symbol>
       <!-- Meteo: vera icona "duotone" di Phosphor (cloud-sun), non ricomposta
            — due path, uno pieno e uno al 20% per il bagliore del sole,
            entrambi color oro. -->

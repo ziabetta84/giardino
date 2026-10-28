@@ -81,18 +81,27 @@
     <!-- Contributo volontario durante la beta: link esterno alla piattaforma
          di donazione (VITE_LINK_CONTRIBUTO in .env), nessun pagamento passa
          dall'app. Vuoto = la card non compare. -->
-    <div v-if="linkContributo" class="form-card contributo" style="margin-top:16px;">
-      <p class="slabel">Una mano a Zorba</p>
+    <section v-if="linkContributo" class="form-card contributo" aria-labelledby="contributo-titolo" style="margin-top:16px;">
+      <div class="contributo__hd">
+        <ZorbaLogo mini />
+        <h2 id="contributo-titolo" class="contributo__titolo">Un caffè per Zorba</h2>
+        <span class="contributo__beta" aria-hidden="true">lavori in corso</span>
+      </div>
       <p class="contributo__testo">
-        Questo giardino è ancora in cantiere: la galleria è da sistemare e qualche aiuola è appena seminata.
-        Se Zorba ti è utile e vuoi aiutarlo a crescere, puoi lasciare un contributo libero, quando e quanto vuoi.
+        Sto ancora prendendo le misure a questo giardino: la galleria è da sistemare
+        e qualche aiuola è appena seminata. Se ti sono utile, puoi darmi una mano
+        a crescere con un contributo libero.
       </p>
-      <p class="contributo__nota">Non è un abbonamento e non sblocca niente: è solo un grazie. 🌱</p>
-      <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="btn btn-sage contributo__btn">
-        Offri un caffè a Zorba
+      <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="contributo__btn"
+        aria-label="Offrimi un caffè su Ko-fi (si apre in una nuova scheda)">
+        <Icon name="tazza" class="contributo__tazza" />
+        Offrimi un caffè
       </a>
-      <p class="contributo__nota" style="margin-top:8px;">Si apre Ko-fi in una nuova scheda: carta o PayPal, l'importo lo scegli tu.</p>
-    </div>
+      <p class="contributo__nota">
+        <span>Su Ko-fi, con carta o PayPal: l'importo lo scegli tu.</span>
+        <span>Non è un abbonamento e non sblocca nulla.</span>
+      </p>
+    </section>
 
     <!-- Rivede lo splash d'ingresso di Home fuori dalla sua cadenza normale
          (due finestre al giorno, una volta a testa) — vedi richiediSplash()
@@ -461,8 +470,43 @@ async function onEsci() {
 
 .account-hero { text-align: center; margin-bottom: 20px; }
 
-/* Contributo volontario: card discreta, il bottone è l'unico accento */
-.contributo__testo { font-size: 13px; color: var(--ink-mid); line-height: 1.5; margin-bottom: 8px; }
-.contributo__nota { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
-.contributo__btn { display: block; width: 100%; text-align: center; text-decoration: none; margin-top: 14px; }
+/* Contributo volontario: un biglietto di Zorba dentro il taccuino. Stesso
+   alone ad acquerello del blocco identità, ma in oro (rilievo positivo),
+   e un'annotazione a mano in Caveat, unica della pagina. Il bottone è
+   secondario di proposito: non è un salvataggio, non prende il salvia pieno. */
+.form-card.contributo { position: relative; overflow: hidden; }
+.contributo::before {
+  content: '';
+  position: absolute; left: -60px; bottom: -80px;
+  width: 220px; height: 200px;
+  background: radial-gradient(circle, rgba(224,184,74,0.16) 0%, rgba(224,184,74,0.06) 50%, transparent 74%);
+  pointer-events: none;
+}
+.contributo > * { position: relative; }
+.contributo__hd { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 10px; }
+.contributo :deep(.zorba-mini) { width: 26px; height: 26px; }
+.contributo__titolo { font: 600 16px/1.2 var(--font-display); color: var(--ink); margin: 0; }
+.contributo__beta {
+  font: 400 19px/1 var(--font-hand); color: var(--gold-ink);
+  transform: rotate(-4deg) translateY(1px); transform-origin: left center;
+}
+.contributo__testo { font-size: 13px; color: var(--ink-mid); line-height: 1.55; max-width: 60ch; }
+.contributo__btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; margin-top: 16px; padding: 10px 18px;
+  border-radius: 12px; border: 1px solid var(--sage-light);
+  background: var(--white); color: var(--sage-ink);
+  font: 600 13px/1 var(--font-sans); text-decoration: none;
+  box-shadow: 0 2px 10px rgba(42,34,24,0.05);
+  transition: background var(--motion-quick) var(--ease-standard),
+              border-color var(--motion-quick) var(--ease-standard),
+              box-shadow var(--motion-quick) var(--ease-standard),
+              transform var(--motion-quick) var(--ease-standard);
+}
+.contributo__btn:hover { background: var(--sage-pale); border-color: var(--sage); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(42,34,24,0.09); }
+.contributo__btn:active { transform: scale(0.97); }
+.contributo__btn:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.25); }
+.contributo__tazza { width: 20px; height: 20px; flex: none; }
+.contributo__nota { font-size: 12px; color: var(--ink-mid); line-height: 1.5; margin-top: 10px; text-align: center; }
+.contributo__nota span { display: block; }
 </style>
