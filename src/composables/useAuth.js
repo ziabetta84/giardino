@@ -95,13 +95,22 @@ function traduci(error) {
   if (/only request this after|rate limit/i.test(grezzo)) {
     return new Error('Troppi tentativi ravvicinati: aspetta un minuto e riprova.')
   }
+  // Token Turnstile mancante, scaduto o già usato (Supabase lo verifica con
+  // la secret key impostata in Attack Protection).
+  if (/captcha/i.test(grezzo)) {
+    return new Error('Verifica anti-robot non riuscita: attendi che si completi e riprova.')
+  }
   return new Error(MESSAGGI_ERRORE[grezzo] ?? grezzo)
 }
 
+// captchaToken è il token di Cloudflare Turnstile (TurnstileWidget.vue):
+// quando la protezione CAPTCHA di Supabase Auth è attiva, accesso,
+// registrazione, reinvio della conferma e recupero password lo richiedono.
+// Senza site key configurata arriva undefined e Supabase non lo cerca.
 export function useAuth() {
-  async function registrati(email, password, nome) {
+  async function registrati(email, password, nome, captchaToken) {
     const { data, error } = await supabase.auth.signUp({
-      email, password, options: { data: { nome } },
+      email, password, options: { data: { nome }, captchaToken },
     })
     if (error) throw traduci(error)
     return data
@@ -114,8 +123,10 @@ export function useAuth() {
     if (error) throw traduci(error)
   }
 
-  async function accedi(email, password) {
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+  async function accedi(email, password, captchaToken) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email, password, options: { captchaToken },
+    })
     if (error) throw traduci(error)
     return data
   }
@@ -123,8 +134,8 @@ export function useAuth() {
   // Rimanda l'email di conferma quando la prima non arriva: senza questo, chi
   // chiude la scheda dopo la registrazione resta bloccato ("Email non
   // confermata" al login, nessun modo di farsela reinviare dall'app).
-  async function reinviaConferma(email) {
-    const { error } = await supabase.auth.resend({ type: 'signup', email })
+  async function reinviaConferma(email, captchaToken) {
+    const { error } = await supabase.auth.resend({ type: 'signup', email, options: { captchaToken } })
     if (error) throw traduci(error)
   }
 
@@ -133,9 +144,9 @@ export function useAuth() {
     if (error) throw error
   }
 
-  async function richiediResetPassword(email) {
+  async function richiediResetPassword(email, captchaToken) {
     const redirectTo = window.location.origin + import.meta.env.BASE_URL
-    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo })
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo, captchaToken })
     if (error) throw traduci(error)
   }
 

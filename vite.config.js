@@ -8,6 +8,11 @@ import { execSync } from 'node:child_process'
 // Commit su cui è basata questa build: confrontato a runtime con l'ultimo
 // commit su main per capire se la versione caricata è quella pubblicata
 // più di recente (vedi useRepoStatus.js / StatusBar.vue).
+// Percorso da cui l'app è servita: '/giardino/' su GitHub Pages
+// (ziabetta84.github.io/giardino/), '/' su Cloudflare Pages, dove il
+// workflow deploy-cloudflare.yml imposta VITE_BASE=/.
+const BASE = process.env.VITE_BASE || '/giardino/'
+
 function commitBuild() {
   try {
     return execSync('git rev-parse HEAD').toString().trim()
@@ -42,8 +47,8 @@ export default defineConfig({
         name: 'Zorba in giardino',
         short_name: 'Zorba',
         description: 'Gestione del giardino di Centinarola, Fano (PU)',
-        start_url: '/giardino/',
-        scope: '/giardino/',
+        start_url: BASE,
+        scope: BASE,
         display: 'standalone',
         theme_color: '#faf7f2',
         background_color: '#faf7f2',
@@ -106,7 +111,7 @@ export default defineConfig({
       },
     }),
   ],
-  base: '/giardino/',
+  base: BASE,
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
