@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Indirizzo cambiato</title>
+</head>
+<body style="margin:0;padding:0;background:#faf7f2">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0">Il tuo account usa ora un altro indirizzo email.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#faf7f2">
+  <tr><td align="center" style="padding:32px 16px">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px">
+      <tr><td style="padding:0 8px 20px;font-family:Georgia, 'Times New Roman', serif;font-size:20px;color:#5a7e62">
+        <img src="{{ .SiteURL }}/apple-touch-icon.png" width="36" height="36" alt="" style="vertical-align:middle;border-radius:8px;margin-right:10px">Zorba in giardino
+      </td></tr>
+      <tr><td style="background:#ffffff;border:1px solid #ece5d8;border-radius:16px;padding:32px 28px;font-family:'DM Sans', Helvetica, Arial, sans-serif;font-size:16px;line-height:1.6;color:#2a2218">
+            <h1 style="margin:0 0 16px;font-family:Georgia, 'Times New Roman', serif;font-size:26px;font-weight:600;line-height:1.25;color:#2a2218">Indirizzo cambiato</h1>
+            <p style="margin:0 0 12px">{{ if .Data.nome }}Ciao {{ .Data.nome }},{{ else }}Ciao,{{ end }} il tuo account di Zorba in giardino ora usa {{ .Email }} al posto di {{ .OldEmail }}. Se il cambio l'hai fatto tu, non c'è altro da fare.</p>
+      </td></tr>
+      <tr><td style="padding:20px 8px 0;font-family:'DM Sans', Helvetica, Arial, sans-serif;font-size:13px;line-height:1.5;color:#5a4e3e">
+        Se non l'hai chiesto tu, rispondi subito a questa mail.
+      </td></tr>
+      <tr><td style="padding:12px 8px 0;font-family:'DM Sans', Helvetica, Arial, sans-serif;font-size:12px;color:#9a8e7e">
+        Zorba in giardino &middot; <a href="{{ .SiteURL }}" style="color:#9a8e7e">zorbaingiardino.app</a>
+      </td></tr>
+    </table>
+  </td></tr>
+</table>
+</body>
+</html>
