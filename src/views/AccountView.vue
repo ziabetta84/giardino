@@ -89,9 +89,9 @@
       </p>
       <p class="contributo__nota">Non è un abbonamento e non sblocca niente: è solo un grazie. 🌱</p>
       <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="btn btn-sage contributo__btn">
-        Lascia un contributo
+        Offri un caffè a Zorba
       </a>
-      <p class="contributo__nota" style="margin-top:8px;">Si apre in una nuova scheda.</p>
+      <p class="contributo__nota" style="margin-top:8px;">Si apre Ko-fi in una nuova scheda: carta o PayPal, l'importo lo scegli tu.</p>
     </div>
 
     <!-- Rivede lo splash d'ingresso di Home fuori dalla sua cadenza normale
