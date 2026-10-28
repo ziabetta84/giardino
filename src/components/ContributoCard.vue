@@ -21,9 +21,9 @@
       {{ testoNo }}
     </button>
     <p class="contributo__nota">
-      <span>Su Ko-fi, con carta o PayPal: scegli tu quanto.</span>
+      <span>Su Ko-fi, con carta o PayPal: scegli tu quanto donare.</span>
       <span>Non è un abbonamento, solo un gesto gentile.</span>
-      <span v-if="invito">Ritrovi questo angolo in Account, quando vuoi.</span>
+      <span v-if="invito">Se non vuoi donare ora, puoi farlo in qualunque momento dalla sezione Account.</span>
     </p>
   </section>
 </template>
