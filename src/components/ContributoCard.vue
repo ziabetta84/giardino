@@ -1,7 +1,7 @@
 <template>
   <!-- Biglietto di Zorba per il contributo volontario (Ko-fi). Usato come
-       card in AccountView e, con `invito`, come foglio in HomeView alla
-       prima apertura dopo la registrazione (useContributo.js). -->
+       card in AccountView e, con `invito`, come passo subito dopo la
+       registrazione, prima della schermata «Controlla la posta». -->
   <section class="contributo" :class="{ 'contributo--invito': invito }" :aria-labelledby="idTitolo">
     <div class="contributo__hd">
       <ZorbaLogo mini />
@@ -19,7 +19,7 @@
       Regalami un po' d'erba gatta
     </a>
     <button v-if="invito" type="button" class="contributo__no" @click="emit('scelta', 'non_ora')">
-      Non ora, entro in giardino
+      {{ testoNo }}
     </button>
     <p class="contributo__nota">
       <span>Su Ko-fi, con carta o PayPal: l'importo lo scegli tu.</span>
@@ -34,7 +34,10 @@ import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import { linkContributo } from '@/composables/useContributo'
 
-const props = defineProps({ invito: { type: Boolean, default: false } })
+const props = defineProps({
+  invito: { type: Boolean, default: false },
+  testoNo: { type: String, default: 'Non ora' },
+})
 const emit = defineEmits(['scelta'])
 const idTitolo = props.invito ? 'contributo-titolo-invito' : 'contributo-titolo'
 </script>

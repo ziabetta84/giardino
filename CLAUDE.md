@@ -38,7 +38,7 @@ src/
 │   ├── useConcimi.js        ← abbinamento concime↔pianta per distanza NPK normalizzata (vedi sotto)
 │   ├── useProgetti.js       ← logica progetti/tappe (scadenzaCalcolata da ultima tappa, ecc.)
 │   ├── useGalleria.js       ← listing/upload foto via Contents API (usato da GalleryView)
-│   ├── useRepoStatus.js / useAppUpdate.js ← confronto build corrente vs ultimo commit main + banner update PWA (StatusBar.vue)
+│   ├── useAppUpdate.js      ← aggiornamento PWA pronto (service worker) per la StatusBar; la barra non legge più lo stato del repository su GitHub
 │   ├── useZorba.js          ← Zorba dice: fili e messaggi da Supabase, invio in streaming alla Edge Function zorba
 │   ├── useSupabase.js       ← client Supabase (catalogo, zone/sottozone/piante e le altre tabelle dell'utente)
 │   ├── usePianteApi.js      ← CRUD piante su Supabase (creazione/modifica/eliminazione, cure, rinomina specie a cascata; Fase 5)
@@ -193,7 +193,7 @@ Le mail di Supabase Auth partono via SMTP Brevo dal mittente `entra@zorbaingiard
 
 Accesso, registrazione, reinvio della conferma e recupero password sono protetti da **Cloudflare Turnstile** (`components/TurnstileWidget.vue`, render esplicito, un token per chiamata, poi `reset()`): il token va a Supabase come `captchaToken` e lo verifica Supabase Auth con la secret key impostata in Authentication → Attack Protection (CAPTCHA, provider Turnstile). La site key è pubblica e sta in `.env` (`VITE_TURNSTILE_SITE_KEY`; vuota = niente widget, e il form funziona come prima). La secret key non va mai nel repository. Ordine di attivazione: prima l'app con il widget pubblicata, poi la protezione in Supabase, altrimenti un'app senza widget non riesce più ad accedere (le sessioni già aperte restano valide). Gli host del widget su Cloudflare devono includere ogni indirizzo dell'app (`zorbaingiardino.app`, `zorba-in-giardino.pages.dev`, `localhost`).
 
-Contributo volontario durante la beta: `ContributoCard.vue` («Erba gatta per Zorba») con un link esterno a Ko-fi (`VITE_LINK_CONTRIBUTO` in `.env`, pubblico; vuoto = niente card né invito), sempre in `AccountView.vue` e come foglio d'invito in `HomeView.vue` una sola volta, dopo lo splash, per gli account creati dal 28/10/2026 (`useContributo.js`). La risposta (dona o «non ora», chiudere il foglio vale «non ora») va in `user_metadata.contributo_invito` di Supabase Auth, con riserva in localStorage. Nessun pagamento passa dall'app; non è un abbonamento e non cambia i limiti di Zorba.
+Contributo volontario durante la beta: `ContributoCard.vue` («Erba gatta per Zorba») con un link esterno a Ko-fi (`VITE_LINK_CONTRIBUTO` in `.env`, pubblico; vuoto = niente inviti), in tre punti: card in `AccountView.vue`; passo subito dopo la registrazione, prima di «Controlla la posta» («Non ora, continua» o il link portano entrambi alla schermata della mail); invito fisso nella `StatusBar.vue` in basso, che ha preso il posto dello stato del repository GitHub (resta «Nuova versione disponibile · Ricarica» quando il service worker ha un aggiornamento pronto, con la precedenza). Nessun pagamento passa dall'app; non è un abbonamento e non cambia i limiti di Zorba.
 
 **Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
 

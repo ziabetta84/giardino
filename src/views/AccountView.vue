@@ -108,7 +108,7 @@
     <div class="account-hero">
       <ZorbaLogo ref="zorba" style="width:64px;height:64px;margin:0 auto 8px;" />
       <h1 class="page-title">
-        {{ recuperoInCorso ? 'Nuova password' : (emailConferma ? 'Controlla la posta' : 'Lascia entrare Zorba in giardino') }}
+        {{ recuperoInCorso ? 'Nuova password' : (passoContributo ? 'Ci sei quasi' : (emailConferma ? 'Controlla la posta' : 'Lascia entrare Zorba in giardino')) }}
       </h1>
     </div>
 
@@ -132,6 +132,13 @@
          (l'account resta inattivo finché non si clicca il link ricevuto via
          mail), quindi non riceve solo una riga di testo (vedi critica 08/09/2026).
          Da qui si può anche farsi reinviare l'email se non è arrivata. -->
+    <!-- Subito dopo la registrazione, prima di «Controlla la posta»: invito
+         al contributo volontario. Qualunque scelta porta alla schermata della
+         mail di conferma (chi dona apre Ko-fi in un'altra scheda e qui trova
+         già le istruzioni). -->
+    <ContributoCard v-else-if="passoContributo" invito testo-no="Non ora, continua"
+      class="form-card" style="text-align:left;" @scelta="passoContributo = false" />
+
     <div v-else-if="emailConferma" role="status" style="text-align:center;display:flex;flex-direction:column;gap:10px;">
       <p style="font-size:13px;color:var(--ink-mid);line-height:1.5;">
         Ti abbiamo inviato un'email di conferma a<br>
@@ -232,6 +239,7 @@ const messaggio = ref(null)
 // c'è una conferma in attesa: sostituisce il form con un pannello dedicato
 // invece di lasciarlo invariato (vedi template).
 const emailConferma = ref(null)
+const passoContributo = ref(false)
 
 // Token Turnstile: obbligatorio solo se la site key è configurata (vedi
 // TurnstileWidget.vue). Un token vale una volta: dopo ogni chiamata ad Auth
@@ -302,6 +310,7 @@ function cambiaModalita(nuova) {
 
 function tornaAlLogin() {
   emailConferma.value = null
+  passoContributo.value = false
   modalita.value = 'accedi'
   password.value = ''
   errore.value = null
@@ -320,6 +329,7 @@ async function onInvia() {
     } else {
       await registrati(email.value, password.value, nome.value, captchaToken.value)
       emailConferma.value = email.value
+      passoContributo.value = !!linkContributo
       // Battito lento: evento raro (una tantum per account), non la conferma
       // quotidiana di confermaCura() — vedi "Regola dei Due Battiti" in ZorbaLogo.vue.
       zorba.value?.reagisci()
