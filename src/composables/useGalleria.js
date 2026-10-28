@@ -1,28 +1,50 @@
-// Logica condivisa per la galleria foto (GalleryView.vue e PiantaView.vue):
-// lettura/eliminazione dei file su GitHub, generazione di thumbnail via
-// canvas al momento del caricamento, e mappa delle thumbnail per l'elenco
-// piante (una sola chiamata alla Git Trees API invece di una per pianta).
-import { useApi } from '@/composables/useApi'
+// Logica condivisa per la galleria foto (GalleryView.vue, PiantaView.vue e
+// PianteView.vue): le foto stanno nel bucket privato `galleria` di Supabase
+// Storage e sono elencate nella tabella `foto` (migration
+// 20261028120000_galleria_foto.sql), entrambi con accesso solo alle proprie.
+// Fino al 28/10/2026 stavano nel repository GitHub (docs/gallery/piante/),
+// scritte con un token personale: funzionava solo per un utente.
 import { parse as parseExif } from 'exifr/dist/lite.esm.mjs'
+import { useSupabase } from '@/composables/useSupabase'
 
-const OWNER  = 'ziabetta84'
-const REPO   = 'giardino'
-const BRANCH = 'main'
-const FOLDER = 'docs/gallery/piante'
+const supabase = useSupabase()
+const BUCKET = 'galleria'
+const COLONNE = 'id, pianta_id, scattata_il, percorso, percorso_media, percorso_miniatura'
 
-function apiHeaders() {
-  const token = localStorage.getItem('github_token')
-  return token ? { Authorization: `Bearer ${token}` } : {}
+// Il bucket è privato: ogni immagine si mostra con un link firmato. I link
+// valgono un giorno e restano in memoria finché mancano almeno 10 minuti alla
+// scadenza, così riaprire una vista non rifà le firme (e il browser ritrova
+// in cache le immagini con lo stesso indirizzo).
+const DURATA_FIRMA = 60 * 60 * 24
+const firme = new Map()
+
+async function firma(percorsi) {
+  const ora = Date.now()
+  const daFirmare = [...new Set(percorsi.filter(Boolean))]
+    .filter(p => !(firme.get(p)?.scade > ora + 10 * 60 * 1000))
+  if (daFirmare.length) {
+    const { data, error } = await supabase.storage.from(BUCKET).createSignedUrls(daFirmare, DURATA_FIRMA)
+    if (error) throw error
+    for (const f of data ?? []) {
+      if (f.signedUrl) firme.set(f.path, { url: f.signedUrl, scade: ora + DURATA_FIRMA * 1000 })
+    }
+  }
+  return p => firme.get(p)?.url ?? null
 }
 
-function rawUrl(path) {
-  return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}`
-}
-
-function parseData(nome) {
-  const ts = parseInt(nome.split('_')[0])
-  if (!ts || isNaN(ts)) return null
-  return new Date(ts)
+// WebP pesa circa un quinto in meno a parità di resa, ma WebKit (Safari e
+// ogni browser su iPhone/iPad) non lo sa scrivere da un canvas e restituisce
+// un PNG senza errori. Si chiede al browser una volta, su un canvas di 1px,
+// invece di dedurlo dallo user agent, che sbaglia (Safari su iPad si presenta
+// come un Mac) e invecchia appena WebKit imparerà a farlo.
+let webp = null
+function scriveWebp() {
+  if (webp === null) {
+    const c = document.createElement('canvas')
+    c.width = c.height = 1
+    webp = c.toDataURL('image/webp').startsWith('data:image/webp')
+  }
+  return webp
 }
 
 function formatBreve(d) {
@@ -35,106 +57,85 @@ function formatEstesa(d) {
   return d.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
 }
 
-const RE_THUMB    = /_thumb\.(jpe?g|png|webp)$/i
-const RE_MEDIUM   = /_medium\.(jpe?g|png|webp)$/i
-const RE_DERIVATA = /_(thumb|medium)\.(jpe?g|png|webp)$/i
-const RE_IMG      = /\.(jpe?g|png|gif|webp)$/i
+// Stessa forma di quando le foto erano file del repository: `path` resta la
+// chiave della foto nelle viste, `nome` (con il timestamp di scatto davanti)
+// serve all'ordinamento, `cartella` è l'id della pianta o 'generale'.
+// thumbUrl è la versione media (640px), usata ovunque si mostri la foto in
+// piccolo; ricade sull'originale se la media manca.
+function voce(riga, url) {
+  const d = new Date(riga.scattata_il)
+  return {
+    id:   riga.id,
+    path: riga.percorso,
+    nome: riga.percorso.split('/').pop(),
+    cartella: riga.pianta_id ?? 'generale',
+    percorsi: [riga.percorso, riga.percorso_media, riga.percorso_miniatura].filter(Boolean),
+    url:      url(riga.percorso),
+    thumbUrl: url(riga.percorso_media ?? riga.percorso),
+    dataBreve:  formatBreve(d),
+    dataEstesa: formatEstesa(d),
+  }
+}
 
-async function listDir(path) {
-  const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`, { headers: apiHeaders() })
-  if (res.status === 404) return []
-  if (!res.ok) throw new Error(`Errore API GitHub: ${res.status}`)
-  return res.json()
+async function righeConUrl(query) {
+  const { data, error } = await query.order('scattata_il', { ascending: false })
+  if (error) throw error
+  const url = await firma(data.flatMap(r => [r.percorso, r.percorso_media ?? r.percorso]))
+  return data.map(r => voce(r, url))
+}
+
+// Toglie i file dal bucket senza bloccare chi chiama: la riga è già
+// cancellata, quindi la foto non si vede più; un file rimasto occupa spazio
+// ma non fa danni.
+async function togliFile(percorsi) {
+  if (!percorsi.length) return
+  try {
+    await supabase.storage.from(BUCKET).remove(percorsi)
+  } catch {
+    // Vedi commento sopra.
+  }
+  for (const p of percorsi) firme.delete(p)
 }
 
 export function useGalleria() {
-  const { uploadFile, deleteFile } = useApi()
-
-  // Foto di una singola cartella pianta (esclude le derivate thumb/medium:
-  // sono un dettaglio interno, non fanno parte della galleria). thumbUrl
-  // punta alla versione media (640px) abbinata per prefisso timestamp,
-  // usata ovunque si mostri la foto in piccolo (hero, striscia, griglia);
-  // ricade sull'originale se la media non è ancora stata generata (foto
-  // caricate prima di questa funzionalità, in attesa del backfill).
+  // Foto di una singola pianta (o le generiche, con 'generale').
   async function listaFoto(cartella) {
-    const files = await listDir(`${FOLDER}/${cartella}`)
-    const medie = new Map(
-      files.filter(f => f.type === 'file' && RE_MEDIUM.test(f.name))
-        .map(f => [f.name.split('_')[0], f])
-    )
-    return files
-      .filter(f => f.type === 'file' && RE_IMG.test(f.name) && !RE_DERIVATA.test(f.name))
-      .map(f => {
-        const d = parseData(f.name)
-        const media = medie.get(f.name.split('_')[0])
-        return {
-          path: f.path,
-          nome: f.name,
-          sha:  f.sha,
-          cartella,
-          url:        rawUrl(f.path),
-          thumbUrl:   media ? rawUrl(media.path) : rawUrl(f.path),
-          dataBreve:  formatBreve(d),
-          dataEstesa: formatEstesa(d),
-        }
-      })
-      .sort((a, b) => b.nome.localeCompare(a.nome))
+    const q = supabase.from('foto').select(COLONNE)
+    return righeConUrl(cartella === 'generale' ? q.is('pianta_id', null) : q.eq('pianta_id', cartella))
   }
 
-  // Tutte le cartelle pianta con relative foto (per la Galleria completa).
+  // Tutte le foto dell'utente (per la Galleria completa).
   async function listaTutte() {
-    const cartelle = (await listDir(FOLDER)).filter(f => f.type === 'dir')
-    const risultati = await Promise.all(cartelle.map(c => listaFoto(c.name)))
-    return risultati.flat()
+    return righeConUrl(supabase.from('foto').select(COLONNE))
   }
 
-  // Elimina la foto e, se presenti, le sue derivate gemelle (stesso
-  // prefisso timestamp, escluse da listaFoto perché sono un dettaglio
-  // interno): senza questo passaggio resterebbero orfane nel repository.
-  // Il fallimento di questa pulizia non blocca l'eliminazione della foto,
-  // che è l'azione principale richiesta dall'utente.
+  // Prima la riga, che è ciò che l'utente vede sparire, poi i file con le
+  // derivate gemelle.
   async function elimina(foto) {
-    const risultato = await deleteFile(foto.path, foto.sha, `Elimina foto ${foto.nome}`)
-    if (foto.cartella) {
-      try {
-        const ts = parseInt(foto.nome.split('_')[0])
-        const files = await listDir(`${FOLDER}/${foto.cartella}`)
-        for (const suffisso of ['thumb', 'medium']) {
-          const nome = `${ts}_${suffisso}.jpg`
-          const derivata = files.find(f => f.name === nome)
-          if (derivata) await deleteFile(derivata.path, derivata.sha, `Elimina ${nome}`)
-        }
-      } catch {
-        // Vedi commento sopra.
-      }
-    }
-    return risultato
+    const { error } = await supabase.from('foto').delete().eq('id', foto.id)
+    if (error) throw error
+    await togliFile(foto.percorsi ?? [foto.path])
   }
 
   // Cancellazione best-effort di tutte le foto di una pianta (chiamata prima
-  // di rimuovere la pianta stessa): se la cartella non esiste non c'è nulla
-  // da fare; se una singola eliminazione fallisce non blocca le altre né la
-  // cancellazione della pianta, che è l'azione principale richiesta
-  // dall'utente — restare con qualche file orfano è preferibile a impedire
-  // di eliminare la pianta per un problema sulle foto.
+  // di rimuovere la pianta stessa): un problema sulle foto non deve impedire
+  // di eliminare la pianta, che è l'azione principale richiesta dall'utente.
+  // Le righe se ne andrebbero comunque con la pianta (on delete cascade); i
+  // file no, per questo si tolgono qui.
   async function eliminaCartella(cartella) {
-    let files
     try {
-      files = await listDir(`${FOLDER}/${cartella}`)
+      const { data, error } = await supabase.from('foto').delete().eq('pianta_id', cartella).select(COLONNE)
+      if (error) return
+      await togliFile(data.flatMap(r => [r.percorso, r.percorso_media, r.percorso_miniatura].filter(Boolean)))
     } catch {
-      return
+      // Vedi commento sopra.
     }
-    await Promise.all(
-      files
-        .filter(f => f.type === 'file')
-        .map(f => deleteFile(f.path, f.sha, `Elimina foto ${f.name}`).catch(() => {}))
-    )
   }
 
   // Ridimensiona un'immagine via canvas (lato client, nessun servizio
   // esterno): usata da carica() per generare le tre varianti di ogni foto
   // (thumb 120px per l'avatar di elenco, medium 640px per hero/griglia,
-  // originale limitato a 2000px per la lightbox) invece di conservare il
+  // originale limitato a 1600px per la lightbox) invece di conservare il
   // file a piena risoluzione della fotocamera ovunque venga mostrato.
   // Usa createImageBitmap con resize nativo del browser invece di un
   // singolo drawImage in downscale: su alcuni motori di rendering un
@@ -159,7 +160,13 @@ export function useGalleria() {
     canvas.height = height
     canvas.getContext('2d').drawImage(bitmap, 0, 0)
     bitmap.close()
-    return canvas.toDataURL('image/jpeg', qualita).split(',')[1]
+    return comeBlob(canvas, scriveWebp() ? 'image/webp' : 'image/jpeg', qualita)
+  }
+
+  function comeBlob(canvas, tipo, qualita) {
+    return new Promise((ok, ko) =>
+      canvas.toBlob(b => (b ? ok(b) : ko(new Error('Il browser non riesce a elaborare la foto.'))), tipo, qualita)
+    )
   }
 
   // Legge la data di scatto dai metadati EXIF del file (DateTimeOriginal),
@@ -178,74 +185,66 @@ export function useGalleria() {
     }
   }
 
-  // Carica la foto (ridotta lato client a un massimo di 2000px, invece del
+  async function caricaFile(base, blob) {
+    const percorso = `${base}.${blob.type === 'image/webp' ? 'webp' : 'jpg'}`
+    const { error } = await supabase.storage.from(BUCKET)
+      .upload(percorso, blob, { contentType: blob.type, cacheControl: '31536000', upsert: false })
+    if (error) throw error
+    return percorso
+  }
+
+  // Carica la foto (ridotta lato client a un massimo di 1600px, invece del
   // file diretto dalla fotocamera che può arrivare a 4000px+/7MB) insieme
   // alle sue due derivate più leggere: "_thumb" (120px, per l'avatar
   // nell'elenco piante via mappaThumbnail()) e "_medium" (640px, per
-  // hero/striscia/griglia via il campo thumbUrl di listaFoto()). Il
-  // fallimento della sola generazione/upload delle derivate non blocca il
+  // hero/striscia/griglia). Il fallimento delle sole derivate non blocca il
   // caricamento della foto principale, che resta l'obiettivo primario.
   // dataScatto (opzionale): se nota (letta da leggiDataScatto), sostituisce
-  // il momento del caricamento come timestamp del file, così l'ordinamento
-  // e la data mostrata riflettono quando la foto è stata scattata.
-  // file: il File/Blob originale, usato da createImageBitmap per generare
-  // tutte le varianti (vedi commento su ridimensiona).
+  // il momento del caricamento, così l'ordinamento e la data mostrata
+  // riflettono quando la foto è stata scattata.
   async function carica(cartella, file, dataScatto = null) {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (!session) throw new Error('Accedi per caricare le foto.')
     const ts   = dataScatto instanceof Date ? dataScatto.getTime() : Date.now()
-    const nome = `${ts}_upload.jpg`
-    const path = `${FOLDER}/${cartella}/${nome}`
+    // Il suffisso casuale evita che due foto con lo stesso istante di scatto si sovrascrivano.
+    const base = `${session.user.id}/${cartella}/${ts}_${Math.random().toString(36).slice(2, 8)}`
 
-    const base64 = await ridimensiona(file, 2000, 0.85)
-    await uploadFile(path, base64, `Aggiunge foto ${nome}`)
+    const percorso = await caricaFile(base, await ridimensiona(file, 1600, 0.80))
+    const [media, miniatura] = await Promise.all([
+      ridimensiona(file, 640, 0.75).then(b => caricaFile(`${base}_medium`, b)).catch(() => null),
+      ridimensiona(file, 120, 0.70).then(b => caricaFile(`${base}_thumb`, b)).catch(() => null),
+    ])
 
-    let thumbUrl = rawUrl(path)
-    try {
-      const [thumbBase64, mediumBase64] = await Promise.all([
-        ridimensiona(file, 120, 0.70),
-        ridimensiona(file, 640, 0.75),
-      ])
-      const thumbPath  = `${FOLDER}/${cartella}/${ts}_thumb.jpg`
-      const mediumPath = `${FOLDER}/${cartella}/${ts}_medium.jpg`
-      await Promise.all([
-        uploadFile(thumbPath,  thumbBase64,  `Aggiunge thumbnail ${ts}_thumb.jpg`),
-        uploadFile(mediumPath, mediumBase64, `Aggiunge versione media ${ts}_medium.jpg`),
-      ])
-      thumbUrl = rawUrl(mediumPath)
-    } catch {
-      // Vedi commento sopra: la foto principale è già stata caricata con successo.
+    const { data, error } = await supabase.from('foto').insert({
+      pianta_id: cartella === 'generale' ? null : cartella,
+      scattata_il: new Date(ts).toISOString(),
+      percorso,
+      percorso_media: media,
+      percorso_miniatura: miniatura,
+    }).select(COLONNE).single()
+    if (error) {
+      await togliFile([percorso, media, miniatura].filter(Boolean))
+      throw error
     }
-
-    const d = new Date(ts)
-    return { path, nome, cartella, url: rawUrl(path), thumbUrl, dataBreve: formatBreve(d), dataEstesa: formatEstesa(d) }
+    return voce(data, await firma([data.percorso, data.percorso_media]))
   }
 
-  // Una chiamata sola alla Git Trees API (ricorsiva) invece di una richiesta
-  // di elenco per ciascuna pianta: essenziale per non appesantire la vista
-  // Piante con decine di chiamate di rete solo per sapere quali hanno una
-  // thumbnail disponibile.
+  // Una query sola per tutte le piante (la più recente di ciascuna, in
+  // miniatura) e una sola richiesta di firme: la vista Piante non deve fare
+  // una chiamata per pianta solo per sapere quali hanno una foto.
   async function mappaThumbnail() {
-    const res = await fetch(
-      `https://api.github.com/repos/${OWNER}/${REPO}/git/trees/${BRANCH}?recursive=1`,
-      { headers: apiHeaders() }
-    )
-    if (!res.ok) throw new Error(`Errore API GitHub: ${res.status}`)
-    const { tree } = await res.json()
-
-    const mappa = {}
-    for (const voce of tree) {
-      if (voce.type !== 'blob') continue
-      if (!voce.path.startsWith(`${FOLDER}/`)) continue
-      const resto = voce.path.slice(FOLDER.length + 1)
-      const [cartella, nomeFile] = resto.split('/')
-      if (!nomeFile || !RE_THUMB.test(nomeFile)) continue
-      // Più thumbnail nella stessa cartella (foto multiple nel tempo): tiene
-      // la più recente confrontando il prefisso timestamp nel nome file.
-      if (!mappa[cartella] || nomeFile > mappa[cartella].nome) {
-        mappa[cartella] = { nome: nomeFile, url: rawUrl(voce.path) }
-      }
+    const { data, error } = await supabase.from('foto')
+      .select('pianta_id, percorso, percorso_media, percorso_miniatura')
+      .not('pianta_id', 'is', null)
+      .order('scattata_il', { ascending: false })
+    if (error) throw error
+    const scelte = {}
+    for (const r of data) {
+      if (!scelte[r.pianta_id]) scelte[r.pianta_id] = r.percorso_miniatura ?? r.percorso_media ?? r.percorso
     }
-    return Object.fromEntries(Object.entries(mappa).map(([cartella, v]) => [cartella, v.url]))
+    const url = await firma(Object.values(scelte))
+    return Object.fromEntries(Object.entries(scelte).map(([id, p]) => [id, url(p)]))
   }
 
-  return { listaFoto, listaTutte, elimina, eliminaCartella, ridimensiona, carica, leggiDataScatto, mappaThumbnail, rawUrl }
+  return { listaFoto, listaTutte, elimina, eliminaCartella, ridimensiona, carica, leggiDataScatto, mappaThumbnail }
 }

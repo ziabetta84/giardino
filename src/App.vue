@@ -18,17 +18,6 @@
     <AppBar />
     <ZorbaDiceSidebar />
 
-    <!-- Banner token mancante (globale) -->
-    <Transition name="page">
-      <div v-if="!tokenOk && mostraBanner && route.name === 'gallery'"
-        style="position:sticky;top:0;z-index:100;background:var(--gold-pale);border-bottom:1px solid var(--gold-light);padding:10px 16px;display:flex;align-items:center;gap:10px;">
-        <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;" />
-        <p style="font-size:12px;color:var(--gold-dark);flex:1;">Token GitHub non configurato: serve per caricare foto nella galleria.</p>
-        <RouterLink to="/account" style="font-size:12px;font-weight:600;color:var(--gold-dark);text-decoration:none;">Configura →</RouterLink>
-        <button @click="mostraBanner = false" style="background:none;border:none;color:var(--gold-dark);cursor:pointer;font-size:16px;line-height:1;">×</button>
-      </div>
-    </Transition>
-
     <main class="app-main">
       <RouterView v-slot="{ Component }">
         <!-- Senza mode="out-in": con quella modalità, lasciare AccountView per
@@ -58,22 +47,17 @@ import AppBar    from '@/components/AppBar.vue'
 import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
 import ZorbaDiceSidebar from '@/components/ZorbaDiceSidebar.vue'
-import Icon      from '@/components/Icon.vue'
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
-import { useApi } from '@/composables/useApi'
 import { useAuth } from '@/composables/useAuth'
 import { useTema } from '@/composables/useTema'
 
 const store = useDatiStore()
 const route = useRoute()
-const { isAutenticato } = useApi()
 const { utente, caricamento, recuperoInCorso } = useAuth()
 const { riconciliaConSettings } = useTema()
 
-const tokenOk     = ref(isAutenticato())
-const mostraBanner = ref(true)
 
 // Zone/sottozone/piante (Fase 5) vivono nello store Pinia, che App.vue carica
 // una sola volta con caricaTutto() — ma App.vue non fa remount quando un

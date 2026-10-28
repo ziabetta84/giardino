@@ -43,36 +43,6 @@
       <p v-if="errore" role="alert" class="account-err">{{ errore }}</p>
     </div>
 
-    <div class="form-card" style="margin-top:16px;">
-      <p class="slabel">Token GitHub</p>
-
-      <!-- Configurato: riga discreta, i controlli stanno dietro "Gestisci".
-           È un meccanismo in via di dismissione (vedi CLAUDE.md), non deve
-           essere l'elemento più pesante della vista. -->
-      <template v-if="tokenPresente && !modificandoToken">
-        <div class="token-row">
-          <Icon name="chiave" style="width:16px;height:16px;flex-shrink:0;color:var(--sage-dark);" />
-          <p class="token-row__stato">Token configurato</p>
-          <button type="button" class="link-reset" @click="modificandoToken = true">Gestisci</button>
-        </div>
-      </template>
-
-      <!-- Assente (aggiunta senza attriti), o pannello "Gestisci" aperto -->
-      <template v-else>
-        <p class="token-hint">Serve solo per caricare foto nella galleria (permesso <code>contents:write</code> sul repo).</p>
-        <div style="display:flex;gap:8px;">
-          <input v-model="tokenInput" type="password"
-            :placeholder="tokenPresente ? 'ghp_… (nuovo token)' : 'ghp_…'"
-            class="form-input" style="flex:1;" @keyup.enter="onSalvaToken">
-          <button type="button" class="btn btn-sage" :disabled="!tokenInput.trim()" @click="onSalvaToken">Salva</button>
-        </div>
-        <div v-if="tokenPresente" style="display:flex;align-items:center;gap:12px;margin-top:8px;">
-          <button type="button" class="link-reset" @click="modificandoToken = false; tokenInput = ''">Annulla</button>
-          <button type="button" class="link-reset" style="color:var(--rose-dark);margin-left:auto;" @click="confermaRimozione = true">Rimuovi token</button>
-        </div>
-      </template>
-    </div>
-
     <RouterLink to="/impostazioni" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;text-decoration:none;color:inherit;">
       <span style="font-size:13px;font-weight:600;">Impostazioni giardino</span>
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
@@ -91,13 +61,6 @@
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </button>
 
-    <ModalConferma
-      :aperto="confermaRimozione"
-      titolo="Rimuovere il token GitHub?"
-      messaggio="Non potrai più inviare richieste a Zorba né salvare modifiche ai dati del giardino finché non ne inserisci uno nuovo."
-      @conferma="onRimuoviToken"
-      @annulla="confermaRimozione = false"
-    />
   </div>
 
   <!-- Non loggato (login/registrazione) o con una sessione di recupero
@@ -206,17 +169,14 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
-import ModalConferma from '@/components/ModalConferma.vue'
 import TurnstileWidget from '@/components/TurnstileWidget.vue'
 import ContributoCard from '@/components/ContributoCard.vue'
 import { linkContributo } from '@/composables/useContributo'
 import { useAuth } from '@/composables/useAuth'
-import { useApi } from '@/composables/useApi'
 import { richiediSplash } from '@/composables/useBootSequence'
 
 const router = useRouter()
 const { utente, nomeUtente, caricamento, recuperoInCorso, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
-const { salvaToken, rimuoviToken, tokenPresente } = useApi()
 
 const zorba = ref(null)
 
@@ -226,7 +186,7 @@ const password  = ref('')
 const nome      = ref('')
 const nuovaPassword = ref('')
 
-// Modifica del nome dalla vista loggato (pattern inline come il token GitHub)
+// Modifica del nome dalla vista loggato (modifica inline)
 const nomeInput       = ref('')
 const modificandoNome = ref(false)
 const salvandoNome    = ref(false)
@@ -263,23 +223,6 @@ function onErroreCaptcha() {
 
 function nuovoCaptcha() {
   turnstile.value?.reset()
-}
-
-const tokenInput       = ref('')
-const modificandoToken = ref(false)
-const confermaRimozione = ref(false)
-
-function onSalvaToken() {
-  if (!tokenInput.value.trim()) return
-  salvaToken(tokenInput.value.trim())
-  tokenInput.value = ''
-  modificandoToken.value = false
-}
-
-function onRimuoviToken() {
-  rimuoviToken()
-  confermaRimozione.value = false
-  modificandoToken.value = false
 }
 
 function iniziaModificaNome() {
@@ -453,11 +396,6 @@ async function onEsci() {
 .account-id__email { font-size: 13px; color: var(--ink-mid); word-break: break-all; margin-top: 4px; }
 .account-id__nome-edit { margin: -4px 0 16px; }
 .account-err { font-size: 12px; color: var(--rose-dark); margin-top: 10px; }
-
-/* Token GitHub — stato compatto di default */
-.token-row { display: flex; align-items: center; gap: 8px; }
-.token-row__stato { flex: 1; font-size: 13px; font-weight: 600; color: var(--sage-dark); }
-.token-hint { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5; }
 
 .account-hero { text-align: center; margin-bottom: 20px; }
 

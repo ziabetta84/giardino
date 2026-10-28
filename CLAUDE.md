@@ -32,12 +32,11 @@ src/
 ├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase una volta sola
 ├── utils/catalogo.js        ← chiavi delle voci del catalogo, credito delle foto, livelli dell'eredità (test: node --test 'src/utils/*.test.mjs')
 ├── composables/
-│   ├── useApi.js            ← GitHub API: saveJSON(), uploadFile(), token management
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
 │   ├── useCure.js           ← logica urgenze cure (irrigazione, concimazione, potatura)
 │   ├── useConcimi.js        ← abbinamento concime↔pianta per distanza NPK normalizzata (vedi sotto)
 │   ├── useProgetti.js       ← logica progetti/tappe (scadenzaCalcolata da ultima tappa, ecc.)
-│   ├── useGalleria.js       ← listing/upload foto via Contents API (usato da GalleryView)
+│   ├── useGalleria.js       ← foto della galleria su Supabase Storage (bucket `galleria`, tabella `foto`)
 │   ├── useAppUpdate.js      ← aggiornamento PWA pronto (service worker) per la StatusBar; la barra non legge più lo stato del repository su GitHub
 │   ├── useZorba.js          ← Zorba dice: fili e messaggi da Supabase, invio in streaming alla Edge Function zorba
 │   ├── useSupabase.js       ← client Supabase (catalogo, zone/sottozone/piante e le altre tabelle dell'utente)
@@ -53,13 +52,13 @@ src/
 supabase/functions/zorba/     ← Edge Function di Zorba (lib/ provati con npm test, regole/ = prompt, condivisi/ = logica cure/concimi usata anche dall'app)
 public/data/                 ← JSON letti a runtime dal frontend
 docs/                        ← vecchio sito Jekyll (non più attivo)
-docs/gallery/piante/         ← foto piante organizzate per {id-pianta}/
+docs/gallery/piante/         ← vecchie foto della galleria (sorgente della migrazione, da togliere)
 supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardino di Zorba"
 ```
 
 ## Dati e persistenza
 
-Non ci sono più dati applicativi in JSON: `public/data/richieste-agente.json` è stato sostituito dalle tabelle di Zorba (vedi «Zorba dice in app»). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
+Non ci sono più dati applicativi in JSON: `public/data/richieste-agente.json` è stato sostituito dalle tabelle di Zorba (vedi «Zorba dice in app»). L'app non usa più GitHub per nessun dato (la galleria è su Supabase Storage dal 28/10/2026).
 
 Specie, piante, zone, sottozone, progetti, tappe, concimi e settings sono tabelle Supabase (`specie`/`piante`/`zone`/`sottozone`/`progetti`/`tappe`/`concimi`/`settings`), con RLS per utente su piante/zone/sottozone/progetti/tappe/concimi/settings — vedi "Migrazione specie → Supabase", "Migrazione zone/sottozone/piante → Supabase" e "Completamento Fase 5" più sotto.
 
@@ -195,7 +194,7 @@ Accesso, registrazione, reinvio della conferma e recupero password sono protetti
 
 Contributo volontario durante la beta: `ContributoCard.vue` («Sostieni il lavoro di Zorba in giardino») con un link esterno a Ko-fi (`VITE_LINK_CONTRIBUTO` in `.env`, pubblico; vuoto = niente inviti), in tre punti: card in `AccountView.vue`; passo subito dopo la registrazione, prima di «Controlla la posta» («Magari più avanti» o il link portano entrambi alla schermata della mail); invito fisso nella `StatusBar.vue` in basso, che ha preso il posto dello stato del repository GitHub (resta «Nuova versione disponibile · Ricarica» quando il service worker ha un aggiornamento pronto, con la precedenza). Nessun pagamento passa dall'app; non è un abbonamento e non cambia i limiti di Zorba.
 
-**Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
+**Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings e le foto della galleria. Il token GitHub non esiste più nell'app (`main.js` toglie quello rimasto in `localStorage`).
 
 ## Zorba dice in app
 
@@ -211,7 +210,7 @@ Per le piante con `coltivato_in === 'acqua'` (issue #173), `tipiCuraPianta` sost
 
 ## Gallery
 
-Le foto esistenti sono in `docs/gallery/piante/{id-pianta}/{timestamp}_{filename}.jpg` sul branch `main` e vengono servite tramite URL raw di GitHub. I caricamenti nuovi seguono la stessa struttura. La `GalleryView` usa la Contents API per listare le cartelle e costruisce gli URL raw.
+Dal 28/10/2026 le foto stanno nel bucket privato `galleria` di Supabase Storage, elencate nella tabella `foto` (migration `20261028120000_galleria_foto.sql`): RLS per utente sulla tabella e sulla cartella `{owner_id}/` del bucket, la pianta deve essere dell'utente, nessun aggiornamento (una foto si carica o si elimina). Percorsi `{owner_id}/{pianta_id|generale}/{timestamp}_{caso}.webp` più `_medium` (640px) e `_thumb` (120px); l'originale è al più 1600px. L'app scrive WebP e ripiega su JPEG quando il browser non sa crearlo (Safari restituisce un PNG senza errori). Le immagini si mostrano con link firmati di un giorno, tenuti in memoria in `useGalleria.js`. Eliminando una pianta l'app toglie prima righe e file (la cascata sulla chiave esterna cancella solo le righe). Prove: `bash scripts/galleria/prova_db.sh` (database usa e getta). Migrazione delle vecchie foto da `docs/gallery/piante/`: `scripts/galleria/migra_foto.py` (rigenera le tre versioni in WebP, salta le cartelle di piante cancellate salvo `--orfane generale`, si può rilanciare; chiave service_role solo nell'ambiente).
 
 ## Palette e design
 
