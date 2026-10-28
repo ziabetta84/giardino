@@ -19,9 +19,9 @@ export function useAppUpdate() {
       needRefresh,
       applicaAggiornamento: () => updateServiceWorker(true),
       // Forza subito un controllo invece di aspettare la prossima
-      // navigazione: usato quando sappiamo già (da useRepoStatus) che è
-      // stato pubblicato un nuovo commit, per accorciare l'attesa prima che
-      // needRefresh diventi vero.
+      // navigazione: StatusBar.vue lo chiama all'avvio e quando l'app torna
+      // in primo piano, per accorciare l'attesa prima che needRefresh
+      // diventi vero.
       controllaAggiornamento: () => registrazione?.update(),
     }
   }

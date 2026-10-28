@@ -1,64 +1,62 @@
 <template>
-  <div class="statusbar" :class="`stato-${statoEffettivo}`" :style="{ bottom: offsetInferiore + 'px' }">
-    <div style="display:flex;align-items:center;gap:8px;min-width:0;">
-      <span class="dot-glow"></span>
-      <span style="font-size:12px;color:var(--ink-soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ testoStato }}</span>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-      <button class="btn btn-ghost" style="padding:5px 14px;font-size:11px;border-radius:8px;min-height:32px;flex-shrink:0;"
-        @click="onClick">
-        {{ pronto ? 'Ricarica' : 'Aggiorna' }}
-      </button>
-    </div>
+  <div class="statusbar" :class="`stato-${stato}`" :style="{ bottom: offsetInferiore + 'px' }">
+    <!-- Aggiornamento dell'app pronto (service worker): ha la precedenza,
+         altrimenti chi non ricarica resta su una versione vecchia. -->
+    <template v-if="stato === 'nuova-versione'">
+      <div class="statusbar__msg">
+        <span class="dot-glow"></span>
+        <span class="statusbar__testo">Nuova versione disponibile</span>
+      </div>
+      <button class="btn btn-ghost statusbar__btn" @click="applicaAggiornamento">Ricarica</button>
+    </template>
+
+    <template v-else-if="stato === 'caricamento'">
+      <div class="statusbar__msg">
+        <span class="dot-glow"></span>
+        <span class="statusbar__testo">Caricamento…</span>
+      </div>
+    </template>
+
+    <!-- Invito al contributo volontario durante la beta (Ko-fi). -->
+    <template v-else-if="linkContributo">
+      <div class="statusbar__msg">
+        <Icon name="erba-gatta" class="statusbar__icona" />
+        <span class="statusbar__testo">
+          <span class="statusbar__nome">Sostieni Zorba in giardino</span>
+          <span class="statusbar__nota"> · dona un ciuffo d'erba gatta</span>
+        </span>
+      </div>
+      <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="btn btn-ghost statusbar__btn"
+        aria-label="Dona un ciuffo d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)">Dona</a>
+    </template>
+
+    <template v-else>
+      <div class="statusbar__msg">
+        <span class="dot-glow"></span>
+        <span class="statusbar__testo">Pronto</span>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
-import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
+import Icon from '@/components/Icon.vue'
 import { useDatiStore } from '@/stores/dati'
-import { useRepoStatus } from '@/composables/useRepoStatus'
 import { useAppUpdate } from '@/composables/useAppUpdate'
+import { linkContributo } from '@/composables/useContributo'
 
 const store = useDatiStore()
-const repo  = useRepoStatus()
 const { needRefresh, applicaAggiornamento, controllaAggiornamento } = useAppUpdate()
 
-// "Nuova versione disponibile" (da useRepoStatus, confronto commit su
-// GitHub) può comparire prima che QUESTO service worker se ne sia accorto:
-// solo needRefresh dice se c'è davvero un aggiornamento pronto da applicare
-// con un reload. Finché non lo è, il bottone resta "Aggiorna" (dati) invece
-// di promettere una ricarica che non cambierebbe nulla.
-const pronto = computed(() => repo.stato.value === 'nuova-versione' && needRefresh.value)
+// La barra non legge più lo stato del repository su GitHub: l'unico segnale
+// di aggiornamento è il service worker (needRefresh), che si controlla
+// all'avvio e quando l'app torna in primo piano.
+const stato = computed(() =>
+  needRefresh.value ? 'nuova-versione' : store.loading ? 'caricamento' : 'invito')
 
-watch(() => repo.stato.value, (nuovo) => {
-  if (nuovo === 'nuova-versione') controllaAggiornamento()
-}, { immediate: true })
+function alRitorno() { if (document.visibilityState === 'visible') controllaAggiornamento() }
 
-// Priorità: il caricamento iniziale dei dati locali copre lo stato del
-// repository (che nel frattempo può ben essere "aggiornato"), perché mentre
-// i JSON non sono ancora arrivati non ha senso mostrare altro.
-const statoEffettivo = computed(() => store.loading ? 'caricamento' : repo.stato.value)
-
-const testoStato = computed(() => ({
-  caricamento:        'Caricamento…',
-  sincronizzazione:   'Sincronizzazione in corso…',
-  'nuova-versione':   'Nuova versione disponibile',
-  aggiornato:         'Aggiornato',
-  sconosciuto:        'Pronto',
-}[statoEffettivo.value]))
-
-function onClick() {
-  if (pronto.value) {
-    applicaAggiornamento()
-  } else {
-    store.aggiorna()
-  }
-}
-
-// Su schermi stretti la BottomNav occupa il fondo pagina: la statusbar deve
-// stare appena sopra, con un offset misurato dal vero elemento a schermo
-// (safe-area e altezza reale variano da dispositivo a dispositivo) invece
-// che da un valore fisso indovinato in CSS.
 const offsetInferiore = ref(0)
 function aggiornaOffset() {
   const nav = document.querySelector('.bottomnav')
@@ -68,8 +66,13 @@ function aggiornaOffset() {
 onMounted(() => {
   aggiornaOffset()
   window.addEventListener('resize', aggiornaOffset)
+  document.addEventListener('visibilitychange', alRitorno)
+  controllaAggiornamento()
 })
-onUnmounted(() => window.removeEventListener('resize', aggiornaOffset))
+onUnmounted(() => {
+  window.removeEventListener('resize', aggiornaOffset)
+  document.removeEventListener('visibilitychange', alRitorno)
+})
 </script>
 
 <style scoped>
@@ -85,7 +88,17 @@ onUnmounted(() => window.removeEventListener('resize', aggiornaOffset))
   .statusbar { height: 38px; padding: 0 12px; }
 }
 
-.stato-sincronizzazione .dot-glow {
+.statusbar__msg { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.statusbar__testo { font-size: 12px; color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.statusbar__nome { font: 600 13px/1 var(--font-display); color: var(--ink-mid); }
+.statusbar__icona { width: 18px; height: 18px; flex: none; }
+.statusbar__btn {
+  padding: 5px 14px; font-size: 11px; border-radius: 8px; min-height: 32px; flex-shrink: 0;
+  text-decoration: none; display: inline-flex; align-items: center;
+}
+@media (max-width: 400px) { .statusbar__nota { display: none; } }
+
+.stato-caricamento .dot-glow {
   background: var(--gold); box-shadow: 0 0 6px rgba(224,184,74,0.7);
   animation: statusbar-pulse 1.1s ease-in-out infinite;
 }
