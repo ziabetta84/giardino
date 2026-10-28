@@ -13,10 +13,10 @@
       sempre meglio, un aggiornamento alla volta.
     </p>
     <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="contributo__btn"
-      aria-label="Offri un po' d'erba gatta a Zorba: contributo su Ko-fi (si apre in una nuova scheda)"
+      aria-label="Dona un ciuffo d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)"
       @click="emit('scelta', 'dona')">
       <Icon name="erba-gatta" class="contributo__icona" />
-      Offri un po' d'erba gatta a Zorba
+      Dona un ciuffo d'erba gatta
     </a>
     <button v-if="invito" type="button" class="contributo__no" @click="emit('scelta', 'non_ora')">
       {{ testoNo }}
