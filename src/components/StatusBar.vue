@@ -22,12 +22,12 @@
       <div class="statusbar__msg">
         <Icon name="erba-gatta" class="statusbar__icona" />
         <span class="statusbar__testo">
-          <span class="statusbar__nome">Erba gatta per Zorba</span>
-          <span class="statusbar__nota"> · aiuta il giardino a crescere</span>
+          <span class="statusbar__nome">Sostieni Zorba in giardino</span>
+          <span class="statusbar__nota"> · offrigli un po' d'erba gatta</span>
         </span>
       </div>
       <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="btn btn-ghost statusbar__btn"
-        aria-label="Regala un ciuffo d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)">Regala</a>
+        aria-label="Offri un po' d'erba gatta a Zorba: contributo su Ko-fi (si apre in una nuova scheda)">Offri</a>
     </template>
 
     <template v-else>

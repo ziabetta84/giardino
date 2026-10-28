@@ -5,19 +5,18 @@
   <section class="contributo" :class="{ 'contributo--invito': invito }" :aria-labelledby="idTitolo">
     <div class="contributo__hd">
       <ZorbaLogo mini />
-      <h2 :id="idTitolo" class="contributo__titolo">Erba gatta per Zorba</h2>
+      <h2 :id="idTitolo" class="contributo__titolo">Sostieni il lavoro di Zorba in giardino</h2>
       <span class="contributo__beta" aria-hidden="true">cresce piano piano</span>
     </div>
     <p class="contributo__testo">
-      Questo giardino nasce un po' alla volta, con pazienza e tanta cura.
-      Se ti fa piacere farne parte, puoi accompagnarlo con un piccolo dono:
-      ogni ciuffo d'erba gatta lo aiuta a fiorire.
+      Con un piccolo contributo aiuti Zorba a fare il suo lavoro
+      sempre meglio, un aggiornamento alla volta.
     </p>
     <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="contributo__btn"
-      aria-label="Regala un ciuffo d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)"
+      aria-label="Offri un po' d'erba gatta a Zorba: contributo su Ko-fi (si apre in una nuova scheda)"
       @click="emit('scelta', 'dona')">
       <Icon name="erba-gatta" class="contributo__icona" />
-      Regala un ciuffo d'erba gatta
+      Offri un po' d'erba gatta a Zorba
     </a>
     <button v-if="invito" type="button" class="contributo__no" @click="emit('scelta', 'non_ora')">
       {{ testoNo }}
@@ -60,7 +59,7 @@ const idTitolo = props.invito ? 'contributo-titolo-invito' : 'contributo-titolo'
 .contributo__hd { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 10px; margin-bottom: 10px; }
 .contributo :deep(.zorba-mini) { width: 26px; height: 26px; }
 .contributo--invito :deep(.zorba-mini) { width: 32px; height: 32px; }
-.contributo__titolo { font: 600 16px/1.2 var(--font-display); color: var(--ink); margin: 0; }
+.contributo__titolo { font: 600 16px/1.2 var(--font-display); color: var(--ink); margin: 0; max-width: calc(100% - 42px); }
 .contributo--invito .contributo__titolo { font-size: 20px; }
 .contributo__beta {
   font: 400 19px/1 var(--font-hand); color: var(--gold-ink);
