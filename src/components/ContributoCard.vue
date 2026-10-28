@@ -6,25 +6,26 @@
     <div class="contributo__hd">
       <ZorbaLogo mini />
       <h2 :id="idTitolo" class="contributo__titolo">Erba gatta per Zorba</h2>
-      <span class="contributo__beta" aria-hidden="true">lavori in corso</span>
+      <span class="contributo__beta" aria-hidden="true">cresce piano piano</span>
     </div>
     <p class="contributo__testo">
-      Questo giardino è un lavoro in corso e cresce un po' alla volta.
-      Se ti piace vederlo crescere, puoi sostenerlo con un contributo libero.
+      Questo giardino nasce un po' alla volta, con pazienza e tanta cura.
+      Se ti fa piacere farne parte, puoi accompagnarlo con un piccolo dono:
+      ogni ciuffo d'erba gatta lo aiuta a fiorire.
     </p>
     <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="contributo__btn"
-      aria-label="Regalami un po' d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)"
+      aria-label="Regala un ciuffo d'erba gatta: contributo su Ko-fi (si apre in una nuova scheda)"
       @click="emit('scelta', 'dona')">
       <Icon name="erba-gatta" class="contributo__icona" />
-      Regalami un po' d'erba gatta
+      Regala un ciuffo d'erba gatta
     </a>
     <button v-if="invito" type="button" class="contributo__no" @click="emit('scelta', 'non_ora')">
       {{ testoNo }}
     </button>
     <p class="contributo__nota">
-      <span>Su Ko-fi, con carta o PayPal: l'importo lo scegli tu.</span>
-      <span>Non è un abbonamento e non sblocca nulla.</span>
-      <span v-if="invito">Lo ritrovi quando vuoi in Account.</span>
+      <span>Su Ko-fi, con carta o PayPal: scegli tu quanto.</span>
+      <span>Non è un abbonamento, solo un gesto gentile.</span>
+      <span v-if="invito">Ritrovi questo angolo in Account, quando vuoi.</span>
     </p>
   </section>
 </template>

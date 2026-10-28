@@ -108,7 +108,7 @@
     <div class="account-hero">
       <ZorbaLogo ref="zorba" style="width:64px;height:64px;margin:0 auto 8px;" />
       <h1 class="page-title">
-        {{ recuperoInCorso ? 'Nuova password' : (passoContributo ? 'Ci sei quasi' : (emailConferma ? 'Controlla la posta' : 'Lascia entrare Zorba in giardino')) }}
+        {{ recuperoInCorso ? 'Nuova password' : (passoContributo ? 'Il cancello è quasi aperto' : (emailConferma ? 'Controlla la posta' : 'Lascia entrare Zorba in giardino')) }}
       </h1>
     </div>
 
@@ -136,7 +136,7 @@
          al contributo volontario. Qualunque scelta porta alla schermata della
          mail di conferma (chi dona apre Ko-fi in un'altra scheda e qui trova
          già le istruzioni). -->
-    <ContributoCard v-else-if="passoContributo" invito testo-no="Non ora, continua"
+    <ContributoCard v-else-if="passoContributo" invito testo-no="Magari più avanti"
       class="form-card" style="text-align:left;" @scelta="passoContributo = false" />
 
     <div v-else-if="emailConferma" role="status" style="text-align:center;display:flex;flex-direction:column;gap:10px;">
