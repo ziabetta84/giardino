@@ -59,7 +59,7 @@ export const MESSAGGI_ERRORE = {
   voce_non_trovata: 'Quella pianta non è nel catalogo.',
   filo_inesistente: 'Questa conversazione non esiste più.',
   filo_chiuso: 'Questa conversazione è conclusa: apri una nuova richiesta per continuare.',
-  in_elaborazione: 'Zorba sta già rispondendo in questo filo.',
+  in_elaborazione: 'Zorba sta già rispondendo in questa conversazione.',
   riprova_prima: 'L\'ultima risposta non è riuscita: usa Riprova prima di scrivere ancora.',
   niente_da_ritentare: 'Non c\'è nessuna risposta da ritentare.',
   abbonamento_richiesto: 'Hai usato le risposte di prova: Zorba è riservato agli abbonati.',
