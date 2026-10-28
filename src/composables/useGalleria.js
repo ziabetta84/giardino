@@ -32,6 +32,21 @@ async function firma(percorsi) {
   return p => firme.get(p)?.url ?? null
 }
 
+// WebP pesa circa un quinto in meno a parità di resa, ma WebKit (Safari e
+// ogni browser su iPhone/iPad) non lo sa scrivere da un canvas e restituisce
+// un PNG senza errori. Si chiede al browser una volta, su un canvas di 1px,
+// invece di dedurlo dallo user agent, che sbaglia (Safari su iPad si presenta
+// come un Mac) e invecchia appena WebKit imparerà a farlo.
+let webp = null
+function scriveWebp() {
+  if (webp === null) {
+    const c = document.createElement('canvas')
+    c.width = c.height = 1
+    webp = c.toDataURL('image/webp').startsWith('data:image/webp')
+  }
+  return webp
+}
+
 function formatBreve(d) {
   if (!d) return ''
   return d.toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: '2-digit' })
@@ -145,11 +160,7 @@ export function useGalleria() {
     canvas.height = height
     canvas.getContext('2d').drawImage(bitmap, 0, 0)
     bitmap.close()
-    // WebP pesa circa un quinto in meno a parità di resa; Safari però non lo sa
-    // scrivere da un canvas e restituisce un PNG senza errori, quindi si
-    // controlla il tipo ottenuto e si ripiega su JPEG.
-    const blob = await comeBlob(canvas, 'image/webp', qualita)
-    return blob?.type === 'image/webp' ? blob : comeBlob(canvas, 'image/jpeg', qualita)
+    return comeBlob(canvas, scriveWebp() ? 'image/webp' : 'image/jpeg', qualita)
   }
 
   function comeBlob(canvas, tipo, qualita) {
