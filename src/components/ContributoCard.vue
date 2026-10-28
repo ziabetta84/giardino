@@ -6,7 +6,6 @@
     <div class="contributo__hd">
       <ZorbaLogo mini />
       <h2 :id="idTitolo" class="contributo__titolo">Sostieni il lavoro di Zorba in giardino</h2>
-      <span class="contributo__beta" aria-hidden="true">cresce piano piano</span>
     </div>
     <p class="contributo__testo">
       Con un piccolo contributo aiuti Zorba a fare il suo lavoro
@@ -61,10 +60,6 @@ const idTitolo = props.invito ? 'contributo-titolo-invito' : 'contributo-titolo'
 .contributo--invito :deep(.zorba-mini) { width: 32px; height: 32px; }
 .contributo__titolo { font: 600 16px/1.2 var(--font-display); color: var(--ink); margin: 0; max-width: calc(100% - 42px); }
 .contributo--invito .contributo__titolo { font-size: 20px; }
-.contributo__beta {
-  font: 400 19px/1 var(--font-hand); color: var(--gold-ink);
-  transform: rotate(-4deg) translateY(1px); transform-origin: left center;
-}
 .contributo__testo { font-size: 13px; color: var(--ink-mid); line-height: 1.55; max-width: 60ch; }
 .contributo--invito .contributo__testo { font-size: 14px; }
 .contributo__btn {
