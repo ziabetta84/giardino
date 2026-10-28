@@ -229,6 +229,14 @@
     </div>
 
     <ToastCura ref="toastCura" @errore="e => erroreRegistrazione = { key: `${e.id}-${e.tipo}`, messaggio: e.messaggio }" />
+
+    <!-- Invito al contributo, una sola volta dopo la registrazione
+         (useContributo.js): dopo lo splash, mai sopra. Chiudere il foglio
+         vale come «non ora». -->
+    <FoglioLaterale :model-value="invitoAperto" senza-intestazione
+      @update:model-value="v => { if (!v) rispondiInvito('non_ora') }">
+      <ContributoCard invito class="foglio-form" style="padding-top:8px;padding-bottom:calc(22px + env(safe-area-inset-bottom));" @scelta="rispondiInvito" />
+    </FoglioLaterale>
     </div>
   </div>
 </template>
@@ -249,6 +257,9 @@ import HeroAiuola from '@/components/HeroAiuola.vue'
 import SplashAiuola from '@/components/SplashAiuola.vue'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
+import ContributoCard from '@/components/ContributoCard.vue'
+import { useContributo } from '@/composables/useContributo'
 import { bootCompletato, prefissoOra, fasciaGiaVista, segnaFasciaVista, movimentoRidotto, splashRichiesto } from '@/composables/useBootSequence'
 
 // Variabile di modulo, non di componente: si azzera solo con un reload vero,
@@ -333,6 +344,22 @@ onUnmounted(() => fermaOsservazioneBoot?.())
 function chiudiSplash() {
   mostraSplash.value = false
   segnaFasciaVista()
+}
+
+// Invito al contributo: si apre un attimo dopo che Home è visibile (boot
+// finito e splash chiuso), così non si sovrappone al benvenuto.
+const { invitoDaMostrare, segnaInvito } = useContributo()
+const invitoAperto = ref(false)
+let timerInvito = null
+watch(() => invitoDaMostrare.value && bootCompletato.value && !mostraSplash.value, (pronto) => {
+  clearTimeout(timerInvito)
+  if (pronto) timerInvito = setTimeout(() => { invitoAperto.value = true }, 900)
+}, { immediate: true })
+onUnmounted(() => clearTimeout(timerInvito))
+function rispondiInvito(scelta) {
+  if (!invitoAperto.value) return
+  invitoAperto.value = false
+  segnaInvito(scelta)
 }
 
 // Il meteo di oggi viene dallo store (già caricato una volta da
