@@ -78,6 +78,22 @@
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </RouterLink>
 
+    <!-- Contributo volontario durante la beta: link esterno alla piattaforma
+         di donazione (VITE_LINK_CONTRIBUTO in .env), nessun pagamento passa
+         dall'app. Vuoto = la card non compare. -->
+    <div v-if="linkContributo" class="form-card contributo" style="margin-top:16px;">
+      <p class="slabel">Una mano a Zorba</p>
+      <p class="contributo__testo">
+        Questo giardino è ancora in cantiere: la galleria è da sistemare e qualche aiuola è appena seminata.
+        Se Zorba ti è utile e vuoi aiutarlo a crescere, puoi lasciare un contributo libero, quando e quanto vuoi.
+      </p>
+      <p class="contributo__nota">Non è un abbonamento e non sblocca niente: è solo un grazie. 🌱</p>
+      <a :href="linkContributo" target="_blank" rel="noopener noreferrer" class="btn btn-sage contributo__btn">
+        Lascia un contributo
+      </a>
+      <p class="contributo__nota" style="margin-top:8px;">Si apre in una nuova scheda.</p>
+    </div>
+
     <!-- Rivede lo splash d'ingresso di Home fuori dalla sua cadenza normale
          (due finestre al giorno, una volta a testa) — vedi richiediSplash()
          in useBootSequence.js. -->
@@ -231,6 +247,7 @@ const emailConferma = ref(null)
 // il widget viene azzerato e ne produce uno nuovo.
 const turnstile    = ref(null)
 const captchaToken = ref(null)
+const linkContributo = import.meta.env.VITE_LINK_CONTRIBUTO || ''
 const attesaCaptcha = computed(() => !!import.meta.env.VITE_TURNSTILE_SITE_KEY && !captchaToken.value)
 // Widget non caricato (rete, blocco dei contenuti): il pulsante resta
 // disabilitato ma non dice più "Verifica in corso…", c'è il messaggio d'errore.
@@ -443,4 +460,9 @@ async function onEsci() {
 .token-hint { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.5; }
 
 .account-hero { text-align: center; margin-bottom: 20px; }
+
+/* Contributo volontario: card discreta, il bottone è l'unico accento */
+.contributo__testo { font-size: 13px; color: var(--ink-mid); line-height: 1.5; margin-bottom: 8px; }
+.contributo__nota { font-size: 12px; color: var(--ink-soft); line-height: 1.5; }
+.contributo__btn { display: block; width: 100%; text-align: center; text-decoration: none; margin-top: 14px; }
 </style>

@@ -193,6 +193,8 @@ Le mail di Supabase Auth partono via SMTP Brevo dal mittente `entra@zorbaingiard
 
 Accesso, registrazione, reinvio della conferma e recupero password sono protetti da **Cloudflare Turnstile** (`components/TurnstileWidget.vue`, render esplicito, un token per chiamata, poi `reset()`): il token va a Supabase come `captchaToken` e lo verifica Supabase Auth con la secret key impostata in Authentication → Attack Protection (CAPTCHA, provider Turnstile). La site key è pubblica e sta in `.env` (`VITE_TURNSTILE_SITE_KEY`; vuota = niente widget, e il form funziona come prima). La secret key non va mai nel repository. Ordine di attivazione: prima l'app con il widget pubblicata, poi la protezione in Supabase, altrimenti un'app senza widget non riesce più ad accedere (le sessioni già aperte restano valide). Gli host del widget su Cloudflare devono includere ogni indirizzo dell'app (`zorbaingiardino.app`, `zorba-in-giardino.pages.dev`, `localhost`).
 
+Contributo volontario durante la beta: card «Una mano a Zorba» in `AccountView.vue` con un link esterno (`VITE_LINK_CONTRIBUTO` in `.env`, pubblico; vuoto = card nascosta). Nessun pagamento passa dall'app; non è un abbonamento e non cambia i limiti di Zorba.
+
 **Importante**: l'account ora controlla zone/sottozone/piante/progetti/tappe/concimi/settings (Fase 5 completamento, completata — vedi sopra). Il token GitHub in `localStorage` serve solo per caricare foto nella galleria.
 
 ## Zorba dice in app
