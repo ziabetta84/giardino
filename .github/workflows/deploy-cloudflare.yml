@@ -2,8 +2,7 @@ name: Deploy su Cloudflare Pages
 
 # Build in GitHub Actions e caricamento diretto su Cloudflare Pages: il
 # collegamento Git di Cloudflare clonerebbe tutto il repository, fonti/
-# (~2,6GB) compresa, mentre qui il checkout parziale la salta come in
-# deploy.yml. Finché i segreti CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID
+# (~2,6GB) compresa, mentre qui il checkout parziale la salta. Finché i segreti CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID
 # non sono impostati la build gira ma il caricamento viene saltato.
 
 on:
@@ -42,8 +41,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          VITE_BASE: /
 
       # Crea il progetto la prima volta; se esiste già il comando fallisce
       # e si va avanti.

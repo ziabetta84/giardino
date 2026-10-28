@@ -12,7 +12,7 @@ npm run build    # build produzione → dist/
 npm run preview  # anteprima build locale
 ```
 
-Il deploy su GitHub Pages avviene automaticamente tramite GitHub Actions (`.github/workflows/deploy.yml`) ad ogni push su `main`: pubblica `dist/` sul branch `gh-pages`.
+L'app è pubblicata su https://zorbaingiardino.app (Cloudflare Pages): il workflow `.github/workflows/deploy-cloudflare.yml` la carica a ogni push su `main`.
 
 ## Struttura del repository
 
