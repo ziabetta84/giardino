@@ -1,0 +1,1349 @@
+{
+ "t:252ee325-02dd-4f48-9e75-865a865a10f7": {
+  "nome": "Aeonium",
+  "specie": "Aeonium",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/92/Aeonium_arboreum_-_Jard%C3%ADn_Bot%C3%A1nico_Canario_Viera_y_Clavijo_-_Gran_Canaria_-_01.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "H. Zell",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Aeonium_arboreum_-_Jardín_Botánico_Canario_Viera_y_Clavijo_-_Gran_Canaria_-_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:9f7eae1f-edf4-45a9-9a8e-5252e8506998": {
+  "nome": "Agapanto",
+  "specie": "Agapanthus",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Agapanthus_--_2021_--_3928.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Dietmar Rabich",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Agapanthus_--_2021_--_3928.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:e3156a28-4325-49e7-b7bd-f3c883ce83cc": {
+  "nome": "Aglio a testa sferica",
+  "specie": "Allium sphaerocephalon",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Allium_sphaerocephalon%2C_Beechview%2C_2022-07-03%2C_03.jpg",
+   "licenza": "CC0",
+   "verificata": false,
+   "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribuzione": "Cbaile19",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_sphaerocephalon,_Beechview,_2022-07-03,_03.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:eac35ddc-77dd-43af-b82a-658abe4ea3e8": {
+  "nome": "Aglio ampelopraso",
+  "specie": "Allium ampeloprasum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Allium_ampeloprasum_-_Broadleaf_wild_leek_03.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Zeynel Cebeci",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_ampeloprasum_-_Broadleaf_wild_leek_03.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:5b69e93b-f4cd-4115-8f1d-0386bbad13c9": {
+  "nome": "Alisso marittimo",
+  "specie": "Lobularia maritima",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Lobularia_maritima%2C_S%C3%A8te_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Christian Ferrer",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Lobularia_maritima,_Sète_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:5f4ff97b-7f8f-49e7-b81b-d906705b5e04": {
+  "nome": "Alloro",
+  "specie": "Laurus nobilis",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Laurus_nobilis_MHNT_Fleurs.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Didier Descouens",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Laurus_nobilis_MHNT_Fleurs.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:c00938e5-c3ae-4967-b72b-e91f04786ea8": {
+  "nome": "Aloe vera",
+  "specie": "Aloe vera",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Cape_Town_%28ZA%29%2C_Table_Mountain%2C_Aloe_vera_--_2024_--_2869.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Dietmar Rabich",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cape_Town_(ZA),_Table_Mountain,_Aloe_vera_--_2024_--_2869.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:f5f7af2f-85e1-4787-a714-8c482cec3d86": {
+  "nome": "Anturio",
+  "specie": "Anthurium",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Anthurium_%28Flamingoplant%29_12-08-2019_%28actm%29_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnes Monkelbaan",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Anthurium_(Flamingoplant)_12-08-2019_(actm)_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:b335f317-18b3-4c11-ae7f-b79e1a16a414": {
+  "nome": "Aquilegia",
+  "specie": "Aquilegia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Aquilegia_vulgaris_%27Alba%27_with_dry_pods_-_2018-07-22_focus_stack.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Franz van Duns",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Aquilegia_vulgaris_'Alba'_with_dry_pods_-_2018-07-22_focus_stack.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:ef4a8c0a-08f1-48b0-ae96-d2e249c6655f": {
+  "nome": "Arancio",
+  "specie": "Citrus × aurantium",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Citrus_sinensis_Lucca_03.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Syrio",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Citrus_sinensis_Lucca_03.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:f1a62688-3a0a-442a-8d4a-a7a346ee6e80": {
+  "nome": "Avocado",
+  "specie": "Persea americana",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Persea_americana_from_Canadian_supermarket.jpg",
+   "licenza": "CC0",
+   "verificata": false,
+   "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribuzione": "Wilfredor",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Persea_americana_from_Canadian_supermarket.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:16cb06f4-d2bc-4682-9ff8-fc378fe7cb53": {
+  "nome": "Bambù della fortuna",
+  "specie": "Dracaena sanderiana",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Dracaena_sanderiana_in_China.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Dinkun Chen",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Dracaena_sanderiana_in_China.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:c0c73a46-790c-4c1e-9146-0c80ae341306": {
+  "nome": "Basilico",
+  "specie": "Ocimum basilicum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Ocimum_Basilicum_leaf_lighted_by_the_left.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "BernaBotto",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ocimum_Basilicum_leaf_lighted_by_the_left.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:8c71a6e1-fe59-4c62-93c3-c74b6d704d5a": {
+  "nome": "Borracina acre",
+  "specie": "Sedum acre",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Sedum_acre_single_-_Niitv%C3%A4lja.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ivar Leidus",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sedum_acre_single_-_Niitvälja.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:57c67638-79e5-498f-be31-93299fcc5c61": {
+  "nome": "Calathea",
+  "specie": "Calathea",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Calathea_warscewiczii_-_Wilhelma.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "H. Zell",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Calathea_warscewiczii_-_Wilhelma.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:12a40c77-38f2-4981-a1a1-8c44cb170701": {
+  "nome": "Calibrachoa",
+  "specie": "Calibrachoa",
+  "tipo": "taxon",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "t:e65b4a94-d30b-4bb7-ae32-b60c1b68159c": {
+  "nome": "Camelia",
+  "specie": "Camellia japonica",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Camellia_japonica_NBG.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "PumpkinSky",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Camellia_japonica_NBG.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:0b5cc5e3-0848-4299-92ae-8995a975cc4f": {
+  "nome": "Carice 'Evergold'",
+  "specie": "Carex oshimensis 'Evergold'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Carex_oshimensis_%27Evergold%27_-_Hillier_Gardens_-_Romsey%2C_Hampshire%2C_England_-_DSC04341.jpg",
+   "licenza": "CC0",
+   "verificata": false,
+   "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribuzione": "Daderot",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Carex_oshimensis_'Evergold'_-_Hillier_Gardens_-_Romsey,_Hampshire,_England_-_DSC04341.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Carex oshimensis",
+   "rango": "species"
+  }
+ },
+ "t:b6ab2fba-d8ac-4bc3-9d44-98709e06d483": {
+  "nome": "Carota",
+  "specie": "Daucus carota",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/a0/Four-spotted_orb_weaver_%28Araneus_quadratus%29_female_on_wild_carrot_%28Daucus_carota%29_seed_head_Uckermark.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Charles J. Sharp",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Four-spotted_orb_weaver_(Araneus_quadratus)_female_on_wild_carrot_(Daucus_carota)_seed_head_Uckermark.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:0e14a4e2-95f2-4f97-9c0c-928d5a698157": {
+  "nome": "Cavolo 'Nero di Toscana'",
+  "specie": "Brassica oleracea 'Nero di Toscana'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Romanesco_broccoli_%28Brassica_oleracea%29.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ivar Leidus",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Romanesco_broccoli_(Brassica_oleracea).jpg"
+  },
+  "livello_immagine": {
+   "nome": "Brassica oleracea",
+   "rango": "species"
+  }
+ },
+ "t:84a32d28-db58-4d3d-96d8-2ec1d30abea3": {
+  "nome": "Ceropegia",
+  "specie": "Ceropegia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Ceropegia_woodii_Ceropegia_Wooda_2024-04-26_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnieszka Kwiecień, Nova",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ceropegia_woodii_Ceropegia_Wooda_2024-04-26_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:dd091e8e-3821-4ae5-9f9a-83d23b8d97f4": {
+  "nome": "Cipolla",
+  "specie": "Allium cepa",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/03/Allium_cepa%2C_Amol.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "Mehdi",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_cepa,_Amol.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:b6ebe890-49be-40be-b322-01a80a25ee91": {
+  "nome": "Clematis montana",
+  "specie": "Clematis montana",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Ranunculaceae_Clematis_montana_1.2.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "NasserHalaweh",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Ranunculaceae_Clematis_montana_1.2.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:e4a61e7c-66c5-4b46-97be-a6dc9e57043c": {
+  "nome": "Coreopsis",
+  "specie": "Coreopsis",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/20/Coreopsis_grandiflora_come_into_bloom.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "ThomasLendt",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Coreopsis_grandiflora_come_into_bloom.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:f978452f-4ad3-4da3-b4c0-bd5b99a9542f": {
+  "nome": "Cuphea",
+  "specie": "Cuphea",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Cuphea_hyssopifolia_kz04.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cuphea_hyssopifolia_kz04.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:4d39b06e-d7df-43ec-9c74-c20cb5656d41": {
+  "nome": "Delosperma",
+  "specie": "Delosperma",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/%28MHNT%29_Delosperma_cooperi_-_Flower_and_leaves.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Didier Descouens",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Delosperma_cooperi_-_Flower_and_leaves.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:6eec2bf6-b34f-426e-87b0-4ef2290213a1": {
+  "nome": "Dracaena trifasciata",
+  "specie": "Dracaena trifasciata",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/51/Sansevieria_trifasciata_Colombia.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "JOAN",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sansevieria_trifasciata_Colombia.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:86575acb-9e7b-4b57-bf4e-56b32d7d2692": {
+  "nome": "Echeveria",
+  "specie": "Echeveria",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/190615_177_Corona_del_Mar%2C_Sherman_Gardens_-_Succulent_Garden%2C_Tillandsia_spp%2C_Neoregelia_spp%2C_Tradescantia_sillamontana%2C_Echeveria_%27Lola%27%2C_Rhamnus_frangula_Fine_Line%C2%AE%2C_Ophiopogon_planiscapus_%27Nigrescens%27.jpg",
+   "licenza": "CC BY 2.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribuzione": "cultivar413",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:190615_177_Corona_del_Mar,_Sherman_Gardens_-_Succulent_Garden,_Tillandsia_spp,_Neoregelia_spp,_Tradescantia_sillamontana,_Echeveria_'Lola',_Rhamnus_frangula_Fine_Line®,_Ophiopogon_planiscapus_'Nigrescens'.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:f6897d44-1d60-48ea-bfec-696813227035": {
+  "nome": "Echinacea",
+  "specie": "Echinacea",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Echinacea_purpurea_in_Jardin_botanique_de_la_Charme_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Golik",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Echinacea_purpurea_in_Jardin_botanique_de_la_Charme_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:be5242c3-3305-463d-91f1-b99180f7df2b": {
+  "nome": "Echinacea 'Meditation Pink'",
+  "specie": "Echinacea 'Meditation Pink'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Echinacea_purpurea_in_Jardin_botanique_de_la_Charme_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Golik",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Echinacea_purpurea_in_Jardin_botanique_de_la_Charme_01.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Echinacea",
+   "rango": "genus"
+  }
+ },
+ "c:813be885-7b87-4b75-9907-a73f57242e48": {
+  "nome": "Edera terrestre 'Variegata'",
+  "specie": "Glechoma hederacea 'Variegata'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/2026-04-02_Z5-3124_Achim-Lammerts_Glechoma-hederacea.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Achim Lammerts (Syntaxys)",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:2026-04-02_Z5-3124_Achim-Lammerts_Glechoma-hederacea.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Glechoma hederacea",
+   "rango": "species"
+  }
+ },
+ "t:184fb0e8-5a31-4545-b1ce-4160f4699b61": {
+  "nome": "Enagra di Lindheimer",
+  "specie": "Oenothera lindheimeri",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/Gaura_lindheimeri%2C_prachtkaars._%28actm%29_02.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnes Monkelbaan",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Gaura_lindheimeri,_prachtkaars._(actm)_02.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:d639db07-29c3-4fa1-ab62-61766a9bbc7f": {
+  "nome": "Erba cipollina",
+  "specie": "Allium schoenoprasum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Allium_schoenoprasum_kz01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_schoenoprasum_kz01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:0ad32543-5d4e-46a6-bf67-5711c91e8f62": {
+  "nome": "Erica",
+  "specie": "Erica",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Erica_carnea_%27Isabell%27_Wrzosiec_krwisty_2017-04-09_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnieszka Kwiecień, Nova",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Erica_carnea_'Isabell'_Wrzosiec_krwisty_2017-04-09_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:7df3b961-dcb5-45f0-98b7-16cfa34015d6": {
+  "nome": "Euphorbia trigona",
+  "specie": "Euphorbia trigona",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Euphorbia_trigona_-_leaves.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Juan Carlos Fonseca Mata",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Euphorbia_trigona_-_leaves.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:1d1033ef-321b-4063-bf7f-d9bd3717eb77": {
+  "nome": "Falenopside",
+  "specie": "Phalaenopsis",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Phalaenopsis_Cultivar_Yellow_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Uoaei1",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Phalaenopsis_Cultivar_Yellow_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:c96771f0-3690-49ae-a778-38cb3f74474b": {
+  "nome": "Falso gelsomino",
+  "specie": "Trachelospermum jasminoides",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Trachelospermum_jasminoides_Reunion.jpg",
+   "licenza": "CC0",
+   "verificata": false,
+   "licenza_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+   "attribuzione": "Parchaco",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Trachelospermum_jasminoides_Reunion.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:5f960445-1b90-4237-a644-45f8c63f76ab": {
+  "nome": "Ferocactus",
+  "specie": "Ferocactus",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Caryophyllales_-_Ferocactus_sp._-_1.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Emőke Dénes",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Caryophyllales_-_Ferocactus_sp._-_1.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:d13af4c1-bb1b-4f61-9d07-2cf2ed3a1de3": {
+  "nome": "Fico del caucciù 'Belize'",
+  "specie": "Ficus elastica 'Belize'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/0e/Catania%2C_Villa_Bellini_2024f%2C_Ficus_elastica.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Cayambe",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Catania,_Villa_Bellini_2024f,_Ficus_elastica.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Ficus elastica",
+   "rango": "species"
+  }
+ },
+ "t:ffeb4e54-5b4f-4ed0-9602-c87a0b608d67": {
+  "nome": "Fico di mare",
+  "specie": "Carpobrotus edulis",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/95/Carpobrotus_edulis_in_New_Brighton%2C_Christchurch%2C_New_Zealand_03.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Michal Klajban",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Carpobrotus_edulis_in_New_Brighton,_Christchurch,_New_Zealand_03.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:78a2ea8d-da06-4b5c-adfe-17327807a731": {
+  "nome": "Ficus ginseng",
+  "specie": "Ficus microcarpa",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/68/%28MHNT%29_Ficus_microcarpa_%27Ginseng%27.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Didier Descouens",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Ficus_microcarpa_'Ginseng'.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:e9f66eec-ebf4-4ac9-b14a-12cb1ed6ff93": {
+  "nome": "Fiordaliso di Ragusa",
+  "specie": "Centaurea ragusina",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Centaurea_ragusina_Risan_Bay_of_Kotor_yard_of_the_St._Michael.JPG",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Orjen",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Centaurea_ragusina_Risan_Bay_of_Kotor_yard_of_the_St._Michael.JPG"
+  },
+  "livello_immagine": null
+ },
+ "t:a67a91e6-c6e7-48a6-bc2a-b8f4de4174d3": {
+  "nome": "Garofano",
+  "specie": "Dianthus",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Lippincott_seeds_%2816371664641%29.jpg",
+   "licenza": "Public domain",
+   "verificata": false,
+   "licenza_url": "",
+   "attribuzione": "Henry G. Gilbert Nursery and Seed Trade Catalog Collection.; Miss C.H. Lippincott (Firm)",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Lippincott_seeds_(16371664641).jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:bf4c9976-f912-4a37-b90d-8adf9906a252": {
+  "nome": "Gasteria",
+  "specie": "Gasteria",
+  "tipo": "taxon",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "c:8cf77b4f-809b-4d86-a49d-400cf309ce1e": {
+  "nome": "Geranio 'Gerwat'",
+  "specie": "Geranium 'Gerwat'",
+  "tipo": "cultivar",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "t:b5c6e388-0c3f-47d9-be9c-8d917f806a80": {
+  "nome": "Geranio parigino",
+  "specie": "Pelargonium peltatum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Pelargonium_peltatum_kz01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pelargonium_peltatum_kz01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:ebddf5a2-e862-4f43-a681-514a5c1d5a59": {
+  "nome": "Geranio zonale",
+  "specie": "Pelargonium zonale",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/01_Pelargonium_flower_close-up.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Mister rf",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:01_Pelargonium_flower_close-up.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:684c4661-048b-42d8-8b61-b0fcbd7b2033": {
+  "nome": "Heuchera 'Boysenberry'",
+  "specie": "Heuchera 'Boysenberry'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/Plant_on_andesite_rock_with_moss._%284a6fa5940e3e4af2ab768c4e19de6e39%29.JPG",
+   "licenza": "Public domain",
+   "verificata": false,
+   "licenza_url": "",
+   "attribuzione": "Steve Redman (MORA)",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Plant_on_andesite_rock_with_moss._(4a6fa5940e3e4af2ab768c4e19de6e39).JPG"
+  },
+  "livello_immagine": {
+   "nome": "Heuchera",
+   "rango": "genus"
+  }
+ },
+ "t:fd4d0a5e-f66e-4a8a-9ca6-e13299891dc4": {
+  "nome": "Iberide sempreverde",
+  "specie": "Iberis sempervirens",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Trauttmansdorff_gardens_-_Iberis_sempervirens_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Syrio",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Trauttmansdorff_gardens_-_Iberis_sempervirens_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:864b22a3-1884-40c5-9f49-b219a42190f0": {
+  "nome": "Ipoeste",
+  "specie": "Hypoestes phyllostachya",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/%28MHNT%29_Hypoestes_phyllostachya_-_leaves.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Didier Descouens",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Hypoestes_phyllostachya_-_leaves.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:5423d5af-1d5a-483b-8d25-cc1e1fcb5e15": {
+  "nome": "Kumquat",
+  "specie": "Citrus japonica",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Citrus_japonica.jpg",
+   "licenza": "CC BY 2.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by/2.0",
+   "attribuzione": "Phuong  Tran",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Citrus_japonica.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:ab27a9e4-2636-4bf5-a120-f12f61179960": {
+  "nome": "Lampranthus",
+  "specie": "Lampranthus",
+  "tipo": "taxon",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "t:d8b5588c-dd9c-4961-b0dc-0169f7305dad": {
+  "nome": "Mammillaria",
+  "specie": "Mammillaria",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/07/Mammillaria_vetula_%28fruto%29.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Juan Carlos Fonseca Mata",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_vetula_(fruto).jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:e5831344-9d04-4f23-b6bc-eb7efb5cb7e2": {
+  "nome": "Mammillaria allungata",
+  "specie": "Mammillaria elongata",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Mammillaria_elongata_Mamilaria_wyd%C5%82u%C5%BCona_2019-07-12_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnieszka Kwiecień, Nova",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_elongata_Mamilaria_wydłużona_2019-07-12_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:2d7aec2f-6bf8-4e9c-8a0f-9ce447d08b1f": {
+  "nome": "Mammillaria allungata 'D One'",
+  "specie": "Mammillaria elongata 'D One'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Mammillaria_elongata_Mamilaria_wyd%C5%82u%C5%BCona_2019-07-12_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnieszka Kwiecień, Nova",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_elongata_Mamilaria_wydłużona_2019-07-12_01.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Mammillaria elongata",
+   "rango": "species"
+  }
+ },
+ "t:9ad1d98c-882a-482d-ba4e-428aaa60b122": {
+  "nome": "Mammillaria piumosa",
+  "specie": "Mammillaria plumosa",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Mammillaria_plumosa_12.JPG",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Petar43",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Mammillaria_plumosa_12.JPG"
+  },
+  "livello_immagine": null
+ },
+ "t:a271f415-c8ac-4886-b97b-4b2f8abdd8e5": {
+  "nome": "Margherita delle Canarie",
+  "specie": "Argyranthemum frutescens",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/a2/Argyranthemum_frutescens_subsp._canariae_kz01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Argyranthemum_frutescens_subsp._canariae_kz01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:efa26c11-80e5-4d0a-bb40-e21240b2ce92": {
+  "nome": "Melanzana",
+  "specie": "Solanum melongena",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Solanum_melongena_03458.JPG",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Vengolis",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Solanum_melongena_03458.JPG"
+  },
+  "livello_immagine": null
+ },
+ "t:d8fb0d20-5faa-48ad-8355-46a260615c4a": {
+  "nome": "Narciso",
+  "specie": "Narcissus",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Snowdrops_under_Beech_trees_-_geograph.org.uk_-_1722347.jpg",
+   "licenza": "CC BY-SA 2.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/2.0",
+   "attribuzione": "Jonathan Kington",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Snowdrops_under_Beech_trees_-_geograph.org.uk_-_1722347.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:c8fc8c3e-ba84-4bc6-8e9a-e46ceee9b8f4": {
+  "nome": "Narciso selvatico 'Recurvus'",
+  "specie": "Narcissus poeticus 'Recurvus'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Narcissus_poeticus_Spechtensee_01.JPG",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Uoaei1",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Narcissus_poeticus_Spechtensee_01.JPG"
+  },
+  "livello_immagine": {
+   "nome": "Narcissus poeticus",
+   "rango": "species"
+  }
+ },
+ "t:c56f825e-1941-4c22-b5d2-86f384bad24b": {
+  "nome": "Nassella tenuissima",
+  "specie": "Nassella tenuissima",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Nassella_tenuissima_Los_Angeles.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Downtowngal",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Nassella_tenuissima_Los_Angeles.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:61dc5ba0-5ba7-4213-b14e-ad8bfcc99f08": {
+  "nome": "Osteospermum",
+  "specie": "Osteospermum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Osteospermum_ecklonis_July_2026-2.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Alvesgaspar",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Osteospermum_ecklonis_July_2026-2.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:2f91bb6c-b304-41ea-a59c-3a012811bedb": {
+  "nome": "Passiflora caerulea",
+  "specie": "Passiflora caerulea",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Passiflora_caerulea_STEREO_%28R-L%29_side_view_2019-06-29.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Franz van Duns",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Passiflora_caerulea_STEREO_(R-L)_side_view_2019-06-29.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:274476d9-6d8e-4a91-b1d8-7f8991f8f139": {
+  "nome": "Pennisetum cinese",
+  "specie": "Cenchrus alopecuroides",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Pennisetum_alopecuroides_in_China.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Dinkun Chen",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pennisetum_alopecuroides_in_China.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:14d9b295-7652-4a7a-b652-586256ec9ccf": {
+  "nome": "Peperone 'Piccante Calabrese'",
+  "specie": "Capsicum annuum 'Piccante Calabrese'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Capsicum_annuum_MHNT.BOT.2007.40.74.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "Roger Culos",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Capsicum_annuum_MHNT.BOT.2007.40.74.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Capsicum annuum",
+   "rango": "species"
+  }
+ },
+ "t:8b75d73a-1b08-4246-94e8-557b02d69686": {
+  "nome": "Pesco",
+  "specie": "Prunus persica",
+  "tipo": "taxon",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "c:3570b46b-a708-48e1-8a50-73a9ff4de06e": {
+  "nome": "Phedimus spurius 'Tricolor'",
+  "specie": "Phedimus spurius 'Tricolor'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Sedum_spurium.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "http://creativecommons.org/licenses/by-sa/3.0/",
+   "attribuzione": "Bouba at French Wikipedia",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sedum_spurium.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Phedimus spurius",
+   "rango": "species"
+  }
+ },
+ "t:fd6f628a-917f-4495-b44f-f5e753c0b38b": {
+  "nome": "Pianta delle Monete",
+  "specie": "Pilea peperomioides",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/%28MHNT%29_Pilea_peperomioides_Foliage.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Didier Descouens",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Pilea_peperomioides_Foliage.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:31d30bed-b555-4a8c-b364-77b31e0034f9": {
+  "nome": "Piretro della Dalmazia",
+  "specie": "Tanacetum cinerariifolium",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Flowers_of_Tanacetum_cinerariifolium_20180430.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "そらみみ",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Flowers_of_Tanacetum_cinerariifolium_20180430.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:9beef9ff-7c50-421d-b73e-79441f5f8110": {
+  "nome": "Pisello",
+  "specie": "Lathyrus oleraceus",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Pisum_sativum_MHNT.BOT.2010.12.9.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "Roger Culos",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Pisum_sativum_MHNT.BOT.2010.12.9.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:fc703d55-e3e3-47e4-8da8-6935e623e98a": {
+  "nome": "Plumbago",
+  "specie": "Plumbago",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/88/Zaaddozen_van_Plumbago_auriculata._07-02-2026._%28actm.%29_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Agnes Monkelbaan",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zaaddozen_van_Plumbago_auriculata._07-02-2026._(actm.)_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:acfe71a0-f954-477c-8dd1-fc088cc3137b": {
+  "nome": "Pothos",
+  "specie": "Epipremnum aureum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/59/Epipremnum_aureum_kz02.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Epipremnum_aureum_kz02.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:68fe14b7-444c-451f-9b60-63209bd471e8": {
+  "nome": "Pratolina",
+  "specie": "Bellis perennis",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/89/20200325_Bellis_perennis_01.jpg",
+   "licenza": "CC BY 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by/4.0",
+   "attribuzione": "Flocci Nivis",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:20200325_Bellis_perennis_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:c12d04a6-7a47-4f81-a44e-c59072da12da": {
+  "nome": "Salcerella",
+  "specie": "Lythrum salicaria",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Lythrum_salicaria_-_harilik_kukesaba.jpg",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "Ivar Leidus",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Lythrum_salicaria_-_harilik_kukesaba.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:4ae9ea82-18f3-4581-b955-a1c050db5393": {
+  "nome": "Scalogno",
+  "specie": "Allium ascalonicum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Allium_hierochuntinum_kz02.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Allium_hierochuntinum_kz02.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:3d8a8e5f-544e-4c26-b333-80d9519a11c5": {
+  "nome": "Scilla marittima",
+  "specie": "Drimia maritima",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Drimia_maritima_-_Sea_onion%2C_Adana_2016-12-04_01-1.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Zeynel Cebeci",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Drimia_maritima_-_Sea_onion,_Adana_2016-12-04_01-1.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:8f31264f-b482-44f3-b7ea-a6de4e814a81": {
+  "nome": "Sedum morganianum",
+  "specie": "Sedum morganianum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Burrito_%28Sedum_morganianum%29%2C_jard%C3%ADn_bot%C3%A1nico_de_Tallinn%2C_Estonia%2C_2012-08-13%2C_DD_02.JPG",
+   "licenza": "CC BY-SA 3.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/3.0",
+   "attribuzione": "Diego Delso",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Burrito_(Sedum_morganianum),_jardín_botánico_de_Tallinn,_Estonia,_2012-08-13,_DD_02.JPG"
+  },
+  "livello_immagine": null
+ },
+ "t:d3bb1b04-5f0d-4d6f-bc10-0c74d561ad87": {
+  "nome": "Sisyrinchium californicum",
+  "specie": "Sisyrinchium californicum",
+  "tipo": "taxon",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "t:1d56ca82-978c-410b-bd15-368745c6d701": {
+  "nome": "Spiraea × arguta",
+  "specie": "Spiraea × arguta",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Sambucus_nigra_und_Spiraea_arguta.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Burkhard Mücke",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Sambucus_nigra_und_Spiraea_arguta.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:3c85ee24-79c8-4553-ae34-9e8db65bbd4e": {
+  "nome": "Thymus × citriodorus",
+  "specie": "Thymus × citriodorus",
+  "tipo": "taxon",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "t:e3a6917a-8aa7-457e-9779-64a919f9b4a6": {
+  "nome": "Timo serpillo",
+  "specie": "Thymus serpyllum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/5/5f/Thymus_serpyllum_in_Cardaillac_%282%29.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Golik",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Thymus_serpyllum_in_Cardaillac_(2).jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:db384666-2f48-4515-91e6-c3348d325e9d": {
+  "nome": "Tradescanzia",
+  "specie": "Tradescantia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Paname%C3%B1a_%28Tradescantia_zebrina%29.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Juan Carlos Fonseca Mata",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Panameña_(Tradescantia_zebrina).jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:26bf4053-07a1-4e99-8e38-b0a289d2702c": {
+  "nome": "Trifoglio acquatico comune",
+  "specie": "Marsilea quadrifolia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Marsilea_quadrifolia_kz06.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Marsilea_quadrifolia_kz06.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:1383ae88-e972-4005-a291-34340d73d19a": {
+  "nome": "Tulipano 'Happy Generation'",
+  "specie": "Tulipa 'Happy Generation'",
+  "tipo": "cultivar",
+  "immagine": null,
+  "livello_immagine": null
+ },
+ "t:8af24d1e-a329-4d63-8d54-0f8e3b53ddff": {
+  "nome": "Ulivo",
+  "specie": "Olea europaea",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/%28MHNT%29_Olea_europaea_-_Inflorescence_and_leaves.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Didier Descouens",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:(MHNT)_Olea_europaea_-_Inflorescence_and_leaves.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:c43780f2-56c2-480a-834f-14f853b85720": {
+  "nome": "Uva di gatto",
+  "specie": "Muscari armeniacum",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Muscari_armeniacum%2C_1803041716%2C_ako.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ansgar Koreng",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Muscari_armeniacum,_1803041716,_ako.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:a6604cf1-88c1-43dd-9da8-d65fa63380ea": {
+  "nome": "Uva di gatto 'Manon'",
+  "specie": "Muscari armeniacum 'Manon'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Muscari_armeniacum%2C_1803041716%2C_ako.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ansgar Koreng",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Muscari_armeniacum,_1803041716,_ako.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Muscari armeniacum",
+   "rango": "species"
+  }
+ },
+ "c:d94486f9-7fd8-4820-bd92-a257e21425c7": {
+  "nome": "Vedovina selvatica 'Mariposa Blue'",
+  "specie": "Scabiosa columbaria 'Mariposa Blue'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Scabiosa_columbaria_Mitterbach_20190714.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Uoaei1",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Scabiosa_columbaria_Mitterbach_20190714.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Scabiosa columbaria",
+   "rango": "species"
+  }
+ },
+ "t:4e412818-5ab7-41b2-b17c-0f8e3241638a": {
+  "nome": "Verbena",
+  "specie": "Verbena",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Verbena_hybrida%E2%80%93IMG_6604_01.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Kızıl",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Verbena_hybrida–IMG_6604_01.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:e13c2546-7b39-4169-8aa0-a1f6f0c7d184": {
+  "nome": "Violaciocca",
+  "specie": "Matthiola incana",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Matthiola_incana_kz08.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Krzysztof Ziarnek, Kenraiz",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Matthiola_incana_kz08.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:2b63e2eb-85ea-4d7f-916f-5f5543df4435": {
+  "nome": "Zamioculcas zamiifolia",
+  "specie": "Zamioculcas zamiifolia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/9/97/Zamioculcas_zamiifolia_in_China_%284%29.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Dinkun Chen",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zamioculcas_zamiifolia_in_China_(4).jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:a376c3dd-ab71-40d4-be09-96e1c3150f31": {
+  "nome": "Zinnia",
+  "specie": "Zinnia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ermell",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zinnienblüte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg"
+  },
+  "livello_immagine": null
+ },
+ "c:b4eb11b3-832f-49d9-871b-b3d407091273": {
+  "nome": "Zinnia 'Profusion Apricot'",
+  "specie": "Zinnia 'Profusion Apricot'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ermell",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zinnienblüte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Zinnia",
+   "rango": "genus"
+  }
+ },
+ "c:42b8d775-b854-429d-b897-434544ea92b0": {
+  "nome": "Zinnia 'Profusion Cherry'",
+  "specie": "Zinnia 'Profusion Cherry'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ermell",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zinnienblüte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Zinnia",
+   "rango": "genus"
+  }
+ },
+ "c:a727d569-4ce5-4a5b-8737-b818a03a1cbf": {
+  "nome": "Zinnia 'Profusion Fire'",
+  "specie": "Zinnia 'Profusion Fire'",
+  "tipo": "cultivar",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Zinnienbl%C3%BCte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Ermell",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Zinnienblüte_Zinnia_elegans_stack15_20190722-RM-7222254.jpg"
+  },
+  "livello_immagine": {
+   "nome": "Zinnia",
+   "rango": "genus"
+  }
+ },
+ "t:6edb573d-354d-43b5-a91d-b3c8f9a559d0": {
+  "nome": "Zinnia a foglia stretta",
+  "specie": "Zinnia angustifolia",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Multicolor_zinnia_angustifolia.jpg",
+   "licenza": "CC BY-SA 4.0",
+   "verificata": false,
+   "licenza_url": "https://creativecommons.org/licenses/by-sa/4.0",
+   "attribuzione": "Balise42",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Multicolor_zinnia_angustifolia.jpg"
+  },
+  "livello_immagine": null
+ },
+ "t:2998ccb2-f07e-4537-ba5d-a6c6cbad528d": {
+  "nome": "Zucca",
+  "specie": "Cucurbita moschata",
+  "tipo": "taxon",
+  "immagine": {
+   "url": "https://upload.wikimedia.org/wikipedia/commons/4/44/Cucurbita_2018_G1.jpg",
+   "licenza": "Public domain",
+   "verificata": false,
+   "licenza_url": "",
+   "attribuzione": "George Chernilevsky",
+   "fonte_pagina": "https://commons.wikimedia.org/wiki/File:Cucurbita_2018_G1.jpg"
+  },
+  "livello_immagine": null
+ }
+}

@@ -1,0 +1,542 @@
+{
+ "Geranium 'Gerwat'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Ficus elastica 'Belize'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Echinacea 'Meditation Pink'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Capsicum annuum 'Piccante Calabrese'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Brassica oleracea 'Nero di Toscana'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Brassica oleracea": {
+  "esiste": true,
+  "immagine": "Brassica_oleracea_-_Royal_Botanical_Garden,_Madrid.JPG",
+  "wikidata": "Q9778298"
+ },
+ "Dianthus": {
+  "esiste": true,
+  "immagine": "Gartennelke_1.jpg",
+  "wikidata": "Q6571419"
+ },
+ "Aquilegia": {
+  "esiste": true,
+  "immagine": "Wald-Akelei.JPG",
+  "wikidata": "Q8258074"
+ },
+ "Echinacea": {
+  "esiste": true,
+  "immagine": "EchinaceaPurpureaMaxima1a.UME.JPG",
+  "wikidata": "Q8398034"
+ },
+ "Aeonium": {
+  "esiste": true,
+  "immagine": "Aeonium_undulatum.JPG",
+  "wikidata": "Q8222204"
+ },
+ "Echeveria": {
+  "esiste": true,
+  "immagine": "(MHNT)_Echeveria_secunda.jpg",
+  "wikidata": "Q8937353"
+ },
+ "Geranium": {
+  "esiste": true,
+  "immagine": "Geranium_February_2008-1.jpg",
+  "wikidata": "Q6336789"
+ },
+ "Coreopsis": {
+  "esiste": true,
+  "immagine": "Coreopsisgigantea.jpg",
+  "wikidata": "Q9475450"
+ },
+ "Ferocactus": {
+  "esiste": true,
+  "immagine": "Ferocactus_wislizeni_17.jpeg",
+  "wikidata": "Q8446672"
+ },
+ "Anthurium": {
+  "esiste": true,
+  "immagine": "Flamingo_Flower.JPG",
+  "wikidata": "Q9411124"
+ },
+ "Delosperma": {
+  "esiste": true,
+  "immagine": "(MHNT)_Delosperma_cooperi_-_Flower.jpg",
+  "wikidata": "Q9483667"
+ },
+ "Calathea": {
+  "esiste": true,
+  "immagine": "Batik_leaves1.jpg",
+  "wikidata": "Q8335538"
+ },
+ "Ficus elastica": {
+  "esiste": true,
+  "immagine": "Da_bup_do.jpg",
+  "wikidata": "Q55269632"
+ },
+ "Capsicum annuum": {
+  "esiste": true,
+  "immagine": "Capsicum_annuum_-_Köhler–s_Medizinal-Pflanzen-027.jpg",
+  "wikidata": "Q22956145"
+ },
+ "Allium ampeloprasum": {
+  "esiste": true,
+  "immagine": "Allium_ampeloprasum_MHNT.BOT.2006.46.12.jpg",
+  "wikidata": "Q138511001"
+ },
+ "Bellis perennis": {
+  "esiste": true,
+  "immagine": "Belis_peremnis_-_panoramio.jpg",
+  "wikidata": "Q55329751"
+ },
+ "Ceropegia": {
+  "esiste": true,
+  "immagine": "2006-10-28Ceropegia07.jpg",
+  "wikidata": "Q8354336"
+ },
+ "Allium cepa": {
+  "esiste": true,
+  "immagine": "Allium_cepa,_Amol.jpg",
+  "wikidata": "Q26000247"
+ },
+ "Argyranthemum frutescens": {
+  "esiste": true,
+  "immagine": "Flower_April_2011-3.jpg",
+  "wikidata": "Q55276012"
+ },
+ "Allium ascalonicum": {
+  "esiste": true,
+  "immagine": "Shallots.jpg",
+  "wikidata": "Q55274566"
+ },
+ "Allium schoenoprasum": {
+  "esiste": true,
+  "immagine": "Allium_schoenoprasum_J1.JPG",
+  "wikidata": "Q55330953"
+ },
+ "Allium sphaerocephalon": {
+  "esiste": true,
+  "immagine": "Alcalá_de_Henares_(RPS_01-06-2024)_Allium_sphaerocephalon.png",
+  "wikidata": "Q55268996"
+ },
+ "Clematis montana": {
+  "esiste": true,
+  "immagine": "Clematis_Montana_02.jpg",
+  "wikidata": "Q55270764"
+ },
+ "Cuphea": {
+  "esiste": true,
+  "immagine": "Cuphea_nudicostata_2.jpg",
+  "wikidata": "Q8435567"
+ },
+ "Ficus microcarpa": {
+  "esiste": true,
+  "immagine": "Ficus_microcarpa_-_La_Gomera_01.jpg",
+  "wikidata": "Q55310662"
+ },
+ "Calibrachoa": {
+  "esiste": true,
+  "immagine": "Calibrachoa_flower_red.jpg",
+  "wikidata": "Q20896954"
+ },
+ "Camellia japonica": {
+  "esiste": true,
+  "immagine": "Camellia_japonica_var._decumbens_3.JPG",
+  "wikidata": "Q55269520"
+ },
+ "Euphorbia trigona": {
+  "esiste": true,
+  "immagine": "Tías-Yaiza_-_LZ-2-LZ-706_-_Euphorbia_trigona_02_ies.jpg",
+  "wikidata": "Q55248335"
+ },
+ "Gasteria": {
+  "esiste": true,
+  "immagine": "Gasteria_carinata_hh.jpg",
+  "wikidata": "Q8962416"
+ },
+ "Agapanthus": {
+  "esiste": true,
+  "immagine": "A_flower_of_Agapanthus_in_Israel.jpg",
+  "wikidata": "Q8226201"
+ },
+ "Aloe vera": {
+  "esiste": true,
+  "immagine": "Starr_011104-0040_Aloe_vera.jpg",
+  "wikidata": "Q55325237"
+ },
+ "Carpobrotus edulis": {
+  "esiste": true,
+  "immagine": "Carpobrutus_edulis_b.JPG",
+  "wikidata": "Q55250889"
+ },
+ "Daucus carota": {
+  "esiste": true,
+  "immagine": "Daucus_carota.jpg",
+  "wikidata": "Q32105577"
+ },
+ "Citrus japonica": {
+  "esiste": true,
+  "immagine": "Kumquat.jpeg",
+  "wikidata": "Q124344319"
+ },
+ "Dracaena trifasciata": {
+  "esiste": true,
+  "immagine": "Sansevieria_trifasciata_flower.jpg",
+  "wikidata": "Q55306979"
+ },
+ "Cucurbita moschata": {
+  "esiste": true,
+  "immagine": "Courge.jpg",
+  "wikidata": "Q55269628"
+ },
+ "Drimia maritima": {
+  "esiste": true,
+  "immagine": "Drimia_maritima_-_Köhler–s_Medizinal-Pflanzen-277.jpg",
+  "wikidata": "Q55270002"
+ },
+ "Dracaena sanderiana": {
+  "esiste": true,
+  "immagine": "LuckyBamboo_2005_SeanMcClean.jpg",
+  "wikidata": "Q55291901"
+ },
+ "Centaurea ragusina": {
+  "esiste": true,
+  "immagine": "Centaurea_ragusina.jpg",
+  "wikidata": "Q1426208"
+ },
+ "Epipremnum aureum": {
+  "esiste": true,
+  "immagine": "Epipremnum_aureum_31082012.jpg",
+  "wikidata": "Q55270008"
+ },
+ "Citrus × aurantium": {
+  "esiste": true,
+  "immagine": "Turunç_-_Citrus_aurantium_02.JPG",
+  "wikidata": "Q55253105"
+ },
+ "Carex oshimensis": {
+  "esiste": true,
+  "immagine": "Carex_oshimensis_Evergold_3zz.jpg",
+  "wikidata": "Q15578514"
+ },
+ "Carex oshimensis 'Evergold'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": "Q110766178"
+ },
+ "Cenchrus alopecuroides": {
+  "esiste": true,
+  "immagine": "Pennisetum_alopecuroides_-_Berlin_Botanical_Garden_-_IMG_8624.JPG",
+  "wikidata": "Q55252289"
+ },
+ "Erica": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": "Q1309498"
+ },
+ "Scabiosa columbaria 'Mariposa Blue'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Muscari armeniacum 'Manon'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Mammillaria elongata 'D One'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Lathyrus oleraceus": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Heuchera 'Boysenberry'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Phalaenopsis": {
+  "esiste": true,
+  "immagine": "Phalaenopsis_philippinensis_NationalOrchidGarden-Singapore.jpg",
+  "wikidata": "Q9673113"
+ },
+ "Narcissus": {
+  "esiste": true,
+  "immagine": "Yellow_daffodils_-_floriade_canberra.jpg",
+  "wikidata": "Q9035389"
+ },
+ "Tradescantia": {
+  "esiste": true,
+  "immagine": "Tradescantia_virginiana_ies.jpg",
+  "wikidata": "Q9964450"
+ },
+ "Lampranthus": {
+  "esiste": true,
+  "immagine": "Lampranthus_multiradiatus.jpg",
+  "wikidata": "Q8581158"
+ },
+ "Tulipa": {
+  "esiste": true,
+  "immagine": "Tulipa_suaveolens_floriade_to_Canberra.jpg",
+  "wikidata": "Q6571416"
+ },
+ "Mammillaria": {
+  "esiste": true,
+  "immagine": "Mammillariadioica.jpg",
+  "wikidata": "Q8604426"
+ },
+ "Heuchera": {
+  "esiste": true,
+  "immagine": "Heuchera_1.jpg",
+  "wikidata": "Q8509279"
+ },
+ "Olea europaea": {
+  "esiste": true,
+  "immagine": "El_Perelló_-_Old_olive_tree.jpg",
+  "wikidata": "Q16034755"
+ },
+ "Persea americana": {
+  "esiste": true,
+  "immagine": "Persea_americana_fruit_2.JPG",
+  "wikidata": null
+ },
+ "Prunus persica": {
+  "esiste": true,
+  "immagine": "Peaches_at_Applecrest_Farm_Orchards_-_20108462909.jpg",
+  "wikidata": "Q8719098"
+ },
+ "Osteospermum": {
+  "esiste": true,
+  "immagine": "Osteospermum_Flower_Power_Spider_Purple_2134px.jpg",
+  "wikidata": "Q18220186"
+ },
+ "Plumbago": {
+  "esiste": true,
+  "immagine": "Plumbago.jpg",
+  "wikidata": "Q6380844"
+ },
+ "Lythrum salicaria": {
+  "esiste": true,
+  "immagine": "Lythrum_salicaria_2026_G1.jpg",
+  "wikidata": "Q55268204"
+ },
+ "Trachelospermum jasminoides": {
+  "esiste": true,
+  "immagine": "Trachelospermum_jasminoides1215878198.jpg",
+  "wikidata": "Q55247512"
+ },
+ "Laurus nobilis": {
+  "esiste": true,
+  "immagine": "Laurier.jpg",
+  "wikidata": "Q92901920"
+ },
+ "Narcissus poeticus": {
+  "esiste": true,
+  "immagine": "Grandalla_(Narcissus_poeticus)_al_Montseny_(Catalunya).jpg",
+  "wikidata": "Q55329921"
+ },
+ "Solanum melongena": {
+  "esiste": true,
+  "immagine": "Solanum_melongena_24_08_2012_(1).JPG",
+  "wikidata": "Q105094741"
+ },
+ "Hypoestes phyllostachya": {
+  "esiste": true,
+  "immagine": "(MHNT)_Hypoestes_phyllostachya_-_leaves.jpg",
+  "wikidata": "Q55307236"
+ },
+ "Glechoma hederacea": {
+  "esiste": true,
+  "immagine": "Glechoma_hederacea_-_Keila.jpg",
+  "wikidata": "Q55270172"
+ },
+ "Ocimum basilicum": {
+  "esiste": true,
+  "immagine": "Basil-Basilico-Ocimum_basilicum-albahaca.jpg",
+  "wikidata": "Q55330451"
+ },
+ "Sisyrinchium californicum": {
+  "esiste": true,
+  "immagine": "Sisyrinchium_californicum_7.jpg",
+  "wikidata": "Q55294071"
+ },
+ "Iberis sempervirens": {
+  "esiste": true,
+  "immagine": "Iberis_sempervirens.JPG",
+  "wikidata": "Q55269010"
+ },
+ "Lobularia maritima": {
+  "esiste": true,
+  "immagine": "Caps_blancs_pel_Bellveret,_Xàtiva.jpg",
+  "wikidata": "Q55276543"
+ },
+ "Matthiola incana": {
+  "esiste": true,
+  "immagine": "Matthiola_incana1.jpg",
+  "wikidata": "Q55330003"
+ },
+ "Scabiosa columbaria": {
+  "esiste": true,
+  "immagine": "Scabiosa_columbaria0.jpg",
+  "wikidata": "Q55268969"
+ },
+ "Thymus serpyllum": {
+  "esiste": true,
+  "immagine": "Thymus_serpyllum1.jpg",
+  "wikidata": "Q55253132"
+ },
+ "Sedum acre": {
+  "esiste": true,
+  "immagine": "Sedum_acre_single_-_Niitvälja.jpg",
+  "wikidata": "Q55267989"
+ },
+ "Tanacetum cinerariifolium": {
+  "esiste": true,
+  "immagine": "Tanacetum_cinerariifolium_-_Köhler–s_Medizinal-Pflanzen-269.jpg",
+  "wikidata": "Q55246746"
+ },
+ "Sedum morganianum": {
+  "esiste": true,
+  "immagine": "Donkey's_tail_in_bloom_March_06.jpg",
+  "wikidata": "Q55278227"
+ },
+ "Mammillaria elongata": {
+  "esiste": true,
+  "immagine": "Warzenkaktus_-_Mammillaria_elongata.JPG",
+  "wikidata": "Q55250318"
+ },
+ "Passiflora caerulea": {
+  "esiste": true,
+  "immagine": "Passiflora_caerulea_(makro_close-up).jpg",
+  "wikidata": "Q55269748"
+ },
+ "Pelargonium peltatum": {
+  "esiste": true,
+  "immagine": "Pelargonium_peltatum_flower1.jpg",
+  "wikidata": "Q55269680"
+ },
+ "Phedimus spurius": {
+  "esiste": true,
+  "immagine": "Roze_vetkruid_R0011801.JPG",
+  "wikidata": "Q13377730"
+ },
+ "Pilea peperomioides": {
+  "esiste": true,
+  "immagine": "Pilea_peperomioides_Chinese_money_plant.jpg",
+  "wikidata": "Q55295817"
+ },
+ "Muscari armeniacum": {
+  "esiste": true,
+  "immagine": "Muscari_-_Sümbül,_Yeniköy_06.jpg",
+  "wikidata": "Q55269217"
+ },
+ "Nassella tenuissima": {
+  "esiste": true,
+  "immagine": "Nassella_tenuissima2.JPG",
+  "wikidata": "Q15507536"
+ },
+ "Marsilea quadrifolia": {
+  "esiste": true,
+  "immagine": "Marsilea_quadrifolia_denjisou01.jpg",
+  "wikidata": "Q55250026"
+ },
+ "Mammillaria plumosa": {
+  "esiste": true,
+  "immagine": "Mammillaria_plumosa_pm.jpg",
+  "wikidata": "Q283486"
+ },
+ "Oenothera lindheimeri": {
+  "esiste": true,
+  "immagine": "(MHNT)_Oenothera_lindheimeri.jpg",
+  "wikidata": "Q55245983"
+ },
+ "Thymus × citriodorus": {
+  "esiste": true,
+  "immagine": "Starr_070906-8846_Thymus_citriodorus.jpg",
+  "wikidata": "Q206425"
+ },
+ "Narcissus poeticus 'Recurvus'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Spiraea × arguta": {
+  "esiste": true,
+  "immagine": "Spiraea_×arguta.jpg",
+  "wikidata": "Q3493539"
+ },
+ "Pelargonium zonale": {
+  "esiste": true,
+  "immagine": "20240427_Pelargonium-zonale-2.tif",
+  "wikidata": "Q3898877"
+ },
+ "Glechoma hederacea 'Variegata'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": "Q110767006"
+ },
+ "Phedimus spurius 'Tricolor'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": "Q110767338"
+ },
+ "Zinnia 'Profusion Fire'": {
+  "esiste": false,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Zinnia": {
+  "esiste": true,
+  "immagine": "Zinnia_acerosa_form.jpg",
+  "wikidata": "Q7797740"
+ },
+ "Verbena": {
+  "esiste": true,
+  "immagine": "Verbena_bonariensis1.jpg",
+  "wikidata": "Q8140738"
+ },
+ "Zamioculcas zamiifolia": {
+  "esiste": true,
+  "immagine": "Zamioculcas_zamiifolia_1.jpg",
+  "wikidata": "Q126013833"
+ },
+ "Zinnia angustifolia": {
+  "esiste": true,
+  "immagine": "Zinnia_angustifolia_Profusion_Cherry.JPG",
+  "wikidata": "Q55328330"
+ },
+ "Zinnia 'Profusion Cherry'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Zinnia 'Profusion Apricot'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": null
+ },
+ "Tulipa 'Happy Generation'": {
+  "esiste": true,
+  "immagine": null,
+  "wikidata": null
+ }
+}
