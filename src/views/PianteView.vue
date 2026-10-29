@@ -90,12 +90,12 @@
            a chi non ne ha impostato nessuno. -->
       <div v-else-if="giardinoVuoto" class="empty">
         <Icon name="foglia" />
-        <p><b>Il tuo giardino è ancora vuoto</b>Aggiungi la tua prima pianta per iniziare a tenerne traccia</p>
+        <p><b>Nessuna pianta, per ora</b>Presentami la prima: la cerco nel catalogo e da lì calcolo quando bagnarla e quando concimarla.</p>
         <RouterLink to="/piante/nuova" class="pill" style="text-decoration:none;display:inline-flex;margin-top:14px;">＋ Aggiungi una pianta</RouterLink>
       </div>
       <div v-else class="empty">
         <Icon name="foglia" />
-        <p><b>Nessuna pianta trovata</b>Prova a cambiare il filtro o la ricerca</p>
+        <p><b>Qui non trovo nessuna pianta</b>Prova un altro nome o togli il filtro della zona.</p>
       </div>
     </template>
 

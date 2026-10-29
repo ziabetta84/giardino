@@ -65,9 +65,9 @@
           <span>{{ numZone === 0 ? 'Pronto per iniziare' : 'Aggiungi una pianta' }}</span>
         </template>
         <template v-else>
-          <span>{{ numPiante }} piante</span>
-          <span>{{ numZone }} zone</span>
-          <span><b :class="{ urg: numUrgenti }">{{ numUrgenti }} piante da curare</b></span>
+          <span>{{ numPiante }} {{ numPiante === 1 ? 'pianta' : 'piante' }}</span>
+          <span>{{ numZone }} {{ numZone === 1 ? 'zona' : 'zone' }}</span>
+          <span><b :class="{ urg: numUrgenti }">{{ numUrgenti }} {{ numUrgenti === 1 ? 'pianta' : 'piante' }} da curare</b></span>
         </template>
       </div>
     </div>
@@ -102,12 +102,18 @@
       </div>
     </div>
 
+    <!-- Primi passi di un nuovo iscritto (usePrimiPassi.js): prende il posto
+         dei due inviti «Crea la tua prima zona»/«Aggiungi la tua prima pianta»
+         più sotto finché non viene chiusa. -->
+    <PrimiPassi v-if="primiPassiVisibile" />
+
     <!-- Meteo -->
     <RouterLink class="wxrow" to="/meteo">
       <Icon :name="meteoOggi?.icona ?? 'meteo'" class="wxrow__ic" />
       <span class="wxrow__m">
         <span v-if="meteoOggi" class="wxrow__t">{{ meteoOggi.tMax }}° / {{ meteoOggi.tMin }}° · {{ meteoOggi.descrizione }}</span>
         <span v-else-if="store.loading" class="wxrow__t">Caricamento meteo…</span>
+        <span v-else-if="!posizioneImpostata" class="wxrow__t">Meteo non disponibile. È necessaria la posizione del tuo giardino</span>
         <span v-else class="wxrow__t">Meteo non disponibile</span>
         <span v-if="meteoOggi" class="wxrow__s">{{ meteoOggi.pioggia }} mm di pioggia · vento {{ meteoOggi.vento }} km/h</span>
       </span>
@@ -184,13 +190,13 @@
          tappa di progetto scaduta è comunque reale anche senza piante, e
          deve vedersi nella lista sopra invece che sotto un invito a
          iniziare che la nasconderebbe (vedi critica del 07/09/2026). -->
-    <div v-if="!store.loading && !store.errore && numPiante === 0 && numZone === 0 && !daFareOggi.length" class="empty">
+    <div v-if="!primiPassiVisibile && !store.loading && !store.errore && numPiante === 0 && numZone === 0 && !daFareOggi.length" class="empty">
       <Icon name="pin" />
       <p><b>Il tuo giardino ti aspetta</b>Aggiungi la prima zona per iniziare a tracciare piante e cure</p>
       <RouterLink class="btn btn-sage empty__cta" to="/zone">Crea la tua prima zona</RouterLink>
     </div>
 
-    <div v-else-if="!store.loading && !store.errore && numPiante === 0 && !daFareOggi.length" class="empty">
+    <div v-else-if="!primiPassiVisibile && !store.loading && !store.errore && numPiante === 0 && !daFareOggi.length" class="empty">
       <Icon name="foglia" />
       <p><b>La tua prima pianta ti aspetta</b>Aggiungi una pianta a una delle tue zone per iniziare a monitorarne le cure</p>
       <RouterLink class="btn btn-sage empty__cta" to="/piante/nuova">Aggiungi la tua prima pianta</RouterLink>
@@ -242,9 +248,12 @@ import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/compo
 import { iconaCura } from '@/composables/useCureVisual'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
+import { posizioneGiardino } from '@/composables/useMeteo'
 import { tappeAttese } from '@/composables/useProgetti'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ToastCura from '@/components/ToastCura.vue'
+import PrimiPassi from '@/components/PrimiPassi.vue'
+import { usePrimiPassi } from '@/composables/usePrimiPassi'
 import HeroAiuola from '@/components/HeroAiuola.vue'
 import SplashAiuola from '@/components/SplashAiuola.vue'
 import Icon from '@/components/Icon.vue'
@@ -261,6 +270,7 @@ let giardinoGiaVistoInOrdine = false
 
 const store = useDatiStore()
 const pianteApi = usePianteApi()
+const { visibile: primiPassiVisibile } = usePrimiPassi()
 const { utente, nomeUtente } = useAuth()
 // Rif. a ZorbaLogo per due reazioni distinte (vedi ZorbaLogo.vue): un
 // battito lento quando HeroAiuola segnala un cambio reale di stagione/luce
@@ -341,6 +351,7 @@ function chiudiSplash() {
 // col rischio che le due fonti divergessero proprio nel calcolo dell'urgenza
 // di irrigazione in caso di pioggia.
 const meteoOggi = computed(() => store.meteo?.[0] ?? null)
+const posizioneImpostata = computed(() => !!posizioneGiardino(store.settings))
 
 // `adesso` esiste solo per rendere reattive stagione/luce al passare del
 // tempo reale: senza questo, i due computed leggono `new Date()` ma non

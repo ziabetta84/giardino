@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useMeteo, LOCATION_FALLBACK } from '@/composables/useMeteo'
+import { useMeteo, posizioneGiardino } from '@/composables/useMeteo'
 import { useSupabase } from '@/composables/useSupabase'
 import { irrigazioneDaRegistrareOggi } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
@@ -220,17 +220,9 @@ export const useDatiStore = defineStore('dati', () => {
       // loading torna false prima che il meteo sia arrivato e la riga meteo
       // in Home mostra "non disponibile" invece di "in caricamento" per la
       // finestra in cui sta ancora arrivando (vedi critica del 07/09/2026).
-      // Fallback su LOCATION_FALLBACK (stesso di MeteoView.vue) se l'utente
-      // non ha ancora impostato una location in /impostazioni: prima non
-      // c'era alcun fallback qui, quindi un utente nuovo non vedeva mai il
-      // meteo su Home né la sospensione dell'irrigazione in caso di pioggia,
-      // anche se /meteo stesso funzionava già grazie al proprio fallback
-      // locale (vedi critica del 07/09/2026).
-      const lat = settings.value?.location?.lat ?? LOCATION_FALLBACK.lat
-      const lon = settings.value?.location?.lon ?? LOCATION_FALLBACK.lon
-      const { giorni, carica } = useMeteo()
-      await carica(lat, lon, 2)
-      meteo.value = giorni.value
+      // Senza posizione impostata non c'è meteo (vedi posizioneGiardino in
+      // useMeteo.js).
+      await caricaMeteo()
 
       // Programma automatico attivo ma comunque dovuto oggi: lo registriamo
       // da soli invece di continuare a segnalarlo come cura da fare —
@@ -295,6 +287,16 @@ export const useDatiStore = defineStore('dati', () => {
     return vocePianta(pianta)?.nome ?? 'Pianta'
   }
 
+  async function caricaMeteo() {
+    // Senza posizione: nessuna previsione (lista vuota, non null: «caricato,
+    // ma niente da mostrare»), quindi nessuna irrigazione sospesa per pioggia.
+    const posizione = posizioneGiardino(settings.value)
+    if (!posizione) { meteo.value = []; return }
+    const { giorni, carica } = useMeteo()
+    await carica(posizione.lat, posizione.lon, 2)
+    meteo.value = giorni.value
+  }
+
   async function aggiorna() {
     piante.value = null
     await caricaTutto()
@@ -314,5 +316,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaVoci, aggiungiVoci, vocePianta, nomePianta, iconaZona, iconaSottozona }
+  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, iconaZona, iconaSottozona }
 })

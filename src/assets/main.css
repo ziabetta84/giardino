@@ -639,9 +639,14 @@ body::before {
 
 /* --- stato vuoto generico --- */
 .empty { text-align:center; padding:52px 20px; color:var(--ink-soft); }
-.empty svg { width:26px; height:26px; opacity:.5; }
+.empty svg { display:block; width:26px; height:26px; margin:0 auto; opacity:.5; }
 .empty p { margin:10px 0 0; font:400 13px/1.5 var(--font-sans); }
 .empty p b { display:block; font:600 14px/1.3 var(--font-display); color:var(--ink-mid); margin-bottom:2px; }
+/* Stati vuoti con più di un'azione (es. Progetti: a mano o con Zorba). */
+.empty__azioni { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:14px; }
+.empty__azioni .pill { text-decoration:none; display:inline-flex; align-items:center; }
+.empty p { max-width: 46ch; margin-left:auto; margin-right:auto; }
+.pill--cta { min-height: 44px; }
 
 /* --- timeline tappe: la linea si disegna man mano che si scrolla, colore per esito --- */
 .path { position:relative; margin-top:12px; padding-left:30px; --draw:0; }
@@ -895,4 +900,10 @@ body::before {
 .sr-only {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* Testo solo per screen reader (es. «fatto» accanto a un passo spuntato in PrimiPassi.vue). */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }

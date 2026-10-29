@@ -18,6 +18,19 @@
 
       <template v-if="!bloccato">
 
+      <!-- Prima volta in Zorba dice: tre domande vere da cui partire, e cosa
+           costa ognuna, prima che la prova finisca senza saperlo. Un tocco
+           sceglie il tipo e scrive la domanda, che resta da rileggere e inviare. -->
+      <div v-if="primaVolta" class="agente-primi">
+        <p class="agente-primi__t">Da dove cominciare</p>
+        <div class="agente-primi__esempi">
+          <button v-for="e in esempi" :key="e.testo" type="button" class="agente-primi__es" @click="usaEsempio(e)">
+            <Icon :name="e.icona" />{{ e.etichetta }}
+          </button>
+        </div>
+        <p v-if="rigaPrimaProva" class="agente-primi__nota">{{ rigaPrimaProva }}</p>
+      </div>
+
       <div class="reqgroups">
         <div v-for="g in GRUPPI_TIPO" :key="g.label" class="reqgroup">
           <span class="reqgroup__label">{{ g.label }}</span>
@@ -113,7 +126,7 @@
         </div>
         <div v-else class="empty">
           <Icon name="lampadina" />
-          <p><b>Nessuna richiesta ancora</b>Scrivi a Zorba per identificare una specie, un consiglio di cura o un progetto da pianificare</p>
+          <p><b>Non mi hai ancora chiesto niente</b>Mandami la foto di una pianta che non conosci, o chiedimi come curarne una: le nostre conversazioni restano qui.</p>
         </div>
       </div>
     </FoglioLaterale>
@@ -248,6 +261,32 @@ const mancaPerInviare = computed(() => {
   if (nuovoTipo.value === 'pianifica_progetto' && t && !progettoSelezionato.value && !nuovoProgettoTitolo.value.trim()) return 'Dai un titolo al nuovo progetto.'
   return null
 })
+
+// Prima volta: nessuna conversazione ancora, a stato caricato (altrimenti
+// gli esempi lampeggiano prima che arrivi lo storico).
+const caricamentoFatto = ref(false)
+const primaVolta = computed(() => caricamentoFatto.value && !fili.value.length && !filo.value)
+const esempi = computed(() => {
+  const prima = Object.values(store.piante ?? {})[0]
+  const nome = prima ? store.nomePianta(prima) : null
+  const mese = new Date().toLocaleDateString('it-IT', { month: 'long' })
+  return [
+    nome
+      ? { tipo: 'consiglio_cura', icona: 'goccia', etichetta: `Quanto spesso bagno ${nome}?`, testo: `Quanto spesso devo bagnare ${nome}, e cambia con la stagione?` }
+      : { tipo: 'altro', icona: 'calendario', etichetta: `Cosa pianto a ${mese}?`, testo: `Cosa posso piantare a ${mese} nel mio giardino?` },
+    { tipo: 'identifica_specie', icona: 'foglia', etichetta: 'Che pianta è questa?', testo: '' },
+    { tipo: 'diagnosi', icona: 'cerca', etichetta: 'Ha le foglie gialle, perché?', testo: 'Le foglie stanno ingiallendo, a partire da quelle in basso: cosa può essere?' },
+  ]
+})
+const rigaPrimaProva = computed(() => {
+  const s = statoZorba.value
+  if (!s || s.curatore || s.tipo_tetto !== 'prova' || s.rimaste == null) return null
+  return `Hai ${s.rimaste === 1 ? '1 risposta' : `${s.rimaste} risposte`} di prova. Ogni mia risposta ne usa una, anche quando continui la stessa conversazione: parti da una domanda che ti sta a cuore.`
+})
+function usaEsempio(e) {
+  nuovoTipo.value = e.tipo
+  nuovoMessaggio.value = e.testo
+}
 
 const PLACEHOLDER_MESSAGGIO = {
   segnalazione_scheda: 'Cosa non ti torna in questa scheda?',
@@ -421,6 +460,13 @@ watch(() => route.query.filo, apriDaQuery)
 onMounted(async () => {
   await Promise.all([store.caricaTutto(), caricaFili(), aggiornaStato()])
   caricata = true
+  caricamentoFatto.value = true
+  // Arrivo dai primi passi in Home (?tipo=…&testo=…): la domanda è già scritta, resta da inviare.
+  if (typeof route.query.tipo === 'string' && GRUPPI_TIPO.some(g => g.tipi.includes(route.query.tipo))) {
+    nuovoTipo.value = route.query.tipo
+    if (typeof route.query.testo === 'string') nuovoMessaggio.value = route.query.testo.slice(0, 4000)
+    router.replace({ path: route.path })
+  }
   await apriDaQuery()
 })
 </script>
@@ -462,6 +508,20 @@ onMounted(async () => {
 
 .agente-bar { gap: 8px; flex-wrap: wrap; }
 .agente-hint--manca { color: var(--ink-mid); }
+
+.agente-primi { margin: 0 0 18px; padding: 14px 0 4px; border-top: 1px solid var(--cream-dark); border-bottom: 1px solid var(--cream-dark); }
+.agente-primi__t { font: 600 15px/1.25 var(--font-display); color: var(--ink); margin: 0 0 10px; }
+.agente-primi__esempi { display: flex; flex-wrap: wrap; gap: 8px; }
+.agente-primi__es {
+  appearance: none; min-height: 44px; display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 14px; border-radius: 12px; border: 1px solid var(--cream-dark); background: var(--white);
+  font: 500 12.5px/1.3 var(--font-sans); color: var(--ink-mid); text-align: left; cursor: pointer;
+  transition: border-color var(--motion-quick) var(--ease-standard), color var(--motion-quick) var(--ease-standard);
+}
+.agente-primi__es svg { width: 16px; height: 16px; flex: none; }
+.agente-primi__es:hover { border-color: var(--sage-light); color: var(--ink); }
+.agente-primi__es:focus-visible { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(224,184,74,0.15); }
+.agente-primi__nota { font: 400 12px/1.5 var(--font-sans); color: var(--ink-mid); margin: 10px 0 10px; max-width: 62ch; }
 .reqsend { display: inline-flex; align-items: center; gap: 6px; }
 .reqsend:disabled { opacity: .5; cursor: not-allowed; }
 

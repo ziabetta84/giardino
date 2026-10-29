@@ -16,8 +16,8 @@
 
     <div v-else-if="!zoneList.length" class="empty">
       <Icon name="pin" />
-      <p><b>Nessuna zona</b>Non hai ancora configurato nessuna zona del giardino.</p>
-      <button type="button" @click="apriNuovo" class="pill" style="margin-top:14px;">＋ Aggiungi una zona</button>
+      <p><b>Qui vanno i posti del giardino</b>L'orto, il terrazzo, l'aiuola sotto la finestra: dai un nome a ciascuno e io ricordo cosa ci cresce e quanta luce prende.</p>
+      <button type="button" @click="apriNuovo" class="pill pill--cta" style="margin-top:14px;">＋ Crea la prima zona</button>
     </div>
 
     <div v-else class="destlist">
@@ -26,7 +26,7 @@
           <Icon :name="store.iconaZona(z.key)" class="dest__ic" />
           <span class="dest__n zname">{{ z.nome ?? z.key }}</span>
           <span v-if="z.tipo" class="dest__c zt">{{ z.tipo }}</span>
-          <span class="dest__c">{{ contaPiante(z.key) }} piante</span>
+          <span class="dest__c">{{ contaPiante(z.key) }} {{ contaPiante(z.key) === 1 ? 'pianta' : 'piante' }}</span>
           <Icon name="back" class="dest__chev" />
         </RouterLink>
         <div v-if="z.esposizione?.length || descrizioneZona(z)" class="zrow__desc">
@@ -131,7 +131,8 @@
 </style>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
 import { ICONE_ZONA_GRUPPI } from '@/composables/useIconeZona'
@@ -143,6 +144,15 @@ import Icon from '@/components/Icon.vue'
 
 const store      = useDatiStore()
 const supabase   = useSupabase()
+const route      = useRoute()
+const router     = useRouter()
+
+// Arrivo dai primi passi in Home o dal form di una pianta senza zone
+// (?nuova=1&torna=<percorso>): il foglio si apre subito e, salvata la zona
+// nuova, si torna da dove si era partiti portandosi dietro il suo nome.
+const torna = typeof route.query.torna === 'string' && route.query.torna.startsWith('/') && !route.query.torna.startsWith('//')
+  ? route.query.torna : null
+onMounted(() => { if (route.query.nuova) apriNuovo() })
 const daEliminare  = ref(null)
 const eliminando   = ref(false)
 const erroreEliminazione = ref(null)
@@ -297,7 +307,12 @@ async function salva() {
       }
     }
 
+    const eraNuova = !nomeOriginale
     chiudiForm()
+    if (eraNuova && torna) {
+      const da = typeof route.query.da === 'string' ? { da: route.query.da } : {}
+      router.push({ path: torna, query: torna === '/' ? da : { ...da, zona: salvata.nome } })
+    }
   } catch (e) {
     errore.value = e.message || 'Errore durante il salvataggio della zona.'
   } finally {
