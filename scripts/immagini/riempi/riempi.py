@@ -28,7 +28,7 @@ USCITA = os.path.join(QUI, '..', 'dati', GIRI['1'][0])
 NOME, ORIGINE = GIRI['1'][1:]
 MIME = ('image/jpeg', 'image/png', 'image/webp')
 # tavole botaniche, stampe e disegni: belle ma non sono una foto della pianta
-TAVOLE = r'bot\.? ?rep|bot\.? ?mag|curtis|flora|tab\.|\bpl\.|\bt\. ?\d|plate|tafel|illustr|drawing|disegno|lithograph|engraving|print\b|scan|book|page|sketch|watercolou?r|aquarel|\bbhl\b|biodiversity heritage|_pvd\b|\bpvd\b|\bbb-\d'
+TAVOLE = r'bot\.? ?rep|bot\.? ?mag|curtis|flora|tab\.|\bpl\.|\bt\. ?\d|plate|tafel|illustr|drawing|disegno|lithograph|engraving|print\b|scan|book|page|sketch|watercolou?r|aquarel|\bbhl\b|biodiversity heritage|_pvd\b|\bpvd\b|\bbb-\d|floret|spikelet|spighett|\bdiptera\d|bot\.? ?reg'
 
 
 def testo(h):
@@ -173,9 +173,12 @@ def secondo(elenco):
             principali = {'File:' + c['categorie'][n].replace('_', ' ') for n in nomi if c['categorie'].get(n)}
             migliori = []
             for n in [n for n in nomi if c['esiste'].get(n)][:3]:
-                genere = n.split(' ')[0].lower().replace('×', '').strip()
+                parti = n.lower().replace('×', ' ').split()
                 for f in chiedi_membri(c, n):
-                    if motivo_scarto(f) or genere not in (f['titolo'] + ' ' + f['descrizione']).lower():
+                    # dentro una categoria ci finisce di tutto (insetti, statue, altre piante): il nome del file
+                    # deve contenere il genere o l'epiteto del nome cercato; niente file «GBIF» (spesso erbari)
+                    t = f['titolo'].lower().replace('_', ' ')
+                    if motivo_scarto(f) or 'gbif' in t or not (parti[0] in t or (len(parti) > 1 and parti[-1] in t)):
                         continue
                     pf = punteggio(f, n, principali)
                     if pf >= 0:
