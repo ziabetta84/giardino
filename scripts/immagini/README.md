@@ -32,3 +32,9 @@ libera, foto di almeno 500 px e titolo che non indichi un dettaglio o una tavola
 Dal Mac: `elenco.sql` → `riempi.py raccogli` (circa 300 richieste, si riprende da dove era) → `riempi.py campione` per
 un controllo a occhio → `riempi.py migrazione` (migration `20261029130000_immagini_automatiche.sql`, rollback in
 `riempi/`). Ogni immagine porta `"origine": "automatica 29/10/2026"` e `"verificata": false`.
+
+Secondo giro (stesso script, `secondo`): per le schede rimaste senza cerca anche con i sinonimi sicuri (`elenco2.sql`:
+solo «synonym», mai nomi che indicano anche un'altra pianta) e, se l'immagine principale manca o non va, sceglie la foto
+migliore dentro la categoria con il punteggio di `raccolta/punteggio.py`. Origine `automatica 29/10/2026, secondo giro`,
+migration `20261029140000_immagini_automatiche_2.sql`. `20261029135000_immagini_automatiche_tavole.sql` toglie 3 tavole
+botaniche entrate col primo giro, che il filtro ora riconosce.

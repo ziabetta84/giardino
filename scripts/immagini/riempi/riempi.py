@@ -7,21 +7,28 @@
 #   python3 scripts/immagini/riempi/riempi.py raccogli lavoro/riempi_elenco.tsv   (elenco da elenco.sql; riprende da dove era)
 #   python3 scripts/immagini/riempi/riempi.py campione 48                          (foglio lavoro/riempi_campione.jpg)
 #   python3 scripts/immagini/riempi/riempi.py migrazione                           (migration e rollback)
+# Secondo giro, per le schede rimaste senza (elenco2.sql): cerca anche con i sinonimi dello stesso rango e, quando
+# l'immagine principale manca o non va, sceglie la foto migliore della categoria con il punteggio di punteggio.py
+# (al più 3 categorie per scheda; autore = chi ha caricato il file se manca l'Artist).
+#   python3 scripts/immagini/riempi/riempi.py secondo lavoro/riempi_elenco2.tsv
+#   python3 scripts/immagini/riempi/riempi.py campione 48 2
+#   python3 scripts/immagini/riempi/riempi.py migrazione 2
 import html, json, os, re, sys, random, urllib.parse
 QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(QUI, '..'), os.path.join(QUI, '..', 'raccolta')]
 import wm
-from punteggio import lic_ok, MALE
+from punteggio import lic_ok, punteggio, MALE
 from miniature import LAVORO, scarica
 
 RADICE = os.path.dirname(os.path.dirname(os.path.dirname(QUI)))
 CACHE = os.path.join(LAVORO, 'riempi_cache.json')
-USCITA = os.path.join(QUI, '..', 'dati', 'riempimento.json')
-NOME = '20261029130000_immagini_automatiche'
-ORIGINE = 'automatica 29/10/2026'
+GIRI = {'1': ('riempimento.json', '20261029130000_immagini_automatiche', 'automatica 29/10/2026'),
+        '2': ('riempimento2.json', '20261029140000_immagini_automatiche_2', 'automatica 29/10/2026, secondo giro')}
+USCITA = os.path.join(QUI, '..', 'dati', GIRI['1'][0])
+NOME, ORIGINE = GIRI['1'][1:]
 MIME = ('image/jpeg', 'image/png', 'image/webp')
 # tavole botaniche, stampe e disegni: belle ma non sono una foto della pianta
-TAVOLE = r'bot\.? ?rep|bot\.? ?mag|curtis|flora|tab\.|\bpl\.|\bt\. ?\d|plate|tafel|illustr|drawing|disegno|lithograph|engraving|print\b|scan|book|page|sketch|watercolou?r|aquarel|\bbhl\b|biodiversity heritage'
+TAVOLE = r'bot\.? ?rep|bot\.? ?mag|curtis|flora|tab\.|\bpl\.|\bt\. ?\d|plate|tafel|illustr|drawing|disegno|lithograph|engraving|print\b|scan|book|page|sketch|watercolou?r|aquarel|\bbhl\b|biodiversity heritage|_pvd\b|\bpvd\b|\bbb-\d'
 
 
 def testo(h):
@@ -29,7 +36,10 @@ def testo(h):
 
 
 def carica_cache():
-    return json.load(open(CACHE)) if os.path.exists(CACHE) else {'categorie': {}, 'file': {}}
+    c = json.load(open(CACHE)) if os.path.exists(CACHE) else {}
+    for k in ('categorie', 'file', 'esiste', 'membri'):
+        c.setdefault(k, {})
+    return c
 
 
 def salva_cache(c):
@@ -87,6 +97,108 @@ def raccogli(elenco):
     scegli(righe, c)
 
 
+def info_file(p):
+    ii = (p.get('imageinfo') or [None])[0]
+    if not ii:
+        return None
+    m = ii.get('extmetadata') or {}
+    v = lambda k: (m.get(k) or {}).get('value', '')
+    return {'titolo': p['title'], 'url': ii['url'], 'pagina': ii['descriptionurl'], 'w': ii['width'], 'h': ii['height'],
+            'mime': ii['mime'], 'licenza': v('LicenseShortName'), 'licenza_url': v('LicenseUrl'),
+            'autore': testo(v('Artist')) or ii.get('user', ''), 'nonfree': v('NonFree') or None,
+            'descrizione': testo(v('ImageDescription'))[:300]}
+
+
+def chiedi_categorie(c, nomi):
+    """Per ogni nome: se la categoria esiste e la sua immagine principale."""
+    mancano = [n for n in dict.fromkeys(nomi) if n not in c['esiste']]
+    for i, blocco in enumerate(a_blocchi(mancano), 1):
+        r = wm.get({'action': 'query', 'prop': 'pageprops', 'ppprop': 'page_image_free',
+                    'titles': '|'.join('Category:' + n for n in blocco)})
+        norm = {x['to']: x['from'] for x in r['query'].get('normalized', [])}
+        for p in r['query']['pages']:
+            nome = norm.get(p['title'], p['title'])[len('Category:'):]
+            c['esiste'][nome] = not p.get('missing') and not p.get('invalid')
+            c['categorie'][nome] = (p.get('pageprops') or {}).get('page_image_free')
+        for n in blocco:
+            c['esiste'].setdefault(n, False)
+            c['categorie'].setdefault(n, None)
+        salva_cache(c)
+        print(f'  categorie {i}/{-(-len(mancano) // 50)}', flush=True)
+
+
+def chiedi_file(c, nomi_file):
+    mancano = sorted(set(f for f in nomi_file if f) - set(c['file']))
+    for i, blocco in enumerate(a_blocchi(mancano), 1):
+        r = wm.get({'action': 'query', 'prop': 'imageinfo', 'iiprop': 'url|size|mime|user|extmetadata',
+                    'iiextmetadatafilter': 'LicenseShortName|LicenseUrl|Artist|NonFree|ImageDescription',
+                    'titles': '|'.join('File:' + f for f in blocco)})
+        norm = {x['to']: x['from'] for x in r['query'].get('normalized', [])}
+        for p in r['query']['pages']:
+            c['file'][norm.get(p['title'], p['title'])[len('File:'):]] = info_file(p)
+        for f in blocco:
+            c['file'].setdefault(f, None)
+        salva_cache(c)
+        print(f'  file {i}/{-(-len(mancano) // 50)}', flush=True)
+
+
+def chiedi_membri(c, categoria):
+    if categoria not in c['membri']:
+        r = wm.get({'action': 'query', 'generator': 'categorymembers', 'gcmtitle': 'Category:' + categoria,
+                    'gcmtype': 'file', 'gcmlimit': '50', 'prop': 'imageinfo', 'iiprop': 'url|size|mime|user|extmetadata',
+                    'iiextmetadatafilter': 'LicenseShortName|LicenseUrl|Artist|NonFree|ImageDescription'})
+        c['membri'][categoria] = [f for f in (info_file(p) for p in (r.get('query') or {}).get('pages', [])) if f]
+        salva_cache(c)
+    return c['membri'][categoria]
+
+
+def secondo(elenco):
+    righe = [r.split('\t') for r in open(elenco).read().splitlines() if r.strip()]
+    schede = [(sid, nome, [nome] + [x for x in sin.split('|') if x]) for sid, _, nome, sin in righe]
+    c = carica_cache()
+    print(f'{len(schede)} schede, {sum(len(n) for _, _, n in schede)} nomi', flush=True)
+    chiedi_categorie(c, [n for _, _, nomi in schede for n in nomi])
+    chiedi_file(c, [c['categorie'].get(n) for _, _, nomi in schede for n in nomi])
+    esito, conta = {}, {}
+    da_esplorare = sum(1 for _, _, nomi in schede if not any(c['categorie'].get(n) and not motivo_scarto(c['file'].get(c['categorie'][n])) for n in nomi))
+    print(f'{da_esplorare} schede da cercare dentro le categorie', flush=True)
+    for j, (sid, nome, nomi) in enumerate(schede, 1):
+        presa, come = None, None
+        for n in nomi:
+            f = c['file'].get(c['categorie'].get(n) or '')
+            if c['categorie'].get(n) and not motivo_scarto(f):
+                presa, come = f, 'principale' + (' (sinonimo)' if n != nome else '')
+                break
+        if not presa:
+            principali = {'File:' + c['categorie'][n].replace('_', ' ') for n in nomi if c['categorie'].get(n)}
+            migliori = []
+            for n in [n for n in nomi if c['esiste'].get(n)][:3]:
+                genere = n.split(' ')[0].lower().replace('×', '').strip()
+                for f in chiedi_membri(c, n):
+                    if motivo_scarto(f) or genere not in (f['titolo'] + ' ' + f['descrizione']).lower():
+                        continue
+                    pf = punteggio(f, n, principali)
+                    if pf >= 0:
+                        migliori.append((pf, f, n))
+            if migliori:
+                _, presa, n = max(migliori, key=lambda x: x[0])
+                come = 'dalla categoria' + (' (sinonimo)' if n != nome else '')
+            if j % 100 == 0:
+                print(f'  schede {j}/{len(schede)}', flush=True)
+        conta[come or 'nessuna'] = conta.get(come or 'nessuna', 0) + 1
+        if presa:
+            esito[sid] = {'nome': nome, 'immagine': immagine(presa, GIRI['2'][2])}
+    json.dump(esito, open(os.path.join(QUI, '..', 'dati', GIRI['2'][0]), 'w'), ensure_ascii=False, indent=0, sort_keys=True)
+    for k, v in sorted(conta.items(), key=lambda x: -x[1]):
+        print(f'{v:6d}  {k}')
+
+
+def immagine(f, origine):
+    return {'url': f['url'].split('?')[0], 'licenza': f['licenza'], 'licenza_url': f['licenza_url'] or '',
+            'attribuzione': f['autore'][:300], 'fonte_pagina': urllib.parse.unquote(f['pagina'].split('?')[0]),
+            'verificata': False, 'origine': origine}
+
+
 def motivo_scarto(f):
     if not f:
         return 'file non trovato'
@@ -98,7 +210,7 @@ def motivo_scarto(f):
         return 'piccola'
     if re.search(MALE[5], f['titolo'].lower()):
         return 'dettaglio o altro'
-    if re.search(TAVOLE, f['titolo'].lower()) or re.search(r'illustrat|drawn|engrav|derivative', f['autore'].lower()):
+    if re.search(TAVOLE, f['titolo'].lower()) or re.search(r'illustrat|drawn|engrav|derivative|britton|addison brown', f['autore'].lower()):
         return 'tavola o disegno'
     if not f['autore']:
         return 'senza autore'
@@ -124,9 +236,9 @@ def scegli(righe, c):
     print(USCITA)
 
 
-def campione(n):
+def campione(n, giro='1'):
     from PIL import Image, ImageDraw
-    esito = json.load(open(USCITA))
+    esito = json.load(open(os.path.join(QUI, '..', 'dati', GIRI[giro][0])))
     scelte = random.Random(29).sample(sorted(esito.items()), min(n, len(esito)))
     W, H = 300, 225
     foglio = Image.new('RGB', (W * 6, (H + 22) * (-(-len(scelte) // 6))), 'white')
@@ -140,7 +252,7 @@ def campione(n):
             foglio.paste(im, (x + 2, y + 2))
         d.text((x + 4, y + H + 4), v['nome'][:45], fill='black')
         print(f'{j + 1}/{len(scelte)}', flush=True)
-    out = os.path.join(LAVORO, 'riempi_campione.jpg')
+    out = os.path.join(LAVORO, f'riempi_campione{giro if giro != "1" else ""}.jpg')
     foglio.save(out, quality=80)
     print(out)
 
@@ -149,12 +261,13 @@ def lit(x):
     return "'" + x.replace("'", "''") + "'"
 
 
-def migrazione():
-    esito = json.load(open(USCITA))
+def migrazione(giro='1'):
+    uscita, NOME, ORIGINE = GIRI[giro]
+    esito = json.load(open(os.path.join(QUI, '..', 'dati', uscita)))
     righe = ',\n'.join(f"    ({lit(sid)}::uuid, {lit(json.dumps(v['immagine'], ensure_ascii=False))}::jsonb)"
                        for sid, v in sorted(esito.items()))
     n = len(esito)
-    sql = f"""-- Immagini automatiche per le schede mostrate di taxon che non ne avevano (29/10/2026, approvato da Roberta).
+    sql = f"""-- Immagini automatiche ({ORIGINE}) per le schede mostrate di taxon che non ne avevano (approvato da Roberta).
 -- Generata da scripts/immagini/riempi/riempi.py (criteri nell'intestazione dello script): non modificare a mano.
 -- Ogni immagine porta "origine": "{ORIGINE}" e "verificata": false; tocca solo schede ancora senza immagine.
 -- Rollback: scripts/immagini/riempi/rollback_{NOME}.sql
@@ -186,7 +299,9 @@ if __name__ == '__main__':
     cmd = sys.argv[1]
     if cmd == 'raccogli':
         raccogli(sys.argv[2])
+    elif cmd == 'secondo':
+        secondo(sys.argv[2])
     elif cmd == 'campione':
-        campione(int(sys.argv[2]) if len(sys.argv) > 2 else 48)
+        campione(int(sys.argv[2]) if len(sys.argv) > 2 else 48, *sys.argv[3:4])
     elif cmd == 'migrazione':
-        migrazione()
+        migrazione(*sys.argv[2:3])
