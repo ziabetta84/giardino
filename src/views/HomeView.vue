@@ -113,7 +113,7 @@
       <span class="wxrow__m">
         <span v-if="meteoOggi" class="wxrow__t">{{ meteoOggi.tMax }}° / {{ meteoOggi.tMin }}° · {{ meteoOggi.descrizione }}</span>
         <span v-else-if="store.loading" class="wxrow__t">Caricamento meteo…</span>
-        <span v-else-if="!posizioneImpostata" class="wxrow__t">Meteo spento: manca la posizione del giardino</span>
+        <span v-else-if="!posizioneImpostata" class="wxrow__t">Meteo non disponibile. È necessaria la posizione del tuo giardino</span>
         <span v-else class="wxrow__t">Meteo non disponibile</span>
         <span v-if="meteoOggi" class="wxrow__s">{{ meteoOggi.pioggia }} mm di pioggia · vento {{ meteoOggi.vento }} km/h</span>
       </span>
