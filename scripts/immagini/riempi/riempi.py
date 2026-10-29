@@ -13,7 +13,7 @@
 #   python3 scripts/immagini/riempi/riempi.py secondo lavoro/riempi_elenco2.tsv
 #   python3 scripts/immagini/riempi/riempi.py campione 48 2
 #   python3 scripts/immagini/riempi/riempi.py migrazione 2
-import html, json, os, re, sys, random, urllib.parse
+import html, json, os, re, sys, random, time, urllib.error, urllib.parse, urllib.request
 QUI = os.path.dirname(os.path.abspath(__file__))
 sys.path[:0] = [os.path.join(QUI, '..'), os.path.join(QUI, '..', 'raccolta')]
 import wm
@@ -23,7 +23,13 @@ from miniature import LAVORO, scarica
 RADICE = os.path.dirname(os.path.dirname(os.path.dirname(QUI)))
 CACHE = os.path.join(LAVORO, 'riempi_cache.json')
 GIRI = {'1': ('riempimento.json', '20261029130000_immagini_automatiche', 'automatica 29/10/2026'),
-        '2': ('riempimento2.json', '20261029140000_immagini_automatiche_2', 'automatica 29/10/2026, secondo giro')}
+        '2': ('riempimento2.json', '20261029140000_immagini_automatiche_2', 'automatica 29/10/2026, secondo giro'),
+        '3': ('riempimento3.json', '20261029150000_immagini_automatiche_3', 'automatica 29/10/2026, iNaturalist')}
+INAT = 'https://api.inaturalist.org/v1/taxa'
+# iNaturalist pubblica le licenze CC nella versione 4.0
+LIC_INAT = {'cc0': ('CC0', 'https://creativecommons.org/publicdomain/zero/1.0/'),
+            'cc-by': ('CC BY 4.0', 'https://creativecommons.org/licenses/by/4.0/'),
+            'cc-by-sa': ('CC BY-SA 4.0', 'https://creativecommons.org/licenses/by-sa/4.0/')}
 USCITA = os.path.join(QUI, '..', 'dati', GIRI['1'][0])
 NOME, ORIGINE = GIRI['1'][1:]
 MIME = ('image/jpeg', 'image/png', 'image/webp')
@@ -37,7 +43,7 @@ def testo(h):
 
 def carica_cache():
     c = json.load(open(CACHE)) if os.path.exists(CACHE) else {}
-    for k in ('categorie', 'file', 'esiste', 'membri'):
+    for k in ('categorie', 'file', 'esiste', 'membri', 'inat'):
         c.setdefault(k, {})
     return c
 
@@ -197,6 +203,159 @@ def secondo(elenco):
         print(f'{v:6d}  {k}')
 
 
+def chiedi_inat(c, chiave, url):
+    """GET su iNaturalist con cache (chiave «q:<nome>» o «id:<taxon>»), al più circa una richiesta al secondo."""
+    if chiave not in c['inat']:
+        for tentativo in range(6):
+            try:
+                req = urllib.request.Request(url, headers={'User-Agent': wm.UA, 'Accept': 'application/json'})
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    risultati = json.load(r).get('results', [])
+                break
+            except urllib.error.HTTPError as e:
+                if e.code in (429, 500, 502, 503):
+                    time.sleep(30 * (tentativo + 1))
+                    continue
+                raise
+            except OSError:  # anche connessioni chiuse dal server
+                time.sleep(10)
+        else:
+            raise RuntimeError('troppi tentativi: ' + url)
+        # teniamo solo quello che serve, la cache resta piccola
+        c['inat'][chiave] = [{'id': t['id'], 'name': t.get('name'), 'rank': t.get('rank'),
+                              'iconic': t.get('iconic_taxon_name'), 'default_photo': foto_inat(t.get('default_photo')),
+                              'taxon_photos': [foto_inat(p.get('photo')) for p in t.get('taxon_photos') or []]}
+                             for t in risultati]
+        time.sleep(1)
+    return c['inat'][chiave]
+
+
+def osservazioni_inat(c, taxon_id):
+    """Le prime foto (una per osservazione) delle osservazioni verificate del taxon con almeno una foto libera."""
+    chiave = f'oss:{taxon_id}'
+    if chiave not in c['inat']:
+        q = urllib.parse.urlencode({'taxon_id': taxon_id, 'photo_license': 'cc0,cc-by,cc-by-sa', 'quality_grade': 'research',
+                                    'order_by': 'votes', 'per_page': 5})
+        req = urllib.request.Request(f'https://api.inaturalist.org/v1/observations?{q}', headers={'User-Agent': wm.UA})
+        for tentativo in range(6):
+            try:
+                with urllib.request.urlopen(req, timeout=60) as r:
+                    risultati = json.load(r).get('results', [])
+                break
+            except urllib.error.HTTPError as e:
+                if e.code in (429, 500, 502, 503):
+                    time.sleep(30 * (tentativo + 1))
+                    continue
+                raise
+            except OSError:  # anche connessioni chiuse dal server
+                time.sleep(10)
+        else:
+            raise RuntimeError('troppi tentativi: osservazioni ' + str(taxon_id))
+        foto = []
+        for o in risultati:
+            if (o.get('taxon') or {}).get('id') != taxon_id:
+                continue  # solo osservazioni identificate proprio a questo taxon, non a uno dei suoi figli
+            p = next((p for p in o.get('photos') or [] if p.get('license_code') in LIC_INAT), None)
+            if p:
+                f = foto_inat(dict(p, medium_url=(p.get('url') or '').replace('/square.', '/medium.')))
+                foto.append(f)
+        c['inat'][chiave] = foto
+        time.sleep(1)
+    return c['inat'][chiave]
+
+
+def foto_inat(p):
+    if not p:
+        return None
+    return {'id': p.get('id'), 'license_code': p.get('license_code'), 'attribution': p.get('attribution') or '',
+            'medium_url': p.get('medium_url') or '', 'w': (p.get('original_dimensions') or {}).get('width'),
+            'h': (p.get('original_dimensions') or {}).get('height')}
+
+
+def normalizza(nome):
+    n = (nome or '').lower().replace('×', ' ')
+    n = re.sub(r'\b(subsp|ssp|var|f|nothosubsp|nothovar)\.\s', ' ', n)
+    return ' '.join(n.split())
+
+
+RANGHI_INAT = {'species': {'species', 'hybrid'}, 'subspecies': {'subspecies'}, 'variety': {'variety'},
+               'form': {'form'}, 'genus': {'genus', 'genushybrid'}}
+
+
+def autore_inat(attribuzione):
+    a = re.sub(r'^\s*\(c\)\s*', '', attribuzione)
+    a = re.sub(r',\s*(some|no|all) rights reserved.*$', '', a, flags=re.I)
+    return a.strip()
+
+
+def inat(elenco):
+    """Terzo giro: la foto di iNaturalist del taxon (default_photo, se no la prima taxon_photos), solo CC0, CC BY, CC BY-SA."""
+    righe = [r.split('\t') for r in open(elenco).read().splitlines() if r.strip()]
+    c = carica_cache()
+    print(f'{len(righe)} schede', flush=True)
+    esito, conta = {}, {}
+    for j, (sid, rango, nome, sin) in enumerate(righe, 1):
+        presa, come = None, 'nessun taxon'
+        for n in [nome] + [x for x in sin.split('|') if x]:
+            q = urllib.parse.urlencode({'q': n, 'is_active': 'true', 'per_page': 10})
+            t = next((t for t in chiedi_inat(c, 'q:' + n, f'{INAT}?{q}')
+                      if normalizza(t['name']) == normalizza(n) and t['rank'] in RANGHI_INAT.get(rango, {rango})
+                      and t['iconic'] == 'Plantae'), None)
+            if not t:
+                continue
+            foto = t['default_photo'] if (t['default_photo'] or {}).get('license_code') in LIC_INAT else None
+            if not foto:
+                dettaglio = chiedi_inat(c, f"id:{t['id']}", f"{INAT}/{t['id']}")
+                foto = next((p for d in dettaglio for p in d['taxon_photos'] if p and p['license_code'] in LIC_INAT), None)
+            if not foto and rango != 'genus':
+                # osservazioni «research grade» con foto libere, le più votate prima; per i generi no: sarebbero
+                # osservazioni di specie qualsiasi del genere
+                foto = next((p for p in osservazioni_inat(c, t['id']) if p['license_code'] in LIC_INAT), None)
+                if foto:
+                    presa, come = None, 'osservazione'
+            if not foto:
+                come = 'licenza non libera'
+                continue
+            if not foto['medium_url'] or not autore_inat(foto['attribution']):
+                come = 'foto senza url o autore'
+                continue
+            presa, come = foto, ('presa da un\'osservazione' if come == 'osservazione' else 'presa') + (' (sinonimo)' if n != nome else '')
+            break
+        conta[come] = conta.get(come, 0) + 1
+        if presa:
+            lic, lic_url = LIC_INAT[presa['license_code']]
+            esito[sid] = {'nome': nome, 'immagine': {
+                'url': presa['medium_url'].replace('/medium.', '/large.'), 'licenza': lic, 'licenza_url': lic_url,
+                'attribuzione': autore_inat(presa['attribution'])[:300],
+                'fonte_pagina': f"https://www.inaturalist.org/photos/{presa['id']}",
+                'verificata': False, 'origine': GIRI['3'][2]}}
+        if j % 50 == 0:
+            salva_cache(c)
+            print(f'  schede {j}/{len(righe)}', flush=True)
+    salva_cache(c)
+    json.dump(esito, open(os.path.join(QUI, '..', 'dati', GIRI['3'][0]), 'w'), ensure_ascii=False, indent=0, sort_keys=True)
+    for k, v in sorted(conta.items(), key=lambda x: -x[1]):
+        print(f'{v:6d}  {k}')
+
+
+def scarica_qualsiasi(url):
+    """Le immagini di Commons passano dalle miniature; le altre (iNaturalist) si scaricano così come sono."""
+    if '/wikipedia/commons/' in url:
+        return scarica(url)
+    dest = os.path.join(LAVORO, 'miniature', 'inat_' + re.sub(r'[^A-Za-z0-9._-]', '_', url.split('//')[-1])[-100:])
+    if not os.path.exists(dest):
+        try:
+            req = urllib.request.Request(url.replace('/large.', '/medium.'), headers={'User-Agent': wm.UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                dati = r.read()
+            os.makedirs(os.path.dirname(dest), exist_ok=True)
+            open(dest, 'wb').write(dati)
+        except Exception as e:
+            print('  immagine', e, file=sys.stderr)
+            return None
+    return dest
+
+
 def immagine(f, origine):
     return {'url': f['url'].split('?')[0], 'licenza': f['licenza'], 'licenza_url': f['licenza_url'] or '',
             'attribuzione': f['autore'][:300], 'fonte_pagina': urllib.parse.unquote(f['pagina'].split('?')[0]),
@@ -249,7 +408,7 @@ def campione(n, giro='1'):
     d = ImageDraw.Draw(foglio)
     for j, (_, v) in enumerate(scelte):
         x, y = (j % 6) * W, (j // 6) * (H + 22)
-        dest = scarica(v['immagine']['url'])
+        dest = scarica_qualsiasi(v['immagine']['url'])
         if dest:
             im = Image.open(dest).convert('RGB')
             im.thumbnail((W - 4, H - 4))
@@ -305,6 +464,8 @@ if __name__ == '__main__':
         raccogli(sys.argv[2])
     elif cmd == 'secondo':
         secondo(sys.argv[2])
+    elif cmd == 'inat':
+        inat(sys.argv[2])
     elif cmd == 'campione':
         campione(int(sys.argv[2]) if len(sys.argv) > 2 else 48, *sys.argv[3:4])
     elif cmd == 'migrazione':

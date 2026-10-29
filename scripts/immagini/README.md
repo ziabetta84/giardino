@@ -38,3 +38,8 @@ solo «synonym», mai nomi che indicano anche un'altra pianta) e, se l'immagine 
 migliore dentro la categoria con il punteggio di `raccolta/punteggio.py`. Origine `automatica 29/10/2026, secondo giro`,
 migration `20261029140000_immagini_automatiche_2.sql`. `20261029135000_immagini_automatiche_tavole.sql` toglie 3 tavole
 botaniche entrate col primo giro, che il filtro ora riconosce.
+
+Terzo giro (`inat`, elenco di `elenco2.sql`, generi compresi): foto da iNaturalist per nome esatto, rango coerente e
+regno Plantae, solo licenze CC0, CC BY e CC BY-SA; se la foto del taxon non è libera prova le altre foto del taxon e poi
+un'osservazione «research» della stessa pianta (non per i generi). Origine `automatica 29/10/2026, iNaturalist`,
+migration `20261029150000_immagini_automatiche_3.sql` (848 schede).
