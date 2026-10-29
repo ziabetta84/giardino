@@ -95,7 +95,7 @@ const passi = computed(() => [
     id: 'posizione',
     fatto: posizioneFatta.value,
     titolo: 'Dimmi dove si trova il giardino',
-    testo: 'Così guardo il cielo giusto: pioggia, gelate e caldo cambiano le cure. Per ora sto guardando quello di Fano.',
+    testo: 'Così guardo il cielo giusto: pioggia, gelate e caldo cambiano le cure. Finché non lo so, il meteo resta spento e le irrigazioni non vengono rimandate quando piove.',
     riepilogo: meteoOggi.value
       ? `Oggi da te: ${meteoOggi.value.tMax}° / ${meteoOggi.value.tMin}°, ${meteoOggi.value.descrizione.toLowerCase()}.`
       : 'Il meteo ora è quello del tuo giardino.',

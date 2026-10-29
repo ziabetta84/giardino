@@ -113,6 +113,7 @@
       <span class="wxrow__m">
         <span v-if="meteoOggi" class="wxrow__t">{{ meteoOggi.tMax }}° / {{ meteoOggi.tMin }}° · {{ meteoOggi.descrizione }}</span>
         <span v-else-if="store.loading" class="wxrow__t">Caricamento meteo…</span>
+        <span v-else-if="!posizioneImpostata" class="wxrow__t">Meteo spento: manca la posizione del giardino</span>
         <span v-else class="wxrow__t">Meteo non disponibile</span>
         <span v-if="meteoOggi" class="wxrow__s">{{ meteoOggi.pioggia }} mm di pioggia · vento {{ meteoOggi.vento }} km/h</span>
       </span>
@@ -247,6 +248,7 @@ import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/compo
 import { iconaCura } from '@/composables/useCureVisual'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
+import { posizioneGiardino } from '@/composables/useMeteo'
 import { tappeAttese } from '@/composables/useProgetti'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ToastCura from '@/components/ToastCura.vue'
@@ -349,6 +351,7 @@ function chiudiSplash() {
 // col rischio che le due fonti divergessero proprio nel calcolo dell'urgenza
 // di irrigazione in caso di pioggia.
 const meteoOggi = computed(() => store.meteo?.[0] ?? null)
+const posizioneImpostata = computed(() => !!posizioneGiardino(store.settings))
 
 // `adesso` esiste solo per rendere reattive stagione/luce al passare del
 // tempo reale: senza questo, i due computed leggono `new Date()` ma non
