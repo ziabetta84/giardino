@@ -43,3 +43,10 @@ Terzo giro (`inat`, elenco di `elenco2.sql`, generi compresi): foto da iNaturali
 regno Plantae, solo licenze CC0, CC BY e CC BY-SA; se la foto del taxon non è libera prova le altre foto del taxon e poi
 un'osservazione «research» della stessa pianta (non per i generi). Origine `automatica 29/10/2026, iNaturalist`,
 migration `20261029150000_immagini_automatiche_3.sql` (848 schede).
+
+**Disegni per forma** (`forme/`): per le schede rimaste senza foto, `schede.forma` (albero, arbusto, erbacea, bulbosa,
+rampicante, graminacea, orchidea, succulenta, felce, conifera, palma, acquatica) fa mostrare all'app il disegno di quella
+forma (`src/assets/forme/`, generati da `forme/disegna.py`), con la firma «Zorba in giardino» solo nella pagina della
+pianta. La forma viene dalla classe o dalla famiglia botanica, altrimenti dalla descrizione (`forme/classifica.py`, che
+scrive `dati/forme.tsv`, la migration `20261030100000_schede_forma.sql` e il rollback); si eredita dal livello sopra come
+gli altri campi della scheda. Le schede senza una descrizione utile si decidono a mano (`DECISE` in `classifica.py`).

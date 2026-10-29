@@ -60,6 +60,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Oltre al codice, i disegni per forma delle schede senza foto (src/assets/forme, unici SVG della build):
+        // pochi KB in tutto, così restano visibili anche offline.
+        globPatterns: ['**/*.{js,wasm,css,html}', 'assets/*.svg'],
         // Dati del giardino: rete se disponibile, altrimenti l'ultima copia salvata
         // (così l'app resta consultabile in giardino senza campo/rete).
         runtimeCaching: [
