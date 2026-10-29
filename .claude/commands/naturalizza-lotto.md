@@ -36,7 +36,7 @@ Una scheda mostrata (`mostrata = true`) è da fare se:
 
 - I rimandi alle pagine RHS («See sowing vegetable seeds», «see Fan trained trees», «See bulb propagation») si tolgono; una voce con solo «See cultivation notes» si toglie del tutto.
 - Le temperature in Fahrenheit tra parentesi si tolgono, restano i °C.
-- «pruning group N» diventa «gruppo di potatura N» (convenzione del catalogo); i gruppi delle clematidi diventano «gruppo 1 delle clematidi».
+- Il numero del gruppo di potatura RHS («pruning group N», anche quelli delle clematidi e delle rose) non compare mai: al suo posto va la frase fissa del gruppo, approvata dall'utente il 29/10/2026, in `scripts/naturalizza-batch/frasi_potatura.py` (per una scheda di *Clematis* i gruppi 1-3 sono quelli delle clematidi, `C1`-`C3`). Le altre indicazioni della voce restano; se la voce dà un periodo, vale quello. Quando la voce dice di non tagliare nel legno vecchio (Cytisus, Genista…), si usa solo l'indicazione specifica. I rimandi («see Eucalyptus pruning», video) si tolgono. Fino al 29/10 la convenzione era «gruppo di potatura N»: quelle voci sono state riscritte nel lotto 80.
 - Le voci RHS doppie della stessa scheda si fondono in una, con l'unione delle informazioni.
 - Se l'originale ha parassiti e malattie scambiati (malattie sotto «pests»), il tradotto li rimette al posto giusto.
 - Nelle descrizioni di genere la famiglia botanica viene dal campo `famiglia` dell'export; non si nominano le fonti né le cultivar elencate da RHS (restano in `descrizione_originale`).

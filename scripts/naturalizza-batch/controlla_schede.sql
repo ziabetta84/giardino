@@ -24,5 +24,6 @@ select
                       or (select count(*) from unnest(alert) a where a ~ '^Parassiti') > 1
                       or (select count(*) from unnest(alert) a where a ~ '^Potatura') > 1
                       or (select count(*) from unnest(alert) a where a ~ '^Propagazione') > 1) as voci_doppie,
-  count(*) filter (where exists (select 1 from unnest(alert) a where a ~ '^Nome comune')) as nome_comune_negli_avvisi
+  count(*) filter (where exists (select 1 from unnest(alert) a where a ~ '^Nome comune')) as nome_comune_negli_avvisi,
+  count(*) filter (where exists (select 1 from unnest(alert) a where a ~* '\mgrupp[oi] (di potatura )?\d+')) as numero_gruppo_potatura
 from l;

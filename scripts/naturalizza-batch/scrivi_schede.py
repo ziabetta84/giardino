@@ -38,6 +38,7 @@ VIETATI = [
     (re.compile(r"note di coltivazione|vedi (la pagina|le pagine)", re.I), "rimando a una pagina"),
     (re.compile(r"\bverificat[ao]\b", re.I), "nota editoriale"),
     (re.compile(r"^Specie appartiene"), "«Specie appartiene» senza articolo"),
+    (re.compile(r"\bgrupp[oi] (di potatura )?\d+", re.I), "numero del gruppo di potatura (usare frasi_potatura.py)"),
 ]
 
 
