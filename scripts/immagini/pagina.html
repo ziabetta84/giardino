@@ -1,0 +1,165 @@
+<title>Foto del catalogo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@400;500;600&family=Caveat:wght@500&display=swap">
+<style>
+/* Layout: un registro di voci del giardino, ognuna con la sua fila di provini; barra fissa con avanzamento e filtri */
+:root {
+  --rose: #cc6e6e; --gold: #e0b84a; --sage: #7a9e82; --olive: #9aaa5a;
+  --bg: #faf7f2; --surface: #ffffff; --ink: #2f3a31; --muted: #6d756b; --line: #e6e0d5;
+  --sel: #7a9e82; --sel-bg: #edf3ee; --warn-bg: #f8eaea; --gold-bg: #fbf3dc;
+  --display: 'Fraunces', Georgia, serif; --body: 'DM Sans', system-ui, sans-serif; --hand: 'Caveat', cursive;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1d211d; --surface: #262b26; --ink: #ebe7df; --muted: #a8ada4; --line: #3a4139;
+  --sel: #9cc3a4; --sel-bg: #2c3a2f; --warn-bg: #3d2a2a; --gold-bg: #3a3322; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #1d211d; --surface: #262b26; --ink: #ebe7df; --muted: #a8ada4; --line: #3a4139;
+  --sel: #9cc3a4; --sel-bg: #2c3a2f; --warn-bg: #3d2a2a; --gold-bg: #3a3322; color-scheme: dark }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 15px; line-height: 1.5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.intro { padding-block: 28px 8px; }
+h1 { font-family: var(--display); font-weight: 600; font-size: clamp(28px, 5vw, 40px); margin: 0; text-wrap: balance; }
+h1 em { font-family: var(--hand); font-style: normal; color: var(--rose); font-weight: 500; font-size: .8em; margin-left: .2em; }
+.intro p { color: var(--muted); max-width: 64ch; margin: 8px 0 0; }
+.barra { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.barra .wrap { display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; padding-block: 10px; }
+.avanz { font-variant-numeric: tabular-nums; font-weight: 600; }
+.avanz small { color: var(--muted); font-weight: 400; }
+.metro { flex: 1 1 120px; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; min-width: 80px; }
+.metro i { display: block; height: 100%; background: var(--sage); width: 0; transition: width .3s; }
+.filtri { display: flex; gap: 6px; flex-wrap: wrap; }
+.filtri button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+.filtri button[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.stato-db { font-size: 13px; color: var(--muted); }
+main { padding-block: 8px 48px; display: grid; gap: 8px; }
+.voce { padding-block: 22px; border-bottom: 1px solid var(--line); display: grid; gap: 12px; }
+.voce h2 { font-family: var(--display); font-weight: 500; font-size: 22px; margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.voce h2 .sci { font-family: var(--display); font-style: italic; font-weight: 400; font-size: 15px; color: var(--muted); }
+.etichetta { font-size: 12px; font-weight: 600; letter-spacing: .02em; padding: 2px 9px; border-radius: 999px; background: var(--gold-bg); color: var(--ink); }
+.etichetta.senza, .etichetta.sbagliata { background: var(--warn-bg); }
+.nota { font-size: 13px; color: var(--muted); margin: 0; }
+.griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.foto { position: relative; display: grid; grid-template-rows: auto 1fr; border: 2px solid transparent; border-radius: 8px; background: var(--surface); overflow: hidden; cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit; }
+.foto:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.foto .img { aspect-ratio: 4 / 3; background: var(--line); overflow: hidden; }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.foto .info { padding: 6px 8px 8px; font-size: 12px; color: var(--muted); display: grid; gap: 2px; min-width: 0; }
+.foto .info b { color: var(--ink); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.foto .info a { color: var(--muted); }
+.foto[aria-pressed="true"] { border-color: var(--sel); background: var(--sel-bg); }
+.foto[aria-pressed="true"]::after { content: "Scelta"; position: absolute; top: 8px; left: 8px; background: var(--sage); color: #fff; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; }
+.foto.attuale .img::before { content: "Attuale"; position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,.6); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; z-index: 1; }
+.foto.qi .info b::after { content: " · qualità"; color: var(--olive); font-weight: 600; }
+.azioni { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.azioni button { font: inherit; font-size: 13px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: 5px 10px; cursor: pointer; }
+.azioni button[aria-pressed="true"] { border-color: var(--rose); background: var(--warn-bg); }
+.azioni input { font: inherit; font-size: 13px; flex: 1 1 220px; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; background: var(--surface); color: var(--ink); }
+.vuoto { color: var(--muted); padding: 40px 0; text-align: center; }
+@media (prefers-reduced-motion: reduce) { .metro i { transition: none; } }
+</style>
+
+<header class="intro wrap">
+  <h1>Foto del catalogo <em>scegli tu</em></h1>
+  <p>Per ogni pianta del tuo giardino c'è la foto che il catalogo mostra oggi e alcune alternative da Wikimedia Commons, tutte con licenze che permettono l'uso commerciale. Tocca la foto che preferisci: la scelta si salva da sola. Se nessuna va bene, dillo con il pulsante e, se vuoi, scrivi cosa cerchi.</p>
+</header>
+<div class="barra"><div class="wrap">
+  <span class="avanz" id="avanz">0 <small>di 0 scelte</small></span>
+  <div class="metro" aria-hidden="true"><i id="metro"></i></div>
+  <div class="filtri" role="group" aria-label="Mostra">
+    <button type="button" data-f="rivedere" aria-pressed="true">Da rivedere</button>
+    <button type="button" data-f="aperte" aria-pressed="false">Non ancora scelte</button>
+    <button type="button" data-f="tutte" aria-pressed="false">Tutte</button>
+  </div>
+  <span class="stato-db" id="stato-db"></span>
+</div></div>
+<main class="wrap" id="elenco"></main>
+
+<script>
+const VOCI = /*DATI*/[];
+const scelte = {};       // chiave → {scelta: 'attuale' | 'nessuna' | url, nota}
+let filtro = 'rivedere', db = null, sola_lettura = false;
+
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const daRivedere = v => !!v.problema;
+const idDoc = k => k.replace(':', '-');
+
+function casella(v, f, valore, attuale) {
+  const scelta = scelte[v.chiave]?.scelta === valore;
+  return `<button type="button" class="foto${attuale ? ' attuale' : ''}${f.qualita ? ' qi' : ''}" aria-pressed="${scelta}" data-k="${esc(v.chiave)}" data-v="${esc(valore)}">
+    <div class="img">${f.miniatura ? `<img src="${f.miniatura}" alt="${esc(f.titolo)}" loading="lazy">` : ''}</div>
+    <div class="info"><b title="${esc(f.titolo)}">${esc(f.titolo)}</b>
+      <span>${esc((f.autore || '').slice(0, 40))}${f.autore ? ' · ' : ''}${esc(f.licenza || '')}</span>
+      ${f.pagina ? `<a href="${esc(f.pagina)}" target="_blank" rel="noopener" data-link>Apri su Commons</a>` : ''}</div>
+  </button>`;
+}
+
+function render() {
+  const fatte = VOCI.filter(v => scelte[v.chiave]?.scelta).length;
+  document.getElementById('avanz').innerHTML = `${fatte} <small>di ${VOCI.length} scelte</small>`;
+  document.getElementById('metro').style.width = (100 * fatte / VOCI.length) + '%';
+  const visibili = VOCI.filter(v => filtro === 'tutte' || (filtro === 'rivedere' ? daRivedere(v) : !scelte[v.chiave]?.scelta));
+  const el = document.getElementById('elenco');
+  if (!visibili.length) { el.innerHTML = `<p class="vuoto">Niente da mostrare con questo filtro.</p>`; return; }
+  el.innerHTML = visibili.map(v => {
+    const s = scelte[v.chiave] || {};
+    return `<section class="voce" id="${esc(idDoc(v.chiave))}">
+      <h2>${esc(v.nome)} <span class="sci">${esc(v.specie)}</span>
+        ${v.problema ? `<span class="etichetta ${esc(v.problema[0])}">${esc(v.problema[1])}</span>` : ''}</h2>
+      ${v.nota ? `<p class="nota">${esc(v.nota)}</p>` : ''}
+      <div class="griglia">
+        ${v.attuale ? casella(v, v.attuale, 'attuale', true) : ''}
+        ${v.candidate.map(f => casella(v, f, f.url, false)).join('')}
+      </div>
+      <div class="azioni">
+        <button type="button" data-k="${esc(v.chiave)}" data-v="nessuna" aria-pressed="${s.scelta === 'nessuna'}">Nessuna va bene</button>
+        <input type="text" id="nota-${esc(idDoc(v.chiave))}" data-nota="${esc(v.chiave)}" placeholder="Nota (facoltativa): cosa vorresti vedere?" value="${esc(s.nota || '')}" ${sola_lettura ? 'disabled' : ''}>
+      </div>
+    </section>`;
+  }).join('');
+}
+
+async function salva(k) {
+  if (!db || sola_lettura) return;
+  const stato = document.getElementById('stato-db');
+  stato.textContent = 'Salvo…';
+  try {
+    await db.collection('scelte').doc(idDoc(k)).set({ chiave: k, ...scelte[k], aggiornata: new Date().toISOString() });
+    stato.textContent = 'Salvato';
+  } catch (e) {
+    if (e?.code === 'invalid_argument') { sola_lettura = true; stato.textContent = 'Puoi solo guardare: le scelte non si salvano'; }
+    else stato.textContent = 'Non salvato: riprova tra poco';
+  }
+}
+
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-link]')) return;
+  const f = e.target.closest('.filtri button');
+  if (f) { filtro = f.dataset.f; document.querySelectorAll('.filtri button').forEach(b => b.setAttribute('aria-pressed', b === f)); render(); return; }
+  const b = e.target.closest('[data-k][data-v]');
+  if (!b || sola_lettura) return;
+  const k = b.dataset.k, v = b.dataset.v;
+  const prima = scelte[k]?.scelta;
+  scelte[k] = { ...(scelte[k] || {}), scelta: prima === v ? null : v };
+  render(); salva(k);
+});
+let attesa = {};
+document.addEventListener('input', e => {
+  const k = e.target.dataset?.nota; if (!k) return;
+  scelte[k] = { ...(scelte[k] || {}), nota: e.target.value };
+  clearTimeout(attesa[k]); attesa[k] = setTimeout(() => salva(k), 800);
+});
+
+render();
+(async () => {
+  try { db = await window.claude?.use?.('db'); } catch { db = null; }
+  const stato = document.getElementById('stato-db');
+  if (!db) { stato.textContent = 'Le scelte non si salvano in questa vista'; sola_lettura = true; return; }
+  db.collection('scelte').onSnapshot(snap => {
+    for (const d of snap.docs) { const x = d.data(); if (x?.chiave) scelte[x.chiave] = { scelta: x.scelta ?? null, nota: x.nota ?? '' }; }
+    const attivo = document.activeElement?.dataset?.nota;
+    if (!attivo) render();
+  }, () => { stato.textContent = 'Non riesco a leggere le scelte salvate'; });
+})();
+</script>
