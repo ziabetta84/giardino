@@ -29,7 +29,15 @@
             <Icon :name="store.iconaZona(z.nome ?? key)" style="width:13px;height:13px;flex-shrink:0;" />{{ z.nome ?? key }}
           </button>
         </div>
-        <p v-else class="field-hint">Nessuna zona ancora creata.</p>
+        <!-- Senza zone la pianta non si può salvare: invece di un vicolo cieco,
+             la zona si crea al volo e si torna qui con la zona già scelta. -->
+        <div v-else class="zona-vuota">
+          <p class="field-hint">Prima serve un posto dove metterla: un'aiuola, il terrazzo, il davanzale.</p>
+          <RouterLink class="pill pill--cta" style="text-decoration:none;display:inline-flex;"
+            :to="{ path: '/zone', query: { nuova: '1', torna: '/piante/nuova', ...(route.query.da ? { da: route.query.da } : {}) } }">
+            Crea una zona
+          </RouterLink>
+        </div>
 
         <template v-if="form.zona">
           <label class="field-label">Sottozona</label>
@@ -136,6 +144,11 @@ onMounted(async () => {
       impianto_circa: p.impianto_circa ?? '',
       note:      p.note      ?? '',
     }
+  } else if (isNuova.value) {
+    // Zona appena creata (?zona=) o unica zona del giardino: già scelta.
+    const nomi = Object.keys(store.zone ?? {})
+    if (typeof route.query.zona === 'string' && store.zone?.[route.query.zona]) form.value.zona = route.query.zona
+    else if (nomi.length === 1) form.value.zona = store.zone[nomi[0]].nome ?? nomi[0]
   }
 })
 
@@ -157,7 +170,9 @@ async function salva() {
       impianto_circa: form.value.impianto_circa || '',
       note: form.value.note || '',
     })
-    router.push(isNuova.value ? '/piante' : `/piante/${id}`)
+    // Dai primi passi si torna in Home, dove la pianta appena aggiunta compare
+    // già in «Da fare oggi»: è lì che si vede cosa fa l'app.
+    router.push(isNuova.value ? (route.query.da === 'primi-passi' ? '/' : '/piante') : `/piante/${id}`)
   } catch {
     erroreSalvataggio.value = 'Non sono riuscito a salvare la pianta. Riprova.'
   } finally {
@@ -169,4 +184,6 @@ async function salva() {
 <style scoped>
 .ep-errore { font: 400 12px/1.4 var(--font-sans); color: var(--rose-ink); margin: -2px 2px 0; }
 .field-hint { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: 0 2px 10px; }
+.zona-vuota { margin-bottom: 4px; }
+.zona-vuota .field-hint { margin-bottom: 10px; }
 </style>

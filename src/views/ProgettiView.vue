@@ -33,7 +33,11 @@
 
       <div v-else class="empty">
         <Icon name="lampadina" />
-        <p><b>Nessun progetto ancora</b>Pianifica interventi, trapianti o lavori in giardino</p>
+        <p><b>Nessun progetto in cantiere</b>Un trapianto, un'aiuola nuova, una siepe da rinfoltire: scrivilo qui a tappe, oppure raccontamelo e le tappe le preparo io.</p>
+        <div class="empty__azioni">
+          <button type="button" class="pill pill--cta" @click="mostraForm = true">＋ Nuovo progetto</button>
+          <RouterLink class="pill" :to="{ path: '/agente', query: { tipo: 'pianifica_progetto' } }">Chiedi a Zorba</RouterLink>
+        </div>
       </div>
     </template>
 
@@ -180,6 +184,5 @@ async function salvaProgetto() {
    filtro — riceve la sua altezza di tocco corretta (44px) senza toccare
    .pill globale (riusata altrove come filtro), stesso fix già applicato
    in ConcimiView.vue il 07/09/2026. */
-.pill--cta { min-height: 44px; }
 .pv-errore { font: 400 12px/1.4 var(--font-sans); color: var(--rose-ink); margin: -2px 2px 0; }
 </style>

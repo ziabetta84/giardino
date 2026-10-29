@@ -226,11 +226,7 @@ export const useDatiStore = defineStore('dati', () => {
       // meteo su Home né la sospensione dell'irrigazione in caso di pioggia,
       // anche se /meteo stesso funzionava già grazie al proprio fallback
       // locale (vedi critica del 07/09/2026).
-      const lat = settings.value?.location?.lat ?? LOCATION_FALLBACK.lat
-      const lon = settings.value?.location?.lon ?? LOCATION_FALLBACK.lon
-      const { giorni, carica } = useMeteo()
-      await carica(lat, lon, 2)
-      meteo.value = giorni.value
+      await caricaMeteo()
 
       // Programma automatico attivo ma comunque dovuto oggi: lo registriamo
       // da soli invece di continuare a segnalarlo come cura da fare —
@@ -295,6 +291,14 @@ export const useDatiStore = defineStore('dati', () => {
     return vocePianta(pianta)?.nome ?? 'Pianta'
   }
 
+  async function caricaMeteo() {
+    const lat = settings.value?.location?.lat ?? LOCATION_FALLBACK.lat
+    const lon = settings.value?.location?.lon ?? LOCATION_FALLBACK.lon
+    const { giorni, carica } = useMeteo()
+    await carica(lat, lon, 2)
+    meteo.value = giorni.value
+  }
+
   async function aggiorna() {
     piante.value = null
     await caricaTutto()
@@ -314,5 +318,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaVoci, aggiungiVoci, vocePianta, nomePianta, iconaZona, iconaSottozona }
+  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, iconaZona, iconaSottozona }
 })

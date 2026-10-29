@@ -50,12 +50,12 @@
 
       <div v-else-if="concimi.length" class="empty">
         <Icon name="cerca" />
-        <p><b>Nessun concime trovato</b>Prova a cambiare la ricerca</p>
+        <p><b>Non trovo questo concime</b>Prova con un'altra parola del nome.</p>
       </div>
 
       <div v-else class="empty">
         <Icon name="concimazione" />
-        <p><b>Nessun concime ancora</b>Aggiungi i concimi che possiedi per ricevere suggerimenti quando una pianta ha bisogno di concimazione</p>
+        <p><b>La dispensa è vuota</b>Dimmi quali concimi hai in casa, anche i macerati fatti da te: quando una pianta ha fame ti dico quale usare e quanto.</p>
         <button type="button" @click="apriNuovo" class="pill pill--cta" style="margin-top:14px;">＋ Aggiungi un concime</button>
       </div>
     </template>
@@ -364,7 +364,6 @@ async function eliminaConcime() {
    il minimo di 44px dell'app; qui è l'unica azione per aggiungere un
    concime, non un filtro, quindi riceve la sua altezza di tocco corretta
    senza toccare .pill globale (riusata altrove come filtro). */
-.pill--cta { min-height: 44px; }
 
 /* Bottone elimina: 44px come ogni altro bersaglio di tocco dell'app (era
    ~28px, un rischio concreto di tocco-sbagliato accanto all'interruttore

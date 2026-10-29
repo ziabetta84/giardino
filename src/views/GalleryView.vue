@@ -27,7 +27,8 @@
       <!-- Nessuna foto -->
       <div v-else-if="!gruppi.length" class="empty">
         <Icon name="cornice" />
-        <p><b>Nessuna foto ancora</b>Fotografa le tue piante e documenta la crescita</p>
+        <p><b>Ancora nessuna foto</b>Una foto ogni tanto, e fra qualche mese vedrai quanto è cresciuto il giardino.</p>
+        <button type="button" class="pill pill--cta" style="margin-top:14px;" @click="mostraFormUpload = true">＋ Aggiungi la prima foto</button>
       </div>
 
       <!-- Feed: un post per pianta -->

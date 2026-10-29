@@ -55,9 +55,9 @@
             <span>{{ numZone === 0 ? 'Pronto per iniziare' : 'Aggiungi una pianta' }}</span>
           </template>
           <template v-else>
-            <span>{{ numPiante }} piante</span>
-            <span>{{ numZone }} zone</span>
-            <span><b :class="{ urg: numUrgenti }">{{ numUrgenti }} piante da curare</b></span>
+            <span>{{ numPiante }} {{ numPiante === 1 ? 'pianta' : 'piante' }}</span>
+            <span>{{ numZone }} {{ numZone === 1 ? 'zona' : 'zone' }}</span>
+            <span><b :class="{ urg: numUrgenti }">{{ numUrgenti }} {{ numUrgenti === 1 ? 'pianta' : 'piante' }} da curare</b></span>
           </template>
         </div>
       </Transition>
