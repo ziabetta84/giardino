@@ -1013,21 +1013,19 @@
    0,
    1,
    2,
-   3,
-   4,
-   5
+   4
   ],
   "nota": null
  },
  "t:c43780f2-56c2-480a-834f-14f853b85720": {
   "problema": null,
   "candidate": [
-   0,
-   1,
    2,
+   1,
    3,
    4,
-   5
+   5,
+   6
   ],
   "nota": null
  },
@@ -1037,14 +1035,13 @@
    "Foto della specie Muscari armeniacum"
   ],
   "candidate": [
-   0,
-   1,
    2,
+   1,
    3,
    4,
    5
   ],
-  "nota": null
+  "nota": "Nessuna foto della cultivar 'Manon' (fiori rosa pallido): sono foto della specie"
  },
  "c:d94486f9-7fd8-4820-bd92-a257e21425c7": {
   "problema": [
@@ -1053,61 +1050,54 @@
   ],
   "candidate": [
    0,
-   1,
+   7,
    2,
-   3,
-   4,
-   5
+   8
   ],
-  "nota": null
+  "nota": "Nessuna foto della cultivar 'Mariposa Blue': foto della specie; scartate quelle con farfalle e ragni in primo piano"
  },
  "t:4e412818-5ab7-41b2-b17c-0f8e3241638a": {
   "problema": null,
   "candidate": [
-   0,
-   1,
-   2,
    3,
-   4,
-   5
+   7,
+   10,
+   0
   ],
-  "nota": null
+  "nota": "L'attuale (verbena ibrida in vaso) va già bene"
  },
  "t:e13c2546-7b39-4169-8aa0-a1f6f0c7d184": {
   "problema": null,
   "candidate": [
    0,
+   7,
    1,
-   2,
-   3,
-   4,
-   5
+   6,
+   11
   ],
   "nota": null
  },
  "t:2b63e2eb-85ea-4d7f-916f-5f5543df4435": {
   "problema": null,
   "candidate": [
-   0,
    1,
-   2,
-   3,
-   4,
-   5
+   5,
+   6,
+   0,
+   3
   ],
   "nota": null
  },
  "t:a376c3dd-ab71-40d4-be09-96e1c3150f31": {
   "problema": null,
   "candidate": [
-   0,
-   1,
-   2,
+   7,
+   10,
    3,
-   4,
-   5
+   8,
+   6
   ],
-  "nota": null
+  "nota": "Poche foto di zinnie a pianta intera: sono soprattutto fiori in giardino"
  },
  "c:b4eb11b3-832f-49d9-871b-b3d407091273": {
   "problema": [
@@ -1122,7 +1112,7 @@
    4,
    5
   ],
-  "nota": null
+  "nota": "Foto della cultivar e di altre Profusion della stessa serie"
  },
  "c:42b8d775-b854-429d-b897-434544ea92b0": {
   "problema": [
@@ -1134,10 +1124,9 @@
    1,
    2,
    3,
-   4,
-   5
+   4
   ],
-  "nota": null
+  "nota": "Foto della cultivar (2) e di altre Profusion della stessa serie, nessuna foto in Commons della pianta intera di questa varietà"
  },
  "c:a727d569-4ce5-4a5b-8737-b818a03a1cbf": {
   "problema": [
@@ -1149,33 +1138,31 @@
    1,
    2,
    3,
-   4,
-   5
+   4
   ],
-  "nota": null
+  "nota": "Foto della cultivar (2) e di altre Profusion della stessa serie, nessuna foto in Commons della pianta intera di questa varietà"
  },
  "t:6edb573d-354d-43b5-a91d-b3c8f9a559d0": {
   "problema": null,
   "candidate": [
-   0,
-   1,
-   2,
    3,
    4,
-   5
+   9,
+   11,
+   10,
+   2
   ],
-  "nota": null
+  "nota": "Scartate le Profusion (ibride) etichettate come angustifolia"
  },
  "t:2998ccb2-f07e-4537-ba5d-a6c6cbad528d": {
   "problema": null,
   "candidate": [
    0,
-   1,
-   2,
-   3,
-   4,
-   5
+   5,
+   6,
+   10,
+   4
   ],
-  "nota": null
+  "nota": "L'attuale mostra anche zucche Hokkaido, che sono un'altra specie (Cucurbita maxima)"
  }
 }
