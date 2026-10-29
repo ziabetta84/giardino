@@ -55,7 +55,7 @@
 
       <div v-else class="empty">
         <Icon name="concimazione" />
-        <p><b>La dispensa è vuota</b>Dimmi quali concimi hai in casa, anche i macerati fatti da te: quando una pianta ha bisogno di concimazione ti suggerisco quale usare e in che dose.</p>
+        <p><b>La dispensa è vuota</b>Dimmi quali concimi hai in casa, anche i macerati fatti da te: quando una pianta ha bisogno di concimazione ti suggerisco quale usare.</p>
         <button type="button" @click="apriNuovo" class="pill pill--cta" style="margin-top:14px;">＋ Aggiungi un concime</button>
       </div>
     </template>
