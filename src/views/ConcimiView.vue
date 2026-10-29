@@ -32,7 +32,7 @@
             </div>
             <div v-if="c.descrizione" class="feed__d">{{ c.descrizione }}</div>
             <div class="feed__meta">
-              <span class="feed__npk">{{ formattaNPK(c.npk) }}</span>
+              <span class="feed__npk" :title="`Azoto ${c.npk?.n ?? '–'} · Fosforo ${c.npk?.p ?? '–'} · Potassio ${c.npk?.k ?? '–'}`">{{ formattaNPK(c.npk) }}</span>
               <span v-if="elencoAbbinati(c.id)" class="feed__match">Adatto per: {{ elencoAbbinati(c.id) }}</span>
             </div>
             <div v-if="erroriDisponibile[c.id]" class="feed__err">{{ erroriDisponibile[c.id] }}</div>
@@ -82,12 +82,37 @@
           </template>
         </template>
         <input v-model="form.nome" placeholder="Nome *" class="form-input" style="margin-bottom:10px;">
-        <label class="field-label">NPK</label>
-        <div style="display:flex;gap:8px;margin-bottom:16px;">
-          <input v-model.number="form.n" type="number" min="0" placeholder="N" class="form-input" style="text-align:center;">
-          <input v-model.number="form.p" type="number" min="0" placeholder="P" class="form-input" style="text-align:center;">
-          <input v-model.number="form.k" type="number" min="0" placeholder="K" class="form-input" style="text-align:center;">
+        <!-- NPK spiegato dove si scrive: chi è alle prime armi non sa che
+             sono tre numeri dell'etichetta, né dove cercarli. Ogni campo dice
+             a cosa serve l'elemento; «Dove lo trovo?» resta chiuso finché
+             non serve. -->
+        <p class="field-label" id="npk-label">Titolo NPK</p>
+        <div class="npk-campi" role="group" aria-labelledby="npk-label">
+          <label class="npk-campo">
+            <input v-model.number="form.n" type="number" min="0" step="any" placeholder="0" class="form-input">
+            <span class="npk-campo__l"><b>N</b> azoto</span>
+            <span class="npk-campo__d">foglie e crescita</span>
+          </label>
+          <label class="npk-campo">
+            <input v-model.number="form.p" type="number" min="0" step="any" placeholder="0" class="form-input">
+            <span class="npk-campo__l"><b>P</b> fosforo</span>
+            <span class="npk-campo__d">radici e fioritura</span>
+          </label>
+          <label class="npk-campo">
+            <input v-model.number="form.k" type="number" min="0" step="any" placeholder="0" class="form-input">
+            <span class="npk-campo__l"><b>K</b> potassio</span>
+            <span class="npk-campo__d">fiori, frutti, resistenza</span>
+          </label>
         </div>
+        <details class="npk-aiuto">
+          <summary>Dove lo trovo?</summary>
+          <p>Sulla confezione, di solito ben in vista sul fronte, ci sono tre numeri separati da trattini: per esempio <b>20-20-20</b> o <b>27-0-14</b>. Sono, in quest'ordine, le percentuali di azoto (N), fosforo (P₂O₅) e potassio (K₂O). Se il fronte non li riporta, cercali sul retro nella composizione, alla voce «titolo» o «contenuto dichiarato».</p>
+          <p>Uno zero vuol dire che quell'elemento manca, e va scritto anche lui. Gli altri valori, come magnesio o ferro, qui non servono.</p>
+          <p>Per i macerati e i concimi fatti in casa i valori sono solo indicativi; se non li conosci lascia vuoto.</p>
+          <RouterLink class="npk-aiuto__zorba" :to="{ path: '/agente', query: { tipo: 'altro', testo: `Ti mando la foto dell'etichetta di un concime${form.nome.trim() ? ` (${form.nome.trim()})` : ''}: mi dici i valori NPK e come usarlo?` } }">
+            <Icon name="fotocamera" />Fotografa l'etichetta e chiedilo a Zorba
+          </RouterLink>
+        </details>
         <label class="field-label">Descrizione (opzionale)</label>
         <textarea v-model="form.descrizione" placeholder="Preparazione, dosi, tempo di macerazione…"
           rows="3" class="form-input" style="resize:vertical;font-family:inherit;margin-bottom:16px;"></textarea>
@@ -334,6 +359,27 @@ async function eliminaConcime() {
    Due gruppi, non un'unica lista piatta: un concime di rango 2/3 non è la
    stessa cosa del migliore abbinamento, e trattarli allo stesso modo
    sovrastimerebbe il match secondario (vedi critica del 07/09/2026). */
+.npk-campi { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 8px; }
+.npk-campo { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.npk-campo .form-input { text-align: center; font-variant-numeric: tabular-nums; }
+.npk-campo__l { font: 400 12px/1.25 var(--font-sans); color: var(--ink-mid); text-align: center; }
+.npk-campo__l b { font-weight: 700; color: var(--ink); }
+.npk-campo__d { font: 400 11px/1.3 var(--font-sans); color: var(--ink-soft); text-align: center; }
+.npk-aiuto { margin: 4px 0 16px; font: 400 12.5px/1.55 var(--font-sans); color: var(--ink-mid); }
+.npk-aiuto summary {
+  display: inline-flex; align-items: center; min-height: 44px; cursor: pointer;
+  font-weight: 600; color: var(--sage-ink); text-decoration: underline; text-underline-offset: 3px;
+}
+.npk-aiuto summary:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(224,184,74,0.3); border-radius: 6px; }
+.npk-aiuto p { margin: 0 0 8px; }
+.npk-aiuto p b { color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.npk-aiuto__zorba {
+  display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--cream-dark); border-radius: 12px; background: var(--white);
+  font: 600 12.5px/1.2 var(--font-sans); color: var(--ink-mid); text-decoration: none;
+}
+.npk-aiuto__zorba svg { width: 16px; height: 16px; flex: none; }
+.npk-aiuto__zorba:hover { color: var(--ink); border-color: var(--sage-light); }
 .concime-match-list { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
 .concime-match-chip { font-family: var(--font-display); font-weight: 600; }
 .concime-match-chip--secondario {
