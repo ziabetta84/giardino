@@ -13,6 +13,7 @@
 import { computed, ref, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useAuth } from '@/composables/useAuth'
+import { useSupabase } from '@/composables/useSupabase'
 
 const PREFISSO = 'giardino_primi_passi_'
 
@@ -27,6 +28,31 @@ function scrivi(chiave, valore) {
 // stesso stato (Home nasconde i vecchi inviti quando la guida è visibile).
 const statoSalvato = ref(null)
 let utenteLetto = null
+
+// I concimi fatti in casa che chiunque ha in cucina: un account nuovo li
+// trova già in dispensa, segnati come terminati (il suggerimento li propone
+// solo quando l'utente li accende). Stessi nomi, NPK e ricette della
+// dispensa del giardino di Centinarola.
+const CONCIMI_FATTI_IN_CASA = [
+  { nome: 'Fatto in casa - Acqua di buccia di banana (macerato)', npk: { n: 1, p: 3, k: 8 },
+    descrizione: "Metti 2-3 bucce di banana a pezzi in un litro d'acqua, lascia macerare 2-3 giorni a temperatura ambiente mescolando ogni tanto, poi filtra. Usa il liquido puro per innaffiare, senza ulteriore diluizione." },
+  { nome: 'Fatto in casa - Acqua di cottura verdure', npk: { n: 2, p: 1, k: 4 },
+    descrizione: "Riutilizza l'acqua di cottura di verdure (non salata), lasciata raffreddare a temperatura ambiente. Usala pura per innaffiare, senza bisogno di diluizione o macerazione." },
+  { nome: 'Fatto in casa - Fondi di caffè (macerato)', npk: { n: 10, p: 2, k: 4 },
+    descrizione: "Metti in infusione una tazza di fondi di caffè esausti (freddi) in un litro d'acqua per 2-3 giorni, mescolando di tanto in tanto, poi filtra. Diluisci il liquido 1:1 con acqua prima di innaffiare." },
+]
+
+// Una volta sola, quando la guida parte per un account nuovo e la dispensa è
+// vuota: chi ha già dei concimi (o li ha tolti dopo) non se li ritrova.
+async function caricaConcimiFattiInCasa(store) {
+  if (Object.keys(store.concimi ?? {}).length) return
+  const { data, error } = await useSupabase().from('concimi')
+    .insert(CONCIMI_FATTI_IN_CASA.map(c => ({ ...c, disponibile: false }))).select()
+  if (error || !data) return
+  store.concimi = { ...store.concimi, ...Object.fromEntries(data.map(c => [c.id, {
+    nome: c.nome, npk: c.npk, disponibile: c.disponibile, descrizione: c.descrizione,
+  }])) }
+}
 
 export function usePrimiPassi() {
   const store = useDatiStore()
@@ -53,6 +79,7 @@ export function usePrimiPassi() {
     if (!fatto) {
       statoSalvato.value = 'in-corso'
       scrivi(chiave.value, 'in-corso')
+      caricaConcimiFattiInCasa(store).catch(() => { /* la dispensa resta vuota, si riempie a mano */ })
     }
   }, { immediate: true })
 

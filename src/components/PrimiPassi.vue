@@ -9,7 +9,7 @@
       <div class="pp__hd-m">
         <h2 id="pp-titolo" class="pp__t">{{ tuttoFatto ? 'Il cancello è aperto' : 'Tre passi e si entra in giardino' }}</h2>
         <p class="pp__s">
-          <template v-if="tuttoFatto">D'ora in poi ti dico io quando {{ nomePrima }} ha sete o fame: quando è il momento, lo trovi qui sotto in «Da fare oggi».</template>
+          <template v-if="tuttoFatto">D'ora in poi tengo io il conto di irrigazioni e concimazioni di {{ nomePrima }}: quando è il momento, le trovi qui sotto in «Da fare oggi».</template>
           <template v-else>Sono Zorba. Raccontami il tuo giardino e alle cure ci penso io.</template>
         </p>
       </div>
