@@ -1,5 +1,26 @@
 Riscrive lo stile delle `descrizione` (e traduce gli avvisi rimasti in inglese) in tabella `schede` (fino al 13/10/2026: `specie`) su Supabase (progetto `ncuhhsvtjwcolhpdxbkt`) in prosa narrativa naturale, superando l'effetto "scritto da un agente AI"/elenco di campi — issue GitHub **#153** (`ziabetta84/giardino`). Workflow validato con un prototipo di 25 righe il 31/08/2026 (vedi anche `fonti/criterio-importazione.md` e la memoria `project-naturalizzazione-descrizioni`).
 
+## Il modello di voce: le enciclopedie botaniche cartacee
+
+Scelta dell'utente fin dall'inizio del lavoro, ribadita il 29/10/2026: il testo non è una traduzione di RHS o PFAF, è un **adattamento allo stile delle enciclopedie botaniche cartacee** che sono tra le fonti del catalogo (Edicart: *Il giardino di arbusti*, *Piante in vaso*, *Il giardino di felci*, *Fiori e piante da appartamento*; *Tutto per il giardino*). Tradurre fedelmente frase per frase non basta: il contenuto resta quello della fonte (nessun fatto aggiunto o perso), la voce è quella di un'enciclopedia italiana.
+
+Com'è fatta quella voce:
+- **Si apre con che cosa è la pianta**: tipo (arbusto sempreverde, perenne aromatica, palma…), famiglia quando serve, dimensioni a maturità. Poi l'aspetto, nell'ordine in cui lo si guarda: portamento, foglie, fiori, frutti. Poi l'uso in giardino o in casa. Le esigenze di coltivazione stanno nei loro campi e negli avvisi, non nella descrizione.
+- **Registro impersonale e al presente** («si coltiva», «fiorisce», «è adatto ai piccoli giardini»), mai la seconda persona, mai il tono da vivaio o da blog («un vero gioiello», «perfetto per chi…»).
+- **Precisione da manuale**: misure con l'unità, mesi o stagioni, termini botanici italiani corretti (pennate, coriacee, infiorescenze, racemi, drupa), senza spiegarli.
+- **Frasi intere e legate**, di lunghezza media; niente elenchi di valori, niente «inoltre» a inizio frase, niente formule di chiusura.
+- **Nessun riferimento alla fonte o alla scheda** (vedi le regole sotto).
+
+Brani modello, presi dalle schede Edicart del catalogo:
+
+> Perenne aromatica e cespugliosa della famiglia delle Lamiaceae, alta e larga fino a 1 m. Le foglie, a forma di cuore, con margine smerlato e lunghe 2-8 cm, hanno un profumo di limone. In estate produce spighe di fiori color crema o lilla pallido, ricchi di nettare e molto visitati da api e altri impollinatori; le foglie sono spesso usate come erba aromatica in cucina. (*Melissa officinalis*)
+
+> Palma monoica a fusto unico, che nei tropici forma un albero alto fino a 25-30 m, apprezzata per la forma elegante e per i semi commestibili (le noci di cocco). Ha lunghe foglie pennate che si staccano nettamente, lasciando liscio il tronco non ramificato. Nelle zone soggette a gelo gli esemplari giovani si coltivano come piante da fogliame di breve durata in una serra calda, o come piante da appartamento. (*Cocos nucifera*)
+
+> Arbusto sempreverde compatto, di circa 40 cm di altezza per 80 di larghezza, con rami ricurvi e foglie persistenti, ellittiche, coriacee, verde scuro lucido, con tre nervature, lunghe 5-15 cm. Fiorisce a maggio-giugno (a volte anche a settembre) con piccole cime appiattite di fiori bianco opaco, seguite da bacche blu-nere dall'aspetto metallico, che durano a lungo. Per la fruttificazione servono piante maschili e femminili vicine. (*Viburnum davidii*)
+
+Non tutte le schede di origine enciclopedica sono un buon modello (alcune sono state assemblate male in passato, per esempio *Viburnum tinus* con l'elenco delle stagioni di fioritura): il modello è la voce, non ogni testo che porta quella fonte.
+
 ## Dal 28/10/2026 si lavora su `schede`, non su `specie`
 
 `specie` è un archivio chiuso (fasi 4-7 del modello tassonomico, vedi CLAUDE.md): i testi sono stati copiati in `schede` e una modifica a `specie` non arriva più nell'app. Le procedure, le query e i nomi di colonna di questo file che parlano di `specie` (`slug`, `specie_padre_id`, `famiglia_botanica`, il marcatore «testo originale in inglese» dentro `descrizione`, `apply_migration` per riga) sono storia: la procedura di oggi è in `.claude/commands/naturalizza-lotto.md`. Le regole di stile restano valide, con queste differenze:

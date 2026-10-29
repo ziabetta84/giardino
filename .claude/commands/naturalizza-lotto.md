@@ -14,7 +14,7 @@ Una scheda mostrata (`mostrata = true`) è da fare se:
 
 1. **Esporta**: `cd scripts/naturalizza-batch && python3 esporta_schede.py --limite <N>`. Scrive `lottoN_schede.json` (ignorato da git): per ogni scheda id, livello (genere, specie, cultivar), nome scientifico, famiglia (da `taxa`), descrizione, `descrizione_originale`, avvisi, esigenze, ciclo vitale e `aggiornata_il`. Non serve più `scripts/backup-db.sh`: il backup del lotto è il file di rollback del punto 3.
 
-2. **Traduci tu, nella sessione principale**, scheda per scheda, scrivendo `lottoN_traduzioni.json`:
+2. **Traduci e adatta tu, nella sessione principale**, scheda per scheda, scrivendo `lottoN_traduzioni.json`. Le descrizioni non sono una traduzione frase per frase: vanno riscritte nella voce delle enciclopedie botaniche cartacee, con gli stessi fatti dell'originale (sezione «Il modello di voce» della skill di stile, con i brani modello: rileggili prima di ogni lotto). Gli avvisi invece sono indicazioni pratiche e si traducono asciutti.
    ```json
    {"<id>": {"descrizione": "…", "alert": {"8": "Parassiti: …", "11": null}, "ciclo_vitale": "perenne"}}
    ```
@@ -24,7 +24,7 @@ Una scheda mostrata (`mostrata = true`) è da fare se:
 
 3. **Prepara e controlla**: `python3 scrivi_schede.py --lotto lottoN_schede.json --traduzioni lottoN_traduzioni.json`. Controlla indici, voci intoccabili, fonti citate, parole inglesi rimaste, codici H, note editoriali; se trova errori non scrive niente. Produce `lottoN_schede_scrittura.sql` e `lottoN_schede_rollback.sql` (rimette le schede com'erano: `psql "$SUPABASE_DB_URL" -X -1 -v ON_ERROR_STOP=1 -f lottoN_schede_rollback.sql`).
 
-4. **Verifica indipendente prima di scrivere**: un agente `general-purpose` riceve, per ogni scheda, le coppie originale → tradotto (descrizione e voci) e controlla fatti persi o aggiunti, termini botanici e fitopatologici italiani, concordanza di genere con il nome italiano della pianta. Dagli l'elenco delle eccezioni volute (vedi «Eccezioni volute» sotto), altrimenti le segnala come errori. Correggi le traduzioni e rilancia il punto 3.
+4. **Verifica indipendente prima di scrivere**: un agente `general-purpose` riceve, per ogni scheda, le coppie originale → tradotto (descrizione e voci) e controlla fatti persi o aggiunti, termini botanici e fitopatologici italiani, concordanza di genere con il nome italiano della pianta, e se le descrizioni hanno la voce delle enciclopedie (dagli i brani modello della skill di stile) o sono rimaste una traduzione ricalcata sull'inglese. Dagli l'elenco delle eccezioni volute (vedi «Eccezioni volute» sotto), altrimenti le segnala come errori. Correggi le traduzioni e rilancia il punto 3.
 
 5. **Scrivi**: `python3 scrivi_schede.py … --applica`. Una transazione sola; si ferma se una scheda è cambiata dopo l'export (controllo su `aggiornata_il`, che il trigger aggiorna da sé).
 
