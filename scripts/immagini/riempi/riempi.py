@@ -9,7 +9,7 @@
 #   python3 scripts/immagini/riempi/riempi.py migrazione                           (migration e rollback)
 # Secondo giro, per le schede rimaste senza (elenco2.sql): cerca anche con i sinonimi dello stesso rango e, quando
 # l'immagine principale manca o non va, sceglie la foto migliore della categoria con il punteggio di punteggio.py
-# (al più 3 categorie per scheda; autore = chi ha caricato il file se manca l'Artist).
+# (al più 3 categorie per scheda; autore = chi ha caricato il file se manca l'Artist). I generi sono esclusi.
 #   python3 scripts/immagini/riempi/riempi.py secondo lavoro/riempi_elenco2.tsv
 #   python3 scripts/immagini/riempi/riempi.py campione 48 2
 #   python3 scripts/immagini/riempi/riempi.py migrazione 2
@@ -154,7 +154,8 @@ def chiedi_membri(c, categoria):
 
 def secondo(elenco):
     righe = [r.split('\t') for r in open(elenco).read().splitlines() if r.strip()]
-    schede = [(sid, nome, [nome] + [x for x in sin.split('|') if x]) for sid, _, nome, sin in righe]
+    # i generi restano fuori: le categorie dei generi sono piene di omonimi (rane per Dendrobium, uccelli per Aster…)
+    schede = [(sid, nome, [nome] + [x for x in sin.split('|') if x]) for sid, rango, nome, sin in righe if rango != 'genus']
     c = carica_cache()
     print(f'{len(schede)} schede, {sum(len(n) for _, _, n in schede)} nomi', flush=True)
     chiedi_categorie(c, [n for _, _, nomi in schede for n in nomi])
