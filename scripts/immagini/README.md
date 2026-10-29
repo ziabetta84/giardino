@@ -25,3 +25,10 @@ pianta o una pianta sbagliata. Qui si scelgono a mano quelle delle voci delle pi
 
 Wikimedia limita molto le richieste dal cloud (~6 miniature al minuto): i passi 2 e 3 vanno lanciati dal Mac.
 `lavoro/` è git-ignorata.
+
+**Riempimento automatico** (`riempi/`): per le schede mostrate di taxon senza immagine (circa 7.100; le cultivar
+ereditano dalla specie) prende l'immagine principale della categoria Commons del nome scientifico, solo con licenza
+libera, foto di almeno 500 px e titolo che non indichi un dettaglio o una tavola botanica (criteri in `riempi.py`).
+Dal Mac: `elenco.sql` → `riempi.py raccogli` (circa 300 richieste, si riprende da dove era) → `riempi.py campione` per
+un controllo a occhio → `riempi.py migrazione` (migration `20261029130000_immagini_automatiche.sql`, rollback in
+`riempi/`). Ogni immagine porta `"origine": "automatica 29/10/2026"` e `"verificata": false`.
