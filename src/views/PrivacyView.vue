@@ -162,9 +162,9 @@
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 
-// Dati del titolare: da completare con quelli veri prima del rilascio.
+// Dati del titolare (soggetto privato, senza partita IVA).
 const TITOLARE = {
-  nome: 'NOME E COGNOME',
+  nome: 'Roberta Genovese',
   indirizzo: '',
   partitaIva: '',
   email: 'privacy@zorbaingiardino.app',
