@@ -53,9 +53,9 @@
   --cream-dark:  #f0ebe2;
   --white:       #ffffff;
 
-  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --font-sans:    'DM Sans', system-ui, sans-serif;
-  --font-hand:    'Caveat', 'Segoe Script', cursive;
+  --font-display: 'Fraunces Variable', 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-sans:    'DM Sans Variable', 'DM Sans', system-ui, sans-serif;
+  --font-hand:    'Caveat Variable', 'Caveat', 'Segoe Script', cursive;
 
   /* Sistema di movimento: un'unica curva di decelerazione morbida, mai un
      rimbalzo/elastico, per ogni transizione di stato. Due durate coprono

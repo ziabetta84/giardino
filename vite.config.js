@@ -103,7 +103,10 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/,
+            // I caratteri sono serviti dall'app (pacchetti @fontsource-variable,
+            // non più Google Fonts): un file per sottoinsieme di caratteri, si
+            // scaricano solo quelli usati e si tengono in cache.
+            urlPattern: ({ request }) => request.destination === 'font',
             handler: 'CacheFirst',
             options: {
               cacheName: 'giardino-font',

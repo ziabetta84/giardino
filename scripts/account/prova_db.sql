@@ -65,5 +65,31 @@ begin
   end loop;
   if (select count(*) from public.piante_vecchie_specie) <> 1 then raise exception 'piante_vecchie_specie'; end if;
   if (select count(*) from public.tappe) <> 2 then raise exception 'tappe di B'; end if;
+  if (select count(*) from public.account_eliminati) <> 1
+     or not exists (select 1 from public.account_eliminati where id = 'aaaaaaaa-0000-0000-0000-000000000001') then raise exception 'registro degli eliminati'; end if;
+end $$;
+
+-- Il registro non si legge né si scrive dai client
+set role authenticated;
+select pg_temp.fallisce($$select * from public.account_eliminati$$, 'account_eliminati da authenticated');
+reset role;
+set role anon;
+select pg_temp.fallisce($$insert into public.account_eliminati (id) values (gen_random_uuid())$$, 'account_eliminati da anon');
+reset role;
+
+-- Ripristino di un backup preso prima dell'eliminazione: A torna, con un giardino, e il registro è vecchio (vuoto).
+-- riapplica_eliminazioni.sql, con il registro tenuto fuori dai backup, lo cancella di nuovo e non tocca B.
+insert into auth.users (id) values (:A);
+insert into public.zone (owner_id) values (:A);
+truncate public.account_eliminati;
+create temp table registro (id uuid primary key, eliminato_il timestamptz not null);
+insert into registro values (:A, now() - interval '1 day');
+\i scripts/backup/riapplica_eliminazioni.sql
+\i scripts/backup/riapplica_eliminazioni.sql
+do $$ begin
+  if exists (select 1 from auth.users where id = 'aaaaaaaa-0000-0000-0000-000000000001') then raise exception 'A non rieliminato'; end if;
+  if exists (select 1 from public.zone where owner_id = 'aaaaaaaa-0000-0000-0000-000000000001') then raise exception 'zona di A tornata'; end if;
+  if not exists (select 1 from public.zone where owner_id = 'bbbbbbbb-0000-0000-0000-000000000002') then raise exception 'zone di B toccate'; end if;
+  if (select count(*) from public.account_eliminati) <> 1 then raise exception 'registro non ricostruito'; end if;
 end $$;
 \echo PROVA ACCOUNT OK

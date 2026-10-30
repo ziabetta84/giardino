@@ -13,4 +13,5 @@ trap '"$BIN/dropdb" --if-exists "$DB"' EXIT
 PSQL=("$BIN/psql" -d "$DB" -X -q -v ON_ERROR_STOP=1)
 "${PSQL[@]}" -f scripts/account/stub_supabase.sql
 "${PSQL[@]}" -1 -f supabase/migrations/20261030120000_elimina_account.sql
+"${PSQL[@]}" -1 -f supabase/migrations/20261030130000_account_eliminati.sql
 "${PSQL[@]}" -f scripts/account/prova_db.sql

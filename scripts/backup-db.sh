@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Backup completo (schema + dati) del database Supabase "Il Giardino di
-# Zorba" in un file locale, mai versionato (vedi .gitignore -> backups/).
+# Zorba" in un file locale cifrato, mai versionato (vedi .gitignore -> backups/).
+# Contiene i dati di tutti gli utenti: per questo e' cifrato con age e ruota
+# (la pagina Privacy promette che le copie si distruggono entro 30 giorni).
 #
 # Uso:
 #   1. Prendi la stringa di connessione dal dashboard Supabase
@@ -9,7 +11,22 @@
 #      quella diretta).
 #   2. Mettila in .env.local (alla radice del repo, gia' escluso da git):
 #        SUPABASE_DB_URL=postgresql://postgres.xxxx:LA-TUA-PASSWORD@...
-#   3. Esegui: ./scripts/backup-db.sh
+#   3. La prima volta crea la chiave di cifratura (brew install age):
+#        mkdir -p ~/.config/giardino && chmod 700 ~/.config/giardino
+#        age-keygen -o ~/.config/giardino/backup-age.key
+#      e metti la riga "Public key: age1..." che stampa in .env.local:
+#        BACKUP_AGE_RECIPIENT=age1...
+#      La chiave privata resta nel file e va copiata anche nel gestore di
+#      password: senza di lei i backup non si aprono piu'. Mai nel repository.
+#   4. Esegui: ./scripts/backup-db.sh
+#
+# Ripristino: age -d -i ~/.config/giardino/backup-age.key FILE.sql.age | psql ...
+# e subito dopo bash scripts/backup/riapplica_eliminazioni.sh, che rifa' le
+# eliminazioni degli account successive al backup.
+#
+# Rotazione (scripts/backup/rotazione.mjs): l'ultimo backup di ogni giorno per
+# 7 giorni, l'ultimo di ogni settimana per 4 settimane, niente oltre 30 giorni.
+# I dump "completo_*.dump" degli script della tassonomia non ruotano.
 #
 # Consigliato prima di ogni sessione con scritture massicce (batch di
 # importazione fonti, migration su piu' righe) -- e' il momento a piu'
@@ -21,7 +38,9 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 ENV_LOCAL="$REPO_ROOT/.env.local"
 BACKUP_DIR="$REPO_ROOT/backups"
-PG_DUMP="/opt/homebrew/opt/postgresql@17/bin/pg_dump"
+PG_DUMP="${PG_DUMP:-/opt/homebrew/opt/postgresql@17/bin/pg_dump}"
+PSQL="${PSQL:-/opt/homebrew/opt/postgresql@17/bin/psql}"
+REGISTRO="$BACKUP_DIR/account_eliminati.tsv"
 
 if [ ! -x "$PG_DUMP" ]; then
   echo "pg_dump non trovato in $PG_DUMP. Installa con: brew install postgresql@17" >&2
@@ -43,13 +62,37 @@ if [ -z "${SUPABASE_DB_URL:-}" ]; then
   exit 1
 fi
 
+if ! command -v age >/dev/null; then
+  echo "age non trovato. Installa con: brew install age" >&2
+  exit 1
+fi
+if [ -z "${BACKUP_AGE_RECIPIENT:-}" ]; then
+  echo "Manca BACKUP_AGE_RECIPIENT in $ENV_LOCAL: vedi le istruzioni in cima a questo script (passo 3)." >&2
+  exit 1
+fi
+
 mkdir -p "$BACKUP_DIR"
 TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
-OUT_FILE="$BACKUP_DIR/giardino_zorba_${TIMESTAMP}.sql"
+OUT_FILE="$BACKUP_DIR/giardino_zorba_${TIMESTAMP}.sql.age"
+
+# Registro degli account eliminati, tenuto fuori dai backup (solo id e data):
+# dopo un ripristino serve a riapplica_eliminazioni.sh. Si aggiunge, non si
+# sovrascrive, cosi' resta completo anche se il database torna indietro.
+if [ "$("$PSQL" "$SUPABASE_DB_URL" -X -A -t -c "select to_regclass('public.account_eliminati') is not null")" = "t" ]; then
+  touch "$REGISTRO"
+  { cat "$REGISTRO"; "$PSQL" "$SUPABASE_DB_URL" -X -q -c "\\copy (select id, eliminato_il from public.account_eliminati) to stdout"; } \
+    | sort -u -k1,1 > "$REGISTRO.nuovo"
+  mv "$REGISTRO.nuovo" "$REGISTRO"
+  echo "Registro degli account eliminati: $(wc -l < "$REGISTRO" | tr -d ' ') righe"
+fi
 
 echo "Backup in corso -> $OUT_FILE"
-"$PG_DUMP" "$SUPABASE_DB_URL" --no-owner --no-privileges -f "$OUT_FILE"
+trap 'rm -f "$OUT_FILE"' ERR
+"$PG_DUMP" "$SUPABASE_DB_URL" --no-owner --no-privileges | age -r "$BACKUP_AGE_RECIPIENT" -o "$OUT_FILE"
+trap - ERR
 echo "Fatto: $(du -h "$OUT_FILE" | cut -f1)"
 
-# Tiene solo gli ultimi 20 backup per non far crescere la cartella all'infinito.
-ls -1t "$BACKUP_DIR"/giardino_zorba_*.sql 2>/dev/null | tail -n +21 | while IFS= read -r f; do rm -- "$f"; done
+node "$REPO_ROOT/scripts/backup/rotazione.mjs" "$BACKUP_DIR" | while IFS= read -r f; do
+  echo "Rotazione: cancello $(basename "$f")"
+  rm -- "$f"
+done

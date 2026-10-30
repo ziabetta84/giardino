@@ -69,6 +69,11 @@
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </button>
 
+    <RouterLink :to="{ name: 'privacy' }" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;text-decoration:none;color:inherit;">
+      <span style="font-size:13px;font-weight:600;">Privacy e note legali</span>
+      <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
+    </RouterLink>
+
     <EliminaAccount />
 
   </div>
@@ -252,6 +257,11 @@
         <button type="submit" class="btn btn-sage" :disabled="inviando || attesaCaptcha" style="margin-top:4px;">
           {{ etichettaInvio }}
         </button>
+
+        <p class="auth__nota auth__legale">
+          <template v-if="modalita === 'registrati'">Che cosa succede ai tuoi dati lo trovi in </template>
+          <RouterLink :to="{ name: 'privacy' }">Privacy e note legali</RouterLink>
+        </p>
       </form>
     </template>
   </div>
@@ -707,6 +717,8 @@ async function onEsci() {
   color: var(--sage-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
 }
 .auth__esito { font-size: 13px; line-height: 1.5; }
+.auth__legale { text-align: center; }
+.auth__legale a { display: inline-block; padding: 12px 0; color: var(--sage-ink); font-weight: 600; text-underline-offset: 3px; }
 .auth__esito--err { color: var(--rose-ink); }
 .auth__esito--ok { color: var(--sage-ink); }
 /* Tema scuro: lì --sage-dark è un verde chiaro, che regge il testo scuro
