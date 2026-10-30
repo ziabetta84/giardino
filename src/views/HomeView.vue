@@ -107,8 +107,9 @@
          più sotto finché non viene chiusa. -->
     <PrimiPassi v-if="primiPassiVisibile" />
 
-    <!-- Meteo -->
-    <RouterLink class="wxrow" to="/meteo">
+    <!-- Meteo. Finché la guida chiede la posizione, la riga «Meteo non
+         disponibile» ripeterebbe la stessa richiesta: resta nascosta. -->
+    <RouterLink v-if="!(primiPassiVisibile && !posizioneImpostata)" class="wxrow" to="/meteo">
       <Icon :name="meteoOggi?.icona ?? 'meteo'" class="wxrow__ic" />
       <span class="wxrow__m">
         <span v-if="meteoOggi" class="wxrow__t">{{ meteoOggi.tMax }}° / {{ meteoOggi.tMin }}° · {{ meteoOggi.descrizione }}</span>
@@ -130,8 +131,9 @@
       <Icon name="back" class="zdice__chev" style="transform:rotate(180deg)" />
     </RouterLink>
 
-    <!-- Da fare oggi -->
-    <div class="slabel">Da fare oggi</div>
+    <!-- Da fare oggi. Con la guida dei primi passi aperta e niente da fare,
+         il titolo resterebbe sopra una sezione vuota. -->
+    <div v-if="!(primiPassiVisibile && !store.loading && !store.errore && !daFareOggi.length)" class="slabel">Da fare oggi</div>
 
     <p v-if="store.loading" class="prose">Sto raccogliendo le cure di oggi…</p>
 
@@ -505,6 +507,9 @@ const zorbaDiceSottotitolo = computed(() => {
   // se non c'è nemmeno una tappa in ritardo (!n): zero piante non vuol dire
   // zero da fare (vedi critica del 07/09/2026).
   if (numPiante.value === 0 && !n) {
+    // La guida dei primi passi dice già cosa fare: qui Zorba si presenta,
+    // invece di ripetere «aggiungi una zona» (critica del 30/10/2026).
+    if (primiPassiVisibile.value) return fallback
     return numZone.value === 0
       ? "Non c'è ancora nulla da monitorare: aggiungi una zona per iniziare"
       : "Non c'è ancora nessuna pianta da monitorare: aggiungine una per iniziare"
@@ -555,7 +560,7 @@ const homeCards = computed(() => {
     // davvero scaduto).
     { to: '/progetti', icona: 'lampadina',  label: 'Progetti', count: tappeUrgentiOggi.value.length ? `${tappeUrgentiOggi.value.length} in ritardo` : (numProgetti.value !== null ? `${numProgetti.value} apert${numProgetti.value === 1 ? 'o' : 'i'}` : null), urgent: tappeUrgentiOggi.value.length > 0 },
     { to: '/concimi',  icona: 'provetta',   label: 'Concimi',  count: numConcimi.value !== null ? `${numConcimi.value}` : null, urgent: false },
-    { to: '/attivita', icona: 'campanella', label: 'Attività', count: n ? `${n} urgent${n === 1 ? 'e' : 'i'}` : 'tutto ok', urgent: n > 0 },
+    { to: '/attivita', icona: 'campanella', label: 'Attività', count: n ? `${n} urgent${n === 1 ? 'e' : 'i'}` : (numPiante.value ? 'tutto ok' : null), urgent: n > 0 },
     { to: '/gallery',  icona: 'cornice',    label: 'Gallery',  count: null, urgent: false },
   ]
 })

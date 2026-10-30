@@ -53,6 +53,14 @@
          dall'app. Vuoto = la card non compare. -->
     <ContributoCard v-if="linkContributo" class="form-card" style="margin-top:16px;" />
 
+    <!-- La guida dei primi passi rimandata con «Più tardi» (o chiusa con il
+         vecchio «Più tardi», che la chiudeva per sempre) si riapre da qui,
+         finché manca un passo. -->
+    <button v-if="primiPassiDaRiprendere" type="button" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;width:100%;text-align:left;font-family:inherit;cursor:pointer;" @click="onRiprendiPrimiPassi">
+      <span style="font-size:13px;font-weight:600;">Riprendi i primi passi</span>
+      <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
+    </button>
+
     <!-- Rivede lo splash d'ingresso di Home fuori dalla sua cadenza normale
          (due finestre al giorno, una volta a testa) — vedi richiediSplash()
          in useBootSequence.js. -->
@@ -67,81 +75,152 @@
        password temporanea (evento PASSWORD_RECOVERY in useAuth.js): stesso
        header con logo animato + titolo, App.vue toglie il resto del vestito
        dell'app e centra questo blocco da solo in pagina. -->
-  <div v-else-if="!caricamento" style="width:100%;max-width:340px;">
+  <div v-else-if="!caricamento" class="auth">
     <div class="account-hero">
       <ZorbaLogo ref="zorba" style="width:64px;height:64px;margin:0 auto 8px;" />
-      <h1 class="page-title">
-        {{ recuperoInCorso ? 'Nuova password' : (passoContributo ? 'Il cancello è quasi aperto' : (emailConferma ? 'Controlla la posta' : 'Lascia entrare Zorba in giardino')) }}
-      </h1>
+      <!-- A ogni cambio di passo il focus va sul titolo: chi usa un lettore
+           di schermo sente dove è arrivato invece di restare su un pulsante
+           che non c'è più. -->
+      <h1 ref="titoloEl" class="page-title auth__titolo" tabindex="-1">{{ titolo }}</h1>
+      <p v-if="passo === 'modulo'" class="auth__sottotitolo">
+        Il quaderno del tuo giardino: le piante, le cure di stagione e Zorba che ti consiglia.
+      </p>
     </div>
 
-    <form v-if="recuperoInCorso" @submit.prevent="onImpostaPassword" style="display:flex;flex-direction:column;gap:10px;">
+    <form v-if="passo === 'recupero'" novalidate @submit.prevent="onImpostaPassword" class="auth__form">
       <div>
-        <label class="field-label">Nuova password</label>
-        <input v-model="nuovaPassword" type="password" minlength="6" autocomplete="new-password"
-          required class="form-input" style="width:100%;" autofocus>
+        <label class="field-label" for="auth-nuova-password">Nuova password</label>
+        <CampoPassword id="auth-nuova-password" v-model="nuovaPassword" autocomplete="new-password"
+          aria-describedby="auth-nuova-password-nota" :aria-invalid="!!erroriCampo.nuovaPassword" autofocus />
+        <p id="auth-nuova-password-nota" class="auth__nota" :class="{ 'auth__nota--err': erroriCampo.nuovaPassword }">
+          {{ erroriCampo.nuovaPassword || 'Almeno 6 caratteri.' }}
+        </p>
       </div>
-      <p v-if="errore" role="alert" style="font-size:13px;color:var(--rose-dark);">{{ errore }}</p>
+      <p v-if="errore" class="auth__esito auth__esito--err" role="alert">{{ errore }}</p>
       <button type="submit" class="btn btn-sage" :disabled="inviando">
-        {{ inviando ? 'Un momento…' : 'Salva password' }}
+        {{ inviando ? 'Salvo…' : 'Salva password' }}
       </button>
       <button type="button" class="link-reset" style="align-self:center;" :disabled="inviando" @click="onAnnullaRecupero">
-        Annulla, torna al login
+        Annulla e vai all'accesso
       </button>
     </form>
 
-    <!-- Conferma dopo la registrazione: pannello dedicato invece di lasciare
-         il form invariato — è il momento a più alta posta emotiva del flusso
-         (l'account resta inattivo finché non si clicca il link ricevuto via
-         mail), quindi non riceve solo una riga di testo (vedi critica 08/09/2026).
-         Da qui si può anche farsi reinviare l'email se non è arrivata. -->
     <!-- Subito dopo la registrazione, prima di «Controlla la posta»: invito
-         al contributo volontario. Qualunque scelta porta alla schermata della
-         mail di conferma (chi dona apre Ko-fi in un'altra scheda e qui trova
-         già le istruzioni). -->
-    <ContributoCard v-else-if="passoContributo" invito testo-no="Magari più avanti"
-      class="form-card" style="text-align:left;" @scelta="passoContributo = false" />
-
-    <div v-else-if="emailConferma" role="status" style="text-align:center;display:flex;flex-direction:column;gap:10px;">
-      <p style="font-size:13px;color:var(--ink-mid);line-height:1.5;">
-        Ti abbiamo inviato un'email di conferma a<br>
-        <strong style="color:var(--ink);word-break:break-all;">{{ emailConferma }}</strong>.<br>
-        Apri il link per attivare l'account, poi torna qui per accedere.
+         al contributo volontario (posizione decisa dall'utente il 29/10/2026).
+         Prima dell'invito, una riga dice che la mail è già partita: chi si è
+         appena registrato sa che l'account esiste prima che gli si chieda
+         qualcosa (critica del 30/10/2026). Qualunque scelta porta alla
+         schermata della mail di conferma. -->
+    <div v-else-if="passo === 'contributo'" class="auth__colonna">
+      <p class="auth__testo" role="status">
+        Ti ho mandato una mail a <strong class="auth__email">{{ emailConferma }}</strong>
+        per confermare l'indirizzo. Mentre aspetti che arrivi, una cosa:
       </p>
-      <p v-if="messaggio" role="status" style="font-size:12px;color:var(--sage-dark);">{{ messaggio }}</p>
-      <p v-if="errore" role="alert" style="font-size:12px;color:var(--rose-dark);">{{ errore }}</p>
+      <ContributoCard invito testo-no="Magari più avanti"
+        class="form-card" style="text-align:left;" @scelta="passoContributo = false" />
+    </div>
+
+    <!-- Indirizzo già registrato: con la conferma email attiva Supabase non
+         dà errore (per non rivelare chi è iscritto) e restituisce un utente
+         senza identità, senza mandare nessuna mail. Senza questo passo chi
+         si iscrive due volte aspetterebbe una mail che non arriva mai. -->
+    <div v-else-if="passo === 'gia-registrato'" class="auth__colonna">
+      <p class="auth__testo">
+        Con <strong class="auth__email">{{ email }}</strong> c'è già un account.
+        Se l'hai creato tu, entra da qui; se non ricordi la password, te ne faccio scegliere una nuova.
+      </p>
+      <p v-if="messaggio" class="auth__esito auth__esito--ok" role="status">{{ messaggio }}</p>
+      <p v-if="errore" class="auth__esito auth__esito--err" role="alert">{{ errore }}</p>
+      <button type="button" class="btn btn-sage" @click="vaiAdAccedere(true)">Accedi con questo indirizzo</button>
       <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
-      <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha" @click="onReinviaConferma">
-        {{ inviando ? 'Un momento…' : 'Non è arrivata? Invia di nuovo' }}
+      <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha" @click="onRichiediReset">
+        {{ inviando ? 'Invio…' : 'Ho dimenticato la password' }}
       </button>
-      <button type="button" class="link-reset" style="align-self:center;" @click="tornaAlLogin">Torna al login</button>
+      <button type="button" class="link-reset" style="align-self:center;" @click="correggiIndirizzo">Usa un altro indirizzo</button>
+    </div>
+
+    <!-- In attesa della conferma: dopo la registrazione, oppure dopo un
+         accesso con un indirizzo non ancora confermato. Resta anche
+         ricaricando la pagina (sessionStorage). -->
+    <div v-else-if="passo === 'posta'" class="auth__colonna" style="text-align:center;">
+      <p class="auth__testo">
+        <template v-if="origineConferma === 'accesso'">
+          Questo indirizzo non è ancora confermato. Ti avevo mandato una mail a
+        </template>
+        <template v-else>Ti ho mandato una mail a</template>
+        <!-- {{ ' ' }} esplicito: tra </template> e <strong> a capo Vue toglie lo spazio. -->
+        {{ ' ' }}<strong class="auth__email">{{ emailConferma }}</strong>:
+        apri il link che contiene e il cancello si apre. Se non la trovi, guarda anche nello spam.
+      </p>
+      <p v-if="messaggio" class="auth__esito auth__esito--ok" role="status">{{ messaggio }}</p>
+      <p v-if="errore" class="auth__esito auth__esito--err" role="alert">{{ errore }}</p>
+      <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
+      <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha || attesaReinvio > 0" @click="onReinviaConferma">
+        {{ inviando ? 'Invio…' : attesaReinvio > 0 ? `Puoi chiederne un'altra tra ${attesaReinvio} s` : 'Invia di nuovo la mail di conferma' }}
+      </button>
+      <div class="auth__link-riga">
+        <button type="button" class="link-reset" @click="correggiIndirizzo">Indirizzo sbagliato? Correggilo</button>
+        <button type="button" class="link-reset" @click="vaiAdAccedere(false)">Ho confermato, vai all'accesso</button>
+      </div>
     </div>
 
     <template v-else>
-      <div style="display:flex;gap:6px;margin-bottom:16px;justify-content:center;" role="tablist" aria-label="Modalità di accesso">
+      <!-- Ritorno dal link di una mail (vedi esitoLink in useAuth.js). -->
+      <!-- Una riga d'esito, una d'azione; il caso del cambio password (stesso
+           link, stesso ritorno) in una riga a parte, più piccola. -->
+      <div v-if="esitoLink === 'altro-browser'" class="auth__avviso auth__avviso--ok" role="status">
+        <p class="auth__avviso-t">Indirizzo confermato.</p>
+        <p>Il link si è aperto in un altro browser: entra qui con email e password.</p>
+        <p class="auth__avviso-n">Cambiavi la password? Chiedi un nuovo link da «Password dimenticata?».</p>
+      </div>
+      <div v-else-if="esitoLink === 'scaduto'" class="auth__avviso" role="status">
+        <p class="auth__avviso-t">Il link non è più valido.</p>
+        <p>Accedi con email e password: se l'indirizzo non è confermato, ti propongo una mail nuova.</p>
+        <p class="auth__avviso-n">Cambiavi la password? Chiedi un nuovo link da «Password dimenticata?».</p>
+      </div>
+
+      <div class="auth__schede" role="tablist" aria-label="Accedi o registrati">
         <button id="tab-accedi" type="button" class="pill" role="tab" aria-controls="pannello-accesso"
           :aria-selected="modalita === 'accedi'" :class="{ active: modalita === 'accedi' }" @click="cambiaModalita('accedi')">Accedi</button>
         <button id="tab-registrati" type="button" class="pill" role="tab" aria-controls="pannello-accesso"
           :aria-selected="modalita === 'registrati'" :class="{ active: modalita === 'registrati' }" @click="cambiaModalita('registrati')">Registrati</button>
       </div>
 
-      <form id="pannello-accesso" role="tabpanel"
+      <!-- novalidate: i messaggi sono quelli dell'app, sotto ogni campo, non
+           i fumetti del browser (che non seguono né la lingua né lo stile). -->
+      <form id="pannello-accesso" role="tabpanel" novalidate class="auth__form"
         :aria-labelledby="modalita === 'accedi' ? 'tab-accedi' : 'tab-registrati'"
-        @submit.prevent="onInvia" style="display:flex;flex-direction:column;gap:10px;">
+        @submit.prevent="onInvia">
         <div v-if="modalita === 'registrati'">
-          <label class="field-label">Nome</label>
-          <input v-model.trim="nome" type="text" autocomplete="name" maxlength="50"
-            placeholder="Come vuoi essere chiamato" required class="form-input" style="width:100%;">
+          <label class="field-label" for="auth-nome">Nome</label>
+          <input id="auth-nome" ref="campoNome" v-model.trim="nome" type="text" autocomplete="name" maxlength="50"
+            class="form-input" aria-describedby="auth-nome-nota" :aria-invalid="!!erroriCampo.nome">
+          <p id="auth-nome-nota" class="auth__nota" :class="{ 'auth__nota--err': erroriCampo.nome }">
+            {{ erroriCampo.nome || 'Come ti chiamerà Zorba.' }}
+          </p>
         </div>
         <div>
-          <label class="field-label">Email</label>
-          <input v-model.trim="email" type="email" autocomplete="email" required class="form-input" style="width:100%;" autofocus>
+          <label class="field-label" for="auth-email">Email</label>
+          <input id="auth-email" ref="campoEmail" v-model.trim="email" type="email" inputmode="email"
+            autocomplete="email" autocapitalize="off" spellcheck="false" class="form-input"
+            :aria-describedby="erroriCampo.email || suggerimentoEmail ? 'auth-email-nota' : undefined"
+            :aria-invalid="!!erroriCampo.email" autofocus @blur="emailToccata = true">
+          <p v-if="erroriCampo.email" id="auth-email-nota" class="auth__nota auth__nota--err">{{ erroriCampo.email }}</p>
+          <p v-else-if="suggerimentoEmail" id="auth-email-nota" class="auth__nota">
+            Intendevi
+            <button type="button" class="auth__suggerimento" @click="usaSuggerimento">{{ suggerimentoEmail }}</button>?
+          </p>
         </div>
         <div>
-          <label class="field-label">Password</label>
-          <input v-model="password" type="password" minlength="6"
+          <label class="field-label" for="auth-password">Password</label>
+          <CampoPassword id="auth-password" v-model="password"
             :autocomplete="modalita === 'accedi' ? 'current-password' : 'new-password'"
-            required class="form-input" style="width:100%;">
+            :aria-describedby="modalita === 'registrati' || erroriCampo.password ? 'auth-password-nota' : undefined"
+            :aria-invalid="!!erroriCampo.password" />
+          <p v-if="modalita === 'registrati' || erroriCampo.password" id="auth-password-nota"
+            class="auth__nota" :class="{ 'auth__nota--err': erroriCampo.password }">
+            {{ erroriCampo.password || 'Almeno 6 caratteri.' }}
+          </p>
         </div>
 
         <button v-if="modalita === 'accedi'" type="button" class="link-reset" :disabled="inviando || attesaCaptcha" @click="onRichiediReset">
@@ -153,11 +232,11 @@
              recupero password. -->
         <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
 
-        <p v-if="errore" role="alert" style="font-size:13px;color:var(--rose-dark);">{{ errore }}</p>
-        <p v-if="messaggio" role="status" style="font-size:13px;color:var(--sage-dark);">{{ messaggio }}</p>
+        <p v-if="errore" class="auth__esito auth__esito--err" role="alert">{{ errore }}</p>
+        <p v-if="messaggio" class="auth__esito auth__esito--ok" role="status">{{ messaggio }}</p>
 
         <button type="submit" class="btn btn-sage" :disabled="inviando || attesaCaptcha" style="margin-top:4px;">
-          {{ inviando ? 'Un momento…' : attesaCaptcha && !captchaFallito ? 'Verifica in corso…' : (modalita === 'accedi' ? 'Accedi' : 'Crea account') }}
+          {{ etichettaInvio }}
         </button>
       </form>
     </template>
@@ -165,18 +244,29 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import TurnstileWidget from '@/components/TurnstileWidget.vue'
 import ContributoCard from '@/components/ContributoCard.vue'
+import CampoPassword from '@/components/CampoPassword.vue'
+import { emailValida, suggerisciEmail } from '@/utils/email'
 import { linkContributo } from '@/composables/useContributo'
 import { useAuth } from '@/composables/useAuth'
+import { usePrimiPassi } from '@/composables/usePrimiPassi'
+import { useDatiStore } from '@/stores/dati'
 import { richiediSplash } from '@/composables/useBootSequence'
 
 const router = useRouter()
-const { utente, nomeUtente, caricamento, recuperoInCorso, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
+const store = useDatiStore()
+const primiPassi = usePrimiPassi()
+const primiPassiDaRiprendere = computed(() => !!store.piante && !primiPassi.tuttoFatto.value && !primiPassi.visibile.value)
+function onRiprendiPrimiPassi() {
+  primiPassi.riapri()
+  router.push('/')
+}
+const { utente, nomeUtente, caricamento, recuperoInCorso, esitoLink, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
 
 const zorba = ref(null)
 
@@ -197,9 +287,93 @@ const errore    = ref(null)
 const messaggio = ref(null)
 // Email a cui è stata inviata la conferma di registrazione, o null quando non
 // c'è una conferma in attesa: sostituisce il form con un pannello dedicato
-// invece di lasciarlo invariato (vedi template).
-const emailConferma = ref(null)
+// invece di lasciarlo invariato (vedi template). In sessionStorage, insieme a
+// da dove si è arrivati (registrazione o accesso non confermato): ricaricando
+// la pagina il pannello resta, con il pulsante per farsi rimandare la mail.
+const CHIAVE_CONFERMA = 'giardino_conferma_in_attesa'
+function leggiConferma() {
+  try { return JSON.parse(sessionStorage.getItem(CHIAVE_CONFERMA)) ?? null } catch { return null }
+}
+function scriviConferma(valore) {
+  try {
+    if (valore) sessionStorage.setItem(CHIAVE_CONFERMA, JSON.stringify(valore))
+    else sessionStorage.removeItem(CHIAVE_CONFERMA)
+  } catch { /* storage non disponibile: il pannello vale finché la pagina resta aperta */ }
+}
+const confermaSalvata = leggiConferma()
+const emailConferma = ref(confermaSalvata?.email ?? null)
+const origineConferma = ref(confermaSalvata?.origine ?? 'registrazione')
+watch([emailConferma, origineConferma], ([e, o]) => scriviConferma(e ? { email: e, origine: o } : null))
 const passoContributo = ref(false)
+const giaRegistrato = ref(false)
+// Entrati (anche dal link della mail, nella stessa scheda): nessun pannello
+// di attesa deve ricomparire a un'uscita successiva.
+watch(utente, (u) => {
+  if (!u) return
+  emailConferma.value = null
+  giaRegistrato.value = false
+}, { immediate: true })
+
+// Un solo stato del blocco non loggato, da cui dipendono titolo e contenuto.
+const passo = computed(() => {
+  if (recuperoInCorso.value) return 'recupero'
+  if (passoContributo.value) return 'contributo'
+  if (giaRegistrato.value) return 'gia-registrato'
+  if (emailConferma.value) return 'posta'
+  return 'modulo'
+})
+const titolo = computed(() => ({
+  recupero: 'Nuova password',
+  contributo: 'Il cancello è quasi aperto',
+  'gia-registrato': 'Ci conosciamo già',
+  posta: 'Controlla la posta',
+  modulo: 'Lascia entrare Zorba in giardino',
+})[passo.value])
+
+const titoloEl = ref(null)
+const campoNome = ref(null)
+const campoEmail = ref(null)
+watch(passo, async (nuovo, vecchio) => {
+  if (nuovo === vecchio) return
+  await nextTick()
+  titoloEl.value?.focus()
+})
+
+// Errori dei singoli campi, scritti sotto il campo (il modulo è novalidate).
+const erroriCampo = ref({})
+const emailToccata = ref(false)
+const suggerimentoEmail = computed(() => (emailToccata.value ? suggerisciEmail(email.value) : null))
+// Un errore sparisce appena si corregge il campo: rimasto lì, sotto un campo
+// già compilato, sembrava un guasto e nascondeva «Intendevi…?».
+for (const [campo, valore] of [['nome', nome], ['email', email], ['password', password], ['nuovaPassword', nuovaPassword]]) {
+  watch(valore, () => {
+    if (erroriCampo.value[campo]) erroriCampo.value = { ...erroriCampo.value, [campo]: null }
+  })
+}
+
+function usaSuggerimento() {
+  email.value = suggerimentoEmail.value
+  erroriCampo.value = { ...erroriCampo.value, email: null }
+}
+function validaModulo() {
+  const e = {}
+  if (modalita.value === 'registrati' && !nome.value) e.nome = 'Scrivi il tuo nome: è come ti chiamerà Zorba.'
+  if (!email.value) e.email = 'Scrivi il tuo indirizzo email.'
+  else if (!emailValida(email.value)) e.email = 'Questo indirizzo non sembra completo: controlla la @ e il punto.'
+  if (!password.value) e.password = 'Scrivi la password.'
+  else if (modalita.value === 'registrati' && password.value.length < 6) e.password = 'La password deve avere almeno 6 caratteri.'
+  erroriCampo.value = e
+  if (e.nome) campoNome.value?.focus()
+  else if (e.email) campoEmail.value?.focus()
+  else if (e.password) document.getElementById('auth-password')?.focus()
+  return !Object.keys(e).length
+}
+
+const etichettaInvio = computed(() => {
+  if (inviando.value) return modalita.value === 'accedi' ? 'Accesso…' : 'Creo l\'account…'
+  if (attesaCaptcha.value && !captchaFallito.value) return 'Verifica in corso…'
+  return modalita.value === 'accedi' ? 'Accedi' : 'Crea account'
+})
 
 // Token Turnstile: obbligatorio solo se la site key è configurata (vedi
 // TurnstileWidget.vue). Un token vale una volta: dopo ogni chiamata ad Auth
@@ -249,28 +423,64 @@ function cambiaModalita(nuova) {
   modalita.value = nuova
   errore.value = null
   messaggio.value = null
+  erroriCampo.value = {}
 }
 
-function tornaAlLogin() {
+function chiudiPannelli() {
   emailConferma.value = null
   passoContributo.value = false
-  modalita.value = 'accedi'
+  giaRegistrato.value = false
   password.value = ''
   errore.value = null
   messaggio.value = null
+  erroriCampo.value = {}
+}
+
+// Torna al modulo di accesso; con `tieniEmail` l'indirizzo resta scritto
+// (account già esistente: si entra con quello).
+async function vaiAdAccedere(tieniEmail) {
+  const indirizzo = emailConferma.value || email.value
+  chiudiPannelli()
+  modalita.value = 'accedi'
+  email.value = tieniEmail ? indirizzo : email.value
+  await nextTick()
+  if (tieniEmail) document.getElementById('auth-password')?.focus()
+}
+
+// Indirizzo sbagliato: si torna al modulo da cui si era partiti, con i campi
+// già compilati e il cursore sull'email.
+async function correggiIndirizzo() {
+  const indirizzo = emailConferma.value || email.value
+  const daAccesso = emailConferma.value && origineConferma.value === 'accesso'
+  chiudiPannelli()
+  modalita.value = daAccesso ? 'accedi' : 'registrati'
+  email.value = indirizzo
+  await nextTick()
+  campoEmail.value?.focus()
+  campoEmail.value?.select()
 }
 
 async function onInvia() {
   if (inviando.value) return
   errore.value = null
   messaggio.value = null
+  if (!validaModulo()) return
+  esitoLink.value = null
   inviando.value = true
   try {
     if (modalita.value === 'accedi') {
       await accedi(email.value, password.value, captchaToken.value)
       router.push('/')
     } else {
-      await registrati(email.value, password.value, nome.value, captchaToken.value)
+      const dati = await registrati(email.value, password.value, nome.value, captchaToken.value)
+      // Indirizzo già confermato da un altro account: Supabase risponde
+      // senza errore ma con `identities` vuoto e non manda nessuna mail.
+      if (Array.isArray(dati?.user?.identities) && dati.user.identities.length === 0) {
+        password.value = ''
+        giaRegistrato.value = true
+        return
+      }
+      origineConferma.value = 'registrazione'
       emailConferma.value = email.value
       passoContributo.value = !!linkContributo
       // Battito lento: evento raro (una tantum per account), non la conferma
@@ -278,12 +488,43 @@ async function onInvia() {
       zorba.value?.reagisci()
     }
   } catch (e) {
-    errore.value = e.message || 'Errore durante l\'operazione.'
+    // Accesso con un indirizzo non confermato: invece di una riga rossa senza
+    // via d'uscita, il pannello della posta con il pulsante per rimandarla
+    // (la mail di conferma lo promette: «chiedine un altro dalla pagina di
+    // accesso»).
+    if (e.codice === 'email_not_confirmed') {
+      origineConferma.value = 'accesso'
+      emailConferma.value = email.value
+      password.value = ''
+      return
+    }
+    // Le regole della password le decide Supabase (Authentication →
+    // Policies): il rifiuto va sotto il campo, come gli altri errori.
+    if (e.codice === 'weak_password') {
+      erroriCampo.value = { password: e.message }
+      document.getElementById('auth-password')?.focus()
+      return
+    }
+    errore.value = e.message || 'Qualcosa non ha funzionato: riprova tra poco.'
   } finally {
     inviando.value = false
     nuovoCaptcha()
   }
 }
+
+// Un minuto tra un reinvio e l'altro: Supabase limita le mail per indirizzo,
+// e premere di nuovo subito portava dritti a «troppe email».
+const attesaReinvio = ref(0)
+let timerReinvio = null
+function avviaAttesaReinvio() {
+  attesaReinvio.value = 60
+  clearInterval(timerReinvio)
+  timerReinvio = setInterval(() => {
+    attesaReinvio.value -= 1
+    if (attesaReinvio.value <= 0) clearInterval(timerReinvio)
+  }, 1000)
+}
+onUnmounted(() => clearInterval(timerReinvio))
 
 async function onReinviaConferma() {
   if (inviando.value) return
@@ -292,9 +533,11 @@ async function onReinviaConferma() {
   inviando.value = true
   try {
     await reinviaConferma(emailConferma.value, captchaToken.value)
-    messaggio.value = 'Email di conferma inviata di nuovo.'
+    const ora = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
+    messaggio.value = `Fatto: alle ${ora} ti ho mandato una mail nuova. Usa il link dell'ultima che ricevi.`
+    avviaAttesaReinvio()
   } catch (e) {
-    errore.value = e.message || 'Errore durante l\'invio.'
+    errore.value = e.message || 'Non sono riuscito a mandare la mail: riprova tra poco.'
   } finally {
     inviando.value = false
     nuovoCaptcha()
@@ -305,17 +548,18 @@ async function onRichiediReset() {
   if (inviando.value) return
   errore.value = null
   messaggio.value = null
-  if (!email.value) {
-    errore.value = 'Inserisci la tua email qui sopra, poi riprova.'
+  if (!email.value || !emailValida(email.value)) {
+    erroriCampo.value = { email: 'Scrivi qui il tuo indirizzo email: ti mando il link per scegliere una nuova password.' }
+    campoEmail.value?.focus()
     return
   }
   inviando.value = true
   try {
     await richiediResetPassword(email.value, captchaToken.value)
-    messaggio.value = `Ti abbiamo inviato un'email a ${email.value} con il link per reimpostare la password.`
+    messaggio.value = `Ti ho mandato una mail a ${email.value} con il link per scegliere una nuova password.`
     zorba.value?.reagisci()
   } catch (e) {
-    errore.value = e.message || 'Errore durante la richiesta.'
+    errore.value = e.message || 'Non sono riuscito a mandare la mail: riprova tra poco.'
   } finally {
     inviando.value = false
     nuovoCaptcha()
@@ -325,6 +569,12 @@ async function onRichiediReset() {
 async function onImpostaPassword() {
   if (inviando.value) return
   errore.value = null
+  erroriCampo.value = nuovaPassword.value.length < 6
+    ? { nuovaPassword: 'La password deve avere almeno 6 caratteri.' } : {}
+  if (erroriCampo.value.nuovaPassword) {
+    document.getElementById('auth-nuova-password')?.focus()
+    return
+  }
   inviando.value = true
   try {
     await impostaNuovaPassword(nuovaPassword.value)
@@ -371,10 +621,12 @@ async function onEsci() {
 .form-card > .slabel:first-child { margin-top: 0; }
 .link-reset {
   background: none; border: none; padding: 0; text-align: left;
-  font-size: 13px; color: var(--ink-soft); text-decoration: underline;
+  font-size: 13px; color: var(--ink-mid); text-decoration: underline;
+  text-underline-offset: 3px; text-decoration-color: var(--ink-faint);
   cursor: pointer; align-self: flex-start;
+  min-height: 44px; display: inline-flex; align-items: center;
 }
-.link-reset:hover { color: var(--ink); }
+.link-reset:hover { color: var(--ink); text-decoration-color: currentColor; }
 .link-reset:disabled { opacity: .5; cursor: default; }
 
 /* Blocco identità della vista loggata: Zorba mini + saluto in Fraunces, con
@@ -398,5 +650,61 @@ async function onEsci() {
 .account-err { font-size: 12px; color: var(--rose-dark); margin-top: 10px; }
 
 .account-hero { text-align: center; margin-bottom: 20px; }
+
+/* ===== Blocco non loggato (accesso, registrazione, attesa della mail) =====
+   Contrasti e misure riviste nella critica del 30/10/2026: etichette in
+   inchiostro medio (il grigio carta era a 3:1), testo dei campi a 16px
+   (sotto quella misura iOS ingrandisce la pagina al tocco), schede e link
+   da almeno 44px, verde del bottone principale più scuro per reggere il
+   testo bianco (4,6:1 invece di 3:1). */
+.auth { width: 100%; max-width: 360px; }
+.auth__titolo { text-wrap: balance; outline: none; }
+.auth__sottotitolo {
+  margin: 8px auto 0; max-width: 30ch;
+  font-size: 13px; line-height: 1.5; color: var(--ink-mid); text-wrap: pretty;
+}
+.auth__form, .auth__colonna { display: flex; flex-direction: column; gap: 10px; }
+.auth__testo { font-size: 14px; line-height: 1.55; color: var(--ink-mid); text-wrap: pretty; }
+.auth__email { color: var(--ink); font-weight: 600; word-break: break-all; }
+.auth__link-riga { display: flex; flex-wrap: wrap; justify-content: center; column-gap: 20px; }
+.auth__avviso {
+  margin-bottom: 16px; padding: 12px 14px; border-radius: 14px;
+  background: var(--gold-bg); color: var(--gold-ink);
+  font-size: 13px; line-height: 1.5; text-wrap: pretty;
+}
+.auth__avviso--ok { background: var(--sage-bg); color: var(--sage-ink); }
+.auth__avviso-t { font-weight: 700; }
+.auth__avviso-n { margin-top: 6px; font-size: 12px; opacity: .9; }
+.auth__schede { display: flex; gap: 6px; margin-bottom: 16px; justify-content: center; }
+.auth__schede .pill { min-height: 44px; padding: 0 20px; font-size: 13px; color: var(--ink-mid); }
+.auth__schede .pill.active,
+.auth .btn-sage { background: var(--sage-dark); border-color: var(--sage-dark); color: var(--white); }
+.auth .btn-sage:hover { background: var(--sage-ink); }
+.auth .field-label { color: var(--ink-mid); }
+.auth :deep(.form-input) { font-size: 16px; }
+.auth :deep(.form-input[aria-invalid="true"]) { border-color: var(--rose); }
+.auth__nota { margin-top: 6px; font-size: 12px; line-height: 1.45; color: var(--ink-mid); }
+.auth__nota--err { color: var(--rose-ink); }
+.auth__suggerimento {
+  background: none; border: none; padding: 0; font: inherit; font-weight: 600;
+  color: var(--sage-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
+}
+.auth__esito { font-size: 13px; line-height: 1.5; }
+.auth__esito--err { color: var(--rose-ink); }
+.auth__esito--ok { color: var(--sage-ink); }
+/* Tema scuro: lì --sage-dark è un verde chiaro, che regge il testo scuro
+   e non il bianco. */
+:root[data-theme="dark"] .auth__schede .pill.active,
+:root[data-theme="dark"] .auth .btn-sage { color: var(--sage-pale); box-shadow: none; }
+
+/* Su schermi larghi il blocco diventa un foglio del taccuino: una colonna
+   da 360px sola in mezzo a 1280px di vuoto sembrava dimenticata lì. */
+@media (min-width: 768px) {
+  .auth {
+    max-width: 440px; padding: 36px 40px 32px;
+    background: var(--white); border: 1px solid var(--cream-dark); border-radius: 20px;
+    box-shadow: 0 18px 50px -24px rgba(42,34,24,.28), 0 2px 8px rgba(42,34,24,.04);
+  }
+}
 
 </style>

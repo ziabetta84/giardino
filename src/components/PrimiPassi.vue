@@ -10,10 +10,11 @@
         <h2 id="pp-titolo" class="pp__t">{{ tuttoFatto ? 'Il cancello è aperto' : 'Tre passi e si entra in giardino' }}</h2>
         <p class="pp__s">
           <template v-if="tuttoFatto">D'ora in poi tengo io il conto di irrigazioni e concimazioni di {{ nomePrima }}: quando è il momento, le trovi qui sotto in «Da fare oggi».</template>
+          <template v-else-if="appenaConfermato">Indirizzo confermato: il cancello è aperto. Sono Zorba: raccontami il tuo giardino e alle cure ci penso io.</template>
           <template v-else>Sono Zorba. Raccontami il tuo giardino e alle cure ci penso io.</template>
         </p>
       </div>
-      <button v-if="!tuttoFatto" type="button" class="pp__nascondi" @click="chiudi">Più tardi</button>
+      <button v-if="!tuttoFatto" type="button" class="pp__nascondi" @click="rimanda">Più tardi</button>
     </header>
 
     <ol v-if="!tuttoFatto" class="pp__passi">
@@ -71,19 +72,28 @@
 </template>
 
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { usePrimiPassi } from '@/composables/usePrimiPassi'
 import { useSettingsApi } from '@/composables/useSettingsApi'
 import { useGeolocalizzazione } from '@/composables/useGeolocalizzazione'
+import { useAuth } from '@/composables/useAuth'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
-const { posizioneFatta, zonaFatta, piantaFatta, tuttoFatto, chiudi } = usePrimiPassi()
+const { posizioneFatta, zonaFatta, piantaFatta, tuttoFatto, chiudi, rimanda } = usePrimiPassi()
 const settingsApi = useSettingsApi()
 const { richiediPosizioneDispositivo, cercaIndirizzo, ottieniAltitudine } = useGeolocalizzazione()
 const zorba = ref(null)
+
+// Primo ingresso dal link della mail di conferma (esitoLink in useAuth.js):
+// la guida lo dice, e Zorba se ne accorge col battito lento (evento raro,
+// «Regola dei Due Battiti»). Vale una volta: lasciando la Home si spegne.
+const { esitoLink } = useAuth()
+const appenaConfermato = computed(() => esitoLink.value === 'confermato')
+onMounted(() => { if (appenaConfermato.value) setTimeout(() => zorba.value?.reagisci(), 600) })
+onUnmounted(() => { if (appenaConfermato.value) esitoLink.value = null })
 
 const meteoOggi = computed(() => store.meteo?.[0] ?? null)
 const nomiZone = computed(() => Object.values(store.zone ?? {}).map(z => z.nome).filter(Boolean))

@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useAuth } from '@/composables/useAuth'
 import { useZorba } from '@/composables/useZorba'
@@ -46,6 +46,9 @@ const caricamento = ref(true)
 let pollTimer = null
 
 async function carica() {
+  // App.vue monta la cornice dell'app anche mentre la sessione si sta ancora
+  // leggendo: senza utente la richiesta tornerebbe vuota (RLS).
+  if (!utente.value) return
   try { fili.value = (await zorba.caricaFili()).slice(0, 4) } catch { /* offline: resta l'ultimo elenco */ }
   caricamento.value = false
 }
@@ -57,6 +60,8 @@ onMounted(() => {
   pollTimer = setInterval(carica, 60000)
 })
 onUnmounted(() => { if (pollTimer) clearInterval(pollTimer) })
+// Sessione arrivata dopo il montaggio (apertura dell'app già autenticata).
+watch(() => utente.value?.id, (id) => { if (id) carica() })
 </script>
 
 <style scoped>

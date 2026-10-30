@@ -9,20 +9,23 @@ import { dirname, join } from 'node:path'
 const cartella = join(dirname(fileURLToPath(import.meta.url)), '../../supabase/templates')
 
 // Palette dell'app (src/assets/main.css), tema chiaro: le mail non seguono il tema scuro.
+// inkSoft qui è più scuro del --ink-soft dell'app (#9a8e7e, 3,2:1 sul bianco):
+// nelle mail fa da testo piccolo e deve reggere 4,5:1 (5,3:1 sul bianco, 5:1
+// sulla carta; critica del 30/10/2026).
 const c = {
   cream: '#faf7f2', carta: '#ffffff', bordo: '#ece5d8',
-  ink: '#2a2218', inkMid: '#5a4e3e', inkSoft: '#9a8e7e',
+  ink: '#2a2218', inkMid: '#5a4e3e', inkSoft: '#756a5a',
   sageDark: '#5a7e62', gold: '#e0b84a',
 }
-const titoli = "Georgia, 'Times New Roman', serif"
+const titoli = "Fraunces, Georgia, 'Times New Roman', serif"
 const testo = "'DM Sans', Helvetica, Arial, sans-serif"
 
 const saluto = '{{ if .Data.nome }}Ciao {{ .Data.nome }},{{ else }}Ciao,{{ end }}'
 
 function pulsante(href, etichetta) {
   return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0 8px">
-              <tr><td style="border-radius:999px;background:${c.sageDark}">
-                <a href="${href}" style="display:inline-block;padding:14px 28px;font-family:${testo};font-size:16px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:999px">${etichetta}</a>
+              <tr><td style="border-radius:12px;background:${c.sageDark}">
+                <a href="${href}" style="display:inline-block;padding:14px 28px;font-family:${testo};font-size:16px;font-weight:700;color:#ffffff;text-decoration:none;border-radius:12px">${etichetta}</a>
               </td></tr>
             </table>`
 }
@@ -76,12 +79,19 @@ const url = '{{ .ConfirmationURL }}'
 // chiave = nome del template in Supabase (mailer_templates_<chiave>_content)
 const template = {
   confirmation: {
-    oggetto: 'Conferma la tua email e si entra in giardino 🌱',
-    titolo: 'Manca un passo, poi si entra',
-    anteprima: 'Conferma il tuo indirizzo per aprire il giardino.',
+    // Il titolo parla del cancello, la guida in app dei «tre passi» per entrare
+    // in giardino: prima si apre il cancello, poi si entra (critica del 30/10/2026).
+    oggetto: 'Conferma la tua email e il cancello si apre',
+    titolo: 'Conferma l\'indirizzo e il cancello si apre',
+    anteprima: 'Un tocco per confermare il tuo indirizzo, poi ti faccio entrare.',
     corpo: p(`${saluto} sono Zorba. Prima di aprirti il cancello mi serve sapere che questo indirizzo è davvero tuo: basta un tocco qui sotto.`)
-      + pulsante(url, 'Conferma la mia email') + linkDiRiserva(url),
-    nota: 'Il link si usa una volta sola e dura poco: se è scaduto, chiedine un altro dalla pagina di accesso. Se la registrazione non l\'hai chiesta tu, ignora questa mail: senza conferma l\'account non si attiva.',
+      + pulsante(url, 'Conferma la mia email')
+      // Il consiglio più utile sta sotto il pulsante, non nel piede grigio
+      // (critica del 30/10/2026): aperto altrove il link conferma, ma non fa entrare.
+      + p('Aprilo sul telefono o sul computer con cui ti sei registrato: così entri subito.')
+      + p('Dopo la conferma ti chiedo tre cose: dove si trova il giardino, la prima zona e la prima pianta. Da lì alle cure ci penso io.')
+      + linkDiRiserva(url),
+    nota: 'Il link si usa una volta sola e dura poco: se è scaduto, prova ad accedere e ti propongo di mandartene un altro. Se la registrazione non l\'hai chiesta tu, ignora questa mail.',
   },
   recovery: {
     oggetto: 'Una password nuova per Zorba in giardino',
