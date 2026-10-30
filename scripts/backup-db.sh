@@ -12,6 +12,7 @@
 #   2. Mettila in .env.local (alla radice del repo, gia' escluso da git):
 #        SUPABASE_DB_URL=postgresql://postgres.xxxx:LA-TUA-PASSWORD@...
 #   3. La prima volta crea la chiave di cifratura (brew install age):
+#        mkdir -p ~/.config/giardino && chmod 700 ~/.config/giardino
 #        age-keygen -o ~/.config/giardino/backup-age.key
 #      e metti la riga "Public key: age1..." che stampa in .env.local:
 #        BACKUP_AGE_RECIPIENT=age1...
