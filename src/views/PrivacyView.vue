@@ -108,7 +108,9 @@
       <p>
         I dati restano finché hai l'account. Puoi cancellare quando vuoi una singola pianta, foto o
         conversazione; eliminando l'account si cancellano tutti, foto comprese. Le copie di
-        sicurezza del database vengono distrutte entro {{ BACKUP_GIORNI }} giorni.
+        sicurezza del database sono cifrate e vengono distrutte entro {{ BACKUP_GIORNI }} giorni.
+        Dell'account eliminato resta solo un codice anonimo con la data: serve a ripetere la
+        cancellazione se un giorno si dovesse ripristinare una di quelle copie.
       </p>
     </section>
 
