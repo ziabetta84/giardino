@@ -167,7 +167,7 @@ const TITOLARE = {
   nome: 'Roberta Genovese',
   indirizzo: '',
   partitaIva: '',
-  email: 'privacy@zorbaingiardino.app',
+  email: 'entra@zorbaingiardino.app',
 }
 const AGGIORNATA_IL = '30 ottobre 2026'
 const BACKUP_GIORNI = 30
