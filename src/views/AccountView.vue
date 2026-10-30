@@ -93,7 +93,7 @@
         {{ inviando ? 'Salvo…' : 'Salva password' }}
       </button>
       <button type="button" class="link-reset" style="align-self:center;" :disabled="inviando" @click="onAnnullaRecupero">
-        Annulla e torna ad accedere
+        Annulla e vai all'accesso
       </button>
     </form>
 
@@ -147,11 +147,11 @@
       <p v-if="errore" class="auth__esito auth__esito--err" role="alert">{{ errore }}</p>
       <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
       <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha" @click="onReinviaConferma">
-        {{ inviando ? 'Invio…' : 'Non è arrivata? Mandamela di nuovo' }}
+        {{ inviando ? 'Invio…' : 'Invia di nuovo la mail di conferma' }}
       </button>
       <div class="auth__link-riga">
         <button type="button" class="link-reset" @click="correggiIndirizzo">Indirizzo sbagliato? Correggilo</button>
-        <button type="button" class="link-reset" @click="vaiAdAccedere(false)">Torna ad accedere</button>
+        <button type="button" class="link-reset" @click="vaiAdAccedere(false)">Ho confermato, vai all'accesso</button>
       </div>
     </div>
 
