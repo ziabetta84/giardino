@@ -30,8 +30,12 @@ PAROLE = [('rampicante', r'\b(climber|climbing|twining|vine|liana|scrambl|rampic
           ('graminacea', r'\b(grass|graminace|sedge)'),
           ('acquatica', r'\b(aquatic|acquatic|marginal|water plant|palustr)'),
           ('erbacea', r'\b(herbaceous|perennial|annual|biennial|erbace|perenne|annuale|biennale|rosette|rosetta)')]
-# Schede senza una descrizione utile, decise a mano (nome → forma); vuoto finché Roberta non le approva
-DECISE = {}
+# Schede senza una descrizione utile, decise a mano (nome → forma), approvate da Roberta il 30/10/2026
+DECISE = {'Acantholimon venustum': 'arbusto', 'Euryops × solaris': 'arbusto', 'Hoya tsiangiana': 'rampicante',
+          'Mahonia leveilleana': 'arbusto', 'Malus × magdeburgensis': 'albero', 'Prunus himalaica': 'albero',
+          'Rhododendron caesium': 'arbusto', 'Rosa banksiopsis': 'arbusto', 'Rosa corymbulosa': 'arbusto',
+          'Rosa stylosa': 'arbusto', 'Rubus irenaeus': 'arbusto', 'Sarracenia × popei': 'erbacea',
+          'Sorbus helenae': 'albero', 'Thalictrum diffusiflorum': 'erbacea'}
 
 
 def forma(antenati, descrizione, ciclo, nome):

@@ -40,8 +40,10 @@ begin
     ('03c65437-88f8-453b-aad0-1df84655edc6'::uuid, 'albero'),
     ('0438f112-0402-4622-90da-f98fae20a5a0'::uuid, 'arbusto'),
     ('04aee40c-9edb-4a6a-a7da-5a03506728f3'::uuid, 'succulenta'),
+    ('0546135c-ab91-4320-a111-f49f2e866b87'::uuid, 'arbusto'),
     ('05ed1da3-c03c-4dcc-aa0d-75eeaefae713'::uuid, 'arbusto'),
     ('06241d3b-0280-4530-9925-1e51bcf32391'::uuid, 'bulbosa'),
+    ('066fc9b8-81ea-403c-aebf-be9550143d88'::uuid, 'arbusto'),
     ('06b26bc6-47cc-4f61-a0f1-18674d1cfc34'::uuid, 'arbusto'),
     ('06b995cb-e933-4ffa-80a3-5e2daba13ebb'::uuid, 'arbusto'),
     ('06bc5111-41aa-4a06-9933-ba6ba2f5452c'::uuid, 'arbusto'),
@@ -159,6 +161,7 @@ begin
     ('2025c7f9-88b4-49c8-8de5-dba8b1a637cd'::uuid, 'arbusto'),
     ('20a67ed9-76ec-43ee-aaeb-81c218376b96'::uuid, 'erbacea'),
     ('20bd352f-8069-4c83-9761-98761f7319ae'::uuid, 'erbacea'),
+    ('20d46ae5-4076-430c-868d-0b096e3d8926'::uuid, 'arbusto'),
     ('20f6aab6-47da-4643-8773-7be66c7888c0'::uuid, 'erbacea'),
     ('20fc56ef-71c7-4c6a-ad18-1b664d1f3da6'::uuid, 'albero'),
     ('21825df1-094a-4c96-b9e6-03b1c97539db'::uuid, 'arbusto'),
@@ -196,6 +199,7 @@ begin
     ('27765e73-c6f7-48c9-8559-0ddce2462f88'::uuid, 'erbacea'),
     ('27976167-6c2d-4b20-80b5-fc94ce2aa715'::uuid, 'erbacea'),
     ('27c27115-d2ff-4f13-9e18-f4600b0519fd'::uuid, 'albero'),
+    ('27da53f0-55dd-4b2e-a8ec-0f7ac2d7a6f3'::uuid, 'albero'),
     ('2800ed80-29aa-4a13-9c56-669bf1ed4a23'::uuid, 'succulenta'),
     ('2824e803-8310-4487-a58e-d449b95618c5'::uuid, 'arbusto'),
     ('2873ae63-7479-4412-a506-242299377c3e'::uuid, 'orchidea'),
@@ -211,6 +215,7 @@ begin
     ('2bcaea4e-f117-4426-879f-15cf98069522'::uuid, 'arbusto'),
     ('2be0c84c-5dca-4193-8306-f9695b6e2f8e'::uuid, 'albero'),
     ('2c6816b3-6877-46a8-9494-b4bc5fcb0f73'::uuid, 'graminacea'),
+    ('2ca6ecf0-7504-4ecf-b538-fcc7a1c4477e'::uuid, 'arbusto'),
     ('2d22090f-c0bb-4f0c-90d1-c921ce9b88f2'::uuid, 'albero'),
     ('2d37c3e0-b08d-4298-bbea-3cd28342dc9c'::uuid, 'erbacea'),
     ('2d4dd730-c5e2-49f8-aa77-6792575f1965'::uuid, 'rampicante'),
@@ -235,6 +240,7 @@ begin
     ('311d2181-100c-4a8a-946d-f99efe702434'::uuid, 'succulenta'),
     ('312f770b-39e7-449d-93e8-9c2fddcd7c55'::uuid, 'graminacea'),
     ('313c1b2e-2df7-404a-918e-0e8b6ad273cf'::uuid, 'arbusto'),
+    ('313d65f2-bca8-44b5-a8b9-757a93af50b7'::uuid, 'rampicante'),
     ('31a767ed-f50e-4c7f-a500-51db4720773e'::uuid, 'erbacea'),
     ('31be5887-4d23-4169-9f84-7567584048a7'::uuid, 'graminacea'),
     ('31c2bc3d-d386-4762-b50e-fc20419642bd'::uuid, 'bulbosa'),
@@ -380,6 +386,7 @@ begin
     ('52e87b80-7d33-493a-a449-fb359cf8c1c0'::uuid, 'arbusto'),
     ('5315a36a-551e-4cc3-8f63-d3cd85c186dc'::uuid, 'erbacea'),
     ('535708a0-9a7e-421e-8edf-2133025be712'::uuid, 'erbacea'),
+    ('5374521c-44f5-4a0c-b740-527cb6bb2036'::uuid, 'arbusto'),
     ('53bb6fbc-8f07-4de7-ba80-f82a7c085eea'::uuid, 'arbusto'),
     ('53fdade8-45cd-4148-a409-f7deed36d9fa'::uuid, 'erbacea'),
     ('542a43ef-59be-479c-8f55-b159f4f10e35'::uuid, 'succulenta'),
@@ -441,6 +448,7 @@ begin
     ('610a4604-3f32-4d06-becf-d1666d336850'::uuid, 'albero'),
     ('6119f206-6ed0-4534-88c4-74a2130d6b08'::uuid, 'erbacea'),
     ('6147fa71-7f0a-4ae3-8dee-f26f2d6d1e69'::uuid, 'erbacea'),
+    ('614f1a9e-cc65-4e36-bc15-715692611272'::uuid, 'arbusto'),
     ('615ddcd3-49e5-4707-be09-d4a83ee2e622'::uuid, 'erbacea'),
     ('61612e57-c02f-4b47-b664-00eff6c7695f'::uuid, 'arbusto'),
     ('61a10318-371d-4b75-ab57-2bcd9c56a8d1'::uuid, 'erbacea'),
@@ -594,6 +602,7 @@ begin
     ('842f218a-f7a1-48b5-b7c8-7e445ef00ef3'::uuid, 'arbusto'),
     ('8481480d-003b-490e-8db3-113f9ecf95cd'::uuid, 'arbusto'),
     ('84901327-8a47-4387-8ef0-bd8596b63472'::uuid, 'albero'),
+    ('852ff5ff-b5c8-43bf-8623-bc1ec5f0dd32'::uuid, 'arbusto'),
     ('8574ecba-a0e7-45a1-b7ed-d86383ccb206'::uuid, 'erbacea'),
     ('8581cbc2-1552-447b-9916-946d9c889f61'::uuid, 'rampicante'),
     ('864abe9e-dcb8-451a-a2d6-24f6b6ebd8f4'::uuid, 'felce'),
@@ -628,6 +637,7 @@ begin
     ('8d028a74-cd99-4d61-9966-442d852b77a7'::uuid, 'arbusto'),
     ('8d07b05a-f114-42dd-b1a9-532fbfc556fd'::uuid, 'albero'),
     ('8d23db08-4ef1-4fe0-b79e-474159291bb8'::uuid, 'albero'),
+    ('8d4efd36-d1ae-4bf8-a2f3-de071c7c9ae8'::uuid, 'albero'),
     ('8d6cf9ad-de6e-4b22-8cb5-ab6eafc250e0'::uuid, 'arbusto'),
     ('8dd5ede8-d602-4936-a0df-60dac8690580'::uuid, 'felce'),
     ('8dfa4c54-f403-41c4-9937-db3310e59453'::uuid, 'erbacea'),
@@ -926,6 +936,7 @@ begin
     ('ce9d67e1-943c-4389-82f9-2865fde51733'::uuid, 'erbacea'),
     ('ceaf6087-7e08-4f88-8ad0-0cb573d7e7e7'::uuid, 'erbacea'),
     ('cec06893-3ed2-436f-9e14-4ccbeba92387'::uuid, 'rampicante'),
+    ('ced64530-bd90-4181-84bf-0f82457d04fa'::uuid, 'erbacea'),
     ('cf2c32f8-3080-44a9-a6ce-67d9825aa13e'::uuid, 'erbacea'),
     ('cf65dc9e-371d-4007-ada0-d9a747d14f07'::uuid, 'orchidea'),
     ('cf6a05c8-7f4a-44ed-bc2f-bf682124b166'::uuid, 'bulbosa'),
@@ -977,6 +988,7 @@ begin
     ('dab79e5f-1272-4b01-8121-93de95af46ad'::uuid, 'arbusto'),
     ('daf26374-8b92-40b8-9400-4a4ce7fb7088'::uuid, 'palma'),
     ('db133d1b-a0b1-4bc4-81c9-7ef2edbeb693'::uuid, 'arbusto'),
+    ('db33e324-f059-4ff7-be04-6530db171962'::uuid, 'erbacea'),
     ('db663cc6-e5e6-4f65-8384-08e836ec7b4b'::uuid, 'erbacea'),
     ('db931c58-611e-49af-a183-8c94f4b14b79'::uuid, 'arbusto'),
     ('dbaf6897-ab6b-4637-92b7-c8ef91423e24'::uuid, 'erbacea'),
@@ -1030,6 +1042,7 @@ begin
     ('e6f5b826-04e1-4d47-aa90-91fd54b4cda6'::uuid, 'arbusto'),
     ('e75f2f6e-8533-4fd2-a973-fe9d29fa30b1'::uuid, 'arbusto'),
     ('e77644d9-bfd7-44cd-aa98-6ba17e74f437'::uuid, 'arbusto'),
+    ('e77b7fb6-6ac6-47f4-8657-00e4ac366879'::uuid, 'arbusto'),
     ('e792f378-abf4-473f-9389-895d704b9d18'::uuid, 'arbusto'),
     ('e79f56a2-576d-4135-a8f6-1ffae9a9b063'::uuid, 'erbacea'),
     ('e7b8493f-8a60-48a5-87d8-305a073e55f1'::uuid, 'arbusto'),
@@ -1038,6 +1051,7 @@ begin
     ('e7f8b7a0-bbfe-4d7d-a7b9-d2fb3ea67580'::uuid, 'albero'),
     ('e8391a3e-2238-4dc3-a0ba-64f3ab4a5b0d'::uuid, 'erbacea'),
     ('e875ac63-f5b0-4215-8381-e0e147b9ae4d'::uuid, 'erbacea'),
+    ('e8c6600d-f20f-46df-9308-636d9c93056e'::uuid, 'albero'),
     ('e8cd6177-574b-4f38-9e9a-37191ff4dea0'::uuid, 'arbusto'),
     ('e8dd7745-e874-4a4c-a356-808786942cc4'::uuid, 'bulbosa'),
     ('e97ec2f2-729a-4e39-bdc9-dd977b41f0bf'::uuid, 'albero'),
@@ -1144,8 +1158,8 @@ begin
   ) as v(id, forma)
   where s.id = v.id and s.mostrata and (s.immagine is null or s.immagine->>'url' is null);
   get diagnostics n = row_count;
-  if n <> 1129 then
-    raise exception 'schede aggiornate: % invece di 1129', n;
+  if n <> 1143 then
+    raise exception 'schede aggiornate: % invece di 1143', n;
   end if;
 end $$;
 
