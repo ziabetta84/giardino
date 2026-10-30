@@ -13,7 +13,7 @@
     <section v-else class="form-card elimina__foglio" aria-labelledby="elimina-titolo" @keydown.esc="chiudi">
       <h2 id="elimina-titolo" ref="titoloEl" class="elimina__titolo" tabindex="-1">Eliminare l'account?</h2>
       <p class="elimina__testo">
-        <template v-if="voci.length">Se lo elimini, cancello per sempre il tuo giardino:</template>
+        <template v-if="voci.length">Se lo elimini, esco definitivamente dal tuo giardino, dimenticando tutto ciò che lo riguarda:</template>
         <template v-else>Il tuo giardino è ancora vuoto: cancello l'account e le impostazioni.</template>
       </p>
 
@@ -25,8 +25,7 @@
       </ul>
 
       <p class="elimina__nota">
-        Non si può annullare. Il catalogo delle piante resta: è di tutti.
-        Se vuoi solo una pausa, esci e basta: ritrovi il giardino com'è.
+        Non si può annullare. Se vuoi solo una pausa, esci e basta: ritrovi il giardino com'è.
       </p>
 
       <form novalidate class="elimina__form" @submit.prevent="onElimina">

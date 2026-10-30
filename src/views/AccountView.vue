@@ -112,10 +112,10 @@
          modulo di accesso come dopo un errore. -->
     <div v-else-if="passo === 'addio'" class="auth__colonna" style="text-align:center;">
       <p class="auth__testo" role="status">
-        Ho cancellato il tuo account e tutto il giardino che c'era dentro, foto comprese.
-        Grazie per le cure che gli hai dato.
+        Ho cancellato il tuo account e dimenticato tutto ciò che sapevo del tuo giardino.
+        Grazie per avermi fatto entrare.
       </p>
-      <p class="auth__testo">Se un giorno vuoi ricominciare, il cancello è qui.</p>
+      <p class="auth__testo">Se un giorno vorrai riaprirmi il cancello, sai dove trovarmi.</p>
       <button type="button" class="btn btn-ghost" style="margin-top:8px;" @click="accountEliminato = false">Vai all'accesso</button>
     </div>
 
