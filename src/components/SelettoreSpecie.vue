@@ -143,7 +143,7 @@
 import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { creditoFoto, etichettaLivello, separaVia, statoVoce } from '@/utils/catalogo'
+import { creditoFoto, etichettaLivello, fotoVoce, separaVia, statoVoce } from '@/utils/catalogo'
 import { parseGiorni, stagione } from '@/composables/useCure'
 import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
@@ -166,7 +166,8 @@ const supabase = useSupabase()
 // caratteri che romperebbero un url() non quotato.
 // Miniatura di una voce o di una riga: la foto, altrimenti il disegno della sua forma
 function miniatura(v, larghezza) {
-  return v?.immagine?.url ? urlMiniatura(v.immagine.url, larghezza) : (disegnoForma(v)?.url ?? null)
+  const foto = fotoVoce(v)
+  return foto ? urlMiniatura(foto.url, larghezza) : (disegnoForma(v)?.url ?? null)
 }
 
 function bgUrl(u) {
@@ -187,7 +188,7 @@ function riga(v, trovata = null) {
   return {
     key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
     viaSinonimo: trovata?.via ?? null, viaBotanico: !!trovata?.via_botanico,
-    stato: statoVoce(v), immagine: v.immagine ?? null, forma: v.forma ?? null,
+    stato: statoVoce(v), immagine: fotoVoce(v), forma: v.forma ?? null,
     cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
   }
 }
@@ -335,7 +336,7 @@ const statoBadgeClasse = computed(() => {
 
 // Immagine della voce (propria o ereditata dal livello sopra) con il credito richiesto dalla licenza.
 const hero = computed(() => {
-  const img = specieSelezionata.value?.immagine
+  const img = fotoVoce(specieSelezionata.value)
   return img?.url
     ? { thumbUrl: urlMiniatura(img.url, 480), credito: creditoFoto(img) }
     : null

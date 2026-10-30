@@ -37,6 +37,7 @@ import { useDatiStore } from '@/stores/dati'
 import { cureUrgentiPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { urlMiniatura } from '@/composables/useWikimedia'
+import { fotoVoce } from '@/utils/catalogo'
 import { disegnoForma } from '@/utils/forme'
 import Icon from '@/components/Icon.vue'
 
@@ -64,8 +65,10 @@ const cureUrgenti = computed(() =>
 // criterio di PiantaView.vue): l'attribuzione richiesta dalla licenza si
 // vede aprendo la scheda pianta, a cui questa riga fa già da link.
 // Senza nessuna foto, il disegno della forma della pianta.
-const thumbEffettivo = computed(() => props.thumbUrl || (specie.value?.immagine?.url ? urlMiniatura(specie.value.immagine.url, 160) : null)
-  || disegnoForma(specie.value)?.url || null)
+const thumbEffettivo = computed(() => {
+  const foto = fotoVoce(specie.value)
+  return props.thumbUrl || (foto ? urlMiniatura(foto.url, 160) : null) || disegnoForma(specie.value)?.url || null
+})
 </script>
 
 <style scoped>

@@ -237,7 +237,7 @@ import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
-import { creditoFoto, etichettaLivello, varietaNelTitolo } from '@/utils/catalogo'
+import { creditoFoto, etichettaLivello, fotoVoce, varietaNelTitolo } from '@/utils/catalogo'
 import { disegnoForma } from '@/utils/forme'
 import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
@@ -275,7 +275,7 @@ const indiceFotoCorrente = ref(0)
 // l'attribuzione richiesta dalla licenza). Solo header testuale se manca
 // anche quella.
 const fotoHero = computed(() => {
-  const img = specie.value?.immagine
+  const img = fotoVoce(specie.value)
   return img ? { url: img.url, thumbUrl: urlMiniatura(img.url, 800), fallback: true, immagine: img } : null
 })
 // Attribuzione richiesta dalla licenza (TASL), senza nominare il sito da cui viene la foto
