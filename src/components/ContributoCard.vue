@@ -4,7 +4,8 @@
        registrazione, prima della schermata «Controlla la posta». -->
   <section class="contributo" :class="{ 'contributo--invito': invito }" :aria-labelledby="idTitolo">
     <div class="contributo__hd">
-      <ZorbaLogo mini />
+      <!-- Nell'invito Zorba c'è già, grande, sopra il titolo della pagina. -->
+      <ZorbaLogo v-if="!invito" mini />
       <h2 :id="idTitolo" class="contributo__titolo">Sostieni il lavoro di Zorba in giardino</h2>
     </div>
     <p class="contributo__testo">
@@ -59,7 +60,7 @@ const idTitolo = props.invito ? 'contributo-titolo-invito' : 'contributo-titolo'
 .contributo :deep(.zorba-mini) { width: 26px; height: 26px; }
 .contributo--invito :deep(.zorba-mini) { width: 32px; height: 32px; }
 .contributo__titolo { font: 600 16px/1.2 var(--font-display); color: var(--ink); margin: 0; max-width: calc(100% - 42px); }
-.contributo--invito .contributo__titolo { font-size: 20px; }
+.contributo--invito .contributo__titolo { font-size: 20px; max-width: none; text-wrap: balance; }
 .contributo__testo { font-size: 13px; color: var(--ink-mid); line-height: 1.55; max-width: 60ch; }
 .contributo--invito .contributo__testo { font-size: 14px; }
 .contributo__btn {
