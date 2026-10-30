@@ -15,9 +15,9 @@
       <template v-for="g in gruppiDropdown" :key="g.label ?? '_flat'">
         <div v-if="g.label" class="dd-group"><div class="slabel">{{ g.label }}</div></div>
         <div v-for="s in g.voci" :key="s.key" class="dd-row" @mousedown.prevent="selezionaSpecie(s)">
-          <span class="dd-thumb" :class="{ leaf: !s.immagine?.url }"
-            :style="s.immagine?.url ? { backgroundImage: bgUrl(urlMiniatura(s.immagine.url, 96)) } : null">
-            <Icon v-if="!s.immagine?.url" name="foglia" />
+          <span class="dd-thumb" :class="{ leaf: !miniatura(s, 96) }"
+            :style="miniatura(s, 96) ? { backgroundImage: bgUrl(miniatura(s, 96)) } : null">
+            <Icon v-if="!miniatura(s, 96)" name="foglia" />
           </span>
           <span class="dd-m">
             <span class="dd-name">
@@ -44,7 +44,7 @@
 
     <!-- Card compatta della specie scelta: la scheda completa vive nel foglio. -->
     <div v-if="specieSelezionata && !dropdownAperto" class="scheda-chosen">
-      <span class="sc-th" :style="hero ? { backgroundImage: bgUrl(hero.miniUrl) } : null"></span>
+      <span class="sc-th" :style="miniatura(specieSelezionata, 96) ? { backgroundImage: bgUrl(miniatura(specieSelezionata, 96)) } : null"></span>
       <span class="sc-m">
         <span class="sc-nm">{{ specieSelezionata.nome }}</span>
         <span v-if="specieSelezionata.specie" class="sc-sci">{{ specieSelezionata.specie }}</span>
@@ -76,6 +76,7 @@
           </span>
         </div>
         <div v-else class="dh-np">
+          <img v-if="disegno" class="np-dis" :src="disegno.url" :alt="disegno.alt">
           <div class="np-name">{{ specieSelezionata.nome }}</div>
           <div v-if="specieSelezionata.specie" class="np-sci">{{ specieSelezionata.specie }}</div>
           <span class="np-badge badge-mini" :class="statoBadgeClasse">{{ statoBadge }}</span>
@@ -142,10 +143,11 @@
 import { ref, computed, watch, onUnmounted, nextTick } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { useSupabase } from '@/composables/useSupabase'
-import { creditoFoto, etichettaLivello, separaVia, statoVoce } from '@/utils/catalogo'
+import { creditoFoto, etichettaLivello, fotoVoce, separaVia, statoVoce } from '@/utils/catalogo'
 import { parseGiorni, stagione } from '@/composables/useCure'
 import { iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
 import { urlMiniatura } from '@/composables/useWikimedia'
+import { disegnoForma } from '@/utils/forme'
 import { normalizzaApici } from '@/utils/normalizzaTesto'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
@@ -162,6 +164,12 @@ const supabase = useSupabase()
 // Compone un valore CSS url() con la stringa fra virgolette doppie ed
 // escape di " e \ — gli URL Wikimedia sono esterni e possono contenere
 // caratteri che romperebbero un url() non quotato.
+// Miniatura di una voce o di una riga: la foto, altrimenti il disegno della sua forma
+function miniatura(v, larghezza) {
+  const foto = fotoVoce(v)
+  return foto ? urlMiniatura(foto.url, larghezza) : (disegnoForma(v)?.url ?? null)
+}
+
 function bgUrl(u) {
   return u ? `url("${String(u).replace(/["\\]/g, '\\$&')}")` : null
 }
@@ -180,7 +188,7 @@ function riga(v, trovata = null) {
   return {
     key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
     viaSinonimo: trovata?.via ?? null, viaBotanico: !!trovata?.via_botanico,
-    stato: statoVoce(v), immagine: v.immagine ?? null,
+    stato: statoVoce(v), immagine: fotoVoce(v), forma: v.forma ?? null,
     cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
   }
 }
@@ -328,11 +336,14 @@ const statoBadgeClasse = computed(() => {
 
 // Immagine della voce (propria o ereditata dal livello sopra) con il credito richiesto dalla licenza.
 const hero = computed(() => {
-  const img = specieSelezionata.value?.immagine
+  const img = fotoVoce(specieSelezionata.value)
   return img?.url
-    ? { thumbUrl: urlMiniatura(img.url, 480), miniUrl: urlMiniatura(img.url, 96), credito: creditoFoto(img) }
+    ? { thumbUrl: urlMiniatura(img.url, 480), credito: creditoFoto(img) }
     : null
 })
+
+// Senza foto, il disegno della forma della pianta (senza firma: la firma è solo nella pagina della pianta)
+const disegno = computed(() => (hero.value ? null : disegnoForma(specieSelezionata.value)))
 
 // Da quale livello vengono descrizione e cure, quando non sono della voce stessa («del genere Hedera»)
 const livelloDescrizione = computed(() => etichettaLivello(specieSelezionata.value?.livelli?.descrizione))
@@ -688,6 +699,15 @@ watch(() => props.modelValue, () => {
 .dossier-livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 .dh-np {
   padding: 18px 52px 4px 16px;
+}
+/* Il disegno della forma, come una pagina del taccuino sopra il nome */
+.np-dis {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  margin: 0 0 12px;
 }
 .dh-np .np-name {
   font: 600 19px/1.15 var(--font-display);
