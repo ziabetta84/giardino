@@ -47,6 +47,10 @@ function scriviFlagRecupero(attivo) {
 
 const recuperoInCorso = ref(leggiFlagRecupero())
 
+// true dopo un'eliminazione dell'account riuscita, finché la pagina resta aperta: AccountView mostra il congedo
+// invece del modulo di accesso.
+const accountEliminato = ref(false)
+
 // Ritorno dal link di una mail di Supabase (conferma della registrazione o
 // recupero password). Supabase rimanda con `?code=…` (PKCE) oppure con
 // `error_code`/`error_description` se il link è scaduto o già usato. I
@@ -224,9 +228,51 @@ export function useAuth() {
     scriviFlagRecupero(false)
   }
 
+  // Elimina l'account con tutto il giardino (Edge Function `account`). Prima un nuovo accesso con la password: la
+  // funzione accetta solo una sessione aperta con la password da pochi minuti, così un telefono lasciato sbloccato
+  // non basta. L'accesso è dello stesso utente, quindi App.vue non ricarica lo store.
+  async function eliminaAccount(password, captchaToken) {
+    const id = utente.value?.id
+    const { error: eAccesso } = await supabase.auth.signInWithPassword({
+      email: utente.value?.email, password, options: { captchaToken },
+    })
+    if (eAccesso) {
+      const tradotto = traduci(eAccesso)
+      if (tradotto.codice === 'invalid_credentials' || tradotto.message === MESSAGGI_PER_CODICE.invalid_credentials) {
+        tradotto.codice = 'invalid_credentials'
+        tradotto.message = 'La password non è corretta.'
+      }
+      throw tradotto
+    }
+    const { data } = await supabase.auth.getSession()
+    let r
+    try {
+      r = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/account`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${data.session?.access_token}`, apikey: import.meta.env.VITE_SUPABASE_ANON_KEY },
+      })
+    } catch {
+      throw new Error("Connessione assente: non ho eliminato l'account. Controlla la rete e riprova.")
+    }
+    if (!r.ok) {
+      const corpo = await r.json().catch(() => null)
+      const e = new Error(corpo?.messaggio || "Qualcosa non ha funzionato e non ho eliminato l'account: riprova tra poco.")
+      e.codice = corpo?.codice ?? null
+      throw e
+    }
+    accountEliminato.value = true
+    // Su questo dispositivo non resta niente dell'account: i promemoria per utente e il resto della sessione.
+    try {
+      for (const k of Object.keys(localStorage)) if (id && k.includes(id)) localStorage.removeItem(k)
+      sessionStorage.clear()
+    } catch { /* storage non disponibile: non c'è niente da togliere */ }
+    // L'utente non esiste più: basta chiudere la sessione qui (SIGNED_OUT svuota anche la cache dei dati).
+    await supabase.auth.signOut({ scope: 'local' }).catch(() => {})
+  }
+
   return {
-    utente, nomeUtente, caricamento, recuperoInCorso, sessionePronta, esitoLink,
+    utente, nomeUtente, caricamento, recuperoInCorso, sessionePronta, esitoLink, accountEliminato,
     registrati, aggiornaNome, accedi, esci, reinviaConferma,
-    richiediResetPassword, impostaNuovaPassword,
+    richiediResetPassword, impostaNuovaPassword, eliminaAccount,
   }
 }

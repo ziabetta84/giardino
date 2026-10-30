@@ -69,6 +69,8 @@
       <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
     </button>
 
+    <EliminaAccount />
+
   </div>
 
   <!-- Non loggato (login/registrazione) o con una sessione di recupero
@@ -104,6 +106,18 @@
         Annulla e vai all'accesso
       </button>
     </form>
+
+    <!-- Congedo dopo l'eliminazione dell'account (EliminaAccount.vue): la
+         sessione è già chiusa, quindi senza questo passo si atterrerebbe sul
+         modulo di accesso come dopo un errore. -->
+    <div v-else-if="passo === 'addio'" class="auth__colonna" style="text-align:center;">
+      <p class="auth__testo" role="status">
+        Ho cancellato il tuo account e dimenticato tutto ciò che sapevo del tuo giardino.
+        Grazie per avermi fatto entrare.
+      </p>
+      <p class="auth__testo">Se un giorno vorrai riaprirmi il cancello, sai dove trovarmi.</p>
+      <button type="button" class="btn btn-ghost" style="margin-top:8px;" @click="accountEliminato = false">Vai all'accesso</button>
+    </div>
 
     <!-- Subito dopo la registrazione, prima di «Controlla la posta»: invito
          al contributo volontario (posizione decisa dall'utente il 29/10/2026).
@@ -251,6 +265,7 @@ import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import TurnstileWidget from '@/components/TurnstileWidget.vue'
 import ContributoCard from '@/components/ContributoCard.vue'
 import CampoPassword from '@/components/CampoPassword.vue'
+import EliminaAccount from '@/components/EliminaAccount.vue'
 import { emailValida, suggerisciEmail } from '@/utils/email'
 import { linkContributo } from '@/composables/useContributo'
 import { useAuth } from '@/composables/useAuth'
@@ -266,7 +281,7 @@ function onRiprendiPrimiPassi() {
   primiPassi.riapri()
   router.push('/')
 }
-const { utente, nomeUtente, caricamento, recuperoInCorso, esitoLink, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
+const { utente, nomeUtente, caricamento, recuperoInCorso, esitoLink, accountEliminato, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
 
 const zorba = ref(null)
 
@@ -316,6 +331,7 @@ watch(utente, (u) => {
 
 // Un solo stato del blocco non loggato, da cui dipendono titolo e contenuto.
 const passo = computed(() => {
+  if (accountEliminato.value) return 'addio'
   if (recuperoInCorso.value) return 'recupero'
   if (passoContributo.value) return 'contributo'
   if (giaRegistrato.value) return 'gia-registrato'
@@ -323,6 +339,7 @@ const passo = computed(() => {
   return 'modulo'
 })
 const titolo = computed(() => ({
+  addio: 'Arrivederci',
   recupero: 'Nuova password',
   contributo: 'Il cancello è quasi aperto',
   'gia-registrato': 'Ci conosciamo già',
