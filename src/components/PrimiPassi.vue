@@ -14,7 +14,7 @@
           <template v-else>Sono Zorba. Raccontami il tuo giardino e alle cure ci penso io.</template>
         </p>
       </div>
-      <button v-if="!tuttoFatto" type="button" class="pp__nascondi" @click="chiudi">Più tardi</button>
+      <button v-if="!tuttoFatto" type="button" class="pp__nascondi" @click="rimanda">Più tardi</button>
     </header>
 
     <ol v-if="!tuttoFatto" class="pp__passi">
@@ -82,7 +82,7 @@ import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()
-const { posizioneFatta, zonaFatta, piantaFatta, tuttoFatto, chiudi } = usePrimiPassi()
+const { posizioneFatta, zonaFatta, piantaFatta, tuttoFatto, chiudi, rimanda } = usePrimiPassi()
 const settingsApi = useSettingsApi()
 const { richiediPosizioneDispositivo, cercaIndirizzo, ottieniAltitudine } = useGeolocalizzazione()
 const zorba = ref(null)

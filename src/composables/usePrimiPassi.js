@@ -29,6 +29,12 @@ function scrivi(chiave, valore) {
 const statoSalvato = ref(null)
 let utenteLetto = null
 
+const CHIAVE_RIMANDATA = 'giardino_primi_passi_rimandata'
+function leggiRimandata() {
+  try { return sessionStorage.getItem(CHIAVE_RIMANDATA) === '1' } catch { return false }
+}
+const rimandata = ref(leggiRimandata())
+
 // I concimi fatti in casa che chiunque ha in cucina: un account nuovo li
 // trova già in dispensa, segnati come terminati (il suggerimento li propone
 // solo quando l'utente li accende). Stessi nomi, NPK e ricette della
@@ -83,12 +89,30 @@ export function usePrimiPassi() {
     }
   }, { immediate: true })
 
-  const visibile = computed(() => pronto.value && !store.errore && statoSalvato.value === 'in-corso')
+  const visibile = computed(() => pronto.value && !store.errore && statoSalvato.value === 'in-corso' && !rimandata.value)
 
+  // Chiusura definitiva: solo a guida finita («Grazie, Zorba»).
   function chiudi() {
     statoSalvato.value = 'chiuso'
     if (chiave.value) scrivi(chiave.value, 'chiuso')
   }
 
-  return { visibile, posizioneFatta, zonaFatta, piantaFatta, tuttoFatto, chiudi }
+  // «Più tardi» a guida non finita: la nasconde fino alla prossima apertura
+  // dell'app (sessionStorage), non per sempre. Prima chiudeva del tutto, e chi
+  // la rimandava al primo ingresso non la ritrovava più (critica del 30/10/2026).
+  function rimanda() {
+    rimandata.value = true
+    try { sessionStorage.setItem(CHIAVE_RIMANDATA, '1') } catch { /* vale per questa pagina */ }
+  }
+
+  // Da Account («Riprendi i primi passi»): torna visibile anche se era stata
+  // chiusa con il vecchio «Più tardi».
+  function riapri() {
+    rimandata.value = false
+    try { sessionStorage.removeItem(CHIAVE_RIMANDATA) } catch { /* niente da togliere */ }
+    statoSalvato.value = 'in-corso'
+    if (chiave.value) scrivi(chiave.value, 'in-corso')
+  }
+
+  return { visibile, posizioneFatta, zonaFatta, piantaFatta, tuttoFatto, chiudi, rimanda, riapri }
 }

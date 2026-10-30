@@ -53,6 +53,14 @@
          dall'app. Vuoto = la card non compare. -->
     <ContributoCard v-if="linkContributo" class="form-card" style="margin-top:16px;" />
 
+    <!-- La guida dei primi passi rimandata con «Più tardi» (o chiusa con il
+         vecchio «Più tardi», che la chiudeva per sempre) si riapre da qui,
+         finché manca un passo. -->
+    <button v-if="primiPassiDaRiprendere" type="button" class="form-card" style="display:flex;align-items:center;justify-content:space-between;margin-top:16px;width:100%;text-align:left;font-family:inherit;cursor:pointer;" @click="onRiprendiPrimiPassi">
+      <span style="font-size:13px;font-weight:600;">Riprendi i primi passi</span>
+      <Icon name="back" style="width:14px;height:14px;flex-shrink:0;color:var(--ink-faint);transform:rotate(180deg);" />
+    </button>
+
     <!-- Rivede lo splash d'ingresso di Home fuori dalla sua cadenza normale
          (due finestre al giorno, una volta a testa) — vedi richiediSplash()
          in useBootSequence.js. -->
@@ -106,7 +114,7 @@
     <div v-else-if="passo === 'contributo'" class="auth__colonna">
       <p class="auth__testo" role="status">
         Ti ho mandato una mail a <strong class="auth__email">{{ emailConferma }}</strong>
-        per confermare l'indirizzo. Prima di aprirla, una cosa:
+        per confermare l'indirizzo. Mentre aspetti che arrivi, una cosa:
       </p>
       <ContributoCard invito testo-no="Magari più avanti"
         class="form-card" style="text-align:left;" @scelta="passoContributo = false" />
@@ -140,14 +148,15 @@
           Questo indirizzo non è ancora confermato. Ti avevo mandato una mail a
         </template>
         <template v-else>Ti ho mandato una mail a</template>
-        <strong class="auth__email">{{ emailConferma }}</strong>:
+        <!-- {{ ' ' }} esplicito: tra </template> e <strong> a capo Vue toglie lo spazio. -->
+        {{ ' ' }}<strong class="auth__email">{{ emailConferma }}</strong>:
         apri il link che contiene e il cancello si apre. Se non la trovi, guarda anche nello spam.
       </p>
       <p v-if="messaggio" class="auth__esito auth__esito--ok" role="status">{{ messaggio }}</p>
       <p v-if="errore" class="auth__esito auth__esito--err" role="alert">{{ errore }}</p>
       <TurnstileWidget ref="turnstile" @token="onToken" @errore="onErroreCaptcha" />
-      <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha" @click="onReinviaConferma">
-        {{ inviando ? 'Invio…' : 'Invia di nuovo la mail di conferma' }}
+      <button type="button" class="btn btn-ghost" :disabled="inviando || attesaCaptcha || attesaReinvio > 0" @click="onReinviaConferma">
+        {{ inviando ? 'Invio…' : attesaReinvio > 0 ? `Puoi chiederne un'altra tra ${attesaReinvio} s` : 'Invia di nuovo la mail di conferma' }}
       </button>
       <div class="auth__link-riga">
         <button type="button" class="link-reset" @click="correggiIndirizzo">Indirizzo sbagliato? Correggilo</button>
@@ -157,16 +166,18 @@
 
     <template v-else>
       <!-- Ritorno dal link di una mail (vedi esitoLink in useAuth.js). -->
-      <p v-if="esitoLink === 'altro-browser'" class="auth__avviso" role="status">
-        Il tuo indirizzo è confermato. Il link si è aperto in un browser diverso da quello
-        usato per la registrazione, quindi qui si entra con email e password.
-        Se invece stavi cambiando la password, chiedila di nuovo da «Password dimenticata?».
-      </p>
-      <p v-else-if="esitoLink === 'scaduto'" class="auth__avviso" role="status">
-        Il link della mail non è più valido: si usa una volta sola e dura poco.
-        Accedi con email e password: se l'indirizzo non è ancora confermato ti propongo di mandarti
-        un'altra mail. Se stavi cambiando la password, chiedila di nuovo da «Password dimenticata?».
-      </p>
+      <!-- Una riga d'esito, una d'azione; il caso del cambio password (stesso
+           link, stesso ritorno) in una riga a parte, più piccola. -->
+      <div v-if="esitoLink === 'altro-browser'" class="auth__avviso auth__avviso--ok" role="status">
+        <p class="auth__avviso-t">Indirizzo confermato.</p>
+        <p>Il link si è aperto in un altro browser: entra qui con email e password.</p>
+        <p class="auth__avviso-n">Cambiavi la password? Chiedi un nuovo link da «Password dimenticata?».</p>
+      </div>
+      <div v-else-if="esitoLink === 'scaduto'" class="auth__avviso" role="status">
+        <p class="auth__avviso-t">Il link non è più valido.</p>
+        <p>Accedi con email e password: se l'indirizzo non è confermato, ti propongo una mail nuova.</p>
+        <p class="auth__avviso-n">Cambiavi la password? Chiedi un nuovo link da «Password dimenticata?».</p>
+      </div>
 
       <div class="auth__schede" role="tablist" aria-label="Accedi o registrati">
         <button id="tab-accedi" type="button" class="pill" role="tab" aria-controls="pannello-accesso"
@@ -233,7 +244,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
@@ -243,9 +254,18 @@ import CampoPassword from '@/components/CampoPassword.vue'
 import { emailValida, suggerisciEmail } from '@/utils/email'
 import { linkContributo } from '@/composables/useContributo'
 import { useAuth } from '@/composables/useAuth'
+import { usePrimiPassi } from '@/composables/usePrimiPassi'
+import { useDatiStore } from '@/stores/dati'
 import { richiediSplash } from '@/composables/useBootSequence'
 
 const router = useRouter()
+const store = useDatiStore()
+const primiPassi = usePrimiPassi()
+const primiPassiDaRiprendere = computed(() => !!store.piante && !primiPassi.tuttoFatto.value && !primiPassi.visibile.value)
+function onRiprendiPrimiPassi() {
+  primiPassi.riapri()
+  router.push('/')
+}
 const { utente, nomeUtente, caricamento, recuperoInCorso, esitoLink, accedi, registrati, aggiornaNome, esci, reinviaConferma, richiediResetPassword, impostaNuovaPassword } = useAuth()
 
 const zorba = ref(null)
@@ -323,6 +343,14 @@ watch(passo, async (nuovo, vecchio) => {
 const erroriCampo = ref({})
 const emailToccata = ref(false)
 const suggerimentoEmail = computed(() => (emailToccata.value ? suggerisciEmail(email.value) : null))
+// Un errore sparisce appena si corregge il campo: rimasto lì, sotto un campo
+// già compilato, sembrava un guasto e nascondeva «Intendevi…?».
+for (const [campo, valore] of [['nome', nome], ['email', email], ['password', password], ['nuovaPassword', nuovaPassword]]) {
+  watch(valore, () => {
+    if (erroriCampo.value[campo]) erroriCampo.value = { ...erroriCampo.value, [campo]: null }
+  })
+}
+
 function usaSuggerimento() {
   email.value = suggerimentoEmail.value
   erroriCampo.value = { ...erroriCampo.value, email: null }
@@ -470,12 +498,33 @@ async function onInvia() {
       password.value = ''
       return
     }
+    // Le regole della password le decide Supabase (Authentication →
+    // Policies): il rifiuto va sotto il campo, come gli altri errori.
+    if (e.codice === 'weak_password') {
+      erroriCampo.value = { password: e.message }
+      document.getElementById('auth-password')?.focus()
+      return
+    }
     errore.value = e.message || 'Qualcosa non ha funzionato: riprova tra poco.'
   } finally {
     inviando.value = false
     nuovoCaptcha()
   }
 }
+
+// Un minuto tra un reinvio e l'altro: Supabase limita le mail per indirizzo,
+// e premere di nuovo subito portava dritti a «troppe email».
+const attesaReinvio = ref(0)
+let timerReinvio = null
+function avviaAttesaReinvio() {
+  attesaReinvio.value = 60
+  clearInterval(timerReinvio)
+  timerReinvio = setInterval(() => {
+    attesaReinvio.value -= 1
+    if (attesaReinvio.value <= 0) clearInterval(timerReinvio)
+  }, 1000)
+}
+onUnmounted(() => clearInterval(timerReinvio))
 
 async function onReinviaConferma() {
   if (inviando.value) return
@@ -484,7 +533,9 @@ async function onReinviaConferma() {
   inviando.value = true
   try {
     await reinviaConferma(emailConferma.value, captchaToken.value)
-    messaggio.value = 'Fatto: ti ho mandato una mail nuova. Usa il link dell\'ultima che ricevi.'
+    const ora = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
+    messaggio.value = `Fatto: alle ${ora} ti ho mandato una mail nuova. Usa il link dell'ultima che ricevi.`
+    avviaAttesaReinvio()
   } catch (e) {
     errore.value = e.message || 'Non sono riuscito a mandare la mail: riprova tra poco.'
   } finally {
@@ -621,6 +672,9 @@ async function onEsci() {
   background: var(--gold-bg); color: var(--gold-ink);
   font-size: 13px; line-height: 1.5; text-wrap: pretty;
 }
+.auth__avviso--ok { background: var(--sage-bg); color: var(--sage-ink); }
+.auth__avviso-t { font-weight: 700; }
+.auth__avviso-n { margin-top: 6px; font-size: 12px; opacity: .9; }
 .auth__schede { display: flex; gap: 6px; margin-bottom: 16px; justify-content: center; }
 .auth__schede .pill { min-height: 44px; padding: 0 20px; font-size: 13px; color: var(--ink-mid); }
 .auth__schede .pill.active,
@@ -640,7 +694,17 @@ async function onEsci() {
 .auth__esito--ok { color: var(--sage-ink); }
 /* Tema scuro: lì --sage-dark è un verde chiaro, che regge il testo scuro
    e non il bianco. */
-:global(:root[data-theme="dark"]) .auth__schede .pill.active,
-:global(:root[data-theme="dark"]) .auth .btn-sage { color: var(--sage-pale); }
+:root[data-theme="dark"] .auth__schede .pill.active,
+:root[data-theme="dark"] .auth .btn-sage { color: var(--sage-pale); box-shadow: none; }
+
+/* Su schermi larghi il blocco diventa un foglio del taccuino: una colonna
+   da 360px sola in mezzo a 1280px di vuoto sembrava dimenticata lì. */
+@media (min-width: 768px) {
+  .auth {
+    max-width: 440px; padding: 36px 40px 32px;
+    background: var(--white); border: 1px solid var(--cream-dark); border-radius: 20px;
+    box-shadow: 0 18px 50px -24px rgba(42,34,24,.28), 0 2px 8px rgba(42,34,24,.04);
+  }
+}
 
 </style>

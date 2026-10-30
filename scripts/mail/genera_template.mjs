@@ -86,9 +86,12 @@ const template = {
     anteprima: 'Un tocco per confermare il tuo indirizzo, poi ti faccio entrare.',
     corpo: p(`${saluto} sono Zorba. Prima di aprirti il cancello mi serve sapere che questo indirizzo è davvero tuo: basta un tocco qui sotto.`)
       + pulsante(url, 'Conferma la mia email')
+      // Il consiglio più utile sta sotto il pulsante, non nel piede grigio
+      // (critica del 30/10/2026): aperto altrove il link conferma, ma non fa entrare.
+      + p('Aprilo sul telefono o sul computer con cui ti sei registrato: così entri subito.')
       + p('Dopo la conferma ti chiedo tre cose: dove si trova il giardino, la prima zona e la prima pianta. Da lì alle cure ci penso io.')
       + linkDiRiserva(url),
-    nota: 'Se puoi, apri il link sul telefono o sul computer con cui ti sei registrato: entri subito. Altrove l\'indirizzo si conferma lo stesso, poi accedi con email e password. Il link si usa una volta sola e dura poco: se è scaduto, prova ad accedere e ti propongo di mandartene un altro. Se la registrazione non l\'hai chiesta tu, ignora questa mail: senza conferma l\'account non si attiva.',
+    nota: 'Il link si usa una volta sola e dura poco: se è scaduto, prova ad accedere e ti propongo di mandartene un altro. Se la registrazione non l\'hai chiesta tu, ignora questa mail.',
   },
   recovery: {
     oggetto: 'Una password nuova per Zorba in giardino',
