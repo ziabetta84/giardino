@@ -251,6 +251,7 @@ import { iconaCura } from '@/composables/useCureVisual'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { posizioneGiardino } from '@/composables/useMeteo'
+import { luceDelMomento } from '@/utils/sole'
 import { tappeAttese } from '@/composables/useProgetti'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import ToastCura from '@/components/ToastCura.vue'
@@ -366,14 +367,14 @@ const intervalloOrologio = setInterval(() => { adesso.value = new Date() }, 60_0
 onUnmounted(() => clearInterval(intervalloOrologio))
 
 // Stagione dal mese corrente (stessa euristica di useCure.js per le urgenze
-// di cura). Luce da alba/tramonto di oggi (Open-Meteo, via store.meteo) — finché
-// il meteo non è ancora arrivato si mostra "giorno" come default ragionevole.
+// di cura). Luce da alba/tramonto di oggi (Open-Meteo, via store.meteo); finché
+// il meteo non è arrivato, o senza posizione, alba e tramonto si calcolano in
+// locale (utils/sole.js). Prima il ripiego era sempre «giorno»: lo splash
+// serale partiva col dipinto diurno e passava alla notte appena arrivava il
+// meteo.
 const stagioneCorrente = computed(() => stagione(adesso.value))
-const luceScena = computed(() => {
-  const g = meteoOggi.value
-  if (!g?.alba || !g?.tramonto) return 'giorno'
-  return (adesso.value >= new Date(g.alba) && adesso.value < new Date(g.tramonto)) ? 'giorno' : 'notte'
-})
+const luceScena = computed(() =>
+  luceDelMomento(adesso.value, meteoOggi.value ?? {}, posizioneGiardino(store.settings)))
 
 // Forzatura manuale di stagione/luce per il pannello di QA visiva qui sotto
 // — assente in produzione (vedi modalitaSviluppo). null = usa il valore
