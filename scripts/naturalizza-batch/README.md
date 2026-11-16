@@ -1,4 +1,20 @@
-# Naturalizzazione/traduzione descrizioni via Anthropic Message Batches API
+# Naturalizzazione e traduzione delle schede (issue #153)
+
+## Oggi: tabella `schede` (dal 28/10/2026)
+
+- `esporta_schede.sql` / `esporta_schede.py`: il prossimo lotto di schede mostrate ancora in inglese, prima quelle
+  delle piante dell'utente (`--conta` per il residuo).
+- `scrivi_schede.py`: controlla le traduzioni e scrive il lotto in una transazione, con il file di rollback.
+- `controlla_schede.sql`: controlli automatici sul lotto scritto.
+- `loop-naturalizza.sh N`: N lotti di fila in sessioni Claude Code headless (scrittura + verifica indipendente).
+
+Procedura completa in `.claude/commands/naturalizza-lotto.md`, regole di stile in
+`.claude/commands/naturalizza-descrizioni.md`. Il resto di questo file descrive gli script dei lotti su `specie`
+(fino al lotto 78, 13/10/2026), che ora è un archivio: non vanno più usati.
+
+---
+
+## Storia: Message Batches API su `specie`
 
 Script per finire la naturalizzazione dello stile delle `descrizione` (issue **#153**),
 sulla parte rimasta in inglese: le ~108 righe residue del lotto "inglese nascosto"
