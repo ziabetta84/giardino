@@ -1,0 +1,1168 @@
+{
+ "t:252ee325-02dd-4f48-9e75-865a865a10f7": {
+  "problema": null,
+  "candidate": [
+   1,
+   11,
+   6,
+   10,
+   7
+  ],
+  "nota": null
+ },
+ "t:9f7eae1f-edf4-45a9-9a8e-5252e8506998": {
+  "problema": null,
+  "candidate": [
+   1,
+   9,
+   8,
+   6,
+   3
+  ],
+  "nota": null
+ },
+ "t:e3156a28-4325-49e7-b7bd-f3c883ce83cc": {
+  "problema": null,
+  "candidate": [
+   10,
+   11,
+   6,
+   2,
+   1
+  ],
+  "nota": null
+ },
+ "t:eac35ddc-77dd-43af-b82a-658abe4ea3e8": {
+  "problema": null,
+  "candidate": [
+   2,
+   9,
+   10,
+   0,
+   5
+  ],
+  "nota": "Escluse le foto di campi d'aglio (Allium sativum)."
+ },
+ "t:5b69e93b-f4cd-4115-8f1d-0386bbad13c9": {
+  "problema": null,
+  "candidate": [
+   3,
+   4,
+   1,
+   0
+  ],
+  "nota": "Le altre candidate mostrano soprattutto albatros e uccelli marini."
+ },
+ "t:5f4ff97b-7f8f-49e7-b81b-d906705b5e04": {
+  "problema": [
+   "parte",
+   "Solo una parte: fiori su sfondo neutro (museo)"
+  ],
+  "candidate": [
+   3,
+   5,
+   0,
+   2,
+   11
+  ],
+  "nota": "Nessuna foto dell'albero intero: chioma fiorita, arbusto e rami."
+ },
+ "t:c00938e5-c3ae-4967-b72b-e91f04786ea8": {
+  "problema": null,
+  "candidate": [
+   0,
+   4,
+   9,
+   7,
+   11
+  ],
+  "nota": null
+ },
+ "t:f5f7af2f-85e1-4787-a714-8c482cec3d86": {
+  "problema": null,
+  "candidate": [
+   4,
+   2,
+   11,
+   7
+  ],
+  "nota": "Nessuna foto della pianta intera in vaso: solo spate da vicino."
+ },
+ "t:b335f317-18b3-4c11-ae7f-b79e1a16a414": {
+  "problema": [
+   "parte",
+   "Solo una parte: capsule secche"
+  ],
+  "candidate": [
+   10,
+   5,
+   1,
+   0,
+   3
+  ],
+  "nota": null
+ },
+ "t:ef4a8c0a-08f1-48b0-ae96-d2e249c6655f": {
+  "problema": null,
+  "candidate": [
+   3,
+   2,
+   1
+  ],
+  "nota": "Quasi tutte le candidate sono pompelmi tagliati o tavole pomologiche: restano l'arancio amaro (3), il chinotto (2) e un albero di pompelmo (1)."
+ },
+ "t:f1a62688-3a0a-442a-8d4a-a7a346ee6e80": {
+  "problema": [
+   "parte",
+   "Solo una parte: frutti al supermercato"
+  ],
+  "candidate": [
+   10,
+   0,
+   9,
+   5,
+   1
+  ],
+  "nota": null
+ },
+ "t:16cb06f4-d2bc-4682-9ff8-fc378fe7cb53": {
+  "problema": null,
+  "candidate": [
+   8,
+   3,
+   7,
+   1,
+   10
+  ],
+  "nota": null
+ },
+ "t:c0c73a46-790c-4c1e-9146-0c80ae341306": {
+  "problema": [
+   "parte",
+   "Solo una parte: una foglia sola"
+  ],
+  "candidate": [
+   1,
+   0,
+   3,
+   7,
+   5
+  ],
+  "nota": null
+ },
+ "t:8c71a6e1-fe59-4c62-93c3-c74b6d704d5a": {
+  "problema": null,
+  "candidate": [
+   1,
+   2,
+   3,
+   6,
+   5
+  ],
+  "nota": null
+ },
+ "t:57c67638-79e5-498f-be31-93299fcc5c61": {
+  "problema": null,
+  "candidate": [
+   0,
+   7,
+   8,
+   6
+  ],
+  "nota": "Le Calathea da appartamento (oggi in gran parte Goeppertia) sono solo 0, 7 e 8; le altre sono Calathea lutea, una specie tropicale da esterno (la 6 per il portamento)."
+ },
+ "t:12a40c77-38f2-4981-a1a1-8c44cb170701": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   4,
+   8,
+   9,
+   6,
+   0
+  ],
+  "nota": null
+ },
+ "t:e65b4a94-d30b-4bb7-ae32-b60c1b68159c": {
+  "problema": null,
+  "candidate": [
+   2,
+   6,
+   4,
+   10,
+   5
+  ],
+  "nota": null
+ },
+ "c:0b5cc5e3-0848-4299-92ae-8995a975cc4f": {
+  "problema": [
+   "eredita",
+   "Foto della specie Carex oshimensis"
+  ],
+  "candidate": [
+   4,
+   2,
+   5,
+   9,
+   10
+  ],
+  "nota": null
+ },
+ "t:b6ab2fba-d8ac-4bc3-9d44-98709e06d483": {
+  "problema": [
+   "parte",
+   "Solo una parte: un ragno su un'ombrella"
+  ],
+  "candidate": [
+   0,
+   3,
+   1,
+   9,
+   4
+  ],
+  "nota": "Solo foto della carota selvatica: nessuna della carota coltivata nell'orto."
+ },
+ "c:0e14a4e2-95f2-4f97-9c0c-928d5a698157": {
+  "problema": [
+   "sbagliata",
+   "Pianta sbagliata: mostra un broccolo romanesco"
+  ],
+  "candidate": [
+   2
+  ],
+  "nota": "Solo la 2 è cavolo nero (lacinato): le altre sono romanesco, verza, cavolo cappuccio e cavolo rapa, quasi tutti su sfondo neutro."
+ },
+ "t:84a32d28-db58-4d3d-96d8-2ec1d30abea3": {
+  "problema": null,
+  "candidate": [
+   9,
+   3,
+   0
+  ],
+  "nota": "Nessuna foto intera di Ceropegia woodii (la più coltivata in casa): la 9 ne mostra i fusti con foglie e frutti, la 3 e la 0 i fiori di C. sandersonii; le altre sono fiori di specie poco coltivate."
+ },
+ "t:dd091e8e-3821-4ae5-9f9a-83d23b8d97f4": {
+  "problema": null,
+  "candidate": [
+   2,
+   3,
+   5
+  ],
+  "nota": "Solo 6 candidate: oltre a queste ci sono un cesto di verdure misto e un mazzo di scalogni."
+ },
+ "t:b6ebe890-49be-40be-b322-01a80a25ee91": {
+  "problema": null,
+  "candidate": [
+   5,
+   11,
+   0,
+   7,
+   4
+  ],
+  "nota": null
+ },
+ "t:e4a61e7c-66c5-4b46-97be-a6dc9e57043c": {
+  "problema": null,
+  "candidate": [
+   3,
+   1,
+   4,
+   7,
+   0
+  ],
+  "nota": null
+ },
+ "t:f978452f-4ad3-4da3-b4c0-bd5b99a9542f": {
+  "problema": null,
+  "candidate": [
+   10,
+   3,
+   2,
+   9,
+   8
+  ],
+  "nota": "Prima le Cuphea a fiori rossi tubolari (tipo C. ignea), poi C. hyssopifolia (9, 8)."
+ },
+ "t:4d39b06e-d7df-43ec-9c74-c20cb5656d41": {
+  "problema": [
+   "parte",
+   "Solo una parte: fiore e foglie su sfondo neutro (museo)"
+  ],
+  "candidate": [
+   0,
+   3,
+   11,
+   8,
+   10
+  ],
+  "nota": null
+ },
+ "t:6eec2bf6-b34f-426e-87b0-4ef2290213a1": {
+  "problema": null,
+  "candidate": [
+   10,
+   6,
+   7,
+   8,
+   5
+  ],
+  "nota": null
+ },
+ "t:86575acb-9e7b-4b57-bf4e-56b32d7d2692": {
+  "problema": [
+   "sbagliata",
+   "Pianta sbagliata: aiuola mista, l'Echeveria non si distingue"
+  ],
+  "candidate": [
+   0,
+   9,
+   6,
+   8,
+   1
+  ],
+  "nota": null
+ },
+ "t:f6897d44-1d60-48ea-bfec-696813227035": {
+  "problema": null,
+  "candidate": [
+   11,
+   5,
+   6,
+   0,
+   4
+  ],
+  "nota": "Quasi tutte capolini da vicino: la 11 e la 5 mostrano meglio la pianta."
+ },
+ "c:be5242c3-3305-463d-91f1-b99180f7df2b": {
+  "problema": [
+   "eredita",
+   "Foto del genere Echinacea"
+  ],
+  "candidate": [
+   7,
+   6,
+   0,
+   5,
+   4
+  ],
+  "nota": "Nessuna foto della cultivar: Echinacea purpurea a fiori rosa. Scartata quella arancione (un'altra cultivar)."
+ },
+ "c:813be885-7b87-4b75-9907-a73f57242e48": {
+  "problema": [
+   "eredita",
+   "Foto della specie Glechoma hederacea"
+  ],
+  "candidate": [
+   6,
+   5,
+   9
+  ],
+  "nota": "Solo 3 foto della cultivar variegata: le altre mostrano la specie a foglie verdi."
+ },
+ "t:184fb0e8-5a31-4545-b1ce-4160f4699b61": {
+  "problema": null,
+  "candidate": [
+   0,
+   2,
+   3,
+   4,
+   8
+  ],
+  "nota": null
+ },
+ "t:d639db07-29c3-4fa1-ab62-61766a9bbc7f": {
+  "problema": null,
+  "candidate": [
+   9,
+   6,
+   5,
+   11,
+   8
+  ],
+  "nota": null
+ },
+ "t:0ad32543-5d4e-46a6-bf67-5711c91e8f62": {
+  "problema": null,
+  "candidate": [
+   11,
+   6,
+   2,
+   8,
+   4
+  ],
+  "nota": null
+ },
+ "t:7df3b961-dcb5-45f0-98b7-16cfa34015d6": {
+  "problema": [
+   "parte",
+   "Solo una parte: solo foglie"
+  ],
+  "candidate": [
+   1,
+   0,
+   8,
+   6,
+   11
+  ],
+  "nota": "Scartata la 3: è una sansevieria."
+ },
+ "t:1d1033ef-321b-4063-bf7f-d9bd3717eb77": {
+  "problema": null,
+  "candidate": [
+   6,
+   0,
+   2,
+   9,
+   1
+  ],
+  "nota": "Nessuna foto della pianta intera in vaso: la 6 mostra foglie e fiori, le altre steli fioriti."
+ },
+ "t:c96771f0-3690-49ae-a778-38cb3f74474b": {
+  "problema": null,
+  "candidate": [
+   10,
+   8,
+   5,
+   0,
+   9
+  ],
+  "nota": null
+ },
+ "t:5f960445-1b90-4237-a644-45f8c63f76ab": {
+  "problema": null,
+  "candidate": [
+   0,
+   7,
+   8,
+   5,
+   2
+  ],
+  "nota": null
+ },
+ "c:d13af4c1-bb1b-4f61-9d07-2cf2ed3a1de3": {
+  "problema": [
+   "eredita",
+   "Foto della specie Ficus elastica"
+  ],
+  "candidate": [
+   4,
+   0,
+   8,
+   5,
+   6
+  ],
+  "nota": "Nessuna foto della cultivar 'Belize': la 4 è un fico del caucciù variegato, le altre mostrano la specie. Scartate le foto di Ficus pertusa (un'altra specie)."
+ },
+ "t:ffeb4e54-5b4f-4ed0-9602-c87a0b608d67": {
+  "problema": null,
+  "candidate": [
+   9,
+   4,
+   2,
+   10,
+   3
+  ],
+  "nota": null
+ },
+ "t:78a2ea8d-da06-4b5c-adfe-17327807a731": {
+  "problema": null,
+  "candidate": [
+   6,
+   0,
+   5,
+   4,
+   2
+  ],
+  "nota": "Solo la 6 è un bonsai in vaso, come si coltiva in casa: le altre sono alberi adulti all'aperto."
+ },
+ "t:e9f66eec-ebf4-4ac9-b14a-12cb1ed6ff93": {
+  "problema": null,
+  "candidate": [
+   4,
+   2,
+   0,
+   6,
+   5
+  ],
+  "nota": null
+ },
+ "t:a67a91e6-c6e7-48a6-bc2a-b8f4de4174d3": {
+  "problema": [
+   "parte",
+   "Solo una parte: una bustina di semi"
+  ],
+  "candidate": [
+   0,
+   7,
+   6,
+   10,
+   9
+  ],
+  "nota": null
+ },
+ "t:bf4c9976-f912-4a37-b90d-8adf9906a252": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   9,
+   10,
+   7,
+   5,
+   2
+  ],
+  "nota": null
+ },
+ "c:8cf77b4f-809b-4d86-a49d-400cf309ce1e": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   2,
+   7,
+   8
+  ],
+  "nota": "'Gerwat' è la cultivar venduta come Rozanne: la 2 e la 7 sono Rozanne, la 8 è G. wallichianum 'Buxton's Blue', uno dei genitori e molto simile. Le altre sono altri gerani (una è un fungo)."
+ },
+ "t:b5c6e388-0c3f-47d9-be9c-8d917f806a80": {
+  "problema": null,
+  "candidate": [
+   4,
+   8,
+   5,
+   9,
+   0
+  ],
+  "nota": null
+ },
+ "t:ebddf5a2-e862-4f43-a681-514a5c1d5a59": {
+  "problema": [
+   "parte",
+   "Solo una parte: un fiore da vicino"
+  ],
+  "candidate": [
+   8,
+   5,
+   11,
+   4,
+   6
+  ],
+  "nota": "Per lo più infiorescenze da vicino: solo la 8 è in vaso."
+ },
+ "c:684c4661-048b-42d8-8b61-b0fcbd7b2033": {
+  "problema": [
+   "eredita",
+   "Foto del genere Heuchera"
+  ],
+  "candidate": [
+   3,
+   0,
+   6,
+   2
+  ],
+  "nota": "Nessuna foto di 'Boysenberry' (foglie viola scuro): un'aiuola di cultivar di Heuchera (3), 'Berry Smoothie' (0) e altre cultivar. Scartate le specie selvatiche e una foto di ossidiana."
+ },
+ "t:fd4d0a5e-f66e-4a8a-9ca6-e13299891dc4": {
+  "problema": null,
+  "candidate": [
+   4,
+   3,
+   0,
+   5,
+   11
+  ],
+  "nota": null
+ },
+ "t:864b22a3-1884-40c5-9f49-b219a42190f0": {
+  "problema": [
+   "parte",
+   "Solo una parte: solo foglie"
+  ],
+  "candidate": [
+   4,
+   5,
+   6,
+   3,
+   0
+  ],
+  "nota": null
+ },
+ "t:5423d5af-1d5a-483b-8d25-cc1e1fcb5e15": {
+  "problema": null,
+  "candidate": [
+   8,
+   11,
+   4,
+   6
+  ],
+  "nota": "Poche foto della pianta: la 8 e la 11 sono piante intere, la 4 e la 6 rami con frutti. Le altre sono frutti nel piatto o in mano."
+ },
+ "t:ab27a9e4-2636-4bf5-a120-f12f61179960": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   6,
+   1,
+   2,
+   11,
+   10
+  ],
+  "nota": null
+ },
+ "t:d8b5588c-dd9c-4961-b0dc-0169f7305dad": {
+  "problema": [
+   "parte",
+   "Solo una parte: un frutto"
+  ],
+  "candidate": [
+   2,
+   6,
+   3,
+   9,
+   4
+  ],
+  "nota": null
+ },
+ "t:e5831344-9d04-4f23-b6bc-eb7efb5cb7e2": {
+  "problema": null,
+  "candidate": [
+   2,
+   5,
+   0,
+   4,
+   3
+  ],
+  "nota": null
+ },
+ "c:2d7aec2f-6bf8-4e9c-8a0f-9ce447d08b1f": {
+  "problema": [
+   "eredita",
+   "Foto della specie Mammillaria elongata"
+  ],
+  "candidate": [
+   2,
+   5,
+   0,
+   4,
+   3
+  ],
+  "nota": "Nessuna foto della cultivar 'D One': foto della specie Mammillaria elongata. Scartata la forma crestata."
+ },
+ "t:9ad1d98c-882a-482d-ba4e-428aaa60b122": {
+  "problema": null,
+  "candidate": [
+   8,
+   5,
+   4,
+   3,
+   9
+  ],
+  "nota": null
+ },
+ "t:a271f415-c8ac-4886-b97b-4b2f8abdd8e5": {
+  "problema": null,
+  "candidate": [
+   3,
+   0,
+   7,
+   10,
+   2
+  ],
+  "nota": "Scartato l'ibrido con Glebionis (8)."
+ },
+ "t:efa26c11-80e5-4d0a-bb40-e21240b2ce92": {
+  "problema": null,
+  "candidate": [
+   1,
+   0,
+   6,
+   9,
+   5
+  ],
+  "nota": null
+ },
+ "t:d8fb0d20-5faa-48ad-8355-46a260615c4a": {
+  "problema": [
+   "sbagliata",
+   "Pianta sbagliata: mostra dei bucaneve"
+  ],
+  "candidate": [
+   3,
+   7,
+   6,
+   10,
+   9
+  ],
+  "nota": null
+ },
+ "c:c8fc8c3e-ba84-4bc6-8e9a-e46ceee9b8f4": {
+  "problema": [
+   "eredita",
+   "Foto della specie Narcissus poeticus"
+  ],
+  "candidate": [
+   2,
+   4,
+   6,
+   1,
+   0
+  ],
+  "nota": "Le foto di 'Recurvus' sono quasi tutte dettagli (corona, foglie, tepali): proposte la specie Narcissus poeticus (2, 4, 1), un cespo di 'Recurvus' non fiorito (6) e la corona di 'Recurvus' da vicino (0)."
+ },
+ "t:c56f825e-1941-4c22-b5d2-86f384bad24b": {
+  "problema": null,
+  "candidate": [
+   4,
+   6,
+   5,
+   0,
+   7
+  ],
+  "nota": null
+ },
+ "t:61dc5ba0-5ba7-4213-b14e-ad8bfcc99f08": {
+  "problema": null,
+  "candidate": [
+   6,
+   0,
+   4,
+   2,
+   10
+  ],
+  "nota": "Scartate le foto di Osteospermum moniliferum, un arbusto a fiori gialli molto diverso dalle «margherite del Capo» coltivate."
+ },
+ "t:2f91bb6c-b304-41ea-a59c-3a012811bedb": {
+  "problema": null,
+  "candidate": [
+   3,
+   4,
+   8,
+   2,
+   10
+  ],
+  "nota": null
+ },
+ "t:274476d9-6d8e-4a91-b1d8-7f8991f8f139": {
+  "problema": null,
+  "candidate": [
+   3,
+   0,
+   4,
+   7,
+   5
+  ],
+  "nota": "Le foto di Cenchrus purpurascens vanno bene: è il nome accettato della stessa pianta (Pennisetum alopecuroides). Scartata la 6, che è Cenchrus purpureus (erba elefante)."
+ },
+ "c:14d9b295-7652-4a7a-b652-586256ec9ccf": {
+  "problema": [
+   "parte",
+   "Solo una parte: frutti su sfondo neutro (museo)"
+  ],
+  "candidate": [
+   3,
+   11,
+   1,
+   10,
+   4
+  ],
+  "nota": "Nessuna foto della cultivar: la 3 è un peperoncino a frutti rossi allungati, il più simile; le altre sono piante di Capsicum annuum con frutti. Scartati i peperoni su sfondo neutro."
+ },
+ "t:8b75d73a-1b08-4246-94e8-557b02d69686": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   3,
+   0,
+   5,
+   4,
+   9
+  ],
+  "nota": null
+ },
+ "c:3570b46b-a708-48e1-8a50-73a9ff4de06e": {
+  "problema": [
+   "eredita",
+   "Foto della specie Phedimus spurius"
+  ],
+  "candidate": [
+   2,
+   6,
+   5,
+   1,
+   4
+  ],
+  "nota": null
+ },
+ "t:fd6f628a-917f-4495-b44f-f5e753c0b38b": {
+  "problema": null,
+  "candidate": [
+   10,
+   0,
+   8,
+   5,
+   3
+  ],
+  "nota": "Scartate due foto sbagliate: un'euforbia e una sansevieria."
+ },
+ "t:31d30bed-b555-4a8c-b364-77b31e0034f9": {
+  "problema": null,
+  "candidate": [
+   3,
+   2,
+   0
+  ],
+  "nota": "Solo 8 candidate: le altre sono tavole botaniche, capolini secchi e una foto in cui la pianta non si riconosce."
+ },
+ "t:9beef9ff-7c50-421d-b73e-79441f5f8110": {
+  "problema": [
+   "parte",
+   "Solo una parte: baccelli e semi (museo)"
+  ],
+  "candidate": [
+   6,
+   3,
+   5
+  ],
+  "nota": "Quasi tutte le candidate sono piatti di cucina o legumi secchi: restano la pianta in fiore (6), i baccelli raccolti nel cesto (3) e un baccello aperto (5)."
+ },
+ "t:fc703d55-e3e3-47e4-8da8-6935e623e98a": {
+  "problema": [
+   "parte",
+   "Solo una parte: capsule di semi"
+  ],
+  "candidate": [
+   2,
+   3,
+   1,
+   9,
+   6
+  ],
+  "nota": null
+ },
+ "t:acfe71a0-f954-477c-8dd1-fc088cc3137b": {
+  "problema": null,
+  "candidate": [
+   6,
+   7,
+   4,
+   0,
+   11
+  ],
+  "nota": "Scartate le foto di Epipremnum pinnatum (un'altra specie)."
+ },
+ "t:68fe14b7-444c-451f-9b60-63209bd471e8": {
+  "problema": null,
+  "candidate": [
+   11,
+   3,
+   0,
+   1,
+   4
+  ],
+  "nota": null
+ },
+ "t:c12d04a6-7a47-4f81-a44e-c59072da12da": {
+  "problema": null,
+  "candidate": [
+   3,
+   0,
+   2,
+   5,
+   4
+  ],
+  "nota": null
+ },
+ "t:4ae9ea82-18f3-4581-b955-a1c050db5393": {
+  "problema": [
+   "sbagliata",
+   "Pianta sbagliata: mostra un'altra specie di Allium"
+  ],
+  "candidate": [
+   9,
+   1,
+   10,
+   5,
+   11
+  ],
+  "nota": null
+ },
+ "t:3d8a8e5f-544e-4c26-b333-80d9519a11c5": {
+  "problema": null,
+  "candidate": [
+   8,
+   7,
+   1,
+   0,
+   5
+  ],
+  "nota": null
+ },
+ "t:8f31264f-b482-44f3-b7ea-a6de4e814a81": {
+  "problema": null,
+  "candidate": [
+   6,
+   1,
+   5,
+   9,
+   0
+  ],
+  "nota": null
+ },
+ "t:d3bb1b04-5f0d-4d6f-bc10-0c74d561ad87": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   2,
+   3,
+   10,
+   7,
+   0
+  ],
+  "nota": null
+ },
+ "t:1d56ca82-978c-410b-bd15-368745c6d701": {
+  "problema": [
+   "sbagliata",
+   "Pianta sbagliata: il soggetto principale è un sambuco"
+  ],
+  "candidate": [
+   3,
+   2,
+   1,
+   7,
+   0
+  ],
+  "nota": null
+ },
+ "t:3c85ee24-79c8-4553-ae34-9e8db65bbd4e": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   0,
+   4,
+   2,
+   7,
+   10
+  ],
+  "nota": null
+ },
+ "t:e3a6917a-8aa7-457e-9779-64a919f9b4a6": {
+  "problema": null,
+  "candidate": [
+   1,
+   6,
+   9,
+   8,
+   11
+  ],
+  "nota": null
+ },
+ "t:db384666-2f48-4515-91e6-c3348d325e9d": {
+  "problema": null,
+  "candidate": [
+   3,
+   1,
+   0,
+   5,
+   7
+  ],
+  "nota": "Scartata la 6, un'immagine al microscopio."
+ },
+ "t:26bf4053-07a1-4e99-8e38-b0a289d2702c": {
+  "problema": null,
+  "candidate": [
+   3,
+   6,
+   4,
+   2,
+   7
+  ],
+  "nota": null
+ },
+ "c:1383ae88-e972-4005-a291-34340d73d19a": {
+  "problema": [
+   "senza",
+   "Nessuna immagine"
+  ],
+  "candidate": [
+   0,
+   3,
+   11,
+   9
+  ],
+  "nota": "Nessuna foto di 'Happy Generation' (tulipano Triumph bianco a fiamme rosse): un campo di tulipani (0) e cultivar con petali fiammati (3, 11) o chiari (9). Scartate le doppie e le specie botaniche."
+ },
+ "t:8af24d1e-a329-4d63-8d54-0f8e3b53ddff": {
+  "problema": [
+   "parte",
+   "Solo una parte: infiorescenza su sfondo neutro (museo)"
+  ],
+  "candidate": [
+   0,
+   1,
+   2,
+   4
+  ],
+  "nota": null
+ },
+ "t:c43780f2-56c2-480a-834f-14f853b85720": {
+  "problema": null,
+  "candidate": [
+   2,
+   1,
+   3,
+   4,
+   5,
+   6
+  ],
+  "nota": null
+ },
+ "c:a6604cf1-88c1-43dd-9da8-d65fa63380ea": {
+  "problema": [
+   "eredita",
+   "Foto della specie Muscari armeniacum"
+  ],
+  "candidate": [
+   2,
+   1,
+   3,
+   4,
+   5
+  ],
+  "nota": "Nessuna foto della cultivar 'Manon' (fiori rosa pallido): sono foto della specie"
+ },
+ "c:d94486f9-7fd8-4820-bd92-a257e21425c7": {
+  "problema": [
+   "eredita",
+   "Foto della specie Scabiosa columbaria"
+  ],
+  "candidate": [
+   0,
+   7,
+   2,
+   8
+  ],
+  "nota": "Nessuna foto della cultivar 'Mariposa Blue': foto della specie; scartate quelle con farfalle e ragni in primo piano"
+ },
+ "t:4e412818-5ab7-41b2-b17c-0f8e3241638a": {
+  "problema": null,
+  "candidate": [
+   3,
+   7,
+   10,
+   0
+  ],
+  "nota": "L'attuale (verbena ibrida in vaso) va già bene"
+ },
+ "t:e13c2546-7b39-4169-8aa0-a1f6f0c7d184": {
+  "problema": null,
+  "candidate": [
+   0,
+   7,
+   1,
+   6,
+   11
+  ],
+  "nota": null
+ },
+ "t:2b63e2eb-85ea-4d7f-916f-5f5543df4435": {
+  "problema": null,
+  "candidate": [
+   1,
+   5,
+   6,
+   0,
+   3
+  ],
+  "nota": null
+ },
+ "t:a376c3dd-ab71-40d4-be09-96e1c3150f31": {
+  "problema": null,
+  "candidate": [
+   7,
+   10,
+   3,
+   8,
+   6
+  ],
+  "nota": "Poche foto di zinnie a pianta intera: sono soprattutto fiori in giardino"
+ },
+ "c:b4eb11b3-832f-49d9-871b-b3d407091273": {
+  "problema": [
+   "eredita",
+   "Foto del genere Zinnia"
+  ],
+  "candidate": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "nota": "Foto della cultivar e di altre Profusion della stessa serie"
+ },
+ "c:42b8d775-b854-429d-b897-434544ea92b0": {
+  "problema": [
+   "eredita",
+   "Foto del genere Zinnia"
+  ],
+  "candidate": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "nota": "Foto della cultivar (2) e di altre Profusion della stessa serie, nessuna foto in Commons della pianta intera di questa varietà"
+ },
+ "c:a727d569-4ce5-4a5b-8737-b818a03a1cbf": {
+  "problema": [
+   "eredita",
+   "Foto del genere Zinnia"
+  ],
+  "candidate": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "nota": "Foto della cultivar (2) e di altre Profusion della stessa serie, nessuna foto in Commons della pianta intera di questa varietà"
+ },
+ "t:6edb573d-354d-43b5-a91d-b3c8f9a559d0": {
+  "problema": null,
+  "candidate": [
+   3,
+   4,
+   9,
+   11,
+   10,
+   2
+  ],
+  "nota": "Scartate le Profusion (ibride) etichettate come angustifolia"
+ },
+ "t:2998ccb2-f07e-4537-ba5d-a6c6cbad528d": {
+  "problema": null,
+  "candidate": [
+   0,
+   5,
+   6,
+   10,
+   4
+  ],
+  "nota": "L'attuale mostra anche zucche Hokkaido, che sono un'altra specie (Cucurbita maxima)"
+ }
+}

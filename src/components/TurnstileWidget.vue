@@ -50,7 +50,9 @@ onMounted(async () => {
     if (!contenitore.value) return
     widgetId = turnstile.render(contenitore.value, {
       sitekey: siteKey,
-      theme: 'light',
+      // Stesso tema dell'app (useTema.js lo scrive su <html>), invece di un
+      // riquadro sempre chiaro in mezzo a una pagina scura.
+      theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
       language: 'it',
       size: 'flexible',
       // Il token dura 300 s: alla scadenza Turnstile ne chiede uno nuovo da

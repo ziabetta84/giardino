@@ -108,7 +108,9 @@ const ESEGUI = {
   },
   async meteo(_, { db, fetch }) {
     const s = controlla(await db.from('settings').select('location').maybeSingle())
-    const lat = s?.location?.lat ?? 43.8309, lon = s?.location?.lon ?? 12.9860
+    // Senza posizione nessun meteo di un altro posto (prima ripiegava su Fano): Zorba lo dice e chiede dove si trova il giardino.
+    if (s?.location?.lat == null || s?.location?.lon == null) return { posizione_mancante: true, nota: "L'utente non ha ancora impostato la posizione del giardino (Impostazioni giardino): nessun meteo disponibile." }
+    const lat = s.location.lat, lon = s.location.lon
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max,et0_fao_evapotranspiration&forecast_days=7&timezone=Europe%2FRome`
     const r = await fetch(url)
     if (!r.ok) throw new Error(`meteo ${r.status}`)

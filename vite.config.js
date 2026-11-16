@@ -60,6 +60,9 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Oltre al codice, i disegni per forma delle schede senza foto (src/assets/forme, unici SVG della build):
+        // pochi KB in tutto, così restano visibili anche offline.
+        globPatterns: ['**/*.{js,wasm,css,html}', 'assets/*.svg'],
         // Dati del giardino: rete se disponibile, altrimenti l'ultima copia salvata
         // (così l'app resta consultabile in giardino senza campo/rete).
         runtimeCaching: [
@@ -100,7 +103,10 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/,
+            // I caratteri sono serviti dall'app (pacchetti @fontsource-variable,
+            // non più Google Fonts): un file per sottoinsieme di caratteri, si
+            // scaricano solo quelli usati e si tengono in cache.
+            urlPattern: ({ request }) => request.destination === 'font',
             handler: 'CacheFirst',
             options: {
               cacheName: 'giardino-font',

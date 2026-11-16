@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { chiavePianta, colonneDaChiave, slugDaNome, creditoFoto, etichettaLivello, varietaNelTitolo, separaVia, statoVoce } from './catalogo.js'
+import { chiavePianta, colonneDaChiave, slugDaNome, creditoFoto, etichettaLivello, fotoVoce, varietaNelTitolo, separaVia, statoVoce } from './catalogo.js'
 
 const U = '0b6c2f4e-1f2a-4c3b-9d8e-7f6a5b4c3d2e'
 
@@ -74,6 +74,18 @@ test('la ricerca separa «via» dalla voce, che va nello store senza', () => {
   assert.deepEqual(voci, { 't:1': { chiave: 't:1', nome: 'Rosmarino' }, 't:2': { chiave: 't:2', nome: 'Pino' } })
   assert.deepEqual(via, { 't:1': { via: 'Rosmarinus officinalis', via_botanico: true } })
   assert.deepEqual(separaVia(null), { voci: {}, via: {} })
+})
+
+test('foto della voce: quella ereditata da un genere lascia il posto al disegno', () => {
+  const immagine = { url: 'https://example.org/foto.jpg' }
+  const dal = rango => ({ immagine: { rango, nome: 'X' } })
+  assert.equal(fotoVoce({ immagine, forma: 'albero', livelli: {} }), immagine) // foto propria
+  assert.equal(fotoVoce({ immagine, forma: 'albero', livelli: dal('genus') }), null)
+  assert.equal(fotoVoce({ immagine, forma: 'albero', livelli: dal('family') }), null)
+  assert.equal(fotoVoce({ immagine, forma: 'albero', livelli: dal('species') }), immagine) // varietà con la foto della specie
+  assert.equal(fotoVoce({ immagine, livelli: dal('genus') }), immagine) // senza forma resta la foto
+  assert.equal(fotoVoce({ forma: 'albero', livelli: {} }), null)
+  assert.equal(fotoVoce(null), null)
 })
 
 test('stato della voce per il badge', () => {

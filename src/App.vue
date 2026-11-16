@@ -55,7 +55,7 @@ import { useTema } from '@/composables/useTema'
 
 const store = useDatiStore()
 const route = useRoute()
-const { utente, caricamento, recuperoInCorso } = useAuth()
+const { utente, caricamento, recuperoInCorso, sessionePronta } = useAuth()
 const { riconciliaConSettings } = useTema()
 
 
@@ -77,10 +77,18 @@ const { riconciliaConSettings } = useTema()
 // mai insieme.
 let idUtenteCaricato = null
 
+//
+// Senza sessione non si carica nulla: le tabelle sono per utente (RLS) e la
+// pagina di accesso non ne usa nessuna, quindi le richieste a Supabase
+// partirebbero solo per tornare vuote (critica del 30/10/2026). I dati
+// arrivano con l'accesso, dal watch qui sotto.
 onMounted(async () => {
-  await store.caricaTutto()
+  await sessionePronta
+  if (utente.value) {
+    await store.caricaTutto()
+    riconciliaConSettings()
+  }
   idUtenteCaricato = utente.value?.id ?? null
-  riconciliaConSettings()
 
   // Confrontiamo solo l'id (stringa primitiva), non l'intero oggetto utente:
   // onAuthStateChange riemette un nuovo oggetto anche per eventi che non
@@ -90,7 +98,9 @@ onMounted(async () => {
     const id = nuovoId ?? null
     if (id === idUtenteCaricato) return
     idUtenteCaricato = id
-    store.aggiorna()
+    // All'uscita non si ricarica: al prossimo accesso aggiorna() sostituisce
+    // tutti i dati del vecchio utente prima che una vista li mostri.
+    if (id) store.aggiorna().then(riconciliaConSettings)
   })
 })
 </script>

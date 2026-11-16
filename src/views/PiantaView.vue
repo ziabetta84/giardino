@@ -76,6 +76,11 @@
           </div>
           <RouterLink :to="`/piante/${route.params.id}/modifica`" class="phead-text__edit"><Icon name="matita" /> Modifica</RouterLink>
         </div>
+        <!-- Senza foto: il disegno della forma della pianta, firmato come un acquerello del taccuino -->
+        <figure v-if="disegno" class="pdis">
+          <img :src="disegno.url" :alt="disegno.alt">
+          <figcaption class="pdis__firma">Zorba in giardino</figcaption>
+        </figure>
       </div>
 
       <!-- Stato cure: le righe urgenti si distinguono per colore (.care-act--rose)
@@ -232,7 +237,8 @@ import { useDatiStore } from '@/stores/dati'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
-import { creditoFoto, etichettaLivello, varietaNelTitolo } from '@/utils/catalogo'
+import { creditoFoto, etichettaLivello, fotoVoce, varietaNelTitolo } from '@/utils/catalogo'
+import { disegnoForma } from '@/utils/forme'
 import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura, iconaEsigenza, capitalizza } from '@/composables/useCureVisual'
@@ -269,11 +275,13 @@ const indiceFotoCorrente = ref(0)
 // l'attribuzione richiesta dalla licenza). Solo header testuale se manca
 // anche quella.
 const fotoHero = computed(() => {
-  const img = specie.value?.immagine
+  const img = fotoVoce(specie.value)
   return img ? { url: img.url, thumbUrl: urlMiniatura(img.url, 800), fallback: true, immagine: img } : null
 })
 // Attribuzione richiesta dalla licenza (TASL), senza nominare il sito da cui viene la foto
 const credito = computed(() => creditoFoto(fotoHero.value?.immagine))
+// Senza nessuna foto (né della galleria né del catalogo), il disegno della forma della pianta
+const disegno = computed(() => (fotoPianta.value.length ? null : disegnoForma(specie.value)))
 const hasPhotos = computed(() => fotoPianta.value.length > 0)
 const soloHero  = computed(() => !hasPhotos.value && !!fotoHero.value)
 const slides    = computed(() => (hasPhotos.value ? fotoPianta.value : (fotoHero.value ? [fotoHero.value] : [])))
@@ -479,6 +487,17 @@ async function eliminaPianta() {
 .phead-credit:hover { color: #fdf8ee; }
 .phead-credit a { color: inherit; }
 .livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
+
+/* Disegno della forma (nessuna foto disponibile): una pagina del taccuino, firmata in basso a destra
+   come un acquerello. La firma è in Fraunces, il carattere dei titoli. */
+.pdis { position: relative; margin: 14px 0 0; max-width: 420px; }
+.pdis img { display: block; width: 100%; aspect-ratio: 4 / 3; border-radius: 16px; }
+.pdis__firma {
+  position: absolute; right: 12px; bottom: 9px;
+  font: italic 500 11px/1 var(--font-display); letter-spacing: .02em;
+  /* Sulla carta del disegno, crema in entrambi i temi: inchiostro fisso, non il token che in scuro si schiarisce */
+  color: #5a4e3e; opacity: .6; pointer-events: none;
+}
 
 /* Header testuale ridotto (nessuna foto disponibile). */
 .phead-text { margin: -8px 0 4px; }

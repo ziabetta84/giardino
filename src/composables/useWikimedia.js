@@ -12,8 +12,18 @@ const RE_COMMONS = /^(https:\/\/upload\.wikimedia\.org\/wikipedia\/commons)\/([^
 // più vicino: https://www.mediawiki.org/wiki/Common_thumbnail_sizes
 const STEP_LARGHEZZE = [20, 40, 60, 120, 250, 330, 500, 960, 1280, 1920, 3840]
 
+// Le foto di iNaturalist (…/photos/<id>/large.jpg) esistono già in più misure, indicate dal lato lungo:
+// small 240, medium 500, large 1024 px. Con «large» anche una miniatura da 48 px scaricava circa 600 KB.
+const RE_INAT = /^(https:\/\/(?:inaturalist-open-data\.s3\.amazonaws\.com|static\.inaturalist\.org)\/photos\/\d+)\/(?:square|small|medium|large|original)(\.\w+)$/i
+const MISURE_INAT = [[240, 'small'], [500, 'medium'], [1024, 'large']]
+
 export function urlMiniatura(url, larghezzaMinima) {
   if (!url) return url
+  const inat = url.match(RE_INAT)
+  if (inat) {
+    const [, misura] = MISURE_INAT.find(([lato]) => lato >= larghezzaMinima) ?? MISURE_INAT[MISURE_INAT.length - 1]
+    return `${inat[1]}/${misura}${inat[2]}`
+  }
   const m = url.match(RE_COMMONS)
   if (!m) return url
   const [, base, dir1, dir2, file] = m

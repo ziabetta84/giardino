@@ -17,6 +17,7 @@ const routes = [
   { path: '/agente',                    name: 'agente',         component: () => import('@/views/AgenteView.vue') },
   { path: '/gallery',                   name: 'gallery',        component: () => import('@/views/GalleryView.vue') },
   { path: '/account',                   name: 'account',        component: () => import('@/views/AccountView.vue') },
+  { path: '/privacy',                   name: 'privacy',        component: () => import('@/views/PrivacyView.vue') },
   { path: '/impostazioni',              name: 'impostazioni',   component: () => import('@/views/SettingsView.vue') },
   { path: '/impostazioni/irrigazione',  name: 'irrigazione',    component: () => import('@/views/IrrigazioneView.vue') },
   { path: '/:pathMatch(.*)*',           name: 'not-found',      redirect: '/' },
@@ -40,7 +41,8 @@ router.beforeEach(async (to) => {
   // `utente`: senza questo controllo, un redirect di reset che non atterra
   // già su /account (es. sulla Home) mostrerebbe quella rotta invece del
   // form "Nuova password", pur restando nel layout slim di App.vue.
-  if ((!utente.value || recuperoInCorso.value) && to.name !== 'account') return { name: 'account' }
+  // L'informativa privacy si legge anche senza account: serve prima di registrarsi.
+  if ((!utente.value || recuperoInCorso.value) && !['account', 'privacy'].includes(to.name)) return { name: 'account' }
 })
 
 export default router

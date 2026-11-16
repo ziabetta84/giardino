@@ -3,7 +3,13 @@
     <h1 class="page-title" :style="{ marginBottom: aggiornatoAlle ? '4px' : '20px' }">Meteo</h1>
     <p v-if="aggiornatoAlle" class="meteo-aggiornato">Aggiornato alle {{ aggiornatoAlle }}</p>
 
-    <div v-if="loading" class="ledger">
+    <div v-if="senzaPosizione" class="empty">
+      <Icon name="pin" />
+      <p><b>Dimmi dove si trova il giardino</b>Senza la posizione non guardo il meteo: niente previsioni, e le irrigazioni non vengono rimandate quando piove.</p>
+      <RouterLink class="pill pill--cta" to="/impostazioni" style="margin-top:14px;text-decoration:none;display:inline-flex;align-items:center;">Imposta la posizione</RouterLink>
+    </div>
+
+    <div v-else-if="loading" class="ledger">
       <div v-for="i in 6" :key="i" class="day-skel">
         <div class="skeleton day-skel__ic"></div>
         <div class="day-skel__m">
@@ -107,7 +113,7 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref, computed } from 'vue'
-import { useMeteo, LOCATION_FALLBACK } from '@/composables/useMeteo'
+import { useMeteo, posizioneGiardino } from '@/composables/useMeteo'
 import { pioggiaInArrivo, pioggiaCumulata2gg } from '@/composables/useCure'
 import { useDatiStore } from '@/stores/dati'
 import Icon from '@/components/Icon.vue'
@@ -180,9 +186,13 @@ const giornoSelezionato = ref(null)
 function apriDettaglio(g) { giornoSelezionato.value = g }
 function chiudiDettaglio() { giornoSelezionato.value = null }
 
+// Vero quando l'utente non ha impostato la posizione: la pagina
+// chiede la posizione invece di mostrare il cielo di un altro posto.
+const senzaPosizione = ref(false)
 function caricaMeteo() {
-  const s = store.settings
-  carica(s?.location?.lat ?? LOCATION_FALLBACK.lat, s?.location?.lon ?? LOCATION_FALLBACK.lon)
+  const posizione = posizioneGiardino(store.settings)
+  senzaPosizione.value = !posizione
+  if (posizione) carica(posizione.lat, posizione.lon)
 }
 
 onMounted(async () => {

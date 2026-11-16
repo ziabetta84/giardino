@@ -76,6 +76,17 @@ export function separaVia(risultati) {
   return { voci, via }
 }
 
+// La foto da mostrare per una voce. Una foto ereditata da un genere o da un livello più alto ritrae un'altra specie:
+// se la voce ha una forma, si mostra il disegno di quella forma (utils/forme.js), che dice solo ciò che è vero per la
+// pianta. La foto della specie per sottospecie, varietà e cultivar resta. Senza forma si tiene la foto, anche ereditata.
+const SOPRA_LA_SPECIE = new Set(['species aggregate', 'section botany', 'subgenus', 'genus', 'subtribe', 'tribe', 'subfamily',
+  'family', 'superorder', 'order', 'subclass', 'class', 'subphylum', 'phylum', 'subkingdom', 'kingdom', 'domain'])
+export function fotoVoce(voce) {
+  const immagine = voce?.immagine
+  if (!immagine?.url) return null
+  return voce.forma && SOPRA_LA_SPECIE.has(voce.livelli?.immagine?.rango) ? null : immagine
+}
+
 // Stato da mostrare nel badge: una voce senza nessun campo di scheda (nemmeno ereditato) non è una bozza, è «senza
 // scheda»; lo stesso criterio ordina i risultati della ricerca nel database (cerca_catalogo).
 const CAMPI_SCHEDA = ['descrizione', 'esigenze', 'manutenzione', 'coltivazione', 'ciclo_vitale', 'vaso', 'alert', 'immagine']

@@ -1,0 +1,63 @@
+{
+ "c:0e14a4e2-95f2-4f97-9c0c-928d5a698157": [
+  "filetype:bitmap lacinato",
+  "filetype:bitmap \"cavolo nero\"",
+  "filetype:bitmap palmifolia Brassica"
+ ],
+ "t:9beef9ff-7c50-421d-b73e-79441f5f8110": [
+  "filetype:bitmap deepcat:\"Pisum_sativum\""
+ ],
+ "c:8cf77b4f-809b-4d86-a49d-400cf309ce1e": [
+  "filetype:bitmap Geranium Rozanne"
+ ],
+ "c:b4eb11b3-832f-49d9-871b-b3d407091273": [
+  "filetype:bitmap Zinnia Profusion"
+ ],
+ "c:42b8d775-b854-429d-b897-434544ea92b0": [
+  "filetype:bitmap Zinnia Profusion"
+ ],
+ "c:a727d569-4ce5-4a5b-8737-b818a03a1cbf": [
+  "filetype:bitmap Zinnia Profusion"
+ ],
+ "c:be5242c3-3305-463d-91f1-b99180f7df2b": [
+  "filetype:bitmap deepcat:\"Echinacea_purpurea\""
+ ],
+ "c:684c4661-048b-42d8-8b61-b0fcbd7b2033": [
+  "filetype:bitmap Heuchera Boysenberry OR \"Palace Purple\" OR \"Obsidian\" OR \"Plum Pudding\""
+ ],
+ "c:1383ae88-e972-4005-a291-34340d73d19a": [
+  "filetype:bitmap \"Happy Generation\" tulip OR Tulipa"
+ ],
+ "c:d13af4c1-bb1b-4f61-9d07-2cf2ed3a1de3": [
+  "filetype:bitmap \"Ficus elastica\" variegata OR Belize OR Tineke OR Ruby"
+ ],
+ "t:3c85ee24-79c8-4553-ae34-9e8db65bbd4e": [
+  "filetype:bitmap deepcat:\"Thymus_citriodorus\"",
+  "filetype:bitmap \"Thymus citriodorus\" OR \"Thymus x citriodorus\" OR \"lemon thyme\""
+ ],
+ "t:274476d9-6d8e-4a91-b1d8-7f8991f8f139": [
+  "filetype:bitmap deepcat:\"Pennisetum_alopecuroides\""
+ ],
+ "t:184fb0e8-5a31-4545-b1ce-4160f4699b61": [
+  "filetype:bitmap deepcat:\"Gaura_lindheimeri\""
+ ],
+ "c:3570b46b-a708-48e1-8a50-73a9ff4de06e": [
+  "filetype:bitmap \"Sedum spurium\" Tricolor"
+ ],
+ "t:6eec2bf6-b34f-426e-87b0-4ef2290213a1": [
+  "filetype:bitmap deepcat:\"Sansevieria_trifasciata\""
+ ],
+ "t:4ae9ea82-18f3-4581-b955-a1c050db5393": [
+  "filetype:bitmap shallot OR scalogno OR échalote OR \"Allium ascalonicum\" OR \"Allium cepa var. aggregatum\""
+ ],
+ "c:2d7aec2f-6bf8-4e9c-8a0f-9ce447d08b1f": [
+  "filetype:bitmap \"Mammillaria elongata\""
+ ],
+ "t:0ad32543-5d4e-46a6-bf67-5711c91e8f62": [
+  "filetype:bitmap deepcat:\"Erica_carnea\"",
+  "filetype:bitmap intitle:\"Erica\" heather plant"
+ ],
+ "t:5f4ff97b-7f8f-49e7-b81b-d906705b5e04": [
+  "filetype:bitmap intitle:\"Laurus nobilis\""
+ ]
+}
