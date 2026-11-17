@@ -76,9 +76,11 @@ test('concimazione con concime scelto: chi ha un fabbisogno diverso resta senza 
   assert.equal(gruppoDi(g, 'pomodoro'), 'daFare')
   assert.equal(trova(g, 'pomodoro').spuntata, true)
   assert.equal(trova(g, 'pomodoro').avviso, null)
+  assert.equal(trova(g, 'pomodoro').adatto, true)
+  assert.equal(trova(g, 'rosaMeta').adatto, false)
   // 16 giorni su 30, ma fabbisogno 4-8-12: senza spunta, con il consiglio
   assert.equal(trova(g, 'rosaMeta').spuntata, false)
-  assert.equal(trova(g, 'rosaMeta').avviso, 'Fabbisogno diverso (4-8-12): meglio Fioriti (4-8-12)')
+  assert.equal(trova(g, 'rosaMeta').avviso, 'Fabbisogno 4-8-12: meglio Fioriti (4-8-12)')
   // scheda «mai»: esclusa anche dalla concimazione
   assert.equal(gruppoDi(g, 'aloe'), 'escluse')
   // senza concime scelto non si giudica il fabbisogno

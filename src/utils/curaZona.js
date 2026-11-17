@@ -84,10 +84,13 @@ function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, c
       esito = {
         ...esito,
         spuntata: false,
-        avviso: `Fabbisogno diverso (${npk}): ${consigliato ? `meglio ${consigliato.nome} (${formattaNPK(consigliato.npk)})` : 'nessun concime adatto tra i tuoi'}`,
+        adatto: false,
+        avviso: `Fabbisogno ${npk}: ${consigliato ? `meglio ${consigliato.nome} (${formattaNPK(consigliato.npk)})` : 'nessuno dei tuoi concimi è adatto'}`,
       }
     } else if (adatto === null && npk == null) {
       esito = { ...esito, avviso: 'Fabbisogno NPK non indicato nella scheda' }
+    } else if (adatto) {
+      esito = { ...esito, adatto: true }
     }
   }
   return esito
@@ -113,6 +116,8 @@ export function classificaCuraZona({
       spuntata: esito.gruppo === 'escluse' ? false : esito.spuntata,
       motivo: esito.motivo,
       avviso: esito.avviso ?? null,
+      // Solo con un concime scelto: true/false se adatto, null se non giudicabile.
+      adatto: esito.adatto ?? null,
     })
   }
   const perNome = (a, b) => a.nome.localeCompare(b.nome, 'it')

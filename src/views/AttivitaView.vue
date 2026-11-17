@@ -42,6 +42,7 @@
            registrata su tutta un'aiuola, con le piante scelte nel foglio). -->
       <div v-if="tabAttiva !== 'progetti'" class="modo" role="radiogroup" aria-label="Come mostrare le cure">
         <button type="button" role="radio" :aria-checked="modo === 'urgenza'" class="modo__b" :class="{ 'modo__b--attivo': modo === 'urgenza' }" @click="scegliModo('urgenza')">Per urgenza</button>
+        <span class="modo__sep" aria-hidden="true"></span>
         <button type="button" role="radio" :aria-checked="modo === 'zona'" class="modo__b" :class="{ 'modo__b--attivo': modo === 'zona' }" @click="scegliModo('zona')">Per zona</button>
       </div>
 
@@ -137,12 +138,18 @@
     <FoglioLaterale
       :model-value="!!curaZona"
       @update:model-value="v => { if (!v) chiudiCuraZona() }"
-      :titolo="curaZona ? (curaZona.sottozona ? `${curaZona.zona} – ${curaZona.sottozona}` : curaZona.zona) : ''"
     >
+      <!-- Intestazione: quale cura e dove, prima di tutto il resto. -->
+      <template #intestazione>
+        <div v-if="curaZona" class="fz-hd">
+          <span class="care__ic" :class="`care__ic--${tipoZona}`"><Icon :name="iconaCura(tipoZona)" /></span>
+          <h3>{{ LABEL_CURA[tipoZona] }} <span class="fz-hd__dove">· {{ curaZona.sottozona ? `${curaZona.zona} – ${curaZona.sottozona}` : curaZona.zona }}</span></h3>
+        </div>
+      </template>
       <FoglioCuraZona v-if="curaZona" :key="`${curaZona.zona}|${curaZona.sottozona}|${tabAttiva}`"
         :zona="curaZona.zona" :sottozona="curaZona.sottozona" :tab="tabAttiva"
         :salvando="salvandoZona" :errore="erroreZona"
-        @registra="registraZona" />
+        @registra="registraZona" @tipo="t => tipoZona = t" />
     </FoglioLaterale>
 
     <ToastCura ref="toastCura" @errore="onErroreToast" />
@@ -161,6 +168,7 @@ import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
 import AttivitaPerZona from '@/components/AttivitaPerZona.vue'
 import FoglioCuraZona from '@/components/FoglioCuraZona.vue'
+import { LABEL_CURA, iconaCura } from '@/composables/useCureVisual'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import DossierPianta from '@/components/DossierPianta.vue'
 import ToastCura from '@/components/ToastCura.vue'
@@ -322,6 +330,7 @@ function scegliModo(m) {
 }
 
 const curaZona = ref(null)
+const tipoZona = ref('irrigazione')
 const salvandoZona = ref(false)
 const erroreZona = ref(null)
 function apriCuraZona(z) { erroreZona.value = null; curaZona.value = z }
@@ -359,14 +368,26 @@ function onErroreToast(e) {
 .attivita-data { font-family: var(--font-sans); font-size: 12px; color: var(--ink-soft); margin: 4px 2px 20px; }
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
 
-/* Commutatore «Per urgenza · Per zona»: due segmenti, più sobrio delle tab
-   sopra perché cambia la vista, non il contenuto. */
-.modo { display:inline-flex; gap:2px; padding:3px; margin:-8px 0 18px; border-radius:999px; background:var(--cream-dark); }
-.modo__b { min-height:36px; padding:0 14px; border:none; border-radius:999px; background:none; cursor:pointer;
-  font:600 12px/1 var(--font-sans); color:var(--ink-mid);
-  transition: background var(--motion-quick) var(--ease-standard), color var(--motion-quick) var(--ease-standard); }
-.modo__b--attivo { background:var(--white); color:var(--ink); box-shadow:0 1px 4px rgba(42,34,24,0.12); }
-.modo__b:focus-visible { outline:none; box-shadow:0 0 0 3px var(--gold); }
+/* Commutatore «Per urgenza · Per zona»: due voci di testo, più discrete
+   delle tab sopra perché cambiano il modo di guardare, non il contenuto.
+   La voce attiva è in salvia e sottolineata, come la scelta in corso nel
+   resto dell'app. */
+.modo { display:flex; align-items:center; gap:4px; margin:-14px 0 8px; }
+.modo__b { min-height:44px; padding:0 6px; border:none; background:none; cursor:pointer;
+  font:500 13px/1 var(--font-sans); color:var(--ink-mid);
+  text-decoration:underline 2px transparent; text-underline-offset:7px;
+  transition: color var(--motion-quick) var(--ease-standard), text-decoration-color var(--motion-quick) var(--ease-standard); }
+.modo__b:first-child { padding-left:2px; }
+.modo__b:hover { color:var(--ink); }
+.modo__b--attivo { font-weight:600; color:var(--sage-ink); text-decoration-color:var(--sage); }
+.modo__b:focus-visible { outline:none; box-shadow:0 0 0 3px var(--gold); border-radius:8px; }
+.modo__sep { width:3px; height:3px; border-radius:999px; background:var(--ink-faint); }
+
+/* Intestazione del foglio «cura per zona». */
+.fz-hd { display:flex; align-items:center; gap:10px; min-width:0; }
+.fz-hd .care__ic { flex:none; }
+.fz-hd h3 { margin:0; font:600 16px/1.2 var(--font-display); color:var(--ink); min-width:0; }
+.fz-hd__dove { color:var(--ink-mid); font-weight:500; }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 
 .tappa-lista { display:flex; flex-direction:column; margin-bottom:24px; position:relative; }
