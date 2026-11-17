@@ -21,12 +21,12 @@
           </span>
           <span class="dd-m">
             <span class="dd-name">
-              {{ s.nome }}
+              <NomeScientifico :nome="s.nome" />
               <span v-if="s.cultivarDi" class="badge-mini cv">{{ s.cultivarDi }}</span>
               <span v-else-if="s.stato === 'bozza'" class="badge-mini bz">bozza</span>
               <span v-else-if="s.stato === 'senza scheda'" class="badge-mini ns">senza scheda</span>
             </span>
-            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
+            <span v-if="s.nomeComune" class="dd-comune">{{ s.nomeComune }}</span>
             <span v-if="s.viaSinonimo" class="dd-sci">{{ s.viaBotanico ? 'sinonimo' : 'detta anche' }} «{{ s.viaSinonimo }}»</span>
           </span>
         </div>
@@ -186,9 +186,12 @@ const dossierAperto  = ref(false)
 // caratteri cerca in tutto il catalogo con cerca_catalogo (una POST, mai in cache), che restituisce voci complete:
 // finiscono nello store, così la scheda della voce scelta non richiede un'altra richiesta. Finché la ricerca non
 // risponde, o senza rete, filtra le voci già nello store.
+const nomeVoce = v => v ? (v.specie || v.nome || '') : ''
+
 function riga(v, trovata = null) {
   return {
-    key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
+    // Nome scientifico per primo, come nel resto dell'app; il nome comune italiano sotto, quando c'è
+    key: v.chiave, nome: v.specie || v.nome, nomeComune: nomeComuneVoce(v),
     viaSinonimo: trovata?.via ?? null, viaBotanico: !!trovata?.via_botanico,
     stato: statoVoce(v), immagine: fotoVoce(v), forma: v.forma ?? null,
     cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
@@ -284,7 +287,7 @@ watch(() => props.modelValue, async (val) => {
   if (val && !store.catalogo?.[val]) {
     try { await store.caricaVoci([val]) } catch (e) { console.error('Voce del catalogo non disponibile', e) }
   }
-  if (!dropdownAperto.value) specieQuery.value = store.catalogo?.[val]?.nome ?? ''
+  if (!dropdownAperto.value) specieQuery.value = nomeVoce(store.catalogo?.[val])
 }, { immediate: true })
 
 function selezionaSpecie(s) {
@@ -308,7 +311,7 @@ function chiudiDropdown() {
     dropdownAperto.value = false
     // Se l'utente ha digitato senza selezionare nulla dall'elenco, ripristina
     // il testo sul nome della voce effettivamente selezionata (o vuoto).
-    specieQuery.value = store.catalogo?.[props.modelValue]?.nome ?? ''
+    specieQuery.value = nomeVoce(store.catalogo?.[props.modelValue])
   }, 150)
 }
 
@@ -509,6 +512,12 @@ watch(() => props.modelValue, () => {
   gap: 6px;
   flex-wrap: wrap;
   word-break: break-word;
+}
+.dd-comune {
+  display: block;
+  font: 400 11.5px/1.3 var(--font-sans);
+  color: var(--ink-soft);
+  margin-top: 1px;
 }
 .dd-sci {
   display: block;

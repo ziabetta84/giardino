@@ -40,7 +40,7 @@
                vedi critica del 07/09/2026 sull'affollamento su mobile stretto. -->
           <div class="gpost__hd">
             <span v-if="g.isGenerale" class="gpost__name">Foto generiche</span>
-            <RouterLink v-else :to="`/piante/${g.piantaId}`" class="gpost__name">{{ g.nomeSpecie }}</RouterLink>
+            <RouterLink v-else :to="`/piante/${g.piantaId}`" class="gpost__name"><NomeScientifico :nome="g.nomeSpecie" /></RouterLink>
             <div class="gpost__hd-meta">
               <span v-if="!g.isGenerale && g.zona" class="chip">
                 <Icon :name="g.sottozona ? store.iconaSottozona(g.zona, g.sottozona) : store.iconaZona(g.zona)" />{{ g.sottozona ? `${g.zona} · ${g.sottozona}` : g.zona }}
@@ -209,6 +209,7 @@ import { useGalleria } from '@/composables/useGalleria'
 import ModalConferma from '@/components/ModalConferma.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import Icon from '@/components/Icon.vue'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const store = useDatiStore()

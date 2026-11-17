@@ -162,7 +162,7 @@
           <template v-else>
             <span class="care__ic" :class="`care__ic--${a.tipo}`"><Icon :name="iconaCura(a.tipo)" /></span>
             <div class="task__m">
-              <div class="task__n">{{ a.nomeSpecie }}</div>
+              <div class="task__n"><NomeScientifico :nome="a.nomeSpecie" /></div>
               <div class="task__d">{{ a.label }}</div>
               <div v-if="a.tipo === 'concimazione' && a.suggerimento" class="attivita-riga__sugg">
                 <Icon name="concimazione" /> Consigliato: {{ a.suggerimento.nome }} ({{ a.suggerimento.npk.n }}-{{ a.suggerimento.npk.p }}-{{ a.suggerimento.npk.k }})
@@ -244,6 +244,7 @@
 <script setup>
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useDatiStore } from '@/stores/dati'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 import { useAuth } from '@/composables/useAuth'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'

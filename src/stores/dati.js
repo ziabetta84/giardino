@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { nomeComuneVoce } from '@/utils/nomeScientifico'
 import { ref } from 'vue'
 import { useMeteo, posizioneGiardino } from '@/composables/useMeteo'
 import { useSupabase } from '@/composables/useSupabase'
@@ -283,9 +284,15 @@ export const useDatiStore = defineStore('dati', () => {
     return pianta?.voce ? (catalogo.value?.[pianta.voce] ?? null) : null
   }
 
-  // Nome da mostrare per una pianta; senza voce (offline alla prima apertura) «Pianta»
+  // Nome da mostrare per una pianta: il nome scientifico (17/11/2026, scelta di Roberta: i nomi comuni sono a volte
+  // strani e poco comuni); senza voce (offline alla prima apertura) «Pianta». Il nome comune italiano, quando c'è,
+  // va sotto o accanto con nomeComunePianta. Nei template il nome va in <NomeScientifico>, per il corsivo.
   function nomePianta(pianta) {
-    return vocePianta(pianta)?.nome ?? 'Pianta'
+    const voce = vocePianta(pianta)
+    return voce?.specie || voce?.nome || 'Pianta'
+  }
+  function nomeComunePianta(pianta) {
+    return nomeComuneVoce(vocePianta(pianta))
   }
 
   async function caricaMeteo() {
@@ -317,5 +324,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, iconaZona, iconaSottozona }
+  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, nomeComunePianta, iconaZona, iconaSottozona }
 })
