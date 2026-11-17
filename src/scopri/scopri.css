@@ -188,6 +188,21 @@ i { font-style: italic; }
 }
 @media (min-width: 900px) { .apertura__tavola img { aspect-ratio: 5 / 4; } }
 @media (prefers-color-scheme: dark) { .apertura__tavola img { filter: brightness(0.92); } }
+/* Zorba esce dal dipinto e si ferma sul bordo della tavola, sul punto
+   dove comincia il sentiero della pagina: è lui che accompagna il giro. */
+.zorba--apertura {
+  position: absolute; left: -5%; bottom: -15%;
+  width: 44%; height: auto;
+  pointer-events: none;
+}
+.zorba--apertura .zorba__coda { animation: coda 6s var(--ease) infinite; transform-origin: 131px 267px; }
+.zorba--apertura .zorba__occhio-g { animation: occhio 5.5s linear infinite; transform-origin: 401px 143px; }
+/* Sul telefono la tavola con Zorba viene prima del titolo: è lui che si
+   vede per primo, come sul computer. */
+@media (max-width: 899px) {
+  .apertura__tavola { order: -1; margin-bottom: 34px; }
+  .zorba--apertura { left: -2%; bottom: -22%; width: 40%; }
+}
 .apertura__didascalia {
   position: absolute; right: 18px; bottom: -34px;
   transform: rotate(-2deg);
