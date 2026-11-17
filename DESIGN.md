@@ -387,6 +387,9 @@ SVG a china animato: coda che oscilla (4.6s, easing morbido) e occhio che sbatte
 
 **La Regola dei Due Battiti.** Lento = un evento raro che merita di essere notato. Normale = una conferma frequente che deve solo sentirsi certa. Non scambiarli: usare il battito lento per un'azione quotidiana lo svaluterebbe, usare quello normale per un evento raro lo renderebbe invisibile.
 
+### Minisito di presentazione (`/scopri/`)
+Pagina pubblica statica (`scopri/index.html`, stili in `src/scopri/scopri.css`, nessun Vue), nello stesso mondo del Taccuino: stessi token, stessi caratteri, Zorba nero. Due differenze volute rispetto all'app, perché è una pagina da leggere e non uno strumento da usare: la scala dei caratteri è più grande (corpo 17px, titoli fluidi fino a 4.4rem) e la pagina segue il tema chiaro o scuro del sistema, non la scelta salvata nell'app. Il bottone principale usa `sage-dark` con testo bianco invece di `sage` per arrivare al contrasto AA a 16px. La firma della pagina è il sentiero: pietre di carta (`--pietra`) su ogni tappa e una traccia a puntini che le unisce e si disegna scorrendo; senza JavaScript restano le pietre. Le tavole dimostrative portano l'etichetta «Esempio» (badge oro); la scheda della lavanda è il testo vero del catalogo. Caveat compare solo nelle annotazioni a margine delle tavole.
+
 ## Do's and Don'ts
 
 ### Do:

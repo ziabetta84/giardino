@@ -63,6 +63,12 @@ export default defineConfig({
         // Oltre al codice, i disegni per forma delle schede senza foto (src/assets/forme, unici SVG della build):
         // pochi KB in tutto, così restano visibili anche offline.
         globPatterns: ['**/*.{js,wasm,css,html}', 'assets/*.svg'],
+        // Il minisito di presentazione (/scopri/) è una pagina pubblica a sé:
+        // il service worker dell'app non la tiene in cache e non risponde al
+        // suo posto con l'app (navigateFallback), così chi ha l'app installata
+        // vede sempre la pagina vera e aggiornata.
+        globIgnores: ['scopri/**'],
+        navigateFallbackDenylist: [/\/scopri(\/|$)/],
         // Dati del giardino: rete se disponibile, altrimenti l'ultima copia salvata
         // (così l'app resta consultabile in giardino senza campo/rete).
         runtimeCaching: [
@@ -118,6 +124,16 @@ export default defineConfig({
     }),
   ],
   base: BASE,
+  // Due pagine nella stessa build: l'app (index.html) e il minisito di
+  // presentazione (scopri/index.html, statico, servito come /scopri/).
+  build: {
+    rollupOptions: {
+      input: {
+        app: fileURLToPath(new URL('./index.html', import.meta.url)),
+        scopri: fileURLToPath(new URL('./scopri/index.html', import.meta.url)),
+      },
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -129,7 +145,7 @@ export default defineConfig({
   // scandaglia tutte e il processo va in OOM ("scanning dependencies...").
   // L'unico vero entry dell'app è index.html.
   optimizeDeps: {
-    entries: ['index.html'],
+    entries: ['index.html', 'scopri/index.html'],
   },
   server: {
     watch: {

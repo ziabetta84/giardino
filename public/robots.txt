@@ -1,0 +1,6 @@
+# Zorba in giardino: la pagina pubblica è /scopri/. L'app chiede l'accesso e
+# non ha pagine da indicizzare oltre a quella.
+User-agent: *
+Allow: /
+
+Sitemap: https://zorbaingiardino.app/sitemap.xml

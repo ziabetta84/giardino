@@ -261,6 +261,7 @@
         <p class="auth__nota auth__legale">
           <template v-if="modalita === 'registrati'">Che cosa succede ai tuoi dati lo trovi in </template>
           <RouterLink :to="{ name: 'privacy' }">Privacy e note legali</RouterLink>
+          <template v-if="modalita === 'accedi'"><span aria-hidden="true"> · </span><a :href="indirizzoScopri">Che cos'è Zorba in giardino</a></template>
         </p>
       </form>
     </template>
@@ -269,7 +270,7 @@
 
 <script setup>
 import { ref, computed, watch, nextTick, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
 import TurnstileWidget from '@/components/TurnstileWidget.vue'
@@ -295,7 +296,12 @@ const { utente, nomeUtente, caricamento, recuperoInCorso, esitoLink, accountElim
 
 const zorba = ref(null)
 
-const modalita  = ref('accedi')
+// «Crea il tuo giardino» sul minisito (/scopri/) porta a #/account?registrati:
+// si apre direttamente la registrazione.
+const route = useRoute()
+const modalita  = ref(route.query.registrati !== undefined ? 'registrati' : 'accedi')
+// Il minisito di presentazione, per chi arriva qui senza sapere che cos'è l'app.
+const indirizzoScopri = `${import.meta.env.BASE_URL}scopri/`
 const email     = ref('')
 const password  = ref('')
 const nome      = ref('')
