@@ -26,9 +26,8 @@
 // Elenco di zone e sottozone per «Per zona» in Attività: ogni riga apre il
 // foglio che registra la cura su tutte le piante scelte (FoglioCuraZona).
 // Il conteggio «da fare» usa lo stesso criterio del foglio (curaZona.js).
-// Il colore è quello della cura (acqua per l'irrigazione, oliva per la
-// concimazione), come nelle righe di «Per urgenza»: il rosa resta al solo
-// numero di cure da fare, non a ogni pulsante.
+// Il pulsante ha la forma del «Fatto» di «Per urgenza»; il colore della cura
+// (acqua o oliva) sta solo nel glifo, il rosa solo nel numero di cure da fare.
 import { computed } from 'vue'
 import { useDatiStore } from '@/stores/dati'
 import { classificaCuraZona, pianteDellaZona } from '@/utils/curaZona'
@@ -92,15 +91,18 @@ const voci = computed(() => {
 .pz__d { font:400 12px/1.4 var(--font-sans); color:var(--ink-mid); margin-top:2px; }
 .pz__urg { font-weight:600; color:var(--rose-ink); }
 
-/* Azione della zona: pillola nella tinta della cura (stessa famiglia di
-   .care-act, ma con icona e colore di dominio). */
-.pz__act { flex:none; display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 16px 0 13px;
+/* Azione della zona: stessa famiglia del «Fatto» (.care-act: pillola bianca a
+   filetto), perché è sempre un'azione di cura. Si distingue per quello che fa
+   davvero: non registra subito ma apre il foglio, quindi porta il verbo della
+   cura e il suo glifo nel colore di dominio, non la sola parola «Fatto». */
+.pz__act { flex:none; display:inline-flex; align-items:center; gap:6px; min-height:44px; padding:0 15px 0 12px;
   border-radius:999px; cursor:pointer; font:600 12.5px/1 var(--font-sans);
-  transition: background var(--motion-quick) var(--ease-standard), border-color var(--motion-quick) var(--ease-standard); }
+  background:var(--white); color:var(--ink); border:1px solid var(--cream-dark);
+  transition: border-color var(--motion-quick) var(--ease-standard); }
 .pz__act :deep(svg) { width:15px; height:15px; flex:none; }
-.pz__act--irrigazione { background:var(--acqua-bg); color:var(--acqua-ink); border:1px solid transparent; }
+.pz__act--irrigazione :deep(svg) { color:var(--acqua-ink); }
 .pz__act--irrigazione:hover { border-color:var(--acqua); }
-.pz__act--concimazione { background:var(--olive-bg); color:var(--olive-ink); border:1px solid transparent; }
+.pz__act--concimazione :deep(svg) { color:var(--olive-ink); }
 .pz__act--concimazione:hover { border-color:var(--olive); }
 .pz__act:active { transform:scale(0.97); }
 .pz__act:focus-visible { outline:none; box-shadow:0 0 0 3px var(--gold); }
