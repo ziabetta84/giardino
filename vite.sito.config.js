@@ -14,6 +14,9 @@ const BASE_APP = process.env.VITE_BASE || '/giardino/'
 export default defineConfig({
   root: fileURLToPath(new URL('./sito', import.meta.url)),
   envDir: fileURLToPath(new URL('.', import.meta.url)),
+  // Cache delle dipendenze separata da quella dell'app: con i due server accesi
+  // insieme, la riottimizzazione dell'uno cancellava i moduli dell'altro.
+  cacheDir: fileURLToPath(new URL('./node_modules/.vite-sito', import.meta.url)),
   base: `${BASE_APP}scopri/`,
   plugins: [vue()],
   resolve: {
