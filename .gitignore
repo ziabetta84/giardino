@@ -20,3 +20,5 @@ scripts/naturalizza-batch/loop.log
 .superpowers/
 scripts/nomi-italiani/out/
 .impeccable/review/
+.vite-ssg-temp/
+sito/.vite-ssg-temp/

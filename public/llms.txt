@@ -24,3 +24,13 @@ Ogni giardino è privato. Dati su server nell'Unione europea, nessuna pubblicit�
 ## Per chi è
 
 Chi cura piante in Italia: giardini, orti, terrazzi, balconi e piante da appartamento. Tutta l'app è in italiano.
+
+## Pagine di presentazione
+
+- [Il giro](https://zorbaingiardino.app/scopri/): panoramica dell'app.
+- [Le aiuole](https://zorbaingiardino.app/scopri/aiuole/): zone, piante, progetti a tappe, meteo.
+- [Le schede](https://zorbaingiardino.app/scopri/schede/): il catalogo botanico in italiano, nomi e cultivar.
+- [Le cure](https://zorbaingiardino.app/scopri/cure/): irrigazione, concimazione, potatura, dispensa dei concimi.
+- [Zorba](https://zorbaingiardino.app/scopri/zorba/): che cosa sa fare l'assistente e i suoi limiti.
+- [I tuoi dati](https://zorbaingiardino.app/scopri/dati/): privacy, server, fornitori.
+- [Domande frequenti](https://zorbaingiardino.app/scopri/domande/)

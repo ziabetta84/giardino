@@ -1,5 +1,5 @@
 /* Minisito di presentazione (/scopri/): stesso Taccuino da Giardino dell'app
-   (DESIGN.md), senza Tailwind e senza Vue. I caratteri arrivano dai pacchetti
+   (DESIGN.md), senza Tailwind. Pagine Vue pre-generate da vite-ssg. I caratteri arrivano dai pacchetti
    @fontsource come nell'app, mai da Google Fonts (vedi la pagina Privacy). */
 @import '@fontsource-variable/fraunces/opsz.css';
 @import '@fontsource-variable/fraunces/opsz-italic.css';
@@ -135,22 +135,92 @@ i { font-style: italic; }
   .bottone:not(.bottone--secondario):hover { background: var(--sage); color: var(--cream); }
 }
 
-/* ---------- Testata ---------- */
+/* ---------- Testata: marchio, sentiero delle tappe, app ---------- */
 .testata {
+  position: sticky; top: 0; z-index: 5;
+  background: color-mix(in srgb, var(--cream) 0%, transparent);
+  transition: background var(--foglio) var(--ease), box-shadow var(--foglio) var(--ease);
+}
+.testata.is-staccata {
+  background: color-mix(in srgb, var(--cream) 94%, transparent);
+  box-shadow: 0 1px 0 var(--cream-dark), 0 6px 18px rgba(42, 34, 24, 0.05);
+}
+.testata__riga {
   max-width: var(--larghezza); margin: 0 auto;
-  padding: 18px var(--margine);
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 12px var(--margine);
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 20px;
 }
 .marchio { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
 .marchio:hover { text-decoration: none; }
 .zorba--mini { width: 40px; height: 40px; }
 .marchio__nome { font: 600 19px/1 var(--font-display); letter-spacing: -0.01em; }
-.testata__nav { display: flex; align-items: center; gap: 22px; }
-.testata__voce { color: var(--ink-mid); font-size: 15px; font-weight: 500; text-decoration: none; }
-.testata__voce:hover { color: var(--ink); text-decoration: underline; }
-@media (max-width: 560px) {
-  .testata__voce { display: none; }
-  .marchio__nome { font-size: 17px; }
+@media (max-width: 1040px) { .marchio__nome { display: none; } }
+@media (max-width: 720px) {
+  .testata__riga { grid-template-columns: auto auto; justify-content: space-between; padding-bottom: 4px; }
+  .testata__nav { grid-column: 1 / -1; grid-row: 2; margin: 0 calc(-1 * var(--margine)); }
+  .marchio__nome { display: inline; font-size: 17px; }
+}
+
+/* Il menu è un sentiero: pietre unite da una traccia, Zorba sulla pietra della pagina. */
+.nav-sentiero { min-width: 0; }
+.nav-sentiero__striscia {
+  position: relative; overflow-x: auto; scrollbar-width: none;
+  padding: 0 var(--margine);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--margine), #000 calc(100% - var(--margine)), transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 var(--margine), #000 calc(100% - var(--margine)), transparent);
+}
+.nav-sentiero__striscia::-webkit-scrollbar { display: none; }
+@media (min-width: 721px) { .nav-sentiero__striscia { padding: 0 12px; } }
+.nav-sentiero__tappe {
+  position: relative;
+  list-style: none; margin: 0 auto; padding: 0;
+  display: flex; justify-content: center; width: max-content;
+}
+/* La traccia punteggiata che unisce le pietre, come il sentiero del giro. */
+.nav-sentiero__tappe::before {
+  content: ''; position: absolute; left: 36px; right: 36px; top: 35px; height: 4px;
+  background: radial-gradient(circle, var(--pietra) 1.6px, transparent 2px) 0 50% / 9px 4px repeat-x;
+}
+.nav-sentiero__voce {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  min-width: 72px; padding: 30px 6px 6px;
+  color: var(--ink-mid); text-decoration: none;
+  font-size: 13.5px; font-weight: 500; white-space: nowrap;
+  transition: color var(--rapido) var(--ease);
+}
+.nav-sentiero__voce:hover { color: var(--ink); text-decoration: none; }
+.nav-sentiero__voce[aria-current='page'] { color: var(--ink); font-weight: 600; }
+.nav-sentiero__pietra {
+  position: relative; z-index: 1;
+  width: 18px; height: 13px;
+  border-radius: 50% 46% 52% 48% / 55% 50% 50% 45%;
+  background: var(--cream); border: 1.5px solid var(--ink-faint);
+  transition: transform var(--foglio) var(--ease), border-color var(--rapido) var(--ease), background var(--rapido) var(--ease);
+}
+.nav-sentiero__voce:hover .nav-sentiero__pietra { transform: translateY(-2px); border-color: var(--ink-soft); }
+.nav-sentiero__voce[aria-current='page'] .nav-sentiero__pietra { background: var(--pietra); border-color: var(--ink-soft); }
+
+/* Zorba sta sopra la pietra; tra una pagina e l'altra ci cammina, a piccoli balzi. */
+.nav-sentiero__zorba {
+  position: absolute; left: 0; top: 3px;
+  width: 30px; height: 30px; margin-left: -15px;
+  pointer-events: none; opacity: 0;
+}
+.nav-sentiero__zorba.is-pronto {
+  opacity: 1;
+  transition: transform 0.7s cubic-bezier(0.45, 0, 0.2, 1), opacity var(--foglio) var(--ease);
+}
+.nav-sentiero__passo { display: block; width: 100%; height: 100%; transition: transform 0.2s var(--ease); }
+.nav-sentiero__passo .zorba { width: 100%; height: 100%; }
+.nav-sentiero__zorba.is-indietro .nav-sentiero__passo { transform: scaleX(-1); }
+.nav-sentiero__zorba.is-cammina .nav-sentiero__passo .zorba { animation: passo 0.7s cubic-bezier(0.45, 0, 0.2, 1); }
+@keyframes passo {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  20% { transform: translateY(-5px) rotate(-4deg); }
+  40% { transform: translateY(0) rotate(0); }
+  60% { transform: translateY(-4px) rotate(-3deg); }
+  80% { transform: translateY(0) rotate(0); }
 }
 
 /* ---------- Apertura ---------- */
@@ -434,11 +504,7 @@ i { font-style: italic; }
 }
 
 /* ---------- Domande frequenti ---------- */
-.domande {
-  max-width: 820px; margin: 0 auto;
-  padding: clamp(56px, 8vw, 96px) var(--margine) clamp(64px, 9vw, 112px);
-  border-top: 1px solid var(--cream-dark);
-}
+.domande { max-width: 820px; padding: 0 0 clamp(56px, 8vw, 96px); }
 .domande__titolo { font-size: clamp(1.75rem, 3.1vw, 2.5rem); line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 20px; }
 .domande details { border-bottom: 1px solid var(--cream-dark); }
 .domande summary {
@@ -469,6 +535,144 @@ i { font-style: italic; }
 .piede__nome { margin: 0; font: 600 17px/1 var(--font-display); }
 .piede__voci { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 22px; }
 .piede__voci a { color: var(--ink-mid); }
+
+/* ---------- Pagine di tappa ---------- */
+.pagina--tappa {
+  max-width: var(--larghezza); margin: 0 auto;
+  padding: clamp(32px, 6vw, 80px) var(--margine) 0;
+}
+.intesta { max-width: 46rem; margin-bottom: clamp(48px, 7vw, 88px); }
+.intesta__titolo {
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1.03; letter-spacing: -0.025em;
+  margin-bottom: 22px;
+}
+.intesta__lede { font-size: clamp(17px, 1.6vw, 19.5px); color: var(--ink-mid); max-width: 36em; margin: 0; }
+
+.blocco {
+  display: grid; gap: 28px clamp(32px, 6vw, 88px);
+  padding: clamp(40px, 5vw, 64px) 0;
+  border-top: 1px solid var(--cream-dark);
+}
+@media (min-width: 900px) {
+  .blocco { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .blocco--solo .blocco__testo { grid-column: 1 / -1; max-width: 40em; }
+}
+.blocco__titolo {
+  font-size: clamp(1.55rem, 2.6vw, 2.1rem);
+  line-height: 1.1; letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+.blocco__testo { max-width: 36em; }
+.blocco__testo > p { color: var(--ink-mid); }
+.blocco__testo > p:last-child { margin-bottom: 0; }
+.blocco__testo strong { color: var(--ink); font-weight: 600; }
+.blocco__tavola > .tavola { margin: 0; }
+
+/* Link «approfondisci» delle tappe del giro */
+.avanti {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px;
+  font-weight: 600; color: var(--sage-ink); text-decoration: none;
+}
+.avanti:hover { text-decoration: underline; }
+.freccia { width: 18px; height: 18px; flex-shrink: 0; transition: transform var(--foglio) cubic-bezier(0.16, 1, 0.3, 1); }
+.avanti:hover .freccia { transform: translateX(4px); }
+
+/* Progetto a tappe (esempio) */
+.progetto__nome { font: 600 20px/1.2 var(--font-display); margin: 4px 0 14px; padding-right: 72px; }
+.progetto__tappe { list-style: none; margin: 0; padding: 0; }
+.progetto__tappe li {
+  position: relative;
+  display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline;
+  padding: 10px 0;
+}
+.progetto__tappe li + li { border-top: 1px dashed var(--cream-dark); }
+.progetto__segno {
+  align-self: center; width: 14px; height: 14px; border-radius: 50%;
+  border: 1.5px solid var(--ink-faint); background: var(--white);
+}
+.progetto__tappe li.is-fatta .progetto__segno { background: var(--sage); border-color: var(--sage); }
+.progetto__tappe li.is-fatta .progetto__tappa { color: var(--ink-mid); text-decoration: line-through; text-decoration-color: var(--ink-faint); }
+.progetto__quando { font-size: 14px; color: var(--ink-mid); font-variant-numeric: tabular-nums; }
+
+/* Concime della dispensa (esempio) */
+.dispensa__nome { font: 600 20px/1.2 var(--font-display); margin: 4px 0 12px; padding-right: 72px; }
+.dispensa__npk { display: flex; gap: 10px; margin: 0 0 18px; }
+.dispensa__npk span {
+  display: inline-flex; align-items: baseline; gap: 3px;
+  padding: 6px 12px; border-radius: 10px; background: var(--olive-bg); color: var(--olive-ink);
+  font-size: 14px; font-weight: 600;
+}
+.dispensa__npk b { font: 600 22px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.dispensa__voce { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--ink-mid); }
+.dispensa__piante { list-style: none; margin: 0 0 14px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.dispensa__piante:last-child { margin-bottom: 0; }
+.dispensa__piante li { padding: 4px 12px; border-radius: 999px; background: var(--cream-dark); font-size: 14px; color: var(--ink-mid); }
+.dispensa__piante li.is-migliore { background: var(--sage-bg); color: var(--sage-ink); font-weight: 600; }
+
+/* Nomi che cambiano (esempio) */
+.nome-voce__nome { font: 500 21px/1.25 var(--font-display); margin: 0 0 2px; }
+.nome-voce__prima { font-size: 14.5px; color: var(--ink-mid); margin: 0 0 18px; }
+
+.fornitori { list-style: none; margin: 0; padding: 0; }
+.fornitori li { padding: 10px 0; border-top: 1px solid var(--cream-dark); color: var(--ink-mid); font-size: 15.5px; }
+.fornitori strong { color: var(--ink); }
+
+/* Invito finale */
+.invito .azioni { margin: 28px 0 18px; }
+.invito__nota { font-size: 14.5px; color: var(--ink-mid); max-width: 34em; margin-inline: auto; }
+.cancello--fine { padding-top: clamp(40px, 6vw, 72px); border-top: 1px solid var(--cream-dark); }
+
+/* Tappa precedente / prossima */
+.cambio-tappa {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  padding: clamp(28px, 4vw, 40px) 0 clamp(56px, 8vw, 96px);
+  border-top: 1px solid var(--cream-dark);
+}
+.cambio-tappa__voce {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 18px 22px; border-radius: 16px;
+  color: var(--ink); text-decoration: none;
+  background: var(--white); box-shadow: var(--ombra);
+  transition: box-shadow var(--foglio) var(--ease), transform var(--foglio) cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cambio-tappa__voce:hover { text-decoration: none; box-shadow: var(--ombra-su); }
+.cambio-tappa__voce--prima:hover { transform: translateX(-4px); }
+.cambio-tappa__voce--dopo { grid-column: 2; text-align: right; }
+.cambio-tappa__voce--dopo:hover { transform: translateX(4px); }
+.cambio-tappa__verso { font-size: 13px; font-weight: 600; color: var(--ink-mid); }
+.cambio-tappa__nome { font: 600 clamp(19px, 2.2vw, 24px)/1.15 var(--font-display); }
+@media (max-width: 520px) {
+  .cambio-tappa { grid-template-columns: 1fr; }
+  .cambio-tappa__voce--dopo { grid-column: 1; grid-row: 1; }
+}
+
+/* ---------- Movimento ---------- */
+/* Cambio pagina lungo il sentiero: avanti la pagina nuova arriva da destra,
+   indietro da sinistra. Esce in fretta, entra con calma. */
+.avanti-enter-active, .indietro-enter-active {
+  transition: opacity 0.42s cubic-bezier(0.16, 1, 0.3, 1), transform 0.52s cubic-bezier(0.16, 1, 0.3, 1), filter 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.avanti-leave-active, .indietro-leave-active {
+  transition: opacity 0.22s cubic-bezier(0.4, 0, 1, 1), transform 0.22s cubic-bezier(0.4, 0, 1, 1), filter 0.22s cubic-bezier(0.4, 0, 1, 1);
+}
+.avanti-enter-from { opacity: 0; transform: translateX(32px); filter: blur(4px); }
+.avanti-leave-to { opacity: 0; transform: translateX(-20px); filter: blur(2px); }
+.indietro-enter-from { opacity: 0; transform: translateX(-32px); filter: blur(4px); }
+.indietro-leave-to { opacity: 0; transform: translateX(20px); filter: blur(2px); }
+
+/* Le tavole salgono dalla carta quando arrivano in vista. Senza JavaScript
+   la classe non c'è e tutto è già visibile. */
+.rivela {
+  opacity: 0; transform: translateY(18px) scale(0.985);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--ritardo, 0s), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--ritardo, 0s);
+}
+.rivela.is-visto { opacity: 1; transform: none; }
+
+/* Una cura segnata scivola in fondo alla lista. */
+.cura-move { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+
+main:focus { outline: none; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }

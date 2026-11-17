@@ -1,7 +1,7 @@
 ---
 version: 1
 slug: "scopri-index-html"
-primary_target: "scopri/index.html"
+primary_target: "sito/"
 related_targets: []
 ---
 
