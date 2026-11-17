@@ -43,10 +43,10 @@
             <span class="chip chip--on-photo"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
             <span v-if="pianta.coltivato_in" class="chip chip--ic chip--on-photo" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
           </span>
-          <h1 class="pname">{{ store.nomePianta(pianta) }}<i v-if="varietaTitolo">&nbsp;{{ varietaTitolo }}</i></h1>
-          <p v-if="nomeScientifico" class="pbino">{{ nomeScientifico }}</p>
+          <h1 class="pname"><NomeScientifico v-if="specie?.specie" :nome="specie.specie" /><template v-else>{{ store.nomePianta(pianta) }}</template><span v-if="varietaTitolo" class="varieta">&nbsp;{{ varietaTitolo }}</span></h1>
+          <p v-if="nomeComune" class="nome-comune">{{ nomeComune }}</p>
           <p v-if="nomiAlternativi" class="pbino">Detta anche {{ nomiAlternativi }}</p>
-          <p v-if="nomeNoto" class="pbino">Già nota come {{ nomeNoto }}</p>
+          <p v-if="nomeNoto" class="pbino">Già nota come <NomeScientifico :nome="nomeNoto" /></p>
           <p v-if="specie?.gruppo" class="pbino">Gruppo {{ specie.gruppo }}</p>
           <p v-if="specie?.nome_commerciale" class="pbino">In commercio come {{ specie.nome_commerciale }}</p>
         </div>
@@ -67,10 +67,10 @@
               <span class="chip"><Icon :name="pianta.sottozona ? store.iconaSottozona(pianta.zona, pianta.sottozona) : store.iconaZona(pianta.zona)" />{{ pianta.zona }}{{ pianta.sottozona ? ' · ' + pianta.sottozona : '' }}</span>
               <span v-if="pianta.coltivato_in" class="chip chip--ic" :title="labelColtivatoIn(pianta.coltivato_in)" :aria-label="labelColtivatoIn(pianta.coltivato_in)"><Icon :name="iconaColtivatoIn(pianta.coltivato_in)" /></span>
             </span>
-            <h1 class="phead-text__name">{{ store.nomePianta(pianta) }}<i v-if="varietaTitolo">&nbsp;{{ varietaTitolo }}</i></h1>
-            <p v-if="nomeScientifico" class="phead-text__bino">{{ nomeScientifico }}</p>
+            <h1 class="phead-text__name"><NomeScientifico v-if="specie?.specie" :nome="specie.specie" /><template v-else>{{ store.nomePianta(pianta) }}</template><span v-if="varietaTitolo" class="varieta">&nbsp;{{ varietaTitolo }}</span></h1>
+            <p v-if="nomeComune" class="nome-comune">{{ nomeComune }}</p>
             <p v-if="nomiAlternativi" class="phead-text__bino">Detta anche {{ nomiAlternativi }}</p>
-            <p v-if="nomeNoto" class="phead-text__bino">Già nota come {{ nomeNoto }}</p>
+            <p v-if="nomeNoto" class="phead-text__bino">Già nota come <NomeScientifico :nome="nomeNoto" /></p>
             <p v-if="specie?.gruppo" class="phead-text__bino">Gruppo {{ specie.gruppo }}</p>
             <p v-if="specie?.nome_commerciale" class="phead-text__bino">In commercio come {{ specie.nome_commerciale }}</p>
           </div>
@@ -238,6 +238,8 @@ import { usePianteApi } from '@/composables/usePianteApi'
 import { useGalleria } from '@/composables/useGalleria'
 import { urlMiniatura } from '@/composables/useWikimedia'
 import { creditoFoto, etichettaLivello, fotoVoce, varietaNelTitolo } from '@/utils/catalogo'
+import { nomeComuneVoce } from '@/utils/nomeScientifico'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 import { disegnoForma } from '@/utils/forme'
 import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { classificaConcimiPerFabbisogno, formattaNPK } from '@/composables/useConcimi'
@@ -377,11 +379,8 @@ const specie = computed(() =>
   pianta.value ? store.vocePianta(pianta.value) : null
 )
 
-// Nome scientifico come sottotitolo, solo se diverso dal nome mostrato
-const nomeScientifico = computed(() => {
-  const s = specie.value
-  return s?.specie && s.specie.toLowerCase() !== (s.nome ?? '').toLowerCase() ? s.specie : ''
-})
+// Titolo: il nome scientifico; sotto, il nome comune italiano quando c'è (per una cultivar senza l'epiteto, già nel titolo)
+const nomeComune = computed(() => nomeComuneVoce(specie.value))
 
 // Sinonimi e altri nomi comuni (specie.nomi_alternativi, separati da " | "),
 // limitati ai primi tre per non allungare il titolo
@@ -506,9 +505,12 @@ async function eliminaPianta() {
   font: 700 24px/1.12 var(--font-display); color: var(--ink);
   letter-spacing: -0.01em; margin: 8px 0 2px; text-wrap: balance;
 }
-.phead-text__name i { font-weight: 400; }
+.phead-text__name .varieta { font-weight: 400; }
+.phead-text .nome-comune {
+  font: 500 15px/1.3 var(--font-display); color: var(--ink-mid); margin: 0 0 4px;
+}
 .phead-text__bino {
-  font: 400 12.5px/1.4 var(--font-display); font-style: italic;
+  font: 400 12.5px/1.4 var(--font-display);
   color: var(--ink-soft); margin: 0;
 }
 .phead-text__chips { display: flex; gap: 6px; flex-wrap: wrap; }

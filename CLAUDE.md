@@ -31,6 +31,7 @@ src/
 ├── router/index.js          ← route con createWebHashHistory (necessario per gh-pages)
 ├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase una volta sola
 ├── utils/catalogo.js        ← chiavi delle voci del catalogo, credito delle foto, livelli dell'eredità (test: node --test 'src/utils/*.test.mjs')
+├── utils/nomeScientifico.js ← nome scientifico con le convenzioni botaniche (corsivo solo per genere ed epiteti) e nome comune da mostrare sotto; titolo delle schede (PiantaView, scheda del catalogo in SelettoreSpecie) via components/NomeScientifico.vue
 ├── composables/
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
 │   ├── useCure.js           ← logica urgenze cure (irrigazione, concimazione, potatura)
