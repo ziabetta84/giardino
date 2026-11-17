@@ -1,0 +1,5 @@
+# Zorba in giardino: l'app chiede l'accesso e non ha pagine da indicizzare.
+# Il minisito /scopri/ per ora si condivide solo con chi ha il link: le sue
+# pagine chiedono di non essere indicizzate (meta robots e X-Robots-Tag).
+User-agent: *
+Allow: /

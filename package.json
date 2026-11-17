@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "dev:sito": "vite -c vite.sito.config.js",
+    "build": "vite build && vite-ssg build -c vite.sito.config.js",
     "preview": "vite preview",
     "test": "node --test 'src/utils/*.test.mjs' 'supabase/functions/zorba/**/*.test.mjs' 'supabase/functions/account/**/*.test.mjs' 'scripts/zorba/*.test.mjs'"
   },
@@ -21,9 +22,11 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.0",
+    "@unhead/vue": "^2.1.17",
     "@vitejs/plugin-vue": "^6.0.0",
     "tailwindcss": "^4.1.0",
     "vite": "^8.2.0",
-    "vite-plugin-pwa": "^1.3.0"
+    "vite-plugin-pwa": "^1.3.0",
+    "vite-ssg": "^28.3.0"
   }
 }

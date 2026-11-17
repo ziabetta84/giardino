@@ -63,6 +63,13 @@ export default defineConfig({
         // Oltre al codice, i disegni per forma delle schede senza foto (src/assets/forme, unici SVG della build):
         // pochi KB in tutto, così restano visibili anche offline.
         globPatterns: ['**/*.{js,wasm,css,html}', 'assets/*.svg'],
+        // Il minisito di presentazione (/scopri/, cartella sito/, build a sé
+        // con vite.sito.config.js) è pubblico: il service worker dell'app non
+        // lo tiene in cache e non risponde al suo posto con l'app
+        // (navigateFallback), così chi ha l'app installata vede sempre le
+        // pagine vere e aggiornate.
+        globIgnores: ['scopri/**'],
+        navigateFallbackDenylist: [/\/scopri(\/|$)/],
         // Dati del giardino: rete se disponibile, altrimenti l'ultima copia salvata
         // (così l'app resta consultabile in giardino senza campo/rete).
         runtimeCaching: [
@@ -133,7 +140,7 @@ export default defineConfig({
   },
   server: {
     watch: {
-      ignored: ['**/fonti/**', '**/backups/**', '**/scripts/**', '**/dist/**', '**/docs/**'],
+      ignored: ['**/sito/**', '**/fonti/**', '**/backups/**', '**/scripts/**', '**/dist/**', '**/docs/**'],
     },
   },
 })

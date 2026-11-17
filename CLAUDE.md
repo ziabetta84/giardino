@@ -51,6 +51,7 @@ src/
 └── views/                   ← una view per route (incl. AccountView.vue, login/registrazione; SettingsView.vue per `/impostazioni`)
 supabase/functions/zorba/     ← Edge Function di Zorba (lib/ provati con npm test, regole/ = prompt, condivisi/ = logica cure/concimi usata anche dall'app)
 public/data/                 ← JSON letti a runtime dal frontend
+sito/                        ← minisito pubblico di presentazione (/scopri/): Vue 3 + vue-router, una pagina per tappa pre-generata in HTML da vite-ssg (vite.sito.config.js, `npm run dev:sito`, `npm run build` lo costruisce dopo l'app in dist/scopri/); escluso dal service worker dell'app; per ora si condivide solo con chi ha il link (noindex; sitemap.xml e llms.txt aspettano in sito/quando-pubblico/, con le istruzioni per renderlo pubblico)
 docs/                        ← vecchio sito Jekyll (non più attivo)
 supabase/migrations/         ← migration SQL del progetto Supabase "Il Giardino di Zorba"
 ```

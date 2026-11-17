@@ -1,0 +1,11 @@
+// Domande frequenti: le mostra la pagina Domande e finiscono nei dati strutturati
+// (FAQPage), quindi il testo è lo stesso per le persone e per i motori di ricerca.
+export const DOMANDE = [
+  { d: 'Quanto costa?', r: "L'app è gratuita e senza pubblicità: piante, schede, cure, progetti, concimi e foto non costano nulla. Zorba per ora dà tre risposte a persona, perché ognuna ha un costo reale. Non ci sono abbonamenti: chi vuole può sostenere il progetto con una donazione libera su Ko-fi." },
+  { d: 'Devo installare qualcosa?', r: "No. Si apre dal browser, sul telefono come sul computer, e si può aggiungere alla schermata Home come un'app. Le piante già caricate restano consultabili anche senza rete, in fondo al giardino." },
+  { d: 'Va bene anche per un orto o per le piante in vaso?', r: 'Sì. Per ogni pianta indichi se sta in terra, in vaso o in acqua, e le cure si adattano. Il catalogo comprende ortaggi, aromatiche, alberi da frutto, piante da appartamento e ornamentali, con le loro cultivar.' },
+  { d: 'Da dove vengono le schede delle piante?', r: "Da cataloghi botanici, riscritte in italiano come in un'enciclopedia e non tradotte parola per parola. I nomi scientifici seguono il Catalogue of Life. Sono indicazioni generali: non conoscono il tuo terreno come lo conosci tu e non sostituiscono il parere di un agronomo o di un vivaista." },
+  { d: 'Quanto ci si può fidare di Zorba?', r: "Zorba è un assistente basato sull'intelligenza artificiale. Prima di rispondere legge le tue piante, le cure registrate, i concimi che hai e il meteo; per riconoscere una pianta da una foto usa anche Pl@ntNet. Può sbagliare, e quando i dati non bastano lo dice e ti chiede un dettaglio in più. Prima di usare un prodotto fitosanitario leggi sempre l'etichetta." },
+  { d: 'Che fine fanno i miei dati?', r: "Il tuo giardino lo vedi solo tu. I dati stanno su server nell'Unione europea, non vengono venduti né usati per addestrare intelligenze artificiali, e non ci sono statistiche di visita né profilazione. Eliminando l'account si cancella tutto, foto comprese." },
+  { d: 'Posso usarla in più persone sullo stesso giardino?', r: "Per ora no: ogni account ha il suo giardino, separato da quello degli altri." },
+]

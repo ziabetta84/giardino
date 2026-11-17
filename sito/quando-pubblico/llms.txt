@@ -1,0 +1,38 @@
+# Zorba in giardino
+
+> App web italiana, gratuita e senza pubblicità, per tenere il diario del proprio giardino, orto o balcone. Calcola quando irrigare, concimare e potare ogni pianta in base alla specie, alla stagione e all'ultima cura registrata, e include Zorba, un assistente basato sull'intelligenza artificiale che risponde leggendo le piante, le cure, i concimi e il meteo dell'utente.
+
+Indirizzo: https://zorbaingiardino.app/ (si usa dal browser su telefono e computer, si può aggiungere alla schermata Home). Presentazione: https://zorbaingiardino.app/scopri/
+
+## Che cosa fa
+
+- Piante organizzate per zone e sottozone, in terra, in vaso o in acqua, con foto e storico delle cure.
+- Catalogo di oltre 14.500 schede botaniche scritte in italiano e quasi 200.000 cultivar; nomi scientifici allineati al Catalogue of Life.
+- Cure da fare oggi (irrigazione, concimazione, potatura), calcolate per specie e stagione.
+- Irrigazione automatica: programmi «ogni N giorni» per tutto il giardino, una zona, una sottozona o una pianta; le piante coperte escono dalle cure a mano e, con pioggia prevista sulle zone all'aperto, l'app segnala che il giro si può saltare.
+- Galleria di foto per ogni pianta.
+- Dispensa dei concimi: confronta il titolo NPK dei concimi dell'utente con i bisogni delle piante.
+- Progetti del giardino divisi in tappe; meteo del luogo del giardino; consultabile anche senza rete.
+- Zorba: riconosce una pianta da una foto (anche con Pl@ntNet), propone le cause possibili di un problema, consiglia cure e concimi, prepara piani di progetto a tappe. Può sbagliare e dichiara quando non è sicuro.
+
+## Costi
+
+L'app è gratuita e non ha abbonamenti. Zorba per ora dà tre risposte a persona, perché ogni risposta ha un costo reale. Si può sostenere il progetto con una donazione libera su Ko-fi.
+
+## Dati
+
+Ogni giardino è privato. Dati su server nell'Unione europea, nessuna pubblicità, nessuna profilazione, nessun uso dei dati per addestrare intelligenze artificiali. L'account si elimina dall'app, con tutte le foto.
+
+## Per chi è
+
+Chi cura piante in Italia: giardini, orti, terrazzi, balconi e piante da appartamento. Tutta l'app è in italiano.
+
+## Pagine di presentazione
+
+- [Il giro](https://zorbaingiardino.app/scopri/): panoramica dell'app.
+- [Le aiuole](https://zorbaingiardino.app/scopri/aiuole/): zone, piante, progetti a tappe, meteo.
+- [Le schede](https://zorbaingiardino.app/scopri/schede/): il catalogo botanico in italiano, nomi e cultivar.
+- [Le cure](https://zorbaingiardino.app/scopri/cure/): irrigazione, concimazione, potatura, dispensa dei concimi.
+- [Zorba](https://zorbaingiardino.app/scopri/zorba/): che cosa sa fare l'assistente e i suoi limiti.
+- [I tuoi dati](https://zorbaingiardino.app/scopri/dati/): privacy, server, fornitori.
+- [Domande frequenti](https://zorbaingiardino.app/scopri/domande/)
