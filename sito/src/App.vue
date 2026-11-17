@@ -1,5 +1,6 @@
 <template>
   <ZorbaSimboli />
+  <IconDefs />
   <a class="salta" href="#contenuto">Vai al contenuto</a>
 
   <header class="testata" :class="{ 'is-staccata': staccata }">
@@ -16,7 +17,7 @@
   <main id="contenuto" tabindex="-1">
     <RouterView v-slot="{ Component, route }">
       <Transition :name="verso" mode="out-in" @after-enter="annuncia">
-        <component :is="Component" :key="route.path" />
+        <component :is="Component" :key="route.path" :class="`tinta--${tappa(route.name).colore}`" />
       </Transition>
     </RouterView>
   </main>
@@ -36,8 +37,9 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router'
-import { APP, PRIVACY, KOFI, indiceTappa } from './percorso.js'
+import { APP, PRIVACY, KOFI, indiceTappa, tappa } from './percorso.js'
 import ZorbaSimboli from './components/ZorbaSimboli.vue'
+import IconDefs from '@app/components/IconDefs.vue'
 import Zorba from './components/Zorba.vue'
 import NavSentiero from './components/NavSentiero.vue'
 

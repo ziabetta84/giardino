@@ -15,7 +15,7 @@ Indirizzo: https://zorbaingiardino.app/ (si usa dal browser su telefono e comput
 
 ## Costi
 
-L'app è gratuita. Zorba dà tre risposte di prova; con l'abbonamento risponde fino a 30 volte al mese. Si può sostenere il progetto con un contributo libero su Ko-fi.
+L'app è gratuita e non ha abbonamenti. Zorba per ora dà tre risposte a persona, perché ogni risposta ha un costo reale. Si può sostenere il progetto con una donazione libera su Ko-fi.
 
 ## Dati
 

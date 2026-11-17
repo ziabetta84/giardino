@@ -9,7 +9,7 @@
     </div>
     <p class="invito__nota">
       Zorba in giardino è un progetto indipendente. Se ti è utile puoi sostenerlo su Ko-fi:
-      non è un abbonamento, scegli tu quanto.
+      è una donazione libera, scegli tu quanto.
     </p>
   </div>
 </template>

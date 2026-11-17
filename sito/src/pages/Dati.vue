@@ -6,11 +6,11 @@
       la fa e del sostegno di chi la usa, non dei tuoi dati.
     </TestaTappa>
 
-    <Blocco id="b-promesse" titolo="Quattro cose che non cambiano">
+    <Blocco id="b-promesse" icona="chiave" titolo="Quattro cose che non cambiano">
       <Promesse />
     </Blocco>
 
-    <Blocco id="b-dove" titolo="Dove stanno">
+    <Blocco id="b-dove" icona="pin" titolo="Dove stanno">
       <p>
         Il database, gli account e le foto stanno su server nell'Unione europea, a Stoccolma. Ogni
         persona vede solo il proprio giardino: la separazione è nel database stesso, non solo
@@ -23,14 +23,14 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-chi" titolo="A chi passano, e perché">
+    <Blocco id="b-chi" icona="persona" titolo="A chi passano, e perché">
       <p>I dati non vengono diffusi. Li ricevono solo i servizi che fanno funzionare l'app, ciascuno per la sua parte:</p>
       <ul class="fornitori">
         <li v-for="f in fornitori" :key="f.nome"><strong>{{ f.nome }}</strong> {{ f.cosa }}</li>
       </ul>
     </Blocco>
 
-    <Blocco id="b-fine" titolo="Se vuoi andartene">
+    <Blocco id="b-fine" icona="cestino" titolo="Se vuoi andartene">
       <p>
         Puoi cancellare quando vuoi una pianta, una foto o una conversazione con Zorba. Eliminando
         l'account dalla sua pagina sparisce tutto, foto comprese, e prima di confermare l'app ti mostra

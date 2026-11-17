@@ -6,7 +6,7 @@
       aggiungi una pianta la cerchi per nome comune o scientifico, e la sua scheda ti segue da lì in poi.
     </TestaTappa>
 
-    <Blocco id="b-scheda" titolo="Che cosa c'è in una scheda">
+    <Blocco id="b-scheda" icona="foglia" titolo="Che cosa c'è in una scheda">
       <p>
         Una descrizione della pianta, le sue esigenze di luce, acqua e terreno, e le cure stagione per
         stagione: ogni quanto irrigare, quando concimare, come e quando potare. Dove serve ci sono gli
@@ -19,7 +19,7 @@
       <template #tavola><TavolaScheda /></template>
     </Blocco>
 
-    <Blocco id="b-prosa" titolo="Scritte come un'enciclopedia, non tradotte">
+    <Blocco id="b-prosa" icona="matita" titolo="Scritte come un'enciclopedia, non tradotte">
       <p>
         Le schede vengono da cataloghi botanici in lingua inglese e sono state riscritte una per una in
         un italiano da enciclopedia di giardinaggio: frasi intere, termini corretti, misure in metri e
@@ -28,7 +28,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-nomi" titolo="I nomi giusti, anche quando cambiano">
+    <Blocco id="b-nomi" icona="cerca" titolo="I nomi giusti, anche quando cambiano">
       <p>
         I nomi scientifici seguono il <strong>Catalogue of Life</strong>, il riferimento internazionale
         per la classificazione delle specie. Quando i botanici spostano una pianta in un altro genere, la
@@ -49,7 +49,7 @@
       </template>
     </Blocco>
 
-    <Blocco id="b-cultivar" titolo="Le cultivar ereditano le cure">
+    <Blocco id="b-cultivar" icona="fiore" titolo="Le cultivar ereditano le cure">
       <p>
         Una cultivar, come la rosa 'Gertrude Jekyll' o il pomodoro 'San Marzano', ha il suo nome e a
         volte la sua descrizione, ma quasi sempre si cura come la specie da cui viene. Quando una
@@ -58,7 +58,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-limiti" titolo="Indicazioni generali, non una ricetta">
+    <Blocco id="b-limiti" icona="allerta" titolo="Indicazioni generali, non una ricetta">
       <p>
         Una scheda descrive come si coltiva bene una specie in condizioni normali. Non conosce il tuo
         terreno, l'esposizione del tuo balcone o il vento che arriva dal mare: le cadenze sono un punto di

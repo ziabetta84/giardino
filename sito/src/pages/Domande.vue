@@ -2,8 +2,8 @@
   <div class="pagina pagina--tappa">
     <TestaTappa>
       <template #titolo>Domande frequenti</template>
-      Le risposte brevi a quello che chiede di solito chi scopre l'app. Per il resto, l'app si prova in
-      un minuto.
+      Le risposte brevi a quello che chiede di solito chi scopre l'app. Per il resto, la cosa più semplice è
+      provarla.
     </TestaTappa>
 
     <div class="domande">

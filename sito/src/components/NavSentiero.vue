@@ -5,7 +5,7 @@
         <li v-for="t in TAPPE" :key="t.nome">
           <RouterLink :to="t.percorso" class="nav-sentiero__voce" :data-tappa="t.nome"
                       :aria-current="t.nome === attiva ? 'page' : undefined">
-            <span class="nav-sentiero__pietra" aria-hidden="true"></span>
+            <Tessera class="nav-sentiero__tessera" :icona="t.icona" :colore="t.colore" misura="piccola" />
             <span class="nav-sentiero__nome">{{ t.etichetta }}</span>
           </RouterLink>
         </li>
@@ -23,9 +23,10 @@ import { ref, computed, watch, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useRoute } from 'vue-router'
 import { TAPPE } from '../percorso.js'
 import Zorba from './Zorba.vue'
+import Tessera from './Tessera.vue'
 
-// Il menu è un sentiero di pietre, una per pagina: il piccolo Zorba cammina
-// fino alla pietra della pagina aperta, e si gira quando torni indietro.
+// Il menu: una tessera ad acquerello per pagina, ognuna nel suo colore; il
+// piccolo Zorba cammina fino a quella della pagina aperta, e si gira quando torni indietro.
 const route = useRoute()
 const attiva = computed(() => route.name)
 const striscia = ref(null)
@@ -36,7 +37,7 @@ const indietro = ref(false)
 let fine = 0
 
 function posizione() {
-  const voce = striscia.value?.querySelector(`[data-tappa="${attiva.value}"] .nav-sentiero__pietra`)
+  const voce = striscia.value?.querySelector(`[data-tappa="${attiva.value}"] .nav-sentiero__tessera`)
   if (!voce) return null
   const base = striscia.value.getBoundingClientRect()
   const r = voce.getBoundingClientRect()
@@ -54,7 +55,7 @@ function vai(animato) {
     fine = setTimeout(() => { cammina.value = false }, 720)
   }
   x.value = nuova
-  // Sul telefono la striscia scorre: la pietra della pagina resta in vista.
+  // Sul telefono la striscia scorre: la tessera della pagina resta in vista.
   const s = striscia.value
   if (s.scrollWidth > s.clientWidth) {
     const voce = s.querySelector(`[data-tappa="${attiva.value}"]`)

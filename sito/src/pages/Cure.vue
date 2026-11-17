@@ -6,7 +6,7 @@
       la stagione e l'ultima cura che hai segnato, e ti mostra solo quello che è da fare.
     </TestaTappa>
 
-    <Blocco id="b-oggi" titolo="Da fare oggi">
+    <Blocco id="b-oggi" icona="goccia" titolo="Da fare oggi">
       <p>
         In apertura trovi l'elenco delle cure in scadenza: irrigazione, concimazione e potatura, con
         quanto tempo è passato dall'ultima volta. Quelle in ritardo vengono prima. Quando hai finito
@@ -19,7 +19,7 @@
       <template #tavola><TavolaCure /></template>
     </Blocco>
 
-    <Blocco id="b-stagioni" titolo="La stagione cambia il conto">
+    <Blocco id="b-stagioni" icona="sole" titolo="La stagione cambia il conto">
       <p>
         La stessa pianta non vuole le stesse cure tutto l'anno. Un limone in vaso d'estate vuole acqua
         spesso e un concime ogni due o tre settimane; d'inverno, al riparo, quasi niente. Le cadenze
@@ -31,7 +31,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-concimi" titolo="La dispensa dei concimi">
+    <Blocco id="b-concimi" icona="concimazione" titolo="La dispensa dei concimi">
       <p>
         Segni i concimi che hai in casa con il loro titolo NPK, i tre numeri sull'etichetta: azoto,
         fosforo e potassio. L'app li confronta con il fabbisogno di ogni pianta e ti dice per quali è la
@@ -53,7 +53,7 @@
       </template>
     </Blocco>
 
-    <Blocco id="b-rete" titolo="Anche in fondo al giardino">
+    <Blocco id="b-rete" icona="vaso" titolo="Anche in fondo al giardino">
       <p>
         L'app si apre dal browser e si aggiunge alla schermata Home del telefono come un'app qualsiasi.
         Le tue piante e le loro schede restano consultabili anche dove il segnale non arriva: in fondo

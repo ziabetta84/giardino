@@ -6,7 +6,7 @@
       sue piante. Da lì partono le cure, le foto e i lavori che hai in mente.
     </TestaTappa>
 
-    <Blocco id="b-zone" titolo="Zone e sottozone">
+    <Blocco id="b-zone" icona="zona-recinto" titolo="Zone e sottozone">
       <p>
         Una zona è una parte del giardino che riconosci a colpo d'occhio: davanti casa, il retro, il
         terrazzo, l'orto. Dentro una zona metti le sottozone, cioè le aiuole, i filari, il gruppo di vasi
@@ -19,7 +19,7 @@
       <template #tavola><TavolaTaccuino /></template>
     </Blocco>
 
-    <Blocco id="b-pianta" titolo="La pagina di ogni pianta">
+    <Blocco id="b-pianta" icona="cornice" titolo="La pagina di ogni pianta">
       <p>
         Ogni pianta ha la sua scheda botanica, le cure registrate, le foto che le hai fatto nel tempo e le
         note che vuoi tenere: quando l'hai messa a dimora, da quale vivaio viene, come ha passato l'inverno.
@@ -30,7 +30,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-progetti" titolo="I progetti, divisi in tappe">
+    <Blocco id="b-progetti" icona="calendario" titolo="I progetti, divisi in tappe">
       <p>
         Rifare un'aiuola, preparare l'orto d'estate, rinvasare le piante del terrazzo: un lavoro grande
         diventa un progetto con le sue tappe e le sue date. Segni ogni tappa quando è fatta e l'app ti
@@ -55,7 +55,7 @@
       </template>
     </Blocco>
 
-    <Blocco id="b-meteo" titolo="Il meteo del tuo giardino">
+    <Blocco id="b-meteo" icona="meteo" titolo="Il meteo del tuo giardino">
       <p>
         Indichi dove si trova il giardino e l'app mostra il tempo di lì: le previsioni dei prossimi
         giorni e la pioggia caduta o in arrivo, che conta quando decidi se irrigare. Dalla posizione ricava anche la zona climatica, che puoi
