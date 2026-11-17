@@ -6,7 +6,7 @@
       una foto, e lui risponde partendo da quello che sa del tuo giardino.
     </TestaTappa>
 
-    <Blocco id="b-legge" icona="lista" titolo="Prima legge, poi risponde">
+    <Blocco id="b-legge" icona="zona-pianta" titolo="Prima legge, poi risponde">
       <p>
         Prima di scrivere, Zorba guarda le tue piante e dove stanno, le cure che hai registrato, i
         concimi che hai in dispensa, le schede del catalogo e il meteo del giardino. Per questo può dirti
@@ -22,7 +22,7 @@
       </dl>
     </Blocco>
 
-    <Blocco id="b-onesto" icona="allerta" titolo="Quando non è sicuro, lo dice">
+    <Blocco id="b-onesto" icona="bandiera-calma" titolo="Quando non è sicuro, lo dice">
       <p>
         Zorba è un assistente basato sull'intelligenza artificiale e può sbagliare. Quando i dati non
         bastano non tira a indovinare: ti dice che cosa gli manca e ti chiede un dettaglio, una foto in

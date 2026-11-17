@@ -10,7 +10,7 @@
         <span class="marchio__nome">Zorba in giardino</span>
       </RouterLink>
       <NavSentiero class="testata__nav" />
-      <a class="bottone bottone--piccolo" :href="APP">Apri l'app</a>
+      <a class="bottone bottone--piccolo bottone--contorno" :href="APP">Apri l'app</a>
     </div>
   </header>
 

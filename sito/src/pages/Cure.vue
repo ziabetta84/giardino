@@ -62,7 +62,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-rete" icona="vaso" titolo="Anche in fondo al giardino">
+    <Blocco id="b-rete" icona="zona-vaso" titolo="Anche in fondo al giardino">
       <p>
         L'app si apre dal browser e si aggiunge alla schermata Home del telefono come un'app qualsiasi.
         Le tue piante e le loro schede restano consultabili anche dove il segnale non arriva: in fondo

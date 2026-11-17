@@ -78,7 +78,8 @@
           <p>
             Zorba è l'assistente dell'app. Prima di rispondere legge le tue piante, le cure che hai
             registrato, i concimi che hai e il meteo: non ti dà un consiglio buono per chiunque, parte da
-            quello che sa del tuo giardino. E quando non è sicuro, lo dice.
+            quello che sa del tuo giardino. E quando non è sicuro, lo dice. Per ora dà tre risposte a
+            persona.
           </p>
           <RouterLink class="avanti" to="/zorba/">Che cosa sa fare Zorba<Freccia /></RouterLink>
         </div>
@@ -99,6 +100,17 @@
             </RouterLink>
           </li>
         </ul>
+      </div>
+
+      <div v-if="schermate.length" class="vera" role="region" aria-labelledby="t-vera">
+        <h2 id="t-vera" class="altro__titolo">L'app, così com'è</h2>
+        <p class="altro__lede">Due schermate vere, dal telefono di chi la usa ogni giorno.</p>
+        <div class="vera__schermate">
+          <figure v-for="sc in schermate" :key="sc.src" class="vera__telefono">
+            <img :src="sc.src" :alt="sc.alt" loading="lazy" decoding="async">
+            <figcaption class="mano">{{ sc.didascalia }}</figcaption>
+          </figure>
+        </div>
       </div>
 
       <section class="tappa tappa--quieta tinta--uovo" aria-labelledby="t-dati">
@@ -150,6 +162,18 @@ import TavolaCure from '../components/TavolaCure.vue'
 import TavolaDialogo from '../components/TavolaDialogo.vue'
 import Promesse from '../components/Promesse.vue'
 import InvitoFinale from '../components/InvitoFinale.vue'
+
+// Le schermate vere dell'app: compaiono solo se i file esistono in assets/app/
+// (schermata-1.webp, schermata-2.webp…), con testo alternativo e didascalia qui.
+const TESTI_SCHERMATE = {
+  'schermata-1': { alt: "La Home dell'app sul telefono", didascalia: 'la Home' },
+  'schermata-2': { alt: "La pagina di una pianta nell'app", didascalia: 'una pianta' },
+}
+const fileSchermate = import.meta.glob('../assets/app/schermata-*.webp', { eager: true, import: 'default' })
+const schermate = Object.entries(fileSchermate).sort(([a], [b]) => a.localeCompare(b)).map(([percorso, src]) => {
+  const nome = percorso.split('/').pop().replace('.webp', '')
+  return { src, ...(TESTI_SCHERMATE[nome] || { alt: "Una schermata dell'app", didascalia: '' }) }
+})
 
 const funzioni = [
   { nome: 'Progetti a tappe', icona: 'calendario', colore: 'rose', dove: '/aiuole/#b-progetti',

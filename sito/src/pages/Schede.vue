@@ -19,7 +19,7 @@
       <template #tavola><TavolaScheda /></template>
     </Blocco>
 
-    <Blocco id="b-prosa" icona="matita" titolo="Scritte come un'enciclopedia, non tradotte">
+    <Blocco id="b-prosa" icona="zona-scrivania" titolo="Scritte come un'enciclopedia, non tradotte">
       <p>
         Le schede vengono da cataloghi botanici in lingua inglese e sono state riscritte una per una in
         un italiano da enciclopedia di giardinaggio: frasi intere, termini corretti, misure in metri e
@@ -28,7 +28,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-nomi" icona="cerca" titolo="I nomi giusti, anche quando cambiano">
+    <Blocco id="b-nomi" icona="zona-ghianda" titolo="I nomi giusti, anche quando cambiano">
       <p>
         I nomi scientifici seguono il <strong>Catalogue of Life</strong>, il riferimento internazionale
         per la classificazione delle specie. Quando i botanici spostano una pianta in un altro genere, la
@@ -58,7 +58,7 @@
       </p>
     </Blocco>
 
-    <Blocco id="b-limiti" icona="allerta" titolo="Indicazioni generali, non una ricetta">
+    <Blocco id="b-limiti" icona="bandiera" titolo="Indicazioni generali, non una ricetta">
       <p>
         Una scheda descrive come si coltiva bene una specie in condizioni normali. Non conosce il tuo
         terreno, l'esposizione del tuo balcone o il vento che arriva dal mare: le cadenze sono un punto di

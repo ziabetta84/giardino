@@ -30,7 +30,7 @@
       </ul>
     </Blocco>
 
-    <Blocco id="b-fine" icona="cestino" titolo="Se vuoi andartene">
+    <Blocco id="b-fine" icona="zona-sentiero" titolo="Se vuoi andartene">
       <p>
         Puoi cancellare quando vuoi una pianta, una foto o una conversazione con Zorba. Eliminando
         l'account dalla sua pagina sparisce tutto, foto comprese, e prima di confermare l'app ti mostra

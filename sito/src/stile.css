@@ -100,10 +100,10 @@ i { font-style: italic; }
 .salta {
   position: absolute; left: 16px; top: -60px; z-index: 10;
   padding: 10px 16px; border-radius: 12px;
-  background: var(--white); color: var(--ink); box-shadow: var(--ombra-su);
+  background: var(--white); color: var(--ink); box-shadow: none;
   transition: top var(--rapido) var(--ease);
 }
-.salta:focus { top: 12px; }
+.salta:focus { top: 12px; box-shadow: var(--ombra-su); }
 
 .mano { font-family: var(--font-hand); font-size: 22px; line-height: 1.1; color: var(--ink-mid); }
 
@@ -111,7 +111,8 @@ i { font-style: italic; }
 .zorba { display: block; color: var(--zorba); }
 .zorba__corpo, .zorba__coda { fill: var(--zorba); }
 @media (prefers-color-scheme: dark) {
-  .zorba, .is-zorba svg { filter: drop-shadow(0 0 3px rgba(242, 232, 216, 0.55)); }
+  .zorba { filter: drop-shadow(0 0 3px rgba(242, 232, 216, 0.55)); }
+  .is-zorba svg { filter: drop-shadow(0 0 1.5px rgba(242, 232, 216, 0.9)) drop-shadow(0 0 4px rgba(242, 232, 216, 0.5)); }
 }
 
 /* ---------- Bottoni ---------- */
@@ -127,13 +128,18 @@ i { font-style: italic; }
 }
 .bottone:hover { background: var(--sage-ink); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(90, 126, 98, 0.36); text-decoration: none; }
 .bottone:active { transform: scale(0.97); }
-.bottone--piccolo { min-height: 40px; padding: 8px 16px; font-size: 14px; box-shadow: none; }
+.bottone--piccolo { min-height: 44px; padding: 10px 16px; font-size: 14px; box-shadow: none; }
+/* «Apri l'app» è per chi ha già un giardino: un contorno, così il verde pieno resta a «Crea il tuo giardino». */
+.bottone--contorno { background: transparent; color: var(--sage-ink); box-shadow: inset 0 0 0 1.5px var(--sage); }
+.bottone--contorno:hover { background: var(--sage-bg); color: var(--sage-ink); box-shadow: inset 0 0 0 1.5px var(--sage-dark); transform: none; }
 .bottone--secondario { background: var(--white); color: var(--ink); box-shadow: var(--ombra); }
 .bottone--secondario:hover { background: var(--white); box-shadow: var(--ombra-su); }
 .bottone--secondario svg { width: 22px; height: 22px; flex-shrink: 0; }
 @media (prefers-color-scheme: dark) {
-  .bottone:not(.bottone--secondario) { background: var(--sage-bg); color: var(--sage-ink); box-shadow: none; }
-  .bottone:not(.bottone--secondario):hover { background: var(--sage); color: var(--cream); }
+  .bottone:not(.bottone--secondario):not(.bottone--contorno) { background: var(--sage); color: #1c1810; box-shadow: 0 3px 14px rgba(0, 0, 0, 0.35); }
+  .bottone:not(.bottone--secondario):not(.bottone--contorno):hover { background: var(--sage-dark); color: #1c1810; }
+  .bottone--secondario { background: transparent; color: var(--ink-mid); font-weight: 500; box-shadow: inset 0 0 0 1px var(--ink-faint); }
+  .bottone--secondario:hover { background: var(--cream-dark); box-shadow: inset 0 0 0 1px var(--ink-soft); }
 }
 
 /* ---------- Tinte: un colore dell'app per ogni tappa ---------- */
@@ -165,6 +171,18 @@ i { font-style: italic; }
 .tessera--grande { width: 64px; height: 64px; border-radius: 18px; }
 
 /* Le altre funzioni nel giro: una tessera per funzione, ognuna nel suo colore. */
+/* Le schermate vere, in una cornice da telefono come la polaroid di Zorba. */
+.vera { padding-bottom: clamp(72px, 10vw, 136px); }
+.vera__schermate { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(24px, 5vw, 64px); }
+.vera__telefono { margin: 0; width: min(260px, 72vw); text-align: center; }
+.vera__telefono img {
+  display: block; width: 100%; height: auto;
+  border-radius: 30px; border: 8px solid #141414;
+  box-shadow: var(--ombra-su);
+}
+.vera__telefono:nth-child(odd) { transform: rotate(-1.5deg); }
+.vera__telefono:nth-child(even) { transform: rotate(1.5deg); margin-top: 32px; }
+.vera__telefono figcaption { margin-top: 12px; }
 .altro { padding-bottom: clamp(72px, 10vw, 136px); }
 .altro__titolo {
   font-size: clamp(1.75rem, 3.1vw, 2.5rem);
@@ -173,21 +191,23 @@ i { font-style: italic; }
 .altro__lede { color: var(--ink-mid); max-width: 34em; margin: 0 0 32px; }
 .altro__elenco {
   list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 14px;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  display: grid; column-gap: clamp(32px, 5vw, 72px);
+  border-top: 1px solid var(--cream-dark);
 }
+@media (min-width: 760px) { .altro__elenco { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.altro__elenco li { border-bottom: 1px solid var(--cream-dark); }
+/* Un elenco a righe, come le pagine del taccuino: tessera piccola, nome, una riga. */
 .altro__voce {
-  display: flex; gap: 16px; align-items: flex-start; height: 100%;
-  padding: 18px 18px 20px; border-radius: 18px;
-  background: var(--white); box-shadow: var(--ombra);
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 16px 4px 17px;
   color: inherit; text-decoration: none;
-  transition: transform 0.25s ease, background-color 0.25s ease;
 }
-.altro__voce:hover { transform: translateY(-2px); background: var(--tinta-bg); }
-.altro__voce:focus-visible { outline: 2px solid var(--tinta-ink); outline-offset: 3px; }
-.altro__nome { display: block; font-family: var(--font-display); font-size: 1.15rem; line-height: 1.2; margin: 2px 0 6px; color: var(--ink); }
+.altro__voce:hover { text-decoration: none; }
+.altro__voce:hover .altro__nome { color: var(--tinta-ink); }
+.altro__voce:focus-visible { outline: 2px solid var(--tinta-ink); outline-offset: 2px; border-radius: 8px; }
+.altro__voce .tessera { width: 40px; height: 40px; border-radius: 12px; margin-top: 2px; }
+.altro__nome { display: block; font-family: var(--font-display); font-size: 1.1rem; line-height: 1.25; margin-bottom: 3px; color: var(--ink); transition: color var(--rapido) var(--ease); }
 .altro__testo { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-mid); }
-@media (prefers-reduced-motion: reduce) { .altro__voce, .altro__voce:hover { transition: none; transform: none; } }
 
 /* ---------- Testata: marchio, tappe, app ---------- */
 .testata {
@@ -204,7 +224,7 @@ i { font-style: italic; }
   padding: 12px var(--margine);
   display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 20px;
 }
-.marchio { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.marchio { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; color: var(--ink); text-decoration: none; }
 .marchio:hover { text-decoration: none; }
 .zorba--mini { width: 40px; height: 40px; }
 .marchio__nome { font: 600 19px/1 var(--font-display); letter-spacing: -0.01em; }
@@ -239,6 +259,12 @@ i { font-style: italic; }
   transition: color var(--rapido) var(--ease);
 }
 .nav-sentiero__voce:hover { color: var(--ink); text-decoration: none; }
+/* Sul telefono le sette tessere stanno tutte in una riga: niente tappe nascoste a destra. */
+@media (max-width: 520px) {
+  .nav-sentiero__striscia { padding: 0 6px; -webkit-mask-image: none; mask-image: none; }
+  .nav-sentiero__tappe { width: 100%; justify-content: space-between; gap: 0; }
+  .nav-sentiero__voce { min-width: 0; padding: 6px 1px 4px; gap: 3px; font-size: 11px; letter-spacing: -0.01em; }
+}
 .nav-sentiero__voce[aria-current='page'] { color: var(--tinta-ink); font-weight: 600; }
 .nav-sentiero__tessera {
   position: relative; z-index: 1;
@@ -298,6 +324,14 @@ i { font-style: italic; }
 @media (max-width: 899px) {
   .apertura__tavola { order: -1; margin-bottom: 34px; }
   .zorba--apertura { right: -2%; bottom: -22%; width: 40%; }
+}
+/* Sul telefono la tavola è più bassa, così titolo e «Crea il tuo giardino»
+   stanno nella prima schermata. */
+@media (max-width: 599px) {
+  .apertura__tavola img { aspect-ratio: 5 / 2; }
+  .zorba--apertura { bottom: -26%; width: 34%; }
+  .apertura__titolo { font-size: 2.1rem; margin-bottom: 16px; }
+  .apertura__lede { font-size: 16.5px; margin-bottom: 22px; }
 }
 .apertura__didascalia {
   position: absolute; left: 18px; bottom: -34px;
