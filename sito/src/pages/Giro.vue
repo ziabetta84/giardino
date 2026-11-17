@@ -113,7 +113,7 @@
           <img :src="foto480" :srcset="`${foto480} 480w, ${foto900} 900w`" sizes="(min-width: 900px) 300px, 62vw"
                width="1080" height="1350" loading="lazy" decoding="async"
                alt="Zorba, un gatto nero con gli occhi verdi e la coda dritta, cammina sul muretto di pietra accanto al prato del giardino.">
-          <figcaption class="mano">Zorba, sul suo muretto</figcaption>
+          <figcaption class="mano">Zorba, nel suo giardino</figcaption>
         </figure>
         <div class="cancello__testo">
           <h2 id="t-zorba-gatto" class="cancello__titolo">Chi è Zorba</h2>
