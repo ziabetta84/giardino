@@ -98,9 +98,10 @@ async function registraCuraTipo(tipo) {
   if (!pianta.value || salvandoTipo.value) return
   salvandoTipo.value = tipo
   const valorePrecedente = pianta.value.ultima_cura?.[tipo] ?? null
+  const concimePrecedente = pianta.value.ultimo_concime_id ?? null
   try {
     await pianteApi.registraCura(props.piantaId, tipo)
-    toastCura.value?.apri(props.piantaId, tipo, valorePrecedente)
+    toastCura.value?.apri(props.piantaId, tipo, valorePrecedente, concimePrecedente)
   } finally {
     salvandoTipo.value = null
   }

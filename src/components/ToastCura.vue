@@ -76,8 +76,8 @@ function mostraProssimo() {
 // (bug osservato su PiantaView, ma il componente è condiviso: stesso rischio
 // ovunque si registrino due cure vicine nel tempo). Una nuova richiesta ora
 // interrompe e mostra subito quella nuova invece di aspettare il proprio turno.
-function apri(id, tipo, valorePrecedente) {
-  coda.value.push({ kind: 'cura', id, tipo, valorePrecedente, chiave: `${id}-${tipo}` })
+function apri(id, tipo, valorePrecedente, concimePrecedente) {
+  coda.value.push({ kind: 'cura', id, tipo, valorePrecedente, concimePrecedente, chiave: `${id}-${tipo}` })
   mostraProssimo()
 }
 
@@ -97,11 +97,11 @@ async function annulla() {
   clearTimeout(timer)
   try {
     if (voce.kind === 'cura-lotto') {
-      await Promise.all(voce.voci.map(v => pianteApi.annullaCura(v.id, v.tipo, v.valorePrecedente)))
+      await Promise.all(voce.voci.map(v => pianteApi.annullaCura(v.id, v.tipo, v.valorePrecedente, v.concimePrecedente)))
     } else if (voce.kind === 'tappa') {
       await progettiApi.registraTappa(voce.tappaId, voce.espitoPrecedente)
     } else {
-      await pianteApi.annullaCura(voce.id, voce.tipo, voce.valorePrecedente)
+      await pianteApi.annullaCura(voce.id, voce.tipo, voce.valorePrecedente, voce.concimePrecedente)
     }
   } catch {
     const messaggio = voce.kind === 'cura-lotto'

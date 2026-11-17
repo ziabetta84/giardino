@@ -38,7 +38,18 @@
 
       <Transition name="fade" mode="out-in">
       <div :key="tabAttiva" id="pannello-attivita" role="tabpanel" :aria-labelledby="`tab-${tabAttiva}`">
-      <template v-if="tabAttiva !== 'progetti'">
+      <!-- Per urgenza (le cure che l'app ritiene dovute) o per zona (una cura
+           registrata su tutta un'aiuola, con le piante scelte nel foglio). -->
+      <div v-if="tabAttiva !== 'progetti'" class="modo" role="radiogroup" aria-label="Come mostrare le cure">
+        <button type="button" role="radio" :aria-checked="modo === 'urgenza'" class="modo__b" :class="{ 'modo__b--attivo': modo === 'urgenza' }" @click="scegliModo('urgenza')">Per urgenza</button>
+        <button type="button" role="radio" :aria-checked="modo === 'zona'" class="modo__b" :class="{ 'modo__b--attivo': modo === 'zona' }" @click="scegliModo('zona')">Per zona</button>
+      </div>
+
+      <AttivitaPerZona v-if="tabAttiva !== 'progetti' && modo === 'zona'"
+        :tipo="tabAttiva === 'irrigazione' ? 'irrigazione' : 'concimazione'"
+        @apri="apriCuraZona" />
+
+      <template v-else-if="tabAttiva !== 'progetti'">
         <!-- Da fare -->
         <template v-if="daFareTab.length">
           <div class="slabel"><Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da fare</div>
@@ -106,7 +117,7 @@
            --motion-sheet apposta: è un momento raro, non un feedback di
            routine (vedi Motion in DESIGN.md). -->
       <Transition name="tab-pulita">
-        <div v-if="vuotaTab" class="empty">
+        <div v-if="vuotaTab && !(modo === 'zona' && tabAttiva !== 'progetti')" class="empty">
           <Icon name="foglia" />
           <p><b>Tutto in ordine!</b>Nessuna cura urgente qui</p>
         </div>
@@ -123,6 +134,17 @@
       <DossierPianta v-if="dossierItem" :pianta-id="dossierItem.piantaId" />
     </FoglioLaterale>
 
+    <FoglioLaterale
+      :model-value="!!curaZona"
+      @update:model-value="v => { if (!v) chiudiCuraZona() }"
+      :titolo="curaZona ? (curaZona.sottozona ? `${curaZona.zona} – ${curaZona.sottozona}` : curaZona.zona) : ''"
+    >
+      <FoglioCuraZona v-if="curaZona" :key="`${curaZona.zona}|${curaZona.sottozona}|${tabAttiva}`"
+        :zona="curaZona.zona" :sottozona="curaZona.sottozona" :tab="tabAttiva"
+        :salvando="salvandoZona" :errore="erroreZona"
+        @registra="registraZona" />
+    </FoglioLaterale>
+
     <ToastCura ref="toastCura" @errore="onErroreToast" />
   </div>
 </template>
@@ -137,6 +159,8 @@ import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { tappeAttese } from '@/composables/useProgetti'
 import AttivitaGruppoZona from '@/components/AttivitaGruppoZona.vue'
+import AttivitaPerZona from '@/components/AttivitaPerZona.vue'
+import FoglioCuraZona from '@/components/FoglioCuraZona.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import DossierPianta from '@/components/DossierPianta.vue'
 import ToastCura from '@/components/ToastCura.vue'
@@ -235,9 +259,10 @@ async function registra(item) {
   salvando.value = item.key
   erroreAzione.value = null
   const valorePrecedente = store.piante?.[item.piantaId]?.ultima_cura?.[item.tipo] ?? null
+  const concimePrecedente = store.piante?.[item.piantaId]?.ultimo_concime_id ?? null
   try {
     await pianteApi.registraCura(item.piantaId, item.tipo)
-    toastCura.value?.apri(item.piantaId, item.tipo, valorePrecedente)
+    toastCura.value?.apri(item.piantaId, item.tipo, valorePrecedente, concimePrecedente)
   } catch {
     erroreAzione.value = { chiave: item.key, messaggio: 'Non sono riuscito a registrare la cura. Riprova.' }
   } finally {
@@ -256,6 +281,7 @@ async function registraGruppo(gruppo) {
     id: item.piantaId,
     tipo: item.tipo,
     valorePrecedente: store.piante?.[item.piantaId]?.ultima_cura?.[item.tipo] ?? null,
+    concimePrecedente: store.piante?.[item.piantaId]?.ultimo_concime_id ?? null,
   }))
   try {
     await pianteApi.registraCuraMultipla(gruppo.items)
@@ -283,6 +309,47 @@ async function registraTappa(t) {
   }
 }
 
+// Modo «Per zona»: ricordato su questo dispositivo, come una preferenza di
+// vista (se la memoria del browser non è disponibile si riparte da «Per urgenza»).
+const CHIAVE_MODO = 'attivita.modo'
+function leggiModo() {
+  try { return localStorage.getItem(CHIAVE_MODO) === 'zona' ? 'zona' : 'urgenza' } catch { return 'urgenza' }
+}
+const modo = ref(leggiModo())
+function scegliModo(m) {
+  modo.value = m
+  try { localStorage.setItem(CHIAVE_MODO, m) } catch { /* solo una preferenza */ }
+}
+
+const curaZona = ref(null)
+const salvandoZona = ref(false)
+const erroreZona = ref(null)
+function apriCuraZona(z) { erroreZona.value = null; curaZona.value = z }
+function chiudiCuraZona() { if (!salvandoZona.value) curaZona.value = null }
+
+async function registraZona({ voci, concimeId }) {
+  if (salvandoZona.value) return
+  salvandoZona.value = true
+  erroreZona.value = null
+  const chiave = `zona-${curaZona.value.zona}|${curaZona.value.sottozona ?? ''}`
+  // Valori precedenti letti prima della scrittura, per «Annulla tutte».
+  const precedenti = voci.map(v => ({
+    id: v.piantaId,
+    tipo: v.tipo,
+    valorePrecedente: store.piante?.[v.piantaId]?.ultima_cura?.[v.tipo] ?? null,
+    concimePrecedente: store.piante?.[v.piantaId]?.ultimo_concime_id ?? null,
+  }))
+  try {
+    await pianteApi.registraCuraMultipla(voci, undefined, { concimeId })
+    toastCura.value?.apriLotto(precedenti, chiave)
+    salvandoZona.value = false
+    curaZona.value = null
+  } catch {
+    erroreZona.value = 'Non sono riuscito a registrare le cure. Riprova.'
+    salvandoZona.value = false
+  }
+}
+
 function onErroreToast(e) {
   erroreAzione.value = { chiave: e.chiave, messaggio: e.messaggio }
 }
@@ -291,6 +358,15 @@ function onErroreToast(e) {
 <style scoped>
 .attivita-data { font-family: var(--font-sans); font-size: 12px; color: var(--ink-soft); margin: 4px 2px 20px; }
 .tab-icona { display: inline-flex; align-items: center; gap: 5px; }
+
+/* Commutatore «Per urgenza · Per zona»: due segmenti, più sobrio delle tab
+   sopra perché cambia la vista, non il contenuto. */
+.modo { display:inline-flex; gap:2px; padding:3px; margin:-8px 0 18px; border-radius:999px; background:var(--cream-dark); }
+.modo__b { min-height:36px; padding:0 14px; border:none; border-radius:999px; background:none; cursor:pointer;
+  font:600 12px/1 var(--font-sans); color:var(--ink-mid);
+  transition: background var(--motion-quick) var(--ease-standard), color var(--motion-quick) var(--ease-standard); }
+.modo__b--attivo { background:var(--white); color:var(--ink); box-shadow:0 1px 4px rgba(42,34,24,0.12); }
+.modo__b:focus-visible { outline:none; box-shadow:0 0 0 3px var(--gold); }
 .tab-icona :deep(svg) { width: 14px; height: 14px; flex-shrink: 0; }
 
 .tappa-lista { display:flex; flex-direction:column; margin-bottom:24px; position:relative; }

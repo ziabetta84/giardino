@@ -30,6 +30,7 @@ src/
 ├── App.vue                  ← layout globale (NavBar, BottomNav, StatusBar, banner token)
 ├── router/index.js          ← route con createWebHashHistory (necessario per gh-pages)
 ├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase una volta sola
+├── utils/curaZona.js        ← cura registrata su un'intera zona/sottozona (Attività → «Per zona»): da fare / possono riceverla / escluse, concime adatto (test con node --test)
 ├── utils/catalogo.js        ← chiavi delle voci del catalogo, credito delle foto, livelli dell'eredità (test: node --test 'src/utils/*.test.mjs')
 ├── utils/nomeScientifico.js ← nome scientifico con le convenzioni botaniche (corsivo solo per genere ed epiteti) e nome comune da mostrare sotto; titolo delle schede (PiantaView, scheda del catalogo in SelettoreSpecie) via components/NomeScientifico.vue
 ├── composables/
@@ -214,6 +215,12 @@ Tabelle: `zorba_fili` (un filo per richiesta, 3 repliche poi chiuso), `zorba_mes
 `valutaCura(pianta, specie, tipo)` legge `specie.manutenzione[tipo][stagione]`, calcola i giorni dall'ultima cura e restituisce `{ urgente, label, giorni }`. `tipiCuraPianta(pianta, specie)` centralizza quali tipi valutare/mostrare per una pianta (irrigazione, concimazione, calcio se pertinente) — unico punto usato da `DossierPianta.vue`, `PiantaView.vue`, `AttivitaView.vue` e `HomeView.vue`, invece di 4 liste duplicate. `cureUrgentiPianta` la usa e filtra solo i tipi urgenti. La stagione è calcolata dal mese corrente.
 
 Per le piante con `coltivato_in === 'acqua'` (issue #173), `tipiCuraPianta` sostituisce `irrigazione` con `cambio_acqua` ("Ricambio acqua" in UI — l'etichetta "Irrigazione" non ha senso per una pianta già immersa in acqua): stessa logica di cadenza, letta da `specie.manutenzione.cambio_acqua[stagione]` se presente, altrimenti cadenza generica di 14 giorni finché la specie non viene revisionata (vedi `/zorbadice` → `revisione_specie`). Per vaso/terra il campo non compare mai.
+
+### Cure per zona (17/11/2026)
+
+In Attività, nelle schede Irrigazione e Concimi & calcio, il commutatore «Per urgenza · Per zona» (ricordato in localStorage) mostra tutte le zone e sottozone con piante; ogni riga apre `FoglioCuraZona.vue`, che divide le piante con `utils/curaZona.js`: «Da fare» (scadute, mai registrate o entro 3 giorni, spuntate), «Possono riceverla» (spuntate solo se è passata almeno metà dell'intervallo; senza cadenza nella scheda mai spuntate), «Escluse» (a riposo in stagione con «mai»/«non necessario», in acqua per l'irrigazione, irrigazione automatica, calcio non previsto; non spuntabili). Per la concimazione si sceglie prima il concime (proposto quello consigliato al maggior numero di piante, tra i disponibili): le piante con fabbisogno NPK lontano (stessa soglia di `concimeConsigliato`) restano senza spunta con il consiglio. La pioggia prevista è solo un avviso. Criteri approvati da Roberta il 17/11/2026.
+
+`piante.ultimo_concime_id` (migration `20261117120000_piante_ultimo_concime.sql`, `on delete set null`, un trigger rifiuta i concimi di altri utenti; prove `bash scripts/cure/prova_db.sh`, rollback `scripts/cure/rollback_ultimo_concime.sql`) è il concime dell'ultima concimazione: lo scrive la cura per zona, una concimazione registrata da sola lo azzera, «Annulla» lo ripristina; `PiantaView.vue` lo mostra sotto la concimazione. La migration va applicata prima di pubblicare l'app che scrive la colonna.
 
 ## Gallery
 

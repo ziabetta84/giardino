@@ -532,10 +532,11 @@ async function registra(item) {
   salvando.value = item.key
   erroreRegistrazione.value = null
   const valorePrecedente = store.piante?.[item.piantaId]?.ultima_cura?.[item.tipo] ?? null
+  const concimePrecedente = store.piante?.[item.piantaId]?.ultimo_concime_id ?? null
   try {
     await pianteApi.registraCura(item.piantaId, item.tipo)
     zorbaLogo.value?.confermaCura?.()
-    toastCura.value?.apri(item.piantaId, item.tipo, valorePrecedente)
+    toastCura.value?.apri(item.piantaId, item.tipo, valorePrecedente, concimePrecedente)
   } catch {
     erroreRegistrazione.value = { key: item.key, messaggio: 'Non sono riuscito a registrare la cura. Riprova.' }
   } finally {

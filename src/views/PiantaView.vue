@@ -94,6 +94,7 @@
           <span class="care__m">
             <span class="care__n">{{ LABEL_CURA[tipo] ?? tipo }}</span>
             <span class="care__d" :class="{ 'care__d--urgente': tipiUrgenti.has(tipo) }">{{ statoCura(tipo) }}</span>
+            <span v-if="tipo === 'concimazione' && ultimoConcime" class="care__d">Ultima volta con {{ ultimoConcime.nome }}</span>
             <span v-if="erroreCura?.tipo === tipo" class="care__d care__d--err">{{ erroreCura.messaggio }}</span>
           </span>
           <button class="care-act" :class="{ 'care-act--rose': tipiUrgenti.has(tipo) }" type="button" @click="registraCura(tipo)" :disabled="salvando === tipo">
@@ -417,6 +418,9 @@ const giorniDaPotatura = computed(() => {
   return Math.floor((Date.now() - new Date(s).getTime()) / 86400000)
 })
 
+// Il concime usato nell'ultima concimazione, se registrato (cure per zona).
+const ultimoConcime = computed(() => store.concimi?.[pianta.value?.ultimo_concime_id] ?? null)
+
 function statoCura(tipo) {
   if (tipo === 'potatura') {
     return giorniDaPotatura.value == null
@@ -447,9 +451,10 @@ async function registraCura(tipo) {
   erroreCura.value = null
   const id = pianta.value.id
   const valorePrecedente = pianta.value.ultima_cura?.[tipo] ?? null
+  const concimePrecedente = pianta.value.ultimo_concime_id ?? null
   try {
     await pianteApi.registraCura(id, tipo)
-    toastCura.value?.apri(id, tipo, valorePrecedente)
+    toastCura.value?.apri(id, tipo, valorePrecedente, concimePrecedente)
   } catch {
     erroreCura.value = { tipo, messaggio: 'Non sono riuscito a registrare la cura. Riprova.' }
   } finally {
