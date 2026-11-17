@@ -17,3 +17,8 @@
 # I file in assets/ hanno l'hash nel nome: si possono tenere per sempre.
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Il minisito di presentazione per ora si condivide solo con chi ha il link:
+# niente indicizzazione. Da togliere quando diventa pubblico.
+/scopri/*
+  X-Robots-Tag: noindex, nofollow

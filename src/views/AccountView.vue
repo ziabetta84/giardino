@@ -261,7 +261,7 @@
         <p class="auth__nota auth__legale">
           <template v-if="modalita === 'registrati'">Che cosa succede ai tuoi dati lo trovi in </template>
           <RouterLink :to="{ name: 'privacy' }">Privacy e note legali</RouterLink>
-          <template v-if="modalita === 'accedi'"><span aria-hidden="true"> · </span><a :href="indirizzoScopri">Che cos'è Zorba in giardino</a></template>
+          <template v-if="modalita === 'accedi' && scopriPubblico"><span aria-hidden="true"> · </span><a :href="indirizzoScopri">Che cos'è Zorba in giardino</a></template>
         </p>
       </form>
     </template>
@@ -301,7 +301,9 @@ const zorba = ref(null)
 const route = useRoute()
 const modalita  = ref(route.query.registrati !== undefined ? 'registrati' : 'accedi')
 // Il minisito di presentazione, per chi arriva qui senza sapere che cos'è l'app.
+// Il link compare solo quando il minisito è pubblico (VITE_SCOPRI_PUBBLICO=true).
 const indirizzoScopri = `${import.meta.env.BASE_URL}scopri/`
+const scopriPubblico = import.meta.env.VITE_SCOPRI_PUBBLICO === 'true'
 const email     = ref('')
 const password  = ref('')
 const nome      = ref('')

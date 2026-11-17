@@ -38,8 +38,10 @@ jobs:
       - name: Installa dipendenze
         run: npm ci
 
+      # Solo l'app: il minisito /scopri/ va solo su Cloudflare, dietro
+      # Cloudflare Access, e qui resterebbe aperto a chiunque.
       - name: Build
-        run: npm run build
+        run: npx vite build
 
       - uses: actions/upload-pages-artifact@v3
         with:
