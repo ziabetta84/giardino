@@ -506,8 +506,11 @@ body::before {
 .chip--on-photo { background:rgba(253,248,238,.22); color:#fdf8ee; --acqua:#fdf8ee; --acqua-dark:#fdf8ee; }
 .pname { font:700 24px/1.12 var(--font-display); color:#fdf8ee; margin:8px 0 2px;
   letter-spacing:-0.01em; text-shadow:0 2px 14px rgba(0,0,0,.35); text-wrap:balance; }
-.pname i { font-weight:400; }
-.pbino { font:400 12.5px/1.4 var(--font-display); font-style:italic;
+.pname .varieta { font-weight:400; }
+/* Il titolo è il nome scientifico (corsivo dove va, components/NomeScientifico.vue); sotto, il nome comune in tondo */
+.phead-cap .nome-comune { font:500 15px/1.3 var(--font-display); color:#fdf8ee; margin:0 0 4px;
+  text-shadow:0 1px 10px rgba(0,0,0,.35); }
+.pbino { font:400 12.5px/1.4 var(--font-display);
   color:rgba(253,248,238,.9); margin:0; }
 .phead-cap__chips { display:flex; gap:6px; flex-wrap:wrap; }
 .chip--ic { padding:4px 7px; }

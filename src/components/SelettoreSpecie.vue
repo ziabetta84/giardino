@@ -46,8 +46,8 @@
     <div v-if="specieSelezionata && !dropdownAperto" class="scheda-chosen">
       <span class="sc-th" :style="miniatura(specieSelezionata, 96) ? { backgroundImage: bgUrl(miniatura(specieSelezionata, 96)) } : null"></span>
       <span class="sc-m">
-        <span class="sc-nm">{{ specieSelezionata.nome }}</span>
-        <span v-if="specieSelezionata.specie" class="sc-sci">{{ specieSelezionata.specie }}</span>
+        <span class="sc-nm"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></span>
+        <span v-if="nomeComuneScelta" class="sc-sci">{{ nomeComuneScelta }}</span>
         <span class="sc-acts">
           <button type="button" @click="dossierAperto = true">Vedi scheda completa</button>
           <button type="button" class="alt" @click="apriRicerca">Cambia</button>
@@ -65,8 +65,8 @@
           <div class="dh-scrim"></div>
           <span class="dh-chip">{{ statoBadge }}</span>
           <div class="dh-cap">
-            <p class="dh-name">{{ specieSelezionata.nome }}</p>
-            <p v-if="specieSelezionata.specie" class="dh-sci">{{ specieSelezionata.specie }}</p>
+            <p class="dh-name"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></p>
+            <p v-if="nomeComuneScelta" class="dh-sci">{{ nomeComuneScelta }}</p>
           </div>
           <span v-if="hero.credito" class="dh-credit" @click.stop>
             <a v-if="!hero.credito.autore && hero.credito.pagina" :href="hero.credito.pagina" target="_blank" rel="noopener">Foto</a><template v-else>Foto</template><template v-if="hero.credito.titolo"> «{{ hero.credito.titolo }}»</template>:
@@ -77,8 +77,8 @@
         </div>
         <div v-else class="dh-np">
           <img v-if="disegno" class="np-dis" :src="disegno.url" :alt="disegno.alt">
-          <div class="np-name">{{ specieSelezionata.nome }}</div>
-          <div v-if="specieSelezionata.specie" class="np-sci">{{ specieSelezionata.specie }}</div>
+          <div class="np-name"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></div>
+          <div v-if="nomeComuneScelta" class="np-sci">{{ nomeComuneScelta }}</div>
           <span class="np-badge badge-mini" :class="statoBadgeClasse">{{ statoBadge }}</span>
         </div>
 
@@ -152,6 +152,8 @@ import { normalizzaApici } from '@/utils/normalizzaTesto'
 import Icon from '@/components/Icon.vue'
 import Spinner from '@/components/Spinner.vue'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
+import NomeScientifico from '@/components/NomeScientifico.vue'
+import { nomeComuneVoce } from '@/utils/nomeScientifico'
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
@@ -317,6 +319,8 @@ const alertTuttiAperti = ref(false)
 const specieSelezionata = computed(() =>
   props.modelValue ? (store.catalogo?.[props.modelValue] ?? null) : null
 )
+// Titolo della scheda: il nome scientifico; sotto, il nome comune italiano quando c'è
+const nomeComuneScelta = computed(() => nomeComuneVoce(specieSelezionata.value))
 
 const statoBadge = computed(() => {
   const s = specieSelezionata.value
@@ -583,8 +587,7 @@ watch(() => props.modelValue, () => {
 .sc-sci {
   display: block;
   font: 400 11.5px/1.3 var(--font-display);
-  font-style: italic;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   margin-top: 1px;
 }
 .sc-acts {
@@ -679,7 +682,6 @@ watch(() => props.modelValue, () => {
 }
 .dh-sci {
   font: 400 12.5px/1.4 var(--font-display);
-  font-style: italic;
   color: rgba(253,248,238,.9);
   margin: 2px 0 0;
 }
@@ -715,8 +717,7 @@ watch(() => props.modelValue, () => {
 }
 .dh-np .np-sci {
   font: 400 12.5px/1.35 var(--font-display);
-  font-style: italic;
-  color: var(--ink-faint);
+  color: var(--ink-soft);
   margin-top: 2px;
 }
 .dh-np .np-badge {
