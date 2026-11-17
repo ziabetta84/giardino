@@ -109,7 +109,12 @@
 
       <section class="cancello" aria-labelledby="t-zorba-gatto">
         <span class="tappa__pietra tappa__pietra--ultima" aria-hidden="true"></span>
-        <Zorba class="zorba--grande" etichetta="Zorba, un gatto nero" />
+        <figure class="ritratto">
+          <img :src="foto480" :srcset="`${foto480} 480w, ${foto900} 900w`" sizes="(min-width: 900px) 300px, 62vw"
+               width="1080" height="1350" loading="lazy" decoding="async"
+               alt="Zorba, un gatto nero con gli occhi verdi e la coda dritta, cammina sul muretto di pietra accanto al prato del giardino.">
+          <figcaption class="mano">Zorba, sul suo muretto</figcaption>
+        </figure>
         <div class="cancello__testo">
           <h2 id="t-zorba-gatto" class="cancello__titolo">Chi è Zorba</h2>
           <p>
@@ -127,6 +132,8 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import heroGiorno from '@app/assets/hero/hero-primavera-giorno.webp'
 import heroNotte from '@app/assets/hero/hero-primavera-notte.webp'
+import foto480 from '../assets/zorba-in-giardino-480.webp'
+import foto900 from '../assets/zorba-in-giardino-900.webp'
 import { REGISTRATI } from '../percorso.js'
 import { usePagina } from '../seo.js'
 import Zorba from '../components/Zorba.vue'
