@@ -49,6 +49,14 @@
         Zorba era un gatto nero, e riposa nel giardino dove quest'app è nata. Oggi presta il nome alla
         voce che ti risponde: dà del tu, tiene alla precisione e non ha fretta.
       </p>
+      <template #tavola>
+        <figure class="ritratto ritratto--blocco">
+          <img :src="foto480" :srcset="`${foto480} 480w, ${foto900} 900w`" sizes="(min-width: 900px) 300px, 62vw"
+               width="1080" height="1350" loading="lazy" decoding="async"
+               alt="Zorba, un gatto nero con gli occhi verdi e la coda dritta, cammina sul muretto di pietra accanto al prato del giardino.">
+          <figcaption class="mano">Zorba, nel suo giardino</figcaption>
+        </figure>
+      </template>
     </Blocco>
 
     <ProssimaTappa />
@@ -61,6 +69,8 @@ import TestaTappa from '../components/TestaTappa.vue'
 import Blocco from '../components/Blocco.vue'
 import TavolaDialogo from '../components/TavolaDialogo.vue'
 import ProssimaTappa from '../components/ProssimaTappa.vue'
+import foto480 from '../assets/zorba-in-giardino-480.webp'
+import foto900 from '../assets/zorba-in-giardino-900.webp'
 
 usePagina({
   titolo: "Zorba, l'assistente del giardino · Zorba in giardino",
