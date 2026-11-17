@@ -53,6 +53,15 @@
       </template>
     </Blocco>
 
+    <Blocco id="b-impianto" icona="orologio" titolo="Se hai l'irrigazione automatica">
+      <p>
+        Se in giardino c'è un impianto a goccia o un programmatore, lo dici all'app: imposti ogni
+        quanti giorni parte, per tutto il giardino, per una zona, per un'aiuola o per una sola pianta.
+        Le piante coperte dal programma non compaiono più tra le irrigazioni da fare a mano. Quando
+        è prevista pioggia sulle zone all'aperto, l'app ti segnala che il giro si può saltare.
+      </p>
+    </Blocco>
+
     <Blocco id="b-rete" icona="vaso" titolo="Anche in fondo al giardino">
       <p>
         L'app si apre dal browser e si aggiunge alla schermata Home del telefono come un'app qualsiasi.

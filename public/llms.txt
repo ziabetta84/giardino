@@ -9,6 +9,8 @@ Indirizzo: https://zorbaingiardino.app/ (si usa dal browser su telefono e comput
 - Piante organizzate per zone e sottozone, in terra, in vaso o in acqua, con foto e storico delle cure.
 - Catalogo di oltre 14.500 schede botaniche scritte in italiano e quasi 200.000 cultivar; nomi scientifici allineati al Catalogue of Life.
 - Cure da fare oggi (irrigazione, concimazione, potatura), calcolate per specie e stagione.
+- Irrigazione automatica: programmi «ogni N giorni» per tutto il giardino, una zona, una sottozona o una pianta; le piante coperte escono dalle cure a mano e, con pioggia prevista sulle zone all'aperto, l'app segnala che il giro si può saltare.
+- Galleria di foto per ogni pianta.
 - Dispensa dei concimi: confronta il titolo NPK dei concimi dell'utente con i bisogni delle piante.
 - Progetti del giardino divisi in tappe; meteo del luogo del giardino; consultabile anche senza rete.
 - Zorba: riconosce una pianta da una foto (anche con Pl@ntNet), propone le cause possibili di un problema, consiglia cure e concimi, prepara piani di progetto a tappe. Può sbagliare e dichiara quando non è sicuro.

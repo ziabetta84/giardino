@@ -111,7 +111,7 @@ i { font-style: italic; }
 .zorba { display: block; color: var(--zorba); }
 .zorba__corpo, .zorba__coda { fill: var(--zorba); }
 @media (prefers-color-scheme: dark) {
-  .zorba { filter: drop-shadow(0 0 3px rgba(242, 232, 216, 0.55)); }
+  .zorba, .is-zorba svg { filter: drop-shadow(0 0 3px rgba(242, 232, 216, 0.55)); }
 }
 
 /* ---------- Bottoni ---------- */
@@ -163,6 +163,31 @@ i { font-style: italic; }
 .tessera svg { width: 60%; height: 60%; }
 .tessera--piccola { width: 34px; height: 34px; border-radius: 11px; }
 .tessera--grande { width: 64px; height: 64px; border-radius: 18px; }
+
+/* Le altre funzioni nel giro: una tessera per funzione, ognuna nel suo colore. */
+.altro { padding-bottom: clamp(72px, 10vw, 136px); }
+.altro__titolo {
+  font-size: clamp(1.75rem, 3.1vw, 2.5rem);
+  line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 12px;
+}
+.altro__lede { color: var(--ink-mid); max-width: 34em; margin: 0 0 32px; }
+.altro__elenco {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 14px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+}
+.altro__voce {
+  display: flex; gap: 16px; align-items: flex-start; height: 100%;
+  padding: 18px 18px 20px; border-radius: 18px;
+  background: var(--white); box-shadow: var(--ombra);
+  color: inherit; text-decoration: none;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.altro__voce:hover { transform: translateY(-2px); background: var(--tinta-bg); }
+.altro__voce:focus-visible { outline: 2px solid var(--tinta-ink); outline-offset: 3px; }
+.altro__nome { display: block; font-family: var(--font-display); font-size: 1.15rem; line-height: 1.2; margin: 2px 0 6px; color: var(--ink); }
+.altro__testo { display: block; font-size: 15px; line-height: 1.5; color: var(--ink-mid); }
+@media (prefers-reduced-motion: reduce) { .altro__voce, .altro__voce:hover { transition: none; transform: none; } }
 
 /* ---------- Testata: marchio, tappe, app ---------- */
 .testata {

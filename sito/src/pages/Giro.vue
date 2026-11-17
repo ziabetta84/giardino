@@ -73,7 +73,7 @@
 
       <section class="tappa tinta--gold" aria-labelledby="t-zorba">
         <div class="tappa__testo">
-          <Tessera icona="erba-gatta" colore="gold" misura="grande" />
+          <Tessera icona="gatto" colore="gold" misura="grande" />
           <h2 id="t-zorba" class="tappa__titolo">Zorba risponde sulle tue piante</h2>
           <p>
             Zorba è l'assistente dell'app. Prima di rispondere legge le tue piante, le cure che hai
@@ -84,6 +84,22 @@
         </div>
         <TavolaDialogo v-rivela />
       </section>
+
+      <div class="altro" role="region" aria-labelledby="t-altro">
+        <h2 id="t-altro" class="altro__titolo">E poi, tutto il resto</h2>
+        <p class="altro__lede">Il diario e le cure sono il cuore dell'app. Intorno ci sono gli attrezzi per tutto quello che succede in giardino durante l'anno.</p>
+        <ul class="altro__elenco">
+          <li v-for="f in funzioni" :key="f.nome" :class="`tinta--${f.colore}`">
+            <RouterLink class="altro__voce" :to="f.dove">
+              <Tessera :icona="f.icona" :colore="f.colore" />
+              <span>
+                <span class="altro__nome">{{ f.nome }}</span>
+                <span class="altro__testo">{{ f.testo }}</span>
+              </span>
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
 
       <section class="tappa tappa--quieta tinta--uovo" aria-labelledby="t-dati">
         <div class="tappa__testo">
@@ -135,6 +151,23 @@ import TavolaDialogo from '../components/TavolaDialogo.vue'
 import Promesse from '../components/Promesse.vue'
 import InvitoFinale from '../components/InvitoFinale.vue'
 
+const funzioni = [
+  { nome: 'Progetti a tappe', icona: 'calendario', colore: 'rose', dove: '/aiuole/#b-progetti',
+    testo: "Rifare un'aiuola o preparare l'orto diventa un progetto con le sue tappe e le sue date." },
+  { nome: 'Che pianta è?', icona: 'fotocamera', colore: 'olive', dove: '/zorba/#b-chiedere',
+    testo: 'Mandi una foto a Zorba, che riconosce la pianta e ti propone la scheda per aggiungerla.' },
+  { nome: 'Che cosa ha?', icona: 'zona-insetto', colore: 'gold', dove: '/zorba/#b-chiedere',
+    testo: 'Foglie gialle o macchie: dalla foto e dalle cure registrate, Zorba ti dice le cause più probabili.' },
+  { nome: 'La dispensa dei concimi', icona: 'provetta', colore: 'sage', dove: '/cure/#b-concimi',
+    testo: 'Segni i concimi che hai e l\'app ti dice per quali piante va bene ognuno.' },
+  { nome: "L'irrigazione automatica", icona: 'goccia', colore: 'acqua', dove: '/cure/#b-impianto',
+    testo: "Se hai un impianto, imposti ogni quanti giorni parte e quelle piante escono dalle cure da fare a mano." },
+  { nome: 'Il meteo del giardino', icona: 'meteo', colore: 'uovo', dove: '/aiuole/#b-meteo',
+    testo: 'Le previsioni e la pioggia di dove sta il tuo giardino, che contano quando decidi se irrigare.' },
+  { nome: 'Le foto di ogni pianta', icona: 'cornice', colore: 'rose', dove: '/aiuole/#b-pianta',
+    testo: 'Una galleria per pianta: sfogliandola la vedi crescere, stagione dopo stagione.' },
+]
+
 usePagina({
   titolo: "Zorba in giardino · l'app italiana per curare giardino, orto e balcone",
   descrizione: "App gratuita e senza pubblicità per tenere il diario del giardino: le tue piante con oltre 14.500 schede in italiano, le cure al momento giusto per specie e stagione, e Zorba, l'assistente che risponde guardando le tue piante.",
@@ -160,6 +193,7 @@ usePagina({
           'Oltre 14.500 schede botaniche in italiano e quasi 200.000 cultivar',
           'Nomi scientifici allineati al Catalogue of Life',
           'Promemoria di irrigazione, concimazione e potatura per specie e stagione',
+          "Programmi di irrigazione automatica per giardino, zona o pianta",
           'Dispensa dei concimi con abbinamento ai bisogni delle piante',
           'Progetti del giardino divisi in tappe',
           'Galleria fotografica per pianta e meteo del giardino',

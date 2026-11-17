@@ -5,7 +5,7 @@ export const TAPPE = [
   { nome: 'aiuole', percorso: '/aiuole/', etichetta: 'Le aiuole', icona: 'zona-tulipano', colore: 'rose' },
   { nome: 'schede', percorso: '/schede/', etichetta: 'Le schede', icona: 'foglia', colore: 'olive' },
   { nome: 'cure', percorso: '/cure/', etichetta: 'Le cure', icona: 'goccia', colore: 'acqua' },
-  { nome: 'zorba', percorso: '/zorba/', etichetta: 'Zorba', icona: 'erba-gatta', colore: 'gold' },
+  { nome: 'zorba', percorso: '/zorba/', etichetta: 'Zorba', icona: 'gatto', colore: 'gold' },
   { nome: 'dati', percorso: '/dati/', etichetta: 'I tuoi dati', icona: 'chiave', colore: 'uovo' },
   { nome: 'domande', percorso: '/domande/', etichetta: 'Domande', icona: 'lampadina', colore: 'sage' },
 ]
