@@ -19,3 +19,4 @@ scripts/naturalizza-batch/loop.log
 # SDD workspace e output intermedi import nomi italiani
 .superpowers/
 scripts/nomi-italiani/out/
+.impeccable/review/
