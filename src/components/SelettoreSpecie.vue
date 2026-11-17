@@ -68,13 +68,14 @@
             <p class="dh-name"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></p>
             <p v-if="nomeComuneScelta" class="dh-sci">{{ nomeComuneScelta }}</p>
           </div>
-          <span v-if="hero.credito" class="dh-credit" @click.stop>
+        </div>
+        <!-- Credito sotto la foto: sopra si sovrapponeva al nome con i titoli lunghi -->
+        <p v-if="hero?.credito" class="dh-credit">
             <a v-if="!hero.credito.autore && hero.credito.pagina" :href="hero.credito.pagina" target="_blank" rel="noopener">Foto</a><template v-else>Foto</template><template v-if="hero.credito.titolo"> «{{ hero.credito.titolo }}»</template>:
             <a v-if="hero.credito.autore" :href="hero.credito.pagina" target="_blank" rel="noopener">{{ hero.credito.autore }}</a><template v-if="hero.credito.autore && hero.credito.licenza">, </template>
             <a v-if="hero.credito.licenza && hero.credito.licenzaUrl" :href="hero.credito.licenzaUrl" target="_blank" rel="noopener">{{ hero.credito.licenza }}</a>
             <template v-else-if="hero.credito.licenza">{{ hero.credito.licenza }}</template>
-          </span>
-        </div>
+        </p>
         <div v-else class="dh-np">
           <img v-if="disegno" class="np-dis" :src="disegno.url" :alt="disegno.alt">
           <div class="np-name"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></div>
@@ -695,18 +696,13 @@ watch(() => props.modelValue, () => {
   margin: 2px 0 0;
 }
 .dh-credit {
-  position: absolute;
-  right: 8px; bottom: 8px;
-  z-index: 3;
-  font-size: 9.5px;
-  color: rgba(253,248,238,.75);
-  text-decoration: none;
-  background: rgba(0,0,0,0.28);
-  padding: 2px 8px;
-  border-radius: 999px;
+  margin: 6px 16px 0;
+  font: 400 10.5px/1.4 var(--font-sans);
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
 }
-.dh-credit:hover { color: #fdf8ee; }
-.dh-credit a { color: inherit; }
+.dh-credit a { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); text-underline-offset: 2px; }
+.dh-credit a:hover { color: var(--ink); }
 .dossier-livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 .dh-np {
   padding: 18px 52px 4px 16px;
