@@ -32,7 +32,7 @@ src/
 ├── stores/dati.js           ← Pinia store: carica zone/sottozone/piante/progetti/tappe/concimi/settings e le voci del catalogo delle piante (catalogo_mie_piante, fase 6) da Supabase una volta sola
 ├── utils/curaZona.js        ← cura registrata su un'intera zona/sottozona (Attività → «Per zona»): da fare / possono riceverla / escluse, concime adatto (test con node --test)
 ├── utils/catalogo.js        ← chiavi delle voci del catalogo, credito delle foto, livelli dell'eredità (test: node --test 'src/utils/*.test.mjs')
-├── utils/nomeScientifico.js ← nome scientifico con le convenzioni botaniche (corsivo solo per genere ed epiteti) e nome comune da mostrare sotto; titolo delle schede (PiantaView, scheda del catalogo in SelettoreSpecie) via components/NomeScientifico.vue
+├── utils/nomeScientifico.js ← nome scientifico con le convenzioni botaniche (corsivo solo per genere ed epiteti) e nome comune da mostrare sotto; nome scientifico mostrato per primo in tutta l'app via components/NomeScientifico.vue, in tondo (scelta di Roberta del 17/11/2026: niente corsivo)
 ├── composables/
 │   ├── useMeteo.js          ← Open-Meteo (no API key)
 │   ├── useCure.js           ← logica urgenze cure (irrigazione, concimazione, potatura)

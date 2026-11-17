@@ -208,12 +208,12 @@ const pianteFiltrate = computed(() => {
     // dati che la riga mostra in evidenza, quelli con cui un utente con più
     // piante della stessa specie le distingue.
     lista = lista.filter(p => {
-      const nomeSpecie = store.nomePianta(p)
+      const nomeComune = store.vocePianta(p)?.nome ?? ''
       const scientifico = store.vocePianta(p)?.specie ?? ''
       return p.id.includes(q) ||
         normalizzaApici(scientifico.toLowerCase()).includes(q) ||
         normalizzaApici((p.varieta ?? '').toLowerCase()).includes(q) ||
-        normalizzaApici(nomeSpecie.toLowerCase()).includes(q)
+        normalizzaApici(nomeComune.toLowerCase()).includes(q)
     })
     lista = [...lista].sort((a, b) => (a.urgente ? -1 : 1) - (b.urgente ? -1 : 1))
   } else if (filtroZona.value !== 'tutte') {

@@ -22,7 +22,8 @@
       <!-- Header con foto + galleria. Con foto personali si scorre la
            galleria; senza, si usa l'immagine della specie (Wikimedia) come
            unica slide; senza nemmeno quella, header testuale ridotto. -->
-      <div v-if="hasPhotos || fotoHero" class="phead-photo">
+      <template v-if="hasPhotos || fotoHero">
+      <div class="phead-photo">
         <div class="gtrack" @scroll.passive="onGtrackScroll">
           <figure v-for="(f, i) in slides" :key="f.path ?? 'hero'" class="gslide"
             :tabindex="f.path ? 0 : null" :role="f.path ? 'button' : null"
@@ -50,13 +51,15 @@
           <p v-if="specie?.gruppo" class="pbino">Gruppo {{ specie.gruppo }}</p>
           <p v-if="specie?.nome_commerciale" class="pbino">In commercio come {{ specie.nome_commerciale }}</p>
         </div>
-        <span v-if="soloHero && credito" class="phead-credit" @click.stop>
+      </div>
+      <!-- Il credito sta sotto la foto, non sopra: sopra si sovrapponeva al nome della pianta con i titoli lunghi -->
+      <p v-if="soloHero && credito" class="phead-credit">
           <a v-if="!credito.autore && credito.pagina" :href="credito.pagina" target="_blank" rel="noopener">Foto</a><template v-else>Foto</template><template v-if="credito.titolo"> «{{ credito.titolo }}»</template>:
           <a v-if="credito.autore" :href="credito.pagina" target="_blank" rel="noopener">{{ credito.autore }}</a><template v-if="credito.autore && credito.licenza">, </template>
           <a v-if="credito.licenza && credito.licenzaUrl" :href="credito.licenzaUrl" target="_blank" rel="noopener">{{ credito.licenza }}</a>
           <template v-else-if="credito.licenza">{{ credito.licenza }}</template>
-        </span>
-      </div>
+      </p>
+      </template>
 
       <!-- Header testuale ridotto: nessuna foto disponibile -->
       <div v-else class="phead-text">
@@ -483,13 +486,12 @@ async function eliminaPianta() {
 /* Header foto a tutta larghezza, a filo del bordo superiore del contenuto. */
 .phead-photo { margin: -28px -16px 0; }
 .phead-credit {
-  position: absolute; right: 12px; bottom: 8px; z-index: 2;
-  font: 400 9px/1.3 var(--font-sans); color: rgba(253, 248, 238, 0.72);
-  text-decoration: none; background: rgba(22, 16, 8, 0.32);
-  padding: 2px 7px; border-radius: 999px;
+  margin: 6px 0 0;
+  font: 400 10.5px/1.4 var(--font-sans); color: var(--ink-soft);
+  overflow-wrap: anywhere;
 }
-.phead-credit:hover { color: #fdf8ee; }
-.phead-credit a { color: inherit; }
+.phead-credit a { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); text-underline-offset: 2px; }
+.phead-credit a:hover { color: var(--ink); }
 .livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 
 /* Disegno della forma (nessuna foto disponibile): una pagina del taccuino, firmata in basso a destra

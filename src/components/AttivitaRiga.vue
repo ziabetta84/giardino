@@ -9,7 +9,7 @@
       @click="$emit('apri-dossier', item)" @keydown.enter="$emit('apri-dossier', item)" @keydown.space.prevent="$emit('apri-dossier', item)">
       <span class="care__ic" :class="`care__ic--${item.tipo}`"><Icon :name="iconaCura(item.tipo)" /></span>
       <div class="attivita-riga__m">
-        <div class="attivita-riga__nome">{{ item.nomeSpecie }}</div>
+        <div class="attivita-riga__nome"><NomeScientifico :nome="item.nomeSpecie" /></div>
         <div class="attivita-riga__label" :class="{ 'attivita-riga__label--urgente': variante === 'urgente' }">{{ item.label }}</div>
         <div v-if="item.tipo === 'concimazione' && item.suggerimento" class="attivita-riga__sugg">
           <Icon name="concimazione" /> Consigliato: {{ item.suggerimento.nome }} ({{ item.suggerimento.npk.n }}-{{ item.suggerimento.npk.p }}-{{ item.suggerimento.npk.k }})
@@ -28,6 +28,7 @@
 <script setup>
 import { iconaCura } from '@/composables/useCureVisual'
 import Icon from '@/components/Icon.vue'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 import Spinner from '@/components/Spinner.vue'
 
 defineProps({

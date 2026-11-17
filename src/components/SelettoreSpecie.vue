@@ -21,12 +21,12 @@
           </span>
           <span class="dd-m">
             <span class="dd-name">
-              {{ s.nome }}
+              <NomeScientifico :nome="s.nome" />
               <span v-if="s.cultivarDi" class="badge-mini cv">{{ s.cultivarDi }}</span>
               <span v-else-if="s.stato === 'bozza'" class="badge-mini bz">bozza</span>
               <span v-else-if="s.stato === 'senza scheda'" class="badge-mini ns">senza scheda</span>
             </span>
-            <span v-if="s.nomeScientifico" class="dd-sci">{{ s.nomeScientifico }}</span>
+            <span v-if="s.nomeComune" class="dd-comune">{{ s.nomeComune }}</span>
             <span v-if="s.viaSinonimo" class="dd-sci">{{ s.viaBotanico ? 'sinonimo' : 'detta anche' }} «{{ s.viaSinonimo }}»</span>
           </span>
         </div>
@@ -68,13 +68,14 @@
             <p class="dh-name"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></p>
             <p v-if="nomeComuneScelta" class="dh-sci">{{ nomeComuneScelta }}</p>
           </div>
-          <span v-if="hero.credito" class="dh-credit" @click.stop>
+        </div>
+        <!-- Credito sotto la foto: sopra si sovrapponeva al nome con i titoli lunghi -->
+        <p v-if="hero?.credito" class="dh-credit">
             <a v-if="!hero.credito.autore && hero.credito.pagina" :href="hero.credito.pagina" target="_blank" rel="noopener">Foto</a><template v-else>Foto</template><template v-if="hero.credito.titolo"> «{{ hero.credito.titolo }}»</template>:
             <a v-if="hero.credito.autore" :href="hero.credito.pagina" target="_blank" rel="noopener">{{ hero.credito.autore }}</a><template v-if="hero.credito.autore && hero.credito.licenza">, </template>
             <a v-if="hero.credito.licenza && hero.credito.licenzaUrl" :href="hero.credito.licenzaUrl" target="_blank" rel="noopener">{{ hero.credito.licenza }}</a>
             <template v-else-if="hero.credito.licenza">{{ hero.credito.licenza }}</template>
-          </span>
-        </div>
+        </p>
         <div v-else class="dh-np">
           <img v-if="disegno" class="np-dis" :src="disegno.url" :alt="disegno.alt">
           <div class="np-name"><NomeScientifico v-if="specieSelezionata.specie" :nome="specieSelezionata.specie" /><template v-else>{{ specieSelezionata.nome }}</template></div>
@@ -186,9 +187,12 @@ const dossierAperto  = ref(false)
 // caratteri cerca in tutto il catalogo con cerca_catalogo (una POST, mai in cache), che restituisce voci complete:
 // finiscono nello store, così la scheda della voce scelta non richiede un'altra richiesta. Finché la ricerca non
 // risponde, o senza rete, filtra le voci già nello store.
+const nomeVoce = v => v ? (v.specie || v.nome || '') : ''
+
 function riga(v, trovata = null) {
   return {
-    key: v.chiave, nome: v.nome, nomeScientifico: v.specie !== v.nome ? v.specie : '',
+    // Nome scientifico per primo, come nel resto dell'app; il nome comune italiano sotto, quando c'è
+    key: v.chiave, nome: v.specie || v.nome, nomeComune: nomeComuneVoce(v),
     viaSinonimo: trovata?.via ?? null, viaBotanico: !!trovata?.via_botanico,
     stato: statoVoce(v), immagine: fotoVoce(v), forma: v.forma ?? null,
     cultivarDi: v.tipo === 'cultivar' ? (v.categoria ?? 'cultivar') : null,
@@ -284,7 +288,7 @@ watch(() => props.modelValue, async (val) => {
   if (val && !store.catalogo?.[val]) {
     try { await store.caricaVoci([val]) } catch (e) { console.error('Voce del catalogo non disponibile', e) }
   }
-  if (!dropdownAperto.value) specieQuery.value = store.catalogo?.[val]?.nome ?? ''
+  if (!dropdownAperto.value) specieQuery.value = nomeVoce(store.catalogo?.[val])
 }, { immediate: true })
 
 function selezionaSpecie(s) {
@@ -308,7 +312,7 @@ function chiudiDropdown() {
     dropdownAperto.value = false
     // Se l'utente ha digitato senza selezionare nulla dall'elenco, ripristina
     // il testo sul nome della voce effettivamente selezionata (o vuoto).
-    specieQuery.value = store.catalogo?.[props.modelValue]?.nome ?? ''
+    specieQuery.value = nomeVoce(store.catalogo?.[props.modelValue])
   }, 150)
 }
 
@@ -510,6 +514,12 @@ watch(() => props.modelValue, () => {
   flex-wrap: wrap;
   word-break: break-word;
 }
+.dd-comune {
+  display: block;
+  font: 400 11.5px/1.3 var(--font-sans);
+  color: var(--ink-soft);
+  margin-top: 1px;
+}
 .dd-sci {
   display: block;
   font: 400 11.5px/1.3 var(--font-display);
@@ -686,18 +696,13 @@ watch(() => props.modelValue, () => {
   margin: 2px 0 0;
 }
 .dh-credit {
-  position: absolute;
-  right: 8px; bottom: 8px;
-  z-index: 3;
-  font-size: 9.5px;
-  color: rgba(253,248,238,.75);
-  text-decoration: none;
-  background: rgba(0,0,0,0.28);
-  padding: 2px 8px;
-  border-radius: 999px;
+  margin: 6px 16px 0;
+  font: 400 10.5px/1.4 var(--font-sans);
+  color: var(--ink-soft);
+  overflow-wrap: anywhere;
 }
-.dh-credit:hover { color: #fdf8ee; }
-.dh-credit a { color: inherit; }
+.dh-credit a { color: inherit; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); text-underline-offset: 2px; }
+.dh-credit a:hover { color: var(--ink); }
 .dossier-livello { font: 400 12px/1.4 var(--font-sans); color: var(--ink-soft); margin: -4px 0 8px; }
 .dh-np {
   padding: 18px 52px 4px 16px;

@@ -45,7 +45,7 @@
             <label v-if="sezione.chiave !== 'escluse'" class="fcz__riga">
               <input type="checkbox" class="fcz__check" :checked="scelte.has(v.piantaId)" @change="alterna(v.piantaId)">
               <span class="fcz__m">
-                <span class="fcz__nome">{{ v.nome }}<span v-if="v.varieta" class="fcz__var">{{ v.varieta }}</span></span>
+                <span class="fcz__nome"><NomeScientifico :nome="v.nome" /><span v-if="v.varieta" class="fcz__var">{{ v.varieta }}</span></span>
                 <span class="fcz__motivo"><template v-if="!sottozona && v.sottozona">{{ v.sottozona }} · </template>{{ v.motivo }}</span>
                 <span v-if="v.avviso && !concimeInadatto" class="fcz__motivo fcz__motivo--avviso">{{ v.avviso }}</span>
               </span>
@@ -53,7 +53,7 @@
             <div v-else class="fcz__riga fcz__riga--esclusa">
               <span class="fcz__fuori" aria-hidden="true"></span>
               <span class="fcz__m">
-                <span class="fcz__nome">{{ v.nome }}<span v-if="v.varieta" class="fcz__var">{{ v.varieta }}</span></span>
+                <span class="fcz__nome"><NomeScientifico :nome="v.nome" /><span v-if="v.varieta" class="fcz__var">{{ v.varieta }}</span></span>
                 <span class="fcz__motivo"><template v-if="!sottozona && v.sottozona">{{ v.sottozona }} · </template>{{ v.motivo }}</span>
               </span>
             </div>
@@ -84,6 +84,7 @@ import { tipiCuraPianta, pioggiaInArrivo, stagione } from '@/composables/useCure
 import { concimeConsigliato, formattaNPK } from '@/composables/useConcimi'
 import { LABEL_CURA, iconaCura } from '@/composables/useCureVisual'
 import Icon from '@/components/Icon.vue'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 import Spinner from '@/components/Spinner.vue'
 
 const props = defineProps({
