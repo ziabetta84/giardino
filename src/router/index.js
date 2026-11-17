@@ -45,4 +45,26 @@ router.beforeEach(async (to) => {
   if ((!utente.value || recuperoInCorso.value) && !['account', 'privacy'].includes(to.name)) return { name: 'account' }
 })
 
+// Dopo una pubblicazione i file di una versione precedente non esistono più sul server: una pagina rimasta aperta
+// (o un service worker che ha appena cambiato versione) chiede un pezzo che non c'è e la navigazione si ferma con
+// «error loading dynamically imported module». Si ricarica una volta la pagina sulla rotta chiesta, che prende la
+// versione nuova; se il pezzo manca ancora dopo il ricaricamento l'errore resta visibile, senza ricaricare all'infinito.
+const CHIAVE_RICARICA = 'ricarica-versione'
+function erroreDiVersione(e) {
+  return /dynamically imported module|Importing a module script failed|Failed to fetch dynamically|error loading dynamically/i
+    .test(String(e?.message ?? e))
+}
+function ricaricaUnaVolta(percorso) {
+  let ultima = 0
+  try { ultima = Number(sessionStorage.getItem(CHIAVE_RICARICA)) || 0 } catch { /* storage non disponibile */ }
+  if (Date.now() - ultima < 30000) return false
+  try { sessionStorage.setItem(CHIAVE_RICARICA, String(Date.now())) } catch { /* storage non disponibile */ }
+  if (percorso) location.hash = percorso
+  location.reload()
+  return true
+}
+router.onError((e, to) => { if (erroreDiVersione(e)) ricaricaUnaVolta(to?.fullPath) })
+// Lo stesso quando Vite non riesce a precaricare un pezzo collegato (CSS o JS) della pagina
+window.addEventListener('vite:preloadError', (evento) => { if (ricaricaUnaVolta()) evento.preventDefault() })
+
 export default router

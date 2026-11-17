@@ -71,7 +71,7 @@
             <div v-if="espanse.has(chiaveSottozona(z.nome, sz.nome))" class="destlist" style="padding-left:30px;">
               <div v-for="p in pianteDellaZona(z.nome, sz.nome)" :key="p.id" class="dest">
                 <Icon name="foglia" class="dest__ic" style="color:var(--sage);" />
-                <span class="dest__n">{{ nomeSpecie(p) }}<span v-if="p.varieta"> — {{ p.varieta }}</span></span>
+                <span class="dest__n"><NomeScientifico :nome="nomeSpecie(p)" /><span v-if="p.varieta"> — {{ p.varieta }}</span></span>
                 <span v-if="programmaPianta(p.id)" class="badge badge-ok">ogni {{ programmaPianta(p.id).ogniGiorni }} gg</span>
                 <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoSottozona(z.nome, sz.nome)) }}</span>
                 <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" :aria-label="`Modifica programma di ${nomeSpecie(p)}`">
@@ -85,7 +85,7 @@
 
           <div v-for="p in pianteDellaZona(z.nome, null)" :key="p.id" class="dest">
             <Icon name="foglia" class="dest__ic" style="color:var(--sage);" />
-            <span class="dest__n">{{ nomeSpecie(p) }}<span v-if="p.varieta"> — {{ p.varieta }}</span></span>
+            <span class="dest__n"><NomeScientifico :nome="nomeSpecie(p)" /><span v-if="p.varieta"> — {{ p.varieta }}</span></span>
             <span v-if="programmaPianta(p.id)" class="badge badge-ok">ogni {{ programmaPianta(p.id).ogniGiorni }} gg</span>
             <span v-else class="dest__c" style="color:var(--ink-soft);">{{ ereditaTesto(programmaEffettivoZona(z.nome)) }}</span>
             <button type="button" class="pill-mini" @click="apriModifica({ pianta: p.id }, nomeSpecie(p), programmaPianta(p.id)?.ogniGiorni)" :aria-label="`Modifica programma di ${nomeSpecie(p)}`">
@@ -143,6 +143,7 @@ import { useDatiStore } from '@/stores/dati'
 import { useIrrigazioneApi } from '@/composables/useIrrigazioneApi'
 import FoglioLaterale from '@/components/FoglioLaterale.vue'
 import ModalConferma from '@/components/ModalConferma.vue'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 import Spinner from '@/components/Spinner.vue'
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'

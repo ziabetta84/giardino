@@ -9,9 +9,8 @@
         </div>
       </div>
       <div class="pr__body">
-        <div class="pr__name" :title="nomeScientifico || null">
-          {{ store.nomePianta(pianta) }}
-        </div>
+        <div class="pr__name"><NomeScientifico :nome="store.nomePianta(pianta)" /></div>
+        <div v-if="nomeComune" class="pr__comune">{{ nomeComune }}</div>
         <div v-if="pianta.varieta" class="pr__var">
           {{ pianta.varieta }}
         </div>
@@ -40,6 +39,7 @@ import { urlMiniatura } from '@/composables/useWikimedia'
 import { fotoVoce } from '@/utils/catalogo'
 import { disegnoForma } from '@/utils/forme'
 import Icon from '@/components/Icon.vue'
+import NomeScientifico from '@/components/NomeScientifico.vue'
 
 const props = defineProps({
   pianta:   { type: Object,  required: true },
@@ -50,11 +50,8 @@ defineEmits(['elimina'])
 
 const store = useDatiStore()
 const specie = computed(() => store.vocePianta(props.pianta))
-// Nome scientifico, solo se diverso dal nome mostrato (tooltip nelle liste dense)
-const nomeScientifico = computed(() => {
-  const s = specie.value
-  return s?.specie && s.specie.toLowerCase() !== (s.nome ?? '').toLowerCase() ? s.specie : ''
-})
+// Sotto il nome scientifico, il nome comune italiano quando c'è
+const nomeComune = computed(() => store.nomeComunePianta(props.pianta))
 const programmaAutomatico = computed(() =>
   programmaIrrigazioneEffettivo(props.pianta.id, props.pianta.zona, props.pianta.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
 )
@@ -136,6 +133,14 @@ const thumbEffettivo = computed(() => {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pr__comune {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.3;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

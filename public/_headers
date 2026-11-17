@@ -14,7 +14,9 @@
 /
   Cache-Control: no-cache
 
-# I file in assets/ hanno l'hash nel nome: si possono tenere per sempre.
+# I file in assets/ hanno l'hash nel nome: si possono tenere per sempre. Un file che manca risponde 404 (c'è
+# 404.html), non con la pagina dell'app: prima Cloudflare rispondeva con index.html, e quella pagina restava in
+# cache per un anno al posto del JavaScript (17/11/2026, forme-….js servito come text/html).
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
