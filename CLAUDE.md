@@ -66,7 +66,7 @@ Specie, piante, zone, sottozone, progetti, tappe, concimi e settings sono tabell
 
 ### Migrazione specie → Supabase (storia: dalla fase 6 del modello tassonomico l'app non legge più `specie`, ora archivio)
 
-Questa sezione descrive la tabella `specie` com'era usata fino alla fase 6 del modello tassonomico (vedi «Modello tassonomico» sotto): oggi l'app legge solo `taxa`, `nomi_comuni`, `cultivar` e `schede`, e `specie`/`generi` restano come archivio da cui il catalogo nuovo è stato copiato. Lettura e ricerca descritte qui non esistono più nell'app.
+Questa sezione descrive la tabella `specie` com'era usata fino alla fase 6 del modello tassonomico (vedi «Modello tassonomico» sotto): oggi l'app legge solo `taxa`, `nomi_comuni`, `cultivar` e `schede`, e `generi` resta come archivio da cui il catalogo nuovo è stato copiato. Lettura e ricerca descritte qui non esistono più nell'app. **Dal 19/11/2026 la tabella `specie` non è più nel database** (migration `20261119100000_specie_archivio_cancellato.sql`, database da 371 a 255 MB su 500): la copia è sul Mac di Roberta in `backups/archivio/specie_archivio_*.dump.age` (pg_dump di `specie` e `generi`, cifrato con age), con le istruzioni di ripristino nella migration. Gli script storici che leggono `specie` (impronta, lotti, fasi della tassonomia) funzionano solo dopo un ripristino o su una copia locale.
 
 Le **specie** sono ora gestite su **Supabase** (progetto `ncuhhsvtjwcolhpdxbkt`, "Il Giardino di Zorba", tabella `specie`, RLS attive). Catalogo condiviso in multiutenza: **lettura pubblica, scrittura solo service-role** (fino al 21/10/2026: ora l'archivio non è più leggibile dai client, vedi la fase 7) (nessun percorso di scrittura dall'app). Stato attuale:
 
