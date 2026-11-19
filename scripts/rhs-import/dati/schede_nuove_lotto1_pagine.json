@@ -1,0 +1,413 @@
+[
+{
+"taxon_id": "f741411a-7582-42bf-b4d9-5eb31e6f434f",
+"nome": "Aeonium arboreum",
+"rhs_id": "185690",
+"titolo": "Aeonium arboreum var. atropurpureum hort. ex Nichols.",
+"altre": [
+"Aeonium arboreum var. variegatum",
+"Aeonium arboreum var. holochrysum",
+"Aeonium arboreum [Blackhead]"
+]
+},
+{
+"taxon_id": "04497ebd-3dc2-4642-a72c-59fc8bdfbea1",
+"nome": "Agave sobolifera",
+"rhs_id": "250213",
+"titolo": "Agave sobolifera var. serrulata",
+"altre": []
+},
+{
+"taxon_id": "2a24852a-d58f-44b7-bf08-69ef710a816e",
+"nome": "Alchemilla velebitica",
+"rhs_id": "516803",
+"titolo": "Alchemilla velebitica",
+"altre": []
+},
+{
+"taxon_id": "f6454a97-f607-4e24-8131-5e1cd8d0e579",
+"nome": "Alkekengi officinarum",
+"rhs_id": "327415",
+"titolo": "Alkekengi officinarum",
+"altre": []
+},
+{
+"taxon_id": "0e7863e8-84bb-4872-bf14-362cd5ac4aec",
+"nome": "Allium longispathum",
+"rhs_id": "186189",
+"titolo": "Allium longispathum",
+"altre": [
+"Allium monspessulanum"
+]
+},
+{
+"taxon_id": "d4674ce3-e6ce-42f7-9d70-ef432fe0d430",
+"nome": "Allium narcissiflorum",
+"rhs_id": "186211",
+"titolo": "Allium narcissiflorum subsp. insubricum Fiori.",
+"altre": []
+},
+{
+"taxon_id": "49c1ced0-853e-4b3e-9b23-91125febe7c0",
+"nome": "Allium saxatile",
+"rhs_id": "186124",
+"titolo": "Allium caucasicum",
+"altre": [
+"Allium tauricum"
+]
+},
+{
+"taxon_id": "7f6f3e73-f874-4970-9251-4d428cfdb6f3",
+"nome": "Alyssum lenense",
+"rhs_id": "301228",
+"titolo": "Alyssum halimifolium L.",
+"altre": []
+},
+{
+"taxon_id": "d7672b55-fb39-43a6-b47b-d3f91d845a4c",
+"nome": "Arabis ciliata",
+"rhs_id": "101336",
+"titolo": "Erysimum rupestre",
+"altre": []
+},
+{
+"taxon_id": "85f11376-2cac-449b-ba39-13a6291f2075",
+"nome": "Astrantia trifida",
+"rhs_id": "27542",
+"titolo": "Astrantia biebersteinii",
+"altre": []
+},
+{
+"taxon_id": "f523d85b-dab9-49f5-80c9-f6a7523e9330",
+"nome": "Berberis griffithiana",
+"rhs_id": "203865",
+"titolo": "Berberis wallichiana var. pallida",
+"altre": []
+},
+{
+"taxon_id": "cd2e45be-d28a-453b-af61-3d9b9208c5dd",
+"nome": "Brugmansia suaveolens",
+"rhs_id": "5356",
+"titolo": "Datura suaveolens",
+"altre": []
+},
+{
+"taxon_id": "f5d2e312-dbdc-427d-8df0-3a44d6729e1d",
+"nome": "Calandrinia acaulis",
+"rhs_id": "70025",
+"titolo": "Calandrinia megarhiza",
+"altre": []
+},
+{
+"taxon_id": "cabe52ec-bbf5-4b84-8627-e0568d098ae7",
+"nome": "Campanula isophylla",
+"rhs_id": "28683",
+"titolo": "Campanula isophylla f. alba",
+"altre": [
+"Campanula floribunda"
+]
+},
+{
+"taxon_id": "d34fc5db-5657-4120-bbb7-8d0d74a938d9",
+"nome": "Chamaecytisus hirsutus",
+"rhs_id": "105679",
+"titolo": "Chamaecytisus hirsutus var. demissus",
+"altre": []
+},
+{
+"taxon_id": "a581c6c0-16de-4e3d-a392-921008e9d532",
+"nome": "Clavija ornata",
+"rhs_id": "213021",
+"titolo": "Clavija ornata",
+"altre": []
+},
+{
+"taxon_id": "fa56dc21-4ab5-45cc-9d80-0fe7c84bd42f",
+"nome": "Clinopodium calamintha",
+"rhs_id": "97329",
+"titolo": "Clinopodium calamintha",
+"altre": []
+},
+{
+"taxon_id": "91af781c-6eab-4f25-b7ef-dd2a8e8e1fcb",
+"nome": "Clivia miniata",
+"rhs_id": "171979",
+"titolo": "Clivia miniata yellow-flowered",
+"altre": []
+},
+{
+"taxon_id": "2d41b267-5b30-4eee-b4d6-c0d0c319f373",
+"nome": "Crocus salzmannii",
+"rhs_id": "29619",
+"titolo": "Crocus salzmannii",
+"altre": [
+"Crocus byzantinus"
+]
+},
+{
+"taxon_id": "fbf54553-0fc8-4461-941d-d1fa9756a368",
+"nome": "Cyclamen persicum",
+"rhs_id": "78756",
+"titolo": "Cyclamen latifolium",
+"altre": [
+"Cyclamen persicum Metis Series, mixed",
+"Cyclamen persicum [Super Serie Dragon Deep Blue]"
+]
+},
+{
+"taxon_id": "f900cad5-1161-4078-9802-7d7792b1505f",
+"nome": "Dendrobium × speciokingianum",
+"rhs_id": "165742",
+"titolo": "Dendrobium × speciokingianum pink",
+"altre": []
+},
+{
+"taxon_id": "14e4d7e1-a9d3-4273-b1a8-c0d806fb65c3",
+"nome": "Desmodium venustum",
+"rhs_id": "183209",
+"titolo": "Desmodium elegans var. tiliifolium",
+"altre": []
+},
+{
+"taxon_id": "eb33acd4-7dc6-40eb-87d9-c3e05a3bc9e9",
+"nome": "Erysimum bicolor",
+"rhs_id": "29202",
+"titolo": "Cheiranthus mutabilis",
+"altre": []
+},
+{
+"taxon_id": "1441538e-b019-42b8-bbe5-3dd98e8e4bf5",
+"nome": "Evotrochis involucrata",
+"rhs_id": "95403",
+"titolo": "Primula involucrata subsp. yargongensis",
+"altre": []
+},
+{
+"taxon_id": "2d2c3eb8-1fc2-45bc-bb30-e9cf13c38e43",
+"nome": "Fittonia albivenis",
+"rhs_id": "7229",
+"titolo": "Fittonia argyroneura",
+"altre": [
+"Fittonia verschaffeltii",
+"Fittonia verschaffeltii var. argyroneura"
+]
+},
+{
+"taxon_id": "bf4f5f44-d15a-4240-95ec-e91cdd540af2",
+"nome": "Francoa appendiculata",
+"rhs_id": "544838",
+"titolo": "Francoa appendiculata var. sonchifolia Rogerson's form",
+"altre": []
+},
+{
+"taxon_id": "5aaf816c-bf02-46e7-a4cf-f0f57e49d2ae",
+"nome": "Gardenia jasminoides",
+"rhs_id": "33348",
+"titolo": "Gardenia grandiflora",
+"altre": [
+"Gardenia florida L.",
+"Gardenia augusta"
+]
+},
+{
+"taxon_id": "ff4f1ea4-8a55-40d9-abf7-4592d36087de",
+"nome": "Gazania rigens",
+"rhs_id": "33386",
+"titolo": "Gazania splendens",
+"altre": [
+"Gazania rigens [New Day Rose Stripe] (New Day Series)"
+]
+},
+{
+"taxon_id": "c50023a0-2b0f-4578-afda-3dc753840cec",
+"nome": "Hoya carnosa",
+"rhs_id": "130978",
+"titolo": "Hoya carnosa var. compacta",
+"altre": [
+"Hoya compacta",
+"Hoya carnosa [Krimson Queen]"
+]
+},
+{
+"taxon_id": "e31c9865-a817-4c85-868d-5a750ca12890",
+"nome": "Impatiens walleriana",
+"rhs_id": "110933",
+"titolo": "Impatiens sultani",
+"altre": []
+},
+{
+"taxon_id": "dd86bc72-1075-4fcd-b8dd-9eb5b7b3f2a1",
+"nome": "Iris attica",
+"rhs_id": "183260",
+"titolo": "Iris attica subsp. pumila",
+"altre": []
+},
+{
+"taxon_id": "abd2fe15-a7f8-48a9-9770-750928518079",
+"nome": "Iris halophila",
+"rhs_id": "92900",
+"titolo": "Iris halophila",
+"altre": []
+},
+{
+"taxon_id": "8645fccb-ed9e-4050-ac6d-fa27392b5bdf",
+"nome": "Juniperus semiglobosa",
+"rhs_id": "20982",
+"titolo": "Juniperus intermedia",
+"altre": []
+},
+{
+"taxon_id": "006a484b-7851-423f-9063-f7ec5a97fce8",
+"nome": "Justicia carnea",
+"rhs_id": "9430",
+"titolo": "Jacobinia carnea",
+"altre": [
+"Jacobinia pohliana var. velutina",
+"Jacobinia pohliana",
+"Jacobinia magnifica",
+"Jacobinia magnifica var. carnea",
+"Jacobinia magnifica var. pohliana",
+"Jacobinia magnifica var. velutina",
+"Cyrtanthera magnifica"
+]
+},
+{
+"taxon_id": "a9753ea9-c937-443d-8b6c-4ccea65eee9b",
+"nome": "Lewisia cotyledon",
+"rhs_id": "351319",
+"titolo": "Lewisia cotyledon [Elise Mixed]",
+"altre": []
+},
+{
+"taxon_id": "3003dfd6-ede6-4454-9e55-f36e7491aa31",
+"nome": "Neoregelia carolinae",
+"rhs_id": "187899",
+"titolo": "Neoregelia carolinae var. tricolor",
+"altre": []
+},
+{
+"taxon_id": "ae3e6f8a-0758-49be-892e-3372ebb318d8",
+"nome": "Passiflora amethystina",
+"rhs_id": "68183",
+"titolo": "Passiflora × caeruleoracemosa",
+"altre": []
+},
+{
+"taxon_id": "03f198b4-2702-4b39-a64e-320cff6352cf",
+"nome": "Physalis lagascae",
+"rhs_id": "128171",
+"titolo": "Physalis alkekengi variegated",
+"altre": []
+},
+{
+"taxon_id": "113e4bc9-5321-40af-acee-565925b3d8d2",
+"nome": "Potentilla argyrophylla",
+"rhs_id": "13556",
+"titolo": "Potentilla argyrophylla",
+"altre": [
+"Potentilla argyrophylla var. leucochroa"
+]
+},
+{
+"taxon_id": "c1744a92-b814-4c63-9d1c-46e3655a382c",
+"nome": "Prunus tatsienensis",
+"rhs_id": "331788",
+"titolo": "Prunus pilosiuscula var. barbata",
+"altre": []
+},
+{
+"taxon_id": "37398db8-70b3-48a4-97ba-4b60fc8e3582",
+"nome": "Pseudofumaria alba",
+"rhs_id": "71488",
+"titolo": "Pseudofumaria alba",
+"altre": []
+},
+{
+"taxon_id": "2b981a34-f1c6-4148-8e9f-95ec0c36b3a4",
+"nome": "Rubus fuscus",
+"rhs_id": "524331",
+"titolo": "Rubus fuscus",
+"altre": []
+},
+{
+"taxon_id": "7c39ebe0-4386-42e6-82d9-50170ffe1b8e",
+"nome": "Rubus plicatus",
+"rhs_id": "302692",
+"titolo": "Rubus plicatus",
+"altre": []
+},
+{
+"taxon_id": "01b1c143-2110-4466-839b-d6d609e06116",
+"nome": "Salix karelinii",
+"rhs_id": "80806",
+"titolo": "Salix prunifolia",
+"altre": []
+},
+{
+"taxon_id": "e48f83eb-f5ad-43ba-8769-3eea62dbc36f",
+"nome": "Saponaria pumilio",
+"rhs_id": "21222",
+"titolo": "Saponaria pulvinaris",
+"altre": []
+},
+{
+"taxon_id": "35c48318-3871-4a58-b56f-40a370e7a484",
+"nome": "Sedum crassularia",
+"rhs_id": "85467",
+"titolo": "Sedum crassularia",
+"altre": [
+"Crassula sediformis"
+]
+},
+{
+"taxon_id": "ec387c77-c06c-4f0c-916d-d34eb32a67ff",
+"nome": "Sibbaldia cuneifolia",
+"rhs_id": "13550",
+"titolo": "Potentilla ambigua",
+"altre": []
+},
+{
+"taxon_id": "5c69d9e5-72fe-49b2-a8ac-0b69aa1aaa59",
+"nome": "Silene macrophylla",
+"rhs_id": "67030",
+"titolo": "Silene multifida",
+"altre": [
+"Silene simsii"
+]
+},
+{
+"taxon_id": "3b5582bc-b452-4046-8f99-d3e09cae1c7b",
+"nome": "Stephanotis floribunda",
+"rhs_id": "141792",
+"titolo": "Marsdenia floribunda",
+"altre": []
+},
+{
+"taxon_id": "248f5a9c-43da-487d-bd83-ffa2f2309103",
+"nome": "Stevenia canescens",
+"rhs_id": "213411",
+"titolo": "Clypeola maritima",
+"altre": []
+},
+{
+"taxon_id": "1e944339-02ab-46cf-ba88-460c9affd666",
+"nome": "Thunbergia alata",
+"rhs_id": "325502",
+"titolo": "Thunbergia alata red-orange",
+"altre": []
+},
+{
+"taxon_id": "d22573b0-c3aa-4f4e-8a02-72979e01bbbd",
+"nome": "Verbascum longifolium",
+"rhs_id": "61473",
+"titolo": "Verbascum longifolium var. pannosum",
+"altre": []
+},
+{
+"taxon_id": "b9015795-b272-4962-ab7b-2998bee1e8a3",
+"nome": "Wallisia cyanea",
+"rhs_id": "350465",
+"titolo": "Tillandsia morreniana catopsis",
+"altre": []
+}
+]
