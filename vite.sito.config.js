@@ -7,9 +7,9 @@ import { fileURLToPath, URL } from 'node:url'
 // statico da vite-ssg al momento della build: motori di ricerca e assistenti
 // AI leggono il testo senza eseguire JavaScript, il visitatore poi naviga tra
 // le pagine senza ricaricare, con le transizioni.
-//   npm run dev:sito   → http://localhost:5174/giardino/scopri/
+//   npm run dev:sito   → http://localhost:5174/scopri/
 //   npm run build      → dist/ (app) + dist/scopri/ (minisito)
-const BASE_APP = process.env.VITE_BASE || '/giardino/'
+const BASE_APP = process.env.VITE_BASE || '/'
 
 export default defineConfig({
   root: fileURLToPath(new URL('./sito', import.meta.url)),
