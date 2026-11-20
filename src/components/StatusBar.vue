@@ -1,5 +1,5 @@
 <template>
-  <div class="statusbar" :class="`stato-${stato}`" :style="{ bottom: offsetInferiore + 'px' }">
+  <div class="statusbar" :class="`stato-${stato}`">
     <!-- Aggiornamento dell'app pronto (service worker): ha la precedenza,
          altrimenti chi non ricarica resta su una versione vecchia. -->
     <template v-if="stato === 'nuova-versione'">
@@ -40,7 +40,7 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import Icon from '@/components/Icon.vue'
 import { useDatiStore } from '@/stores/dati'
 import { useAppUpdate } from '@/composables/useAppUpdate'
@@ -57,20 +57,11 @@ const stato = computed(() =>
 
 function alRitorno() { if (document.visibilityState === 'visible') controllaAggiornamento() }
 
-const offsetInferiore = ref(0)
-function aggiornaOffset() {
-  const nav = document.querySelector('.bottomnav')
-  const visibile = nav && getComputedStyle(nav).display !== 'none'
-  offsetInferiore.value = visibile ? nav.getBoundingClientRect().height : 0
-}
 onMounted(() => {
-  aggiornaOffset()
-  window.addEventListener('resize', aggiornaOffset)
   document.addEventListener('visibilitychange', alRitorno)
   controllaAggiornamento()
 })
 onUnmounted(() => {
-  window.removeEventListener('resize', aggiornaOffset)
   document.removeEventListener('visibilitychange', alRitorno)
 })
 </script>
@@ -84,8 +75,13 @@ onUnmounted(() => {
   display: flex; align-items: center; justify-content: space-between; padding: 0 16px;
   gap: 10px;
 }
+/* Su telefono è l'ultima cosa in fondo allo schermo (la barra di
+   navigazione non c'è più): si allunga sotto l'area sicura dell'iPhone. */
 @media (max-width: 640px) {
-  .statusbar { height: 38px; padding: 0 12px; }
+  .statusbar {
+    height: calc(38px + env(safe-area-inset-bottom, 0px));
+    padding: 0 12px env(safe-area-inset-bottom, 0px);
+  }
 }
 
 .statusbar__msg { display: flex; align-items: center; gap: 8px; min-width: 0; }

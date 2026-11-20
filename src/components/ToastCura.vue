@@ -51,10 +51,8 @@ const toastCura = ref(null)
 const offset = ref(90)
 let timer = null
 
-// Sopra BottomNav + StatusBar: entrambe fisse in fondo, la StatusBar si
-// impila già sopra la BottomNav (vedi StatusBar.vue, offsetInferiore) — qui
-// basta leggere la posizione reale della StatusBar invece di indovinare un
-// valore fisso che ignorerebbe l'una o l'altra a seconda del viewport.
+// Sopra la StatusBar, fissa in fondo: si legge la sua posizione reale invece
+// di indovinare un valore fisso (cambia con il viewport e l'area sicura).
 function calcolaOffset() {
   const rect = document.querySelector('.statusbar')?.getBoundingClientRect()
   return rect ? Math.max(0, window.innerHeight - rect.top) + 12 : 90
