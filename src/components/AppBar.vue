@@ -5,6 +5,9 @@
       Zorba in giardino
     </span>
     <span class="appbar__actions">
+      <RouterLink class="appbar__btn" to="/feedback" aria-label="Scrivi a chi costruisce l'app" title="Scrivi a chi costruisce l'app">
+        <Icon name="matita" />
+      </RouterLink>
       <RouterLink class="appbar__btn" to="/account" aria-label="Account">
         <Icon name="persona" />
       </RouterLink>
