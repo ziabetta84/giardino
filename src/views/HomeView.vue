@@ -325,21 +325,23 @@ if (!forzato && (fasciaGiaVista() || movimentoRidotto())) {
 } else if (movimentoRidotto()) {
   // forzato ma riduci-movimento attivo: nessuna finestra da segnare, si
   // esce senza mostrare nulla (stesso trattamento del percorso normale).
-} else if (bootCompletato.value) {
-  // BootLogo (App.vue) ha già finito: nessuna copertura da aspettare, si
-  // può mostrare subito (caso tipico: si torna su Home più tardi nella
-  // sessione, in una fascia nuova).
-  mostraSplash.value = true
 } else {
-  // Avvio a freddo: BootLogo sta ancora coprendo lo schermo. Avviare qui i
-  // timer di SplashAiuola scorrerebbe l'intera sequenza nascosta dietro il
-  // logo di boot — si aspetta che finisca prima di montarlo davvero.
-  fermaOsservazioneBoot = watch(bootCompletato, (pronto) => {
-    if (!pronto) return
+  // Si monta solo quando il boot è finito E il meteo è arrivato (o si sa
+  // che non c'è: store.meteo è null finché caricaMeteo non ha girato). Alba
+  // e tramonto arrivano con caricaTutto(): montando prima, la luce passava
+  // da giorno a notte a metà animazione e la scena cambiava di colpo
+  // (segnalazione beta del 20/11/2026). Con il boot già finito e i dati
+  // pronti si mostra subito; a freddo si aspetta il boot e i dati.
+  // Una volta sola per montaggio: un successivo aggiorna() non riapre lo splash.
+  let mostrataUnaVolta = false
+  const pronta = () => bootCompletato.value && store.meteo !== null
+  fermaOsservazioneBoot = watch(pronta, (ok) => {
+    if (!ok || mostrataUnaVolta) return
+    mostrataUnaVolta = true
     mostraSplash.value = true
     fermaOsservazioneBoot?.()
     fermaOsservazioneBoot = null
-  })
+  }, { immediate: true })
 }
 onUnmounted(() => fermaOsservazioneBoot?.())
 
