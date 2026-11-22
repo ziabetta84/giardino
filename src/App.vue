@@ -34,7 +34,6 @@
         </Transition>
       </RouterView>
     </main>
-    <BottomNav />
     <StatusBar />
   </template>
 </template>
@@ -44,7 +43,6 @@ import IconDefs  from '@/components/IconDefs.vue'
 import BootLogo  from '@/components/BootLogo.vue'
 import SideNav   from '@/components/SideNav.vue'
 import AppBar    from '@/components/AppBar.vue'
-import BottomNav from '@/components/BottomNav.vue'
 import StatusBar from '@/components/StatusBar.vue'
 import ZorbaDiceSidebar from '@/components/ZorbaDiceSidebar.vue'
 import { onMounted, watch } from 'vue'
@@ -122,11 +120,10 @@ onMounted(async () => {
   z-index: 1;
 }
 
-/* Su mobile la statusbar si aggiunge sopra la BottomNav (vedi StatusBar.vue):
-   serve più spazio in fondo alla pagina perché il contenuto non finisca dietro
-   a entrambe. */
+/* Su telefono in fondo c'è solo la StatusBar (38px più l'area sicura): la
+   navigazione è nel menù a tutta pagina dell'AppBar (MenuMobile.vue). */
 @media (max-width: 640px) {
-  .app-main { padding-bottom: 128px; }
+  .app-main { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* Da 640px in su la sidebar è fissa a sinistra (200px): il contenuto va

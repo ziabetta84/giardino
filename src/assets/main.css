@@ -323,7 +323,7 @@ body::before {
 
 /* ===== restyle: cornice ===== */
 
-/* ===================== app chrome (barra alto + nav basso) ===================== */
+/* ===================== app chrome (barra in alto; il menù è in MenuMobile.vue) ===================== */
 .appbar {
   position: sticky; top: 0; z-index: 5;
   display: flex; align-items: center; justify-content: space-between;
@@ -336,31 +336,16 @@ body::before {
   display: inline-flex; align-items: center; gap: 7px;
   font: 600 12.5px/1 var(--font-display); color: var(--ink);
 }
-.appbar__actions { display: inline-flex; align-items: center; gap: 2px; }
-.appbar__btn {
-  width: 32px; height: 32px; display: grid; place-items: center; color: var(--ink-mid);
-  border-radius: 50%; text-decoration: none;
+.appbar__mark { text-decoration: none; min-height: 32px; }
+.appbar__menu {
+  width: 44px; height: 44px; margin: -6px -8px -6px 0;
+  display: grid; place-items: center; border-radius: 50%;
+  border: none; background: none; cursor: pointer; color: var(--ink-mid);
+  transition: background var(--motion-quick) var(--ease-standard);
 }
-.appbar__btn svg { width: 19px; height: 19px; }
-
-.bottomnav {
-  display: flex; justify-content: space-around; align-items: center; flex: none;
-  padding: 7px 4px calc(7px + env(safe-area-inset-bottom, 0px));
-  border-top: 1px solid var(--cream-dark); background: var(--cream);
-}
-.bottomnav a {
-  display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 2px 6px;
-  font: 500 9px/1 var(--font-sans); color: var(--ink-soft); text-decoration: none;
-}
-.bottomnav a.on { color: var(--ink); }
-.bn-ic { width: 20px; height: 20px; }
-.bn-ic svg { width: 100%; height: 100%; }
-/* inattive: monocromatiche sul colore della voce; attiva: colore originale dell'icona */
-.bottomnav a:not(.on) .bn-ic {
-  --acqua: currentColor; --acqua-dark: currentColor; --olive: currentColor; --olive-dark: currentColor;
-  --sage: currentColor; --sage-dark: currentColor; --rose: currentColor; --rose-dark: currentColor;
-  --gold: currentColor; --gold-dark: currentColor;
-}
+.appbar__menu svg { width: 20px; height: 20px; }
+.appbar__menu:active { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.appbar__menu:focus-visible { outline: 3px solid var(--gold); outline-offset: -3px; }
 
   /* Sidebar sinistra, schermi larghi (sostituisce la NavBar orizzontale) */
   .sidebar { display: none; }
