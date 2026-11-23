@@ -379,6 +379,8 @@ body::before {
       color: var(--ink); font-weight: 600;
     }
     .sidebar__spacer { flex: 1; }
+    /* Voce su due righe (la barra è larga 200px): interlinea leggibile. */
+    .sidebar a.sidebar__lunga { line-height: 1.3; }
   }
 
 /* ===== restyle: liste con filetti ===== */
