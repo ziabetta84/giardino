@@ -2,6 +2,10 @@
 export const PREZZI = {
   'claude-opus-5-5': { input: 4, output: 20, cacheLettura: 0.2 },
   'claude-sonnet-5-5': { input: 2, output: 10, cacheLettura: 0.2 },
+  // Modelli open su OVHcloud AI Endpoints (novembre 2026, listino in sterline/euro convertito per eccesso): da
+  // ricontrollare sul catalogo prima di un uso stabile.
+  'ovh:qwen3.6-35b-a3b': { input: 0.2, output: 1.3, cacheLettura: 0.2 },
+  'ovh:Qwen3.6-27B': { input: 0.5, output: 3.2, cacheLettura: 0.5 },
 }
 // Un modello di ripiego che non conosciamo si conta al prezzo più alto in listino: meglio sovrastimare la spesa.
 const PREZZO_IGNOTO = { input: 10, output: 50, cacheLettura: 1 }
