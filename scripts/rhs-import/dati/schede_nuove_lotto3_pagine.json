@@ -1,0 +1,213 @@
+[
+ {
+  "taxon_id": "5ac70761-7b92-4452-bd30-828477ca5d92",
+  "nome": "Santolina virens",
+  "rhs_id": "16434",
+  "titolo": "Santolina virens",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Santolina viridis",
+   "Santolina virens 'Lemon Queen'"
+  ]
+ },
+ {
+  "taxon_id": "28b34697-edb6-4996-817b-7f2e6ef79eff",
+  "nome": "Corylopsis willmottiae",
+  "rhs_id": "4509",
+  "titolo": "Corylopsis willmottiae",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Corylopsis willmottiae 'Spring Purple'"
+  ]
+ },
+ {
+  "taxon_id": "3d27e9db-88c1-430a-a9c0-09c551104595",
+  "nome": "Rhoicissus rhomboidea",
+  "rhs_id": "212848",
+  "titolo": "Cissus rhomboidea",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Rhoicissus rhomboidea 'Ellen Danica'"
+  ]
+ },
+ {
+  "taxon_id": "413ed707-5ce9-4b81-b438-38e45a3cf49a",
+  "nome": "Sisyrinchium bermudiana",
+  "rhs_id": "17384",
+  "titolo": "Sisyrinchium bermudiana",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Sisyrinchium bermudiana 'Biscutella'"
+  ]
+ },
+ {
+  "taxon_id": "b58350b9-9022-4963-a629-1e994d1553e0",
+  "nome": "Skimmia × foremanii",
+  "rhs_id": "17400",
+  "titolo": "Skimmia × foremanii",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Skimmia foremanii 'Fisheri'"
+  ]
+ },
+ {
+  "taxon_id": "2f1a0839-b2c7-4250-a3cf-b4fa4744a447",
+  "nome": "Scabiosa ochroleuca",
+  "rhs_id": "81379",
+  "titolo": "Scabiosa ochroleuca",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Scabiosa ochroleuca 'Moon Dance'"
+  ]
+ },
+ {
+  "taxon_id": "fe8e4333-fbba-497c-910a-e9f520684188",
+  "nome": "× Halimiocistus × wintonensis",
+  "rhs_id": "92451",
+  "titolo": "×Halimiocistus wintonensis",
+  "tipo_pagina": "specie",
+  "altre": [
+   "×Halimiocistus wintonensis 'Merrist Wood Cream'"
+  ]
+ },
+ {
+  "taxon_id": "18db1ada-7eca-4cbd-ad81-786e51fda397",
+  "nome": "Cestrum fasciculatum",
+  "rhs_id": "209844",
+  "titolo": "Cestrum newellii hort.",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Cestrum fasciculatum 'Newellii'"
+  ]
+ },
+ {
+  "taxon_id": "42bda809-ada9-4e24-a86f-ba1d4463783e",
+  "nome": "Crassula atropurpurea",
+  "rhs_id": "214378",
+  "titolo": "Crassula atropurpurea var. arborescens",
+  "tipo_pagina": "specie",
+  "altre": [
+   "Crassula atropurpurea 'Tresco Seaspray'"
+  ]
+ },
+ {
+  "taxon_id": "f35b15e6-e03b-467d-aea3-88101cde08a8",
+  "nome": "Aglaonema commutatum",
+  "rhs_id": "704",
+  "titolo": "Aglaonema commutatum 'Silver Queen'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "99e1694a-16ec-4caa-b4b0-271dc0d6e58d",
+  "nome": "Chrysanthemum rubellum",
+  "rhs_id": "3786",
+  "titolo": "Chrysanthemum rubellum 'Clara Curtis'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "5d98a891-7a55-4a49-8f91-54bf3c8ce590",
+  "nome": "Incarvillea mairei",
+  "rhs_id": "24731",
+  "titolo": "Incarvillea mairei 'Bees' Pink'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "a3e1830c-2db8-4363-9331-2089f0675f8b",
+  "nome": "Crocus balansae",
+  "rhs_id": "29567",
+  "titolo": "Crocus balansae 'Zwanenburg'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "6c8e873a-4c36-4916-a3a6-4357cf32144b",
+  "nome": "Eranthis × tubergenii",
+  "rhs_id": "32116",
+  "titolo": "Eranthis × tubergenii 'Guinea Gold'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "7c2d48a3-f15b-4193-8161-36deb5e1c461",
+  "nome": "Oxalis purpurea",
+  "rhs_id": "82724",
+  "titolo": "Oxalis purpurea 'Ken Aslet'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "b1e14729-76cf-45f3-8db4-d9e7f39a9165",
+  "nome": "Begonia × hiemalis",
+  "rhs_id": "84584",
+  "titolo": "Begonia × hiemalis 'Elatior'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "8bc872f2-9d42-4c3d-b71b-fe6baa36ab2f",
+  "nome": "Lychnis × arkwrightii",
+  "rhs_id": "91996",
+  "titolo": "Lychnis × arkwrightii 'Vesuvius'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "d0817fb9-2de6-4f46-9be9-c38ea28c33e6",
+  "nome": "Spiraea × billardii",
+  "rhs_id": "94157",
+  "titolo": "Spiraea × billardii 'Triumphans'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "a705ecc8-e956-4dd9-ac29-6b8de650282f",
+  "nome": "Doronicum plantagineum",
+  "rhs_id": "96551",
+  "titolo": "Doronicum plantagineum 'Excelsum'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "202186a4-f7e8-4220-bfa7-2ce98fa82a01",
+  "nome": "Leptospermum myrtifolium",
+  "rhs_id": "103171",
+  "titolo": "Leptospermum myrtifolium 'Silver Sheen'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "9b57e705-7d30-4ed5-b1b9-aca3bedc50fe",
+  "nome": "Iris virginica",
+  "rhs_id": "103340",
+  "titolo": "Iris virginica 'De Luxe'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "d96b3bb5-5441-4b52-b21a-8939589a4557",
+  "nome": "Epimedium elongatum",
+  "rhs_id": "116857",
+  "titolo": "Epimedium elongatum 'Enchantress'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "fbd7e358-ae9e-49c1-bf1e-34f35277c516",
+  "nome": "Camellia saluenensis",
+  "rhs_id": "117712",
+  "titolo": "Camellia × saluenensis 'Bow Bells'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "eb36ab6b-f43f-48c8-bd14-667c595cfce1",
+  "nome": "Carex caryophyllea",
+  "rhs_id": "52167",
+  "titolo": "Carex caryophyllea 'The Beatles'",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ }
+]
