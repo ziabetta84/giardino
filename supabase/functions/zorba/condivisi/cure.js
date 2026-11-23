@@ -49,6 +49,30 @@ export function pioggiaInArrivo(meteoGiorni) {
   return pioggiaCumulata2gg(meteoGiorni) >= SOGLIA_PIOGGIA_MM
 }
 
+// Pioggia già caduta (23/11/2026): dopo giorni di pioggia le piante all'aperto
+// risultavano ancora «da irrigare» da settimane, perché contava solo la pioggia
+// prevista per oggi e domani. Ora un giorno passato con almeno
+// SOGLIA_PIOGGIA_MM di pioggia vale come un'irrigazione per le piante
+// all'aperto: la cadenza riparte da quel giorno. Non si scrive nulla in
+// ultima_cura (la decisione del 09/09/2026 resta: niente registrazioni
+// permanenti dal meteo), si calcola a ogni apertura dai giorni passati di
+// Open-Meteo (past_days). giorniPassati: [{ data: 'YYYY-MM-DD', pioggia }],
+// solo giorni conclusi (oggi è coperto dalla previsione).
+export function ultimaPioggiaUtile(giorniPassati) {
+  if (!Array.isArray(giorniPassati)) return null
+  let ultima = null
+  for (const g of giorniPassati) {
+    if ((parseFloat(g?.pioggia) || 0) >= SOGLIA_PIOGGIA_MM && g.data && (!ultima || g.data > ultima)) ultima = g.data
+  }
+  return ultima
+}
+
+// '2026-11-21' → '21/11'
+function giornoMese(data) {
+  const [, m, g] = data.split('-')
+  return `${g}/${m}`
+}
+
 // Cadenza generica per il ricambio dell'acqua finché la specie non ha un dato
 // dedicato in specie.manutenzione.cambio_acqua (catalogo di ~15.700 specie:
 // la stragrande maggioranza non lo avrà popolato da subito) — deciso in chat
@@ -91,11 +115,21 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
     intervallo = INTERVALLO_CAMBIO_ACQUA_DEFAULT
   }
 
-  const ultimaStr = pianta?.ultima_cura?.[tipo]
+  let ultimaStr = pianta?.ultima_cura?.[tipo]
   if (!intervallo) return { urgente: false, label: manutenzione, giorni: null }
 
-  if (tipo === 'irrigazione' && pianta?.coltivato_in !== 'acqua' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
+  const allAperto = tipo === 'irrigazione' && pianta?.coltivato_in !== 'acqua' && contesto.esterno
+  if (allAperto && pioggiaInArrivo(contesto.meteo)) {
     return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
+  }
+
+  // La pioggia caduta conta come irrigazione se è più recente dell'ultima
+  // registrata (confronto sul giorno: ultima_cura è 'YYYY-MM-DD').
+  let pioggia = null
+  const ultimaPioggia = allAperto ? ultimaPioggiaUtile(contesto.pioggiaCaduta) : null
+  if (ultimaPioggia && (!ultimaStr || ultimaPioggia > String(ultimaStr).slice(0, 10))) {
+    ultimaStr = ultimaPioggia
+    pioggia = ultimaPioggia
   }
 
   // "cambio_acqua" nel testo della label si legge "ricambio acqua" (stesso
@@ -114,15 +148,17 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   const trascorsi  = Math.floor((oggi - ultima) / 86400000)
   const rimanenti  = intervallo - trascorsi
   const urgente    = tipo !== 'potatura' && rimanenti <= 0
+  const daPioggia  = pioggia ? ` (ha piovuto il ${giornoMese(pioggia)})` : ''
 
   return {
     urgente,
-    label: urgente
+    label: (urgente
       ? `${nomeTipo} — scaduta ${Math.abs(rimanenti)} gg fa`
-      : `${nomeTipo} — tra ${rimanenti} gg`,
+      : `${nomeTipo} — tra ${rimanenti} gg`) + daPioggia,
     giorni: rimanenti,
     intervallo,
     trascorsi,
+    pioggia,
   }
 }
 

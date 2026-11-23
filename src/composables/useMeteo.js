@@ -84,6 +84,9 @@ function valutaAvvisi(g) {
 
 export function useMeteo() {
   const giorni      = ref([])
+  // Giorni già passati (con carica(..., pastDays)): solo data e pioggia caduta,
+  // per contare la pioggia come irrigazione (vedi ultimaPioggiaUtile in useCure).
+  const passati     = ref([])
   const oggi        = ref(null)
   const loading     = ref(true)
   const errore      = ref(null)
@@ -95,20 +98,22 @@ export function useMeteo() {
   // in un ordine deciso dalla rete, non dal click.
   let inCorso = false
 
-  async function carica(lat, lon, days = 7) {
+  async function carica(lat, lon, days = 7, pastDays = 0) {
     if (inCorso) return
     inCorso = true
     loading.value = true
     errore.value  = null
     try {
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,et0_fao_evapotranspiration,sunrise,sunset&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m,relative_humidity_2m,soil_moisture_0_to_1cm&forecast_days=${days}&timezone=auto`
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,windspeed_10m_max,et0_fao_evapotranspiration,sunrise,sunset&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m,relative_humidity_2m,soil_moisture_0_to_1cm&forecast_days=${days}${pastDays ? `&past_days=${pastDays}` : ''}&timezone=auto`
       const res  = await fetch(url)
       if (!res.ok) throw new Error('Errore API meteo')
       const raw  = await res.json()
       const d    = raw.daily
       const h    = raw.hourly
 
+      passati.value = d.time.slice(0, pastDays).map((data, i) => ({ data, pioggia: d.precipitation_sum[i]?.toFixed(1) ?? '0' }))
       giorni.value = d.time.map((data, i) => {
+        if (i < pastDays) return null
         const umidita = mediaGiorno(h?.time, h?.relative_humidity_2m, data)
         const umiditaSuolo = mediaGiorno(h?.time, h?.soil_moisture_0_to_1cm, data)
         const giornoDate = new Date(data)
@@ -131,7 +136,7 @@ export function useMeteo() {
           tramonto: d.sunset?.[i] ?? null,
           ore: oreDelGiorno(h, data),
         }
-      })
+      }).slice(pastDays)
       oggi.value = giorni.value[0] ?? null
       aggiornatoAlle.value = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
     } catch (e) {
@@ -161,5 +166,5 @@ export function useMeteo() {
   // giorno (che ha già il suo array `ore`). Export invariato.
   const orarieOggi = computed(() => giorni.value[0]?.ore ?? [])
 
-  return { giorni, oggi, orarieOggi, avvisi, loading, errore, aggiornatoAlle, carica }
+  return { giorni, passati, oggi, orarieOggi, avvisi, loading, errore, aggiornatoAlle, carica }
 }

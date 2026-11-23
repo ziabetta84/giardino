@@ -133,6 +133,22 @@ test('pianta: giorni trascorsi per ogni cura', async () => {
   assert.equal(typeof c.giorni_trascorsi, 'number')
 })
 
+test('pianta all\'aperto: la pioggia caduta fa ripartire la cadenza dell\'irrigazione', async () => {
+  const stag = { primavera: 'ogni 10 giorni', estate: 'ogni 10 giorni', autunno: 'ogni 10 giorni', inverno: 'ogni 10 giorni' }
+  const db = dbFinto({
+    piante: [{ id: 'p1', taxon_id: 'T', cultivar_id: null, coltivato_in: 'terra', ultima_cura: { irrigazione: '2000-01-01' }, zone: { nome: 'Orto', tipo: 'esterno' }, sottozone: null }],
+    'rpc:catalogo_voci': { data: { 't:T': { nome: 'Rosa', manutenzione: { irrigazione: stag } } }, error: null },
+    programmi_irrigazione: [],
+    settings: [{ location: { lat: 43.8, lon: 12.9 } }],
+  })
+  const ieri = new Date(Date.now() - 86400000).toISOString().slice(0, 10)
+  const fetch = async () => ({ ok: true, json: async () => ({ daily: { time: ['1999-12-30', ieri, 'd1', 'd2'], precipitation_sum: [0, 12, 0, 0] } }) })
+  const j = JSON.parse((await eseguiStrumento('pianta', { id: 'p1' }, ctxBase(db, { fetch }))).contenuto)
+  const c = j.cure.find(x => x.tipo === 'irrigazione')
+  assert.equal(c.in_ritardo, false)
+  assert.match(c.stato, /ha piovuto il/)
+})
+
 test('strumento sconosciuto o errore del database: risultato di errore, non eccezione', async () => {
   assert.equal((await eseguiStrumento('cancella_tutto', {}, ctxBase(dbFinto({})))).errore, true)
   const db = dbFinto({ 'rpc:cerca_catalogo': { data: null, error: { message: 'boom' } } })

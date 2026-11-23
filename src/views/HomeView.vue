@@ -247,9 +247,9 @@ import { useDatiStore } from '@/stores/dati'
 import NomeScientifico from '@/components/NomeScientifico.vue'
 import { useAuth } from '@/composables/useAuth'
 import { usePianteApi } from '@/composables/usePianteApi'
-import { valutaCura, cureUrgentiPianta, stagione, tipiCuraPianta } from '@/composables/useCure'
+import { valutaCura, stagione, tipiCuraPianta } from '@/composables/useCure'
 import { iconaCura } from '@/composables/useCureVisual'
-import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
+import { useUrgenze } from '@/composables/useUrgenze'
 import { concimeConsigliato } from '@/composables/useConcimi'
 import { posizioneGiardino } from '@/composables/useMeteo'
 import { tappeAttese } from '@/composables/useProgetti'
@@ -391,24 +391,9 @@ const numPiante   = computed(() => store.piante   ? Object.keys(store.piante).le
 const numZone     = computed(() => store.zone     ? Object.keys(store.zone).length     : null)
 const numConcimi  = computed(() => store.concimi  ? Object.keys(store.concimi).length  : null)
 const numProgetti = computed(() => store.progetti ? Object.keys(store.progetti).length : null)
-// Contesto per pianta (stesso pattern di AttivitaView.vue): senza questo,
-// valutaCura non sa distinguere una pianta esterna da una in casa e non può
-// sospendere l'irrigazione quando la riga meteo qui sopra mostra pioggia in
-// arrivo — le due sezioni potevano contraddirsi a vista.
-function contestoPianta(p, id) {
-  const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
-  return { meteo: store.meteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
-}
-
-const numUrgenti = computed(() => {
-  if (!store.piante) return null
-  let count = 0
-  for (const [id, p] of Object.entries(store.piante)) {
-    const sp = store.vocePianta(p)
-    if (cureUrgentiPianta(p, sp, contestoPianta(p, id)).length > 0) count++
-  }
-  return count
-})
+// Contesto per pianta e numero di piante con cure urgenti: in useUrgenze.js,
+// condivisi con il menù su telefono e la sidebar.
+const { numUrgenti, contestoPianta } = useUrgenze()
 
 // "mai registrata" restituisce giorni: Infinity (vedi useCure.js): una pianta
 // mai curata è più urgente di una scaduta da N giorni, non meno — la mappiamo

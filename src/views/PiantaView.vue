@@ -406,8 +406,7 @@ const livelloCure = computed(() => etichettaLivello(specie.value?.livelli?.manut
 const coltivazione = computed(() => specie.value?.coltivazione ?? null)
 
 const contestoCura = computed(() => ({
-  esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
-  meteo: store.meteo,
+  ...store.contestoMeteoPianta(pianta.value),
   programmaAutomatico: programmaIrrigazioneEffettivo(route.params.id, pianta.value?.zona, pianta.value?.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 

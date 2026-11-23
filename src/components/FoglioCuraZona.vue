@@ -155,6 +155,7 @@ const gruppi = computed(() => classificaCuraZona({
   piante: store.piante, zona: props.zona, sottozona: props.sottozona, tipo: tipo.value,
   vocePianta: store.vocePianta, nomePianta: store.nomePianta,
   programmi: store.programmiIrrigazione, concimi: store.concimi,
+  esterna: store.piantaEsterna, pioggiaCaduta: store.pioggiaCaduta,
   concimeId: tipo.value === 'concimazione' ? concimeId.value : null,
 }))
 

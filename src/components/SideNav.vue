@@ -5,17 +5,22 @@
       Zorba in giardino
     </span>
 
+    <!-- Stesso ordine del menù su telefono (MenuMobile.vue): per uso. -->
     <RouterLink to="/" exact-active-class="on">
       <Icon name="casa" /><span>Home</span>
     </RouterLink>
-    <RouterLink to="/meteo" active-class="on">
-      <Icon name="meteo" /><span>Meteo</span>
+    <RouterLink to="/attivita" active-class="on">
+      <Icon name="campanella" /><span>Attività</span>
+      <span v-if="numUrgenti" class="sidebar__urg">{{ numUrgenti }}<span class="sr-only"> da curare</span></span>
+    </RouterLink>
+    <RouterLink to="/piante" active-class="on">
+      <Icon name="foglia" /><span>Piante</span>
     </RouterLink>
     <RouterLink to="/zone" active-class="on">
       <Icon name="pin" /><span>Zone</span>
     </RouterLink>
-    <RouterLink to="/piante" active-class="on">
-      <Icon name="foglia" /><span>Piante</span>
+    <RouterLink to="/agente" active-class="on">
+      <Icon name="gatto" class="is-zorba" /><span>Zorba dice</span>
     </RouterLink>
     <RouterLink to="/progetti" active-class="on">
       <Icon name="lampadina" /><span>Progetti</span>
@@ -23,11 +28,8 @@
     <RouterLink to="/concimi" active-class="on">
       <Icon name="provetta" /><span>Concimi</span>
     </RouterLink>
-    <RouterLink to="/attivita" active-class="on">
-      <Icon name="campanella" /><span>Attività</span>
-    </RouterLink>
-    <RouterLink to="/agente" active-class="on">
-      <Icon name="gatto" class="is-zorba" /><span>Zorba dice</span>
+    <RouterLink to="/meteo" active-class="on">
+      <Icon name="meteo" /><span>Meteo</span>
     </RouterLink>
     <RouterLink to="/gallery" active-class="on">
       <Icon name="cornice" /><span>Gallery</span>
@@ -52,4 +54,7 @@
 <script setup>
 import Icon from '@/components/Icon.vue'
 import ZorbaLogo from '@/components/ZorbaLogo.vue'
+import { useUrgenze } from '@/composables/useUrgenze'
+
+const { numUrgenti } = useUrgenze()
 </script>
