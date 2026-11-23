@@ -11,6 +11,8 @@ descrizione_originale. Gli id sono fissi (uuid5 sul taxon), così il rollback to
 Uso:
     python3 schede_nuove.py TESTI.json SCELTE.json RECUPERATE.jsonl DATA OUT.sql ROLLBACK.sql
 SCELTE.json: [{taxon_id, nome, rhs_id, titolo}] (pagina RHS scelta per ogni specie).
+In TESTI.json la chiave facoltativa "dimensioni" (null o un testo) sostituisce le misure della pagina, quando è
+quella di una cultivar più piccola o più grande della specie.
 """
 import json, sys, uuid
 from completa_esigenze import traduci, maiuscola, q, POSITION_IT, MOISTURE_IT, SOIL_IT, PH_IT
@@ -39,6 +41,8 @@ def avvisi(d, t):
     if h in RUSTICITA:
         a.append('Rusticità: minime ' + RUSTICITA[h])
     dims = [f"{k} {v}" for k, v in (('altezza', fascia(d.get('altezza_max'))), ('diffusione', fascia(d.get('diffusione_max')))) if v]
+    if 'dimensioni' in t:  # pagina di una cultivar con misure diverse dalla specie: None le toglie, un testo le sostituisce
+        dims = [t['dimensioni']] if t['dimensioni'] else []
     if dims:
         a.append('Dimensioni a maturità: ' + ', '.join(dims))
     a.append('Potatura: ' + t['potatura'])
