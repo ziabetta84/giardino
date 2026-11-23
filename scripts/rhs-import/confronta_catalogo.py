@@ -25,8 +25,10 @@ CAMPI = ('cultivation', 'position', 'soil_types', 'pruning')
 
 
 def norm_nome(s):
-    s = (s or '').replace('×', 'x ').replace('  ', ' ')
-    s = re.sub(r'\bx\s+', 'x ', s)
+    # il segno × si ignora: RHS e Catalogue of Life non lo mettono sempre negli stessi nomi
+    # (Crataegus × media / Crataegus media), e 286 pagine risultavano assenti solo per questo (22/11/2026)
+    s = (s or '').replace('×', ' ')
+    s = re.sub(r'(^|\s)[xX](?=\s)', ' ', s)
     return re.sub(r'\s+', ' ', s).strip().lower()
 
 
