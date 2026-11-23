@@ -2,6 +2,9 @@
 // il database (filo dell'utente, progetto suo, voce esistente) li fanno la funzione e zorba_prenota.
 export const TIPI = ['identifica_specie', 'segnalazione_scheda', 'consiglio_cura', 'consiglio_concimazione', 'diagnosi', 'pianifica_progetto', 'altro']
 export const MAX_TESTO = 4000
+// Modelli che il curatore può scegliere per un filo nuovo, per provarli al posto di quello predefinito (prova alla
+// cieca, scripts/zorba/prova_cieca.mjs). Gli altri utenti non possono sceglierlo: il campo viene ignorato.
+export const MODELLI_PROVA = ['claude-sonnet-5-5', 'claude-opus-5-5', 'ovh:qwen3.6-35b-a3b', 'ovh:Qwen3.6-27B']
 export const MAX_FOTO_BYTES = 1_572_864
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 const VOCE = /^[tc]:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
@@ -43,6 +46,10 @@ export function validaRichiesta(corpo) {
   const n = corpo.nuovo
   if (riprova || !n || !TIPI.includes(n.tipo)) return no('richiesta_non_valida')
   const nuovo = { tipo: n.tipo, voce: null, nome_voce: null, progetto_id: null, titolo_progetto: null }
+  if (n.modello != null) {
+    if (!MODELLI_PROVA.includes(n.modello)) return no('richiesta_non_valida')
+    nuovo.modello = n.modello
+  }
   if (n.tipo === 'segnalazione_scheda') {
     if (typeof n.voce !== 'string' || !VOCE.test(n.voce)) return no('richiesta_non_valida')
     nuovo.voce = n.voce

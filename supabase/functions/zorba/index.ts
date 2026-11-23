@@ -12,6 +12,7 @@ import { DEFINIZIONI_STRUMENTI, eseguiStrumento } from './lib/strumenti.js'
 import { eseguiCiclo } from './lib/ciclo.js'
 import { riscontroPlantNet } from './lib/plantnet.js'
 import { componiSistema } from './lib/regole.js'
+import { chiamaOpenAI, separaModello } from './lib/openai.js'
 import { TESTI } from './regole/testi.js'
 
 const env = (k: string) => Deno.env.get(k) ?? ''
@@ -31,6 +32,10 @@ const codiceDa = (e: unknown) => /zorba:([a-z_]+)/.exec(String((e as Error)?.mes
 
 const servizio = createClient(env('SUPABASE_URL'), env('SUPABASE_SERVICE_ROLE_KEY'), { auth: { persistSession: false } })
 const anthropic = new Anthropic({ apiKey: env('ANTHROPIC_API_KEY') })
+// Fornitori compatibili OpenAI, per i modelli open in prova («fornitore:nome», vedi lib/openai.js)
+const FORNITORI: Record<string, { url: string, chiave: string }> = {
+  ovh: { url: env('OVH_AI_ENDPOINTS_URL') || 'https://oai.endpoints.kepler.ai.cloud.ovh.net/v1', chiave: env('OVH_AI_ENDPOINTS_KEY') },
+}
 
 // I .md non arrivano a runtime con il deploy: i testi sono in un modulo generato (scripts/zorba/genera_regole.mjs)
 const SISTEMA = componiSistema({ tono: TESTI['tono.md'], ambito: TESTI['ambito.md'],
@@ -103,6 +108,12 @@ Deno.serve(async (req) => {
       return errore(c, stato)
     }
     const filo = prenotazione.filo
+    // Solo il curatore può provare un altro modello, e solo su un filo nuovo: resta quello per tutto il filo
+    if (curatore && !filoId && nuovo?.modello && nuovo.modello !== filo.modello) {
+      const { error: eMod } = await servizio.from('zorba_fili').update({ modello: nuovo.modello }).eq('id', filo.id)
+      if (eMod) { console.error('zorba', filo.id, 'modello', eMod.message); return errore('interno', 500) }
+      filo.modello = nuovo.modello
+    }
     const messaggioZorba = prenotazione.messaggio_zorba
 
     const corpo = new ReadableStream({
@@ -160,6 +171,14 @@ Deno.serve(async (req) => {
           richiesta, emetti: (n: string, d: unknown) => e.emetti(n, d),
           eseguiStrumento: (nome: string, input: unknown) => eseguiStrumento(nome, input, ctx),
           chiama: async (params: Record<string, unknown>, hooks: { onTesto: (t: string) => void, onRipiego: () => void }) => {
+            const { fornitore } = separaModello(String(params.model))
+            if (fornitore !== 'anthropic') {
+              const f = FORNITORI[fornitore]
+              if (!f?.chiave) throw new Error(`fornitore ${fornitore} non configurato`)
+              const msg = await chiamaOpenAI({ url: f.url, chiave: f.chiave, params, fetch, signal: scadenza, onTesto: hooks.onTesto })
+              risposte.push(msg as unknown as Anthropic.Messages.Message)
+              return msg
+            }
             // deno-lint-ignore no-explicit-any
             const stream = anthropic.beta.messages.stream(params as any, { signal: scadenza })
             stream.on('text', (t: string) => hooks.onTesto(t))
