@@ -16,6 +16,8 @@
 //   stagione è lontano da quel concime (stessa soglia dei consigli) restano
 //   nel loro gruppo ma senza spunta, con il concime consigliato.
 // La pioggia prevista non cambia la scelta: l'avviso è nel foglio.
+// La pioggia già caduta sì (23/11/2026): per le piante all'aperto vale come
+// un'irrigazione, come nel resto dell'app (valutaCura).
 
 import { valutaCura, tipiCuraPianta, stagione } from '../../supabase/functions/zorba/condivisi/cure.js'
 import { concimeConsigliato, classificaConcimiPerFabbisogno, formattaNPK, SOGLIA_DISTANZA } from '../../supabase/functions/zorba/condivisi/concimi.js'
@@ -40,7 +42,7 @@ export function concimeAdatto(npkRichiesto, concime) {
   return voce.distanza <= SOGLIA_DISTANZA
 }
 
-function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi }) {
+function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi, esterna, pioggiaCaduta }) {
   if (!tipiCuraPianta(p, sp).includes(tipo)) {
     if (tipo === 'irrigazione' && p.coltivato_in === 'acqua') {
       return { gruppo: 'escluse', motivo: "Coltivata in acqua: si registra il ricambio dell'acqua" }
@@ -59,8 +61,9 @@ function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, c
     return { gruppo: 'escluse', motivo: `Non prevista in ${stagioneCorrente}: la pianta è a riposo` }
   }
 
-  // Senza meteo: la pioggia prevista è un avviso del foglio, non un'esclusione.
-  const c = valutaCura(p, sp, tipo, {})
+  // Senza previsioni: la pioggia prevista è un avviso del foglio, non un'esclusione.
+  const c = valutaCura(p, sp, tipo, { esterno: esterna ? esterna(p) : false, pioggiaCaduta })
+  const ultimaChi = c.pioggia ? 'Pioggia' : 'Ultima'
   let esito
   if (c.giorni === null) {
     esito = { gruppo: 'possono', spuntata: false, motivo: 'La scheda non indica una cadenza' }
@@ -71,9 +74,9 @@ function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, c
   } else if (c.giorni <= GIORNI_IN_SCADENZA) {
     esito = { gruppo: 'daFare', spuntata: true, motivo: `In scadenza tra ${c.giorni} gg` }
   } else if (c.trascorsi * 2 >= c.intervallo) {
-    esito = { gruppo: 'possono', spuntata: true, motivo: `Ultima ${c.trascorsi} gg fa, cadenza ${c.intervallo} gg` }
+    esito = { gruppo: 'possono', spuntata: true, motivo: `${ultimaChi} ${c.trascorsi} gg fa, cadenza ${c.intervallo} gg` }
   } else {
-    esito = { gruppo: 'possono', spuntata: false, motivo: `Troppo presto: ultima ${c.trascorsi} gg fa, cadenza ${c.intervallo} gg` }
+    esito = { gruppo: 'possono', spuntata: false, motivo: `Troppo presto: ${ultimaChi.toLowerCase()} ${c.trascorsi} gg fa, cadenza ${c.intervallo} gg` }
   }
 
   if (tipo === 'concimazione' && concime) {
@@ -97,17 +100,19 @@ function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, c
 }
 
 // piante: store.piante; vocePianta/nomePianta: le funzioni dello store;
-// concimeId: il concime scelto per la concimazione (facoltativo).
+// concimeId: il concime scelto per la concimazione (facoltativo);
+// esterna: store.piantaEsterna; pioggiaCaduta: store.pioggiaCaduta (facoltativi).
 export function classificaCuraZona({
   piante, zona, sottozona = null, tipo, vocePianta, nomePianta,
   programmi = null, concimi = null, concimeId = null,
+  esterna = null, pioggiaCaduta = null,
 }) {
   const stagioneCorrente = stagione()
   const concime = concimeId ? concimi?.[concimeId] ?? null : null
   const gruppi = { daFare: [], possono: [], escluse: [] }
   for (const [id, p] of pianteDellaZona(piante, zona, sottozona)) {
     const sp = vocePianta(p)
-    const esito = valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi })
+    const esito = valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi, esterna, pioggiaCaduta })
     gruppi[esito.gruppo].push({
       piantaId: id,
       nome: nomePianta(p),

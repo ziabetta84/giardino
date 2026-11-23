@@ -67,20 +67,41 @@ async function voci(db, chiavi) {
   return controlla(await db.rpc('catalogo_voci', { chiavi: valide })) ?? {}
 }
 
+// Pioggia prevista (oggi e domani) e caduta (ultimi 14 giorni) per le piante
+// all'aperto, nella forma che valutaCura si aspetta: così Zorba dà le stesse
+// scadenze d'irrigazione dell'app. Senza posizione o senza rete: niente meteo,
+// e la cadenza conta solo le irrigazioni registrate.
+async function meteoPerCure(db, fetch) {
+  try {
+    const s = controlla(await db.from('settings').select('location').maybeSingle())
+    if (s?.location?.lat == null || s?.location?.lon == null) return {}
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${s.location.lat}&longitude=${s.location.lon}&daily=precipitation_sum&past_days=14&forecast_days=2&timezone=Europe%2FRome`
+    const r = await fetch(url)
+    if (!r.ok) return {}
+    const d = (await r.json()).daily
+    const giorni = d.time.map((data, i) => ({ data, pioggia: d.precipitation_sum[i] ?? 0 }))
+    return { pioggiaCaduta: giorni.slice(0, -2), meteo: giorni.slice(-2) }
+  } catch {
+    return {}
+  }
+}
+
 const ESEGUI = {
   async piante_giardino(_, { db }) {
     const piante = controlla(await db.from('piante').select('id, taxon_id, cultivar_id, coltivato_in, zone(nome), sottozone(nome)'))
     const v = await voci(db, piante.map(chiave))
     return piante.map(p => ({ id: p.id, nome: v[chiave(p)]?.nome ?? null, zona: p.zone?.nome ?? null, sottozona: p.sottozone?.nome ?? null, coltivato_in: p.coltivato_in }))
   },
-  async pianta({ id }, { db }) {
-    const p = controlla(await db.from('piante').select('*, zone(nome), sottozone(nome)').eq('id', id).maybeSingle())
+  async pianta({ id }, { db, fetch }) {
+    const p = controlla(await db.from('piante').select('*, zone(nome, tipo), sottozone(nome, tipo)').eq('id', id).maybeSingle())
     if (!p) throw new Error('pianta non trovata')
     const voce = (await voci(db, [chiave(p)]))[chiave(p)] ?? {}
     const programmi = controlla(await db.from('programmi_irrigazione').select('pianta_id, zona_id, sottozona_id, ogni_giorni'))
     const programma = programmaPerPianta(programmi, p)
+    const esterno = (p.sottozone?.tipo ?? p.zone?.tipo) === 'esterno'
+    const meteo = esterno && p.coltivato_in !== 'acqua' ? await meteoPerCure(db, fetch) : {}
     const cure = [...tipiCuraPianta(p, voce), 'potatura'].map(tipo => {
-      const v = valutaCura(p, voce, tipo, { programmaAutomatico: tipo === 'irrigazione' ? programma : null })
+      const v = valutaCura(p, voce, tipo, { esterno, ...meteo, programmaAutomatico: tipo === 'irrigazione' ? programma : null })
       return { tipo, ultima: p.ultima_cura?.[tipo] ?? null, giorni_trascorsi: Number.isFinite(v.trascorsi) ? v.trascorsi : null, in_ritardo: v.urgente, stato: v.label }
     })
     return { id: p.id, nome: voce.nome ?? null, nome_scientifico: voce.specie ?? null, zona: p.zone?.nome ?? null, sottozona: p.sottozone?.nome ?? null,

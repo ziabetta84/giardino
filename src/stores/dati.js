@@ -7,6 +7,10 @@ import { irrigazioneDaRegistrareOggi } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { chiavePianta } from '@/utils/catalogo'
 
+// Quanti giorni passati di pioggia guardare: copre le cadenze d'irrigazione
+// autunnali e invernali più comuni (7-14 giorni).
+const GIORNI_PIOGGIA_PASSATI = 14
+
 // Catalogo (fase 6 del modello tassonomico): le piante puntano a un taxon o a una cultivar, e il database calcola per
 // ognuno una «voce» (nome mostrato, nome scientifico, campi della scheda ereditati campo per campo dal livello sopra,
 // vedi la migration 20261021100000_tassonomia_fase6_catalogo.sql). I campi hanno gli stessi nomi di prima (nome,
@@ -146,6 +150,9 @@ export const useDatiStore = defineStore('dati', () => {
   const concimi   = ref(null)
   const programmiIrrigazione = ref(null)
   const meteo     = ref(null)
+  // Pioggia caduta negli ultimi GIORNI_PIOGGIA_PASSATI giorni ([{ data, pioggia }]):
+  // per le piante all'aperto vale come irrigazione (valutaCura in useCure.js).
+  const pioggiaCaduta = ref([])
   const loading   = ref(false)
   const errore    = ref(null)
 
@@ -213,9 +220,10 @@ export const useDatiStore = defineStore('dati', () => {
         catalogo.value = catalogo.value ?? {}
       }
 
-      // Previsioni meteo (solo oggi/domani): usate da useCure per sospendere
+      // Previsioni meteo (oggi/domani) e pioggia caduta negli ultimi
+      // GIORNI_PIOGGIA_PASSATI giorni: usate da useCure per sospendere
       // l'irrigazione delle piante esterne quando è prevista pioggia
-      // sufficiente. Dentro il try, non dopo: useMeteo().carica() cattura già
+      // sufficiente e per far ripartire la cadenza dopo una pioggia. Dentro il try, non dopo: useMeteo().carica() cattura già
       // i propri errori di rete internamente (non li rilancia, vedi
       // useMeteo.js) quindi non può far scattare il catch qui sotto — ma
       // deve restare coperta da `loading` insieme al resto, altrimenti
@@ -299,10 +307,25 @@ export const useDatiStore = defineStore('dati', () => {
     // Senza posizione: nessuna previsione (lista vuota, non null: «caricato,
     // ma niente da mostrare»), quindi nessuna irrigazione sospesa per pioggia.
     const posizione = posizioneGiardino(settings.value)
-    if (!posizione) { meteo.value = []; return }
-    const { giorni, carica } = useMeteo()
-    await carica(posizione.lat, posizione.lon, 2)
+    if (!posizione) { meteo.value = []; pioggiaCaduta.value = []; return }
+    const { giorni, passati, carica } = useMeteo()
+    await carica(posizione.lat, posizione.lon, 2, GIORNI_PIOGGIA_PASSATI)
     meteo.value = giorni.value
+    pioggiaCaduta.value = passati.value
+  }
+
+  // All'aperto o no: conta il tipo della sottozona quando c'è (un terrazzo
+  // esterno dentro la zona Casa), altrimenti quello della zona. Stesso criterio
+  // del foglio della cura per zona.
+  function piantaEsterna(p) {
+    const tipoSz = p?.sottozona ? sottozone.value?.[p.zona]?.[p.sottozona]?.tipo : null
+    return (tipoSz ?? zone.value?.[p?.zona]?.tipo) === 'esterno'
+  }
+
+  // Contesto per valutaCura (useCure.js): all'aperto o no, pioggia prevista e caduta.
+  // Il programma d'irrigazione automatica lo aggiunge chi chiama.
+  function contestoMeteoPianta(p) {
+    return { esterno: piantaEsterna(p), meteo: meteo.value, pioggiaCaduta: pioggiaCaduta.value }
   }
 
   async function aggiorna() {
@@ -324,5 +347,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, nomeComunePianta, iconaZona, iconaSottozona }
+  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, pioggiaCaduta, piantaEsterna, contestoMeteoPianta, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, nomeComunePianta, iconaZona, iconaSottozona }
 })
