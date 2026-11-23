@@ -42,6 +42,15 @@
       </div>
       <p class="agente-hint">{{ infoTipo(nuovoTipo)?.hint }}</p>
 
+      <!-- Solo per la curatrice: prova di un modello open al posto di quello predefinito (lib/openai.js della funzione) -->
+      <div v-if="statoZorba?.curatore" class="reqgroup agente-modello">
+        <span class="reqgroup__label">Modello in prova</span>
+        <div class="reqchips">
+          <button v-for="m in MODELLI_PROVA" :key="m.id" type="button" class="reqchip"
+            :class="{ on: modelloProva === m.id }" @click="modelloProva = m.id">{{ m.label }}</button>
+        </div>
+      </div>
+
       <!-- Segnalazione scheda: indica quale specie, non serve una foto -->
       <div v-if="nuovoTipo === 'segnalazione_scheda'" class="agente-extra">
         <SelettoreSpecie v-model="specieSelezionata" />
@@ -179,6 +188,13 @@ onUnmounted(() => {
 })
 
 const nuovoTipo = ref('identifica_specie')
+// Modelli che la curatrice può provare su una richiesta nuova; '' = quello che Zorba sceglie per il tipo
+const MODELLI_PROVA = [
+  { id: '', label: 'Claude (predefinito)' },
+  { id: 'ovh:qwen3.6-35b-a3b', label: 'Qwen 3.6 35B' },
+  { id: 'ovh:Qwen3.6-27B', label: 'Qwen 3.6 27B' },
+]
+const modelloProva = ref('')
 const nuovoMessaggio = ref('')
 const specieSelezionata = ref('')
 const progettoSelezionato = ref('')
@@ -395,6 +411,7 @@ async function aggiungiRichiesta() {
       nome_voce: tipo === 'segnalazione_scheda' ? (store.catalogo?.[specieSelezionata.value]?.nome ?? null) : null,
       progetto_id: tipo === 'pianifica_progetto' ? (progettoSelezionato.value || null) : null,
       titolo_progetto: tipo === 'pianifica_progetto' && !progettoSelezionato.value ? nuovoProgettoTitolo.value.trim() : null,
+      ...(statoZorba.value?.curatore && modelloProva.value ? { modello: modelloProva.value } : {}),
     },
     testo: nuovoMessaggio.value.trim(),
     foto: SENZA_FOTO.includes(tipo) ? null : (foto.value?.base64 ?? null),
@@ -498,6 +515,7 @@ onMounted(async () => {
 .agente-nuova { margin-bottom: 26px; }
 .agente-nuova .slabel { margin-bottom: 12px; }
 .agente-extra { margin-bottom: 12px; }
+.agente-modello { margin-bottom: 12px; }
 .agente-hint {
   font: 400 11.5px/1.5 var(--font-sans);
   color: var(--ink-soft);
