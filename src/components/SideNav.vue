@@ -41,6 +41,11 @@
     <RouterLink to="/account" active-class="on">
       <Icon name="persona" /><span>Account</span>
     </RouterLink>
+    <!-- Stessa voce del piede del menù su telefono (MenuMobile.vue): senza
+         questa, su computer la pagina dei feedback non si raggiungeva. -->
+    <RouterLink to="/feedback" active-class="on" class="sidebar__lunga">
+      <Icon name="matita" /><span>Scrivi a chi costruisce l'app</span>
+    </RouterLink>
   </nav>
 </template>
 
