@@ -209,5 +209,21 @@
   "titolo": "Carex caryophyllea 'The Beatles'",
   "tipo_pagina": "cultivar",
   "altre": []
+ },
+ {
+  "taxon_id": "cb492351-bb49-471b-a2e5-b41242737033",
+  "nome": "Ficus maclellandii",
+  "rhs_id": "124237",
+  "titolo": "Ficus maclellandii 'Alii' hort. [1]",
+  "tipo_pagina": "cultivar",
+  "altre": []
+ },
+ {
+  "taxon_id": "cf1ad0da-4e56-4558-b519-655907885fab",
+  "nome": "Dracaena cincta",
+  "rhs_id": "76255",
+  "titolo": "Dracaena cincta 'Tricolor'",
+  "tipo_pagina": "cultivar",
+  "altre": []
  }
 ]

@@ -1,11 +1,51 @@
 {
- "Santolina virens": {
+ "Aglaonema commutatum": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Perenne sempreverde della famiglia delle Aracee, originaria delle foreste delle Filippine e di Sulawesi, tra le piante d'appartamento più diffuse. Cresce eretta fino a 40-60 cm con foglie lanceolate, lucide, segnate da macchie e bande argentate o verde chiaro lungo le nervature; le numerose varietà, come 'Silver Queen', sono quasi del tutto argentate. Fiorisce di rado in casa, con piccole spate verdastre. Sopporta la poca luce, ma non la luce solare diretta né il freddo sotto i 10 °C; le annaffiature vanno misurate perché l'acqua in eccesso fa marcire i fusti. Il succo è irritante.",
+  "potatura": "non richiede potatura; si tolgono le foglie ingiallite",
+  "propagazione": "per polloni basali o per divisione",
+  "parassiti": "Parassiti: può essere soggetta a cocciniglie farinose; Malattie: generalmente esente da malattie"
+ },
+ "Begonia × hiemalis": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Begonia ibrida della famiglia delle Begoniacee, ottenuta incrociando Begonia socotrana con le begonie tuberose, nota nei negozi come begonia elatior. Forma piante cespugliose e compatte, alte fino a 30 cm, con foglie lucide verde scuro e una fioritura abbondante di fiori semplici o doppi, rossi, gialli, rosa, arancio o bianchi. In casa fiorisce in quasi tutte le stagioni, all'aperto d'estate e in autunno, dove si tratta come annuale. Vuole luce intensa ma non sole diretto, e d'inverno almeno 10 °C.",
+  "potatura": "non richiede potatura; si tolgono i fiori appassiti",
+  "propagazione": "per seme a inizio primavera a 21 °C o per talee erbacee",
+  "parassiti": "Parassiti: può essere soggetta a bruchi, cocciniglie farinose, acari, tripidi, oziorrinco e afidi; Malattie: può essere soggetta a muffa grigia, oidio e marciumi del fusto e del rizoma"
+ },
+ "Camellia saluenensis": {
   "forma": "arbusto",
   "ciclo_vitale": "perenne",
-  "descrizione": "Suffrutice sempreverde e aromatico della famiglia delle Asteracee, originario della Spagna e del Portogallo, considerato da alcuni autori una forma di Santolina rosmarinifolia. Forma cuscini larghi e bassi, fino a 60 cm, di foglie verde brillante finemente divise, che strofinate profumano di resina. A metà estate porta su lunghi steli capolini a bottone giallo vivo, larghi circa 2 cm. Ama il caldo, il sole pieno e i terreni sciolti e ben drenati: è perfetta per le bordure basse e i giardini di ghiaia, ma con gli anni tende a spogliarsi.",
-  "potatura": "dopo la fioritura si accorcia tutta la pianta tagliando gli steli fioriti, per mantenerla densa e compatta; in primavera si possono spuntare i fusti, senza tagliare nel legno vecchio",
-  "propagazione": "per talee semilegnose a fine estate, con calore dal fondo",
-  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: può essere soggetta ad armillaria"
+  "descrizione": "Camelia sempreverde della famiglia delle Teacee, originaria dello Yunnan, in Cina, fitta e a crescita lenta, con foglie piccole e lucide lunghe 4-6 cm. Da metà inverno a metà primavera porta fiori semplici, piccoli, a coppa, dal rosa pallido al rosa carico, a volte bianchi. È nota soprattutto come genitrice, con Camellia japonica, delle camelie ibride × williamsii, tra le più rustiche e generose. Vuole terreno acido, una posizione riparata dai venti freddi e dal sole del primo mattino, che rovina i fiori gelati, e fiorisce bene anche in mezz'ombra.",
+  "potatura": "richiede pochi interventi: dopo la fioritura si accorciano i rami troppo lunghi e si tolgono quelli secchi o rovinati",
+  "propagazione": "per talee semilegnose",
+  "parassiti": "Parassiti: può essere soggetta ad afidi, cocciniglie e oziorrinco; Malattie: può essere soggetta a marciume radicale da Phytophthora, galle e maculature fogliari, virosi, avvizzimento dei petali e, raramente, armillaria"
+ },
+ "Carex caryophyllea": {
+  "forma": "graminacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Carice sempreverde della famiglia delle Ciperacee, diffusa nei prati e nei pascoli aridi di quasi tutta Europa, Italia compresa, dove fiorisce tra le prime a primavera. Bassa, intorno ai 15 cm, si allarga lentamente con brevi rizomi e forma ciuffi di foglie sottili verde scuro; a inizio estate porta corte spighe bruno verdastre tra le foglie. Varietà come 'The Beatles' formano una zazzera fitta e scompigliata. Vuole terreno fresco ma ben drenato, al sole o in mezz'ombra.",
+  "potatura": "in estate si tolgono le foglie secche, pettinandole con le dita",
+  "propagazione": "per divisione da metà primavera a inizio estate",
+  "parassiti": "Parassiti: può essere soggetta ad afidi; Malattie: generalmente esente da malattie"
+ },
+ "Cestrum fasciculatum": {
+  "forma": "arbusto",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Arbusto sempreverde della famiglia delle Solanacee, originario del Messico, vigoroso e alto fino a 3 m, con foglie lanceolate verde opaco. Dalla primavera all'estate porta all'estremità dei rami mazzetti di fiori tubolari lunghi circa 2 cm, di un cremisi brillante, seguiti da bacche porpora. La forma più coltivata è 'Newellii', a lungo conosciuta come Cestrum newellii. Teme il gelo: nei climi miti cresce all'aperto in un angolo soleggiato e riparato, altrove va coltivato in vaso e ritirato d'inverno. Le bacche non vanno mangiate.",
+  "potatura": "a fine inverno si accorciano i rami dell'anno prima fino a pochi occhi da una struttura di rami principali, o si tagliano vicino a terra le piante danneggiate dal freddo",
+  "propagazione": "per seme in primavera, in contenitore in cassone freddo, o per talee erbacee in estate",
+  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie"
+ },
+ "Chrysanthemum rubellum": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Crisantemo perenne della famiglia delle Asteracee, d'origine asiatica, oggi considerato da molti una forma di Chrysanthemum zawadskii. Forma cespi folti alti fino a 75 cm e, dalla fine dell'estate all'autunno, porta mazzi sciolti di capolini semplici, simili a margherite, larghi circa 6 cm, rosa con il centro giallo, come nella vecchia e diffusissima varietà 'Clara Curtis'. Vuole pieno sole e terreno ben drenato e mediamente fertile; cimato a primavera diventa più fitto e fiorito.",
+  "potatura": "quando le piante sono alte 15-20 cm si cimano le punte; dopo la fioritura si tagliano gli steli a 10 cm da terra",
+  "propagazione": "per divisione o per talee basali",
+  "parassiti": "Parassiti: può essere soggetto a minatori fogliari, mosca bianca e afidi; Malattie: può essere soggetto a muffa grigia, oidio e ruggine bianca del crisantemo"
  },
  "Corylopsis willmottiae": {
   "forma": "arbusto",
@@ -15,6 +55,103 @@
   "propagazione": "per seme in contenitore in autunno, in cassone all'aperto, per talee erbacee in estate o per propaggine in autunno",
   "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: può essere soggetto ad armillaria"
  },
+ "Crassula atropurpurea": {
+  "forma": "succulenta",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Succulenta arbustiva della famiglia delle Crassulacee, originaria della provincia del Capo in Sudafrica, che può superare il metro di altezza. I fusti robusti e ramificati portano foglie carnose grigio-verdi, spesso bordate di rosso e punteggiate di rosso sulla pagina superiore. Dall'autunno all'inverno può fiorire con piccoli fiori rosa a stella, che però in vaso compaiono di rado. Vuole molta luce, terriccio per cactacee, annaffiature moderate durante la crescita e scarse d'inverno, e non deve scendere sotto 1 °C.",
+  "potatura": "non richiede potatura",
+  "propagazione": "per seme a 15 °C a inizio primavera o per talee di fusto o di foglia in primavera e in estate",
+  "parassiti": "Parassiti: può essere soggetta a cocciniglie farinose, oziorrinco e afidi; Malattie: generalmente esente da malattie"
+ },
+ "Crocus balansae": {
+  "forma": "bulbosa",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Piccolo croco della famiglia delle Iridacee, originario della Turchia occidentale, che non supera i 7-10 cm. Da un minuscolo cormo spuntano a inizio primavera foglie sottili e fiori a coppa giallo oro, sfumati o striati di bruno rossastro all'esterno; nella varietà 'Zwanenburg' l'esterno è quasi tutto mogano. Vuole pieno sole e terreno ghiaioso, povero e ben drenato, ed è adatto ai giardini rocciosi e ai vasi.",
+  "potatura": "non richiede potatura",
+  "propagazione": "staccando i cormi figli durante il riposo",
+  "parassiti": "Parassiti: topi e uccelli possono danneggiarlo; Malattie: generalmente esente da malattie, ma i cormi possono marcire se conservati male"
+ },
+ "Doronicum plantagineum": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Perenne rizomatosa della famiglia delle Asteracee, originaria dell'Europa occidentale e sudoccidentale, alta fino a 60 cm. Le foglie basali, a cuore e verde brillante, accompagnano in primavera grandi capolini giallo oro, simili a margherite, larghi fino a 10 cm, tra i primi fiori gialli delle bordure. D'estate le foglie tendono a seccarsi e la pianta riposa. Vuole terreno fresco, ricco di humus, e mezz'ombra.",
+  "potatura": "togliendo i fiori appassiti si può avere una seconda fioritura",
+  "propagazione": "per divisione a inizio autunno",
+  "parassiti": "Parassiti: generalmente esente da parassiti, ma può essere soggetto a nematodi fogliari; Malattie: può essere soggetto a maculatura fogliare, marciume radicale e oidio"
+ },
+ "Dracaena cincta": {
+  "forma": "arbusto",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Arbusto sempreverde della famiglia delle Asparagacee, originario dell'Africa orientale e dell'Oceano Indiano, eretto e poco ramificato, che in vaso arriva a 2 m. I fusti sottili e legnosi portano in cima ciuffi di foglie strette, rigide e arcuate, verde scuro con il margine rosso; nella varietà 'Tricolor' sono striate di crema e si bordano di cremisi con l'età. È la pianta che nei vivai si vende come dracena marginata: per Catalogue of Life quel nome corrisponde a Dracaena reflexa var. angustifolia, che nel catalogo ha la sua scheda, mentre altri botanici la chiamano Dracaena cincta. Sopporta la poca luce in casa, vuole annaffiature regolari dalla primavera all'autunno e terriccio appena umido d'inverno, e non deve scendere sotto i 10 °C.",
+  "potatura": "non richiede potatura; le piante deboli o troppo alte si possono tagliare in primavera a 15 cm dalla base, e ricacciano",
+  "propagazione": "per talee semilegnose o per pezzi di fusto senza foglie in primavera, con calore dal fondo",
+  "parassiti": "Parassiti: al riparo può essere soggetta a ragnetto rosso e cocciniglie; Malattie: generalmente esente da malattie"
+ },
+ "Epimedium elongatum": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Perenne rizomatosa sempreverde della famiglia delle Berberidacee, originaria dei boschi del Sichuan, in Cina, che forma cespi alti 25-30 cm. Le foglie sono divise in foglioline a cuore allungato, spinose sul margine, che in primavera spuntano marmorizzate di rosso bronzo e poi diventano verde vivo con le nervature rossastre. In primavera porta racemi di fiori delicati e speronati, nelle varietà coltivate lilla rosati con gli sproni bianchi. Vuole mezz'ombra, terreno fertile e ricco di humus e riparo dai venti freddi e secchi.",
+  "potatura": "non richiede potatura, ma a fine inverno, prima che spuntino i fiori, si possono tagliare le foglie vecchie perché fiori e foglie nuove si vedano meglio",
+  "propagazione": "per divisione in autunno o dopo la fioritura, oppure per talee di rizoma tenute al riparo d'inverno",
+  "parassiti": "Parassiti: può essere soggetta a oziorrinco; Malattie: può essere soggetta a virosi del mosaico e maculature fogliari"
+ },
+ "Eranthis × tubergenii": {
+  "forma": "bulbosa",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Ibrido della famiglia delle Ranuncolacee tra l'aconito d'inverno (Eranthis hyemalis) ed Eranthis cilicica, ottenuto in Olanda nel Novecento. Da un piccolo tubero spunta a fine inverno, alto meno di 10 cm, con fiori a coppa giallo vivo, larghi 3-4 cm, circondati da un collare di brattee fogliose; le foglie basali sono lobate e verde bronzo. Essendo sterile non produce semi e i fiori durano più a lungo. Vuole terreno ricco di humus che non si secchi, meglio se calcareo, e sta bene sotto gli alberi decidui.",
+  "potatura": "non richiede potatura",
+  "propagazione": "per divisione dei tuberi a fine primavera, dopo la fioritura; i tuberi seccati attecchiscono male",
+  "parassiti": "Parassiti: può essere soggetto a limacce; Malattie: può essere soggetto a carbone"
+ },
+ "Ficus maclellandii": {
+  "forma": "albero",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Albero sempreverde della famiglia delle Moracee, originario delle foreste dell'Asia sudorientale, che in natura diventa un grande albero e in vaso resta tra 1,5 e 2,5 m. Ha rami arcuati e foglie strette, lucide e verde scuro, lunghe fino a 25 cm, più robuste di quelle del ficus benjamin, e da giovane un portamento elegante e un po' ricadente. È la specie del ficus 'Alii', che in commercio si trova spesso anche sotto il nome di Ficus binnendijkii, una specie vicina con cui viene confuso. Vuole luce intensa, anche filtrata, annaffiature moderate durante la crescita e scarse d'inverno, e non deve scendere sotto i 5 °C.",
+  "potatura": "richiede pochi interventi: a fine inverno si accorciano i rami troppo lunghi e si tolgono quelli secchi o rovinati",
+  "propagazione": "per talee semilegnose con calore dal fondo in primavera o in estate",
+  "parassiti": "Parassiti: al riparo può essere soggetto a ragnetto rosso, tripidi, cocciniglie farinose e cocciniglie; Malattie: può essere soggetto ad armillaria"
+ },
+ "Incarvillea mairei": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Perenne erbacea della famiglia delle Bignoniacee, originaria delle montagne della Cina occidentale e dell'Himalaya, conosciuta anche come gloxinia rustica per la forma dei suoi fiori. Da una robusta radice carnosa nasce una rosetta di foglie pennate, divise in foglioline grossolanamente dentate. All'inizio dell'estate, su steli eretti di circa 40 cm, porta grappoli di fiori vistosi a tromba, rosa porpora con la gola gialla. Vuole terreno fertile, fresco ma ben drenato, sole con un po' d'ombra nelle ore calde, e teme l'umidità invernale.",
+  "potatura": "si tagliano gli steli sfioriti",
+  "propagazione": "per seme o per talee basali in primavera; le piante nate da seme possono impiegare fino a tre anni per fiorire",
+  "parassiti": "Parassiti: può essere soggetta a limacce; Malattie: generalmente esente da malattie"
+ },
+ "Iris virginica": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Iris rizomatoso della famiglia delle Iridacee, originario delle paludi e delle rive dell'America settentrionale orientale, dove è chiamato iris blu meridionale. Alto fino a 90 cm, ha foglie strette, a volte rossastre alla base in primavera, e all'inizio dell'estate porta su steli scuri diversi fiori viola o lavanda, con i petali ricadenti segnati da una macchia gialla bordata di bianco. Vuole terreno umido o bagnato, profondo, ricco di humus e non calcareo, al sole o in mezz'ombra: è perfetto per i bordi degli stagni e i giardini palustri.",
+  "potatura": "in autunno si tolgono le foglie secche; gli steli sfioriti si possono tagliare dopo la fioritura",
+  "propagazione": "per divisione dei rizomi da metà estate a inizio autunno",
+  "parassiti": "Parassiti: può essere soggetto a lumache, limacce e tripidi; Malattie: può essere soggetto a virosi trasmesse dagli afidi, marciume batterico e muffa grigia"
+ },
+ "Leptospermum myrtifolium": {
+  "forma": "arbusto",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Arbusto sempreverde della famiglia delle Mirtacee, originario dell'Australia sudorientale, dove cresce lungo i torrenti di montagna. Eretto e fitto, alto fino a 2 m, ha piccole foglie morbide e argentate su rametti rossastri e a metà estate si copre di fiori bianchi a cinque petali, simili a quelli del mirto. Vuole terreno ben drenato e mediamente fertile, sole o mezz'ombra, e sopporta il gelo leggero; si presta anche a essere allevato contro un muro.",
+  "dimensioni": null,
+  "potatura": "richiede pochi interventi: dopo la fioritura si spuntano i rami per tenerlo compatto e si tolgono quelli secchi o rovinati, senza tagliare nel legno vecchio",
+  "propagazione": "per seme a 13-16 °C in autunno o in primavera o per talee semilegnose con calore dal fondo in estate",
+  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: può essere soggetto, raramente, ad armillaria"
+ },
+ "Lychnis × arkwrightii": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Perenne di breve vita della famiglia delle Cariofillacee, ibrido tra Lychnis chalcedonica e Lychnis × haageana. Forma cespi alti circa 45 cm di foglie ovali o lanceolate, leggermente pelose e fortemente sfumate di porpora bronzo, e all'inizio dell'estate porta su steli rigidi mazzetti di fiori a stella rosso arancio brillante, con i petali incisi, che risaltano sul fogliame scuro. Vuole terreno fertile, fresco ma ben drenato, e pieno sole, con un po' d'ombra nelle ore più calde.",
+  "potatura": "a inizio stagione si cimano le punte per renderla più compatta; si tolgono i fiori appassiti per prolungare la fioritura e limitare la disseminazione",
+  "propagazione": "per seme, per divisione dei cespi o per talee basali in primavera; si risemina da sola, ma le piantine possono essere diverse",
+  "parassiti": "Parassiti: può essere soggetta a limacce, afidi e sputacchine; Malattie: generalmente esente da malattie"
+ },
+ "Oxalis purpurea": {
+  "forma": "bulbosa",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Piccola acetosella bulbosa della famiglia delle Oxalidacee, originaria della provincia del Capo in Sudafrica. Forma tappeti bassi, sotto i 10 cm, di foglie trifogliate e vellutate, spesso porpora sulla pagina inferiore, e in autunno e in inverno porta fiori a imbuto appena sopra le foglie, rosa, porpora, bianchi o gialli secondo la varietà, che si aprono solo col sole. D'estate va in riposo e sparisce. Vuole terreno povero e ben drenato e una posizione soleggiata e riparata; nei climi freddi si coltiva in vaso al riparo.",
+  "potatura": "non richiede potatura",
+  "propagazione": "per seme o per divisione",
+  "parassiti": "Parassiti: all'aperto può essere soggetta a lumache e limacce; Malattie: può essere soggetta a ruggine"
+ },
  "Rhoicissus rhomboidea": {
   "forma": "rampicante",
   "ciclo_vitale": "perenne",
@@ -22,6 +159,22 @@
   "potatura": "si accorcia quando serve per contenerlo, tagliando i fusti troppo lunghi o che escono dal supporto",
   "propagazione": "per talee erbacee o legnose in estate",
   "parassiti": "Parassiti: può essere soggetto a ragnetto rosso, mosca bianca e cocciniglie farinose; Malattie: generalmente esente da malattie"
+ },
+ "Santolina virens": {
+  "forma": "arbusto",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Suffrutice sempreverde e aromatico della famiglia delle Asteracee, originario della Spagna e del Portogallo, considerato da alcuni autori una forma di Santolina rosmarinifolia. Forma cuscini larghi e bassi, fino a 60 cm, di foglie verde brillante finemente divise, che strofinate profumano di resina. A metà estate porta su lunghi steli capolini a bottone giallo vivo, larghi circa 2 cm. Ama il caldo, il sole pieno e i terreni sciolti e ben drenati: è perfetta per le bordure basse e i giardini di ghiaia, ma con gli anni tende a spogliarsi.",
+  "potatura": "dopo la fioritura si accorcia tutta la pianta tagliando gli steli fioriti, per mantenerla densa e compatta; in primavera si possono spuntare i fusti, senza tagliare nel legno vecchio",
+  "propagazione": "per talee semilegnose a fine estate, con calore dal fondo",
+  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: può essere soggetta ad armillaria"
+ },
+ "Scabiosa ochroleuca": {
+  "forma": "erbacea",
+  "ciclo_vitale": "perenne",
+  "descrizione": "Perenne erbacea della famiglia delle Caprifoliacee, diffusa dall'Europa centrale e orientale fino all'Asia, presente anche nei prati aridi dell'Italia settentrionale. Forma cespi leggeri e ariosi di foglie strette, dentate e grigio-verdi, e in estate porta su steli sottili e ramificati numerosi capolini giallo pallido, a cuscinetto, come in tutte le vedovine. Ama il pieno sole e i terreni fertili e ben drenati, meglio se calcarei, ed è molto visitata da api e farfalle.",
+  "potatura": "in autunno si tagliano gli steli alla base",
+  "propagazione": "per seme in autunno o per talee basali in primavera",
+  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie"
  },
  "Sisyrinchium bermudiana": {
   "forma": "erbacea",
@@ -39,102 +192,6 @@
   "propagazione": "per talee semilegnose a fine estate",
   "parassiti": "Parassiti: può essere soggetto a cocciniglie e, in vaso, a oziorrinco; Malattie: può essere soggetto a Phytophthora e armillaria"
  },
- "Scabiosa ochroleuca": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Perenne erbacea della famiglia delle Caprifoliacee, diffusa dall'Europa centrale e orientale fino all'Asia, presente anche nei prati aridi dell'Italia settentrionale. Forma cespi leggeri e ariosi di foglie strette, dentate e grigio-verdi, e in estate porta su steli sottili e ramificati numerosi capolini giallo pallido, a cuscinetto, come in tutte le vedovine. Ama il pieno sole e i terreni fertili e ben drenati, meglio se calcarei, ed è molto visitata da api e farfalle.",
-  "potatura": "in autunno si tagliano gli steli alla base",
-  "propagazione": "per seme in autunno o per talee basali in primavera",
-  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie"
- },
- "× Halimiocistus × wintonensis": {
-  "forma": "arbusto",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Arbusto nano sempreverde della famiglia delle Cistacee, ibrido tra un cisto e un halimium nato in vivaio all'inizio del Novecento. Basso e allargato, ha foglie strette grigio-verdi e tra la tarda primavera e l'inizio dell'estate porta fiori bianchi larghi 5 cm, con ogni petalo segnato da una fascia cremisi sopra la base gialla, che durano un solo giorno ma si rinnovano a lungo. Vuole terreno povero, sabbioso e ben drenato, pieno sole e riparo dai venti freddi.",
-  "potatura": "di rado ha bisogno di potatura: dopo la fioritura si possono spuntare i rami per tenerlo compatto, senza tagliare nel legno vecchio",
-  "propagazione": "per talee erbacee dalla tarda primavera all'inizio dell'estate o semilegnose da metà estate a fine inverno",
-  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie"
- },
- "Cestrum fasciculatum": {
-  "forma": "arbusto",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Arbusto sempreverde della famiglia delle Solanacee, originario del Messico, vigoroso e alto fino a 3 m, con foglie lanceolate verde opaco. Dalla primavera all'estate porta all'estremità dei rami mazzetti di fiori tubolari lunghi circa 2 cm, di un cremisi brillante, seguiti da bacche porpora. La forma più coltivata è 'Newellii', a lungo conosciuta come Cestrum newellii. Teme il gelo: nei climi miti cresce all'aperto in un angolo soleggiato e riparato, altrove va coltivato in vaso e ritirato d'inverno. Le bacche non vanno mangiate.",
-  "potatura": "a fine inverno si accorciano i rami dell'anno prima fino a pochi occhi da una struttura di rami principali, o si tagliano vicino a terra le piante danneggiate dal freddo",
-  "propagazione": "per seme in primavera, in contenitore in cassone freddo, o per talee erbacee in estate",
-  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie"
- },
- "Crassula atropurpurea": {
-  "forma": "succulenta",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Succulenta arbustiva della famiglia delle Crassulacee, originaria della provincia del Capo in Sudafrica, che può superare il metro di altezza. I fusti robusti e ramificati portano foglie carnose grigio-verdi, spesso bordate di rosso e punteggiate di rosso sulla pagina superiore. Dall'autunno all'inverno può fiorire con piccoli fiori rosa a stella, che però in vaso compaiono di rado. Vuole molta luce, terriccio per cactacee, annaffiature moderate durante la crescita e scarse d'inverno, e non deve scendere sotto 1 °C.",
-  "potatura": "non richiede potatura",
-  "propagazione": "per seme a 15 °C a inizio primavera o per talee di fusto o di foglia in primavera e in estate",
-  "parassiti": "Parassiti: può essere soggetta a cocciniglie farinose, oziorrinco e afidi; Malattie: generalmente esente da malattie"
- },
- "Aglaonema commutatum": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Perenne sempreverde della famiglia delle Aracee, originaria delle foreste delle Filippine e di Sulawesi, tra le piante d'appartamento più diffuse. Cresce eretta fino a 40-60 cm con foglie lanceolate, lucide, segnate da macchie e bande argentate o verde chiaro lungo le nervature; le numerose varietà, come 'Silver Queen', sono quasi del tutto argentate. Fiorisce di rado in casa, con piccole spate verdastre. Sopporta la poca luce, ma non la luce solare diretta né il freddo sotto i 10 °C; le annaffiature vanno misurate perché l'acqua in eccesso fa marcire i fusti. Il succo è irritante.",
-  "potatura": "non richiede potatura; si tolgono le foglie ingiallite",
-  "propagazione": "per polloni basali o per divisione",
-  "parassiti": "Parassiti: può essere soggetta a cocciniglie farinose; Malattie: generalmente esente da malattie"
- },
- "Chrysanthemum rubellum": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Crisantemo perenne della famiglia delle Asteracee, d'origine asiatica, oggi considerato da molti una forma di Chrysanthemum zawadskii. Forma cespi folti alti fino a 75 cm e, dalla fine dell'estate all'autunno, porta mazzi sciolti di capolini semplici, simili a margherite, larghi circa 6 cm, rosa con il centro giallo, come nella vecchia e diffusissima varietà 'Clara Curtis'. Vuole pieno sole e terreno ben drenato e mediamente fertile; cimato a primavera diventa più fitto e fiorito.",
-  "potatura": "quando le piante sono alte 15-20 cm si cimano le punte; dopo la fioritura si tagliano gli steli a 10 cm da terra",
-  "propagazione": "per divisione o per talee basali",
-  "parassiti": "Parassiti: può essere soggetto a minatori fogliari, mosca bianca e afidi; Malattie: può essere soggetto a muffa grigia, oidio e ruggine bianca del crisantemo"
- },
- "Incarvillea mairei": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Perenne erbacea della famiglia delle Bignoniacee, originaria delle montagne della Cina occidentale e dell'Himalaya, conosciuta anche come gloxinia rustica per la forma dei suoi fiori. Da una robusta radice carnosa nasce una rosetta di foglie pennate, divise in foglioline grossolanamente dentate. All'inizio dell'estate, su steli eretti di circa 40 cm, porta grappoli di fiori vistosi a tromba, rosa porpora con la gola gialla. Vuole terreno fertile, fresco ma ben drenato, sole con un po' d'ombra nelle ore calde, e teme l'umidità invernale.",
-  "potatura": "si tagliano gli steli sfioriti",
-  "propagazione": "per seme o per talee basali in primavera; le piante nate da seme possono impiegare fino a tre anni per fiorire",
-  "parassiti": "Parassiti: può essere soggetta a limacce; Malattie: generalmente esente da malattie"
- },
- "Crocus balansae": {
-  "forma": "bulbosa",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Piccolo croco della famiglia delle Iridacee, originario della Turchia occidentale, che non supera i 7-10 cm. Da un minuscolo cormo spuntano a inizio primavera foglie sottili e fiori a coppa giallo oro, sfumati o striati di bruno rossastro all'esterno; nella varietà 'Zwanenburg' l'esterno è quasi tutto mogano. Vuole pieno sole e terreno ghiaioso, povero e ben drenato, ed è adatto ai giardini rocciosi e ai vasi.",
-  "potatura": "non richiede potatura",
-  "propagazione": "staccando i cormi figli durante il riposo",
-  "parassiti": "Parassiti: topi e uccelli possono danneggiarlo; Malattie: generalmente esente da malattie, ma i cormi possono marcire se conservati male"
- },
- "Eranthis × tubergenii": {
-  "forma": "bulbosa",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Ibrido della famiglia delle Ranuncolacee tra l'aconito d'inverno (Eranthis hyemalis) ed Eranthis cilicica, ottenuto in Olanda nel Novecento. Da un piccolo tubero spunta a fine inverno, alto meno di 10 cm, con fiori a coppa giallo vivo, larghi 3-4 cm, circondati da un collare di brattee fogliose; le foglie basali sono lobate e verde bronzo. Essendo sterile non produce semi e i fiori durano più a lungo. Vuole terreno ricco di humus che non si secchi, meglio se calcareo, e sta bene sotto gli alberi decidui.",
-  "potatura": "non richiede potatura",
-  "propagazione": "per divisione dei tuberi a fine primavera, dopo la fioritura; i tuberi seccati attecchiscono male",
-  "parassiti": "Parassiti: può essere soggetto a limacce; Malattie: può essere soggetto a carbone"
- },
- "Oxalis purpurea": {
-  "forma": "bulbosa",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Piccola acetosella bulbosa della famiglia delle Oxalidacee, originaria della provincia del Capo in Sudafrica. Forma tappeti bassi, sotto i 10 cm, di foglie trifogliate e vellutate, spesso porpora sulla pagina inferiore, e in autunno e in inverno porta fiori a imbuto appena sopra le foglie, rosa, porpora, bianchi o gialli secondo la varietà, che si aprono solo col sole. D'estate va in riposo e sparisce. Vuole terreno povero e ben drenato e una posizione soleggiata e riparata; nei climi freddi si coltiva in vaso al riparo.",
-  "potatura": "non richiede potatura",
-  "propagazione": "per seme o per divisione",
-  "parassiti": "Parassiti: all'aperto può essere soggetta a lumache e limacce; Malattie: può essere soggetta a ruggine"
- },
- "Begonia × hiemalis": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Begonia ibrida della famiglia delle Begoniacee, ottenuta incrociando Begonia socotrana con le begonie tuberose, nota nei negozi come begonia elatior. Forma piante cespugliose e compatte, alte fino a 30 cm, con foglie lucide verde scuro e una fioritura abbondante di fiori semplici o doppi, rossi, gialli, rosa, arancio o bianchi. In casa fiorisce in quasi tutte le stagioni, all'aperto d'estate e in autunno, dove si tratta come annuale. Vuole luce intensa ma non sole diretto, e d'inverno almeno 10 °C.",
-  "potatura": "non richiede potatura; si tolgono i fiori appassiti",
-  "propagazione": "per seme a inizio primavera a 21 °C o per talee erbacee",
-  "parassiti": "Parassiti: può essere soggetta a bruchi, cocciniglie farinose, acari, tripidi, oziorrinco e afidi; Malattie: può essere soggetta a muffa grigia, oidio e marciumi del fusto e del rizoma"
- },
- "Lychnis × arkwrightii": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Perenne di breve vita della famiglia delle Cariofillacee, ibrido tra Lychnis chalcedonica e Lychnis × haageana. Forma cespi alti circa 45 cm di foglie ovali o lanceolate, leggermente pelose e fortemente sfumate di porpora bronzo, e all'inizio dell'estate porta su steli rigidi mazzetti di fiori a stella rosso arancio brillante, con i petali incisi, che risaltano sul fogliame scuro. Vuole terreno fertile, fresco ma ben drenato, e pieno sole, con un po' d'ombra nelle ore più calde.",
-  "potatura": "a inizio stagione si cimano le punte per renderla più compatta; si tolgono i fiori appassiti per prolungare la fioritura e limitare la disseminazione",
-  "propagazione": "per seme, per divisione dei cespi o per talee basali in primavera; si risemina da sola, ma le piantine possono essere diverse",
-  "parassiti": "Parassiti: può essere soggetta a limacce, afidi e sputacchine; Malattie: generalmente esente da malattie"
- },
  "Spiraea × billardii": {
   "forma": "arbusto",
   "ciclo_vitale": "perenne",
@@ -143,53 +200,12 @@
   "propagazione": "per talee erbacee in estate o per divisione in autunno o in primavera",
   "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie, ma può essere soggetto ad armillaria"
  },
- "Doronicum plantagineum": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Perenne rizomatosa della famiglia delle Asteracee, originaria dell'Europa occidentale e sudoccidentale, alta fino a 60 cm. Le foglie basali, a cuore e verde brillante, accompagnano in primavera grandi capolini giallo oro, simili a margherite, larghi fino a 10 cm, tra i primi fiori gialli delle bordure. D'estate le foglie tendono a seccarsi e la pianta riposa. Vuole terreno fresco, ricco di humus, e mezz'ombra.",
-  "potatura": "togliendo i fiori appassiti si può avere una seconda fioritura",
-  "propagazione": "per divisione a inizio autunno",
-  "parassiti": "Parassiti: generalmente esente da parassiti, ma può essere soggetto a nematodi fogliari; Malattie: può essere soggetto a maculatura fogliare, marciume radicale e oidio"
- },
- "Leptospermum myrtifolium": {
+ "× Halimiocistus × wintonensis": {
   "forma": "arbusto",
   "ciclo_vitale": "perenne",
-  "descrizione": "Arbusto sempreverde della famiglia delle Mirtacee, originario dell'Australia sudorientale, dove cresce lungo i torrenti di montagna. Eretto e fitto, alto fino a 2 m, ha piccole foglie morbide e argentate su rametti rossastri e a metà estate si copre di fiori bianchi a cinque petali, simili a quelli del mirto. Vuole terreno ben drenato e mediamente fertile, sole o mezz'ombra, e sopporta il gelo leggero; si presta anche a essere allevato contro un muro.",
-  "dimensioni": null,
-  "potatura": "richiede pochi interventi: dopo la fioritura si spuntano i rami per tenerlo compatto e si tolgono quelli secchi o rovinati, senza tagliare nel legno vecchio",
-  "propagazione": "per seme a 13-16 °C in autunno o in primavera o per talee semilegnose con calore dal fondo in estate",
-  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: può essere soggetto, raramente, ad armillaria"
- },
- "Iris virginica": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Iris rizomatoso della famiglia delle Iridacee, originario delle paludi e delle rive dell'America settentrionale orientale, dove è chiamato iris blu meridionale. Alto fino a 90 cm, ha foglie strette, a volte rossastre alla base in primavera, e all'inizio dell'estate porta su steli scuri diversi fiori viola o lavanda, con i petali ricadenti segnati da una macchia gialla bordata di bianco. Vuole terreno umido o bagnato, profondo, ricco di humus e non calcareo, al sole o in mezz'ombra: è perfetto per i bordi degli stagni e i giardini palustri.",
-  "potatura": "in autunno si tolgono le foglie secche; gli steli sfioriti si possono tagliare dopo la fioritura",
-  "propagazione": "per divisione dei rizomi da metà estate a inizio autunno",
-  "parassiti": "Parassiti: può essere soggetto a lumache, limacce e tripidi; Malattie: può essere soggetto a virosi trasmesse dagli afidi, marciume batterico e muffa grigia"
- },
- "Epimedium elongatum": {
-  "forma": "erbacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Perenne rizomatosa sempreverde della famiglia delle Berberidacee, originaria dei boschi del Sichuan, in Cina, che forma cespi alti 25-30 cm. Le foglie sono divise in foglioline a cuore allungato, spinose sul margine, che in primavera spuntano marmorizzate di rosso bronzo e poi diventano verde vivo con le nervature rossastre. In primavera porta racemi di fiori delicati e speronati, nelle varietà coltivate lilla rosati con gli sproni bianchi. Vuole mezz'ombra, terreno fertile e ricco di humus e riparo dai venti freddi e secchi.",
-  "potatura": "non richiede potatura, ma a fine inverno, prima che spuntino i fiori, si possono tagliare le foglie vecchie perché fiori e foglie nuove si vedano meglio",
-  "propagazione": "per divisione in autunno o dopo la fioritura, oppure per talee di rizoma tenute al riparo d'inverno",
-  "parassiti": "Parassiti: può essere soggetta a oziorrinco; Malattie: può essere soggetta a virosi del mosaico e maculature fogliari"
- },
- "Camellia saluenensis": {
-  "forma": "arbusto",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Camelia sempreverde della famiglia delle Teacee, originaria dello Yunnan, in Cina, fitta e a crescita lenta, con foglie piccole e lucide lunghe 4-6 cm. Da metà inverno a metà primavera porta fiori semplici, piccoli, a coppa, dal rosa pallido al rosa carico, a volte bianchi. È nota soprattutto come genitrice, con Camellia japonica, delle camelie ibride × williamsii, tra le più rustiche e generose. Vuole terreno acido, una posizione riparata dai venti freddi e dal sole del primo mattino, che rovina i fiori gelati, e fiorisce bene anche in mezz'ombra.",
-  "potatura": "richiede pochi interventi: dopo la fioritura si accorciano i rami troppo lunghi e si tolgono quelli secchi o rovinati",
-  "propagazione": "per talee semilegnose",
-  "parassiti": "Parassiti: può essere soggetta ad afidi, cocciniglie e oziorrinco; Malattie: può essere soggetta a marciume radicale da Phytophthora, galle e maculature fogliari, virosi, avvizzimento dei petali e, raramente, armillaria"
- },
- "Carex caryophyllea": {
-  "forma": "graminacea",
-  "ciclo_vitale": "perenne",
-  "descrizione": "Carice sempreverde della famiglia delle Ciperacee, diffusa nei prati e nei pascoli aridi di quasi tutta Europa, Italia compresa, dove fiorisce tra le prime a primavera. Bassa, intorno ai 15 cm, si allarga lentamente con brevi rizomi e forma ciuffi di foglie sottili verde scuro; a inizio estate porta corte spighe bruno verdastre tra le foglie. Varietà come 'The Beatles' formano una zazzera fitta e scompigliata. Vuole terreno fresco ma ben drenato, al sole o in mezz'ombra.",
-  "potatura": "in estate si tolgono le foglie secche, pettinandole con le dita",
-  "propagazione": "per divisione da metà primavera a inizio estate",
-  "parassiti": "Parassiti: può essere soggetta ad afidi; Malattie: generalmente esente da malattie"
+  "descrizione": "Arbusto nano sempreverde della famiglia delle Cistacee, ibrido tra un cisto e un halimium nato in vivaio all'inizio del Novecento. Basso e allargato, ha foglie strette grigio-verdi e tra la tarda primavera e l'inizio dell'estate porta fiori bianchi larghi 5 cm, con ogni petalo segnato da una fascia cremisi sopra la base gialla, che durano un solo giorno ma si rinnovano a lungo. Vuole terreno povero, sabbioso e ben drenato, pieno sole e riparo dai venti freddi.",
+  "potatura": "di rado ha bisogno di potatura: dopo la fioritura si possono spuntare i rami per tenerlo compatto, senza tagliare nel legno vecchio",
+  "propagazione": "per talee erbacee dalla tarda primavera all'inizio dell'estate o semilegnose da metà estate a fine inverno",
+  "parassiti": "Parassiti: generalmente esente da parassiti; Malattie: generalmente esente da malattie"
  }
 }
