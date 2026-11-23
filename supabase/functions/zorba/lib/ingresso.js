@@ -4,7 +4,7 @@ export const TIPI = ['identifica_specie', 'segnalazione_scheda', 'consiglio_cura
 export const MAX_TESTO = 4000
 // Modelli che il curatore può scegliere per un filo nuovo, per provarli al posto di quello predefinito (prova alla
 // cieca, scripts/zorba/prova_cieca.mjs). Gli altri utenti non possono sceglierlo: il campo viene ignorato.
-export const MODELLI_PROVA = ['claude-sonnet-5-5', 'claude-opus-5-5', 'ovh:qwen3.6-35b-a3b', 'ovh:Qwen3.6-27B']
+export const MODELLI_PROVA = ['claude-sonnet-5-5', 'claude-opus-5-5', 'ovh:qwen3.6-35b-a3b', 'ovh:Qwen3.8-27B', 'ovh:Qwen3.5-397B-A17B']
 export const MAX_FOTO_BYTES = 1_572_864
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 const VOCE = /^[tc]:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/

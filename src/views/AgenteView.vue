@@ -192,7 +192,8 @@ const nuovoTipo = ref('identifica_specie')
 const MODELLI_PROVA = [
   { id: '', label: 'Claude (predefinito)' },
   { id: 'ovh:qwen3.6-35b-a3b', label: 'Qwen 3.6 35B' },
-  { id: 'ovh:Qwen3.6-27B', label: 'Qwen 3.6 27B' },
+  { id: 'ovh:Qwen3.8-27B', label: 'Qwen 3.8 27B' },
+  { id: 'ovh:Qwen3.5-397B-A17B', label: 'Qwen 3.5 397B' },
 ]
 const modelloProva = ref('')
 const nuovoMessaggio = ref('')
