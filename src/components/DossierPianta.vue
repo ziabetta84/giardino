@@ -83,8 +83,7 @@ const livelloCure = computed(() => etichettaLivello(specie.value?.livelli?.manut
 
 const tipiCura = computed(() => tipiCuraPianta(pianta.value, specie.value))
 const contestoCura = computed(() => ({
-  esterno: store.zone?.[pianta.value?.zona]?.tipo === 'esterno',
-  meteo: store.meteo,
+  ...store.contestoMeteoPianta(pianta.value),
   programmaAutomatico: programmaIrrigazioneEffettivo(props.piantaId, pianta.value?.zona, pianta.value?.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null,
 }))
 const fabbisognoNpk = computed(() => specie.value?.manutenzione?.npk?.[stagione()] ?? null)

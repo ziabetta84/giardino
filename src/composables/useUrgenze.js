@@ -10,10 +10,10 @@ export function useUrgenze() {
   const store = useDatiStore()
 
   // Contesto per pianta (come in HomeView/AttivitaView): esterno o in casa,
-  // pioggia prevista, programma d'irrigazione automatica.
+  // pioggia prevista e caduta, programma d'irrigazione automatica.
   function contestoPianta(p, id) {
     const programmaAutomatico = programmaIrrigazioneEffettivo(id, p.zona, p.sottozona, store.programmiIrrigazione)?.ogniGiorni ?? null
-    return { meteo: store.meteo, esterno: store.zone?.[p.zona]?.tipo === 'esterno', programmaAutomatico }
+    return { ...store.contestoMeteoPianta(p), programmaAutomatico }
   }
 
   const numUrgenti = computed(() => {
