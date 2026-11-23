@@ -175,7 +175,8 @@ Deno.serve(async (req) => {
             if (fornitore !== 'anthropic') {
               const f = FORNITORI[fornitore]
               if (!f?.chiave) throw new Error(`fornitore ${fornitore} non configurato`)
-              const msg = await chiamaOpenAI({ url: f.url, chiave: f.chiave, params, fetch, signal: scadenza, onTesto: hooks.onTesto })
+              const msg = await chiamaOpenAI({ url: f.url, chiave: f.chiave, params, fetch, signal: scadenza, onTesto: hooks.onTesto,
+                log: (d: unknown) => console.log('zorba', filo.id, fornitore, JSON.stringify(d)) })
               risposte.push(msg as unknown as Anthropic.Messages.Message)
               return msg
             }
@@ -198,7 +199,7 @@ Deno.serve(async (req) => {
           },
         })
         const c = costoRisposte(risposte)
-        if (esito.esito !== 'completata') e.emetti('annulla_testo', {})
+        if (esito.esito !== 'completata') { e.emetti('annulla_testo', {}); console.error('zorba', filo.id, 'esito', esito.codice) }
         const fine = await rpc<{ stato_filo: string }>('zorba_concludi', { p_messaggio: messaggioZorba, p_esito: esito.esito,
           p_testo: esito.testo, p_strumenti: esito.strumenti, p_modello: c.modello, p_input: c.input, p_output: c.output,
           p_cache_lettura: c.cacheLettura, p_cache_scrittura: c.cacheScrittura, p_costo: c.costo })
