@@ -40,6 +40,7 @@ export function mappaZone(righeZone) {
     criticita: z.criticita,
     manutenzione: z.manutenzione,
     tipo: z.tipo,
+    riparo_pioggia: z.riparo_pioggia ?? false,
     icona: z.icona,
   }]))
 }
@@ -59,6 +60,7 @@ export function mappaSottozone(righeSottozone, zonaNomePerId) {
       criticita: sz.criticita,
       manutenzione: sz.manutenzione,
       tipo: sz.tipo,
+      riparo_pioggia: sz.riparo_pioggia ?? false,
       icona: sz.icona,
     }
   }
@@ -323,10 +325,22 @@ export const useDatiStore = defineStore('dati', () => {
     return (tipoSz ?? zone.value?.[p?.zona]?.tipo) === 'esterno'
   }
 
-  // Contesto per valutaCura (useCure.js): all'aperto o no, pioggia prevista e caduta.
-  // Il programma d'irrigazione automatica lo aggiunge chi chiama.
+  // Al riparo dalla pioggia (tettoia, veranda, terrazzo coperto; 24/11/2026):
+  // basta che lo sia la zona o la sottozona.
+  function piantaAlRiparo(p) {
+    const sz = p?.sottozona ? sottozone.value?.[p.zona]?.[p.sottozona] : null
+    return !!(zone.value?.[p?.zona]?.riparo_pioggia || sz?.riparo_pioggia)
+  }
+
+  // La pioggia arriva alla pianta: all'aperto e non al riparo.
+  function piantaRiceveLaPioggia(p) {
+    return piantaEsterna(p) && !piantaAlRiparo(p)
+  }
+
+  // Contesto per valutaCura (useCure.js): all'aperto o no, al riparo o no,
+  // pioggia prevista e caduta. Il programma d'irrigazione automatica lo aggiunge chi chiama.
   function contestoMeteoPianta(p) {
-    return { esterno: piantaEsterna(p), meteo: meteo.value, pioggiaCaduta: pioggiaCaduta.value }
+    return { esterno: piantaEsterna(p), alRiparo: piantaAlRiparo(p), meteo: meteo.value, pioggiaCaduta: pioggiaCaduta.value }
   }
 
   async function aggiorna() {
@@ -348,5 +362,5 @@ export const useDatiStore = defineStore('dati', () => {
     return slug ? `zona-${slug}` : 'pin'
   }
 
-  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, pioggiaCaduta, piantaEsterna, contestoMeteoPianta, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, nomeComunePianta, iconaZona, iconaSottozona }
+  return { piante, catalogo, zone, sottozone, progetti, settings, concimi, programmiIrrigazione, meteo, pioggiaCaduta, piantaEsterna, piantaAlRiparo, piantaRiceveLaPioggia, contestoMeteoPianta, loading, errore, caricaTutto, aggiorna, caricaMeteo, caricaVoci, aggiungiVoci, vocePianta, nomePianta, nomeComunePianta, iconaZona, iconaSottozona }
 })
