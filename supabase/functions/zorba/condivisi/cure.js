@@ -58,11 +58,18 @@ export function pioggiaInArrivo(meteoGiorni) {
 // permanenti dal meteo), si calcola a ogni apertura dai giorni passati di
 // Open-Meteo (past_days). giorniPassati: [{ data: 'YYYY-MM-DD', pioggia }],
 // solo giorni conclusi (oggi è coperto dalla previsione).
-export function ultimaPioggiaUtile(giorniPassati) {
+// spostataIl (piante.spostata_il, 24/11/2026): giorno dell'ultimo passaggio fra
+// chiuso e aperto. Conta solo la pioggia dei giorni successivi: una pianta
+// riportata fuori a primavera non riceve il merito della pioggia caduta quando
+// era ancora in casa. Il giorno stesso dello spostamento non conta (non si sa
+// se la pianta era già fuori quando pioveva).
+export function ultimaPioggiaUtile(giorniPassati, spostataIl = null) {
   if (!Array.isArray(giorniPassati)) return null
+  const dopo = spostataIl ? String(spostataIl).slice(0, 10) : null
   let ultima = null
   for (const g of giorniPassati) {
-    if ((parseFloat(g?.pioggia) || 0) >= SOGLIA_PIOGGIA_MM && g.data && (!ultima || g.data > ultima)) ultima = g.data
+    if (!g?.data || (dopo && g.data <= dopo)) continue
+    if ((parseFloat(g.pioggia) || 0) >= SOGLIA_PIOGGIA_MM && (!ultima || g.data > ultima)) ultima = g.data
   }
   return ultima
 }
@@ -126,7 +133,7 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   // La pioggia caduta conta come irrigazione se è più recente dell'ultima
   // registrata (confronto sul giorno: ultima_cura è 'YYYY-MM-DD').
   let pioggia = null
-  const ultimaPioggia = allAperto ? ultimaPioggiaUtile(contesto.pioggiaCaduta) : null
+  const ultimaPioggia = allAperto ? ultimaPioggiaUtile(contesto.pioggiaCaduta, pianta?.spostata_il) : null
   if (ultimaPioggia && (!ultimaStr || ultimaPioggia > String(ultimaStr).slice(0, 10))) {
     ultimaStr = ultimaPioggia
     pioggia = ultimaPioggia

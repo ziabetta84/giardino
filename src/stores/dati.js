@@ -77,6 +77,7 @@ export function mappaPiante(righePiante, zonaNomePerId, sottozonaNomePerId) {
     coltivato_in: p.coltivato_in,
     ultima_cura: p.ultima_cura ?? {},
     ultimo_concime_id: p.ultimo_concime_id ?? null,
+    spostata_il: p.spostata_il ?? null,
   }]))
 }
 
