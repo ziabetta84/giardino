@@ -2,7 +2,12 @@
   <div>
     <div class="page-title__row">
       <h1 class="page-title">Piante</h1>
-      <RouterLink to="/piante/nuova" class="pill" style="text-decoration:none;">＋ Aggiungi</RouterLink>
+      <div class="pv-azioni">
+        <button v-if="!giardinoVuoto" type="button" class="pill" :class="{ active: selezionando }" :aria-pressed="selezionando" @click="alternaSelezione">
+          {{ selezionando ? 'Fine' : 'Seleziona' }}
+        </button>
+        <RouterLink v-if="!selezionando" to="/piante/nuova" class="pill" style="text-decoration:none;">＋ Aggiungi</RouterLink>
+      </div>
     </div>
 
     <!-- Search -->
@@ -32,6 +37,14 @@
       </button>
     </div>
 
+    <!-- Selezione: tutte le piante che filtri e ricerca mostrano, in un tocco -->
+    <div v-if="selezionando && pianteFiltrate.length" class="pv-sel">
+      <span>Tocca le piante da spostare.</span>
+      <button type="button" class="pv-sel__tutte" @click="alternaVisibili">
+        {{ tutteVisibiliScelte ? 'Deseleziona le visibili' : `Seleziona le visibili (${pianteFiltrate.length})` }}
+      </button>
+    </div>
+
     <!-- Skeleton -->
     <div v-if="store.loading" style="display:flex;flex-direction:column;">
       <div v-for="i in 5" :key="i" class="pr-skeleton">
@@ -46,7 +59,7 @@
 
     <template v-else>
       <!-- Urgenti in sezione separata (solo se nessun filtro attivo) -->
-      <template v-if="!cerca && filtroZona === 'tutte' && pianteUrgenti.length">
+      <template v-if="!selezionando && !cerca && filtroZona === 'tutte' && pianteUrgenti.length">
         <p class="section-label" style="display:flex;align-items:center;gap:6px;">
           <Icon name="campanella" style="width:12px;height:12px;flex-shrink:0;" />Da curare
         </p>
@@ -77,7 +90,8 @@
           <div v-for="(p, i) in pianteFiltrate" :key="p.id" class="riga-cella"
             :style="`--stagger-delay:${Math.min(i,8) * 0.06}s;`">
             <div class="riga-cella__inner">
-              <PiantaRiga :pianta="p" :thumb-url="thumbnail[p.id]" @elimina="avviaElimina(p)" />
+              <PiantaRiga :pianta="p" :thumb-url="thumbnail[p.id]" @elimina="avviaElimina(p)"
+                :selezionabile="selezionando" :selezionata="scelte.has(p.id)" @alterna="alterna(p.id)" />
             </div>
           </div>
         </TransitionGroup>
@@ -98,6 +112,19 @@
         <p><b>Qui non trovo nessuna pianta</b>Prova un altro nome o togli il filtro della zona.</p>
       </div>
     </template>
+
+    <!-- Barra della selezione, fissa in fondo alla pagina -->
+    <div v-if="selezionando" class="pv-barra" role="region" aria-label="Piante selezionate">
+      <span class="pv-barra__n">{{ scelte.size === 0 ? 'Nessuna pianta selezionata' : scelte.size === 1 ? '1 pianta selezionata' : `${scelte.size} piante selezionate` }}</span>
+      <button type="button" class="btn btn-sage pv-barra__sposta" :disabled="!scelte.size" @click="foglioSposta = true">Sposta…</button>
+    </div>
+
+    <FoglioLaterale v-model="foglioSposta" titolo="Sposta in un'altra zona">
+      <FoglioSposta v-if="foglioSposta" :ids="[...scelte]" @spostate="onSpostate" />
+    </FoglioLaterale>
+
+    <ToastCura ref="toastCura" @errore="e => erroreToast = e.messaggio" />
+    <p v-if="erroreToast" class="pv-err" role="alert">{{ erroreToast }}</p>
 
     <ModalConferma
       :aperto="!!daEliminare"
@@ -121,6 +148,9 @@ import { cureUrgentiPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
 import { normalizzaApici } from '@/utils/normalizzaTesto'
 import ModalConferma from '@/components/ModalConferma.vue'
+import FoglioLaterale from '@/components/FoglioLaterale.vue'
+import FoglioSposta from '@/components/FoglioSposta.vue'
+import ToastCura from '@/components/ToastCura.vue'
 import PiantaRiga from '@/components/PiantaRiga.vue'
 import Icon from '@/components/Icon.vue'
 
@@ -165,6 +195,45 @@ const filtriSottozona = computed(() => {
   if (!nomi.size) return []
   return ['tutte', ...[...nomi].sort((a, b) => a.localeCompare(b))]
 })
+
+// Selezione di più piante per spostarle insieme (24/11/2026). In selezione la
+// lista mostra anche le urgenti (niente sezione «Da curare» a parte, che le
+// avrebbe tolte dall'elenco principale) e le righe spuntano invece di aprire.
+const selezionando = ref(false)
+const scelte = ref(new Set())
+const foglioSposta = ref(false)
+const toastCura = ref(null)
+const erroreToast = ref(null)
+
+function alternaSelezione() {
+  selezionando.value = !selezionando.value
+  scelte.value = new Set()
+}
+
+function alterna(id) {
+  const nuove = new Set(scelte.value)
+  if (nuove.has(id)) nuove.delete(id)
+  else nuove.add(id)
+  scelte.value = nuove
+}
+
+const tutteVisibiliScelte = computed(() =>
+  pianteFiltrate.value.length > 0 && pianteFiltrate.value.every(p => scelte.value.has(p.id)))
+
+function alternaVisibili() {
+  const nuove = new Set(scelte.value)
+  if (tutteVisibiliScelte.value) pianteFiltrate.value.forEach(p => nuove.delete(p.id))
+  else pianteFiltrate.value.forEach(p => nuove.add(p.id))
+  scelte.value = nuove
+}
+
+function onSpostate(precedenti) {
+  foglioSposta.value = false
+  selezionando.value = false
+  scelte.value = new Set()
+  erroreToast.value = null
+  toastCura.value?.apriSpostamento(precedenti, `spostamento-${Date.now()}`)
+}
 
 function selezionaZona(key) {
   filtroZona.value = key
@@ -218,7 +287,7 @@ const pianteFiltrate = computed(() => {
     lista = [...lista].sort((a, b) => (a.urgente ? -1 : 1) - (b.urgente ? -1 : 1))
   } else if (filtroZona.value !== 'tutte') {
     lista = [...lista].sort((a, b) => (a.urgente ? -1 : 1) - (b.urgente ? -1 : 1))
-  } else {
+  } else if (!selezionando.value) {
     lista = lista.filter(p => !p.urgente)
   }
   return lista
@@ -250,6 +319,24 @@ async function eliminaPianta() {
 </script>
 
 <style scoped>
+.pv-azioni { display: flex; align-items: center; gap: 8px; }
+
+.pv-sel { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  margin: -4px 0 8px; font: 400 12.5px/1.4 var(--font-sans); color: var(--ink-mid); }
+.pv-sel__tutte { min-height: 44px; padding: 0 2px; background: none; border: none; cursor: pointer;
+  font: 600 13px/1 var(--font-sans); color: var(--sage-ink); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.pv-sel__tutte:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--gold); border-radius: 8px; }
+
+/* Barra della selezione: resta in fondo mentre si scorre la lista. */
+.pv-barra { position: sticky; bottom: 12px; z-index: 5; margin-top: 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 10px 10px 18px; border-radius: 20px; background: var(--ink); color: var(--cream);
+  box-shadow: 0 10px 30px rgba(42,34,24,0.28); }
+.pv-barra__n { font: 500 13px/1.2 var(--font-sans); }
+.pv-barra__sposta { min-height: 44px; padding: 0 18px; }
+.pv-barra__sposta:disabled { opacity: .55; cursor: default; box-shadow: none; }
+.pv-err { margin: 12px 0 0; color: var(--rose-ink); font: 400 12.5px/1.4 var(--font-sans); }
+
 /* Ricalca esattamente la forma di .pr (PiantaRiga.vue) durante il
    caricamento — stesso filetto hairline tra le righe, non una card. */
 .pr-skeleton { display: flex; align-items: center; gap: 14px; padding: 12px 2px; }

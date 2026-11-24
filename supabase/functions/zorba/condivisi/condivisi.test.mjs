@@ -38,6 +38,21 @@ test('pioggia caduta: conta il giorno più recente con almeno 5 mm', () => {
   assert.equal(ultimaPioggiaUtile(null), null)
 })
 
+test('pioggia caduta: dopo uno spostamento conta solo quella dei giorni successivi', () => {
+  const giorni = [{ data: '2026-11-18', pioggia: '12.0' }, { data: '2026-11-20', pioggia: '8.0' }]
+  assert.equal(ultimaPioggiaUtile(giorni, '2026-11-19'), '2026-11-20')
+  assert.equal(ultimaPioggiaUtile(giorni, '2026-11-20'), null)
+  assert.equal(ultimaPioggiaUtile(giorni, null), '2026-11-20')
+})
+
+test('irrigazione: una pianta appena riportata fuori non conta la pioggia di quando era in casa', () => {
+  const pioggiaCaduta = [{ data: giornoFa(3), pioggia: '15.0' }]
+  const pianta = { ultima_cura: { irrigazione: giornoFa(12) } }
+  assert.equal(valutaCura(pianta, specie10, 'irrigazione', { esterno: true, pioggiaCaduta }).urgente, false)
+  const spostata = { ...pianta, spostata_il: giornoFa(1) }
+  assert.equal(valutaCura(spostata, specie10, 'irrigazione', { esterno: true, pioggiaCaduta }).urgente, true)
+})
+
 test('pioggia caduta: all\'aperto fa ripartire la cadenza dell\'irrigazione', () => {
   const pianta = { ultima_cura: { irrigazione: giornoFa(30) } }
   const pioggiaCaduta = [{ data: giornoFa(2), pioggia: '18.4' }]
