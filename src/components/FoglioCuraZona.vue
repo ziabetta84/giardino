@@ -155,7 +155,7 @@ const gruppi = computed(() => classificaCuraZona({
   piante: store.piante, zona: props.zona, sottozona: props.sottozona, tipo: tipo.value,
   vocePianta: store.vocePianta, nomePianta: store.nomePianta,
   programmi: store.programmiIrrigazione, concimi: store.concimi,
-  esterna: store.piantaEsterna, pioggiaCaduta: store.pioggiaCaduta,
+  riceveLaPioggia: store.piantaRiceveLaPioggia, pioggiaCaduta: store.pioggiaCaduta,
   concimeId: tipo.value === 'concimazione' ? concimeId.value : null,
 }))
 
@@ -187,8 +187,10 @@ function alterna(id) {
 }
 
 const esterna = computed(() => {
-  const tipoSz = props.sottozona ? store.sottozone?.[props.zona]?.[props.sottozona]?.tipo : null
-  return (tipoSz ?? store.zone?.[props.zona]?.tipo) === 'esterno'
+  const sz = props.sottozona ? store.sottozone?.[props.zona]?.[props.sottozona] : null
+  const zona = store.zone?.[props.zona]
+  // All'aperto e non al riparo dalla pioggia: solo allora l'avviso della pioggia prevista ha senso.
+  return (sz?.tipo ?? zona?.tipo) === 'esterno' && !zona?.riparo_pioggia && !sz?.riparo_pioggia
 })
 const pioggia = computed(() => tipo.value === 'irrigazione' && esterna.value && pioggiaInArrivo(store.meteo))
 

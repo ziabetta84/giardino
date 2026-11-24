@@ -49,7 +49,7 @@ function conta(zona, sottozona) {
     piante: store.piante, zona, sottozona, tipo: props.tipo,
     vocePianta: store.vocePianta, nomePianta: store.nomePianta,
     programmi: store.programmiIrrigazione, concimi: store.concimi,
-    esterna: store.piantaEsterna, pioggiaCaduta: store.pioggiaCaduta,
+    riceveLaPioggia: store.piantaRiceveLaPioggia, pioggiaCaduta: store.pioggiaCaduta,
   })
   return { totale, daFare: g.daFare.length }
 }

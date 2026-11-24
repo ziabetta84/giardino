@@ -93,19 +93,20 @@ const ESEGUI = {
     return piante.map(p => ({ id: p.id, nome: v[chiave(p)]?.nome ?? null, zona: p.zone?.nome ?? null, sottozona: p.sottozone?.nome ?? null, coltivato_in: p.coltivato_in }))
   },
   async pianta({ id }, { db, fetch }) {
-    const p = controlla(await db.from('piante').select('*, zone(nome, tipo), sottozone(nome, tipo)').eq('id', id).maybeSingle())
+    const p = controlla(await db.from('piante').select('*, zone(nome, tipo, riparo_pioggia), sottozone(nome, tipo, riparo_pioggia)').eq('id', id).maybeSingle())
     if (!p) throw new Error('pianta non trovata')
     const voce = (await voci(db, [chiave(p)]))[chiave(p)] ?? {}
     const programmi = controlla(await db.from('programmi_irrigazione').select('pianta_id, zona_id, sottozona_id, ogni_giorni'))
     const programma = programmaPerPianta(programmi, p)
     const esterno = (p.sottozone?.tipo ?? p.zone?.tipo) === 'esterno'
-    const meteo = esterno && p.coltivato_in !== 'acqua' ? await meteoPerCure(db, fetch) : {}
+    const alRiparo = !!(p.zone?.riparo_pioggia || p.sottozone?.riparo_pioggia)
+    const meteo = esterno && !alRiparo && p.coltivato_in !== 'acqua' ? await meteoPerCure(db, fetch) : {}
     const cure = [...tipiCuraPianta(p, voce), 'potatura'].map(tipo => {
-      const v = valutaCura(p, voce, tipo, { esterno, ...meteo, programmaAutomatico: tipo === 'irrigazione' ? programma : null })
+      const v = valutaCura(p, voce, tipo, { esterno, alRiparo, ...meteo, programmaAutomatico: tipo === 'irrigazione' ? programma : null })
       return { tipo, ultima: p.ultima_cura?.[tipo] ?? null, giorni_trascorsi: Number.isFinite(v.trascorsi) ? v.trascorsi : null, in_ritardo: v.urgente, stato: v.label }
     })
     return { id: p.id, nome: voce.nome ?? null, nome_scientifico: voce.specie ?? null, zona: p.zone?.nome ?? null, sottozona: p.sottozone?.nome ?? null,
-      coltivato_in: p.coltivato_in, varieta: p.varieta, impianto: p.impianto ?? p.impianto_circa, note: p.note,
+      coltivato_in: p.coltivato_in, all_aperto: esterno, al_riparo_dalla_pioggia: esterno && alRiparo, varieta: p.varieta, impianto: p.impianto ?? p.impianto_circa, note: p.note,
       voce: { descrizione: voce.descrizione, esigenze: voce.esigenze, manutenzione: voce.manutenzione, coltivazione: voce.coltivazione,
         vaso: voce.vaso, alert: voce.alert, livelli: voce.livelli }, cure }
   },

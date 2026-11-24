@@ -75,3 +75,13 @@ test('pioggia caduta: un\'irrigazione registrata dopo la pioggia vince', () => {
   assert.equal(c.pioggia, null)
   assert.doesNotMatch(c.label, /piovuto/)
 })
+
+test('al riparo dalla pioggia: né la pioggia prevista né quella caduta contano', () => {
+  const pianta = { ultima_cura: { irrigazione: giornoFa(30) } }
+  const contesto = { esterno: true, alRiparo: true, pioggiaCaduta: [{ data: giornoFa(2), pioggia: '18' }], meteo: [{ pioggia: '20' }, { pioggia: '5' }] }
+  const c = valutaCura(pianta, specie10, 'irrigazione', contesto)
+  assert.equal(c.urgente, true)
+  assert.equal(c.pioggia, null)
+  const auto = valutaCura(pianta, specie10, 'irrigazione', { ...contesto, programmaAutomatico: 3 })
+  assert.equal(auto.automatico, true)
+})

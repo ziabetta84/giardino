@@ -99,7 +99,7 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   // 'irrigazione' — vedi tipiCuraPianta — ma se mai richiamata così va
   // comunque trattata come le altre piante esterne.)
   if (tipo === 'irrigazione' && contesto.programmaAutomatico != null) {
-    if (pianta?.coltivato_in !== 'acqua' && contesto.esterno && pioggiaInArrivo(contesto.meteo)) {
+    if (pianta?.coltivato_in !== 'acqua' && contesto.esterno && !contesto.alRiparo && pioggiaInArrivo(contesto.meteo)) {
       return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
     }
     return {
@@ -125,7 +125,9 @@ export function valutaCura(pianta, specie, tipo, contesto = {}) {
   let ultimaStr = pianta?.ultima_cura?.[tipo]
   if (!intervallo) return { urgente: false, label: manutenzione, giorni: null }
 
-  const allAperto = tipo === 'irrigazione' && pianta?.coltivato_in !== 'acqua' && contesto.esterno
+  // Al riparo dalla pioggia (zona o sottozona con tettoia, veranda…, 24/11/2026):
+  // all'aperto, ma la pioggia non le arriva.
+  const allAperto = tipo === 'irrigazione' && pianta?.coltivato_in !== 'acqua' && contesto.esterno && !contesto.alRiparo
   if (allAperto && pioggiaInArrivo(contesto.meteo)) {
     return { urgente: false, label: 'irrigazione — pioggia prevista, salta', giorni: null }
   }
