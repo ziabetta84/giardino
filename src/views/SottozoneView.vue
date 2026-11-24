@@ -26,7 +26,7 @@
       <div v-for="sz in sottozone" :key="sz.nome" class="dest szrow">
         <Icon :name="store.iconaSottozona(route.params.zona, sz.nome)" class="dest__ic" />
         <span class="dest__n szname">{{ sz.nome }}</span>
-        <span v-if="sz.tipo" class="dest__c szt">{{ sz.tipo }}</span>
+        <span v-if="sz.tipo" class="dest__c szt">{{ sz.tipo }}<template v-if="sz.tipo === 'esterno' && sz.riparo_pioggia">, al riparo</template></span>
         <span class="dest__c">{{ contaPiante(sz) }} piante</span>
         <div class="szrow__act">
           <button type="button" class="pill-mini" @click="apriModifica(sz)" title="Modifica sottozona" aria-label="Modifica sottozona">
@@ -55,6 +55,10 @@
           <option value="esterno">Esterno</option>
           <option value="interno">Interno</option>
         </select>
+        <label v-if="form.tipo === 'esterno'" class="riparo">
+          <input type="checkbox" v-model="form.riparoPioggia">
+          <span><b>Al riparo dalla pioggia</b>Tettoia, veranda, terrazzo coperto: la pioggia non conta come irrigazione.</span>
+        </label>
         <label style="font-size:11px;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:6px;">Icona</label>
         <input v-model="filtroIcona" type="text" placeholder="Cerca un'icona…" class="form-input" style="margin-bottom:8px;">
         <div class="icona-box" style="margin-bottom:16px;">
@@ -120,7 +124,7 @@ const supabase = useSupabase()
 const mostraForm = ref(false)
 const salvando   = ref(false)
 const errore     = ref(null)
-const form = ref({ nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null })
+const form = ref({ nome: '', descrizione: '', tipo: 'esterno', riparoPioggia: false, esposizione: [], icona: null })
 const daEliminare  = ref(null)
 const eliminando   = ref(false)
 const erroreEliminazione = ref(null)
@@ -162,7 +166,7 @@ function descrizioneSottozona(sz) {
 
 function apriNuovo() {
   modificaOriginale.value = null
-  form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null }
+  form.value = { nome: '', descrizione: '', tipo: 'esterno', riparoPioggia: false, esposizione: [], icona: null }
   filtroIcona.value = ''
   errore.value = null
   mostraForm.value = true
@@ -170,7 +174,7 @@ function apriNuovo() {
 
 function apriModifica(sz) {
   modificaOriginale.value = sz.nome
-  form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', esposizione: sz.esposizione ? [...sz.esposizione] : [], icona: sz.icona ?? null }
+  form.value = { nome: sz.nome, descrizione: sz.descrizione || '', tipo: sz.tipo || 'esterno', riparoPioggia: !!sz.riparo_pioggia, esposizione: sz.esposizione ? [...sz.esposizione] : [], icona: sz.icona ?? null }
   filtroIcona.value = ''
   errore.value = null
   mostraForm.value = true
@@ -180,7 +184,7 @@ function chiudiForm() {
   mostraForm.value = false
   filtroIcona.value = ''
   modificaOriginale.value = null
-  form.value = { nome: '', descrizione: '', tipo: 'esterno', esposizione: [], icona: null }
+  form.value = { nome: '', descrizione: '', tipo: 'esterno', riparoPioggia: false, esposizione: [], icona: null }
   errore.value = null
 }
 
@@ -206,6 +210,7 @@ async function salva() {
       nome:        nomeNuovo,
       descrizione: form.value.descrizione.trim() || '',
       tipo:        form.value.tipo,
+      riparo_pioggia: form.value.tipo === 'esterno' && form.value.riparoPioggia,
       esposizione: form.value.esposizione,
       icona:       form.value.icona,
     }
@@ -230,7 +235,7 @@ async function salva() {
       id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
       esposizione: salvata.esposizione, microclima: salvata.microclima,
       criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
-      icona: salvata.icona,
+      riparo_pioggia: salvata.riparo_pioggia ?? false, icona: salvata.icona,
     }
     nuove[route.params.zona] = sottozoneZona
     store.sottozone = nuove
@@ -293,6 +298,9 @@ async function eliminaSottozona() {
 .dest .pill-mini--del:hover { border-color:var(--rose); color:var(--rose-ink); }
 .szname { font-family: var(--font-display); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .szt { text-transform:capitalize; }
+.riparo { display:flex; gap:10px; align-items:flex-start; margin:0 0 12px; cursor:pointer; font:400 12.5px/1.4 var(--font-sans); color:var(--ink-mid); }
+.riparo input { flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--sage); }
+.riparo b { display:block; font-weight:600; font-size:13.5px; color:var(--ink); }
 .szrow__desc { flex: 1 1 100%; margin: 2px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font: 400 12px/1.5 var(--font-sans); color: var(--ink-soft); }
 .szrow__espo { display: inline-flex; align-items: center; gap: 4px; }
 .szrow__espo svg { width: 12px; height: 12px; flex: none; }

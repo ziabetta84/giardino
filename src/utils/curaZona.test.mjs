@@ -61,13 +61,13 @@ test('irrigazione: da fare, possono, escluse', () => {
 
 test('irrigazione all\'aperto: la pioggia caduta conta come irrigazione', () => {
   const pioggiaCaduta = [{ data: giorniFa(1), pioggia: '15.0' }]
-  const g = classificaCuraZona({ ...base, tipo: 'irrigazione', esterna: () => true, pioggiaCaduta })
+  const g = classificaCuraZona({ ...base, tipo: 'irrigazione', riceveLaPioggia: () => true, pioggiaCaduta })
   // il pomodoro (ogni 2 gg, ultima 3 gg fa) ora è in scadenza tra 1 giorno, non scaduto
   assert.equal(trova(g, 'pomodoro').motivo, 'In scadenza tra 1 gg')
   // la rosa irrigata 5 gg fa: piovuto 1 gg fa, troppo presto
   assert.equal(trova(g, 'rosaMeta').motivo, 'Troppo presto: pioggia 1 gg fa, cadenza 10 gg')
   // in casa la pioggia non conta
-  const dentro = classificaCuraZona({ ...base, tipo: 'irrigazione', esterna: () => false, pioggiaCaduta })
+  const dentro = classificaCuraZona({ ...base, tipo: 'irrigazione', riceveLaPioggia: () => false, pioggiaCaduta })
   assert.equal(trova(dentro, 'pomodoro').motivo, 'Scaduta da 1 gg')
 })
 

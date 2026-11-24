@@ -25,7 +25,7 @@
         <RouterLink :to="`/piante?zona=${z.key}`" class="zrow__main">
           <Icon :name="store.iconaZona(z.key)" class="dest__ic" />
           <span class="dest__n zname">{{ z.nome ?? z.key }}</span>
-          <span v-if="z.tipo" class="dest__c zt">{{ z.tipo }}</span>
+          <span v-if="z.tipo" class="dest__c zt">{{ z.tipo }}<template v-if="z.tipo === 'esterno' && z.riparo_pioggia">, al riparo</template></span>
           <span class="dest__c">{{ contaPiante(z.key) }} {{ contaPiante(z.key) === 1 ? 'pianta' : 'piante' }}</span>
           <Icon name="back" class="dest__chev" />
         </RouterLink>
@@ -56,6 +56,10 @@
           <option value="esterno">Esterno</option>
           <option value="interno">Interno</option>
         </select>
+        <label v-if="form.tipo === 'esterno'" class="riparo">
+          <input type="checkbox" v-model="form.riparoPioggia">
+          <span><b>Al riparo dalla pioggia</b>Tettoia, veranda, terrazzo coperto: la pioggia non conta come irrigazione.</span>
+        </label>
         <label class="field-label">Descrizione</label>
         <MiniEditor v-model="form.descrizione" placeholder="Descrizione breve della zona…" />
         <label class="field-label" style="margin-top:12px">Microclima</label>
@@ -113,6 +117,9 @@
 .zrow__act { display:flex; gap:6px; flex-wrap:wrap; padding-bottom:4px; }
 .zname { text-transform:capitalize; font-family: var(--font-display); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 .zt { text-transform:capitalize; }
+.riparo { display:flex; gap:10px; align-items:flex-start; margin:0 0 12px; cursor:pointer; font:400 12.5px/1.4 var(--font-sans); color:var(--ink-mid); }
+.riparo input { flex:none; width:18px; height:18px; margin:1px 0 0; accent-color:var(--sage); }
+.riparo b { display:block; font-weight:600; font-size:13.5px; color:var(--ink); }
 .zrow__act .pill-mini { text-decoration:none; }
 .zrow__act .pill-mini:hover { border-color:var(--sage-light); color:var(--sage); }
 .zrow__act .pill-mini svg { width:12px; height:12px; }
@@ -164,7 +171,7 @@ const errore     = ref(null)
 // store.zone è indicizzato per nome, serve per sapere quale chiave
 // aggiornare/rinominare.
 const modificaOriginale = ref(null)
-const form = ref({ nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: [], icona: null })
+const form = ref({ nome: '', tipo: 'esterno', riparoPioggia: false, descrizione: '', microclima: '', esposizione: [], icona: null })
 const filtroIcona = ref('')
 
 const gruppiIconaFiltrati = computed(() => {
@@ -176,7 +183,7 @@ const gruppiIconaFiltrati = computed(() => {
 })
 
 function formVuoto() {
-  return { nome: '', tipo: 'esterno', descrizione: '', microclima: '', esposizione: [], icona: null }
+  return { nome: '', tipo: 'esterno', riparoPioggia: false, descrizione: '', microclima: '', esposizione: [], icona: null }
 }
 
 function apriNuovo() {
@@ -192,6 +199,7 @@ function apriModifica(z) {
   form.value = {
     nome:        z.nome ?? z.key,
     tipo:        z.tipo ?? 'esterno',
+    riparoPioggia: !!z.riparo_pioggia,
     descrizione: z.descrizione ?? '',
     microclima:  z.microclima ?? '',
     esposizione: z.esposizione ? [...z.esposizione] : [],
@@ -229,6 +237,7 @@ async function salva() {
     const riga = {
       nome:        nomeNuovo,
       tipo:        form.value.tipo,
+      riparo_pioggia: form.value.tipo === 'esterno' && form.value.riparoPioggia,
       descrizione: form.value.descrizione.trim() || '',
       microclima:  form.value.microclima.trim()  || '',
       esposizione: form.value.esposizione,
@@ -253,7 +262,7 @@ async function salva() {
       id: salvata.id, nome: salvata.nome, descrizione: salvata.descrizione,
       esposizione: salvata.esposizione, microclima: salvata.microclima,
       criticita: salvata.criticita, manutenzione: salvata.manutenzione, tipo: salvata.tipo,
-      icona: salvata.icona,
+      riparo_pioggia: salvata.riparo_pioggia ?? false, icona: salvata.icona,
     }
     store.zone = nuoveZone
 

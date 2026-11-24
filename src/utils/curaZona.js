@@ -42,7 +42,7 @@ export function concimeAdatto(npkRichiesto, concime) {
   return voce.distanza <= SOGLIA_DISTANZA
 }
 
-function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi, esterna, pioggiaCaduta }) {
+function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi, riceveLaPioggia, pioggiaCaduta }) {
   if (!tipiCuraPianta(p, sp).includes(tipo)) {
     if (tipo === 'irrigazione' && p.coltivato_in === 'acqua') {
       return { gruppo: 'escluse', motivo: "Coltivata in acqua: si registra il ricambio dell'acqua" }
@@ -62,7 +62,7 @@ function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, c
   }
 
   // Senza previsioni: la pioggia prevista è un avviso del foglio, non un'esclusione.
-  const c = valutaCura(p, sp, tipo, { esterno: esterna ? esterna(p) : false, pioggiaCaduta })
+  const c = valutaCura(p, sp, tipo, { esterno: riceveLaPioggia ? riceveLaPioggia(p) : false, pioggiaCaduta })
   const ultimaChi = c.pioggia ? 'Pioggia' : 'Ultima'
   let esito
   if (c.giorni === null) {
@@ -101,18 +101,18 @@ function valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, c
 
 // piante: store.piante; vocePianta/nomePianta: le funzioni dello store;
 // concimeId: il concime scelto per la concimazione (facoltativo);
-// esterna: store.piantaEsterna; pioggiaCaduta: store.pioggiaCaduta (facoltativi).
+// riceveLaPioggia: store.piantaRiceveLaPioggia; pioggiaCaduta: store.pioggiaCaduta (facoltativi).
 export function classificaCuraZona({
   piante, zona, sottozona = null, tipo, vocePianta, nomePianta,
   programmi = null, concimi = null, concimeId = null,
-  esterna = null, pioggiaCaduta = null,
+  riceveLaPioggia = null, pioggiaCaduta = null,
 }) {
   const stagioneCorrente = stagione()
   const concime = concimeId ? concimi?.[concimeId] ?? null : null
   const gruppi = { daFare: [], possono: [], escluse: [] }
   for (const [id, p] of pianteDellaZona(piante, zona, sottozona)) {
     const sp = vocePianta(p)
-    const esito = valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi, esterna, pioggiaCaduta })
+    const esito = valutaPianta({ id, p, sp, tipo, programmi, stagioneCorrente, concime, concimi, riceveLaPioggia, pioggiaCaduta })
     gruppi[esito.gruppo].push({
       piantaId: id,
       nome: nomePianta(p),
