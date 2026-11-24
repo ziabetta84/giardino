@@ -1,0 +1,980 @@
+taxon_id	nome	rango	pagine	pagina_specie	rhs_ids	eredita
+02bde7ae-2f89-4205-b73d-c9b3f2d5b4f1	Galanthus alpinus var. alpinus	variety	5	t	89933,96582,30392,30424,126682	nessuna eredità
+4240811e-8239-44b8-88a6-91a920197022	× Miltonidium	genus	4	f	275773,275774,368048,368049	nessuna eredità
+1c10d839-b7c6-44ff-a192-b37f85a1f53d	Agarista populifolia	species	4	t	10028,51147,95597,98316	nessuna eredità
+3f9473e2-7876-4f07-9db5-3d1cc9249444	Skimmia reevesiana	species	4	t	17410,17411,322887,323353	nessuna eredità
+2d031800-0b6e-492d-8ab5-de7b96d86b6c	Dasiphora × veitchii	species	3	t	21883,246615,331838	nessuna eredità
+4a915c4b-786f-4f7b-9bbc-a05a93df4555	Magnolia maudiae var. platypetala	variety	3	t	22143,298945,379019	nessuna eredità
+91fbe10a-5ec5-446b-addc-0e1388947c4f	Odontites vulgaris subsp. vulgaris	subspecies	3	t	156883,245119,320008	nessuna eredità
+f48db544-409a-4f76-80ba-48a6ef6c3c16	Sutera	genus	3	t	288160,228638,281521	nessuna eredità
+766a0b39-5531-4f08-8c21-8fc71633507a	Weingartia pulchra	species	3	t	112583,269091,382653	nessuna eredità
+2e0c360b-b4ca-4adb-a74f-1bc38891baf9	Acanthocalycium klimpelianum	species	2	t	184970,184971	nessuna eredità
+0b10de8c-8259-41c4-b29b-370722a0476e	Aconitum degenii subsp. paniculatum	subspecies	2	t	185295,202024	nessuna eredità
+66d1eead-9d44-49e4-9ee2-131b9a85987f	Angophora costata	species	2	t	188382,188384	nessuna eredità
+31a9fab3-46f9-449b-872f-73f0d20dea63	Arabis sudetica	species	2	t	188821,188829	nessuna eredità
+7477cd5e-b8b4-4407-9b89-5895e484889b	Aria chamaemespilus	species	2	t	43259,88678	nessuna eredità
+1df63b13-b2df-44db-a385-e8f88421424f	Artemisia borealis subsp. borealis	subspecies	2	t	27134,27135	nessuna eredità
+6be0abfa-24f9-4f7e-9835-b4eef5161f59	Catalpa fargesii	species	2	t	94762,208441	nessuna eredità
+67971d46-6e9a-4ceb-be45-874f8656c782	Clianthus magnificus	species	2	f	321913,321914	nessuna eredità
+cc141372-403f-4c67-9a38-d56fee0b3b78	Corylopsis platypetala	species	2	t	91246,96316	nessuna eredità
+322ab3d9-64b4-4006-8264-9eac7b1238ea	Dodecatheon alpinum	species	2	t	41697,279733	nessuna eredità
+b95d55cc-82e9-481f-b834-5db2111f4b56	Dolichos	genus	2	f	141814,368858	nessuna eredità
+4a91e2bb-96d9-4c80-a896-b788927fdfb5	Dryopteris goeringiana	species	2	t	28809,91028	nessuna eredità
+3bfcce97-4da5-422f-98fe-66470cddbbef	Eriocapitella japonica	species	2	t	171956,188342	nessuna eredità
+f2810cb7-959d-4c19-a45b-58345490d32c	Helianthemum canum subsp. incanum	subspecies	2	t	8463,311353	nessuna eredità
+52c5b3fa-559f-4326-b22b-85a3b5c5326a	Hylotelephium maximum subsp. ruprechtii	subspecies	2	t	65192,263542	nessuna eredità
+ed8a3d31-acde-49d4-82e8-71c5679993d2	Mertensia simplicissima	species	2	t	11074,59331	nessuna eredità
+efdd7ab1-7498-45a8-832d-bc95efa89574	Misopates microcarpum	species	2	f	215442,294464	nessuna eredità
+8d2e3968-adee-4448-8b19-1792c4e71318	Molinia arundinacea	species	2	t	70206,87808	nessuna eredità
+0bec51c1-9919-4fae-b91d-551437c6fa5b	Nyssa javanica	species	2	t	174083,353032	nessuna eredità
+e5d70089-1efe-4883-876b-e638e815530c	Oenothera capillifolia subsp. berlandieri	subspecies	2	f	25663,336819	nessuna eredità
+181f7d0f-2c0e-49df-9eb3-11ba2110b258	Phedimus stevenianus	species	2	t	271859,226374	nessuna eredità
+460d927f-70c1-4b51-81f1-478fdeb51fdc	Polyspora speciosa	species	2	t	300601,300604	nessuna eredità
+81018641-ca60-46e9-8fe0-0f89ef0783f9	Reynoutria compacta	species	2	t	131283,128304	nessuna eredità
+d073e86e-16b2-477b-ac20-3cf5326bac30	Santolina decumbens subsp. decumbens	subspecies	2	t	79441,287385	nessuna eredità
+5e1853e0-1ca3-4d6e-9f40-18ba2d517c04	Sisyrinchium bellum	species	2	t	17383,41983	nessuna eredità
+e86f7cb1-c102-41af-97a1-b369527ec8bb	× Wilsonara	genus	1	f	353733	nessuna eredità
+4e21e3ca-7599-4922-8736-5486a688fd3e	Acantholimon albanicum	species	1	t	325323	nessuna eredità
+9c1efbb9-cd62-40f8-8a78-6dc5ab0e06d1	Acantholimon creticum	species	1	t	184988	nessuna eredità
+512968d6-20fc-4da3-aeb0-6657a0c8ed14	Aira multiculmis	species	1	t	523361	nessuna eredità
+88afd83e-8985-44b2-a1fa-13c985e6d17e	Althaea armeniaca	species	1	t	186535	nessuna eredità
+bf85dbb5-2d91-4dad-ac2e-df3850360d48	Amberboa amberboi	species	1	t	209068	nessuna eredità
+f5397a04-56e8-4e06-851e-a0b7832007b5	Anchusa leptophylla	species	1	t	523367	nessuna eredità
+03264d38-c558-4681-85eb-6bb54d6f8dbf	Anemone baldensis subsp. pavoniana	subspecies	1	t	1252	nessuna eredità
+1b6c4cf6-6d1e-4b43-acc4-8dc860444390	Antennaria chilensis	species	1	t	188534	nessuna eredità
+93386ffc-3391-4bbd-bc74-e778245cf506	Antennaria chilensis var. magellanica	variety	1	t	188544	nessuna eredità
+c5863c1c-62c3-4b05-be45-e97d2dd7bba7	Antennaria media	species	1	t	188533	nessuna eredità
+3524c213-087b-4004-831b-83e0bf911a3b	Antennaria microphylla	species	1	t	114230	nessuna eredità
+df911198-59e0-4ef0-95ed-60bfc6757d97	Anthemis cretica	species	1	t	88180	nessuna eredità
+6b7e3ed7-0b16-4304-a7a8-5db778095251	Anthericum baeticum	species	1	t	1336	nessuna eredità
+d3f10b19-aba5-41e6-b49d-8ca3551e6bda	Arachniodes amabilis	species	1	t	189476	nessuna eredità
+6834ea58-81ae-4cde-83f4-ea98f265d87a	Arachniodes exilis	species	1	t	189516	nessuna eredità
+78701c79-2adc-4b0d-ac15-d8a7a2bf2d9a	Araiostegia parvipinnata	species	1	t	283774	nessuna eredità
+02e151d9-9897-44b1-bc1d-6d5370a9de1f	Arctanthemum arcticum subsp. arcticum	subspecies	1	t	210687	nessuna eredità
+653f0a31-2fb7-46fb-96f8-a9056094c4e8	Argyranthemum adauctum subsp. canariense	subspecies	1	t	80718	nessuna eredità
+312045ac-822b-4caf-b16f-f939f99f6b98	Aria moravica	species	1	f	53961	nessuna eredità
+c1e0b7a0-2d25-497d-a78f-8e0f454c37d4	Arisaema angustatum	species	1	t	137312	nessuna eredità
+a6ad265e-8b5b-4c25-86f3-593e6f4edf4e	Arisaema japonicum	species	1	t	21087	nessuna eredità
+4c88015c-af3a-49c5-9d69-1655d0a5cf0b	Armeria humilis subsp. humilis	subspecies	1	f	28161	nessuna eredità
+344ac86b-0595-4191-ba94-f5f38856bf8f	Asphodelus tenuifolius	species	1	t	189471	nessuna eredità
+91778e09-c539-486f-bfe1-732c9ed4c2aa	Aspidistra caespitosa	species	1	f	151236	nessuna eredità
+27729546-8532-408c-851d-7a2c7deae900	Aspidistra linearifolia	species	1	f	175141	nessuna eredità
+8b454ada-1b32-48e0-a5a3-e4de0bd038fb	Aspidistra saxicola	species	1	f	191052	nessuna eredità
+91718335-3716-4842-ae8a-c2bf95812b0e	Bellevalia ciliata	species	1	t	85566	nessuna eredità
+369e21c8-3cc3-417b-84bf-e955c738e56b	Brahea salvadorensis	species	1	t	204813	nessuna eredità
+d7ad1c36-2211-4f29-9040-e9ea2a88fa7e	Brassia angusta	species	1	t	204832	nessuna eredità
+41da825b-1764-4f61-8c9c-d4dfd10521dc	Bupleurum angulosum	species	1	t	102589	nessuna eredità
+46ed5c77-586e-45a4-9964-0ab83f18ee00	Bupleurum aureum	species	1	t	24370	nessuna eredità
+52fd13bc-7564-41be-92dd-8ee3a3dc5524	Calliandra guildingii	species	1	t	206195	nessuna eredità
+abb1fa66-ba0c-4bcf-b5eb-294a43359a53	Callianthe striata	species	1	t	25983	nessuna eredità
+873049aa-9f58-4f9c-a3c5-97fcc7320416	Callianthe vexillaria	species	1	t	184903	nessuna eredità
+953a5739-b29b-4d34-b33b-4a568547fda8	Camelina microcarpa subsp. pilosa	subspecies	1	t	206520	nessuna eredità
+993222d6-8e9f-48d2-9068-2a60838e4a48	Campylocentrum pugioniforme	species	1	t	409309	nessuna eredità
+7055a91d-148a-4c35-84a0-9043c8ea6102	Castilleja crista-galli	species	1	t	208406	nessuna eredità
+70e1c484-e5a2-4152-8061-3b705bcee660	Centaurea glastifolia subsp. glastifolia	subspecies	1	t	210119	nessuna eredità
+8a8d7c24-5365-430c-b138-366240d9cde1	Chaloupkaea aizoon	species	1	t	49406	nessuna eredità
+97ac8920-3626-4dcd-91e3-1de7056f4bd9	Chrysogonum australe	species	1	t	102727	nessuna eredità
+05525008-27ca-4cdb-9d8d-9af3bbc09ba2	Cineraria	genus	1	f	378933	nessuna eredità
+f64300bd-1aca-45af-b3ec-0d4383949171	Clarkia concinna subsp. concinna	subspecies	1	t	213007	nessuna eredità
+02170529-a3bd-49df-a991-3743710e2db2	Clusia major	species	1	f	191575	nessuna eredità
+7d17a598-d584-4ede-a443-2fb443d942ff	Coleus paniculatus	species	1	f	62003	nessuna eredità
+e7a5b4d7-90df-4c96-b0d6-38263bd8d477	Colutea brevialata	species	1	t	213790	nessuna eredità
+5768a665-9d42-4159-ab65-ecbaba5ef6aa	Conophytum fraternum	species	1	t	214082	nessuna eredità
+26490088-172b-4bca-b6ce-a667bb700628	Conophytum longibracteatum	species	1	t	214093	nessuna eredità
+7f0b8a88-1a3c-4328-84ed-91e24bc023d2	Corylopsis coreana	species	1	t	65789	nessuna eredità
+602ba8e5-1f08-4bb4-9595-50dc497d5be2	Corylopsis gotoana	species	1	t	25687	nessuna eredità
+013eff8a-95f3-4cb2-a189-8c1e1449e96a	Corylopsis veitchiana	species	1	t	4508	nessuna eredità
+b32002bf-9a46-4f69-a8f2-757828e588d5	Corylopsis yunnanensis	species	1	t	214705	nessuna eredità
+a159dc66-7ddf-40e9-bb43-47feb528e3df	Crassula exilis subsp. sedifolia	subspecies	1	t	86608	nessuna eredità
+5ff2cb81-5c2f-4a6a-90c5-d57db2a5eacb	Crassula tetragona subsp. tetragona	subspecies	1	f	370853	nessuna eredità
+a1ea5c37-280d-49ba-add8-feab22af5cf3	Cremnosedum	genus	1	f	540886	nessuna eredità
+407dafef-3e9a-44c8-bdfe-0ac07527d6c5	Cyathea squarrosa	species	1	t	271203	nessuna eredità
+a228304c-5d69-4ea1-b0c1-ade7540d1ff6	Cynanchica aristata subsp. thessala	subspecies	1	t	71077	nessuna eredità
+9b038852-dd16-431a-a876-f51241ac1cc2	Cynanchica nitida subsp. nitida	subspecies	1	t	75385	nessuna eredità
+6e748e88-ec4f-4f69-884c-edb920098296	Cyperus haspan	species	1	t	174710	nessuna eredità
+f3d52495-0775-40f5-8112-f47af8a75cf0	Dasiphora arbuscula	species	1	f	107698	nessuna eredità
+5768a95e-3367-436f-93d1-85064d4b0720	Dasiphora parvifolia	species	1	f	120503	nessuna eredità
+d8eb0ef0-2bbb-45c3-86eb-c770facd37c1	Davallia fejeensis	species	1	t	5360	nessuna eredità
+94a529a5-cb26-42e9-be07-f384217ac924	Desfontainia fulgens	species	1	t	323853	nessuna eredità
+f37527be-94e7-4f91-987a-7aa0892dc26f	Dianthus sternbergii subsp. sternbergii	subspecies	1	t	218508	nessuna eredità
+d596b45b-8cef-4d6a-a1fa-601f3dba9b0e	Dichondra sericea	species	1	f	533177	nessuna eredità
+bf4ccf57-ded7-4f22-9fc7-1e908bbc5800	Dictamnus dasycarpus	species	1	t	28611	nessuna eredità
+6da399df-b6c6-4201-ae33-f6b6736e6edf	Digitalis mariana subsp. heywoodii	subspecies	1	t	164593	nessuna eredità
+93af2d99-07be-476d-b101-13764a6abd8e	Diplacus grandiflorus	species	1	t	125100	nessuna eredità
+9183d2a8-f2e3-4f46-8ed6-2149628f48de	Disocactus jenkinsonii	species	1	t	540689	nessuna eredità
+335460d4-ed3e-4a36-9615-2f4ba5f7f3b5	Disporum kawakamii	species	1	f	282669	nessuna eredità
+84853b90-82a4-4f16-a68a-eb9d6a26f3b2	Diuranthera	genus	1	t	130747	nessuna eredità
+8fb291bb-b3be-4493-87d5-19643d6cad94	Doritaenopsis	genus	1	t	107891	nessuna eredità
+5d043acf-9976-4afb-9b77-5758522c21e7	Drymocallis fissa	species	1	f	285877	nessuna eredità
+d22e349e-1979-4121-b859-2707804fc58a	Dryopteris borreri	species	1	t	6192	nessuna eredità
+b3c07689-7d0a-4b7d-8449-69584277f7f7	Epidendrum porpax	species	1	t	32059	nessuna eredità
+f9f5adfa-dc96-45f7-9ad5-55806f694271	Epilobium microphyllum	species	1	t	76491	nessuna eredità
+cecf2ae1-3034-454d-9a26-aea5cd1a2595	Eranthis cilicica	species	1	t	41736	nessuna eredità
+f18fcabe-aa50-474d-aa82-26ad09994235	Euryops evansii	species	1	t	77801	nessuna eredità
+aa96f4e4-8552-4631-a129-c9d46c64eb1c	Ferula glauca	species	1	t	101714	nessuna eredità
+24aebc9b-bb2b-40f7-b854-d3e418d60c0c	Fraxinus biltmoreana	species	1	t	32934	nessuna eredità
+fa9ddd1e-f47d-4e5f-ba43-b875f175636f	Gasworthiopsis	genus	1	f	506746	nessuna eredità
+6563f4db-d2ac-4231-8bce-41d041da44e0	Hechtia pitcairniifolia	species	1	t	170211	nessuna eredità
+ff6860aa-9f3e-42d5-ab57-ee76ca033092	Helianthemum canum subsp. canum	subspecies	1	t	75511	nessuna eredità
+3b21192b-8dd7-486c-aec4-4ebd5281e732	Helleborus dumetorum subsp. atrorubens	subspecies	1	t	157787	nessuna eredità
+95d0fc72-1a0f-4c54-ad28-f537d296bd6c	Hesperantha grandiflora	species	1	t	314449	nessuna eredità
+6e3e9e7e-1fef-4a38-ba26-1d520ce8762c	Hesperocyparis pygmaea	species	1	t	544674	nessuna eredità
+be15bb99-4605-4fcf-986a-a62264aec29c	Hippuris tetraphylla	species	1	t	315761	nessuna eredità
+48b61f13-b0d5-4bca-86fc-3ca28316d49e	Horminum pyrenaicum	species	1	f	40577	nessuna eredità
+4e2290f7-3257-4d40-84eb-fe227a36543b	Hylomecon vernalis	species	1	t	171472	nessuna eredità
+f93a224e-ea01-4f6d-9c04-4270307972d7	Jamesbrittenia	genus	1	f	543525	nessuna eredità
+846b93bb-dd2a-4446-9749-5a1bdfb95ccd	Knowltonia bracteata	species	1	f	220130	nessuna eredità
+ace80ff6-8a00-4bab-85c8-bb1ce22035ed	Laccopetalum giganteum	species	1	t	217981	nessuna eredità
+afeb29a6-d691-4cfa-9082-3c9db124be22	Lamium argentatum	species	1	t	33346	nessuna eredità
+6c1f3585-40ab-42b3-b871-e72b98b2d610	Leontodon hyoseroides	species	1	t	328967	nessuna eredità
+7e6d28b9-fbc6-416a-849b-56c16168c4fb	Leptinella pusilla	species	1	f	138742	nessuna eredità
+1c3ee9ac-16fa-4c02-93aa-1f6e74f114ef	Lippia citriodora	species	1	t	80219	nessuna eredità
+5b067e83-c2df-413c-b8fc-7f07acf54e69	Lophozonia macrocarpa	species	1	t	297530	nessuna eredità
+22e84396-16f7-4a91-a409-1c2ca3876a94	Ludwigia hexapetala	species	1	t	88071	nessuna eredità
+d518ee33-1b2d-4a78-a121-3dcf51f41c98	Lycoris traubii	species	1	t	294263	nessuna eredità
+74b1a24c-3828-4f11-aab6-2df0474831c2	Muscarimia muscari	species	1	t	85994	nessuna eredità
+9bb75d3c-300f-48f3-a4c7-a067d1db0258	Myoporum acuminatum	species	1	t	24320	nessuna eredità
+9843e15e-9b62-488b-93a3-e5456497480e	Nekemias chaffanjonii	species	1	t	329749	nessuna eredità
+cdb71840-062c-4d54-880a-d6156173b0d5	Nerium indicum	species	1	t	331593	nessuna eredità
+580e5ae8-f14a-4b25-89b0-b9b774c79cb9	Nerium indicum subsp. indicum	subspecies	1	t	537237	nessuna eredità
+3e36ec54-41e1-4b1a-ad1b-1f8b99b7425a	Nymphaea nouchali var. zanzibariensis	variety	1	t	11625	nessuna eredità
+8525d816-9bf0-4581-89fb-947e24577511	Odontites vulgaris	species	1	t	320009	nessuna eredità
+3f80acb7-4337-41c0-8fe6-5af1fa1ffcc5	Olsynium junceum subsp. depauperatum	subspecies	1	f	178360	nessuna eredità
+d7f098a0-fc7b-4ab7-929a-67d20c4a6290	Olsynium nigricans	species	1	t	64701	nessuna eredità
+6458cb50-47cc-4337-8d01-de1dac869469	Oreomecon lapponica subsp. occidentalis	subspecies	1	t	109386	nessuna eredità
+2aae8f7f-06f4-4634-a147-5c52c5305a47	Oritrophium peruvianum	species	1	f	223393	nessuna eredità
+3702349d-7e02-4345-9ca2-4116687df350	Orlaya platycarpos	species	1	t	261486	nessuna eredità
+07097b8c-c226-4e6f-a730-ee4efc9889a7	Ornithogalum balansae	species	1	t	11933	nessuna eredità
+e57ebb9b-5453-4431-9ee0-201b035a6da3	Ostericum palustre	species	1	t	171562	nessuna eredità
+2afbfceb-16fb-422b-96a5-cb3e003237b3	Paraquilegia microphylla	species	1	t	12311	nessuna eredità
+eded20a4-674e-449c-8f31-afd165faaa4a	Parochetus africanus	species	1	t	43151	nessuna eredità
+c7d35345-9251-468b-98d2-b9deae33f2cf	Petchoa	genus	1	f	378956	nessuna eredità
+b282fc8e-9abb-43fb-953b-f4130425d15e	Petrosedum × bellardii	species	1	t	51189	nessuna eredità
+f3461241-0dc8-4fb2-b198-ee04d68cff82	Phanera saigonensis	species	1	t	1992	nessuna eredità
+4035f7bb-b937-4739-ac21-ddf879714a7e	Phedimus ellacombeanus	species	1	t	73168	nessuna eredità
+6685d92d-9ab0-408a-9124-f121b334e9c1	Phlogacanthus guttatus	species	1	t	95693	nessuna eredità
+76a9e4ad-df0e-4e37-ac01-a85611899f8a	Physocarpus amurensis	species	1	f	66614	nessuna eredità
+095907bc-6669-47e1-8deb-4b2d658879a8	Pilosella velutina	species	1	t	329296	nessuna eredità
+e6eb7a5f-c5f3-496a-bb0e-7e27c4269c39	Plagius grandis	species	1	t	211382	nessuna eredità
+04bd6fc6-78da-497f-9d9c-72fe2268bf39	Polyscias balfouriana	species	1	f	217867	nessuna eredità
+0ceb0174-d4f6-432f-9082-a9301e9900ae	Primula intricata subsp. lofthousei	subspecies	1	t	224692	nessuna eredità
+f75318ed-ff71-42a9-aaa9-714aac4a48ba	Psephellus hypoleucus	species	1	f	96985	nessuna eredità
+d6ec7e81-54a2-404e-9d97-23f93de685d0	Pulsatilla grandis	species	1	t	211507	nessuna eredità
+fc980c19-d382-45b1-b3e6-6c576764fedf	Pyrethropsis hosmariense	species	1	t	29243	nessuna eredità
+e46ba312-6bc9-48ea-9ace-c4879605df15	Quetzalcoatlia pentandra	species	1	f	268551	nessuna eredità
+6b4ad8fe-6262-4e82-ba45-a0d346eb8036	Rhaponticum canariense	species	1	t	53176	nessuna eredità
+ea589bf7-0f68-4d0e-8a54-65f4d96c20d9	Rhexia alifanus	species	1	t	543711	nessuna eredità
+f1d0235d-395e-4e18-b7ee-d74d41192692	Roldana candicans	species	1	t	131909	nessuna eredità
+5c0c6dd6-b3fd-458e-bc48-7ed7a548fac6	Sabal bermudana	species	1	t	168943	nessuna eredità
+f7144f46-5d16-4307-8190-88cafd0d42f2	Sabulina verna subsp. hercynica	subspecies	1	f	70498	nessuna eredità
+0966827f-71e8-4b9f-9503-6e30ebed67d9	Sagina glabra	species	1	f	85024	nessuna eredità
+75035ca1-5de2-4f02-92d1-5426a4e898bb	Satureja subspicata	species	1	t	218670	nessuna eredità
+e62e6ca5-1914-484f-af38-5197ecd63992	Selinum carvifolia	species	1	t	315875	nessuna eredità
+467fe965-350a-40b9-8546-48c82c656e06	Sempervivum marmoreum subsp. marmoreum	subspecies	1	f	124576	nessuna eredità
+78dc34b3-33fb-4d93-adaa-9d54bc21a257	Seseli osseum	species	1	t	24982	nessuna eredità
+31ef974b-3d53-4d50-87d9-05718451d1ff	Solenopsis	genus	1	f	102549	nessuna eredità
+dbb13f5c-842d-4e47-aac1-dea9e229183a	Solidaster	genus	1	f	270344	nessuna eredità
+3042e3b6-f059-4ce8-904d-d3b3c11b74ad	Sparaxis fragrans	species	1	t	110500	nessuna eredità
+3901439c-d58c-44d0-a893-168a9f39cd47	Spilanthes	genus	1	f	190294	nessuna eredità
+8507522c-2451-4404-8232-be41dd188904	Stachys aethiopica	species	1	f	175018	nessuna eredità
+8995c2d1-c596-4327-b20e-633fef033c4b	Stachys minor	species	1	f	210716	nessuna eredità
+643431ba-5108-4201-a1b7-0591304efb1e	Stranvaesia	genus	1	f	329794	nessuna eredità
+cb521d64-5c8a-4cd7-8d71-d777242e6528	Strobilanthes atropurpurea	species	1	t	178632	nessuna eredità
+5bd1610f-6908-48bb-8ba4-d1cd031d74e7	Sunhangia elegans var. elegans	variety	1	t	69116	nessuna eredità
+8752f322-9ea3-4f37-b0c4-e234202bbf9c	Syncarpha	genus	1	f	184359	nessuna eredità
+6cb77835-5c36-4cf7-a9c3-2a0edb58bd45	Thymus richardii subsp. nitidus	subspecies	1	f	73934	nessuna eredità
+64f53f4f-3fd0-4ff5-9314-c996db596f21	Tibetiodes yunnanensis	species	1	f	27421	nessuna eredità
+f026da86-58a2-4218-a206-2531312e3cd3	Tristagma	genus	1	f	65436	nessuna eredità
+a7bce88c-c5c4-4efc-b77a-a752510aec15	Veronica incana subsp. incana	subspecies	1	t	62986	nessuna eredità
+8ea59fd0-b993-4242-b09b-aa0d87520817	Veronica saturejoides subsp. kellereri	subspecies	1	t	18843	nessuna eredità
+4998f638-aa81-4148-bd86-94070105896b	Vinca herbacea	species	1	t	182320	nessuna eredità
+053b6f49-6b18-4705-abca-6bfc09a26c06	Xylobium undulatum var. undulatum	variety	1	t	165526	nessuna eredità
+4befd221-8e6d-431d-94fe-4b2c68524cad	Zabelia dielsii	species	1	f	138980	nessuna eredità
+b871da9c-9905-411c-b3cf-7591637b39d5	Betula utilis subsp. albosinensis	subspecies	15	t	96281,88401,108836,110595,121575,124420,150119,238070,252628,276480,291159,313625,328433,328436,345465	eredita dalla specie
+b1c26bf0-5dc6-447a-92c5-9e2bbd97e1d1	Conophytum bilobum subsp. bilobum	subspecies	15	t	214056,214057,214058,214059,214060,214068,214071,214085,214087,214132,214138,214142,214165,214177,214194	eredita dalla specie
+4eefc3c9-e7a7-4597-a5bc-8da82da52609	Epilobium canum subsp. canum	subspecies	14	t	19203,20721,62997,85612,91139,114274,234998,332231,387433,66264,72784,90488,100268,126713	eredita dalla specie
+46e6a47f-0714-4b1b-8b74-21ccebec823c	Euphorbia epithymoides subsp. epithymoides	subspecies	11	t	32745,46564,60050,84330,90038,105713,105714,129295,137530,191857,279667	eredita dalla specie
+99713869-c890-438b-8df6-b06911ff23c1	Conophytum truncatum subsp. truncatum	subspecies	7	t	214100,214112,214183,214186,214189,214190,214198	eredita dalla specie
+57d63624-52a2-4d06-a02d-02ef145af061	Conophytum obcordellum subsp. obcordellum	subspecies	6	t	214076,214103,214109,214120,214123,214128	eredita dalla specie
+65ce08a7-38c8-4390-8bf5-18bd68339f06	Kniphofia triangularis subsp. triangularis	subspecies	6	t	43405,82334,213855,283297,283377,283379	eredita dalla specie
+b1d2bf3c-9557-4814-b62f-926875afbe70	Philodendron hederaceum var. hederaceum	variety	6	t	59193,233640,542614,226082,317843,383976	eredita dalla specie
+a8157492-fbde-4dfd-815a-25ea81a21469	Syringa pubescens subsp. patula	subspecies	6	t	42428,79727,118434,131974,323776,51366	eredita dalla specie
+e50b9ea7-73d4-4e52-8994-fcf17293850c	Aconitum napellus subsp. napellus	subspecies	5	t	369,125467,156086,185216,185267	eredita dalla specie
+90ece7ba-f658-445c-bd5f-501d397cb1f0	Begonia homonyma	species	5	t	108379,257060,257061,257062,530914	eredita dal genere
+6eb6b1b0-bc33-46e5-855d-28af21407432	Crassula perfoliata var. falcata	variety	5	t	90313,542802,542803,226325,541486	eredita dalla specie
+f25fedd5-2d8f-468b-a980-e095a60a1411	Euphorbia characias subsp. wulfenii	subspecies	5	t	25116,7098,32754,136341,223447	eredita dalla specie
+c12a10c1-5437-49d9-b24b-90670f87f193	Saxifraga paniculata subsp. paniculata	subspecies	5	t	225483,225484,88164,225479,225480	eredita dalla specie
+aa43e6de-40a4-4900-aeb3-3f2ea6b00b06	Abelia macrotera var. engleriana	variety	4	t	2,138974,234770,137191	eredita dalla specie
+ea4f26a4-701d-46d0-a6b9-482cb5dd81f8	Allium siculum subsp. dioscoridis	subspecies	4	t	26465,186143,186195,307027	eredita dalla specie
+b9f93b9e-3bda-4c5d-a39a-578b84b01251	Anemone multifida subsp. multifida	subspecies	4	t	26682,70216,188337,26683	eredita dalla specie
+273cf55c-d07c-47dd-bd09-1cdb415de28c	Argyranthemum frutescens subsp. frutescens	subspecies	4	t	3776,47555,3777,29266	eredita dalla specie
+2564a1fd-dfcf-48cc-ba98-641349439343	Cistus lasianthus subsp. lasianthus	subspecies	4	t	8228,65047,8230,69512	eredita dalla specie
+eca2bb7d-bc62-4f9b-98fc-1831c0db487e	Cornus kousa subsp. kousa	subspecies	4	t	31316,31317,203746,328103	eredita dalla specie
+ca17bd0a-baa1-4ada-b90a-b02cc07a0f55	Dodecatheon meadia subsp. meadia	subspecies	4	t	72943,505085,512600,519843	eredita dalla specie
+c8b431f7-43c7-4993-ba8b-82c37fa8ddac	Eriosyce napina subsp. napina	subspecies	4	t	112578,120665,120666,248133	eredita dalla specie
+e611f515-4c01-48fe-a686-a3ca49497099	Galatella linosyris subsp. linosyris	subspecies	4	t	1761,159598,211476,48314	eredita dalla specie
+a4d4edf2-7d30-4a26-a9ba-c0b6d4aac9fb	Rebutia marsoneri	species	4	t	14411,117907,155370,268603	eredita dal genere
+0d06b9d4-6f7b-4b97-bc6d-5d010c6c9965	Salix fruticulosa	species	4	t	16256,16295,45355,68026	eredita dal genere
+ae1dd443-a92c-4851-ad13-3871f19a58ae	Sempervivum tectorum subsp. tectorum	subspecies	4	t	17066,17070,17182,228427	eredita dalla specie
+3bc43619-e315-497e-b9ee-2088270a16d1	Tradescantia zebrina var. zebrina	variety	4	t	71508,118459,522764,225851	eredita dalla specie
+1e7f052d-0207-4485-972d-aa7828dfd17f	Tulipa humilis var. pulchella	variety	4	t	49771,23315,255413,272605	eredita dalla specie
+51c5a501-8308-4953-a3d2-bd29de5507a6	Veronica pimeleoides subsp. pimeleoides	subspecies	4	t	8349,50156,97194,93654	eredita dalla specie
+df122876-97b6-4450-b897-f4047c9e1368	Aconitum lycoctonum subsp. neapolitanum	subspecies	3	t	378,58016,185296	eredita dalla specie
+dd3ae027-587a-4cd6-8dbe-705d62ffe638	Aeonium arboreum subsp. holochrysum	subspecies	3	t	54654,185709,189966	eredita dalla specie
+acbe6402-50be-4900-92f0-8100f74f1516	Agastache pallida	species	3	f	77314,113328,212189	eredita dal genere
+f503cd0f-6965-4346-8100-16cb18356610	Ananas comosus var. comosus	variety	3	t	188168,188173,188174	eredita dalla specie
+ad3841a9-abe5-4666-935e-c00e9eb5e121	Arundina graminifolia subsp. graminifolia	subspecies	3	t	1667,189345,189346	eredita dalla specie
+197687ec-8d52-495c-967c-0bf313df1543	Asplenium scolopendrium subsp. scolopendrium	subspecies	3	t	12847,12846,42140	eredita dalla specie
+18f411ef-65c2-4fdf-8e0b-581f03637549	Begonia fuchsioides	species	3	t	27695,203641,228138	eredita dal genere
+b0bb4288-59a9-4bda-bd7e-ed2a2ba4842d	Cercis canadensis subsp. texensis	subspecies	3	f	109212,150342,336152	eredita dalla specie
+b4fc23f5-6de0-4edf-9601-86a486f7519d	Clematicissus striata subsp. striata	subspecies	3	t	3855,329632,387737	eredita dalla specie
+d4ec3166-7f2c-4c52-aaeb-2109eaff158e	Clematis reticulata	species	3	t	90018,91393,210772	eredita dal genere
+3e8e55f2-ae63-4b54-bd1b-0440106db400	Coronilla valentina subsp. glauca	subspecies	3	t	30669,30670,120463	eredita dalla specie
+3cacee8e-4208-4e39-a7e4-3307736bce7a	Freesia laxa subsp. laxa	subspecies	3	t	1313,26742,95843	eredita dalla specie
+d95ead1c-b212-461a-87d6-0cda074882a1	Galanthus reginae-olgae subsp. reginae-olgae	subspecies	3	t	24750,152265,30394	eredita dalla specie
+4b097e2a-ec83-4b86-b81d-840bd3ad8092	Helianthemum alpestre	species	3	t	63504,319586,238969	eredita dal genere
+88ed48b1-8a53-4440-91b2-4656368267f5	Helianthemum apenninum subsp. apenninum	subspecies	3	t	97954,114557,3876	eredita dalla specie
+d1323ddc-fe91-4d5b-92da-9072ea8433a4	Petasites hybridus subsp. hybridus	subspecies	3	t	327888,327889,327987	eredita dalla specie
+04867c6d-00e8-493d-a18b-7df53f4f3b52	Pfeiffera monacantha subsp. monacantha	subspecies	3	t	150,106229,184382	eredita dalla specie
+b75dcb10-4fbe-4bc8-9c6f-93d823fc55f9	Polygonatum odoratum var. odoratum	variety	3	t	44820,263327,311205	eredita dalla specie
+94dcd32f-003d-4fca-8b8a-709eca800fae	Saxifraga federici-augusti subsp. grisebachii	subspecies	3	t	16622,152926,225522	eredita dalla specie
+762768e3-2720-4837-911c-c83cdf74d96d	Sisyrinchium idahoense var. macounii	variety	3	t	98877,220531,41991	eredita dalla specie
+c4cfcbff-88f2-479b-8b03-8bf872860e54	Symphyotrichum pilosum var. pringlei	variety	3	t	143030,75406,249465	eredita dalla specie
+5ab94e13-8956-4d74-bbd4-6c3320bcec60	Syringa reticulata subsp. pekinensis	subspecies	3	t	17922,165064,324169	eredita dalla specie
+9e98d8af-1451-466c-9e2c-fcf37fc18c97	Veronica hectorii subsp. hectorii	subspecies	3	t	57065,74504,522365	eredita dalla specie
+e11df7d1-2013-4ae1-9de9-8868017dfb3b	Acer cappadocicum subsp. cappadocicum	subspecies	2	t	185057,185084	eredita dalla specie
+82a20235-f4f2-4256-8e02-97350e49618e	Achillea decolorans	species	2	t	26195,107992	eredita dal genere
+c8367f08-1adf-4128-a8ff-936a09442b61	Achillea maritima subsp. maritima	subspecies	2	t	12015,158441	eredita dalla specie
+78f4fac8-ea41-4389-ac54-211e6daa9e13	Aconitum lycoctonum subsp. moldavicum	subspecies	2	t	379,185289	eredita dalla specie
+bed0e471-963c-4b74-b2af-db49e1459b9c	Actaea rubifolia	species	2	t	24730,306935	eredita dal genere
+bcdb55e4-b4f6-4bf5-9e67-a353103e6907	Adenium obesum subsp. obesum	subspecies	2	t	185395,185398	eredita dalla specie
+12bee1f0-9d8e-43ae-8920-afad94ac9c32	Aeonium canariense subsp. virgineum	subspecies	2	t	511,363551	eredita dalla specie
+b115efa9-e1c1-45b6-b6ea-77f8dd9cb7eb	Aeonium tabulaeforme	species	2	t	185693,185702	eredita dal genere
+1919575a-0a98-45a6-9e69-312c7c88efc8	Aeschynanthus parvifolius	species	2	t	559,73944	eredita dal genere
+7d970078-15e3-48dc-b384-b6ca1e215815	Agave gypsophila	species	2	f	512539,512585	eredita dal genere
+a9792a65-5147-411e-bd41-48f979ebfe86	Allium cirrhosum	species	2	t	26488,82668	eredita dal genere
+e380b4d8-35b6-415f-90f0-5dda691ae9d2	Allium multibulbosum	species	2	t	74354,186260	eredita dal genere
+52239156-a77e-4ec4-bde8-27d95a8160d8	Allium ostrowskianum	species	2	t	26483,120428	eredita dal genere
+b5398af2-06fd-44de-b5c6-3f6e05c9f6ad	Aloe maculata subsp. maculata	subspecies	2	t	186422,186423	eredita dalla specie
+aa63d7e4-647c-47d0-be00-8ad3ed6c26dd	Aloe microstigma subsp. microstigma	subspecies	2	t	970,186425	eredita dalla specie
+5d7f41d9-ae88-4756-9712-e9c20fe664db	Androsace sarmentosa subsp. primuloides	subspecies	2	t	1197,124457	eredita dalla specie
+d4fc9c9f-f446-41cb-ae5d-31a4f307c24b	Aquilegia vulgaris subsp. vulgaris	subspecies	2	t	90541,129260	eredita dalla specie
+a865a6fd-211a-44a1-b1c6-f909d841c068	Artemisia maritima subsp. maritima	subspecies	2	t	28521,307940	eredita dalla specie
+375ee3a3-e506-4453-b1e1-70d21322361f	Aspidistra elatior subsp. elatior	subspecies	2	t	296082,517542	eredita dalla specie
+0f624074-226e-4cdb-bd98-e6b67c8f6109	Asplenium ceterach subsp. ceterach	subspecies	2	t	150050,209872	eredita dalla specie
+0be68556-c8ea-4377-8663-d44b7d03ca36	Aster indicus	species	2	t	204458,204460	eredita dal genere
+983e3b8e-801f-4b49-93e7-45c9fa989433	Astilbe rivularis var. myriantha	variety	2	t	1836,286348	eredita dalla specie
+8e75025b-4f15-454b-92a8-157a1320838b	Athyrium angustum	species	2	t	189713,226573	eredita dal genere
+233b606c-2511-4382-b30a-87a5fb6af14a	Athyrium iseanum	species	2	t	27562,27563	eredita dal genere
+4f9c4fa8-41c9-4662-91a0-fcc8658785c8	Baptisia lactea var. lactea	variety	2	t	33410,382730	eredita dalla specie
+8a2f4226-88d7-4b14-a2f8-cf8f764e16e8	Begonia sinuata	species	2	t	257063,272784	eredita dal genere
+70d2e2d1-77e8-47c7-92a5-29184b6edd16	Betula pendula subsp. pendula	subspecies	2	t	27873,203979	eredita dalla specie
+c9068e5d-1b0e-4e5a-9ad5-1212611c174a	Caltha palustris var. laeta	variety	2	t	95570,206412	eredita dalla specie
+ec0d0e79-0c61-4860-aeb0-b2199db505e7	Campanula petiolata	species	2	t	206806,206809	eredita dal genere
+d182db40-d33e-4b82-94ed-b4adc16b4981	Cistus umbellatus subsp. umbellatus	subspecies	2	t	8232,256274	eredita dalla specie
+c0707275-214f-48bf-8ad2-81a8633dc242	Clematis grandiflora	species	2	t	194933,233813	eredita dal genere
+e596a831-682e-4647-afa6-5575be28716c	Clematis patens subsp. patens	subspecies	2	t	213125,213128	eredita dalla specie
+e2ed7aea-2056-43df-bee3-217a41aac7a2	Conophytum flavum subsp. flavum	subspecies	2	t	214094,214114	eredita dalla specie
+2b57df0b-09b5-42c1-a62d-2fb60959133c	Conophytum flavum subsp. novicium	subspecies	2	t	214108,214174	eredita dalla specie
+9d25b04d-aae9-4d5f-af59-a92c6b141087	Conophytum pellucidum subsp. pellucidum	subspecies	2	t	214090,214119	eredita dalla specie
+433320ac-bea5-4d75-9109-a5b986f115a8	Coprosma depressa	species	2	f	239735,239736	eredita dal genere
+1592c20d-33f9-4b40-ba5f-8bb6fd7f1d05	Cornus sanguinea subsp. sanguinea	subspecies	2	t	214614,214628	eredita dalla specie
+f6e5ca9d-fcc3-4559-8312-f288f82149f3	Corydalis solida subsp. solida	subspecies	2	t	214690,245746	eredita dalla specie
+29c56a1a-2d9d-48fe-ba01-e2782095f64e	Crassula pellucida subsp. pellucida	subspecies	2	t	382328,370831	eredita dalla specie
+37e0eea9-2cad-4b54-9bb2-b8d5b41cdbe6	Crassula setulosa var. curta	variety	2	t	71434,76158	eredita dalla specie
+6da2efcf-0b7d-4b1a-a00a-68223c8fc4e8	Curio talinoides var. mandraliscae	variety	2	t	9733,207983	eredita dalla specie
+353260d5-6495-4681-93df-af5749939018	Cyclamen coum subsp. caucasicum	subspecies	2	t	22532,316915	eredita dalla specie
+9b2df064-76ac-4a8c-85f8-4e0909d4edd4	Delphinium elatum subsp. elatum	subspecies	2	f	239044,504867	eredita dalla specie
+d0f9da7e-162a-4f10-9f28-e0bf8a310c1a	Draba imbricata	species	2	t	6063,90815	eredita dal genere
+fdcc5a15-007f-461f-a0ef-f2e355729b23	Eriosyce paucicostata subsp. paucicostata	subspecies	2	t	112579,119921	eredita dalla specie
+54d35a68-6460-4a5e-99bd-4baa79d970fe	Eucomis pallidiflora subsp. pole-evansii	subspecies	2	t	6922,361737	eredita dalla specie
+53a47017-4751-4ad1-903a-4f6e70b41ec7	Euphorbia seguierana subsp. niciciana	subspecies	2	t	44239,245183	eredita dalla specie
+9ce6c9d8-bc1a-4373-81f2-cad7e5ed8e01	Fragaria vesca subsp. vesca	subspecies	2	t	60180,218252	eredita dalla specie
+b41e42c9-fe9e-47a7-bbbe-7a791fde656e	Geranium biuncinatum	species	2	f	268932,274713	eredita dal genere
+10fc6015-9d38-4eb3-a9ea-ab777e5ac93f	Grevillea alpina	species	2	f	84336,114304	eredita dal genere
+86e95a88-0db4-4dec-babd-3620ca9b7f21	Halesia tetraptera var. monticola	variety	2	t	8223,85197	eredita dalla specie
+a3d84f31-3b38-4ea1-8ac0-a82bdd61a223	Helianthemum italicum	species	2	t	311352,528993	eredita dal genere
+f6eca6e9-7f09-4a80-a82c-24db2d2e01bf	Helianthus bolanderi	species	2	t	8492,8494	eredita dal genere
+360166ac-7939-46d7-aabb-1bcf08b09789	Hydrangea cinerea	species	2	t	500312,8908	eredita dal genere
+0a54b198-0c56-4ab1-b257-0a80fb300bf9	Hydrangea robusta	species	2	t	24757,40828	eredita dal genere
+aeee5add-ae9d-4a77-b723-6ecd7b862f6d	Hydrangea strigosa	species	2	t	8956,323887	eredita dal genere
+b7a8bf4a-d307-4542-9234-104e31859f4d	Jasione laevis subsp. laevis	subspecies	2	t	62956,134906	eredita dalla specie
+31340c61-defd-4b3f-b8a9-eed7a18d2a04	Juniperus sabina var. davurica	variety	2	f	9575,87338	eredita dalla specie
+d4ed51d6-2b99-466d-9ffc-f071f3caed4a	Kniphofia thomsonii var. thomsonii	variety	2	t	81043,283242	eredita dalla specie
+8aed0f6f-b1c0-42a4-913b-d5322c7976ff	Lavandula mairei	species	2	t	231386,241885	eredita dal genere
+86b7ff0e-a21d-4565-80c0-f508bc25906f	Leontodon hispidus subsp. danubialis	subspecies	2	t	328957,328969	eredita dalla specie
+cf3a2841-8534-4cde-9aa2-3873d6bf881d	Lobularia maritima subsp. maritima	subspecies	2	t	124134,301236	eredita dalla specie
+c9e4a20f-4f3a-4f42-bd50-81bf0a5949f1	Lunaria annua subsp. annua	subspecies	2	t	55250,308096	eredita dalla specie
+83b35cf7-792b-4ea1-916c-e7086ad0e8d4	Magnolia macrophylla var. ashei	variety	2	t	120020,251865	eredita dalla specie
+a8fd9f46-7969-4318-a330-6340a227784b	Magnolia sieboldii subsp. sinensis	subspecies	2	t	10714,357410	eredita dalla specie
+169f4634-1e27-47da-8aa5-f1b451b2be89	Malva subovata subsp. bicolor	subspecies	2	t	66305,73623	eredita dalla specie
+e1d14f9f-8edd-4535-ba7d-3aaaf0d41b7f	Matthiola incana subsp. incana	subspecies	2	t	82711,136363	eredita dalla specie
+d0cbfa19-f47e-46ed-8eed-06e10bc80aa1	Musa acuminata subsp. acuminata	subspecies	2	t	11242,65866	eredita dalla specie
+1460d200-ff23-4d1a-9df7-9b6cb31bba06	Narcissus cordubensis	species	2	t	24048,205896	eredita dal genere
+de4e4ed9-426d-48c8-8e69-d4ad092cf967	Nemesia fruticans	species	2	t	54585,138290	eredita dal genere
+02154788-f222-45e8-9996-d39bb90805e2	Ocimum gratissimum subsp. gratissimum	subspecies	2	t	160027,306321	eredita dalla specie
+6e344733-f1bb-43f5-ba6f-76cbf80d7eff	Oreomecon alpina subsp. degenii	subspecies	2	t	55677,72810	eredita dalla specie
+bc2665ef-d0f6-4797-bf64-8d415e3c50ea	Oxalis triangularis subsp. papilionacea	subspecies	2	t	60508,235081	eredita dalla specie
+785aa468-30b5-470e-bc8a-a1f6e4dea8a7	Paeonia officinalis subsp. microcarpa	subspecies	2	t	70928,90181	eredita dalla specie
+1f384a70-64aa-4d1c-8660-206455265025	Pandorea pandorana subsp. pandorana	subspecies	2	t	204047,204083	eredita dalla specie
+24e56bdd-ab54-48f3-9280-3afdba00ed49	Papaver dubium subsp. dubium	subspecies	2	t	296477,296478	eredita dalla specie
+563d3dd5-099b-46cc-9976-0451039db1d1	Papaver pilosum subsp. spicatum	subspecies	2	t	12228,44416	eredita dalla specie
+2a6066a2-b64f-4a7b-aca5-042923627610	Penstemon fruticosus var. scouleri	variety	2	t	95183,224498	eredita dalla specie
+d1a52171-7726-4949-97f9-716ad9beb8dd	Petrorhagia saxifraga subsp. saxifraga	subspecies	2	t	290414,293481	eredita dalla specie
+938d5274-84d0-45f3-9261-f0d7d6e0e0f1	Phalaenopsis amabilis subsp. amabilis	subspecies	2	t	408866,368067	eredita dalla specie
+5fb49938-3a97-42e9-84e5-a7772887d15c	Polemonium pulchellum	species	2	t	44658,59434	eredita dal genere
+a1dd1483-a39e-4eb4-b62a-aa064c6c94a1	Primula vulgaris subsp. vulgaris	subspecies	2	t	44924,72398	eredita dalla specie
+8c428e29-4290-4f28-9aa1-0e20e64a3b6c	Pterocephalus perennis subsp. perennis	subspecies	2	t	28164,68758	eredita dalla specie
+4943a98d-c79e-4932-89d7-c4951a9873d9	Rhododendron benhallii	species	2	t	46061,58295	eredita dal genere
+367cb576-8db6-4bcf-bbf5-b031c98bcc37	Rhododendron dichroanthum subsp. scyphocalyx	subspecies	2	t	94447,329337	eredita dalla specie
+57660fc1-0706-46c3-8840-aec01d06c2dc	Rhododendron uniflorum var. imperator	variety	2	t	101372,224994	eredita dalla specie
+7b9bf69c-f1c9-485d-b655-479a518ba2c5	Rhododendron yedoense f. poukhanense	form	2	t	96628,322373	eredita dalla specie
+43ab15e3-035a-408e-b977-3aa3f16b3898	Rhododendron yunnanense subsp. yunnanense	subspecies	2	t	322335,322372	eredita dalla specie
+a1224abd-46b5-435d-8337-0652bff7e96d	Ribes uva-crispa var. sativum	variety	2	t	79293,269065	eredita dalla specie
+fbc605c9-cf2e-4043-add2-a2a080c3e009	Rosa × kosinsciana	species	2	f	15993,39316	eredita dal genere
+87bf7349-4953-4668-ac26-c56270dcf0e4	Rosa farreri	species	2	t	95757,166570	eredita dal genere
+371c448b-fa3d-4e46-bd41-ae8ac178620b	Rosa lucidissima	species	2	t	93875,97346	eredita dal genere
+75cd4b5a-86c8-4d07-a88e-8611eb6909c3	Rotheca myricoides subsp. myricoides	subspecies	2	t	29545,79901	eredita dalla specie
+262636c6-8d00-4582-87a6-2f2d59d0618c	Rubus sprengelii	species	2	t	302699,524294	eredita dal genere
+68e7530c-7eb7-4a83-b80b-f6195ba8b158	Rudbeckia speciosa	species	2	t	16160,58008	eredita dal genere
+be0a7671-3d07-4645-8038-3e3970c271f7	Saxifraga rosacea subsp. rosacea	subspecies	2	t	246148,246150	eredita dalla specie
+ecf9bdd0-8d79-4cd7-a2f9-17b2b24d7819	Saxifraga rosacea subsp. sponhemica	subspecies	2	t	244788,302785	eredita dalla specie
+ec8654ba-54d2-4543-af0f-72b7b99dd413	Scilla verna subsp. verna	subspecies	2	t	261198,522890	eredita dalla specie
+80e6fb6d-6420-431d-9070-1642a83a9927	Seseli libanotis subsp. libanotis	subspecies	2	t	156835,274651	eredita dalla specie
+0ad9b0a8-7e21-4685-8c42-3910ea9e95e0	Silene latifolia subsp. alba	subspecies	2	t	246267,293431	eredita dalla specie
+6afcf08a-76f7-4b3b-a766-cbb262426e33	Sorbaria kirilowii var. arborea	variety	2	t	17516,86922	eredita dalla specie
+3d7cbf87-a8fc-493a-bd03-e02ba002e8a1	Sorbaria tomentosa var. angustifolia	variety	2	t	69829,322902	eredita dalla specie
+99c98020-2a4a-4c08-9685-c3cc5964074a	Syringa reticulata subsp. reticulata	subspecies	2	t	17917,172503	eredita dalla specie
+b87a0a6f-0236-4486-ae22-daed5f581d09	Thelypteris palustris subsp. palustris	subspecies	2	t	158511,189581	eredita dalla specie
+bfde1312-439a-45aa-a601-a8c193d3cd94	Tilia tomentosa var. petiolaris	variety	2	t	323212,524298	eredita dalla specie
+6b1aed41-33c6-4ea0-bd78-f41208deb8fc	Viola septentrionalis	species	2	t	19014,70458	eredita dal genere
+16483997-be5c-4e4b-8353-ee5d00691d0d	Viscaria atropurpurea	species	2	t	174582,195900	eredita dal genere
+08798196-7b66-4251-86c2-13c34f3052c3	Watsonia borbonica subsp. borbonica	subspecies	2	t	19078,336768	eredita dalla specie
+9645089c-7c73-44c5-a616-eb3ef08a584d	Weingartia neocumingii subsp. pulquinensis	subspecies	2	t	19103,106281	eredita dalla specie
+ba00cae6-1010-49b3-8c0f-d0e6d6657fc8	Abelmoschus manihot subsp. manihot	subspecies	1	t	116608	eredita dalla specie
+f3be9cb3-d1f3-46a4-abdf-3eba453a7c20	Abies chensiensis subsp. salouenensis	subspecies	1	t	68	eredita dalla specie
+14528ae5-97c1-4307-916a-07db1cd0cad9	Abies delavayi subsp. fansipanensis	subspecies	1	t	135893	eredita dalla specie
+1a5dc98c-2377-4127-8e02-fec4f01dd4cf	Abies lasiocarpa var. arizonica	variety	1	f	25974	eredita dalla specie
+580d1c8f-7c26-4d16-a2d5-43384af26765	Abies magnifica var. shastensis	variety	1	t	96544	eredita dalla specie
+877a6023-c41f-4883-927c-3d70b56ca320	Abies marocana	species	1	t	89735	eredita dal genere
+642809ca-045b-41d2-b3f7-4b753e356a16	Acaena integerrima	species	1	t	184954	eredita dal genere
+5a9a8034-09df-440e-af02-8ffeda0651f2	Acanthus dioscoridis var. perringii	variety	1	t	185023	eredita dalla specie
+9d34aef8-990b-41f7-a69b-fd84e84e3376	Acanthus hirsutus subsp. syriacus	subspecies	1	t	105200	eredita dalla specie
+9b0a7e9f-39f9-4130-ade8-6eda2b210c89	Acer caesium subsp. giraldii	subspecies	1	t	193	eredita dalla specie
+c5227615-1026-4735-912e-1a967fd78e8a	Acer coriaceifolium	species	1	f	164048	eredita dal genere
+2b824217-d36d-49ad-bf4f-e9414944cf0e	Acer lobelii	species	1	t	209	eredita dal genere
+16caa8bd-7d02-4521-8fb7-3ff5ee6fbe27	Acer miyabei subsp. miyabei	subspecies	1	t	185133	eredita dalla specie
+f15dc14d-ddd7-44c0-98cb-14172ec6c43e	Acer monspessulanum subsp. ibericum	subspecies	1	t	185076	eredita dalla specie
+8226a80b-5e6e-4a0a-a389-ff44974c4a18	Acer pictum subsp. okamotoanum	subspecies	1	t	26066	eredita dalla specie
+c2a3e9ba-2a90-4d2b-bbd3-e92071e194e6	Acer robustum	species	1	t	126383	eredita dal genere
+2150c961-3373-42a6-b425-c990324f59aa	Acer serrulatum	species	1	t	278429	eredita dal genere
+a5a7ddf5-cdc3-4efe-a346-39d0f25337b4	Acer tataricum subsp. aidzuense	subspecies	1	t	26038	eredita dalla specie
+87136b8e-dd4a-4264-b85d-9c3ec0bb1307	Achillea millefolium subsp. millefolium	subspecies	1	t	135496	eredita dalla specie
+a0554e54-407b-4259-b8ee-d1bccf3b4555	Achillea nobilis subsp. neilreichii	subspecies	1	t	135867	eredita dalla specie
+ac2432a3-4db8-420e-b35a-fd852af8ceb6	Achillea pratensis	species	1	t	516360	eredita dal genere
+5fe3a3c8-73ef-4452-8160-5473ad423ef2	Achillea taygetea	species	1	t	107982	eredita dal genere
+65bb54c9-5035-4571-ac7b-70e0dcbe4b08	Achimenes longiflora	species	1	f	185167	eredita dal genere
+95524156-b4d0-423f-8f87-23e6549975f8	Achimenes patens	species	1	f	120655	eredita dal genere
+20665ae4-5647-4922-96a3-3c78be97904d	Aconitum × acutum	species	1	t	185205	eredita dal genere
+710a7acd-7dce-4513-ae88-32a87719f10f	Aconitum × exaltatum	species	1	t	185558	eredita dal genere
+3bebfe40-aa77-405a-9703-19b14782b4d9	Aconitum anglicum	species	1	t	52687	eredita dal genere
+14032f32-fe06-424a-a6e0-52efc2d9c6cf	Aconitum anthora subsp. anthora	subspecies	1	t	151069	eredita dalla specie
+58d434df-45ba-451a-9bdc-e9f624fae23c	Aconitum confertiflorum	species	1	t	186904	eredita dal genere
+7cee9a2e-0842-43d3-bee5-430b386fbb37	Aconitum japonicum subsp. napiforme	subspecies	1	t	152300	eredita dalla specie
+ff522a7e-0b81-45ab-a145-5633a69a7567	Aconitum napellus subsp. lusitanicum	subspecies	1	t	185300	eredita dalla specie
+28aebb4c-1927-4c3d-958c-aa5631e30a8a	Aconitum sachalinense subsp. yezoense	subspecies	1	t	185587	eredita dalla specie
+17591542-a6d7-41de-8fb5-e46f05cafbd8	Actaea rubra subsp. arguta	subspecies	1	t	185365	eredita dalla specie
+96beb5f9-a8b1-45bf-8332-b8970836c8c6	Actaea rubra subsp. rubra	subspecies	1	t	100451	eredita dalla specie
+30ddebb4-21ef-4077-a34d-20444369a522	Adenophora morrisonensis subsp. uehatae	subspecies	1	t	50171	eredita dalla specie
+d19bc139-a2fd-44e7-8fa5-225ba8047a34	Adenophora polyantha subsp. scabricalyx	subspecies	1	t	185444	eredita dalla specie
+d46c363a-3a2c-4329-b146-7fec70d1d651	Aechmea chantinii var. chantinii	variety	1	t	185506	eredita dalla specie
+50fc6f68-63b8-46df-805c-c49d7c294092	Aeonium canariense subsp. canariense	subspecies	1	t	185698	eredita dalla specie
+e5be5f52-1cdf-4b9f-9d41-645eb7b7100a	Aeonium canariense subsp. latifolium	subspecies	1	t	114287	eredita dalla specie
+a0ade70a-fe0c-46ae-8e5d-be0988c3eed2	Aethionema armenum	species	1	f	222471	eredita dal genere
+500cc2c5-e6e0-44a1-a311-d653749cc39b	Aethionema cordatum	species	1	t	185797	eredita dal genere
+0d951b01-afd4-4571-bffc-9c917622c9f6	Aethionema saxatile subsp. graecum	subspecies	1	t	42233	eredita dalla specie
+6ffc8d86-3286-41e6-8375-712104ab1946	Agapanthus inapertus subsp. inapertus	subspecies	1	t	26360	eredita dalla specie
+d5aadc24-ccf7-43e0-9a27-049f2208189e	Agapanthus inapertus subsp. intermedius	subspecies	1	t	117821	eredita dalla specie
+6dda4e77-f0b4-409f-8ddb-dc3ec656cecf	Agapanthus inapertus subsp. pendulus	subspecies	1	t	26358	eredita dalla specie
+b8d58758-f634-4e11-97f4-d3810632e5d8	Agave americana subsp. americana	subspecies	1	t	185891	eredita dalla specie
+057d481b-2852-4759-ba19-6efca92614e9	Agave americana var. franzosini	variety	1	t	515163	eredita dalla specie
+599b7300-0fe7-450c-87be-bb7f39e552b3	Agave angustifolia var. angustifolia	variety	1	t	155297	eredita dalla specie
+9b480b34-6bd5-4e76-ba28-335331bf3a9e	Agave nickelsiae	species	1	t	63945	eredita dal genere
+c7fc6a7c-5673-4ce0-bfaf-837e68614b2e	Agave panamana	species	1	t	218795	eredita dal genere
+3ce69700-5cc8-4a22-91dd-e454e888d336	Agave parryi subsp. neomexicana	subspecies	1	t	83120	eredita dalla specie
+76b8e449-faad-4cfd-9089-d79b2ad77659	Agave salmiana subsp. salmiana	subspecies	1	t	185885	eredita dalla specie
+74ebfa58-99c4-4193-a46e-f373a4cef797	Agave salmiana var. ferox	variety	1	t	74079	eredita dalla specie
+b2095776-4dd0-407e-9ac9-27e098134772	Aglaonema nitidum	species	1	f	120656	eredita dal genere
+9ac2acf4-9861-4f2d-8f8b-af3e05489288	Agrimonia eupatoria subsp. asiatica	subspecies	1	t	185954	eredita dalla specie
+04ff89c7-4c1e-432a-a4cd-656bbb3a51e4	Agrostemma githago subsp. githago	subspecies	1	t	293126	eredita dalla specie
+efa5054b-9c5f-4f27-84ae-fc89ebb1d08c	Ailanthus altissima var. sutchuenensis	variety	1	t	185981	eredita dalla specie
+c7439eca-da59-4a1d-96db-9fa9749897a7	Ajuga × hybrida	species	1	f	502083	eredita dal genere
+a3de2624-6e58-4823-9fb5-4395d42b2209	Akebia trifoliata subsp. trifoliata	subspecies	1	t	26443	eredita dalla specie
+a34c167e-2dd7-49bc-8d56-9694e142a0d5	Albizia julibrissin var. julibrissin	variety	1	f	374783	eredita dalla specie
+ad41fb53-ed4a-4a2f-ab18-f929c0d4db67	Alchemilla hoppeana	species	1	t	186014	eredita dal genere
+dd274352-c1e2-4045-bf21-477547fa0645	Alchemilla indivisa	species	1	t	186019	eredita dal genere
+d685ad1c-d43c-4846-86b4-e9194c740b20	Allium blandum	species	1	t	174945	eredita dal genere
+23888fa4-a57c-44d9-a6cf-313842c76ae2	Allium euboicum	species	1	t	186145	eredita dal genere
+b278e2eb-4ce1-400a-be7c-faf832cded8f	Allium farreri	species	1	t	91645	eredita dal genere
+4311bf51-3142-461e-a5de-7577e5947999	Allium oliganthum	species	1	t	186218	eredita dal genere
+cfb9b8f1-c76c-4e11-bc21-2a5553989c2a	Allium platystemon	species	1	t	186223	eredita dal genere
+5c1ef79e-f6b2-42aa-a6cc-3f5bc7ebc03f	Allium rhodopeum	species	1	t	186237	eredita dal genere
+3bcf74fc-fbca-44f7-86fb-bce2bc538d25	Allium roseum subsp. roseum	subspecies	1	t	186229	eredita dalla specie
+217d0a37-b27c-4525-8620-ee3c187ffefd	Allium sibthorpianum	species	1	t	47219	eredita dal genere
+106c87d6-64e5-4ce5-a012-456bb269d6a1	Allium sphaerocephalon subsp. arvense	subspecies	1	t	186106	eredita dalla specie
+b7214103-d55e-42f6-ae94-3469fd505c8e	Allium sphaerocephalon subsp. sphaerocephalon	subspecies	1	t	263328	eredita dalla specie
+662239aa-4588-49ca-8e3a-f999ca9c7d11	Allium tanguticum	species	1	f	193131	eredita dal genere
+1a59d50e-088c-4c3d-ba78-651ef3596fc5	Allium taquetii	species	1	t	124925	eredita dal genere
+b2a049da-be1b-4644-be18-062fc0fd5af0	Allium trifoliatum	species	1	f	517751	eredita dal genere
+c727b47e-fcb0-4831-b369-d693938080b3	Alocasia baginda	species	1	f	388779	eredita dal genere
+5a640ae5-e11d-4ecb-a807-c3eb6c6e0149	Aloe bowiea	species	1	t	3468	eredita dal genere
+13b0933b-b037-4353-8708-7ac4d0dc74ef	Amelanchier alnifolia subsp. alnifolia	subspecies	1	t	189160	eredita dalla specie
+10ea00bb-9b5c-4d5b-b7ae-61c64b5f3444	Amentotaxus argotaenia var. argotaenia	variety	1	t	186704	eredita dalla specie
+4ea4c7a1-956f-4374-b96f-682c9768a985	Amsonia tabernaemontana var. salicifolia	variety	1	t	188111	eredita dalla specie
+1a320404-ec9f-45b7-9644-88fc23d28f58	Anacamptis pyramidalis var. urvilleana	variety	1	t	264151	eredita dalla specie
+ef2cbc78-98bd-48fb-b50e-ad1c838ce90f	Anaphalis margaritacea var. yedoensis	variety	1	t	26611	eredita dalla specie
+d9ee2b87-26f2-49cd-9f6f-8b4fbecbe10f	Anchusa officinalis subsp. officinalis	subspecies	1	t	188196	eredita dalla specie
+b89a0384-dc32-4fb2-8154-f6005519677f	Andropogon gerardi var. gerardi	variety	1	t	156224	eredita dalla specie
+e1921c6d-483e-422e-b688-7f6b8b25ed29	Androsace villosa subsp. villosa	subspecies	1	t	139137	eredita dalla specie
+67ec2f8e-a568-457e-b14c-edb9ec85c630	Antennaria dioica subsp. dioica	subspecies	1	t	231952	eredita dalla specie
+9581e63d-3734-4bc1-b71a-3cbf5455b6b6	Antennaria rosea subsp. rosea	subspecies	1	t	188550	eredita dalla specie
+bd2f9595-8480-47a9-b1e6-23e8c79aa978	Anthurium schlechtendalii subsp. schlechtendalii	subspecies	1	t	188683	eredita dalla specie
+931e28f5-03a3-4e86-9352-fe9d6816496f	Anticlea elegans subsp. elegans	subspecies	1	t	244211	eredita dalla specie
+ee47dbc8-b782-4f84-b1e3-89c1988201a8	Aquilegia × helenae	species	1	t	188788	eredita dal genere
+0b7fd2e8-0724-4a6a-ae27-98de0331f774	Aquilegia aurea	species	1	t	168424	eredita dal genere
+0ca9c54d-0c38-481e-90c2-39130129b035	Arbutus mollis	species	1	t	188924	eredita dal genere
+5e103e61-efc5-4f71-83ad-b2c9b88c4356	Arctium lappa subsp. lappa	subspecies	1	t	328048	eredita dalla specie
+a02ac43e-c1dc-4dbc-8519-c9a31267bd08	Arctium minus subsp. minus	subspecies	1	t	328049	eredita dalla specie
+87c3bbd0-8daa-420a-b0ae-53bcf374fc6e	Arisaema flavum subsp. flavum	subspecies	1	t	189072	eredita dalla specie
+5df020f9-9999-4ae3-bb80-0efa35db3ccf	Arisarum vulgare subsp. vulgare	subspecies	1	t	381416	eredita dalla specie
+672ca1f3-1d4c-44de-af8e-48d964a7d0df	Arpophyllum giganteum subsp. giganteum	subspecies	1	t	189173	eredita dalla specie
+cdb40f67-e862-499b-bfd0-74910f22e909	Artemisia assoana	species	1	t	75118	eredita dal genere
+aebf6193-9079-4da4-8faf-a774f32e3f0f	Artemisia douglasiana	species	1	f	43299	eredita dal genere
+641e3ce7-f159-445a-b9a4-3ff7835f460d	Artemisia kitadakensis	species	1	f	71498	eredita dal genere
+760079bf-fece-46e2-8119-357ef78c7c35	Artemisia ludoviciana subsp. candicans	subspecies	1	f	127453	eredita dalla specie
+c8109edd-ebb5-449d-a6d8-e6a2b06f9ed3	Artemisia palmeri	species	1	t	1639	eredita dal genere
+08114837-774e-4c61-bd46-df5bb7872ae7	Artemisia pedemontana	species	1	t	1640	eredita dal genere
+80145888-da6c-4981-ac70-a4c99021b9ae	Arum pictum	species	1	f	54447	eredita dal genere
+12a7c334-e2a4-4aaa-b46d-db148b01df21	Asphodelus albus subsp. subalpinus	subspecies	1	t	189469	eredita dalla specie
+708fb319-ffc6-45ff-9e71-e92df637eaaa	Asplenium cristatum	species	1	t	189606	eredita dal genere
+dfe120af-c5ff-4871-8228-072912585fa9	Asplenium fontanum subsp. fontanum	subspecies	1	t	27205	eredita dalla specie
+21b780f2-8f14-447b-b500-ba34bf607331	Asplenium macraei	species	1	t	189709	eredita dal genere
+4024ca6b-a8de-42ef-af60-b84a7bcecd14	Asplenium ruta-muraria subsp. ruta-muraria	subspecies	1	t	185357	eredita dalla specie
+71c0bb2a-dea0-441f-9188-1f6aee6591d7	Asplenium septentrionale subsp. septentrionale	subspecies	1	t	185359	eredita dalla specie
+eb7d07ae-d087-407e-b266-dafa05db4cc3	Baptisia australis var. australis	variety	1	t	203071	eredita dalla specie
+abb0113f-75d1-4a25-a535-cdd4de81fcc6	Begonia × tuberhybrida	species	1	f	258312	eredita dal genere
+fcc37aff-3fa6-4a2d-8586-5ef35eec6f92	Begonia erythrophylla	species	1	t	143085	eredita dal genere
+a594db5e-0f4a-4394-baef-a8a26f293738	Begonia grandis subsp. sinensis	subspecies	1	t	135649	eredita dalla specie
+1ecd25ff-c273-4857-ada7-0d437cc68477	Begonia listida	species	1	t	2022	eredita dal genere
+b347ae71-8afc-4298-aeb0-924e864a8350	Begonia pendula	species	1	t	203649	eredita dal genere
+90d4c718-040f-42de-a7eb-b22aae73f945	Begonia semperflorens	species	1	t	25707	eredita dal genere
+eeee0064-aea1-4642-86fd-2972eca1b658	Begonia semperflorens-cultorum	species	1	t	203677	eredita dal genere
+6d855055-c862-40f3-9286-79eb152e4832	Begonia undulata	species	1	t	203682	eredita dal genere
+3b5423cf-2098-44c5-a9b0-ca10f0a18862	Berberis sanguinea	species	1	f	287937	eredita dal genere
+fd4649c0-3b23-4fb0-9a36-07046d9a549f	Betula kweichowensis subsp. fansipanensis	subspecies	1	t	332079	eredita dalla specie
+b52cc991-8e7c-48ca-9ac6-d9746fc5fff5	Betula kweichowensis subsp. kweichowensis	subspecies	1	t	2247	eredita dalla specie
+daef0bcb-c28a-4142-aa8b-0ac6cf8827a7	Betula pubescens var. kusmisscheffii	variety	1	t	27897	eredita dalla specie
+27302074-fb1c-4c32-8732-265789182080	Betula utilis subsp. jacquemontii	subspecies	1	t	2248	eredita dalla specie
+410cc22c-b461-45f2-bba1-2d4455514cf7	Blackstonia perfoliata subsp. perfoliata	subspecies	1	t	318673	eredita dalla specie
+b99d0068-db5c-437b-bedf-a7113ee48c86	Boltonia asteroides var. latisquama	variety	1	t	204464	eredita dalla specie
+0c88f959-381f-4eba-9eb6-47bd9125f502	Brugmansia insignis	species	1	f	324728	eredita dal genere
+2f450727-afb6-441b-b014-9508b58628a6	Bryonia dioica subsp. dioica	subspecies	1	t	2439	eredita dalla specie
+e8de311f-9cf4-4267-9368-88210d10b27a	Buddleja tsetangensis	species	1	t	540613	eredita dal genere
+cdf54454-3a99-48bb-ad71-19d5aa37cc9a	Buphthalmum salicifolium subsp. salicifolium	subspecies	1	t	205336	eredita dalla specie
+4fded5a2-b2f1-4eb1-abdb-509803033b7b	Calanthe tankervilleae var. tankervilleae	variety	1	t	165095	eredita dalla specie
+61f5e3c4-d8b8-40cf-989c-07261ff9cffe	Calceolaria uniflora	species	1	f	227559	eredita dal genere
+1cfb322e-34c6-4cce-b23c-67e59f9d5ade	Calendula suffruticosa subsp. lusitanica	subspecies	1	t	327971	eredita dalla specie
+46e2ac14-bd3f-4bab-bb3f-8ec3bfe67107	Calliandra haematocephala var. haematocephala	variety	1	t	206196	eredita dalla specie
+fd937cbb-dd2c-4a9a-a828-09deb9d810ac	Callicarpa giraldii	species	1	t	28270	eredita dal genere
+ed73ded5-ab4d-4c7e-86d2-327de36ce161	Callisia gentlei var. elegans	variety	1	t	20094	eredita dalla specie
+d52f9627-0c23-4e98-a869-324a13a9589c	Callitriche palustris subsp. palustris	subspecies	1	t	318968	eredita dalla specie
+a7323078-1dd2-4257-9ebc-d5f71e15505a	Caltha palustris var. cornuta	variety	1	t	28282	eredita dalla specie
+17c16f01-664c-4ce8-8df2-a9a5de2422ce	Camassia quamash subsp. quamash	subspecies	1	t	206517	eredita dalla specie
+1b85a2e6-61eb-439b-978a-17414b293bce	Camellia drupifera	species	1	t	206585	eredita dal genere
+2d97dae4-3953-49cc-9255-c7804d98daee	Campanula altaica	species	1	t	206758	eredita dal genere
+96ef38e9-a7d3-4fe3-9cc4-09b8d4abe008	Campanula arvatica var. acutangula	variety	1	t	206748	eredita dalla specie
+9d9d4d1a-95a0-4d26-8b03-d0a8a9981d4d	Campanula dasyantha	species	1	t	228239	eredita dal genere
+d1352a68-e71c-4b31-8c6f-8a581dd87d43	Campanula latifolia subsp. latifolia	subspecies	1	t	206801	eredita dalla specie
+c6fc991e-69b6-4240-b260-ec777eb0cacf	Campanula phyctidocalyx	species	1	t	206759	eredita dal genere
+fd1ffebc-0083-424a-9cd9-41f1263be98a	Campanula rupestris	species	1	f	227431	eredita dal genere
+93302d4b-688f-4413-9e85-e20df37ca880	Campanula sarmatica subsp. sarmatica	subspecies	1	t	206755	eredita dalla specie
+365bc034-e425-4660-ac71-f1ac3d220e5f	Campanula saxifraga	species	1	t	2973	eredita dal genere
+91f574c2-d267-4988-af56-5088011fc3c0	Canna orchiodes	species	1	t	206914	eredita dal genere
+5e030afb-de5f-4115-b91c-0aff365a743b	Carex fraseriana	species	1	f	151576	eredita dal genere
+e028d1bf-1b62-4d0c-ad45-4077aa652882	Carex leersii	species	1	t	281209	eredita dal genere
+9b6fb798-0c78-411c-8b84-b5d49fc51fe1	Carex umbrosa	species	1	f	212841	eredita dal genere
+ec3fe44a-36f0-42c8-b1c6-2a6394744428	Carpinus orientalis subsp. orientalis	subspecies	1	t	207706	eredita dalla specie
+6e5ed678-d78e-4e52-a69f-58590d483cfd	Centaurea jacea subsp. jacea	subspecies	1	t	328361	eredita dalla specie
+c727a125-c161-4af9-9187-e82d8350dd05	Centaurea stricta	species	1	t	28958	eredita dal genere
+efbc4259-a2b0-49a6-82da-08042a5b6f2c	Centaurium erythraea subsp. erythraea	subspecies	1	t	25046	eredita dalla specie
+8291a6fa-53f8-4df2-bf2d-b18963fd86a5	Centratherum punctatum subsp. punctatum	subspecies	1	t	209106	eredita dalla specie
+e5d07260-6923-4835-a716-9ca70dcbf688	Cereus forbesii	species	1	t	209556	eredita dal genere
+1274bef5-72cb-4e8a-920a-02d94d4a7fe1	Chaerophyllum hirsutum subsp. hirsutum	subspecies	1	t	315766	eredita dalla specie
+f560797a-9ed0-4fe1-a3c0-26dda666349e	Chamaenerion angustifolium subsp. circumvagum	subspecies	1	t	210072	eredita dalla specie
+02c78da1-1b2c-4f3c-a589-372545a7dd94	Chionochloa rubra subsp. rubra	subspecies	1	t	5307	eredita dalla specie
+641e5056-92a7-47fd-ae16-f6a9d7ca401e	Choisya arizonica	species	1	f	516569	eredita dal genere
+6315a5c4-7647-4784-855e-e1b0a2be8aa3	Cirsium × ochroleucum	species	1	t	328155	eredita dal genere
+e67605b8-d29d-4e1c-aaab-d2a7f54bd377	Cissus mexicana	species	1	t	212837	eredita dal genere
+58647387-1fd8-42bf-850d-def7ec48bd11	Cistus × nigricans subsp. nigricans	subspecies	1	t	3875	eredita dalla specie
+40ab0c9d-7bc6-46ef-933a-df1e7e2b6549	Cistus ladanifer subsp. sulcatus	subspecies	1	t	3878	eredita dalla specie
+b5303c5d-395f-466a-88fc-a016dc4a1e36	Citrus × tachibana	species	1	t	110367	eredita dal genere
+3dc59886-a605-4078-88b3-8713beeb68a2	Clarkia amoena subsp. lindleyi	subspecies	1	t	187276	eredita dalla specie
+8f7fe368-6a17-4f2c-b22c-c81dba41753b	Claytonia perfoliata subsp. perfoliata	subspecies	1	t	49747	eredita dalla specie
+f5ee990e-6ed0-4a55-a6dc-5efcd95f21c3	Clematis × jackmanii	species	1	t	213087	eredita dal genere
+1086050f-f1d9-4cdc-a08e-01a210b730a2	Clematis clarkeana	species	1	f	298389	eredita dal genere
+8e8c7bbf-5f68-49a1-9efc-2f1f976c9bb9	Clematis potaninii	species	1	f	170243	eredita dal genere
+ac420326-dd5e-412e-bfb7-b5f2bd238780	Clematis tibetana var. vernayi	variety	1	t	20154	eredita dalla specie
+fb53ac0b-22a4-4125-8cc8-2507bb7c45ed	Clinopodium vulgare subsp. vulgare	subspecies	1	t	97597	eredita dalla specie
+4f325b20-8587-4ce7-bdda-01a4312c01b7	Coffea liberica var. dewevrei	variety	1	t	213558	eredita dalla specie
+393003a7-7486-4e17-9ada-b4994306c36b	Colchicum dolichantherum	species	1	t	213583	eredita dal genere
+8afaf3ab-7ae0-450f-9378-176042eaaa38	Colchicum fasciculare	species	1	t	213598	eredita dal genere
+c677ca80-a2b7-4207-baff-749b70829bcc	Coleus caninus subsp. caninus	subspecies	1	t	182288	eredita dalla specie
+a5ca6f9a-ef20-4ff6-97f8-4009a7a30fd4	Columnea scandens	species	1	f	213718	eredita dal genere
+c740880b-54a6-4052-89bb-c3c6309bad67	Conophytum bilobum var. muscosipapillatum	variety	1	t	214101	eredita dalla specie
+52558af6-de07-48cc-8d16-0f5e358d6865	Conophytum pellucidum subsp. cupreatum	subspecies	1	t	214187	eredita dalla specie
+e2cddac9-ff66-42c4-b08f-90d844273190	Conophytum pellucidum var. terricolor	variety	1	t	214188	eredita dalla specie
+d6a14ccd-ffc4-4e9f-80dd-fb70e0ae687e	Conophytum wettsteinii subsp. fragile	subspecies	1	t	214063	eredita dalla specie
+75ec789f-ee9b-4849-b5e5-4af6f2019264	Convolvulus sabatius subsp. mauritanicus	subspecies	1	t	30589	eredita dalla specie
+40e2971b-d5d6-426f-9e97-77bde14cf92a	Correa decumbens	species	1	f	269909	eredita dal genere
+6ed50269-f603-4337-a3ca-cb3b0c8c9c8d	Cota tinctoria subsp. sancti-johannis	subspecies	1	t	85700	eredita dalla specie
+fba17528-c2b7-4532-881e-fb6959be158d	Cotoneaster duthieanus	species	1	f	125360	eredita dal genere
+3d3d23f8-7d65-4525-a2a7-ee2c3b417298	Cotoneaster salicifolius var. henryanus	variety	1	f	4615	eredita dalla specie
+b32f0ea4-1e39-48c9-bfe3-1d2a29cb4842	Crassula capitella subsp. thyrsiflora	subspecies	1	t	247493	eredita dalla specie
+e6289281-14cb-4fde-b017-909e54a884ee	Crassula rupestris subsp. marnierana	subspecies	1	t	523621	eredita dalla specie
+9f470e99-3f2e-4dcc-924f-a93ccdc84932	Crataegus × desueta	species	1	t	323456	eredita dal genere
+7d444951-2870-4ab5-9844-53223ffa3991	Crataegus laevigata subsp. laevigata	subspecies	1	t	30825	eredita dalla specie
+9431df43-e0cd-4740-880e-b0f1feed94c3	Crocosmia fucata	species	1	f	149124	eredita dal genere
+bf6d02ba-4c69-4bc3-a07d-f010071209f5	Crocus × asturicus	species	1	t	61262	eredita dal genere
+0b158a14-f575-401b-96ce-93254eeeb39e	Crocus flavus subsp. flavus	subspecies	1	t	29612	eredita dalla specie
+4bab9fd6-7b6a-44af-9dcb-f2b47c0667a6	Cuscuta epithymum var. trifolii	variety	1	t	158240	eredita dalla specie
+b9090547-84fc-4ce8-b44c-a946daeba267	Cycas sexseminifera	species	1	t	192421	eredita dal genere
+e3effe1a-f231-41ba-8eef-583d631f96bf	Cyclamen coum subsp. coum	subspecies	1	t	98634	eredita dalla specie
+5214e02f-a5a0-4685-ba64-a8810b26cf46	Cyclamen hederifolium subsp. hederifolium	subspecies	1	t	51925	eredita dalla specie
+fcec58b1-0dbc-46ba-821c-481c6e84fff4	Cyclamen rhodium subsp. peloponnesiacum	subspecies	1	t	30975	eredita dalla specie
+8209cda7-a1f8-44be-9e4e-683f197567d7	Cymbalaria muralis subsp. muralis	subspecies	1	t	86169	eredita dalla specie
+d5d92421-9000-4038-a2b9-9fc3f099def8	Cyphomandra crassicaulis	species	1	t	100130	eredita dal genere
+c8c5cb82-b6aa-4280-8622-754d64d1b844	Cyrtomium falcatum subsp. falcatum	subspecies	1	t	63940	eredita dalla specie
+1cd5ef87-e3cd-445b-9475-8fee697a5887	Daboecia cantabrica subsp. azorica	subspecies	1	f	31054	eredita dalla specie
+1342b83d-4c46-45db-9e16-7b77692b90d7	Dactylicapnos macrocapnos subsp. macrocapnos	subspecies	1	t	31763	eredita dalla specie
+8aba8b04-df7b-46b5-831a-ae18851ddce9	Daphne retusa	species	1	t	5340	eredita dal genere
+0dc8c0ff-81ef-403b-876d-2125a19b4dfb	Delosperma basuticum	species	1	f	345422	eredita dal genere
+e70b951a-9f36-4247-97bb-f7d49aa9a411	Dianthus carthusianorum subsp. carthusianorum	subspecies	1	t	293759	eredita dalla specie
+7e65bfeb-3059-4652-b0de-0bfc20f5031a	Dianthus haematocalyx subsp. pindicola	subspecies	1	t	31562	eredita dalla specie
+2fa54e52-a4df-4583-a734-4263150a71b6	Dianthus petraeus subsp. orbelicus	subspecies	1	t	60225	eredita dalla specie
+fc6c7fd9-0f4e-49f0-a6a3-204eb13deeb9	Dianthus sternbergii	species	1	t	30461	eredita dal genere
+f8443e8b-278b-4949-9b20-10a04963af36	Dicentra formosa subsp. oregana	subspecies	1	t	88548	eredita dalla specie
+bf98c8ea-bac6-40a5-8cfa-14210a546455	Dictamnus albus var. caucasicus	variety	1	t	171268	eredita dalla specie
+51156c08-b232-46e3-952c-1cad6544caaa	Dierama medium	species	1	f	274725	eredita dal genere
+0cddb2a0-2fcf-447c-8378-533efdcb6e60	Digitalis cariensis	species	1	f	374614	eredita dal genere
+ccf29888-dd79-4ac3-b30f-d50e4bf9a82a	Digitalis heywoodii	species	1	t	46603	eredita dal genere
+0fd1dfc9-1178-486a-b121-6e30bdeebccb	Digitalis lanata subsp. lanata	subspecies	1	t	57854	eredita dalla specie
+8757ebe6-367a-4317-90a5-3cc18d9af41d	Digitalis lutea subsp. australis	subspecies	1	t	130168	eredita dalla specie
+df65712f-ee8a-4a1f-a6a0-b100096d69c2	Disocactus ackermannii subsp. ackermannii	subspecies	1	t	278569	eredita dalla specie
+91beebc7-ebed-4b4f-8d46-8681a530a9fe	Draba bryoides	species	1	t	6062	eredita dal genere
+979c19d0-c734-4af8-8590-00f108dcb98e	Dracocephalum officinale subsp. aristatum	subspecies	1	t	9056	eredita dalla specie
+fda70ce7-ae20-4811-9605-3c1a3cea7a38	Dryopteris filix-mas subsp. filix-mas	subspecies	1	t	189517	eredita dalla specie
+509f5059-bbd7-4ffc-9759-8f4112d92c45	Echinocereus salm-dyckianus	species	1	t	6266	eredita dal genere
+ce371d9a-4555-4069-91a8-72854250a64e	Echinopsis aurea subsp. aurea	subspecies	1	t	106166	eredita dalla specie
+cc9fde7d-de9e-4791-8f01-035435d15ebe	Epilobium ciliatum subsp. ciliatum	subspecies	1	f	41202	eredita dalla specie
+a602446c-b9a6-4627-a8ea-ce5af7a13c61	Epimedium grandiflorum var. grandiflorum	variety	1	t	302098	eredita dalla specie
+f1cbbc77-be02-4e12-b415-eb8c6608d35a	Eremurus stenophyllus subsp. stenophyllus	subspecies	1	t	6547	eredita dalla specie
+9f2145ec-3f4a-4cb8-b693-cf8eb32f37c3	Eriosyce wagenknechtii	species	1	t	106191	eredita dal genere
+2ec54e51-88e4-4244-9dcd-7fd59d9c3e2e	Erythronium sibiricum	species	1	f	375884	eredita dal genere
+15d10023-e64a-4fc8-a688-42786e33252a	Eschscholzia californica subsp. mexicana	subspecies	1	f	217478	eredita dalla specie
+2f1b9467-8654-406a-ace6-99c73439ced0	Eucalyptus gunnii subsp. divaricata	subspecies	1	t	96405	eredita dalla specie
+0399fda0-e9f5-42b6-80d6-c9c7e96ee7d2	Eucalyptus macrorhyncha subsp. cannonii	subspecies	1	t	20257	eredita dalla specie
+f9f46576-1c3a-4f5e-a356-6913fcd53f2d	Eucalyptus ovata subsp. ovata	subspecies	1	t	61945	eredita dalla specie
+d745a1bf-f71b-4933-8944-707aca21ba2b	Eucalyptus pauciflora subsp. pauciflora	subspecies	1	t	324309	eredita dalla specie
+96d742fa-3663-447b-a5fa-3facc1dab24b	Eucomis autumnalis subsp. autumnalis	subspecies	1	t	6925	eredita dalla specie
+2125da27-7bf5-4f11-960d-d201af25cb45	Eucomis humilis	species	1	f	274710	eredita dal genere
+3379a567-71e1-4793-900c-7f5e1bc653df	Euonymus fortunei var. radicans	variety	1	t	91109	eredita dalla specie
+06f85f5d-21db-466b-a6e0-f0f926864008	Euphorbia abyssinica subsp. abyssinica	subspecies	1	t	7076	eredita dalla specie
+b1c1fc19-8bd6-4e12-a87c-19cf52854217	Euphorbia amygdaloides subsp. robbiae	subspecies	1	t	32751	eredita dalla specie
+cd7360f4-3dcf-4836-886c-37c3c557c56b	Euphorbia luteoviridis	species	1	t	23077	eredita dal genere
+00dcf0e2-d3d0-4db8-a3bb-6a52bc890c80	Euphorbia pilosa	species	1	f	93910	eredita dal genere
+cda90b76-79ab-4e2b-9cbb-c24a6630119b	Euphorbia saratoi	species	1	f	254027	eredita dal genere
+3ef938fa-b0cf-4af8-83d9-dfb6d14d3279	Euphorbia splendens	species	1	t	32755	eredita dal genere
+449e9807-2e8d-4679-85e0-cd09e02f15fe	Euphorbia tithymaloides subsp. tithymaloides	subspecies	1	f	116661	eredita dalla specie
+467240aa-e9eb-4e2b-8ca8-3ad35b2171dd	Fagus grandifolia subsp. grandifolia	subspecies	1	t	324884	eredita dalla specie
+386b2cf9-23bc-4577-b26b-1a473721e713	Fargesia scabrida	species	1	f	238682	eredita dal genere
+ee951024-0679-473e-b6f3-095e759ed442	Fascicularia bicolor subsp. bicolor	subspecies	1	t	541919	eredita dalla specie
+76e0bc21-ea53-46fb-9ba5-0d7fd4563785	Fascicularia bicolor subsp. canaliculata	subspecies	1	t	79635	eredita dalla specie
+1be861bd-0379-4c21-a3ee-7f0f822f9c5b	Fenestraria rhopalophylla subsp. aurantiaca	subspecies	1	t	131600	eredita dalla specie
+f09cecc3-94d7-45fe-96c5-65fd48a5c0eb	Fenestraria rhopalophylla subsp. rhopalophylla	subspecies	1	t	7161	eredita dalla specie
+22ee1a7c-bd94-48a2-a48b-d11558528be0	Ferocactus emoryi subsp. covillei	subspecies	1	t	248840	eredita dalla specie
+37c772fa-891d-40d4-805d-8ffba89037b1	Ferocactus emoryi subsp. rectispinus	subspecies	1	t	7171	eredita dalla specie
+faea17b7-8787-4797-ac81-0f58eedefd7a	Ficus robusta	species	1	f	187848	eredita dal genere
+b7804b23-f7a5-49a0-a514-e9ccbcdfaf58	Filipendula ulmaria subsp. ulmaria	subspecies	1	t	71031	eredita dalla specie
+5d867a5b-85da-48f1-8c93-1a5e8138b496	Fraxinus angustifolia subsp. oxycarpa	subspecies	1	f	7319	eredita dalla specie
+087c81b4-4a3e-4780-9c5f-eacf8470e483	Fritillaria kurdica	species	1	t	30464	eredita dal genere
+7b2f3b3a-82b5-4270-bfe6-7236f437917e	Fritillaria messanensis subsp. sphaciotica	subspecies	1	t	109680	eredita dalla specie
+2eb2c35f-eec8-4d9c-96b4-68e0cc9ef10c	Fritillaria pyrenaica subsp. pyrenaica	subspecies	1	t	7418	eredita dalla specie
+3d90fcde-9327-40f9-859c-b2dcc1f4c671	Fritillaria wendelboi	species	1	t	542518	eredita dal genere
+5257d46b-bb70-4dc1-a6e4-16c3c4379272	Galanthus elwesii subsp. elwesii	subspecies	1	t	100596	eredita dalla specie
+0e9afc37-5e16-446f-92af-340400cbb875	Gasteria carinata var. verrucosa	variety	1	t	7639	eredita dalla specie
+86394006-38e0-451a-a165-b1d592e8d887	Gasteria nitida var. armstrongii	variety	1	t	137716	eredita dalla specie
+d61b68de-c3e1-45b6-bcb0-d34b21769a71	Gazania rigens var. uniflora	variety	1	t	7716	eredita dalla specie
+f43f29b1-82ab-45b8-86cc-6a5ecb7d89ef	Genista delphinensis	species	1	t	33402	eredita dal genere
+b4073a2d-d050-4677-908a-e4dd9f8c598b	Genista stenopetala	species	1	t	57866	eredita dal genere
+ec3b37ef-4fd0-4232-83d9-42be21a33fdf	Gentiana acaulis subsp. acaulis	subspecies	1	t	24393	eredita dalla specie
+db1b3e3c-8832-4b21-8cab-feac6927b09c	Gentiana clusii	species	1	t	150430	eredita dal genere
+5bc9f072-4377-4f45-ae83-711d478a9cdf	Gentiana lagodechiana	species	1	t	46738	eredita dal genere
+f0f91940-1ca6-483c-bfdd-6a04d371e666	Geranium atlanticum	species	1	t	64192	eredita dal genere
+ab7247df-1f0e-464f-afbb-d6306edfe14b	Geranium cataractarum	species	1	f	168411	eredita dal genere
+bcfdac7b-cc17-4f31-b6e3-add0d8ccb710	Geranium donianum	species	1	t	90448	eredita dal genere
+302a6ef0-5539-4309-bb41-3338baec9760	Geranium lambertii	species	1	f	57944	eredita dal genere
+81509345-0a15-4a4a-be4c-c51857baa6e6	Geranium rectum	species	1	f	49514	eredita dal genere
+8a7c07c0-613a-42ff-a57b-5669efadb3b2	Geum magellanicum	species	1	f	220908	eredita dal genere
+5ab18595-4e10-4ec6-8de0-6713764dd6b9	Gibasis geniculata	species	1	f	534269	eredita dal genere
+2b69ff6e-ce83-4367-ad67-6a7d164f836d	Gladiolus × byzantinus	species	1	t	7997	eredita dal genere
+11b5ca37-e8c8-4e66-b984-9d2769f32a29	Gladiolus cunonius	species	1	t	52070	eredita dal genere
+f9792609-7f30-441d-bc86-7c33a2882112	Gladiolus ecklonii	species	1	f	299303	eredita dal genere
+db40d6ae-1348-4628-98b9-9d14f7570974	Glandora prostrata subsp. prostrata	subspecies	1	t	318913	eredita dalla specie
+941ddbe2-1d9e-4947-b1ba-54282a21bd86	Gloriosa simplex	species	1	t	8057	eredita dal genere
+de08177d-ad2d-4c3c-bc16-937cc3887a63	Goeppertia gandersii	species	1	f	544153	eredita dal genere
+033e0224-f3ac-46e9-b66a-6a8bcae38689	Grevillea banksii	species	1	f	126442	eredita dal genere
+d5e66405-e222-4f22-904c-f3304b19fb5b	Grevillea juniperina subsp. sulphurea	subspecies	1	t	33627	eredita dalla specie
+18919f44-8674-46cb-870c-c784a659a2e3	Gunnera tinctoria var. tinctoria	variety	1	t	514331	eredita dalla specie
+23f28885-5542-4361-ab87-8b75912fa280	Gymnocalycium horstii subsp. buenekeri	subspecies	1	t	268652	eredita dalla specie
+7f8943c8-1ffa-4a84-a896-747b6ba56496	Hamamelis virginiana var. mexicana	variety	1	t	270859	eredita dalla specie
+5041fce0-7734-41f6-ae08-0bdff6fb82df	Haworthia truncata var. maughanii	variety	1	t	8278	eredita dalla specie
+9061f6db-7cbd-4e41-82b2-b5a9c04aae63	Haworthiopsis venosa	species	1	t	103603	eredita dal genere
+02291b73-9de8-4ba9-820d-ccfd478f8b85	Hedera helix subsp. caucasigena	subspecies	1	t	33856	eredita dalla specie
+733fd011-24a1-4157-a804-23c2d017c818	Hedera helix subsp. helix	subspecies	1	t	371554	eredita dalla specie
+f393752a-9a0e-467e-a47e-206cc14bdc66	Hedychium flavum	species	1	t	254763	eredita dal genere
+02d878ea-75f7-4126-a86d-facb62f4917b	Helenium bigelovii	species	1	f	238476	eredita dal genere
+4781a2cf-7c81-4453-8015-20dcfa09fe6f	Helianthemum canum	species	1	t	8462	eredita dal genere
+839d76a4-f5b0-44cd-8919-bf2926272649	Helianthemum nummularium subsp. obscurum	subspecies	1	t	303277	eredita dalla specie
+8df17397-0946-4e88-8087-6f88f4a9b74b	Helichrysum serotinum	species	1	t	99522	eredita dal genere
+999b426d-fb24-4a62-b2a8-b62885d2d6c6	Helichrysum trilineatum	species	1	t	49420	eredita dal genere
+923320bb-9224-44b9-aa70-ab09a4875ec0	Heliopsis helianthoides var. scabra	variety	1	f	39132	eredita dalla specie
+d67b3eef-0299-445a-94cd-6e88bb5d7dc6	Helleborus multifidus subsp. hercegovinus	subspecies	1	t	298140	eredita dalla specie
+b40a33c9-45ad-4737-9076-c09811ff1cd2	Helleborus odorus subsp. cyclophyllus	subspecies	1	t	8567	eredita dalla specie
+0e2bc162-502b-4f8e-8533-6690fb5bc1ac	Hemerocallis citrina var. vespertina	variety	1	t	46940	eredita dalla specie
+4bab6f89-38d6-4c89-8f1d-f85554770739	Heptacodium miconioides subsp. jasminoides	subspecies	1	t	40254	eredita dalla specie
+c521189e-fd42-4f7c-a874-ac46e9d43f6f	Hesperaloe parviflora subsp. parviflora	subspecies	1	t	186431	eredita dalla specie
+acc6dfd2-85a2-4bd0-838f-fe2e9fa444ab	Heuchera alba	species	1	f	40504	eredita dal genere
+16d2d712-b672-4dba-a83b-a177f6b59f6e	Heuchera cylindrica var. alpina	variety	1	f	113777	eredita dalla specie
+72dedcdc-615e-49b0-a399-8170ccf577c2	Heuchera parviflora	species	1	t	81130	eredita dal genere
+7fc27146-f4a6-4737-97b4-53193cdd2f2a	Hieracium sabaudum subsp. virgultorum	subspecies	1	t	523684	eredita dalla specie
+14f620bb-1503-4b04-937d-a1d9f026c370	Hoya bella	species	1	t	8851	eredita dal genere
+12b9afd6-fa58-46cc-b6ae-fbcbbb131cf5	Hydrangea acuminata	species	1	t	323879	eredita dal genere
+df957aac-dff9-4503-aa88-5bc269b1aff6	Hydrangea sargentiana	species	1	t	8950	eredita dal genere
+c1968ec3-87b4-483b-a3c8-e8363698540b	Hydrangea stylosa	species	1	t	184441	eredita dal genere
+7f83ed01-0ccd-4579-bb14-28d38c2d3a00	Hydrangea xanthoneura	species	1	t	21520	eredita dal genere
+76f5927e-2356-49ef-baf8-fe430386a029	Hylotelephium vulgare	species	1	t	67689	eredita dal genere
+e20042f1-a31e-45ef-bb62-a37182198d4e	Hypericum perforatum subsp. perforatum	subspecies	1	t	311260	eredita dalla specie
+06448c33-27ad-4e54-a2e0-dc757814f7fa	Ilex cassine subsp. cassine	subspecies	1	t	175631	eredita dalla specie
+bece8169-beb5-4a43-99b1-8daea813576e	Ilex fargesii subsp. fargesii	subspecies	1	t	323923	eredita dalla specie
+a1f53891-4b44-4646-8df8-52090fec3b75	Ilex perado subsp. perado	subspecies	1	t	182615	eredita dalla specie
+40e77b7f-3c46-4d21-bafe-150427db7b4f	Ilex wilsonii	species	1	t	41129	eredita dal genere
+3a5427da-3765-47ab-94a8-fbe93d7295cf	Iris arenaria	species	1	t	46667	eredita dal genere
+4b557986-d0d4-40e0-a7e9-33bd2925f7e7	Iris lactea f. biglumis	form	1	t	115165	eredita dalla specie
+ccbf3c92-b1b6-4e9b-91cf-9e737fd55d18	Iris pallida subsp. cengialti	subspecies	1	t	282199	eredita dalla specie
+0a84a215-c478-47a8-8241-85bc5bcdc608	Iris pallida subsp. illyrica	subspecies	1	t	20229	eredita dalla specie
+a0c88752-660c-45f7-bed9-67dae65a7b71	Iris sanguinea var. violacea	variety	1	t	44899	eredita dalla specie
+2c2401e0-691c-4a7b-a75c-71776761c588	Iris sicula	species	1	t	302067	eredita dal genere
+b0cacfb8-3407-4e72-b3a9-49497d162eb5	Iris spuria subsp. carthaliniae	subspecies	1	t	66028	eredita dalla specie
+15ea1086-db28-42ff-a00e-5ab8b439d006	Iris unguicularis subsp. unguicularis	subspecies	1	t	72606	eredita dalla specie
+6cec99f7-b3c9-4dce-b205-4859adfdc838	Iris variegata var. variegata	variety	1	t	42337	eredita dalla specie
+41825b0a-81a2-4c4a-95b2-9a0847eb90e0	Isotoma fluviatilis subsp. fluviatilis	subspecies	1	t	141228	eredita dalla specie
+8f6676af-b857-4dd4-9cab-07687ba3ac55	Jacobaea paludosa subsp. paludosa	subspecies	1	t	161209	eredita dalla specie
+b871e2f5-a0e9-4c21-846f-4d3277f704e7	Juncus inflexus subsp. inflexus	subspecies	1	t	268060	eredita dalla specie
+af27cf2e-0d58-451c-90ca-7a996468ae57	Juniperus morrisonicola	species	1	t	246044	eredita dal genere
+54d1538d-e63a-4aa9-822a-db41cbb87555	Justicia pohliana	species	1	t	69692	eredita dal genere
+d925688d-6ec3-4db2-abad-4041989ceb8c	Kalanchoe marmorata var. somaliensis	variety	1	t	9699	eredita dalla specie
+2005ceed-1eeb-4524-8703-3a1a41d4f1b3	Knautia arvensis subsp. arvensis	subspecies	1	t	289270	eredita dalla specie
+dcbd0515-4918-453c-8fc3-92ec9d34b376	Kniphofia fibrosa	species	1	f	253852	eredita dal genere
+18e22e6a-e79d-4b1f-a72a-7f633e6aaf15	Kniphofia goetzei	species	1	t	283086	eredita dal genere
+0e253080-205b-48ca-a946-73a6af19fc9e	Lablab purpureus subsp. purpureus	subspecies	1	t	47768	eredita dalla specie
+ce62ced2-4dd4-40af-9ecc-74729cdae54d	Lachenalia ensifolia subsp. ensifolia	subspecies	1	t	59078	eredita dalla specie
+74ce3166-0a26-45c1-b54d-96507a2a6cd1	Lathyrus cyaneus	species	1	f	112338	eredita dal genere
+5c2081ef-9aef-4926-98f9-128cec946656	Lathyrus gmelinii	species	1	f	68151	eredita dal genere
+ea76eefa-6197-4a54-bfc5-d0a58f609def	Lavandula angustifolia subsp. angustifolia	subspecies	1	t	54571	eredita dalla specie
+bac3d7b4-c2dc-4d53-81f7-409622ca2c51	Lavandula angustifolia subsp. pyrenaica	subspecies	1	t	97043	eredita dalla specie
+d23f896e-ee39-40fa-8516-e416e46fcfff	Leptinella squalida subsp. squalida	subspecies	1	t	4698	eredita dalla specie
+690bb157-892b-4044-bb5f-bda1d7b6ff80	Leptospermum polygalifolium subsp. polygalifolium	subspecies	1	t	97894	eredita dalla specie
+3f3686b8-bf43-47dc-84d5-8ac23a56dd4c	Leucanthemum ircutianum	species	1	t	218051	eredita dal genere
+1e16bea4-b001-4aa7-9c57-853e9ba4a064	Ligularia dentata subsp. dentata	subspecies	1	t	78582	eredita dalla specie
+bfe3a7f0-9517-4f7a-b85a-6894f1c40322	Ligularia sibirica subsp. sibirica	subspecies	1	t	212550	eredita dalla specie
+5278c7c6-3c3d-4f66-a6d9-cbc5baa495a6	Ligustrum × vicaryi	species	1	t	350536	eredita dal genere
+d3c77c8d-c0da-4ba4-bf73-8940cc063f50	Lilium duchartrei	species	1	t	118264	eredita dal genere
+92188f1a-d1e1-4e56-967a-cf69bab59488	Linaria alpina subsp. alpina	subspecies	1	t	218303	eredita dalla specie
+2dd4fb4d-03ec-4b3e-93e0-7d2fdcd516d9	Linaria vulgaris subsp. vulgaris	subspecies	1	t	319304	eredita dalla specie
+105bfa67-6546-409d-8d4b-b2db55726f68	Lobivia backebergii subsp. wrightiana	subspecies	1	t	106169	eredita dalla specie
+5311d875-bf0c-4d5b-a324-08844212d18f	Lonicera chamissoi	species	1	f	308075	eredita dal genere
+50092143-9fef-482e-b6c3-fe00f2708122	Lonicera glabrata	species	1	f	308076	eredita dal genere
+d8a5fda6-33dd-4cb3-9fbd-6db71b281526	Lonicera lanceolata	species	1	f	308078	eredita dal genere
+51527922-8c31-4961-b4f3-73b012405693	Lonicera spinosa	species	1	t	324253	eredita dal genere
+0e5ab563-9b3e-451b-a2c9-2799c4ccc0c3	Lupinus mexicanus	species	1	t	280588	eredita dal genere
+12880edf-84b7-4303-b4c9-54c5e3c10b1f	Lysimachia japonica subsp. japonica	subspecies	1	t	134909	eredita dalla specie
+1243c242-51a2-4d01-87c6-88041083739c	Magnolia arroyoana	species	1	t	334506	eredita dal genere
+ffd359b5-49e0-4ead-ad70-bbb73615630a	Magnolia fulgens	species	1	t	177854	eredita dal genere
+fe4b717b-e5ce-40e1-bda8-54047f34d592	Magnolia maudiae	species	1	t	296046	eredita dal genere
+f199b955-7228-4bba-960e-9efb3c5d39dd	Mahonia pinnata subsp. pinnata	subspecies	1	t	332647	eredita dalla specie
+ae726efd-14b0-4e00-9bcc-5597547d2d85	Malva subovata subsp. subovata	subspecies	1	t	24487	eredita dalla specie
+f0ae1bc3-e3c8-4176-8566-4cbd75966e57	Mammillaria longimamma	species	1	t	6016	eredita dal genere
+56b60a1b-b215-4fff-8bbb-4af4e63ec8f4	Matthiola longipetala subsp. bicornis	subspecies	1	t	136891	eredita dalla specie
+93a3f492-01f4-4bb1-9837-7e2e580ac651	Melaleuca pearsonii	species	1	f	239734	eredita dal genere
+fd63b2fc-aba4-4d2b-ac70-8299c4557b13	Mentha spicata subsp. spicata	subspecies	1	t	45819	eredita dalla specie
+6359be65-7357-43cc-93fe-5bc527c648f7	Mentha spicata var. crispata	variety	1	t	155860	eredita dalla specie
+691f6c1f-c395-492a-9df5-812d4f80186d	Monarda fistulosa var. mollis	variety	1	t	120214	eredita dalla specie
+a7774d03-9856-404d-a7de-9c0482629a62	Musa sikkimensis var. sikkimensis	variety	1	t	134038	eredita dalla specie
+890651fd-570b-4e1c-bca6-a72df5b52f5d	Muscari dolichanthum	species	1	t	30955	eredita dal genere
+8e766d53-0547-4604-ab52-657cab29ac4f	Muscari heldreichii	species	1	t	159930	eredita dal genere
+dca773a7-eb28-431c-8267-c7fb6041955b	Muscari pulchellum	species	1	t	196695	eredita dal genere
+a880f3aa-73d1-43e1-8643-c06083e1992d	Mutisia spinosa var. pulchella	variety	1	t	65340	eredita dalla specie
+039e87ea-b33b-4aec-86c5-89c00aa3b176	Myosotis arvensis subsp. arvensis	subspecies	1	t	232744	eredita dalla specie
+77f8f016-e23c-4bfa-9a16-bdceb2c93467	Myrtus communis subsp. communis	subspecies	1	t	241851	eredita dalla specie
+69ca4be7-0805-47ad-bdfe-172dec393c74	Narcissus albicans	species	1	t	132867	eredita dal genere
+7a8067a1-7e96-40a5-a768-3036f4203100	Narcissus assoanus subsp. assoanus	subspecies	1	t	11401	eredita dalla specie
+215b6767-e2df-432a-ab1f-e3c6e9647f2c	Narcissus assoanus subsp. baeticus	subspecies	1	t	66778	eredita dalla specie
+f819380d-33f9-40cb-a4b7-ba04f4e3fb98	Narcissus gigas	species	1	t	523685	eredita dal genere
+94b56919-bfa6-4ce2-9f6d-ea994da1d0da	Narcissus marvieri	species	1	t	95313	eredita dal genere
+77bf390a-1fbf-4b1b-9ee6-a7c8a5038b4c	Narcissus obesus	species	1	f	269848	eredita dal genere
+55a85dc6-7417-4cb4-977c-e1415f13a96e	Narcissus poeticus subsp. poeticus	subspecies	1	t	112085	eredita dalla specie
+6c699419-7d9d-491e-b38b-12b6e491d8f6	Narcissus tazetta subsp. tazetta	subspecies	1	t	264587	eredita dalla specie
+8977f583-94a2-427a-a0b3-3faf0765d9f0	Narcissus triandrus subsp. triandrus	subspecies	1	t	25842	eredita dalla specie
+636ae24b-021a-4e61-ad92-e019bb8fe33c	Narcissus watieri	species	1	t	11413	eredita dal genere
+8b72c26e-3e49-4ecd-a916-653a53831ad0	Nepeta nuda subsp. nuda	subspecies	1	t	74642	eredita dalla specie
+ad2e67f9-4940-4bd7-958e-379c467bfa65	Nymphaea × helvola	species	1	t	83743	eredita dal genere
+9a1a2f60-6180-42df-a266-399044ab27f6	Oenothera × ersteinensis	species	1	t	522899	eredita dal genere
+cbc66bdc-6312-4da7-8353-719295432422	Oenothera × paradoxa	species	1	t	522898	eredita dal genere
+41e572e9-8a4f-4ce0-98bf-68570c6bc000	Oenothera × rubricaulis	species	1	t	522874	eredita dal genere
+80d9adbc-cce6-40eb-aed5-fa0c6c1654c5	Oenothera × stucchii	species	1	t	522873	eredita dal genere
+73162954-6cf8-4894-9717-034ec75fee61	Oenothera affinis	species	1	f	192946	eredita dal genere
+1e7ea1f2-f831-4a1d-9334-35da98380b26	Oenothera coryi	species	1	f	194762	eredita dal genere
+30e8f23d-ace4-408d-8fba-a10eaabb9f34	Oenothera pallida	species	1	f	118888	eredita dal genere
+44c3b73d-16bc-4dea-b7c5-63a15a12a0da	Oenothera rosea	species	1	f	369590	eredita dal genere
+6f9db455-d896-4348-aab4-431a8e4c5a16	Opuntia elata	species	1	t	523069	eredita dal genere
+bd5597d2-740f-4bce-ab22-b4cabc21d6e1	Oreomecon alpina subsp. alpina	subspecies	1	t	101844	eredita dalla specie
+51f74734-5854-4258-ae21-b045bfc71cae	Oreomecon alpina subsp. ernesti-mayeri	subspecies	1	t	12229	eredita dalla specie
+45480923-a95c-4443-9cc7-953d18ac2d70	Oreomecon alpina subsp. kerneri	subspecies	1	t	12230	eredita dalla specie
+b0ed6eeb-07ac-439e-b267-92da33c6cbe8	Oreomecon alpina subsp. markgrafiana	subspecies	1	t	45366	eredita dalla specie
+605ed973-157b-4dbb-b5fa-ce71410f6d8d	Oreomecon alpina subsp. sendtneri	subspecies	1	t	83998	eredita dalla specie
+43949f62-f77f-4b89-904a-ef64fbf9bff6	Oreomecon aurantiaca	species	1	t	328936	eredita dal genere
+3cd554bc-a3ba-480f-84c7-f19a2f8eae08	Origanum minutiflorum	species	1	f	129852	eredita dal genere
+15f0c1b1-8ca9-42fb-84e0-447634559292	Oxalis latifolia subsp. latifolia	subspecies	1	t	284882	eredita dalla specie
+63d9dcfa-2514-486e-879a-cc8eced9bd36	Ozothamnus selago	species	1	f	129726	eredita dal genere
+daca56b7-71a0-4b90-a22d-00dcc72ebbc3	Paeonia × handel-mazzettii	species	1	t	186966	eredita dal genere
+9ac9a9c6-3ba6-44bf-bb3c-261cc93855d4	Paeonia × lagodechiana	species	1	t	228342	eredita dal genere
+0868a236-181b-4b4c-bba0-b7fcf17bfdcb	Paeonia broteroi	species	1	f	255427	eredita dal genere
+8fc102c6-0087-408b-8bb6-edf863fb336a	Paeonia corsica	species	1	t	345221	eredita dal genere
+a0bd50f7-df7a-407b-aa03-ad697aa5c0c5	Paeonia daurica subsp. daurica	subspecies	1	t	30913	eredita dalla specie
+04bc96a8-b7e2-46a4-95dd-4c2643f24b1a	Paeonia mascula subsp. russoi	subspecies	1	t	47681	eredita dalla specie
+202e2800-f21e-48c6-8e21-71fb0bbc8390	Paeonia mlokosewitschii	species	1	t	12162	eredita dal genere
+69b075ad-9771-49e6-863f-4d820331babc	Paeonia wittmanniana	species	1	t	131819	eredita dal genere
+3df5733e-4cea-4f23-821e-d675db0e9439	Papaver rhoeas subsp. rhoeas	subspecies	1	t	296494	eredita dalla specie
+015d2dd3-069e-451b-bca2-2b7dafb32e04	Parietaria judaica subsp. judaica	subspecies	1	t	283634	eredita dalla specie
+7375672c-b42b-4c53-acd4-26f9749399ba	Passiflora punctata	species	1	f	194846	eredita dal genere
+1008647d-95f9-4680-949f-489a82192b43	Pelargonium abrotanifolium	species	1	t	85247	eredita dal genere
+8bc72526-cd8d-4529-8ee1-3de2c370948f	Penstemon albertinus	species	1	t	154659	eredita dal genere
+6e39017b-2d40-4cb5-b242-7326c5675f1c	Penstemon deaveri	species	1	f	183825	eredita dal genere
+12c05731-6cef-42ca-946f-c836f581eb01	Penstemon newberryi var. sonomensis	variety	1	t	51411	eredita dalla specie
+5d719c1c-e6fa-4fe9-8730-cd02efe6bba8	Peperomia pulchella	species	1	t	20624	eredita dal genere
+f5207379-e8a2-483d-ad71-00ac6786a4f1	Persicaria amphibia var. emersa	variety	1	t	235972	eredita dalla specie
+940ba165-abf7-46e7-8c4d-936c84783dfe	Persicaria odorata subsp. odorata	subspecies	1	t	113569	eredita dalla specie
+61023d4d-0274-41ef-914c-29aed6a791fb	Petunia axillaris subsp. axillaris	subspecies	1	t	120064	eredita dalla specie
+cbce2889-6148-47ec-bfc6-bbfaa4c55861	Philadelphus × cymosus	species	1	f	12639	eredita dal genere
+151887c1-fadb-4f8f-a515-b380c0c7f08b	Philadelphus × falconeri	species	1	t	331953	eredita dal genere
+93d5ffe5-b8ce-4266-9d99-aca0464b7ad8	Philadelphus × monstrosus	species	1	f	111561	eredita dal genere
+90793ec6-a0f6-439a-a9c7-7e76e82f8992	Philadelphus × purpureomaculatus	species	1	t	69242	eredita dal genere
+e121a622-fb29-48e7-9b17-ad7a7b1c7a89	Philodendron opacum	species	1	t	508007	eredita dal genere
+2142e2b5-d19c-443e-a9ce-767149627a28	Phlox divaricata subsp. divaricata	subspecies	1	t	72313	eredita dalla specie
+416e8021-1fe9-4d79-af6d-6b91dc5ef254	Phlox hoodii	species	1	f	152022	eredita dal genere
+0ec5a579-c7ae-4925-a268-15672445cb9b	Phlox subulata subsp. subulata	subspecies	1	t	543574	eredita dalla specie
+d8dd88cf-28e4-48d7-aeac-e45de339932f	Photinia davidiana var. undulata	variety	1	t	152895	eredita dalla specie
+150264e1-2b91-4cc3-9cd1-f9f3f96e2be0	Phragmipedium × sedenii	species	1	t	12825	eredita dal genere
+7c173cb7-62cd-443f-bf49-753729519013	Phyteuma scheuchzeri subsp. scheuchzeri	subspecies	1	t	321357	eredita dalla specie
+0bae38d8-ee7d-430e-981e-a22b95d0ba4c	Picea likiangensis var. rubescens	variety	1	t	12931	eredita dalla specie
+7e3eca25-e051-4d79-871e-b796ca70adf8	Pilosella aurantiaca subsp. aurantiaca	subspecies	1	t	40557	eredita dalla specie
+f0c66bde-eb86-4647-a7ee-e1a60227bdd4	Pittosporum lineare	species	1	f	218471	eredita dal genere
+2678e0e8-c182-4938-b364-6bf9c6605b25	Poa glauca subsp. glauca	subspecies	1	t	271570	eredita dalla specie
+e4dea001-3384-4fe6-b858-0ea24bef279f	Podocarpus laetus	species	1	f	335100	eredita dal genere
+3d9b1655-7958-4e1f-8742-7b35d8e58538	Podocarpus matudae subsp. matudae	subspecies	1	t	22225	eredita dalla specie
+89b01efb-0781-4cc3-acd3-264976d3d682	Potentilla aurea subsp. aurea	subspecies	1	t	368104	eredita dalla specie
+39263feb-4f0d-4676-ae45-3bc0b5c5f82d	Primula × goebelii	species	1	t	182487	eredita dal genere
+1b6c47a3-17c9-4e26-9c02-9493d973f97a	Primula anisodora	species	1	t	13701	eredita dal genere
+690d4bbe-ae23-4d8f-af97-6aa1f57e76cf	Primula chionantha subsp. chionantha	subspecies	1	t	89056	eredita dalla specie
+de9d6769-8641-440e-8e1a-986dfb73e444	Primula darialica	species	1	f	227222	eredita dal genere
+91a298bb-0783-4c4e-924a-5c8dc3b4594e	Primula elatior subsp. leucophylla	subspecies	1	t	212145	eredita dalla specie
+ac959221-512c-4b58-9a14-3a4e78fb0256	Primula firmipes	species	1	t	46535	eredita dal genere
+2c2e5c8c-ba01-4c9f-88ea-3b96f8110eb9	Primula graminifolia	species	1	t	199491	eredita dal genere
+104b1c09-c3bd-4f4a-8df1-e34db7d3201b	Primula helodoxa	species	1	t	13772	eredita dal genere
+9ae711ac-263e-43b3-b36c-cc8991879968	Primula ianthina	species	1	t	13779	eredita dal genere
+71f16762-e765-4eca-94f5-fc246fd2b0df	Primula munroi subsp. yargongensis	subspecies	1	t	97512	eredita dalla specie
+6da56cc0-b36b-4666-a85f-278e83445706	Primula ruprechtii	species	1	t	208089	eredita dal genere
+2292e05f-84f6-4404-a2ef-ceef2c30efa3	Primula saxatilis	species	1	t	231175	eredita dal genere
+cbd336df-e94d-4a53-aa05-8706471fae09	Primula smithiana	species	1	t	20808	eredita dal genere
+356d7f38-820b-4cfb-9176-de235020c9dc	Primula veris subsp. macrocalyx	subspecies	1	t	240862	eredita dalla specie
+4d950db7-a9f7-4a0a-8edf-cef90fc95fc3	Primula veris subsp. veris	subspecies	1	t	303281	eredita dalla specie
+37be1b28-047c-4739-8d38-fd62361b0a21	Prunella vulgaris subsp. vulgaris	subspecies	1	t	50576	eredita dalla specie
+45b6002a-7912-4c4c-9fec-758f44052b3e	Prunus × syodoi	species	1	f	331772	eredita dal genere
+6bdbec4a-e387-4c9b-ab24-25f1ff8f5f18	Prunus azorica	species	1	t	219117	eredita dal genere
+be5c8d47-207a-4949-b1b8-071b05b99143	Prunus conradinae	species	1	t	151369	eredita dal genere
+9af16bb9-1bcf-468b-ab77-622991d43d1a	Prunus ulmifolia	species	1	t	324290	eredita dal genere
+2ad44f5a-0637-4af6-a0b9-8811ec293ac9	Pseudopanax discolor	species	1	f	542542	eredita dal genere
+58a64491-e602-4991-b899-2be8ed9e0a47	Pulmonaria hirta	species	1	f	82286	eredita dal genere
+21309f0a-3f87-49f7-9722-183b0d7549ec	Pulsatilla alpina subsp. apiifolia	subspecies	1	t	76866	eredita dalla specie
+eb185f23-c72d-4396-bc43-3eca796c14c2	Pulsatilla halleri subsp. slavica	subspecies	1	t	41860	eredita dalla specie
+6615ea28-2afe-41e3-ab8b-8a31303d20bf	Puschkinia scilloides subsp. scilloides	subspecies	1	t	224752	eredita dalla specie
+b8364a0c-2a83-4d2a-ab53-1e3e0d3d68e4	Quercus dentata subsp. dentata	subspecies	1	t	329194	eredita dalla specie
+a5289c92-2536-4f26-978b-b685bfeab6b5	Quercus garryana var. fruticosa	variety	1	t	104830	eredita dalla specie
+7ff5a113-e292-4ad3-b4b4-1a1cf8b51c9a	Quercus infectoria subsp. veneris	subspecies	1	t	118402	eredita dalla specie
+f4e4974d-5f1f-45ea-ae9f-22ff073a42ee	Quercus petraea subsp. petraea	subspecies	1	t	73960	eredita dalla specie
+5d30f300-4287-4609-9353-607f0534b6d6	Quercus richteri	species	1	t	284769	eredita dal genere
+76f3280d-a016-4699-bd94-b3061624d3b8	Quercus trojana subsp. trojana	subspecies	1	t	254308	eredita dalla specie
+a4c507e5-5abd-43c3-b0b9-39999d74505b	Ranunculus bulbosus subsp. bulbosus	subspecies	1	f	81742	eredita dalla specie
+3323a4f7-58ce-4c33-b72c-a6518b9f98d9	Rhipsalis baccifera subsp. baccifera	subspecies	1	t	59937	eredita dalla specie
+0bb19f81-b6ba-4cd8-a1bc-ec29d7de1ba7	Rhipsalis teres f. capilliformis	form	1	t	14486	eredita dalla specie
+fcc6972d-ec9a-4843-bbce-a92f9b10dfa5	Rhodanthe chlorocephala subsp. rosea	subspecies	1	f	515216	eredita dalla specie
+e9023e8f-5ec1-409b-b4dd-0ae0a08c5ba4	Rhodanthemum maresii	species	1	t	3783	eredita dal genere
+6d21d549-3ed5-42d4-b658-ddee72a106a8	Rhododendron × amoenum	species	1	t	331939	eredita dal genere
+a0bd9284-506b-4f0b-b51f-9f4c8c0dc737	Rhododendron campylocarpum subsp. caloxanthum	subspecies	1	t	92597	eredita dalla specie
+94fc36b3-9696-49b9-95e0-c802bc801937	Rhododendron cilipinense	species	1	f	224980	eredita dal genere
+22e2dbab-5475-4dec-970a-68dfd1bd30a3	Rhododendron cinnabarinum subsp. xanthocodon	subspecies	1	t	66668	eredita dalla specie
+47fd42b9-86bc-4fda-94bc-4bca20e3ce99	Rhododendron discolor	species	1	t	95180	eredita dal genere
+d745a526-b6b6-4f52-9fc7-b11dfdfc50e6	Rhododendron fictolacteum	species	1	t	89956	eredita dal genere
+10a6cf8e-1e7a-41d5-8705-d338aa935479	Rhododendron glischrum subsp. rude	subspecies	1	t	93470	eredita dalla specie
+aebbea48-f7f3-4b28-8300-e7ee39f5555a	Rhododendron keleticum	species	1	t	96220	eredita dal genere
+8fe0dd11-0b15-4c62-95cb-530b6ae76187	Rhododendron kroniae	species	1	t	150219	eredita dal genere
+2c776bbf-868b-4d13-9691-9f080f2c72d1	Rhododendron oreodoxa var. fargesii	variety	1	t	95023	eredita dalla specie
+9c0db3d5-3f73-4e7f-98c0-a29ec5ac0a21	Rhododendron pocophorum	species	1	t	191257	eredita dal genere
+af4c45a2-d05b-4221-a89f-bc923170d389	Rhododendron ponticum subsp. baeticum	subspecies	1	t	318612	eredita dalla specie
+4bda35fa-f7bd-4161-855d-25027da4db2e	Rhododendron ponticum subsp. ponticum	subspecies	1	t	249151	eredita dalla specie
+03800117-8452-4bf2-9091-eb75d07ae339	Rhododendron serrulatum	species	1	t	15670	eredita dal genere
+147655ba-8012-4a07-8a4f-12a024ee2053	Rhododendron tolmachevii	species	1	t	9903	eredita dal genere
+5ac260ce-e795-4b0c-869d-5f0c2195a0ac	Rhododendron wardii	species	1	f	126734	eredita dal genere
+7566ef31-4635-4fe8-9f2a-a6793627ef32	Ribes gordonianum	species	1	t	92863	eredita dal genere
+fa934a4a-e617-4a67-83b9-8784e8a2883d	Rodgersia aesculifolia var. henrici	variety	1	t	15919	eredita dalla specie
+c2f8ed08-9ad4-4610-9f6a-87fc4b8f720c	Rosa × campanulata	species	1	f	33957	eredita dal genere
+01efaa7f-aa28-42f3-92b7-bf72907ecefa	Rosa × polliniana	species	1	t	303857	eredita dal genere
+45275ccd-2a7a-402f-a7f4-3202f20c1927	Rosa balsamica	species	1	t	304188	eredita dal genere
+79b8cbaf-096e-4b25-a792-daf88bd365ea	Rosa cantabrigiensis	species	1	t	166566	eredita dal genere
+da6c55cb-99a3-445c-ab36-a7edb4d7d92b	Rosa carolina subsp. carolina	subspecies	1	t	83543	eredita dalla specie
+4445b105-7a7f-486f-ae3c-97a6f5a27ea1	Rosa longicuspis var. sinowilsonii	variety	1	t	39341	eredita dalla specie
+d6671161-d661-4ae8-97a9-4aeea04c89b3	Rosa penzanceana	species	1	t	55648	eredita dal genere
+45d709fd-14a8-4c3a-babd-fb98b990da2d	Rosa subcanina	species	1	t	303853	eredita dal genere
+07c88aeb-4b5c-4a6a-a7d6-d59b28dd9420	Roscoea purpurea f. purpurea	form	1	t	150009	eredita dalla specie
+f38367b5-806a-4c91-a8ac-dfb3bfd3778f	Rubus adspersus	species	1	t	524303	eredita dal genere
+48642c55-a5e1-47fd-a3b5-32ea80a05d1e	Rubus albionis	species	1	t	524326	eredita dal genere
+b0ded7cd-5094-4662-9ca2-736b06264f49	Rubus andegavensis	species	1	t	524289	eredita dal genere
+75e6a077-dd20-42be-9cfa-18b509ca8150	Rubus bartonii	species	1	t	524332	eredita dal genere
+b84f37f1-ac62-4c4f-b692-b058e41f7d55	Rubus bertramii	species	1	t	524270	eredita dal genere
+a916daec-4fde-4f85-afcf-a8fe4dd765a9	Rubus boraeanus	species	1	t	524314	eredita dal genere
+b0004875-8cfe-4de4-a351-237403ce6843	Rubus campaniensis	species	1	t	524317	eredita dal genere
+3fc2e79e-665b-4050-9228-8a17656f08a8	Rubus condensatus	species	1	t	524278	eredita dal genere
+aef45520-dc9b-427c-ab4c-53e522fe9945	Rubus coombensis	species	1	t	524329	eredita dal genere
+60b169b4-7721-4914-8d59-ee514bf8b62a	Rubus dasyphyllus	species	1	t	524302	eredita dal genere
+51f22391-d589-436f-97b0-12eedc1da246	Rubus dentatifolius	species	1	t	524301	eredita dal genere
+464c2391-1296-41a4-ace5-d27236537d9a	Rubus imbricatus	species	1	t	524253	eredita dal genere
+a096c4f5-c927-4382-8592-d2e7be54f805	Rubus insectifolius	species	1	t	524288	eredita dal genere
+096ca503-fa7f-45ab-8ee3-3e8de74ce8ff	Rubus integribasis	species	1	t	524272	eredita dal genere
+8325e6d7-2420-4ae1-b8bc-4e1a1350c7a7	Rubus leightonii	species	1	t	524273	eredita dal genere
+e5f5dcc7-e98c-4760-a131-4d685e5e4f8a	Rubus leyanus	species	1	t	524299	eredita dal genere
+ea617add-5c4d-4cd2-b345-37830d1012ef	Rubus lindebergii	species	1	t	524333	eredita dal genere
+8ee0e95e-49c5-4633-943e-96ecb2a6e664	Rubus longithyrsiger	species	1	t	524259	eredita dal genere
+81a33fa9-4737-4db0-a31f-f44fae765184	Rubus mucronatiformis	species	1	t	524300	eredita dal genere
+f19c1370-fb5c-47a9-b36a-acbc77bdef65	Rubus oxybelus	species	1	t	524309	eredita dal genere
+abcca4e3-6f36-4975-9ac0-c7df8e4fb3fb	Rubus platyacanthus	species	1	t	524266	eredita dal genere
+18b2e218-30fe-4a61-b598-7d18014a96e0	Rubus pruinosus	species	1	t	524285	eredita dal genere
+ab38636c-8a0f-4e53-9df6-5cb382746372	Rubus questieri	species	1	t	524334	eredita dal genere
+427c6041-874e-4207-b7c5-e0c13a928ff8	Rubus saltuum	species	1	t	524262	eredita dal genere
+68e75595-8478-4b9c-80ef-4895e67a60a6	Rubus scaber	species	1	t	524321	eredita dal genere
+760a7bd5-cebc-45b5-b88d-6ba27c5c8344	Rubus scabripes	species	1	t	524292	eredita dal genere
+7e4ec7ed-e5f4-4917-86bc-9609f77704a6	Rubus scissus	species	1	t	524265	eredita dal genere
+b9f5600d-46e7-44b8-8f7a-eb5215ed76e2	Rubus silvaticus	species	1	t	524323	eredita dal genere
+bd154249-ca36-4718-84d6-a080c84c4869	Rubus subinermoides	species	1	t	524283	eredita dal genere
+30036ecd-0f8d-465b-9279-37ee69225de7	Rubus troiensis	species	1	t	524274	eredita dal genere
+a702b124-6262-471e-b0ac-edb97b32c9df	Rubus variegatus	species	1	t	124621	eredita dal genere
+da6e3f01-f20d-4d0f-94d5-034d2a71c478	Rubus venetorum	species	1	t	524254	eredita dal genere
+69b0dfc6-a4a6-48ed-922c-f90cba4e00ee	Rubus winteri	species	1	t	524286	eredita dal genere
+f3b7d934-519b-48e2-a8bf-ad15eaadcf76	Rudbeckia deamii	species	1	t	16156	eredita dal genere
+a0eb3336-52a1-4183-bf10-67b622e6ea71	Ruta chalepensis subsp. chalepensis	subspecies	1	t	160975	eredita dalla specie
+679000c4-1a32-4fb7-b7fe-4878e935d6f0	Salix × sepulcralis var. chrysocoma	variety	1	t	324241	eredita dalla specie
+bca72887-c99d-469a-bed0-f607de2cfae8	Salix foetida	species	1	t	59538	eredita dal genere
+62b40b7a-3de4-4549-ba5b-c73fba99e79c	Salix gracilistyla f. melanostachys	form	1	t	328864	eredita dalla specie
+8f39b234-bfcc-4cbf-9310-5af6053380ed	Salix nakamurana f. yezoalpina	form	1	t	170743	eredita dalla specie
+c92fdc95-e9d8-406d-b357-d78a836002cc	Salix phylicifolia var. hibernica	variety	1	t	16255	eredita dalla specie
+4903ca7e-73e7-4e52-942d-c8558d2a4896	Salvia africana	species	1	t	85526	eredita dal genere
+c29bc274-bc03-4f07-9b59-92dd03c10662	Salvia lavandulifolia subsp. blancoana	subspecies	1	t	63299	eredita dalla specie
+e845ead5-3f7c-4c46-9aaf-f533de90ca4e	Salvia macrosiphon	species	1	t	28974	eredita dal genere
+0d129aa1-2f92-4884-a540-58d14d780535	Salvia microphylla var. neurepia	variety	1	t	16353	eredita dalla specie
+7682b854-07c5-4d99-81fd-ee88eacfe707	Saponaria ocymoides subsp. ocymoides	subspecies	1	t	234612	eredita dalla specie
+f351cc55-9291-435b-9707-7bb42270f1f4	Sarracenia rosea	species	1	t	214852	eredita dal genere
+7eb1ceed-692a-495e-b2b5-c40f5126709e	Saxifraga cespitosa	species	1	t	246151	eredita dal genere
+636c5907-fdf0-44d0-b283-c2561166343e	Saxifraga farreri	species	1	t	77276	eredita dal genere
+08d9f92f-78de-4927-82d4-1af858def8aa	Scabiosa columbaria subsp. banatica	subspecies	1	t	103129	eredita dalla specie
+703b885f-dff4-448f-8f41-2b54cdcbc776	Scadoxus multiflorus subsp. katharinae	subspecies	1	t	81271	eredita dalla specie
+517f8e03-a686-45ac-a783-4ae063ad06d6	Scadoxus multiflorus subsp. multiflorus	subspecies	1	t	56123	eredita dalla specie
+41969aa8-1f32-4621-9ef6-c07ec667d691	Scilla nivalis	species	1	t	359809	eredita dal genere
+e54d81e6-5971-4c18-88fa-81f92f50e1ca	Scorzoneroides autumnalis subsp. autumnalis	subspecies	1	t	328965	eredita dalla specie
+eafc0ae2-ea2b-48ec-bb5d-9ad63cc2e9d6	Sedum album subsp. serpentini	subspecies	1	t	64652	eredita dalla specie
+1dc0e085-70f0-48f9-a7d8-17b38a8da474	Sedum album var. micranthum	variety	1	t	301988	eredita dalla specie
+42150b05-8572-44d4-a899-191ac6488d5f	Sedum bellum	species	1	t	16932	eredita dal genere
+ebe18b35-22ff-447c-bdd5-5995b14a9e9f	Sedum pallidum	species	1	f	105081	eredita dal genere
+51ca1fac-1366-46c5-b334-b90a26ff368b	Sedum praealtum	species	1	t	22380	eredita dal genere
+c036ef55-0a60-4646-b966-533758110bca	Sedum rupifragum	species	1	t	80785	eredita dal genere
+f32a2576-6d4d-4938-906e-2839d4f09b64	Sedum spathulifolium subsp. purdyi	subspecies	1	f	176831	eredita dalla specie
+e2b11ab0-5d97-4de4-84dd-648ade749c6c	Sempervivum arachnoideum subsp. tomentosum	subspecies	1	t	70090	eredita dalla specie
+ae2305cf-1211-4c34-bb11-67361112e84e	Sempervivum ciliosum subsp. ciliosum	subspecies	1	t	17092	eredita dalla specie
+1ad71990-73a1-4f04-b84e-482c28a8787c	Sempervivum ciliosum subsp. octopodes	subspecies	1	t	93735	eredita dalla specie
+dbe984a9-17f7-41dd-a419-617a978496be	Senecio soldanella	species	1	t	232228	eredita dal genere
+caeba71b-acd9-4eb3-a093-c4ad363fce17	Serratula tinctoria var. seoanei	variety	1	t	17266	eredita dalla specie
+4aa4be4d-ce3c-4998-b155-48a1f237004d	Sidalcea oregana	species	1	f	179057	eredita dal genere
+d867336b-af46-40d3-b6e6-8cba9c9c7ffd	Silene hookeri subsp. hookeri	subspecies	1	t	112142	eredita dalla specie
+0c0e1266-92a1-4d32-a5ec-a22a18601dd7	Silene italica	species	1	f	220910	eredita dal genere
+39c8fc55-e003-4aed-ae39-0645a6996abd	Solidago elongata	species	1	t	17490	eredita dal genere
+0f1c94e8-1474-4329-a31e-52211417bdee	Solidago virgaurea subsp. virgaurea	subspecies	1	t	344939	eredita dalla specie
+c17179d1-ddc7-492e-a85e-da4fa7406bb7	Sorbaria sorbifolia var. stellipila	variety	1	t	323357	eredita dalla specie
+c6064a8a-2363-4967-a740-7d8b2521d15d	Sorbus aucuparia subsp. aucuparia	subspecies	1	t	282103	eredita dalla specie
+b9f03d0e-d4eb-4cf4-85bb-4c9a21e8a46f	Sorbus aucuparia subsp. maderensis	subspecies	1	t	17572	eredita dalla specie
+c6a8617b-3289-438a-bad0-e094dca9427d	Sorbus oligodonta	species	1	f	114646	eredita dal genere
+d3accfce-16c8-427e-8357-a2f3aea52d34	Sorbus prattii	species	1	t	103470	eredita dal genere
+90da7e67-515f-4d15-a967-bacb83e912b8	Sphaeralcea ambigua	species	1	f	255224	eredita dal genere
+951ac270-7ed1-420c-867c-e810da1e4ab9	Spiraea alba var. latifolia	variety	1	t	17676	eredita dalla specie
+2577ee1c-e624-4b35-8f21-4e8cc4f82bf0	Spiraea douglasii subsp. menziesii	subspecies	1	f	225656	eredita dalla specie
+aee97e2e-35e7-4d65-a5a2-359895b453e9	Stanhopea tigrina var. nigroviolacea	variety	1	t	125735	eredita dalla specie
+76b54732-9965-4d18-a89f-a9f8433d45f8	Sternbergia lutea subsp. lutea	subspecies	1	t	238885	eredita dalla specie
+bef45301-646d-4243-9f5e-d207697b4810	Symphyotrichum ericoides var. pansum	variety	1	f	274645	eredita dalla specie
+dd106005-3408-4120-92e6-88239302c0ee	Synthyris missurica subsp. stellata	subspecies	1	t	17914	eredita dalla specie
+90765dde-cdbc-41d3-9b31-2c0be73126be	Syringa tomentella subsp. yunnanensis	subspecies	1	t	17960	eredita dalla specie
+1bba7b42-9203-4877-a61d-b9a162198a03	Tanacetum corymbosum subsp. corymbosum	subspecies	1	t	29262	eredita dalla specie
+e66760d6-dee4-4482-9b82-4b895d13ec2f	Tanacetum densum subsp. densum	subspecies	1	t	211365	eredita dalla specie
+32b70c0d-8a2b-4d43-8986-fbeae1c3b1b9	Taxodium distichum var. imbricarium	variety	1	f	120549	eredita dalla specie
+1aa5f77f-9593-4104-973f-7ddb2a5f8abd	Thalictrum alpinum var. microphyllum	variety	1	t	20086	eredita dalla specie
+a50a4c58-8df1-42df-8ca8-dac792257462	Thalictrum coreanum	species	1	t	43873	eredita dal genere
+44d42845-6200-4e1e-9b11-4de1abf41e66	Thalictrum speciosissimum	species	1	t	57656	eredita dal genere
+ceecef59-8471-4a20-9ffd-567b09d5ee1c	Thymus doerfleri	species	1	f	182276	eredita dal genere
+131030e0-d092-44f3-8c34-ba1f888a1ea9	Tilia amurensis var. taquetii	variety	1	t	139904	eredita dalla specie
+edab6457-e94c-4ced-bb1c-7303e0a2c1ec	Tilia cordata subsp. cordata	subspecies	1	t	245639	eredita dalla specie
+17f4aec0-d0b4-4aa5-bd96-8d0321ce635c	Tilia dasystyla subsp. caucasica	subspecies	1	t	78021	eredita dalla specie
+6462fbc5-c715-4a59-995e-b35f704300ac	Tilia tuan var. chenmoui	variety	1	t	115836	eredita dalla specie
+89505abf-3c4c-44f4-b7a4-838617cec513	Trachelospermum gracilipes	species	1	t	100978	eredita dal genere
+fa7cabed-c51f-4204-b7ea-1d8c22ad3103	Tricyrtis dilatata	species	1	f	255229	eredita dal genere
+9950950a-dfaf-4dfa-8dff-d60f19b5f6ce	Tricyrtis hirta var. hirta	variety	1	t	87176	eredita dalla specie
+7533f8ea-6d8b-4902-b5e2-283ac0ab6d4e	Tripleurospermum maritimum subsp. maritimum	subspecies	1	t	61088	eredita dalla specie
+8318027e-1aa6-44d8-a6ed-662fc9975a02	Tuberaria guttata subsp. guttata	subspecies	1	t	159145	eredita dalla specie
+ef7db0b0-599a-4930-898e-9b205af8abf6	Tulbaghia violacea subsp. violacea	subspecies	1	t	87723	eredita dalla specie
+f8a6d6fa-5214-4b4c-8243-43a475e52c79	Tulipa humilis var. violacea	variety	1	t	18555	eredita dalla specie
+e9f0fe63-34ab-4eca-a1ed-6c62d2de09bf	Tulipa undulatifolia var. undulatifolia	variety	1	t	18509	eredita dalla specie
+166a7ad3-0f53-401d-9b74-dbe91b1a9b5c	Verbascum atroviolaceum	species	1	t	163097	eredita dal genere
+7c330e2d-c23b-4308-a269-28b2cd00cd94	Verbascum phoeniceum subsp. phoeniceum	subspecies	1	t	208723	eredita dalla specie
+4e486f6c-a893-498d-aec4-2964ea04ec34	Veronica × kirkii	species	1	t	172979	eredita dal genere
+1f72df19-71d8-4623-8ee7-031481386b84	Veronica × wallii	species	1	f	215192	eredita dal genere
+c5ff4d63-2e3c-4983-a346-397cf97d76de	Veronica bastardii	species	1	t	319848	eredita dal genere
+07d67a30-7e28-439c-843c-abe683c8ba16	Veronica crinita	species	1	t	112711	eredita dal genere
+96e0f4ed-ccea-4b6a-88d2-895e6ff9039c	Veronica gentianoides subsp. gentianoides	subspecies	1	f	366839	eredita dalla specie
+0be1ab52-e6f6-4e8f-a175-4f2a86bb1465	Veronica incana	species	1	t	18841	eredita dal genere
+e95dd126-6a2b-4ff2-b44a-9c3a65c5ccc3	Veronica longifolia subsp. longifolia	subspecies	1	t	152290	eredita dalla specie
+9ca10316-8d79-4885-a6ca-289ca79a37ac	Veronica orsiniana	species	1	t	319856	eredita dal genere
+19aaad49-3a52-4389-b0ee-37fc1079ecda	Veronica repens subsp. repens	subspecies	1	t	46377	eredita dalla specie
+ca2bd546-34a4-4720-843c-1648c1bedf67	Veronica tetragona subsp. tetragona	subspecies	1	t	33775	eredita dalla specie
+2560d014-80dd-43a7-b6db-29144f29c536	Veronica traversii	species	1	t	8370	eredita dal genere
+3cbe32e9-116d-4c9f-bd22-ffe4d40a4979	Veronicastrum sibiricum var. yezoense	variety	1	f	524528	eredita dalla specie
+6dfb4a77-19d4-4fa8-bd39-4eb90eab7b35	Viburnum coriaceum	species	1	t	218441	eredita dal genere
+c15dc09f-9668-4eb8-8fe8-40a1e234e9f9	Viburnum odoratissimum var. awabuki	variety	1	t	41446	eredita dalla specie
+1ea6632d-3397-4f2e-9e32-35a5193e31a0	Vinca difformis subsp. sardoa	subspecies	1	t	174062	eredita dalla specie
+ec76748f-ec5c-4b8c-bc0c-6554aae8bbb2	Viola communis	species	1	t	180648	eredita dal genere
+4abc9cba-8038-403f-8158-a4bd2e202cd5	Viola suavis	species	1	f	296630	eredita dal genere
+5ef2a3c6-9470-46ee-b5a7-7cd3fc8dd10b	Yucca elata var. elata	variety	1	t	169754	eredita dalla specie
