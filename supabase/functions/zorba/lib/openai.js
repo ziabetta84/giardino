@@ -60,6 +60,8 @@ export function richiestaOpenAI(params) {
     corpo.tools = params.tools.map(t => ({ type: 'function', function: { name: t.name, description: t.description, parameters: t.input_schema } }))
     if (params.tool_choice?.type === 'none') corpo.tool_choice = 'none'
   }
+  // Qwen e simili su vLLM: spegne il ragionamento (usato solo per il secondo tentativo, vedi chiamaOpenAI)
+  if (params.senzaRagionamento) corpo.chat_template_kwargs = { enable_thinking: false }
   return corpo
 }
 
@@ -101,6 +103,8 @@ export async function leggiStream(corpo, { modello, onTesto }) {
   let testo = ''
   let fine = null
   let usage = null
+  let grezzo = ''
+  let ragionamento = 0
   const chiamate = []
   const emetti = (t) => { if (t) { testo += t; onTesto?.(t) } }
   const riga = (r) => {
@@ -113,7 +117,9 @@ export async function leggiStream(corpo, { modello, onTesto }) {
     const scelta = ev.choices?.[0]
     if (!scelta) return
     const d = scelta.delta ?? {}
-    if (typeof d.content === 'string') emetti(filtro(d.content))
+    if (typeof d.content === 'string') { grezzo += d.content; emetti(filtro(d.content)) }
+    // Ragionamento separato dal server (vLLM e simili): non si mostra, se ne conta solo la lunghezza
+    for (const k of ['reasoning_content', 'reasoning']) if (typeof d[k] === 'string') ragionamento += d[k].length
     for (const tc of d.tool_calls ?? []) {
       const i = tc.index ?? chiamate.length
       chiamate[i] ??= { id: '', name: '', args: '' }
@@ -153,19 +159,33 @@ export async function leggiStream(corpo, { modello, onTesto }) {
       cache_read_input_tokens: usage?.prompt_tokens_details?.cached_tokens ?? 0,
       cache_creation_input_tokens: 0,
     },
+    // Per i log: com'è finita la chiamata, senza il testo dell'utente
+    diagnostica: { fine, testo: testo.length, grezzo: grezzo.length, ragionamento, chiamate: chiamate.filter(Boolean).map(c => c.name),
+      inizio: grezzo.slice(0, 80).replace(/\s+/g, ' ') },
   }
 }
 
-// Una chiamata del ciclo: stessa firma di quella verso Anthropic in index.ts.
-export async function chiamaOpenAI({ url, chiave, params, fetch, signal, onTesto }) {
-  const r = await fetch(`${url.replace(/\/$/, '')}/chat/completions`, {
-    method: 'POST', signal,
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${chiave}` },
-    body: JSON.stringify(richiestaOpenAI(params)),
-  })
-  if (!r.ok || !r.body) {
-    const testo = await r.text().catch(() => '')
-    throw new Error(`fornitore: HTTP ${r.status} ${testo.slice(0, 300)}`)
+// Una chiamata del ciclo: stessa firma di quella verso Anthropic in index.ts. Se il modello chiude senza testo
+// visibile né strumenti (di solito ha messo tutto nel ragionamento), riprova una volta con il ragionamento spento;
+// l'uso dei token delle due chiamate si somma.
+export async function chiamaOpenAI({ url, chiave, params, fetch, signal, onTesto, log }) {
+  const una = async (p) => {
+    const r = await fetch(`${url.replace(/\/$/, '')}/chat/completions`, {
+      method: 'POST', signal,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${chiave}` },
+      body: JSON.stringify(richiestaOpenAI(p)),
+    })
+    if (!r.ok || !r.body) {
+      const testo = await r.text().catch(() => '')
+      throw new Error(`fornitore: HTTP ${r.status} ${testo.slice(0, 300)}`)
+    }
+    const msg = await leggiStream(r.body, { modello: p.model, onTesto })
+    log?.(msg.diagnostica)
+    return msg
   }
-  return leggiStream(r.body, { modello: params.model, onTesto })
+  const primo = await una(params)
+  if (primo.content.length || params.senzaRagionamento) return primo
+  const secondo = await una({ ...params, senzaRagionamento: true })
+  for (const k of Object.keys(secondo.usage)) secondo.usage[k] += primo.usage[k]
+  return secondo
 }

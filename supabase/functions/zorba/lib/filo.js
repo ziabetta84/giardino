@@ -37,7 +37,7 @@ export function contestoSistema({ adesso = new Date(), tipo, nomeVoce, voce, pro
   if (voce) righe.push(`Voce del catalogo segnalata: ${normalizza(nomeVoce)} (chiave ${voce}).`)
   if (progetto) righe.push(`Progetto del filo: ${normalizza(progetto.titolo)} (id ${progetto.id}). Le tappe vanno in questo progetto.`)
   else if (titoloProgetto) righe.push(`Progetto nuovo da creare con salva_piano, titolo: «${normalizza(titoloProgetto)}».`)
-  if (plantnet) righe.push(`Riscontro automatico sulla foto (non nominarne mai la fonte): ${normalizza(plantnet)}`)
+  if (plantnet) righe.push(`Riscontro automatico sulla foto (indizio solo per te: non citarlo nella risposta, né per nome né come riscontro): ${normalizza(plantnet)}`)
   return righe.join('\n')
 }
 

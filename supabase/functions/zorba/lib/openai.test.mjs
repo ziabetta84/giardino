@@ -92,6 +92,26 @@ test('chiamaOpenAI: HTTP non riuscito diventa un errore leggibile', async () => 
   await assert.rejects(chiamaOpenAI({ url: 'https://x/v1/', chiave: 'k', params: { model: 'ovh:x', messages: [] }, fetch }), /HTTP 401 chiave non valida/)
 })
 
+test('chiamaOpenAI: risposta solo di ragionamento, riprova una volta senza e somma i token', async () => {
+  const corpi = []
+  const fetch = async (url, init) => {
+    corpi.push(JSON.parse(init.body))
+    const eventi = corpi.length === 1
+      ? [{ choices: [{ delta: { reasoning_content: 'penso a lungo' }, finish_reason: 'stop' }] }, { choices: [], usage: { prompt_tokens: 100, completion_tokens: 40 } }]
+      : [{ choices: [{ delta: { content: 'Ecco.' }, finish_reason: 'stop' }] }, { choices: [], usage: { prompt_tokens: 100, completion_tokens: 5 } }]
+    return new Response(flusso(sse(...eventi)))
+  }
+  const visti = []
+  const msg = await chiamaOpenAI({ url: 'https://x/v1', chiave: 'k', params: { model: 'ovh:x', messages: [] }, fetch, log: d => visti.push(d) })
+  assert.equal('chat_template_kwargs' in corpi[0], false)
+  assert.deepEqual(corpi[1].chat_template_kwargs, { enable_thinking: false })
+  assert.deepEqual(msg.content, [{ type: 'text', text: 'Ecco.' }])
+  assert.equal(msg.usage.input_tokens, 200)
+  assert.equal(msg.usage.output_tokens, 45)
+  assert.equal(visti[0].ragionamento, 13)
+  assert.equal(visti.length, 2)
+})
+
 test('ciclo completo con un fornitore OpenAI: strumento, poi risposta; costo al prezzo del modello', async () => {
   const chiamate = []
   const fetch = async (url, init) => {
