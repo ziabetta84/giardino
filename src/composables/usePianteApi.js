@@ -34,12 +34,16 @@ export function usePianteApi() {
       note: note || '', coltivato_in: coltivato_in || null,
     }
 
+    // spostata_il la scrive il database (trigger piante_data_spostamento) quando
+    // la pianta passa dal chiuso all'aperto o viceversa: si rilegge qui.
+    let spostataIl = null
     if (isNuova) {
       const { error } = await supabase.from('piante').insert({ id, ...riga, ultima_cura: {} })
       if (error) throw error
     } else {
-      const { error } = await supabase.from('piante').update(riga).eq('id', id)
+      const { data, error } = await supabase.from('piante').update(riga).eq('id', id).select('spostata_il').maybeSingle()
       if (error) throw error
+      spostataIl = data ? (data.spostata_il ?? null) : (precedente?.spostata_il ?? null)
     }
 
     store.piante = {
@@ -50,8 +54,58 @@ export function usePianteApi() {
         note: riga.note, coltivato_in: riga.coltivato_in,
         ultima_cura: isNuova ? {} : (precedente?.ultima_cura ?? {}),
         ultimo_concime_id: isNuova ? null : (precedente?.ultimo_concime_id ?? null),
+        spostata_il: spostataIl,
       },
     }
+  }
+
+  // Sposta più piante insieme in una zona (e sottozona, facoltativa). inVaso:
+  // id delle piante da segnare come coltivate in vaso nello stesso passaggio
+  // (piante in piena terra portate al chiuso). Restituisce lo stato di prima
+  // di ogni pianta toccata, da passare a ripristinaPosizioni per l'«Annulla».
+  // Una scrittura per gruppo (con o senza il cambio a vaso): ognuna vale per
+  // tutte le piante del gruppo o per nessuna.
+  async function spostaPiante(ids, zona, sottozona = null, { inVaso = [] } = {}) {
+    const zonaId = store.zone?.[zona]?.id
+    if (!zonaId) throw new Error('zona non trovata')
+    const sottozonaId = sottozona ? (store.sottozone?.[zona]?.[sottozona]?.id ?? null) : null
+    if (sottozona && !sottozonaId) throw new Error('sottozona non trovata')
+    const precedenti = ids.map(id => {
+      const p = store.piante?.[id] ?? {}
+      return { id, zona: p.zona, sottozona: p.sottozona ?? null, coltivato_in: p.coltivato_in ?? null, spostata_il: p.spostata_il ?? null }
+    })
+    const aVaso = new Set(inVaso)
+    const gruppi = [
+      { ids: ids.filter(id => aVaso.has(id)), extra: { coltivato_in: 'vaso' } },
+      { ids: ids.filter(id => !aVaso.has(id)), extra: {} },
+    ].filter(g => g.ids.length)
+    const nuove = { ...store.piante }
+    for (const g of gruppi) {
+      const { data, error } = await supabase.from('piante')
+        .update({ zona_id: zonaId, sottozona_id: sottozonaId, ...g.extra })
+        .in('id', g.ids).select('id, spostata_il')
+      if (error) throw error
+      for (const r of data ?? []) {
+        nuove[r.id] = { ...nuove[r.id], zona, sottozona: sottozona || null, spostata_il: r.spostata_il ?? null, ...g.extra }
+      }
+      store.piante = { ...nuove }
+    }
+    return precedenti
+  }
+
+  // Inverso di spostaPiante: rimette zona, sottozona, coltivazione e data di
+  // spostamento com'erano (la data esplicita fa da precedente sul trigger).
+  async function ripristinaPosizioni(precedenti) {
+    await Promise.all(precedenti.map(async (p) => {
+      const zonaId = store.zone?.[p.zona]?.id
+      if (!zonaId) throw new Error('zona non trovata')
+      const sottozonaId = p.sottozona ? (store.sottozone?.[p.zona]?.[p.sottozona]?.id ?? null) : null
+      const { error } = await supabase.from('piante')
+        .update({ zona_id: zonaId, sottozona_id: sottozonaId, coltivato_in: p.coltivato_in, spostata_il: p.spostata_il })
+        .eq('id', p.id)
+      if (error) throw error
+      store.piante = { ...store.piante, [p.id]: { ...store.piante[p.id], zona: p.zona, sottozona: p.sottozona, coltivato_in: p.coltivato_in, spostata_il: p.spostata_il } }
+    }))
   }
 
   async function eliminaPianta(id) {
@@ -114,5 +168,5 @@ export function usePianteApi() {
     }))
   }
 
-  return { salvaPianta, eliminaPianta, registraCura, annullaCura, registraCuraMultipla }
+  return { salvaPianta, eliminaPianta, registraCura, annullaCura, registraCuraMultipla, spostaPiante, ripristinaPosizioni }
 }

@@ -28,6 +28,9 @@
 // - 'tappa': completamento di una tappa progetto (apriTappa) — registraTappa
 //   è già generico sull'esito, quindi l'annullamento è la stessa funzione
 //   richiamata con l'esito precedente, non una nuova API.
+// - 'spostamento': più piante spostate di zona insieme (apriSpostamento,
+//   pagina Piante): l'annullamento le rimette dov'erano, con la coltivazione
+//   e la data di spostamento di prima.
 import { ref, onBeforeUnmount, computed } from 'vue'
 import { usePianteApi } from '@/composables/usePianteApi'
 import { useProgettiApi } from '@/composables/useProgettiApi'
@@ -42,6 +45,7 @@ const messaggioToast = computed(() => {
   if (!t) return ''
   if (t.kind === 'cura-lotto') return `${t.voci.length} cure registrate`
   if (t.kind === 'tappa') return 'Tappa registrata'
+  if (t.kind === 'spostamento') return t.precedenti.length === 1 ? 'Pianta spostata' : `${t.precedenti.length} piante spostate`
   return `${LABEL_CURA[t.tipo] ?? t.tipo} registrata`
 })
 
@@ -89,6 +93,11 @@ function apriTappa(tappaId, espitoPrecedente, chiave) {
   mostraProssimo()
 }
 
+function apriSpostamento(precedenti, chiave) {
+  coda.value.push({ kind: 'spostamento', precedenti, chiave })
+  mostraProssimo()
+}
+
 async function annulla() {
   if (!toastCura.value) return
   const voce = toastCura.value
@@ -98,6 +107,8 @@ async function annulla() {
       await Promise.all(voce.voci.map(v => pianteApi.annullaCura(v.id, v.tipo, v.valorePrecedente, v.concimePrecedente)))
     } else if (voce.kind === 'tappa') {
       await progettiApi.registraTappa(voce.tappaId, voce.espitoPrecedente)
+    } else if (voce.kind === 'spostamento') {
+      await pianteApi.ripristinaPosizioni(voce.precedenti)
     } else {
       await pianteApi.annullaCura(voce.id, voce.tipo, voce.valorePrecedente, voce.concimePrecedente)
     }
@@ -106,6 +117,8 @@ async function annulla() {
       ? 'Non sono riuscito ad annullare tutte le cure. Ricontrolla lo storico.'
       : voce.kind === 'tappa'
         ? 'Non sono riuscito ad annullare la tappa. Riprova.'
+        : voce.kind === 'spostamento'
+          ? 'Non sono riuscito a rimettere tutte le piante dov\'erano. Controlla le zone.'
         : 'Non sono riuscito ad annullare la cura. Riprova.'
     emit('errore', { id: voce.id, tipo: voce.tipo, chiave: voce.chiave, messaggio })
   } finally {
@@ -113,7 +126,7 @@ async function annulla() {
   }
 }
 
-defineExpose({ apri, apriLotto, apriTappa })
+defineExpose({ apri, apriLotto, apriTappa, apriSpostamento })
 
 onBeforeUnmount(() => clearTimeout(timer))
 </script>

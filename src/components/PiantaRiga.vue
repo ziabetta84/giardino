@@ -1,6 +1,10 @@
 <template>
   <div class="pr">
-    <RouterLink :to="`/piante/${pianta.id}`" class="pr__link">
+    <!-- In selezione la riga intera spunta la pianta invece di aprirne la scheda
+         (spostamento di più piante insieme, pagina Piante). -->
+    <component :is="selezionabile ? 'label' : RouterLink" v-bind="selezionabile ? {} : { to: `/piante/${pianta.id}` }" class="pr__link">
+      <input v-if="selezionabile" type="checkbox" class="pr__check" :checked="selezionata" @change="$emit('alterna')"
+        :aria-label="`Seleziona ${store.nomePianta(pianta)}`">
       <div class="pr__thumb" :style="urgente ? 'background:var(--rose-tile)' : 'background:var(--olive-tile)'">
         <img v-if="thumbEffettivo" :src="thumbEffettivo" alt="" loading="lazy">
         <Icon v-else :name="urgente ? 'campanella' : 'foglia'" class="pr__thumb-ico" />
@@ -21,17 +25,18 @@
           {{ cureUrgenti.map(c => c.label).join(' · ') }}
         </div>
       </div>
-      <Icon name="back" class="pr__chev" />
-    </RouterLink>
+      <Icon v-if="!selezionabile" name="back" class="pr__chev" />
+    </component>
     <!-- Fuori da RouterLink (che renderizza <a>): un <button> dentro <a> non è
          contenuto valido HTML5 ed è quello che causava il comportamento
          incoerente da tastiera/screen reader. -->
-    <button type="button" @click="$emit('elimina')" class="pr__del" aria-label="Elimina pianta" title="Elimina pianta">×</button>
+    <button v-if="!selezionabile" type="button" @click="$emit('elimina')" class="pr__del" aria-label="Elimina pianta" title="Elimina pianta">×</button>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useDatiStore } from '@/stores/dati'
 import { cureUrgentiPianta } from '@/composables/useCure'
 import { programmaIrrigazioneEffettivo } from '@/composables/useIrrigazioneAuto'
@@ -45,8 +50,10 @@ const props = defineProps({
   pianta:   { type: Object,  required: true },
   urgente:  { type: Boolean, default: false },
   thumbUrl: { type: String,  default: null },
+  selezionabile: { type: Boolean, default: false },
+  selezionata:   { type: Boolean, default: false },
 })
-defineEmits(['elimina'])
+defineEmits(['elimina', 'alterna'])
 
 const store = useDatiStore()
 const specie = computed(() => store.vocePianta(props.pianta))
@@ -193,6 +200,14 @@ const thumbEffettivo = computed(() => {
   color: var(--ink-soft);
   transform: rotate(180deg);
 }
+/* Casella della selezione: la stessa delle cure per zona (carta, spunta salvia). */
+label.pr__link { cursor: pointer; min-height: 48px; }
+.pr__check { appearance:none; -webkit-appearance:none; flex:none; width:22px; height:22px; margin:0; border-radius:6px;
+  border:1.5px solid var(--ink-faint); background:var(--white) center / 14px 14px no-repeat; cursor:pointer;
+  transition: background-color var(--motion-quick) var(--ease-standard), border-color var(--motion-quick) var(--ease-standard); }
+.pr__check:checked { background-color:var(--sage); border-color:var(--sage);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.pr__check:focus-visible { outline:none; box-shadow:0 0 0 3px var(--gold); }
 .pr__del {
   position: relative;
   width: 44px;
