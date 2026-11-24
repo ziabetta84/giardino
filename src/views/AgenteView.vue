@@ -108,7 +108,7 @@
       <p class="agente-dettaglio-data">{{ formatData(filo.creato) }}</p>
       <p v-if="filo.voce" class="agente-dettaglio-specie">{{ titoloFilo(filo, store) }}</p>
       <ZorbaFilo ref="filoRef" :filo="filo" :messaggi="messaggi" :in-corso="inCorso" :progetto="progettoDelFilo"
-        :blocco="blocco" :ripartenza="ripartenza" :consumo="rigaConsumo"
+        :blocco="blocco" :ripartenza="ripartenza" :consumo="rigaConsumo" :curatore="!!statoZorba?.curatore"
         @rispondi="rispondi" @riprova="riprova" @vota="vota" @nuova="tornaANuova" @storico="storicoAperto = true" />
       <div v-if="errore" class="agente-errore"><Icon name="campanella" />{{ errore }}</div>
     </div>
@@ -440,10 +440,11 @@ const riprova = async () => {
   try { await esegui({ filo_id: filoId.value, riprova: true }) } catch (e) { errore.value = e.message }
 }
 
-async function vota(id, voto, motivo, commento) {
+async function vota(id, voto, motivo, commento, correzione) {
   try {
-    await zorba.vota(id, voto, motivo, commento)
-    messaggi.value = messaggi.value.map(m => m.id === id ? { ...m, voto, voto_motivo: voto === -1 ? motivo : null, voto_commento: voto === -1 ? commento : null } : m)
+    await zorba.vota(id, voto, motivo, commento, correzione)
+    const giu = voto === -1
+    messaggi.value = messaggi.value.map(m => m.id === id ? { ...m, voto, voto_motivo: giu ? motivo : null, voto_commento: giu ? commento : null, voto_correzione: giu ? correzione : null } : m)
   } catch (e) { errore.value = e.message }
 }
 

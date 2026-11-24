@@ -62,6 +62,14 @@ select pg_temp.errore($q$update public.zorba_messaggi set voto_motivo = 'boh' wh
 -- pollice su: motivo e commento si azzerano
 update public.zorba_messaggi set voto = 1 where ruolo = 'zorba';
 do $$ begin if (select voto_motivo from public.zorba_messaggi where ruolo = 'zorba') is not null then raise exception 'motivo rimasto col pollice su'; end if; end $$;
+-- correzione della curatrice: solo col pollice giù e solo sui messaggi di Zorba, si azzera con il pollice su
+update public.zorba_messaggi set voto = -1, voto_motivo = 'sbagliata', voto_correzione = 'La risposta giusta' where ruolo = 'zorba';
+do $$ begin if (select voto_correzione from public.zorba_messaggi where ruolo = 'zorba') <> 'La risposta giusta' then raise exception 'correzione non salvata'; end if; end $$;
+select pg_temp.errore($q$update public.zorba_messaggi set voto_correzione = repeat('x', 4001) where ruolo = 'zorba'$q$, '23514');
+do $$ declare n int; begin update public.zorba_messaggi set voto_correzione = 'x' where ruolo = 'utente'; get diagnostics n = row_count;
+  if n <> 0 then raise exception 'correzione scritta su un messaggio dell''utente'; end if; end $$;
+update public.zorba_messaggi set voto = 1 where ruolo = 'zorba';
+do $$ begin if (select voto_correzione from public.zorba_messaggi where ruolo = 'zorba') is not null then raise exception 'correzione rimasta col pollice su'; end if; end $$;
 commit;
 
 -- 3. salva_piano: solo progetti propri, tappe solo del progetto indicato, HTML non filtrato qui (lo filtra la funzione)

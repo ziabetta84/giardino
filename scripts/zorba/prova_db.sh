@@ -4,8 +4,8 @@
 # Uso: bash scripts/zorba/prova_db.sh
 set -euo pipefail
 cd "$(dirname "$0")/../.."
-BIN=/opt/homebrew/opt/postgresql@17/bin
-SRV=(-h 127.0.0.1 -p 55440 -U postgres)
+BIN=${PG_BIN:-/opt/homebrew/opt/postgresql@17/bin}
+SRV=(-h 127.0.0.1 -p ${PG_PORT:-55440} -U postgres)
 DB=zorba_prova
 "$BIN/dropdb" "${SRV[@]}" --if-exists "$DB"
 "$BIN/createdb" "${SRV[@]}" "$DB"
@@ -13,6 +13,7 @@ trap '"$BIN/dropdb" "${SRV[@]}" --if-exists "$DB"' EXIT
 PSQL=("$BIN/psql" "${SRV[@]}" -d "$DB" -X -q -v ON_ERROR_STOP=1)
 "${PSQL[@]}" -f scripts/zorba/stub_supabase.sql
 "${PSQL[@]}" -1 -f supabase/migrations/20261022100000_zorba_agente.sql
+"${PSQL[@]}" -1 -f supabase/migrations/20261124120000_zorba_correzione.sql
 "${PSQL[@]}" -f scripts/zorba/prova_db.sql
 
 # Storico: l'owner e i progetti a cui puntano i fili (riga "-- progetti:" scritta dal generatore) vanno creati nella copia
