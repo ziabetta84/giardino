@@ -90,14 +90,14 @@
       <ul class="legale__elenco">
         <li><strong>Supabase</strong>: database, account e foto, su server nell'Unione europea (Stoccolma).</li>
         <li><strong>Cloudflare</strong>: ospita l'app e fa la verifica anti-robot (Turnstile).</li>
-        <li><strong>Anthropic</strong>: il modello di intelligenza artificiale che scrive le risposte di Zorba. Riceve la domanda, le eventuali foto e i dati del giardino che servono a rispondere.</li>
+        <li><strong>OVHcloud</strong>: ospita il modello di intelligenza artificiale che scrive le risposte di Zorba, su server nell'Unione europea. Riceve la domanda, le eventuali foto e i dati del giardino che servono a rispondere.</li>
         <li><strong>Pl@ntNet</strong>: riconosce le piante dalle foto inviate a Zorba per un'identificazione o una diagnosi.</li>
         <li><strong>Brevo</strong>: spedisce le mail dell'account (conferma, recupero password).</li>
         <li><strong>Open-Meteo</strong> e <strong>OpenStreetMap</strong>: ricevono le coordinate del giardino o l'indirizzo cercato, per il meteo e la posizione.</li>
         <li><strong>Ko-fi</strong>: se scegli di sostenere il progetto, il contributo avviene sul loro sito, con la loro informativa. L'app non vede né conserva i dati di pagamento.</li>
       </ul>
       <p>
-        Alcuni di questi fornitori (Anthropic e Cloudflare) hanno sede negli Stati Uniti. Il
+        Cloudflare ha sede negli Stati Uniti. Il
         trasferimento avviene con le garanzie previste dal GDPR: il Data Privacy Framework tra UE
         e Stati Uniti o le clausole contrattuali standard approvate dalla Commissione europea.
       </p>
@@ -169,7 +169,7 @@ const TITOLARE = {
   partitaIva: '',
   email: 'entra@zorbaingiardino.app',
 }
-const AGGIORNATA_IL = '30 ottobre 2026'
+const AGGIORNATA_IL = '26 novembre 2026'
 const BACKUP_GIORNI = 30
 const ETA_MINIMA = 14
 
