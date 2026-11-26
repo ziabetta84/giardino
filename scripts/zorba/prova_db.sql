@@ -144,7 +144,7 @@ end $$;
 -- 6. foto: percorso con l'owner esplicito, policy di lettura sulla cartella del proprietario
 do $$ declare m jsonb := public.zorba_prenota('aaaaaaaa-0000-0000-0000-000000000001', true, 6, 10, 5, null, '{"tipo":"diagnosi"}', null, 'ffffffff-0000-0000-0000-000000000001', true, false); begin
   if m->>'foto_path' not like 'aaaaaaaa-0000-0000-0000-000000000001/%/ffffffff-0000-0000-0000-000000000001.jpg' then raise exception 'foto_path %', m->>'foto_path'; end if;
-  if (m->'filo'->>'modello') <> 'claude-opus-5-5' then raise exception 'modello diagnosi'; end if;
+  if (m->'filo'->>'modello') <> 'ovh:Qwen3.5-397B-A17B' then raise exception 'modello diagnosi'; end if;
 end $$;
 insert into storage.objects (bucket_id, name) values ('zorba-foto', 'aaaaaaaa-0000-0000-0000-000000000001/f/x.jpg');
 begin; set local role authenticated; set local request.jwt.claim.sub = 'bbbbbbbb-0000-0000-0000-000000000002';
