@@ -6,3 +6,29 @@ rhs_id	titolo_rhs	taxon_col	taxon_scheda_id	taxon_scheda	decisione
 319586	Helianthemum alpestre	Helianthemum alpestre	df25e3a1-5428-44bc-bddb-efd7759ca1ef	Helianthemum oelandicum	idem
 8908	Hydrangea cinerea 'Sterilis'	Hydrangea cinerea	ffe807a9-54f2-4d67-9993-088dd814f6ea	Hydrangea arborescens	H. arborescens subsp. discolor per altri autori: sulla scheda di H. arborescens (Roberta, 23/11/2026)
 500312	Hydrangea cinerea [1]	Hydrangea cinerea	ffe807a9-54f2-4d67-9993-088dd814f6ea	Hydrangea arborescens	idem
+10028	Leucothoe walteri	Agarista populifolia	23027a9f-8cc2-4896-b3a0-ad8b1315aa77	Leucothoe fontanesiana	per RHS L. walteri è la L. fontanesiana dei giardini; COL porta il nome ad Agarista populifolia (proposta del 26/11/2026)
+51147	Leucothoe walteri [Lovita]	Agarista populifolia	23027a9f-8cc2-4896-b3a0-ad8b1315aa77	Leucothoe fontanesiana	idem; cultivar già su L. fontanesiana
+95597	Leucothoe walteri 'Rainbow'	Agarista populifolia	23027a9f-8cc2-4896-b3a0-ad8b1315aa77	Leucothoe fontanesiana	idem; cultivar già su L. fontanesiana
+98316	Leucothoe walteri 'Rollissonii'	Agarista populifolia	23027a9f-8cc2-4896-b3a0-ad8b1315aa77	Leucothoe fontanesiana	idem; cultivar già su L. fontanesiana
+228638	Sutera 'Snowflake'	Sutera	94ed88c8-fb0d-4a20-bb99-70558a92acaf	Chaenostoma cordatum	la Sutera dei vivai è la bacopa, Chaenostoma cordatum; cultivar già lì
+281521	Sutera 'Gulliver Blue Sensation' (Scopia Series)	Sutera	94ed88c8-fb0d-4a20-bb99-70558a92acaf	Chaenostoma cordatum	idem; cultivar da aggiungere
+288160	Sutera [Copia Gulliver Blue Sensation]	Sutera	94ed88c8-fb0d-4a20-bb99-70558a92acaf	Chaenostoma cordatum	idem
+141814	Dolichos 'Ruby Moon'	Dolichos	f91feb19-874b-41ba-b920-e8b952b6d9b6	Lablab purpureus	fagiolo giacinto; cultivar già su Lablab purpureus
+368858	Dolichos 'Lablab'	Dolichos	f91feb19-874b-41ba-b920-e8b952b6d9b6	Lablab purpureus	è la specie, non una cultivar
+28809	Athyrium goeringianum hort.	Dryopteris goeringiana	ad56d65e-fe34-425c-b444-57f35b8ebacb	Anisocampium niponicum	felce dipinta giapponese (hort. = nome usato a torto)
+91028	Athyrium goeringianum 'Pictum'	Dryopteris goeringiana	ad56d65e-fe34-425c-b444-57f35b8ebacb	Anisocampium niponicum	idem; cultivar già su Athyrium niponicum
+215442	Antirrhinum nanum 'Black Prince'	Misopates microcarpum	eb9a61d0-50a1-4923-8659-4a3bbc29a6ea	Antirrhinum majus	bocche di leone nane; cultivar già su A. majus
+294464	Antirrhinum nanum 'Twinny Peach'	Misopates microcarpum	eb9a61d0-50a1-4923-8659-4a3bbc29a6ea	Antirrhinum majus	idem
+271859	Sedum roseum	Phedimus stevenianus	6a76fa99-b244-4e5f-b474-fd51f3622aa6	Rhodiola rosea	la pagina descrive la rodiola (fiori gialli)
+226374	Sedum roseum 'Mediovariegatum'	Phedimus stevenianus	ec18eaf6-5790-4fa9-897a-0bf4700523ca	Hylotelephium erythrostictum	cultivar già su H. erythrostictum
+17383	Sisyrinchium bellum hort.	Sisyrinchium bellum	6653c323-024c-4a17-b99d-a173e1d884b4	Sisyrinchium idahoense	S. idahoense var. bellum dei giardini
+41983	Sisyrinchium bellum 'Rocky Point'	Sisyrinchium bellum	6653c323-024c-4a17-b99d-a173e1d884b4	Sisyrinchium idahoense	cultivar già su S. idahoense
+43259	Sorbus fruticosa McAll.	Aria chamaemespilus	41f986d8-a905-4c6c-b471-ce00bd4ad2b2	Sorbus koehneana	sorbo a bacche bianche: è la S. koehneana dei giardini, non il sorbo nano di COL
+88678	Sorbus fruticosa 'Koehneana'	Aria chamaemespilus	41f986d8-a905-4c6c-b471-ce00bd4ad2b2	Sorbus koehneana	idem
+41697	Dodecatheon tetrandrum	Dodecatheon alpinum	d59e955d-a12b-49b9-91bf-e4a293459ee9	Dodecatheon jeffreyanum	per RHS D. tetrandrum è un sinonimo di D. jeffreyi
+279733	Dodecatheon tetrandrum 'Red Light'	Dodecatheon alpinum	d59e955d-a12b-49b9-91bf-e4a293459ee9	Dodecatheon jeffreyanum	idem; cultivar da aggiungere
+62003	Plectranthus coleoides 'Variegatus'	Coleus paniculatus	0f492e64-4fa0-4b6c-9fc3-b940fa185f18	Coleus madagascariensis	foglie al profumo di menta bordate di crema; cultivar già su C. madagascariensis
+174083	Nyssa wenshanensis	Nyssa javanica	f5f08083-f6f2-497a-bbde-6966fa3fcabe	Nyssa sinensis	la pagina descrive N. sinensis
+353032	Nyssa leptophylla 'Inferno'	Nyssa javanica	f5f08083-f6f2-497a-bbde-6966fa3fcabe	Nyssa sinensis	cultivar già su N. sinensis
+138980	Abelia zanderi 'Sherwoodii'	Zabelia dielsii	d977f513-65ca-440e-bad7-40e71d0ffa98	Abelia × grandiflora	cultivar di Abelia × grandiflora; da aggiungere
+182320	Vinca herbacea sardoa	Vinca herbacea	04542dd3-a4db-4a35-8aef-949a3faf84d2	Vinca difformis	la pagina descrive V. difformis subsp. sardoa
