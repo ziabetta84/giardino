@@ -40,7 +40,7 @@ export function useZorba() {
 
   async function caricaMessaggi(filoId) {
     const { data, error } = await supabase.from('zorba_messaggi')
-      .select('id, ruolo, testo, esito, foto_path, voto, voto_motivo, voto_commento, creato').eq('filo_id', filoId).order('creato')
+      .select('id, ruolo, testo, esito, foto_path, voto, voto_motivo, voto_commento, voto_correzione, creato').eq('filo_id', filoId).order('creato')
     if (error) throw error
     const percorsi = data.map(m => m.foto_path).filter(Boolean)
     const firmati = percorsi.length ? (await supabase.storage.from('zorba-foto').createSignedUrls(percorsi, 3600)).data ?? [] : []
@@ -88,8 +88,11 @@ export function useZorba() {
     await supabase.from('zorba_fili').update({ ultima_lettura: new Date().toISOString() }).eq('id', filoId)
   }
 
-  async function vota(messaggioId, voto, motivo = null, commento = null) {
-    const { error } = await supabase.from('zorba_messaggi').update({ voto, voto_motivo: motivo, voto_commento: commento?.trim() || null }).eq('id', messaggioId)
+  // correzione: la risposta giusta scritta dalla curatrice (solo col pollice giù)
+  async function vota(messaggioId, voto, motivo = null, commento = null, correzione = null) {
+    const { error } = await supabase.from('zorba_messaggi').update({
+      voto, voto_motivo: motivo, voto_commento: commento?.trim() || null, voto_correzione: correzione?.trim() || null,
+    }).eq('id', messaggioId)
     if (error) throw error
   }
 

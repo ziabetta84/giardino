@@ -29,11 +29,11 @@ Elenco: `select a.*, u.email from abbonamenti a join auth.users u on u.id = a.ow
 ### 3. Voti negativi
 
 ```sql
-select m.votato_il, f.tipo, m.modello_effettivo, m.voto_motivo, m.voto_commento, m.filo_id, left(m.testo, 300) risposta
+select m.votato_il, f.tipo, m.modello_effettivo, m.voto_motivo, m.voto_commento, m.voto_correzione, m.filo_id, left(m.testo, 300) risposta
   from zorba_messaggi m join zorba_fili f on f.id = m.filo_id where m.voto = -1 order by m.votato_il desc limit 30;
 ```
 
-Per ognuno leggi il filo e proponi, se serve, una correzione ai file `supabase/functions/zorba/regole/` (poi `node scripts/zorba/genera_regole.mjs`, `npm test` e deploy della funzione con `regole/testi.js`: i `.md` non arrivano a runtime).
+`voto_correzione` è la risposta giusta scritta dalla curatrice («Correggi» nell'app, solo per lei): confrontala con la risposta di Zorba per capire che cosa ha sbagliato. Le risposte con voto 1 della curatrice e quelle corrette sono gli esempi per le regole e per il futuro fine-tuning. Per ognuno leggi il filo e proponi, se serve, una correzione ai file `supabase/functions/zorba/regole/` (poi `node scripts/zorba/genera_regole.mjs`, `npm test` e deploy della funzione con `regole/testi.js`: i `.md` non arrivano a runtime).
 
 ### 4. Spesa e salute
 

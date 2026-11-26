@@ -21,7 +21,7 @@
         <p v-else-if="m.testo" class="zf__testo">{{ m.testo }}</p>
         <p v-else-if="m.ruolo === 'utente' && !m.foto_url" class="zf__testo zf__vuoto">(nessun testo)</p>
         <ZorbaPollici v-if="m.ruolo === 'zorba' && m.esito === 'completata' && !filo.importato" :messaggio="m"
-          :nota="m.id === ultimaZorba?.id" @vota="(v, mo, co) => emit('vota', m.id, v, mo, co)" />
+          :nota="m.id === ultimaZorba?.id" :curatore="curatore" @vota="(v, mo, co, cr) => emit('vota', m.id, v, mo, co, cr)" />
       </div>
     </div>
 
@@ -71,6 +71,8 @@ const props = defineProps({
   ripartenza: { type: String, default: '' },
   // Quanto consuma una risposta (null per il curatore): «Ogni risposta di Zorba conta: te ne restano 2 di prova.»
   consumo: { type: String, default: null },
+  // La curatrice vede «Approva / Correggi» sotto le risposte
+  curatore: { type: Boolean, default: false },
 })
 const emit = defineEmits(['rispondi', 'riprova', 'vota', 'nuova', 'storico'])
 const ETICHETTE_SEGN = { in_attesa: 'In attesa del curatore', accolta: 'Accolta', non_accolta: 'Non accolta' }
