@@ -1,0 +1,13 @@
+taxon_id	nome	stato_col	scheda_id	usa_la_scheda_di	motivo
+0c6d2584-8b42-4e19-aec1-602bacf1d316	Leucothoe walteri	synonym	23027a9f-8cc2-4896-b3a0-ad8b1315aa77	Leucothoe fontanesiana	nome usato nei vivai per L. fontanesiana
+6b6c29ca-f699-4c06-83f6-c1260aa836a3	Athyrium goeringianum	synonym	ad56d65e-fe34-425c-b444-57f35b8ebacb	Anisocampium niponicum	felce dipinta giapponese
+a1b8403b-82c0-4cee-9c27-4a1276ea89cf	Antirrhinum nanum	synonym	eb9a61d0-50a1-4923-8659-4a3bbc29a6ea	Antirrhinum majus	bocche di leone nane
+cffe0427-a279-4791-ad17-0ab3ecacf78f	Sedum roseum	synonym	6a76fa99-b244-4e5f-b474-fd51f3622aa6	Rhodiola rosea	Sedum roseum (L.) Scop. è la rodiola
+9165a132-87e0-4483-b319-14977f0a2729	Sorbus fruticosa	synonym	41f986d8-a905-4c6c-b471-ce00bd4ad2b2	Sorbus koehneana	sorbo a bacche bianche dei giardini
+1c4a2fb0-fbf2-4557-8df2-c4819ca2e7f1	Dodecatheon tetrandrum	synonym	d59e955d-a12b-49b9-91bf-e4a293459ee9	Dodecatheon jeffreyanum	per RHS sinonimo di D. jeffreyi
+620dd078-803d-433d-add5-6b2b94db18c4	Plectranthus coleoides	synonym	0f492e64-4fa0-4b6c-9fc3-b940fa185f18	Coleus madagascariensis	'Variegatus' dei vivai
+47d28765-f6bd-4939-a526-99ee73b6e28b	Nyssa wenshanensis	synonym	f5f08083-f6f2-497a-bbde-6966fa3fcabe	Nyssa sinensis	la pagina RHS descrive N. sinensis
+fc2f1d4b-495b-400f-980f-e2c9233d82d5	Abelia zanderi	synonym	d977f513-65ca-440e-bad7-40e71d0ffa98	Abelia × grandiflora	'Sherwoodii' dei vivai
+52239156-a77e-4ec4-bde8-27d95a8160d8	Allium ostrowskianum	accepted	93fb153d-7e2c-4d50-9ef5-48af2fff93b9	Allium oreophilum	deciso da Roberta il 23/11
+4b097e2a-ec83-4b86-b81d-840bd3ad8092	Helianthemum alpestre	accepted	df25e3a1-5428-44bc-bddb-efd7759ca1ef	Helianthemum oelandicum	deciso da Roberta il 23/11
+360166ac-7939-46d7-aabb-1bcf08b09789	Hydrangea cinerea	accepted	ffe807a9-54f2-4d67-9993-088dd814f6ea	Hydrangea arborescens	deciso da Roberta il 23/11
