@@ -13,7 +13,7 @@ trap '"$BIN/dropdb" "${SRV[@]}" --if-exists "$DB"' EXIT
 PSQL=("$BIN/psql" "${SRV[@]}" -d "$DB" -X -q -v ON_ERROR_STOP=1)
 "${PSQL[@]}" -f scripts/zorba/stub_supabase.sql
 "${PSQL[@]}" -1 -f supabase/migrations/20261022100000_zorba_agente.sql
-"${PSQL[@]}" -1 -f supabase/migrations/20261124120000_zorba_correzione.sql
+"${PSQL[@]}" -1 -f supabase/migrations/20261124130000_zorba_correzione.sql
 "${PSQL[@]}" -f scripts/zorba/prova_db.sql
 
 # Storico: l'owner e i progetti a cui puntano i fili (riga "-- progetti:" scritta dal generatore) vanno creati nella copia
