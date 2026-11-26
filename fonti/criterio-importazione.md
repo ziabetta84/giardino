@@ -1,5 +1,7 @@
 # Criterio di importazione delle fonti su Supabase
 
+> Per i nomi su cui una fonte e Catalogue of Life non sono d'accordo (specie separate o no, nomi usati a torto nei giardini, casi dubbi) vale [`criterio-disambiguazione.md`](criterio-disambiguazione.md).
+
 Questo documento fissa il criterio con cui le fonti in `fonti/` vengono lette e trasferite nella tabella `specie` su Supabase (progetto `ncuhhsvtjwcolhpdxbkt`, "Il Giardino di Zorba"). Serve a mantenere l'importazione **affidabile** (niente sovrascritture cieche, niente duplicati) e a **contenere il consumo di token** quando è Claude Code a farla, dato che le fonti aggiunte sono voluminose (es. `rhs/` da solo supera 3700 file contando asset).
 
 ## Stato di partenza (verificato il 2026-08-23)
