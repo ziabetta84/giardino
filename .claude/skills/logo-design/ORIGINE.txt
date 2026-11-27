@@ -1,0 +1,2 @@
+Origine: https://github.com/kaankiziltug/logo-design-skill (commit e9eaddc, 13/11/2026), licenza MIT.
+Copiata così com'è da skills/logo-design/, con il file LICENSE del repository.
